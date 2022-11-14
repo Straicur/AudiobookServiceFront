@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# AudiobookServiceFront
+Jest to frontend apliakcji do zarządzania audiobookami.
+<br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Opis
+## Admin
+Administrator ma możliwość dodawania nowych kategorii i przypisywania do nich audiobooków, audiobooki natomiast dodaje w odpowiednim formacie pliku zip a następnie może nimi zarządzać (odsłuch, pobranie iformacji oraz ich edycja, ponowne przesłanie, usunięcie i dodanie kategorii oraz usunięcie audioobooka z kategorii oraz systemu). Zarządzając użytkownikami może im zmieniać chociażby: role, telefon, hasło i aktywować ich. Dodatkową opcją dla użytkwonika jest prośba o usunięcie konta, którą również rozpatruje administrator. Ostatnią funkcjonalności jest dodawanie powiadomień np. wygenerowanie co tygodniowej listy proponowanych, dodanie nowego audiobooka lub kategorii.
+## User
+Użytkownik na początku otrzymuje listę wsyzstkich audiobooków z podziałem na kategorie oraz listę proponowanych (ustalana na podstawie lubioanych kategorii). Po pobraniu detali audiobooka ma możliwość odsłuchu z wszystkimi udogodnieniami i dodania/usunięcia z mojej listy. Oczywiście moja lista jest to lista szybkiego dostępu do ulubionych audiobooków. Może również zarządzać swoim kontem w ograniczonym ale wystarczającym stopniu, może np: zmienić hasło i email, informacje takie jak imie czy telefon oraz wysłać prośbę o usunięcie konta. Dodatkowo otrzymuje powiadomienia systemowe.
+<br>
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Podział aplikacji z funkcjonalnościami 
+<ol>
+  <li>Administrator
+    <ul>
+      <li>Zarządzanie kategoriami</li>
+      <li>Zarządzanie audiobookami</li>
+      <li>Zarządzanie użytkownikami</li>
+      <li>Zarządzanie powiadomieniami</li>
+    </ul>
+  </li>
+  <li>User
+    <ul>
+      <li>Możliwość odsłuchu audiobooka</li>
+      <li>Możliwość dodania do mojej listy</li>
+      <li>Możliwość zmiany ustawień konta</li>
+      <li>Otrzymywanie powiadomień</li>
+      <li>Rejestracja i logowanie</li>
+      <li>Odzyskiwanie hasła</li>
+    </ul>
+  </li>
+<ol>
