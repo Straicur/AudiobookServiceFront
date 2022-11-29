@@ -1,5 +1,5 @@
 
-export default function Notification() {
+export default function Register() {
     return (
       <div className="App">
       </div>
