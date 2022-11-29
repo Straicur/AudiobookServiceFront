@@ -1,10 +1,23 @@
-import{Redirect} from "react-router-dom";
-import { BrowserRouter as Router ,Switch, Route, } from 'react-router-dom';
+import{Navigate} from "react-router-dom";
+import { BrowserRouter as Router ,Routes, Route, } from 'react-router-dom';
 import { useTokenStore } from './store'
 
+import {Page404} from "./components/Page404/Page404"
 
+import {Audiobooks} from "./Admin/Audibooks/Audiobooks";
+import {Category} from "./Admin/Categories/Category";
+import {Categories} from "./Admin/Categories/Categories";
+import {Login as AdminLogin} from "./Admin/Login/Login";
+import {Notifications} from "./Admin/Notifications/Notifications";
+import {Users} from "./Admin/Users/Users";
 
-
+import {Forgot} from "./User/Forgot/Forgot";
+import {Help} from "./User/Help/Help";
+import {Login as UserLogin} from "./User/Login/Login";
+import {Main} from "./User/Main/Main";
+import {MyList} from "./User/MyList/MyList";
+import {Register} from "./User/Register/Register";
+import {Settings} from "./User/Settings/Settings";
 
 
 function App() {
@@ -12,31 +25,37 @@ function App() {
 
   return (
     <Router>
-      <Switch>
+      <Routes>
           {/*Admin*/}
           <Route
               exact
               path="/admin"
               render={() => {
                   return (
-                      count ==="" || count === undefined?
-                          <Redirect to="/admin/login" /> :
-                          <Redirect to="/admin/sets" />
+                      token ==="" || token === undefined?
+                          <Navigate to="/admin/login" /> :
+                          <Navigate to="/admin/categories" />
                   )
               }}
           />
           <Route exact path="/admin/login" render={()=> {
-              return (<Login/>)
+              return (<AdminLogin/>)
           }}/>
 
-          <Route exact path="/admin/sets" render={()=> {
-              return (<Sets/>)
+          <Route exact path="/admin/audiobooks" render={()=> {
+              return (<Audiobooks/>)
+          }}/>
+          <Route exact path="/admin/categories" render={()=> {
+              return (<Categories/>)
+          }}/>
+            <Route exact path="/admin/notifications" render={()=> {
+              return (<Notifications/>)
           }}/>
           <Route exact path="/admin/users" render={()=> {
               return (<Users/>)
           }}/>
-          <Route exact  path="/admin/set/:token" render={()=>{
-              return (<Set/>)
+          <Route exact  path="/admin/category/:token" render={()=>{
+              return (<Category/>)
               }}/>
 
           {/*User*/}
@@ -45,39 +64,39 @@ function App() {
               path="/"
               render={() => {
                   return (
-                      count ==="" || count === undefined?
-                          <Redirect to="/login" /> :
-                          <Redirect to="/main" />
+                      token ==="" || token === undefined?
+                          <Navigate to="/login" /> :
+                          <Navigate to="/main" />
                   )
               }}
           />
           <Route exact path="/login" render={()=> {
-              return (<LoginUser/>)
+              return (<UserLogin/>)
           }}/>
           <Route exact path="/register" render={()=> {
-              return (<RegisterUser/>)
+              return (<Register/>)
           }}/>
           <Route exact path="/main" render={()=> {
-              return (<UserMain/>)
+              return (<Main/>)
           }}/>
           <Route exact path="/myList" render={()=> {
-              return (<UserMyList/>)
+              return (<MyList/>)
           }}/>
           <Route exact path="/help" render={()=> {
-              return (<UserHelp/>)
+              return (<Help/>)
           }}/>
           <Route exact path="/user/settings" render={()=> {
-              return (<UserSettings/>)
+              return (<Settings/>)
           }}/>
           <Route exact  path="/newPassword/:id" render={()=>{
-              return (<UserNewPassword/>)
+              return (<Forgot/>)
           }}/>
           <Route exact path="/verify/email" render={()=> {
               return (<Page404/>)
           }}/>
 
           <Route component={Page404}/>
-        </Switch>
+        </Routes>
     </Router>
   );
 }
