@@ -1,5 +1,5 @@
-import{Navigate} from "react-router-dom";
-import { BrowserRouter as Router ,Routes, Route, } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import { useTokenStore } from './store'
 
 import Page404 from "./components/Page404"
@@ -21,84 +21,53 @@ import Settings from "./User/Settings/Settings";
 
 
 function App() {
-  const token = useTokenStore((state) => state.token)
+    const token = useTokenStore((state) => state.token)
+    console.log(token)
+    return (
+        <Router>
+            <Routes>
+                {/*Admin*/}
+                <Route
+                    exact
+                    path="/admin"
+                    element={
+                        token === "" || token === undefined
+                            ? <Navigate to="/admin/login" />
+                            : <Navigate to="/admin/categories" />
+                    }
+                />
+                <Route exact path="/admin/login" element={<AdminLogin />} />
 
-  return (
-    <Router>
-      <Routes>
-          {/*Admin*/}
-          <Route
-              exact
-              path="/admin"
-              render={() => {
-                  return (
-                      token ==="" || token === undefined?
-                          <Navigate to="/admin/login" /> :
-                          <Navigate to="/admin/categories" />
-                  )
-              }}
-          />
-          <Route exact path="/admin/login" render={()=> {
-              return (<AdminLogin/>)
-          }}/>
+                <Route exact path="/admin/audiobooks" element={<Audiobooks />} />
+                <Route exact path="/admin/categories" element={<Categories />} />
+                <Route exact path="/admin/notifications" element={<Notifications />} />
+                <Route exact path="/admin/users" element={<Users />} />
+                <Route exact path="/admin/category/:token" element={<Category />} />
 
-          <Route exact path="/admin/audiobooks" render={()=> {
-              return (<Audiobooks/>)
-          }}/>
-          <Route exact path="/admin/categories" render={()=> {
-              return (<Categories/>)
-          }}/>
-            <Route exact path="/admin/notifications" render={()=> {
-              return (<Notifications/>)
-          }}/>
-          <Route exact path="/admin/users" render={()=> {
-              return (<Users/>)
-          }}/>
-          <Route exact  path="/admin/category/:token" render={()=>{
-              return (<Category/>)
-              }}/>
+                {/*User*/}
+                <Route
+                    exact
+                    path="/"
+                    element={
+                        token === "" || token === undefined
+                            ? <Navigate to="/login" />
+                            : <Navigate to="/main" />
+                    }
+                />
+                <Route exact path="/login" element={<UserLogin />} />
+                <Route exact path="/register" element={<Register />} />
+                <Route exact path="/main" element={<Main />} />
+                <Route exact path="/myList" element={<MyList />} />
+                <Route exact path="/help" element={<Help />} />
+                <Route exact path="/user/settings" element={<Settings />} />
+                <Route exact path="/newPassword/:id" element={<Forgot />} />
 
-          {/*User*/}
-          <Route
-              exact
-              path="/"
-              render={() => {
-                  return (
-                      token ==="" || token === undefined?
-                          <Navigate to="/login" /> :
-                          <Navigate to="/main" />
-                  )
-              }}
-          />
-          <Route exact path="/login" render={()=> {
-              return (<UserLogin/>)
-          }}/>
-          <Route exact path="/register" render={()=> {
-              return (<Register/>)
-          }}/>
-          <Route exact path="/main" render={()=> {
-              return (<Main/>)
-          }}/>
-          <Route exact path="/myList" render={()=> {
-              return (<MyList/>)
-          }}/>
-          <Route exact path="/help" render={()=> {
-              return (<Help/>)
-          }}/>
-          <Route exact path="/user/settings" render={()=> {
-              return (<Settings/>)
-          }}/>
-          <Route exact  path="/newPassword/:id" render={()=>{
-              return (<Forgot/>)
-          }}/>
-          <Route exact path="/verify/email" render={()=> {
-              return (<Page404/>)
-          }}/>
+                <Route exact path="/verify/email" element={<Page404 />} />
 
-          <Route component={Page404}/>
-        </Routes>
-    </Router>
-  );
+                <Route component={Page404} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
