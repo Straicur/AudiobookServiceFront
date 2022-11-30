@@ -2,22 +2,22 @@ import{Navigate} from "react-router-dom";
 import { BrowserRouter as Router ,Routes, Route, } from 'react-router-dom';
 import { useTokenStore } from './store'
 
-import {Page404} from "./components/Page404/Page404"
+import Page404 from "./components/Page404"
 
-import {Audiobooks} from "./Admin/Audibooks/Audiobooks";
-import {Category} from "./Admin/Categories/Category";
-import {Categories} from "./Admin/Categories/Categories";
-import {Login as AdminLogin} from "./Admin/Login/Login";
-import {Notifications} from "./Admin/Notifications/Notifications";
-import {Users} from "./Admin/Users/Users";
+import Audiobooks from "./Admin/Audibooks/Audiobooks";
+import Category from "./Admin/Categories/Category";
+import Categories from "./Admin/Categories/Categories";
+import AdminLogin from "./Admin/Login/AdminLogin";
+import Notifications from "./Admin/Notifications/Notifications";
+import Users from "./Admin/Users/Users";
 
-import {Forgot} from "./User/Forgot/Forgot";
-import {Help} from "./User/Help/Help";
-import {Login as UserLogin} from "./User/Login/Login";
-import {Main} from "./User/Main/Main";
-import {MyList} from "./User/MyList/MyList";
-import {Register} from "./User/Register/Register";
-import {Settings} from "./User/Settings/Settings";
+import Forgot from "./User/Forgot/Forgot";
+import Help from "./User/Help/Help";
+import UserLogin from "./User/Login/UserLogin";
+import Main from "./User/Main/Main";
+import MyList from "./User/MyList/MyList";
+import Register from "./User/Register/Register";
+import Settings from "./User/Settings/Settings";
 
 
 function App() {
