@@ -1,24 +1,10 @@
+export function HandleFetch(url, jsonData, method) {
 
-import {useState, useEffect} from 'react';
+  const dataFetch = async () => {
+    return await fetch(url, {
+        method: method,
+        body: JSON.stringify(jsonData),
+    })};
 
-export const HandleFetch = (url,jsonData,method) => {
-  const [state, setState] = useState("");
-
-  useEffect(() => {
-    const dataFetch = async () => {
-      const data = await (await fetch(url,
-        {
-          method:method,
-          body: JSON.stringify(jsonData)
-        }
-        )).json();
-
-        //todo tu zostaje obsałużenie do errora
-      setState(data);
-    };
-
-    dataFetch();
-  }, [url]);
-
-  return { data: state };
-};
+  return dataFetch();
+}

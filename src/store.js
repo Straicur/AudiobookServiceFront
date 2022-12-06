@@ -3,7 +3,7 @@ import { devtools, persist } from 'zustand/middleware'
 
 let tokenStore = (set) => ({
   token: "",
-  setToken: ( token ) => set((state) => state.token = token),
+  setToken: ( token ) => set((state) => ({token:token})),
   removeToken: () => set((state) => state.token = ""),
 })
 
