@@ -19,6 +19,9 @@ import MyList from "./User/MyList/MyList";
 import Register from "./User/Register/Register";
 import Settings from "./User/Settings/Settings";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 function App() {
     const token = useTokenStore((state) => state.token)
