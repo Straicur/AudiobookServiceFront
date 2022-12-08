@@ -1,9 +1,22 @@
 import create from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
+import { HandleFetch } from "./components/HandleFetch";
 
 let tokenStore = (set) => ({
   token: "",
-  setToken: ( token ) => set((state) => ({token:token})),
+  setToken: (jsonData) => {
+    console.log(jsonData);
+    // HandleFetch("http://127.0.0.1:8000/api/authorize", jsonData, "POST")
+    // .then((data) => data.json())
+    // .then((data) => {
+    //   console.log(data)
+    //   set((state) => ({token:data.token }))
+    // })
+    // .catch((e) => {
+    //   console.log(e);
+    // });
+
+  },
   removeToken: () => set((state) => state.token = ""),
 })
 

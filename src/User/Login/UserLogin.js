@@ -16,33 +16,30 @@ export default function UserLogin() {
     modal: false,
   });
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  
+  const fetchData = useTokenStore((tokenStoreState) => tokenStoreState.setToken({email: state.email, password: state.password}));
 
-    const url = "http://127.0.0.1:8000/api/authorize";
-    const method = "POST";
-    // md5(state.password)
-    const jsonData = { email: state.email, password: state.password };
-    console.log(jsonData)
-    HandleFetch(url, jsonData, method)
-      .then((data) => data.json())
-      .then((data) => {
-        // useTokenStore((state) => state.setToken(data.token))
-        console.log(data)
-        // setState({
-        //   ...state,
-        //   redirect: true,
-        //   redirectTo: "/main",
-        // });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  // const HandleLogin = (e) => {
+  //   e.preventDefault();
 
-  useEffect(() => {
-    useTokenStore((state) => state.setToken(data.token))
-  }, []);
+  //   const url = "http://127.0.0.1:8000/api/authorize";
+  //   const method = "POST";
+  //   // md5(state.password)
+  //   const jsonData = { email: state.email, password: state.password };
+
+    
+ 
+  //       // setState({
+  //       //   ...state,
+  //       //   redirect: true,
+  //       //   redirectTo: "/main",
+  //       // });
+   
+  // };
+
+  // useEffect(() => {
+  //   // useTokenStore((state) => state.setToken(data.token))
+  // }, []);
 
   const handleEmailChange = (event) => {
     setState({
@@ -118,7 +115,7 @@ export default function UserLogin() {
                     <hr className="line" />
                     {/* <p className="mb-5">{t("UserLoginWelcome")}</p> */}
                     <p>Siemano </p>
-                    <form onSubmit={handleLogin} autoComplete="off">
+                    <form onSubmit={fetchData} autoComplete="off">
                       <div className="form-outline form-white mb-4">
                         <input
                           id="typeEmailX"
