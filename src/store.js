@@ -24,6 +24,8 @@ let audiobookListStore = (set) => ({
   //todo tu jeszcze inne metody
 });
 
+//todo tu jeszcze mogę trzymać te ustawienia języka i likalizację (jeśli nie pl to na eng ustawiam i tyle)
+
 tokenStore = devtools(tokenStore);
 tokenStore = persist(tokenStore, { name: "auth_token" });
 

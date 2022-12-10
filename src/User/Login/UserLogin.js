@@ -16,9 +16,6 @@ export default function UserLogin() {
     modal: false,
   });
 
-  // const { fetchData } = useTokenStore((tokenStoreState) =>
-  //   tokenStoreState.setToken({ email: state.email, password: state.password })
-  // );
   const token = useTokenStore((state) => state.token);
   const fetchData = useTokenStore();
 
@@ -27,24 +24,9 @@ export default function UserLogin() {
 
     fetchData.setToken({
       email: state.email,
-      password: state.password,
+      password: md5(state.password)
     });
   };
-  // const HandleLogin = (e) => {
-  //   e.preventDefault();
-
-  //   const url = "http://127.0.0.1:8000/api/authorize";
-  //   const method = "POST";
-  //   // md5(state.password)
-  //   const jsonData = { email: state.email, password: state.password };
-
-  //       // setState({
-  //       //   ...state,
-  //       //   redirect: true,
-  //       //   redirectTo: "/main",
-  //       // });
-
-  // };
 
   useEffect(() => {
     if (token != "") {
@@ -62,7 +44,7 @@ export default function UserLogin() {
       email: event.target.value,
     });
   };
-  
+
   const redirectToRegister = (event) => {
     setState({ redirect: true, redirectTo: "/register" });
   };
