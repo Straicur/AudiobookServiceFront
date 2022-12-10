@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { HandleFetch } from "../../components/HandleFetch";
 import { useTokenStore } from "../../store";
-import{Navigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import md5 from "md5";
+import { t } from "i18next";
 
 export default function UserLogin() {
   const [state, setState] = useState({
@@ -16,9 +16,20 @@ export default function UserLogin() {
     modal: false,
   });
 
-  
-  const fetchData = useTokenStore((tokenStoreState) => tokenStoreState.setToken({email: state.email, password: state.password}));
+  // const { fetchData } = useTokenStore((tokenStoreState) =>
+  //   tokenStoreState.setToken({ email: state.email, password: state.password })
+  // );
+  const token = useTokenStore((state) => state.token);
+  const fetchData = useTokenStore();
 
+  const fetchToken = (e) => {
+    e.preventDefault();
+
+    fetchData.setToken({
+      email: state.email,
+      password: state.password,
+    });
+  };
   // const HandleLogin = (e) => {
   //   e.preventDefault();
 
@@ -27,19 +38,23 @@ export default function UserLogin() {
   //   // md5(state.password)
   //   const jsonData = { email: state.email, password: state.password };
 
-    
- 
   //       // setState({
   //       //   ...state,
   //       //   redirect: true,
   //       //   redirectTo: "/main",
   //       // });
-   
+
   // };
 
-  // useEffect(() => {
-  //   // useTokenStore((state) => state.setToken(data.token))
-  // }, []);
+  useEffect(() => {
+    if (token != "") {
+      setState({
+        ...state,
+        redirect: true,
+        redirectTo: "/main",
+      });
+    }
+  }, [token]);
 
   const handleEmailChange = (event) => {
     setState({
@@ -47,6 +62,7 @@ export default function UserLogin() {
       email: event.target.value,
     });
   };
+  
   const redirectToRegister = (event) => {
     setState({ redirect: true, redirectTo: "/register" });
   };
@@ -115,7 +131,7 @@ export default function UserLogin() {
                     <hr className="line" />
                     {/* <p className="mb-5">{t("UserLoginWelcome")}</p> */}
                     <p>Siemano </p>
-                    <form onSubmit={fetchData} autoComplete="off">
+                    <form onSubmit={fetchToken} autoComplete="off">
                       <div className="form-outline form-white mb-4">
                         <input
                           id="typeEmailX"
@@ -166,7 +182,7 @@ export default function UserLogin() {
                       <p className="small pb-lg-2 fw-bold mb-0">
                         Nie masz jeszce konta ?{" "}
                         <a className="link-info" onClick={redirectToRegister}>
-                          Zarejestruj się 
+                          Zarejestruj się
                         </a>
                       </p>
                     </form>
@@ -175,9 +191,7 @@ export default function UserLogin() {
                   {state.redirect ? (
                     <Navigate
                       to={
-                        state.redirectTo !== undefined
-                          ? state.redirectTo
-                          : ""
+                        state.redirectTo !== undefined ? state.redirectTo : ""
                       }
                     />
                   ) : null}
