@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import md5 from "md5";
 import { t } from "i18next";
-import { ForgotPasswordModal } from "./ForgotPasswordModal";
 
 export default function UserLogin() {
   const [state, setState] = useState({

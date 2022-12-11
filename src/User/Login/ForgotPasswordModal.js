@@ -24,7 +24,7 @@ export const ForgotPasswordModal = ({ setUserState, userState }) => {
   }
 
   useEffect(() => {
-    if (state?.email?.trim()) {
+    if (state.email.trim()) {
       if (validateEmail(state.email)) {
         setState({ ...state, isButtonDisabled: false });
       }
