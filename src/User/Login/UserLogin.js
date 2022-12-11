@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import md5 from "md5";
 import { t } from "i18next";
+import { ForgotPasswordModal } from "./ForgotPasswordModal";
 
 export default function UserLogin() {
   const [state, setState] = useState({
@@ -36,7 +37,7 @@ export default function UserLogin() {
   };
 
   const redirectToRegister = (event) => {
-    setState({ redirect: true, redirectTo: "/register" });
+    setState({ ...state, redirect: true, redirectTo: "/register" });
   };
 
   const handlePasswordChange = (event) => {
@@ -76,7 +77,7 @@ export default function UserLogin() {
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div className="card shadow auth-bg rounded-auth">
+              <div className="card shadow rounded-auth">
                 <div className="card-body p-5 text-center">
                   <div className="mb-md-1 mt-md-2 pb-2">
                     {/* <div>

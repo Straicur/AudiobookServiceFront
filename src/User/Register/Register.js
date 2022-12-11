@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import { Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../../components/HandleFetch";
 import md5 from "md5";
-import RegisterNotificationModal from "./RegisterNotificationModal";
+import { RegisterNotificationModal } from "./RegisterNotificationModal";
 
 export default function Register() {
   const { t, i18n } = useTranslation();
@@ -12,6 +12,7 @@ export default function Register() {
   const [state, setState] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
     phoneNumber: "",
     firstname: "",
     lastname: "",
@@ -21,6 +22,7 @@ export default function Register() {
     redirectTo: "",
     changeLang: i18n.language,
     modalShow: false,
+    modalText: "",
   });
 
   const handleRegister = () => {
@@ -30,7 +32,6 @@ export default function Register() {
       validatePassword(state.password)
     ) {
       const url = "http://127.0.0.1:8000/api/register";
-
       const jsonData = {
         email: state.email,
         phoneNumber: state.phoneNumber,
@@ -41,21 +42,24 @@ export default function Register() {
       const method = "PUT";
 
       HandleFetch(url, jsonData, method)
+        .then((data) => data.json())
         .then((data) => {
           if (data) {
             setState({
               ...state,
               helperText: 200,
               modalShow: true,
+              modalText: "Wysłaliśmy mail potwierdzający do ciebie",
             });
           }
         })
         .catch((e) => {
           if (e) {
-            console.log(e.message);
             setState({
               ...state,
               helperText: parseInt(e.message),
+              modalShow: true,
+              modalText: "Konto znajduje się już w systemie",
             });
           }
         });
@@ -75,7 +79,8 @@ export default function Register() {
   }
 
   function validatePassword(pass) {
-    const re = /^(=.*[A-Za-z])(=.*\d)(=.*[@$!%*#&])[A-Za-z\d@$!%*#&]{8,}$/;
+    const re =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return re.test(pass);
   }
 
@@ -87,7 +92,14 @@ export default function Register() {
   };
 
   const redirectToLogin = (event) => {
-    setState({ redirect: true, redirectTo: "/login" });
+    setState({ ...state, redirect: true, redirectTo: "/login" });
+  };
+
+  const handlePasswordChange = (event) => {
+    setState({
+      ...state,
+      password: event.target.value,
+    });
   };
 
   const handleConfirmPasswordChange = (event) => {
@@ -96,25 +108,50 @@ export default function Register() {
       confirmPassword: event.target.value,
     });
   };
-  const handlePasswordChange = (event) => {
+
+  const handlePhoneNumber = (event) => {
     setState({
       ...state,
-      password: event.target.value,
+      phoneNumber: event.target.value,
+    });
+  };
+
+  const handleFirstname = (event) => {
+    setState({
+      ...state,
+      firstname: event.target.value,
+    });
+  };
+
+  const handleLastname = (event) => {
+    setState({
+      ...state,
+      lastname: event.target.value,
     });
   };
 
   useEffect(() => {
     if (
-      state.email.trim() &&
-      state.password.trim() &&
-      state.confirmPassword.trim() &&
+      state.email.trim() != "" &&
+      state.password.trim() != "" &&
+      state.confirmPassword.trim() != "" &&
+      state.firstname.trim() != "" &&
+      state.lastname.trim() != "" &&
+      state.phoneNumber.trim() != "" &&
       state.password.trim() === state.confirmPassword.trim()
     ) {
       setState({ ...state, isButtonDisabled: false });
     } else {
       setState({ ...state, isButtonDisabled: true });
     }
-  }, [state.email, state.password, state.confirmPassword]);
+  }, [
+    state.email,
+    state.password,
+    state.confirmPassword,
+    state.lastname,
+    state.phoneNumber,
+    state.password,
+  ]);
 
   useEffect(() => {
     if (state.changeLang != null) {
@@ -128,7 +165,7 @@ export default function Register() {
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div className="card auth-bg text-light rounded-auth">
+              <div className="card rounded-auth">
                 <div className="card-body p-5 text-center">
                   <div className="mt-md-1 pb-2">
                     {/* <div>
@@ -157,14 +194,15 @@ export default function Register() {
                           </Button>
                       </div>
                       <hr className="line"/> */}
-                    <p className="mb-5">{t("UserRegisterWelcome")}</p>
+                    <p className="mb-5">
+                      Proszę podaj swój email i hasło do rejestracji
+                    </p>
 
                     <div className="form-outline form-white mb-4">
                       <input
-                        id="typeEmailX"
                         type="email"
                         name="email"
-                        placeholder={t("email")}
+                        placeholder="Email"
                         value={state.email}
                         className="form-control form-control-lg"
                         onChange={handleEmailChange}
@@ -174,10 +212,9 @@ export default function Register() {
 
                     <div className="form-outline form-white mb-4">
                       <input
-                        id="typePasswordX"
                         type="password"
                         name="Password"
-                        placeholder={t("Password")}
+                        placeholder="Hasło"
                         value={state.password}
                         className="form-control form-control-lg "
                         onChange={handlePasswordChange}
@@ -187,13 +224,48 @@ export default function Register() {
 
                     <div className="form-outline form-white mb-4">
                       <input
-                        id="typePasswordX"
                         type="password"
-                        name="Password"
-                        placeholder={t("ConfirmPassowrd")}
+                        name="passwordConfirm"
+                        placeholder="Potwierdź hasło"
                         value={state.confirmPassword}
                         className="form-control form-control-lg "
                         onChange={handleConfirmPasswordChange}
+                        onKeyPress={handleKeyPress}
+                      />
+                    </div>
+
+                    <div className="form-outline form-white mb-4">
+                      <input
+                        type="phoneNumber"
+                        name="phoneNumber"
+                        placeholder="Podaj numer telefonu"
+                        value={state.phoneNumber}
+                        className="form-control form-control-lg "
+                        onChange={handlePhoneNumber}
+                        onKeyPress={handleKeyPress}
+                      />
+                    </div>
+
+                    <div className="form-outline form-white mb-4">
+                      <input
+                        type="firstname"
+                        name="firstname"
+                        placeholder="Podaj imię"
+                        value={state.firstname}
+                        className="form-control form-control-lg "
+                        onChange={handleFirstname}
+                        onKeyPress={handleKeyPress}
+                      />
+                    </div>
+
+                    <div className="form-outline form-white mb-4">
+                      <input
+                        type="lastname"
+                        name="lastname"
+                        placeholder="Podaj nazwisko"
+                        value={state.lastname}
+                        className="form-control form-control-lg "
+                        onChange={handleLastname}
                         onKeyPress={handleKeyPress}
                       />
                     </div>
@@ -206,13 +278,13 @@ export default function Register() {
                       onClick={() => handleRegister()}
                       disabled={state.isButtonDisabled}
                     >
-                      {t("registerButton")}
+                      Zarejestruj
                     </Button>
 
                     <p className="mt-4 small pb-lg-2 fw-bold mb-0">
-                      {t("UserRegisterLoginText")}{" "}
+                      Zaloguj się do konta{" "}
                       <a onClick={redirectToLogin} className="link-info">
-                        {t("UserRegisterLoginTextSec")}
+                        Zaloguj
                       </a>
                     </p>
                   </div>
@@ -220,12 +292,12 @@ export default function Register() {
                   {state.modalShow ? (
                     <RegisterNotificationModal
                       setModalState={setState}
-                      state={state}
+                      modalstate={state}
                     />
                   ) : null}
 
                   {state.redirect ? (
-                    <Redirect
+                    <Navigate
                       to={
                         state.redirectTo !== undefined ? state.redirectTo : ""
                       }
