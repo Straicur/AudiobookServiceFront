@@ -12,26 +12,15 @@ export const ForgotPasswordModal = ({ setUserState, userState }) => {
     isButtonDisabled: false,
     error: 0,
   });
-
-  const handleEmailChange = (event) => {
-    setState({ ...state, email: event.target.value });
-  };
-
+    
   function validateEmail(email) {
     const re =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
-
-  useEffect(() => {
-    if (state.email.trim()) {
-      if (validateEmail(state.email)) {
-        setState({ ...state, isButtonDisabled: false });
-      }
-    } else {
-      setState({ ...state, isButtonDisabled: true });
-    }
-  }, [state.email]);
+  const handleEmailChange = (event) => {
+    setState({ ...state, email: event.target.value });
+  };
 
   const handleSend = async () => {
     if (state.email) {
@@ -57,6 +46,16 @@ export const ForgotPasswordModal = ({ setUserState, userState }) => {
 
   const handleClose = () =>
     setUserState({ ...userState, modal: !userState.modal });
+
+  useEffect(() => {
+    if (state.email.trim()) {
+      if (validateEmail(state.email)) {
+        setState({ ...state, isButtonDisabled: false });
+      }
+    } else {
+      setState({ ...state, isButtonDisabled: true });
+    }
+  }, [state.email]);
 
   return (
     <>

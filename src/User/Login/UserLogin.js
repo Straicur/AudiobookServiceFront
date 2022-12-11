@@ -28,16 +28,6 @@ export default function UserLogin() {
     });
   };
 
-  useEffect(() => {
-    if (token != "") {
-      setState({
-        ...state,
-        redirect: true,
-        redirectTo: "/main",
-      });
-    }
-  }, [token]);
-
   const handleEmailChange = (event) => {
     setState({
       ...state,
@@ -55,6 +45,16 @@ export default function UserLogin() {
       password: event.target.value,
     });
   };
+
+  useEffect(() => {
+    if (token != "") {
+      setState({
+        ...state,
+        redirect: true,
+        redirectTo: "/main",
+      });
+    }
+  }, [token]);
 
   useEffect(() => {
     if (state.email.trim() && state.password.trim()) {

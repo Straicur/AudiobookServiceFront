@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
-import { handleFetch } from "../Components/handleFetch";
+import { HandleFetch } from "../../components/HandleFetch";
 import md5 from "md5";
 import RegisterNotificationModal from "./RegisterNotificationModal";
 
@@ -23,8 +23,6 @@ export default function Register() {
     modalShow: false,
   });
 
-  const [emailModal, setEmailModal] = useState(false);
-
   const handleRegister = () => {
     if (
       state.password === state.confirmPassword &&
@@ -42,7 +40,7 @@ export default function Register() {
       };
       const method = "PUT";
 
-      handleFetch(url, jsonData, method)
+      HandleFetch(url, jsonData, method)
         .then((data) => {
           if (data) {
             setState({
@@ -225,7 +223,7 @@ export default function Register() {
                       state={state}
                     />
                   ) : null}
-                  
+
                   {state.redirect ? (
                     <Redirect
                       to={
