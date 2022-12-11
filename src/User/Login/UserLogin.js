@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import md5 from "md5";
 import { t } from "i18next";
+import { ForgotPasswordModal } from "./ForgotPasswordModal";
 
 export default function UserLogin() {
   const [state, setState] = useState({
@@ -24,7 +25,7 @@ export default function UserLogin() {
 
     fetchData.setToken({
       email: state.email,
-      password: md5(state.password)
+      password: md5(state.password),
     });
   };
 
@@ -76,7 +77,7 @@ export default function UserLogin() {
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div className="card shadow auth-bg text-light rounded-auth">
+              <div className="card shadow auth-bg rounded-auth">
                 <div className="card-body p-5 text-center">
                   <div className="mb-md-1 mt-md-2 pb-2">
                     {/* <div>
@@ -110,13 +111,12 @@ export default function UserLogin() {
                         EN
                       </Button>
                     </div> */}
-                    <hr className="line" />
+                    {/* <hr className="line" /> */}
                     {/* <p className="mb-5">{t("UserLoginWelcome")}</p> */}
-                    <p>Siemano </p>
+                    <p>Audiobook Service </p>
                     <form onSubmit={fetchToken} autoComplete="off">
                       <div className="form-outline form-white mb-4">
                         <input
-                          id="typeEmailX"
                           type="email"
                           name="email"
                           placeholder="Email"
@@ -126,14 +126,13 @@ export default function UserLogin() {
                         />
                       </div>
 
-                      <div className="form-outline form-white mb-4">
+                      <div className="form-outline mb-4">
                         <input
-                          id="typePasswordX"
                           type="password"
                           name="Password"
                           placeholder="Password"
                           value={state.password}
-                          className="form-control form-control-lg "
+                          className="form-control form-control-lg"
                           onChange={handlePasswordChange}
                         />
                       </div>
@@ -142,12 +141,12 @@ export default function UserLogin() {
                         variant="dark"
                         size="lg"
                         type="submit"
-                        className=" mt-2 auth-btn form-control"
+                        className=" mt-2 form-control"
                         disabled={state.isButtonDisabled}
                       >
                         Zaloguj
                       </Button>
-                      <hr className="line" />
+                      <hr className="line mt-4 mb-3" />
                       <p className="small fw-bold mb-3 pb-lg-2 ">
                         <a
                           className="link-info"
@@ -158,7 +157,7 @@ export default function UserLogin() {
                             })
                           }
                         >
-                          Przypomnij hasło
+                          Zapomniałeś hasła ?
                         </a>
                       </p>
                       <p className="small pb-lg-2 fw-bold mb-0">
@@ -169,7 +168,12 @@ export default function UserLogin() {
                       </p>
                     </form>
                   </div>
-
+                  {state.modal ? (
+                    <ForgotPasswordModal
+                      setUserState={setState}
+                      userState={state}
+                    />
+                  ) : null}
                   {state.redirect ? (
                     <Navigate
                       to={
