@@ -67,7 +67,7 @@ function App() {
         <Route exact path="/myList" element={<MyList />} />
         <Route exact path="/help" element={<Help />} />
         <Route exact path="/user/settings" element={<Settings />} />
-        <Route exact path="/newPassword/:id" element={<Forgot />} />
+        <Route exact path="/user/reset/password/:id" element={<Forgot />} />
 
         <Route exact path="/verify/email" element={<Page404 />} />
 
