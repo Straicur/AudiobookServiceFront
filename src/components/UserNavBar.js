@@ -9,8 +9,12 @@ import md5 from "md5";
 export const UserNavBar = ({ setNavState, navState }) => {
   const { t, i18n } = useTranslation();
 
+  const tokenStore = useTokenStore();
+
   const token = useTokenStore((state) => state.token);
-  
+
+  const roles = useTokenStore((state) => state.roles);
+
   const [redirect, setRedirect] = useState({
     redirect: false,
     name: "",
@@ -20,9 +24,10 @@ export const UserNavBar = ({ setNavState, navState }) => {
     const url = "http://127.0.0.1:8000/api/logout";
     const jsonData = {};
     const method = "POST";
-    await HandleFetch(url, jsonData, method,token)
+    await HandleFetch(url, jsonData, method, token)
       .then((data) => {
         if (data) {
+          tokenStore.removeToken();
           setRedirect({ redirect: true, name: "login" });
         }
       })
@@ -32,6 +37,12 @@ export const UserNavBar = ({ setNavState, navState }) => {
         }
       });
   };
+
+  const NavigateToMain = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/main"} replace={true} />;
+  };
+
   return (
     <>
       <div className="row navbar navbar-dark bg-dark">
@@ -43,7 +54,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
             className=" btn button  mt-2"
             onClick={() => setRedirect({ redirect: true, name: "main" })}
           >
-            {t("Home")}
+            Strona główna
           </Button>
           <Button
             variant="dark"
@@ -52,14 +63,25 @@ export const UserNavBar = ({ setNavState, navState }) => {
             className=" btn button  mt-2"
             onClick={() => setRedirect({ redirect: true, name: "myList" })}
           >
-            {t("MyList")}
+            Moja lista
           </Button>
+          {roles.some((name) => name == "Administrator") ? (
+            <Button
+              variant="success"
+              size="lg"
+              color="dark"
+              className=" btn button  mt-2"
+              onClick={() => setRedirect({ redirect: true, name: "admin" })}
+            >
+              Administracja
+            </Button>
+          ) : null}
         </div>
         <div className="col d-flex justify-content-end  align-items-center">
           <div className="ps-3 me-3">
             <Button
               name="pl"
-              variant={i18n.language === "pl" ? "dark" : "light"}
+              variant={i18n.language == "pl" ? "dark" : "light"}
               size="sm"
               className="btn button m-1"
               onClick={() =>
@@ -73,7 +95,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
             </Button>
             <Button
               name="en"
-              variant={i18n.language === "en" ? "dark" : "light"}
+              variant={i18n.language == "en" ? "dark" : "light"}
               size="sm"
               className="btn button m-1"
               onClick={() =>
@@ -97,7 +119,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
                   aria-label="Default select example"
                 >
                   <option value={"DEFAULT"} hidden={true}>
-                    {t("UserOptions")}
+                    Ustawienia
                   </option>
                   <option
                     value="1"
@@ -105,7 +127,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
                       setRedirect({ redirect: true, name: "settings" })
                     }
                   >
-                    {t("Settings")}
+                    Personalizuj
                   </option>
                   <option
                     value="1"
@@ -113,18 +135,10 @@ export const UserNavBar = ({ setNavState, navState }) => {
                       setRedirect({ redirect: true, name: "help" })
                     }
                   >
-                    {t("Help")}
-                  </option>
-                  <option
-                    value="2"
-                    onClick={() =>
-                      setRedirect({ redirect: true, name: "myList" })
-                    }
-                  >
-                    {t("MyList")}
+                    Pomoc
                   </option>
                   <option value="3" onClick={() => logout()}>
-                    {t("Logout")}
+                    Wyloguj
                   </option>
                 </select>
               </div>
@@ -132,21 +146,22 @@ export const UserNavBar = ({ setNavState, navState }) => {
           </div>
         </div>
       </div>
-      {redirect.redirect && redirect.name === "settings" ? (
-        <Navigate to={"/user/settings"} />
+      {redirect.redirect && redirect.name == "settings" ? (
+        <Navigate to={"/user/settings"} replace={true} />
       ) : null}
-      {redirect.redirect && redirect.name === "main" ? (
-        <Navigate to={"/main"} />
+      {redirect.redirect && redirect.name == "main" ? NavigateToMain() : null}
+      {redirect.redirect && redirect.name == "myList" ? (
+        <Navigate to={"/myList"} replace={true} />
       ) : null}
-      {redirect.redirect && redirect.name === "myList" ? (
-        <Navigate to={"/myList"} />
+      {redirect.redirect && redirect.name == "help" ? (
+        <Navigate to={"/help"} replace={true} />
       ) : null}
-      {redirect.redirect && redirect.name === "help" ? (
-        <Navigate to={"/help"} />
+      {redirect.redirect && redirect.name == "login" ? (
+        <Navigate to={"/login"} replace={true} />
       ) : null}
-      {redirect.redirect && redirect.name === "login" ? (
-        <Navigate to={"/login"} />
+      {redirect.redirect && redirect.name == "admin" ? (
+        <Navigate to={"/admin"} replace={true} />
       ) : null}
     </>
   );
-}
+};

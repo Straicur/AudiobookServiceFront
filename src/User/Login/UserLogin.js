@@ -84,7 +84,7 @@ export default function UserLogin() {
                     {/* <div>
                       <Button
                         name="pl"
-                        variant={i18n.language === "pl" ? "light" : "dark"}
+                        variant={i18n.language == "pl" ? "light" : "dark"}
                         size="sm"
                         className="btn button"
                         value="dsa"
@@ -99,7 +99,7 @@ export default function UserLogin() {
                       </Button>
                       <Button
                         name="en"
-                        variant={i18n.language === "en" ? "light" : "dark"}
+                        variant={i18n.language == "en" ? "light" : "dark"}
                         size="sm"
                         className="btn button"
                         onClick={() =>
@@ -180,6 +180,7 @@ export default function UserLogin() {
                       to={
                         state.redirectTo !== undefined ? state.redirectTo : ""
                       }
+                      replace={true} 
                     />
                   ) : null}
                 </div>

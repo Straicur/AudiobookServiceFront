@@ -37,6 +37,7 @@ export default function Main() {
       {state.redirect ? (
         <Navigate
           to={state.redirectTo !== undefined ? state.redirectTo : ""}
+          replace={true} 
         />
       ) : null}
     </HelmetProvider>

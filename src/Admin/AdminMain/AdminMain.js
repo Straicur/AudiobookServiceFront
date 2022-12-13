@@ -1,8 +1,8 @@
 
-export default function MyList() {
+export default function AdminMain() {
     return (
       <div className="App">
-        MyList
+        AdminMain
       </div>
     );
 }

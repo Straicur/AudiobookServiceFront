@@ -27,7 +27,7 @@ export default function Register() {
 
   const handleRegister = () => {
     if (
-      state.password === state.confirmPassword &&
+      state.password == state.confirmPassword &&
       validateEmail(state.email) &&
       validatePassword(state.password)
     ) {
@@ -67,7 +67,7 @@ export default function Register() {
   };
 
   const handleKeyPress = (event) => {
-    if (event.keyCode === 13 || event.which === 13) {
+    if (event.keyCode == 13 || event.which == 13) {
       state.isButtonDisabled || handleRegister();
     }
   };
@@ -138,7 +138,7 @@ export default function Register() {
       state.firstname.trim() != "" &&
       state.lastname.trim() != "" &&
       state.phoneNumber.trim() != "" &&
-      state.password.trim() === state.confirmPassword.trim()
+      state.password.trim() == state.confirmPassword.trim()
     ) {
       setState({ ...state, isButtonDisabled: false });
     } else {
@@ -171,7 +171,7 @@ export default function Register() {
                     {/* <div>
                           <Button
                               name="pl"
-                              variant={i18n.language === "pl""light":"dark"}
+                              variant={i18n.language == "pl""light":"dark"}
                               size="sm"
                               className="btn button"
                               value="dsa"
@@ -183,7 +183,7 @@ export default function Register() {
                           </Button>
                           <Button
                               name="en"
-                              variant={i18n.language  === "en""light":"dark"}
+                              variant={i18n.language  == "en""light":"dark"}
                               size="sm"
                               className="btn button"
                               onClick={()=>setState({
@@ -301,6 +301,7 @@ export default function Register() {
                       to={
                         state.redirectTo !== undefined ? state.redirectTo : ""
                       }
+                      replace={true} 
                     />
                   ) : null}
                 </div>

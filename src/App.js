@@ -5,6 +5,7 @@ import { useTokenStore } from "./store";
 import Page404 from "./components/Page404";
 
 import Audiobooks from "./Admin/Audibooks/Audiobooks";
+import AdminMain from "./Admin/AdminMain/AdminMain";
 import Category from "./Admin/Categories/Category";
 import Categories from "./Admin/Categories/Categories";
 import AdminLogin from "./Admin/Login/AdminLogin";
@@ -30,19 +31,23 @@ function App() {
     <Router>
       <Routes>
         {/*Admin*/}
-        <Route
+        {/* <Route
           exact
-          path="/admin"
+          path="/admin/"
           element={
-            token === "" || token === undefined ? (
-              <Navigate to="/admin/login" />
+            token == "" || token == undefined ? (
+              <Navigate to="/login" 
+               replace={true} 
+               />
             ) : (
-              <Navigate to="/admin/categories" />
+              <Navigate to="/admin"  
+              replace={true} 
+              />
             )
           }
-        />
+        /> */}
+        <Route exact path="/admin" element={<AdminMain />} />
         <Route exact path="/admin/login" element={<AdminLogin />} />
-
         <Route exact path="/admin/audiobooks" element={<Audiobooks />} />
         <Route exact path="/admin/categories" element={<Categories />} />
         <Route exact path="/admin/notifications" element={<Notifications />} />
@@ -54,10 +59,10 @@ function App() {
           exact
           path="/"
           element={
-            token === "" || token === undefined ? (
-              <Navigate to="/login" />
+            token == "" || token == undefined ? (
+              <Navigate to="/login" replace={true} />
             ) : (
-              <Navigate to="/main" />
+              <Navigate to="/main" replace={true} />
             )
           }
         />

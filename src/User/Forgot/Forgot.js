@@ -34,7 +34,7 @@ export default function Forgot() {
     if (
       validatePassword(state.password) &&
       validatePassword(state.confirmPassword) &&
-      state.password === state.confirmPassword
+      state.password == state.confirmPassword
     ) {
       const url = "http://127.0.0.1:8000/api/user/reset/password/confirm";
       const jsonData = { userId: id, password: md5(state.password) };
@@ -125,6 +125,7 @@ export default function Forgot() {
 
           {state.redirect ? (
             <Navigate
+              replace={true}
               to={state.redirectTo !== undefined ? state.redirectTo : ""}
             />
           ) : null}
