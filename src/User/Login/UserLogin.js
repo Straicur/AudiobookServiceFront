@@ -18,7 +18,7 @@ export default function UserLogin() {
   });
 
   const token = useTokenStore((state) => state.token);
-  
+
   const fetchData = useTokenStore();
 
   const fetchToken = (e) => {
@@ -180,7 +180,7 @@ export default function UserLogin() {
                       to={
                         state.redirectTo !== undefined ? state.redirectTo : ""
                       }
-                      replace={true} 
+                      replace={true}
                     />
                   ) : null}
                 </div>

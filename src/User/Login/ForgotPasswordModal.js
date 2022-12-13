@@ -45,7 +45,7 @@ export const ForgotPasswordModal = ({ setUserState, userState }) => {
   };
 
   const handleClose = () =>
-    setUserState({ ...userState, modal: userState.modal });
+    setUserState({ ...userState, modal: !userState.modal });
 
   useEffect(() => {
     if (state.email.trim()) {

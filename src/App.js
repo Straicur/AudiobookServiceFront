@@ -8,7 +8,6 @@ import Audiobooks from "./Admin/Audibooks/Audiobooks";
 import AdminMain from "./Admin/AdminMain/AdminMain";
 import Category from "./Admin/Categories/Category";
 import Categories from "./Admin/Categories/Categories";
-import AdminLogin from "./Admin/Login/AdminLogin";
 import Notifications from "./Admin/Notifications/Notifications";
 import Users from "./Admin/Users/Users";
 
@@ -47,7 +46,6 @@ function App() {
           }
         /> */}
         <Route exact path="/admin" element={<AdminMain />} />
-        <Route exact path="/admin/login" element={<AdminLogin />} />
         <Route exact path="/admin/audiobooks" element={<Audiobooks />} />
         <Route exact path="/admin/categories" element={<Categories />} />
         <Route exact path="/admin/notifications" element={<Notifications />} />
