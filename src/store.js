@@ -4,11 +4,15 @@ import { HandleFetch } from "./components/HandleFetch";
 
 let tokenStore = (set) => ({
   token: "",
+  roles: [],
   setToken: (jsonData) => {
     HandleFetch("http://127.0.0.1:8000/api/authorize", jsonData, "POST")
       .then((data) => data.json())
       .then((data) => {
-        set(() => ({ token: data.token }));
+        set(() => ({
+          token: data.token,
+          roles: data.roles.authorizationRoleModels.map((role) => role.name),
+        }));
       })
       .catch((e) => {
         console.log(e);

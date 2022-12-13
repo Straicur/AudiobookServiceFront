@@ -75,7 +75,11 @@ export default function Forgot() {
     });
   };
   useEffect(() => {
-    if (state.password.trim() != "" && state.confirmPassword.trim() != "" && state.password == state.confirmPassword) {
+    if (
+      state.password.trim() != "" &&
+      state.confirmPassword.trim() != "" &&
+      state.password == state.confirmPassword
+    ) {
       setState({ ...state, isButtonDisabled: false });
     } else {
       setState({ ...state, isButtonDisabled: true });
@@ -123,9 +127,7 @@ export default function Forgot() {
             <Navigate
               to={state.redirectTo !== undefined ? state.redirectTo : ""}
             />
-          ) 
-          : null}
-
+          ) : null}
         </div>
       </div>
     </div>
