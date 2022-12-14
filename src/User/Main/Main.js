@@ -4,9 +4,8 @@ import { UserNavBar } from "../../components/UserNavBar";
 import { useTokenStore } from "../../store";
 
 export default function Main() {
-
   const token = useTokenStore((state) => state.token);
-  
+
   const [state, setState] = useState({
     isButtonDisabled: false,
     helperText: 0,

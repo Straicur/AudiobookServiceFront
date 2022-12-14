@@ -23,7 +23,7 @@ export default function Forgot() {
   });
 
   const redirectToLogin = () => {
-    navigate("/login")
+    navigate("/login");
   };
 
   function validatePassword(pass) {
