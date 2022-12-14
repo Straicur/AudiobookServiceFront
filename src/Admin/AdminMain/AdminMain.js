@@ -13,14 +13,21 @@ export default function AdminMain() {
     redirect: false,
     redirectTo: "",
   });
-
+  //Dodaj jakiś bg i do tego po prostu opis co można robić i tyle 
   return (
     <>
       <div className="container-fluid main-container mt-3">
         <div className="card position-relative p-3 mb-5  bg-dark shadow">
           <AdminNavBar setNavState={setState} navState={state} />
           <div className="p-5">
-            <div className="p-3"></div>
+            <div className="p-3">
+              <div className="p-3 text-light"><h1>Strona Administracji</h1></div>
+              <div className="p-3 text-light">Wybierz odpowiednie zagadnienie w pasku nawigacji</div>
+              <div className="p-3 text-light">Aktualnie posiada:</div>
+              <div className="p-3 text-light">... Kategorii</div>
+              <div className="p-3 text-light">... Audiobooków</div>
+              <div className="p-3 text-light">... Użytkowników</div>
+            </div>
           </div>
         </div>
       </div>
