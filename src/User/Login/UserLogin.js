@@ -49,7 +49,7 @@ export default function UserLogin() {
   };
 
   useEffect(() => {
-    if (token != "") {
+    if (token !== "") {
       setState({
         ...state,
         redirect: true,

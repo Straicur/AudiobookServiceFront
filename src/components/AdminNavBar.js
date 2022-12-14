@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { HandleFetch } from "./HandleFetch";
 import { useTokenStore } from "../store";
-import md5 from "md5";
 
 export const AdminNavBar = ({ setNavState, navState }) => {
   const { t, i18n } = useTranslation();
@@ -12,8 +11,6 @@ export const AdminNavBar = ({ setNavState, navState }) => {
   const tokenStore = useTokenStore();
 
   const token = useTokenStore((state) => state.token);
-
-  const roles = useTokenStore((state) => state.roles);
 
   const [redirect, setRedirect] = useState({
     redirect: false,
@@ -41,6 +38,31 @@ export const AdminNavBar = ({ setNavState, navState }) => {
   const NavigateToMain = () => {
     setRedirect({ redirect: false, name: "" });
     return <Navigate to={"/admin"} replace={true} />;
+  };
+
+  const NavigateToAudiobooks = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/admin"} replace={true} />;
+  };
+
+  const NavigateToCategories = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/admin/categories"} replace={true} />;
+  };
+
+  const NavigateToNotifications = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/admin/notifications"} replace={true} />;
+  };
+
+  const NavigateToUsers = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/admin/users"} replace={true} />;
+  };
+
+  const NavigateToLogin = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/login"} replace={true} />;
   };
 
   return (
@@ -138,24 +160,24 @@ export const AdminNavBar = ({ setNavState, navState }) => {
           </Button>
         </div>
 
-        {redirect.redirect && redirect.name === "audiobooks" ? (
-          <Navigate to={"/admin/audiobooks"} replace={true} />
-        ) : null}
-        {redirect.redirect && redirect.name === "categories" ? (
-          <Navigate to={"/admin/categories"} replace={true} />
-        ) : null}
-        {redirect.redirect && redirect.name === "notifications" ? (
-          <Navigate to={"/admin/notifications"} replace={true} />
-        ) : null}
-        {redirect.redirect && redirect.name === "users" ? (
-          <Navigate to={"/admin/users"} replace={true} />
-        ) : null}
+        {redirect.redirect && redirect.name === "audiobooks"
+          ? NavigateToAudiobooks()
+          : null}
+        {redirect.redirect && redirect.name === "categories"
+          ? NavigateToCategories()
+          : null}
+        {redirect.redirect && redirect.name === "notifications"
+          ? NavigateToNotifications()
+          : null}
+        {redirect.redirect && redirect.name === "users"
+          ? NavigateToUsers()
+          : null}
         {redirect.redirect && redirect.name === "admin"
           ? NavigateToMain()
           : null}
-        {redirect.redirect && redirect.name == "login" ? (
-          <Navigate to={"/login"} replace={true} />
-        ) : null}
+        {redirect.redirect && redirect.name === "login"
+          ? NavigateToLogin()
+          : null}
       </div>
     </>
   );

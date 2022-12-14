@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Navigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import { HandleFetch } from "./HandleFetch";
 import { useTokenStore } from "../store";
-import md5 from "md5";
 
 export const UserNavBar = ({ setNavState, navState }) => {
-  const { t, i18n } = useTranslation();
+  // const { t, i18n } = useTranslation();
 
   const tokenStore = useTokenStore();
 
@@ -42,7 +41,26 @@ export const UserNavBar = ({ setNavState, navState }) => {
     setRedirect({ redirect: false, name: "" });
     return <Navigate to={"/main"} replace={true} />;
   };
-
+  const NavigateToSettings = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/user/settings"} replace={true} />;
+  };
+  const NavigateToMyList = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/myList"} replace={true} />;
+  };
+  const NavigateToHelp = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/help"} replace={true} />;
+  };
+  const NavigateToLogin = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/login"} replace={true} />;
+  };
+  const NavigateToAdmin = () => {
+    setRedirect({ redirect: false, name: "" });
+    return <Navigate to={"/admin"} replace={true} />;
+  };
   return (
     <>
       <div className="row navbar navbar-dark bg-dark">
@@ -65,7 +83,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
           >
             Moja lista
           </Button>
-          {roles.some((name) => name == "Administrator") ? (
+          {roles.some((name) => name === "Administrator") ? (
             <Button
               variant="success"
               size="lg"
@@ -81,7 +99,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
           <div className="ps-3 me-3">
             <Button
               name="pl"
-              variant={i18n.language == "pl" ? "dark" : "light"}
+              // variant={i18n.language === "pl" ? "dark" : "light"}
               size="sm"
               className="btn button m-1"
               onClick={() =>
@@ -95,7 +113,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
             </Button>
             <Button
               name="en"
-              variant={i18n.language == "en" ? "dark" : "light"}
+              // variant={i18n.language === "en" ? "dark" : "light"}
               size="sm"
               className="btn button m-1"
               onClick={() =>
@@ -146,22 +164,12 @@ export const UserNavBar = ({ setNavState, navState }) => {
           </div>
         </div>
       </div>
-      {redirect.redirect && redirect.name == "settings" ? (
-        <Navigate to={"/user/settings"} replace={true} />
-      ) : null}
-      {redirect.redirect && redirect.name == "main" ? NavigateToMain() : null}
-      {redirect.redirect && redirect.name == "myList" ? (
-        <Navigate to={"/myList"} replace={true} />
-      ) : null}
-      {redirect.redirect && redirect.name == "help" ? (
-        <Navigate to={"/help"} replace={true} />
-      ) : null}
-      {redirect.redirect && redirect.name == "login" ? (
-        <Navigate to={"/login"} replace={true} />
-      ) : null}
-      {redirect.redirect && redirect.name == "admin" ? (
-        <Navigate to={"/admin"} replace={true} />
-      ) : null}
+      {redirect.redirect && redirect.name === "settings" ? NavigateToSettings() : null}
+      {redirect.redirect && redirect.name === "main" ? NavigateToMain() : null}
+      {redirect.redirect && redirect.name === "myList" ? NavigateToMyList(): null}
+      {redirect.redirect && redirect.name === "help" ? NavigateToHelp() : null}
+      {redirect.redirect && redirect.name === "login" ? NavigateToLogin() : null}
+      {redirect.redirect && redirect.name === "admin" ? NavigateToAdmin() : null}
     </>
   );
 };
