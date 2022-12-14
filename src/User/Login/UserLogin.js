@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTokenStore } from "../../store";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import md5 from "md5";
 import { t } from "i18next";
@@ -20,6 +20,8 @@ export default function UserLogin() {
   const token = useTokenStore((state) => state.token);
 
   const fetchData = useTokenStore();
+
+  const navigate = useNavigate();
 
   const fetchToken = (e) => {
     e.preventDefault();
@@ -66,6 +68,11 @@ export default function UserLogin() {
     }
   }, [state.email, state.password]);
 
+  useEffect(() => {
+    if (state.redirect) {
+      navigate(state.redirectTo);
+    }
+  }, [state.redirect]);
   // useEffect(() => {
   //   if (state.changeLang != null) {
   //     i18n.changeLanguage(state.changeLang);
@@ -173,14 +180,6 @@ export default function UserLogin() {
                     <ForgotPasswordModal
                       setUserState={setState}
                       userState={state}
-                    />
-                  ) : null}
-                  {state.redirect ? (
-                    <Navigate
-                      to={
-                        state.redirectTo !== undefined ? state.redirectTo : ""
-                      }
-                      replace={true}
                     />
                   ) : null}
                 </div>

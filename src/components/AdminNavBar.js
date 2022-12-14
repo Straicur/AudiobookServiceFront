@@ -1,9 +1,9 @@
-import React, {useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { HandleFetch } from "./HandleFetch";
 import { useTokenStore } from "../store";
+import { useNavigate } from "react-router-dom";
 
 export const AdminNavBar = ({ setNavState, navState }) => {
   const { t, i18n } = useTranslation();
@@ -11,6 +11,8 @@ export const AdminNavBar = ({ setNavState, navState }) => {
   const tokenStore = useTokenStore();
 
   const token = useTokenStore((state) => state.token);
+
+  const navigate = useNavigate();
 
   const [redirect, setRedirect] = useState({
     redirect: false,
@@ -21,6 +23,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
     const url = "http://127.0.0.1:8000/api/logout";
     const jsonData = {};
     const method = "POST";
+
     await HandleFetch(url, jsonData, method, token)
       .then((data) => {
         if (data) {
@@ -35,35 +38,11 @@ export const AdminNavBar = ({ setNavState, navState }) => {
       });
   };
 
-  const NavigateToMain = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/admin"} replace={true} />;
-  };
-
-  const NavigateToAudiobooks = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/admin"} replace={true} />;
-  };
-
-  const NavigateToCategories = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/admin/categories"} replace={true} />;
-  };
-
-  const NavigateToNotifications = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/admin/notifications"} replace={true} />;
-  };
-
-  const NavigateToUsers = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/admin/users"} replace={true} />;
-  };
-
-  const NavigateToLogin = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/login"} replace={true} />;
-  };
+  useEffect(() => {
+    if (redirect.redirect) {
+      navigate(redirect.name);
+    }
+  }, [redirect.redirect]);
 
   return (
     <>
@@ -74,7 +53,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() => setRedirect({ redirect: true, name: "admin" })}
+            onClick={() => setRedirect({ redirect: true, name: "/admin" })}
           >
             Strona główna
           </Button>
@@ -83,7 +62,9 @@ export const AdminNavBar = ({ setNavState, navState }) => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() => setRedirect({ redirect: true, name: "categories" })}
+            onClick={() =>
+              setRedirect({ redirect: true, name: "/admin/categories" })
+            }
           >
             Kategorie
           </Button>
@@ -92,7 +73,9 @@ export const AdminNavBar = ({ setNavState, navState }) => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() => setRedirect({ redirect: true, name: "audiobooks" })}
+            onClick={() =>
+              setRedirect({ redirect: true, name: "/admin/audiobooks" })
+            }
           >
             Audiobooki
           </Button>
@@ -101,7 +84,9 @@ export const AdminNavBar = ({ setNavState, navState }) => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() => setRedirect({ redirect: true, name: "users" })}
+            onClick={() =>
+              setRedirect({ redirect: true, name: "/admin/users" })
+            }
           >
             Użytkownicy
           </Button>
@@ -111,7 +96,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
             color="dark"
             className=" btn button  mt-2"
             onClick={() =>
-              setRedirect({ redirect: true, name: "notifications" })
+              setRedirect({ redirect: true, name: "/admin/notifications" })
             }
           >
             Powiadomienia
@@ -159,25 +144,6 @@ export const AdminNavBar = ({ setNavState, navState }) => {
             Wyloguj
           </Button>
         </div>
-
-        {redirect.redirect && redirect.name === "audiobooks"
-          ? NavigateToAudiobooks()
-          : null}
-        {redirect.redirect && redirect.name === "categories"
-          ? NavigateToCategories()
-          : null}
-        {redirect.redirect && redirect.name === "notifications"
-          ? NavigateToNotifications()
-          : null}
-        {redirect.redirect && redirect.name === "users"
-          ? NavigateToUsers()
-          : null}
-        {redirect.redirect && redirect.name === "admin"
-          ? NavigateToMain()
-          : null}
-        {redirect.redirect && redirect.name === "login"
-          ? NavigateToLogin()
-          : null}
       </div>
     </>
   );

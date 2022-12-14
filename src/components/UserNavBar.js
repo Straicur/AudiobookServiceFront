@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { useTranslation } from "react-i18next";
 import { HandleFetch } from "./HandleFetch";
 import { useTokenStore } from "../store";
@@ -14,6 +14,8 @@ export const UserNavBar = ({ setNavState, navState }) => {
 
   const roles = useTokenStore((state) => state.roles);
 
+  const navigate = useNavigate();
+
   const [redirect, setRedirect] = useState({
     redirect: false,
     name: "",
@@ -23,6 +25,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
     const url = "http://127.0.0.1:8000/api/logout";
     const jsonData = {};
     const method = "POST";
+
     await HandleFetch(url, jsonData, method, token)
       .then((data) => {
         if (data) {
@@ -37,30 +40,12 @@ export const UserNavBar = ({ setNavState, navState }) => {
       });
   };
 
-  const NavigateToMain = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/main"} replace={true} />;
-  };
-  const NavigateToSettings = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/user/settings"} replace={true} />;
-  };
-  const NavigateToMyList = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/myList"} replace={true} />;
-  };
-  const NavigateToHelp = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/help"} replace={true} />;
-  };
-  const NavigateToLogin = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/login"} replace={true} />;
-  };
-  const NavigateToAdmin = () => {
-    setRedirect({ redirect: false, name: "" });
-    return <Navigate to={"/admin"} replace={true} />;
-  };
+  useEffect(() => {
+    if (redirect.redirect) {
+      navigate(redirect.name);
+    }
+  }, [redirect.redirect]);
+
   return (
     <>
       <div className="row navbar navbar-dark bg-dark">
@@ -70,7 +55,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() => setRedirect({ redirect: true, name: "main" })}
+            onClick={() => setRedirect({ redirect: true, name: "/main" })}
           >
             Strona główna
           </Button>
@@ -79,7 +64,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() => setRedirect({ redirect: true, name: "myList" })}
+            onClick={() => setRedirect({ redirect: true, name: "/myList" })}
           >
             Moja lista
           </Button>
@@ -89,7 +74,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
               size="lg"
               color="dark"
               className=" btn button  mt-2"
-              onClick={() => setRedirect({ redirect: true, name: "admin" })}
+              onClick={() => setRedirect({ redirect: true, name: "/admin" })}
             >
               Administracja
             </Button>
@@ -142,7 +127,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
                   <option
                     value="1"
                     onClick={() =>
-                      setRedirect({ redirect: true, name: "settings" })
+                      setRedirect({ redirect: true, name: "/user/settings" })
                     }
                   >
                     Personalizuj
@@ -150,7 +135,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
                   <option
                     value="1"
                     onClick={() =>
-                      setRedirect({ redirect: true, name: "help" })
+                      setRedirect({ redirect: true, name: "/help" })
                     }
                   >
                     Pomoc
@@ -164,12 +149,6 @@ export const UserNavBar = ({ setNavState, navState }) => {
           </div>
         </div>
       </div>
-      {redirect.redirect && redirect.name === "settings" ? NavigateToSettings() : null}
-      {redirect.redirect && redirect.name === "main" ? NavigateToMain() : null}
-      {redirect.redirect && redirect.name === "myList" ? NavigateToMyList(): null}
-      {redirect.redirect && redirect.name === "help" ? NavigateToHelp() : null}
-      {redirect.redirect && redirect.name === "login" ? NavigateToLogin() : null}
-      {redirect.redirect && redirect.name === "admin" ? NavigateToAdmin() : null}
     </>
   );
 };

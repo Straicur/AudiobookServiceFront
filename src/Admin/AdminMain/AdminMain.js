@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import React, { useState } from "react";
 import { AdminNavBar } from "../../components/AdminNavBar";
-import Button from "react-bootstrap/Button";
-import { Navigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { HandleFetch } from "../../components/HandleFetch";
 import { useTokenStore } from "../../store";
 
 export default function AdminMain() {
@@ -29,12 +24,6 @@ export default function AdminMain() {
           </div>
         </div>
       </div>
-      {state.redirect ? (
-        <Navigate
-          to={state.redirectTo !== undefined ? state.redirectTo : ""}
-          replace={true}
-        />
-      ) : null}
     </>
   );
 }

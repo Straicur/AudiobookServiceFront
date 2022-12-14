@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../../components/HandleFetch";
 import md5 from "md5";
@@ -8,6 +8,8 @@ import { RegisterNotificationModal } from "./RegisterNotificationModal";
 
 export default function Register() {
   const { t, i18n } = useTranslation();
+
+  const navigate = useNavigate();
 
   const [state, setState] = useState({
     email: "",
@@ -159,6 +161,12 @@ export default function Register() {
     }
   }, [state.changeLang]);
 
+  useEffect(() => {
+    if (state.redirect) {
+      navigate(state.redirectTo);
+    }
+  }, [state.redirect]);
+
   return (
     <>
       <section className="vh-100">
@@ -293,15 +301,6 @@ export default function Register() {
                     <RegisterNotificationModal
                       setModalState={setState}
                       modalstate={state}
-                    />
-                  ) : null}
-
-                  {state.redirect ? (
-                    <Navigate
-                      to={
-                        state.redirectTo !== undefined ? state.redirectTo : ""
-                      }
-                      replace={true} 
                     />
                   ) : null}
                 </div>

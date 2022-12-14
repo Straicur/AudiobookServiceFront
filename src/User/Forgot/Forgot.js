@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../../components/HandleFetch";
 import md5 from "md5";
@@ -10,11 +10,12 @@ export default function Forgot() {
 
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
   const [state, setState] = useState({
     password: "",
     confirmPassword: "",
     errors: 0,
-    redirect: false,
     redirectTo: "",
     changeLang: i18n.language,
     modal: false,
@@ -22,7 +23,7 @@ export default function Forgot() {
   });
 
   const redirectToLogin = () => {
-    setState({ redirect: true, redirectTo: "/login" });
+    navigate("/login")
   };
 
   function validatePassword(pass) {
@@ -122,13 +123,6 @@ export default function Forgot() {
           >
             Zmień hasło
           </Button>
-
-          {state.redirect ? (
-            <Navigate
-              replace={true}
-              to={state.redirectTo !== undefined ? state.redirectTo : ""}
-            />
-          ) : null}
         </div>
       </div>
     </div>

@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { UserNavBar } from "../../components/UserNavBar";
-import Button from "react-bootstrap/Button";
-import { Navigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { HandleFetch } from "../../components/HandleFetch";
 import { useTokenStore } from "../../store";
 
 export default function Main() {
@@ -34,12 +30,6 @@ export default function Main() {
           </div>
         </div>
       </div>
-      {state.redirect ? (
-        <Navigate
-          to={state.redirectTo !== undefined ? state.redirectTo : ""}
-          replace={true} 
-        />
-      ) : null}
     </HelmetProvider>
   );
 }
