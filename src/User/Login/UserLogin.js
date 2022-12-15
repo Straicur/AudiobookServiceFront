@@ -3,8 +3,8 @@ import { useTokenStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import md5 from "md5";
-import { t } from "i18next";
 import { ForgotPasswordModal } from "./ForgotPasswordModal";
+import { useTranslation } from 'react-i18next';
 
 export default function UserLogin() {
   const [state, setState] = useState({
@@ -16,6 +16,8 @@ export default function UserLogin() {
     redirectTo: "",
     modal: false,
   });
+
+  const {t, i18n} = useTranslation ();
 
   const token = useTokenStore((state) => state.token);
 
@@ -73,11 +75,11 @@ export default function UserLogin() {
       navigate(state.redirectTo);
     }
   }, [state.redirect]);
-  // useEffect(() => {
-  //   if (state.changeLang != null) {
-  //     i18n.changeLanguage(state.changeLang);
-  //   }
-  // }, [state.changeLang]);
+  useEffect(() => {
+    if (state.changeLang != null) {
+      i18n.changeLanguage(state.changeLang);
+    }
+  }, [state.changeLang]);
 
   return (
     <>
@@ -88,7 +90,7 @@ export default function UserLogin() {
               <div className="card shadow rounded-auth">
                 <div className="card-body p-5 text-center">
                   <div className="mb-md-1 mt-md-2 pb-2">
-                    {/* <div>
+                    <div>
                       <Button
                         name="pl"
                         variant={i18n.language == "pl" ? "light" : "dark"}
@@ -96,7 +98,7 @@ export default function UserLogin() {
                         className="btn button"
                         value="dsa"
                         onClick={() =>
-                          setstate({
+                          setState({
                             ...state,
                             changeLang: "pl",
                           })
@@ -110,7 +112,7 @@ export default function UserLogin() {
                         size="sm"
                         className="btn button"
                         onClick={() =>
-                          setstate({
+                          setState({
                             ...state,
                             changeLang: "en",
                           })
@@ -118,9 +120,9 @@ export default function UserLogin() {
                       >
                         EN
                       </Button>
-                    </div> */}
-                    {/* <hr className="line" /> */}
-                    {/* <p className="mb-5">{t("UserLoginWelcome")}</p> */}
+                    </div>
+                    <hr className="line" />
+                    <p className="mb-5">{t("lang")}</p>
                     <p>Audiobook Service </p>
                     <form onSubmit={fetchToken} autoComplete="off">
                       <div className="form-outline form-white mb-4">
