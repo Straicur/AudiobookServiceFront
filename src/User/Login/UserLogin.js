@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import md5 from "md5";
 import { ForgotPasswordModal } from "./ForgotPasswordModal";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function UserLogin() {
   const [state, setState] = useState({
@@ -17,7 +17,7 @@ export default function UserLogin() {
     modal: false,
   });
 
-  const {t, i18n} = useTranslation ();
+  const { t, i18n } = useTranslation();
 
   const token = useTokenStore((state) => state.token);
 
@@ -75,11 +75,6 @@ export default function UserLogin() {
       navigate(state.redirectTo);
     }
   }, [state.redirect]);
-  useEffect(() => {
-    if (state.changeLang != null) {
-      i18n.changeLanguage(state.changeLang);
-    }
-  }, [state.changeLang]);
 
   return (
     <>
@@ -97,12 +92,7 @@ export default function UserLogin() {
                         size="sm"
                         className="btn button"
                         value="dsa"
-                        onClick={() =>
-                          setState({
-                            ...state,
-                            changeLang: "pl",
-                          })
-                        }
+                        onClick={() => i18n.changeLanguage("pl")}
                       >
                         PL
                       </Button>
@@ -111,12 +101,7 @@ export default function UserLogin() {
                         variant={i18n.language == "en" ? "light" : "dark"}
                         size="sm"
                         className="btn button"
-                        onClick={() =>
-                          setState({
-                            ...state,
-                            changeLang: "en",
-                          })
-                        }
+                        onClick={() => i18n.changeLanguage("en")}
                       >
                         EN
                       </Button>

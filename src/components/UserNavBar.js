@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-// import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { HandleFetch } from "./HandleFetch";
 import { useTokenStore } from "../store";
 
 export const UserNavBar = ({ setNavState, navState }) => {
-  // const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const tokenStore = useTokenStore();
 
@@ -84,29 +84,19 @@ export const UserNavBar = ({ setNavState, navState }) => {
           <div className="ps-3 me-3">
             <Button
               name="pl"
-              // variant={i18n.language === "pl" ? "dark" : "light"}
+              variant={i18n.language === "pl" ? "dark" : "light"}
               size="sm"
               className="btn button m-1"
-              onClick={() =>
-                setNavState({
-                  ...navState,
-                  changeLang: "pl",
-                })
-              }
+              onClick={() => i18n.changeLanguage("pl")}
             >
               PL
             </Button>
             <Button
               name="en"
-              // variant={i18n.language === "en" ? "dark" : "light"}
+              variant={i18n.language === "en" ? "dark" : "light"}
               size="sm"
               className="btn button m-1"
-              onClick={() =>
-                setNavState({
-                  ...navState,
-                  changeLang: "en",
-                })
-              }
+              onClick={() => i18n.changeLanguage("en")}
             >
               EN
             </Button>

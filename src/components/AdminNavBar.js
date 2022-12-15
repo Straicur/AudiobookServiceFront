@@ -110,12 +110,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
               size="sm"
               className="btn button"
               value="dsa"
-              onClick={() =>
-                setNavState({
-                  ...navState,
-                  changeLang: "pl",
-                })
-              }
+              onClick={() => i18n.changeLanguage("pl")}
             >
               PL
             </Button>
@@ -124,12 +119,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
               variant={i18n.language === "en" ? "dark" : "light"}
               size="sm"
               className="btn button"
-              onClick={() =>
-                setNavState({
-                  ...navState,
-                  changeLang: "en",
-                })
-              }
+              onClick={() => i18n.changeLanguage("en")}
             >
               EN
             </Button>
