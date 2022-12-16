@@ -51,7 +51,7 @@ export default function Register() {
               ...state,
               helperText: 200,
               modalShow: true,
-              modalText: "Wysłaliśmy mail potwierdzający do ciebie",
+              modalText: t("mailSended"),
             });
           }
         })
@@ -61,7 +61,7 @@ export default function Register() {
               ...state,
               helperText: parseInt(e.message),
               modalShow: true,
-              modalText: "Konto znajduje się już w systemie",
+              modalText: t("accountInSystem"),
             });
           }
         });
@@ -156,12 +156,6 @@ export default function Register() {
   ]);
 
   useEffect(() => {
-    if (state.changeLang != null) {
-      i18n.changeLanguage(state.changeLang);
-    }
-  }, [state.changeLang]);
-
-  useEffect(() => {
     if (state.redirect) {
       navigate(state.redirectTo);
     }
@@ -176,41 +170,35 @@ export default function Register() {
               <div className="card rounded-auth">
                 <div className="card-body p-5 text-center">
                   <div className="mt-md-1 pb-2">
-                    {/* <div>
-                          <Button
-                              name="pl"
-                              variant={i18n.language == "pl""light":"dark"}
-                              size="sm"
-                              className="btn button"
-                              value="dsa"
-                              onClick={()=>setState({
-                                  ...state,
-                                  changeLang:"pl"
-                              })}>
-                              PL
-                          </Button>
-                          <Button
-                              name="en"
-                              variant={i18n.language  == "en""light":"dark"}
-                              size="sm"
-                              className="btn button"
-                              onClick={()=>setState({
-                                  ...state,
-                                  changeLang:"en"
-                              })}>
-                              EN
-                          </Button>
-                      </div>
-                      <hr className="line"/> */}
-                    <p className="mb-5">
-                      Proszę podaj swój email i hasło do rejestracji
-                    </p>
+                    <div>
+                      <Button
+                        name="pl"
+                        variant={i18n.language == "pl" ? "light" : "dark"}
+                        size="sm"
+                        className="btn button"
+                        value="dsa"
+                        onClick={() => i18n.changeLanguage("pl")}
+                      >
+                        PL
+                      </Button>
+                      <Button
+                        name="en"
+                        variant={i18n.language == "en" ? "light" : "dark"}
+                        size="sm"
+                        className="btn button"
+                        onClick={() => i18n.changeLanguage("en")}
+                      >
+                        EN
+                      </Button>
+                    </div>
+                    <hr className="line" />
+                    <p className="mb-5">{t("pleaseEmailAndPassword")}</p>
 
                     <div className="form-outline form-white mb-4">
                       <input
                         type="email"
                         name="email"
-                        placeholder="Email"
+                        placeholder={t("insertEmail")}
                         value={state.email}
                         className="form-control form-control-lg"
                         onChange={handleEmailChange}
@@ -222,7 +210,7 @@ export default function Register() {
                       <input
                         type="password"
                         name="Password"
-                        placeholder="Hasło"
+                        placeholder={t("insertPassword")}
                         value={state.password}
                         className="form-control form-control-lg "
                         onChange={handlePasswordChange}
@@ -234,7 +222,7 @@ export default function Register() {
                       <input
                         type="password"
                         name="passwordConfirm"
-                        placeholder="Potwierdź hasło"
+                        placeholder={t("insertPasswordConfirm")}
                         value={state.confirmPassword}
                         className="form-control form-control-lg "
                         onChange={handleConfirmPasswordChange}
@@ -246,7 +234,7 @@ export default function Register() {
                       <input
                         type="phoneNumber"
                         name="phoneNumber"
-                        placeholder="Podaj numer telefonu"
+                        placeholder={t("insertPhone")}
                         value={state.phoneNumber}
                         className="form-control form-control-lg "
                         onChange={handlePhoneNumber}
@@ -258,7 +246,7 @@ export default function Register() {
                       <input
                         type="firstname"
                         name="firstname"
-                        placeholder="Podaj imię"
+                        placeholder={t("insertFirstname")}
                         value={state.firstname}
                         className="form-control form-control-lg "
                         onChange={handleFirstname}
@@ -270,7 +258,7 @@ export default function Register() {
                       <input
                         type="lastname"
                         name="lastname"
-                        placeholder="Podaj nazwisko"
+                        placeholder={t("insertLastname")}
                         value={state.lastname}
                         className="form-control form-control-lg "
                         onChange={handleLastname}
@@ -286,13 +274,13 @@ export default function Register() {
                       onClick={() => handleRegister()}
                       disabled={state.isButtonDisabled}
                     >
-                      Zarejestruj
+                      {t("register")}
                     </Button>
 
                     <p className="mt-4 small pb-lg-2 fw-bold mb-0">
-                      Zaloguj się do konta{" "}
+                      {t("haveAccount")}{" "}
                       <a onClick={redirectToLogin} className="link-info">
-                        Zaloguj
+                        {t("loginToAccount")}
                       </a>
                     </p>
                   </div>

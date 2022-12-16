@@ -61,7 +61,7 @@ export const ForgotPasswordModal = ({ setUserState, userState }) => {
     <>
       <Modal show={userState.modal} onHide={handleClose}>
         <Modal.Header className="">
-          <Modal.Title>Zmień hasło</Modal.Title>
+          <Modal.Title> {t("changePassword")}</Modal.Title>
         </Modal.Header>
         <Modal.Body className="">
           <input
@@ -80,10 +80,10 @@ export const ForgotPasswordModal = ({ setUserState, userState }) => {
             className="auth-btn"
             onClick={handleSend}
           >
-            Wyślij email
+            {t("sendEmail")}
           </Button>
           <Button variant="dark" onClick={handleClose}>
-            Anuluj
+            {t("cancel")}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -5,7 +5,7 @@ import { HandleFetch } from "./HandleFetch";
 import { useTokenStore } from "../store";
 import { useNavigate } from "react-router-dom";
 
-export const AdminNavBar = ({ setNavState, navState }) => {
+export const AdminNavBar = () => {
   const { t, i18n } = useTranslation();
 
   const tokenStore = useTokenStore();
@@ -55,7 +55,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
             className=" btn button  mt-2"
             onClick={() => setRedirect({ redirect: true, name: "/admin" })}
           >
-            Strona główna
+            {t("mainPage")}
           </Button>
           <Button
             variant="dark"
@@ -66,7 +66,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
               setRedirect({ redirect: true, name: "/admin/categories" })
             }
           >
-            Kategorie
+            {t("categories")}
           </Button>
           <Button
             variant="dark"
@@ -77,7 +77,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
               setRedirect({ redirect: true, name: "/admin/audiobooks" })
             }
           >
-            Audiobooki
+            {t("audiobooks")}
           </Button>
           <Button
             variant="dark"
@@ -88,7 +88,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
               setRedirect({ redirect: true, name: "/admin/users" })
             }
           >
-            Użytkownicy
+            {t("users")}
           </Button>
           <Button
             variant="dark"
@@ -99,7 +99,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
               setRedirect({ redirect: true, name: "/admin/notifications" })
             }
           >
-            Powiadomienia
+            {t("notifications")}
           </Button>
         </div>
         <div className="col d-flex justify-content-end  align-items-center">
@@ -131,7 +131,7 @@ export const AdminNavBar = ({ setNavState, navState }) => {
             className="btn button"
             onClick={logout}
           >
-            Wyloguj
+            {t("logout")}
           </Button>
         </div>
       </div>

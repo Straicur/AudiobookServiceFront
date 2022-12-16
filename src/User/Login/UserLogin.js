@@ -107,14 +107,14 @@ export default function UserLogin() {
                       </Button>
                     </div>
                     <hr className="line" />
-                    <p className="mb-5">{t("lang")}</p>
-                    <p>Audiobook Service </p>
+                    <p className="mb-5">{t("welcome")}</p>
+                    <p>{t("audiobookService")}</p>
                     <form onSubmit={fetchToken} autoComplete="off">
                       <div className="form-outline form-white mb-4">
                         <input
                           type="email"
                           name="email"
-                          placeholder="Email"
+                          placeholder={t("insertEmail")}
                           value={state.email}
                           className="form-control form-control-lg"
                           onChange={handleEmailChange}
@@ -125,7 +125,7 @@ export default function UserLogin() {
                         <input
                           type="password"
                           name="Password"
-                          placeholder="Password"
+                          placeholder={t("insertPassword")}
                           value={state.password}
                           className="form-control form-control-lg"
                           onChange={handlePasswordChange}
@@ -139,7 +139,7 @@ export default function UserLogin() {
                         className=" mt-2 form-control"
                         disabled={state.isButtonDisabled}
                       >
-                        Zaloguj
+                        {t("login")}
                       </Button>
                       <hr className="line mt-4 mb-3" />
                       <p className="small fw-bold mb-3 pb-lg-2 ">
@@ -152,13 +152,13 @@ export default function UserLogin() {
                             })
                           }
                         >
-                          Zapomniałeś hasła ?
+                       {t("forgotPassword")}
                         </a>
                       </p>
                       <p className="small pb-lg-2 fw-bold mb-0">
-                        Nie masz jeszce konta ?{" "}
+                      {t("dontHaveAccount")}{" "}
                         <a className="link-info" onClick={redirectToRegister}>
-                          Zarejestruj się
+                        {t("registerAccount")}
                         </a>
                       </p>
                     </form>

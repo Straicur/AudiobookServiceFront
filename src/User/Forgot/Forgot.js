@@ -22,10 +22,6 @@ export default function Forgot() {
     isButtonDisabled: false,
   });
 
-  const redirectToLogin = () => {
-    navigate("/login");
-  };
-
   function validatePassword(pass) {
     const re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     return re.test(pass);
@@ -44,7 +40,7 @@ export default function Forgot() {
       await HandleFetch(url, jsonData, method)
         .then((data) => {
           if (data) {
-            redirectToLogin();
+            navigate("/login");
           }
         })
         .catch((e) => {

@@ -57,7 +57,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
             className=" btn button  mt-2"
             onClick={() => setRedirect({ redirect: true, name: "/main" })}
           >
-            Strona główna
+            {t("mainPage")}
           </Button>
           <Button
             variant="dark"
@@ -66,7 +66,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
             className=" btn button  mt-2"
             onClick={() => setRedirect({ redirect: true, name: "/myList" })}
           >
-            Moja lista
+            {t("myList")}
           </Button>
           {roles.some((name) => name === "Administrator") ? (
             <Button
@@ -76,7 +76,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
               className=" btn button  mt-2"
               onClick={() => setRedirect({ redirect: true, name: "/admin" })}
             >
-              Administracja
+              {t("administration")}
             </Button>
           ) : null}
         </div>
@@ -112,7 +112,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
                   aria-label="Default select example"
                 >
                   <option value={"DEFAULT"} hidden={true}>
-                    Ustawienia
+                    {t("settings")}
                   </option>
                   <option
                     value="1"
@@ -120,7 +120,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
                       setRedirect({ redirect: true, name: "/user/settings" })
                     }
                   >
-                    Personalizuj
+                    {t("accountSettings")}
                   </option>
                   <option
                     value="1"
@@ -128,10 +128,10 @@ export const UserNavBar = ({ setNavState, navState }) => {
                       setRedirect({ redirect: true, name: "/help" })
                     }
                   >
-                    Pomoc
+                    {t("help")}
                   </option>
                   <option value="3" onClick={() => logout()}>
-                    Wyloguj
+                    {t("logout")}
                   </option>
                 </select>
               </div>

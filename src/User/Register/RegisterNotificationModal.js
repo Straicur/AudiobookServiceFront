@@ -28,7 +28,7 @@ export const RegisterNotificationModal = ({ setModalState, modalstate }) => {
         </Modal.Body>
         <Modal.Footer className="">
           <Button variant="dark" className="btn" onClick={handleClose}>
-            Zamknij
+            {t("close")}
           </Button>
         </Modal.Footer>
       </Modal>
