@@ -16,7 +16,6 @@ export default function Forgot() {
     password: "",
     confirmPassword: "",
     errors: 0,
-    redirectTo: "",
     changeLang: i18n.language,
     modal: false,
     isButtonDisabled: false,

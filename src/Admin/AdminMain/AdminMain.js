@@ -18,7 +18,7 @@ export default function AdminMain() {
     <>
       <div className="container-fluid main-container mt-3">
         <div className="card position-relative p-3 mb-5  bg-dark shadow">
-          <AdminNavBar setNavState={setState} navState={state} />
+          <AdminNavBar/>
           <div className="p-5">
             <div className="p-3">
               <div className="p-3 text-light"><h1>Strona Administracji</h1></div>

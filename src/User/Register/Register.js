@@ -20,8 +20,6 @@ export default function Register() {
     lastname: "",
     isButtonDisabled: true,
     helperText: 0,
-    redirect: false,
-    redirectTo: "",
     changeLang: i18n.language,
     modalShow: false,
     modalText: "",
@@ -93,10 +91,6 @@ export default function Register() {
     });
   };
 
-  const redirectToLogin = (event) => {
-    setState({ ...state, redirect: true, redirectTo: "/login" });
-  };
-
   const handlePasswordChange = (event) => {
     setState({
       ...state,
@@ -154,12 +148,6 @@ export default function Register() {
     state.phoneNumber,
     state.password,
   ]);
-
-  useEffect(() => {
-    if (state.redirect) {
-      navigate(state.redirectTo);
-    }
-  }, [state.redirect]);
 
   return (
     <>
@@ -279,7 +267,7 @@ export default function Register() {
 
                     <p className="mt-4 small pb-lg-2 fw-bold mb-0">
                       {t("haveAccount")}{" "}
-                      <a onClick={redirectToLogin} className="link-info">
+                      <a onClick={()=>navigate("/login")} className="link-info">
                         {t("loginToAccount")}
                       </a>
                     </p>

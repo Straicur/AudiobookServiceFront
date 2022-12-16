@@ -23,7 +23,7 @@ export default function Main() {
 
       <div className="container-fluid main-container mt-3">
         <div className="card position-relative p-3 mb-5  bg-dark shadow">
-          <UserNavBar setNavState={setState} navState={state} />
+          <UserNavBar/>
           <div className="p-5">
             <div className="p-3"></div>
           </div>

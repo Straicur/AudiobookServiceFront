@@ -12,8 +12,6 @@ export default function UserLogin() {
     password: "",
     isButtonDisabled: true,
     helperText: 0,
-    redirect: false,
-    redirectTo: "",
     modal: false,
   });
 
@@ -41,10 +39,6 @@ export default function UserLogin() {
     });
   };
 
-  const redirectToRegister = (event) => {
-    setState({ ...state, redirect: true, redirectTo: "/register" });
-  };
-
   const handlePasswordChange = (event) => {
     setState({
       ...state,
@@ -54,11 +48,7 @@ export default function UserLogin() {
 
   useEffect(() => {
     if (token !== "") {
-      setState({
-        ...state,
-        redirect: true,
-        redirectTo: "/main",
-      });
+      navigate("/main");
     }
   }, [token]);
 
@@ -69,12 +59,6 @@ export default function UserLogin() {
       setState({ ...state, isButtonDisabled: true });
     }
   }, [state.email, state.password]);
-
-  useEffect(() => {
-    if (state.redirect) {
-      navigate(state.redirectTo);
-    }
-  }, [state.redirect]);
 
   return (
     <>
@@ -152,13 +136,16 @@ export default function UserLogin() {
                             })
                           }
                         >
-                       {t("forgotPassword")}
+                          {t("forgotPassword")}
                         </a>
                       </p>
                       <p className="small pb-lg-2 fw-bold mb-0">
-                      {t("dontHaveAccount")}{" "}
-                        <a className="link-info" onClick={redirectToRegister}>
-                        {t("registerAccount")}
+                        {t("dontHaveAccount")}{" "}
+                        <a
+                          className="link-info"
+                          onClick={() => navigate("/register")}
+                        >
+                          {t("registerAccount")}
                         </a>
                       </p>
                     </form>

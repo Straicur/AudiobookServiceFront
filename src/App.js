@@ -72,8 +72,6 @@ function App() {
         <Route exact path="/user/settings" element={<Settings />} />
         <Route exact path="/user/reset/password/:id" element={<Forgot />} />
 
-        <Route exact path="/verify/email" element={<Page404 />} />
-
         <Route component={Page404} />
       </Routes>
     </Router>

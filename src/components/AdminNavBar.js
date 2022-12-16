@@ -14,11 +14,6 @@ export const AdminNavBar = () => {
 
   const navigate = useNavigate();
 
-  const [redirect, setRedirect] = useState({
-    redirect: false,
-    name: "",
-  });
-
   const logout = async () => {
     const url = "http://127.0.0.1:8000/api/logout";
     const jsonData = {};
@@ -28,7 +23,8 @@ export const AdminNavBar = () => {
       .then((data) => {
         if (data) {
           tokenStore.removeToken();
-          setRedirect({ redirect: true, name: "login" });
+
+          navigate("/login");
         }
       })
       .catch((e) => {
@@ -37,12 +33,6 @@ export const AdminNavBar = () => {
         }
       });
   };
-
-  useEffect(() => {
-    if (redirect.redirect) {
-      navigate(redirect.name);
-    }
-  }, [redirect.redirect]);
 
   return (
     <>
@@ -53,7 +43,7 @@ export const AdminNavBar = () => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() => setRedirect({ redirect: true, name: "/admin" })}
+            onClick={() => navigate("/admin")}
           >
             {t("mainPage")}
           </Button>
@@ -62,9 +52,7 @@ export const AdminNavBar = () => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() =>
-              setRedirect({ redirect: true, name: "/admin/categories" })
-            }
+            onClick={() => navigate("/admin/categories")}
           >
             {t("categories")}
           </Button>
@@ -73,9 +61,7 @@ export const AdminNavBar = () => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() =>
-              setRedirect({ redirect: true, name: "/admin/audiobooks" })
-            }
+            onClick={() => navigate("/admin/audiobooks")}
           >
             {t("audiobooks")}
           </Button>
@@ -84,9 +70,7 @@ export const AdminNavBar = () => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() =>
-              setRedirect({ redirect: true, name: "/admin/users" })
-            }
+            onClick={() => navigate("/admin/users")}
           >
             {t("users")}
           </Button>
@@ -95,9 +79,7 @@ export const AdminNavBar = () => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() =>
-              setRedirect({ redirect: true, name: "/admin/notifications" })
-            }
+            onClick={() => navigate("/admin/notifications")}
           >
             {t("notifications")}
           </Button>

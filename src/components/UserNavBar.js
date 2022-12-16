@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { HandleFetch } from "./HandleFetch";
 import { useTokenStore } from "../store";
 
-export const UserNavBar = ({ setNavState, navState }) => {
+export const UserNavBar = () => {
   const { t, i18n } = useTranslation();
 
   const tokenStore = useTokenStore();
@@ -16,11 +16,6 @@ export const UserNavBar = ({ setNavState, navState }) => {
 
   const navigate = useNavigate();
 
-  const [redirect, setRedirect] = useState({
-    redirect: false,
-    name: "",
-  });
-
   const logout = async () => {
     const url = "http://127.0.0.1:8000/api/logout";
     const jsonData = {};
@@ -30,7 +25,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
       .then((data) => {
         if (data) {
           tokenStore.removeToken();
-          setRedirect({ redirect: true, name: "login" });
+          navigate("/login");
         }
       })
       .catch((e) => {
@@ -39,12 +34,6 @@ export const UserNavBar = ({ setNavState, navState }) => {
         }
       });
   };
-
-  useEffect(() => {
-    if (redirect.redirect) {
-      navigate(redirect.name);
-    }
-  }, [redirect.redirect]);
 
   return (
     <>
@@ -55,7 +44,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() => setRedirect({ redirect: true, name: "/main" })}
+            onClick={() => navigate("/main")}
           >
             {t("mainPage")}
           </Button>
@@ -64,7 +53,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
             size="lg"
             color="dark"
             className=" btn button  mt-2"
-            onClick={() => setRedirect({ redirect: true, name: "/myList" })}
+            onClick={() => navigate("/myList")}
           >
             {t("myList")}
           </Button>
@@ -74,7 +63,7 @@ export const UserNavBar = ({ setNavState, navState }) => {
               size="lg"
               color="dark"
               className=" btn button  mt-2"
-              onClick={() => setRedirect({ redirect: true, name: "/admin" })}
+              onClick={() => navigate("/admin")}
             >
               {t("administration")}
             </Button>
@@ -114,20 +103,10 @@ export const UserNavBar = ({ setNavState, navState }) => {
                   <option value={"DEFAULT"} hidden={true}>
                     {t("settings")}
                   </option>
-                  <option
-                    value="1"
-                    onClick={() =>
-                      setRedirect({ redirect: true, name: "/user/settings" })
-                    }
-                  >
+                  <option value="1" onClick={() => navigate("/user/settings")}>
                     {t("accountSettings")}
                   </option>
-                  <option
-                    value="1"
-                    onClick={() =>
-                      setRedirect({ redirect: true, name: "/help" })
-                    }
-                  >
+                  <option value="1" onClick={() => navigate("/help")}>
                     {t("help")}
                   </option>
                   <option value="3" onClick={() => logout()}>
