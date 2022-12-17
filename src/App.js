@@ -28,6 +28,8 @@ function App() {
   const token = useTokenStore((state) => state.token);
   const queryClient = new QueryClient();
 
+  
+  //tutaj muszę sprawdzać czy jest auth, wykorzystaj nowy endpoint
   return (
     <QueryClientProvider client={queryClient}>
       <Router>

@@ -28,7 +28,7 @@ export const ForgotPasswordModal = ({ setUserState, userState }) => {
       const jsonData = { email: state.email };
       const method = "POST";
 
-      await HandleFetch(url, jsonData, method)
+      await HandleFetch(url, method, jsonData)
         .then((data) => {
           if (data) {
             setState({ ...state, error: 200 });

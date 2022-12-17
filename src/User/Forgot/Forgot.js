@@ -36,7 +36,7 @@ export default function Forgot() {
       const jsonData = { userId: id, password: md5(state.password) };
       const method = "PATCH";
 
-      await HandleFetch(url, jsonData, method)
+      await HandleFetch(url, method, jsonData)
         .then((data) => {
           if (data) {
             navigate("/login");

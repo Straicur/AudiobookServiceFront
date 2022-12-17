@@ -1,6 +1,6 @@
 import { useTokenStore } from "../store";
 
-export function HandleFetch(url, jsonData, method, token = null) {
+export function HandleFetch(url, method, jsonData = null, token = null) {
   const dataFetch = async () => {
 
     let headers = {
@@ -11,13 +11,19 @@ export function HandleFetch(url, jsonData, method, token = null) {
       headers.authorization = token
     }
 
-    const response = await fetch(url, {
+    let content = {
       method: method,
-      body: JSON.stringify(jsonData),
       headers: headers
-    });
+    }
+
+    if(jsonData != null){
+      content.body = JSON.stringify(jsonData)
+    }
+
+    const response = await fetch(url,content);
 
     if (response.ok) {
+      console.log(response)
       return response;
     } else {
       const error = new Error(response.status.toString() ?? "unknown");

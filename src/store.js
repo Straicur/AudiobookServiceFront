@@ -6,7 +6,7 @@ let tokenStore = (set) => ({
   token: "",
   roles: [],
   setToken: (jsonData) => {
-    HandleFetch("http://127.0.0.1:8000/api/authorize", jsonData, "POST")
+    HandleFetch("http://127.0.0.1:8000/api/authorize", "POST", jsonData)
       .then((data) => data.json())
       .then((data) => {
         set(() => ({
