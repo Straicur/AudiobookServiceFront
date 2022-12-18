@@ -28,7 +28,6 @@ function App() {
   const token = useTokenStore((state) => state.token);
   const queryClient = new QueryClient();
 
-  
   //tutaj muszę sprawdzać czy jest auth, wykorzystaj nowy endpoint
   return (
     <QueryClientProvider client={queryClient}>
@@ -50,16 +49,42 @@ function App() {
             )
           }
         /> */}
-          <Route exact path="/admin" element={<AdminMain />} />
-          <Route exact path="/admin/audiobooks" element={<Audiobooks />} />
-          <Route exact path="/admin/categories" element={<Categories />} />
+          <Route
+            exact
+            path="/admin"
+            element={<AdminMain />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/admin/audiobooks"
+            element={<Audiobooks />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/admin/categories"
+            element={<Categories />}
+            errorElement={<Page404 />}
+          />
           <Route
             exact
             path="/admin/notifications"
             element={<Notifications />}
+            errorElement={<Page404 />}
           />
-          <Route exact path="/admin/users" element={<Users />} />
-          <Route exact path="/admin/category/:token" element={<Category />} />
+          <Route
+            exact
+            path="/admin/users"
+            element={<Users />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/admin/category/:token"
+            element={<Category />}
+            errorElement={<Page404 />}
+          />
 
           {/*User*/}
           <Route
@@ -73,15 +98,50 @@ function App() {
               )
             }
           />
-          <Route exact path="/login" element={<UserLogin />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/main" element={<Main />} />
-          <Route exact path="/myList" element={<MyList />} />
-          <Route exact path="/help" element={<Help />} />
-          <Route exact path="/user/settings" element={<Settings />} />
-          <Route exact path="/user/reset/password/:id" element={<Forgot />} />
+          <Route
+            exact
+            path="/login"
+            element={<UserLogin />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/register"
+            element={<Register />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/main"
+            element={<Main />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/myList"
+            element={<MyList />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/help"
+            element={<Help />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/user/settings"
+            element={<Settings />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/user/reset/password/:id"
+            element={<Forgot />}
+            errorElement={<Page404 />}
+          />
 
-          <Route component={Page404} />
+          <Route element={<Page404 />} />
         </Routes>
       </Router>
     </QueryClientProvider>

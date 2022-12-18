@@ -41,7 +41,6 @@ export default function Main() {
       const method = "POST";
 
       HandleFetch(url, method, jsonData, token)
-        .then((resData) => resData.json())
         .then((resData) => {
           if (resData) {
             console.log(resData);
@@ -53,7 +52,6 @@ export default function Main() {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        console.log("Łdadzia")
         // setState({
         //   name: data.name,
         //   body: data.body,

@@ -7,7 +7,6 @@ let tokenStore = (set) => ({
   roles: [],
   setToken: (jsonData) => {
     HandleFetch("http://127.0.0.1:8000/api/authorize", "POST", jsonData)
-      .then((data) => data.json())
       .then((data) => {
         set(() => ({
           token: data.token,
@@ -18,7 +17,10 @@ let tokenStore = (set) => ({
         console.log(e);
       });
   },
-  removeToken: () => set((state) => (state.token = "")),
+  removeToken: () => set(() => ({
+    token: "",
+    roles: [],
+  })),
 });
 
 let audiobookListStore = (set) => ({

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AdminNavBar } from "../../components/AdminNavBar";
 import { useTokenStore } from "../../store";
-import { useMutation, useQuery, queryCache } from "react-query";
+import { useQuery} from "react-query";
 import { HandleFetch } from "../../components/HandleFetch";
 
 export default function AdminMain() {
@@ -15,70 +15,82 @@ export default function AdminMain() {
     redirect: false,
     redirectTo: "",
   });
-  // Dodaj jakiś bg i do tego po prostu opis co można robić i tyle
+
+  const [infoState, setInfoState] = useState({
+    users: 0,
+    categories: 0,
+    audiobooks: 0,
+    lastWeekRegistered: 0,
+    lastWeekLogins: 0,
+    lastWeekNotifications: 0,
+  });
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     "data",
-    () => {
-      const url = "http://127.0.0.1:8000/api/admin/statistic/main";
-      const jsonData = {};
-      const method = "GET";
-
-      HandleFetch(url, method, null, token)
-        .then((resData) => resData.json())
-        .then((resData) => {
-          if (resData) {
-            console.log(resData);
-          }
+    () =>
+      HandleFetch(
+        "http://127.0.0.1:8000/api/admin/statistic/main",
+        "GET",
+        null,
+        token
+      ),
+    {
+      retry: 1,
+      retryDelay: 500,
+      refetchOnWindowFocus: false,
+      onError: () => {
+        console.log("Error");
+      },
+      onSuccess: (data) => {
+        setInfoState({
+          users: data.users,
+          categories: data.categories,
+          audiobooks: data.audiobooks,
+          lastWeekRegistered: data.lastWeekRegistered,
+          lastWeekLogins: data.lastWeekLogins,
+          lastWeekNotifications: data.lastWeekNotifications,
         });
-    },
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onSuccess: (data) => {
-        // console.log("Łdadzia");
-        // setState({
-        //   name: data.name,
-        //   body: data.body,
-        // });
       },
     }
   );
-  const {
-    isLoading: isLoadingSecond,
-    error: errorSecond,
-    data: dataSecond,
-    isFetching: isFetchingSecond,
-    refetch: refetchSecond,
-  } = useQuery(
-    "data",
-    () => {
-      const url = "http://127.0.0.1:8000/api/admin/statistic/best/audiobooks";
-      const method = "GET";
-
-      HandleFetch(url, method, null, token)
-        // .then((resData) => resData.json())
-        .then((resData) => {
-          if (resData) {
-            console.log("audiobooks");
-            // console.log(resData);
-          }
-        })
-    },
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onSuccess: (data) => {
-        // console.log("Łdadzia");
-        // setState({
-        //   name: data.name,
-        //   body: data.body,
-        // });
-      },
-    }
-  );
+  // TODO to jest do dokończenia
+  // const {
+  //   isLoading: isLoadingSecond,
+  //   error: errorSecond,
+  //   data: dataSecond,
+  //   isFetching: isFetchingSecond,
+  //   refetch: refetchSecond,
+  // } = useQuery(
+  //   "dataSecond",
+  //   () =>
+  //     HandleFetch(
+  //       "http://127.0.0.1:8000/api/admin/statistic/best/audiobooks",
+  //       "GET",
+  //       null,
+  //       token
+  //     ),
+  //   {
+  //     retry: 1,
+  //     retryDelay: 500,
+  //     refetchOnWindowFocus: false,
+  //     onError: () => {
+  //       console.log("Error");
+  //     },
+  //     onSuccess: (data) => {
+  //       console.log(data);
+  //       if (
+  //         data &&
+  //         Object.keys(data).length === 0 &&
+  //         Object.getPrototypeOf(data) === Object.prototype
+  //       ) {
+  //         setState({
+  //           name: data.name,
+  //           body: data.body,
+  //         });
+  //       }
+  //     },
+  //   }
+  // );
 
   return (
     <>
@@ -88,16 +100,18 @@ export default function AdminMain() {
           <div className="p-5">
             <div className="p-3">
               <div className="p-3 text-light">
-                <h1>Strona Administracji</h1>
+                <h1>Strona Administracji </h1><h2>Wybierz odpowiednie zagadnienie w pasku nawigacji</h2>
               </div>
-              <div className="p-3 text-light">
-              
-                Wybierz odpowiednie zagadnienie w pasku nawigacji
-              </div>
+          
               <div className="p-3 text-light">Aktualnie posiada:</div>
-              <div className="p-3 text-light">... Kategorii</div>
-              <div className="p-3 text-light">... Audiobooków</div>
-              <div className="p-3 text-light">... Użytkowników</div>
+              <div className="p-3 text-light">{infoState.categories} Kategorii</div>
+              <div className="p-3 text-light">{infoState.audiobooks} Audiobooków</div>
+              <div className="p-3 text-light">{infoState.users} Użytkowników</div>
+
+              <div className="p-3 text-light">W ostatnim tygodniu:</div>
+              <div className="p-3 text-light">Zarejsetrowało się {infoState.lastWeekRegistered} użytkowników</div>
+              <div className="p-3 text-light">Zalogowało się {infoState.lastWeekLogins} użytkowników</div>
+              <div className="p-3 text-light">Zaostało stworzonych {infoState.lastWeekNotifications} powiadomień</div>
             </div>
           </div>
         </div>

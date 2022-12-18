@@ -42,7 +42,6 @@ export default function Register() {
       const method = "PUT";
 
       HandleFetch(url, method, jsonData)
-        .then((data) => data.json())
         .then((data) => {
           if (data) {
             setState({
