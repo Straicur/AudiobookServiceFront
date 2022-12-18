@@ -3,8 +3,11 @@ import { AdminNavBar } from "../../components/AdminNavBar";
 import { useTokenStore } from "../../store";
 import { useQuery} from "react-query";
 import { HandleFetch } from "../../components/HandleFetch";
+import { useTranslation } from "react-i18next";
 
 export default function AdminMain() {
+  const { t } = useTranslation();
+
   const token = useTokenStore((state) => state.token);
 
   const [state, setState] = useState({
@@ -100,18 +103,18 @@ export default function AdminMain() {
           <div className="p-5">
             <div className="p-3">
               <div className="p-3 text-light">
-                <h1>Strona Administracji </h1><h2>Wybierz odpowiednie zagadnienie w pasku nawigacji</h2>
+                <h1>{t("administrationPage")} </h1><h2>{t("chooseNabOptions")}</h2>
               </div>
           
-              <div className="p-3 text-light">Aktualnie posiada:</div>
-              <div className="p-3 text-light">{infoState.categories} Kategorii</div>
-              <div className="p-3 text-light">{infoState.audiobooks} Audiobooków</div>
-              <div className="p-3 text-light">{infoState.users} Użytkowników</div>
+              <div className="p-3 text-light">{t("currentApp")}</div>
+              <div className="p-3 text-light">{t("categories")} :{infoState.categories}</div>
+              <div className="p-3 text-light">{t("audiobooks")} :{infoState.audiobooks}</div>
+              <div className="p-3 text-light">{t("users")} :{infoState.users}</div>
 
-              <div className="p-3 text-light">W ostatnim tygodniu:</div>
-              <div className="p-3 text-light">Zarejsetrowało się {infoState.lastWeekRegistered} użytkowników</div>
-              <div className="p-3 text-light">Zalogowało się {infoState.lastWeekLogins} użytkowników</div>
-              <div className="p-3 text-light">Zaostało stworzonych {infoState.lastWeekNotifications} powiadomień</div>
+              <div className="p-3 text-light">{t("lastWeek")}</div>
+              <div className="p-3 text-light">{t("registered")} {infoState.lastWeekRegistered} {t("smallUsers")}</div>
+              <div className="p-3 text-light">{t("loggedIn")} {infoState.lastWeekLogins}</div>
+              <div className="p-3 text-light">{t("wasCreated")} {infoState.lastWeekNotifications} {t("smallNotifications")}</div>
             </div>
           </div>
         </div>

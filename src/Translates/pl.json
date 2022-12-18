@@ -33,5 +33,14 @@
     "accountSettings": "Ustawienia konta",
     "settings": "Ustawienia",
     "administration": "Administracja",
-    "myList": "Moja lista"
+    "myList": "Moja lista",
+    "administrationPage": "Strona Administracji",
+    "chooseNabOptions": "Wybierz odpowiednie zagadnienie w pasku nawigacji",
+    "currentApp":"Aplikacj aktualnie posiada:",
+    "lastWeek":"W ostatnim tygodniu:",
+    "registered":"Zarejsetrowało się",
+    "loggedIn":"Wystąpiło zalogowań ",
+    "wasCreated":"Zostały stworzone",
+    "smallUsers": "użytkowników",
+    "smallNotifications": "powiadomień"
 }
