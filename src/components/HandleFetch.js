@@ -1,10 +1,38 @@
-export function HandleFetch(url, jsonData, method) {
+import { useTokenStore } from "../store";
 
-  const dataFetch = async () => {
-    return await fetch(url, {
-        method: method,
-        body: JSON.stringify(jsonData),
-    })};
+export const HandleFetch = async (
+  url,
+  method,
+  jsonData = null,
+  token = null
+) => {
+  let headers = {
+    "Content-Type": "application/json",
+  };
 
-  return dataFetch();
-}
+  if (token != null) {
+    headers.authorization = token;
+  }
+
+  let content = {
+    method: method,
+    headers: headers,
+  };
+
+  if (jsonData != null) {
+    content.body = JSON.stringify(jsonData);
+  }
+
+  const response = await fetch(url, content);
+
+  if (response.ok) {
+    if (response.headers.get("content-length") != 0) {
+      return response.json();
+    } else {
+      return {};
+    }
+  } else {
+    const error = new Error(response.status.toString() ?? "unknown");
+    return Promise.reject(error);
+  }
+};
