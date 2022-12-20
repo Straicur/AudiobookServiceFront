@@ -1,4 +1,4 @@
-class SystemError extends Error {
+export default class SystemError extends Error {
   constructor(message) {
     super(message);
     this.name = "SystemError";

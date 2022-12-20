@@ -1,4 +1,4 @@
-class InvalidJsonDataError extends Error {
+export default class InvalidJsonDataError extends Error {
   constructor(message, data) {
     super(message);
     this.name = "InvalidJsonDataError";
