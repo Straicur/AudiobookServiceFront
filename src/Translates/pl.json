@@ -42,5 +42,13 @@
     "loggedIn":"Wystąpiło zalogowań ",
     "wasCreated":"Zostały stworzone",
     "smallUsers": "użytkowników",
-    "smallNotifications": "powiadomień"
+    "smallNotifications": "powiadomień",
+    "authenticationError": "Nie jesteś zalogowany",
+    "dataNotFoundError": "Nie można znaleść podajej rzeczy",
+    "invalidDataError": "Nieprawidłowe podane dane",
+    "invalidJsonDataError": "Nieprawidłowe podane dane json",
+    "permissionError": "Nie masz uprawnień do zrobienia tego",
+    "serviceUnaviableError": "Serwis aktualnie jest niedostępny",
+    "systemError": "Występił błąd sytemu",
+    "validationError": "Wystąpił błąd walidacji"
 }

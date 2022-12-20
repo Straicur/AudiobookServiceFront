@@ -42,5 +42,13 @@
     "loggedIn":"Logins",
     "wasCreated":"Was created",
     "smallUsers": "users",
-    "smallNotifications": "notifications"
+    "smallNotifications": "notifications",
+    "authenticationError": "You are not authenticated",
+    "dataNotFoundError": "Can not find this data",
+    "invalidDataError": "Invalid given data",
+    "invalidJsonDataError": "Invalid given json data",
+    "permissionError": "You have no permission to do this",
+    "serviceUnaviableError": "Service is unaviable right now",
+    "systemError": "A system error has occurred",
+    "validationError": "A validation error has occurred"
 }
