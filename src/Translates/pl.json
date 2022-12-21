@@ -52,5 +52,6 @@
     "serviceUnaviableError": "Serwis aktualnie jest niedostępny",
     "systemError": "Występił błąd sytemu",
     "validationError": "Wystąpił błąd walidacji",
-    "errorOccurred": "Wystąpił błąd"
+    "errorOccurred": "Wystąpił błąd",
+    "insertNewPassword": "Podaj nowe hasło"
 }

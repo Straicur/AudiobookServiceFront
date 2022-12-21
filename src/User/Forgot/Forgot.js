@@ -92,11 +92,11 @@ export default function Forgot() {
     <div className="container d-flex align-items-center justify-content-center mt-3 ">
       <div className="card position-relative shadow p-3 mb-5">
         <div>
-          <h1 className="py-1">Podaj nowe hasło</h1>
+          <h1 className="py-1">{t("insertNewPassword")}</h1>
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder={t("insertPassword")}
             value={state.password}
             className="form-control mt-4"
             onChange={handlePasswordChange}
@@ -104,7 +104,7 @@ export default function Forgot() {
           <input
             type="password"
             name="passwordConfirm"
-            placeholder="Confirm Password"
+            placeholder={t("insertPasswordConfirm")}
             value={state.confirmPassword}
             className="form-control mt-4"
             onChange={handleConfirmPasswordChange}
@@ -116,7 +116,7 @@ export default function Forgot() {
             disabled={state.isButtonDisabled}
             className="mt-2 mb-3 form-control"
           >
-            Zmień hasło
+            {t("changePassword")}
           </Button>
         </div>
       </div>

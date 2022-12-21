@@ -67,7 +67,7 @@ export const ForgotPasswordModal = ({ setUserState, userState }) => {
           <input
             id="email"
             type="email"
-            name="email"
+            placeholder={t("insertEmail")}
             value={state.email}
             className="form-control mt-2 shadow"
             onChange={handleEmailChange}

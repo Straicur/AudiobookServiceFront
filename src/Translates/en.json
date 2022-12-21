@@ -52,5 +52,6 @@
     "serviceUnaviableError": "Service is unaviable right now",
     "systemError": "A system error has occurred",
     "validationError": "A validation error has occurred",
-    "errorOccurred": "A error has occurred"
+    "errorOccurred": "A error has occurred",
+    "insertNewPassword": "Insert new password"
 }
