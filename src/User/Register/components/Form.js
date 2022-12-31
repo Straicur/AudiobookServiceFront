@@ -6,7 +6,6 @@ import { HandleFetch } from "../../../components/HandleFetch";
 import md5 from "md5";
 import { RegisterNotificationModal } from "./RegisterNotificationModal";
 import {
-  handleKeyPress,
   validateEmail,
   validatePassword,
   handleEmailChange,
@@ -17,12 +16,12 @@ import {
   handleLastname,
 } from "./Events";
 
-export default function Form() {
+export default function Form(state,setState) {
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
 
-  const [state, setState] = useState({
+  const [formState, setFormState] = useState({
     email: "",
     password: "",
     confirmPassword: "",
@@ -31,32 +30,29 @@ export default function Form() {
     lastname: "",
     isButtonDisabled: true,
     helperText: 0,
-    changeLang: i18n.language,
-    modalShow: false,
-    modalText: "",
   });
 
   const handleRegister = () => {
     if (
-      state.password == state.confirmPassword &&
-      validateEmail(state.email) &&
-      validatePassword(state.password)
+      formState.password == formState.confirmPassword &&
+      validateEmail(formState.email) &&
+      validatePassword(formState.password)
     ) {
       const url = "http://127.0.0.1:8000/api/register";
       const jsonData = {
-        email: state.email,
-        phoneNumber: state.phoneNumber,
-        firstname: state.firstname,
-        lastname: state.lastname,
-        password: md5(state.password),
+        email: formState.email,
+        phoneNumber: formState.phoneNumber,
+        firstname: formState.firstname,
+        lastname: formState.lastname,
+        password: md5(formState.password),
       };
       const method = "PUT";
 
       HandleFetch(url, method, jsonData)
         .then((data) => {
           if (data) {
-            setState({
-              ...state,
+            setFormState({
+              ...formState,
               helperText: 200,
               modalShow: true,
               modalText: t("mailSended"),
@@ -65,8 +61,8 @@ export default function Form() {
         })
         .catch((e) => {
           if (e) {
-            setState({
-              ...state,
+            setFormState({
+              ...formState,
               helperText: parseInt(e.message),
               modalShow: true,
               modalText: t("accountInSystem"),
@@ -78,25 +74,25 @@ export default function Form() {
 
   useEffect(() => {
     if (
-      state.email.trim() != "" &&
-      state.password.trim() != "" &&
-      state.confirmPassword.trim() != "" &&
-      state.firstname.trim() != "" &&
-      state.lastname.trim() != "" &&
-      state.phoneNumber.trim() != "" &&
-      state.password.trim() == state.confirmPassword.trim()
+      formState.email.trim() != "" &&
+      formState.password.trim() != "" &&
+      formState.confirmPassword.trim() != "" &&
+      formState.firstname.trim() != "" &&
+      formState.lastname.trim() != "" &&
+      formState.phoneNumber.trim() != "" &&
+      formState.password.trim() == formState.confirmPassword.trim()
     ) {
-      setState({ ...state, isButtonDisabled: false });
+      setFormState({ ...formState, isButtonDisabled: false });
     } else {
-      setState({ ...state, isButtonDisabled: true });
+      setFormState({ ...formState, isButtonDisabled: true });
     }
   }, [
-    state.email,
-    state.password,
-    state.confirmPassword,
-    state.lastname,
-    state.phoneNumber,
-    state.password,
+    formState.email,
+    formState.password,
+    formState.confirmPassword,
+    formState.lastname,
+    formState.phoneNumber,
+    formState.password,
   ]);
 
   return (
@@ -136,10 +132,10 @@ export default function Form() {
                       type="email"
                       name="email"
                       placeholder={t("insertEmail")}
-                      value={state.email}
+                      value={formState.email}
                       className="form-control form-control-lg"
-                      onChange={handleEmailChange}
-                      onKeyPress={handleKeyPress}
+                      onChange={(event)=>handleEmailChange(event,formState,setFormState)}
+
                     />
                   </div>
 
@@ -148,10 +144,9 @@ export default function Form() {
                       type="password"
                       name="Password"
                       placeholder={t("insertPassword")}
-                      value={state.password}
+                      value={formState.password}
                       className="form-control form-control-lg "
-                      onChange={handlePasswordChange}
-                      onKeyPress={handleKeyPress}
+                      onChange={(event)=>handlePasswordChange(event,formState,setFormState)}
                     />
                   </div>
 
@@ -160,10 +155,9 @@ export default function Form() {
                       type="password"
                       name="passwordConfirm"
                       placeholder={t("insertPasswordConfirm")}
-                      value={state.confirmPassword}
+                      value={formState.confirmPassword}
                       className="form-control form-control-lg "
-                      onChange={handleConfirmPasswordChange}
-                      onKeyPress={handleKeyPress}
+                      onChange={(event)=>handleConfirmPasswordChange(event,formState,setFormState)}
                     />
                   </div>
 
@@ -172,10 +166,9 @@ export default function Form() {
                       type="phoneNumber"
                       name="phoneNumber"
                       placeholder={t("insertPhone")}
-                      value={state.phoneNumber}
+                      value={formState.phoneNumber}
                       className="form-control form-control-lg "
-                      onChange={handlePhoneNumber}
-                      onKeyPress={handleKeyPress}
+                      onChange={(event)=>handlePhoneNumber(event,formState,setFormState)}
                     />
                   </div>
 
@@ -184,10 +177,10 @@ export default function Form() {
                       type="firstname"
                       name="firstname"
                       placeholder={t("insertFirstname")}
-                      value={state.firstname}
+                      value={formState.firstname}
                       className="form-control form-control-lg "
-                      onChange={handleFirstname}
-                      onKeyPress={handleKeyPress}
+                      onChange={(event)=>handleFirstname(event,formState,setFormState)}
+
                     />
                   </div>
 
@@ -196,10 +189,10 @@ export default function Form() {
                       type="lastname"
                       name="lastname"
                       placeholder={t("insertLastname")}
-                      value={state.lastname}
+                      value={formState.lastname}
                       className="form-control form-control-lg "
-                      onChange={handleLastname}
-                      onKeyPress={handleKeyPress}
+                      onChange={(event)=>handleLastname(event,formState,setFormState)}
+
                     />
                   </div>
 
@@ -209,7 +202,7 @@ export default function Form() {
                     size="lg"
                     className="btn auth-btn px-5 form-control"
                     onClick={() => handleRegister()}
-                    disabled={state.isButtonDisabled}
+                    disabled={formState.isButtonDisabled}
                   >
                     {t("register")}
                   </Button>
@@ -227,11 +220,11 @@ export default function Form() {
         </div>
       </div>
       {state.modalShow ? (
-          <RegisterNotificationModal
-            setModalState={setState}
-            modalstate={state}
-          />
-        ) : null}
+        <RegisterNotificationModal
+          setModalState={setState}
+          modalstate={state}
+        />
+      ) : null}
     </section>
   );
 }
