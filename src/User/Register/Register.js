@@ -27,7 +27,7 @@ export default function Register() {
 
            //tu JAKO DZIECKO PRZEKAZUJE ALE z tąd przekazuje mu wiadomość z state i na tym levelu robie obsługę errorów
            //On dostanie ustawianą defoutowo wiadomość z tego poziomu i przy wywołaniu z ojca pójdzie dalej 
-           //
+           
            // Możliwe że ogę to tak zrobić że w Form robie props.children() <- i do tego nawiasu dodaje dane???
 
            //Poszukaj jeszcze trochę o tym przekazywaniu dzieci do rendera 
