@@ -2,29 +2,27 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-export const RegisterNotificationModal = ({ setModalState, modalstate }) => {
+export const RegisterNotificationModal = () => {
   const { t } = useTranslation();
 
+  const navigate = useNavigate();
+  
   const handleClose = () => {
-    setModalState({
-      ...modalstate,
-      modalShow: modalstate.modalShow,
-      redirect: true,
-      redirectTo: "/login",
-    });
+    navigate("/login")
   };
 
   return (
     <>
       <Modal
-        show={modalstate.modalShow}
+        show={true}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Body className="">
-          <h3>{modalstate.modalText}</h3>
+          <h3>{t("mailSended")}</h3>
         </Modal.Body>
         <Modal.Footer className="">
           <Button variant="dark" className="btn" onClick={handleClose}>

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../../../components/HandleFetch";
 import md5 from "md5";
 import { RegisterNotificationModal } from "./RegisterNotificationModal";
+import {ErrorHandlerModal} from "../../../Errors/ErrorHandlerModal"
 import {
   validateEmail,
   validatePassword,
@@ -30,6 +31,7 @@ export default function Form(state,setState) {
     lastname: "",
     isButtonDisabled: true,
     helperText: 0,
+    modal:false,
   });
 
   const handleRegister = () => {
@@ -54,8 +56,7 @@ export default function Form(state,setState) {
             setFormState({
               ...formState,
               helperText: 200,
-              modalShow: true,
-              modalText: t("mailSended"),
+              modal: true,
             });
           }
         })
@@ -64,7 +65,7 @@ export default function Form(state,setState) {
             setFormState({
               ...formState,
               helperText: parseInt(e.message),
-              modalShow: true,
+              modal: true,
               modalText: t("accountInSystem"),
             });
           }
@@ -219,12 +220,8 @@ export default function Form(state,setState) {
           </div>
         </div>
       </div>
-      {state.modalShow ? (
-        <RegisterNotificationModal
-          setModalState={setState}
-          modalstate={state}
-        />
-      ) : null}
+      {formState.modal ? (formState.helperText != 0? <ErrorHandlerModal setErrorState={setState} errorState={state} error={state.helperText} errorFunction={() => navigate("/login")} />:  <RegisterNotificationModal/>)
+       : null}
     </section>
   );
 }
