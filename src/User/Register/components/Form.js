@@ -5,7 +5,8 @@ import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../../../components/HandleFetch";
 import md5 from "md5";
 import { RegisterNotificationModal } from "./RegisterNotificationModal";
-import {ErrorHandlerModal} from "../../../Errors/ErrorHandlerModal"
+
+import DataNotFoundError from "../../../Errors/Errors/DataNotFoundError"
 import {
   validateEmail,
   validatePassword,
@@ -62,12 +63,17 @@ export default function Form(state,setState) {
         })
         .catch((e) => {
           if (e) {
-            setFormState({
-              ...formState,
-              helperText: parseInt(e.message),
-              modal: true,
-              modalText: t("accountInSystem"),
-            });
+            switch(parseInt(e.message)){
+              case 404:
+                 throw new DataNotFoundError();
+                break;
+            }
+            // setFormState({
+            //   ...formState,
+            //   helperText: parseInt(e.message),
+            //   modal: true,
+            //   modalText: t("accountInSystem"),
+            // });
           }
         });
     }
@@ -220,7 +226,7 @@ export default function Form(state,setState) {
           </div>
         </div>
       </div>
-      {formState.modal ? (formState.helperText != 0? <ErrorHandlerModal setErrorState={setState} errorState={state} error={state.helperText} errorFunction={() => navigate("/login")} />:  <RegisterNotificationModal/>)
+      {formState.modal ?  <RegisterNotificationModal/>
        : null}
     </section>
   );
