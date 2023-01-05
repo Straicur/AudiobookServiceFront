@@ -6,7 +6,7 @@ import { HandleFetch } from "../../../components/HandleFetch";
 import md5 from "md5";
 import { RegisterNotificationModal } from "./RegisterNotificationModal";
 
-import DataNotFoundError from "../../../Errors/Errors/DataNotFoundError"
+import DataNotFoundError from "../../../Errors/Errors/DataNotFoundError";
 import {
   validateEmail,
   validatePassword,
@@ -18,7 +18,7 @@ import {
   handleLastname,
 } from "./Events";
 
-export default function Form(state,setState) {
+export default function Form(state, setState) {
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
@@ -32,7 +32,8 @@ export default function Form(state,setState) {
     lastname: "",
     isButtonDisabled: true,
     helperText: 0,
-    modal:false,
+    modal: false,
+    error: 0,
   });
 
   const handleRegister = () => {
@@ -63,21 +64,20 @@ export default function Form(state,setState) {
         })
         .catch((e) => {
           if (e) {
-            switch(parseInt(e.message)){
-              case 404:
-                 throw new DataNotFoundError();
-                break;
-            }
-            // setFormState({
-            //   ...formState,
-            //   helperText: parseInt(e.message),
-            //   modal: true,
-            //   modalText: t("accountInSystem"),
-            // });
+            setFormState({
+              ...formState,
+              error: parseInt(e.message),
+            });
           }
         });
     }
   };
+  
+  useEffect(() => {
+    if (formState.error != 0) {
+      throw new DataNotFoundError("Wrond", ["jakas cos "]);
+    }
+  }, [formState.error]);
 
   useEffect(() => {
     if (
@@ -141,8 +141,9 @@ export default function Form(state,setState) {
                       placeholder={t("insertEmail")}
                       value={formState.email}
                       className="form-control form-control-lg"
-                      onChange={(event)=>handleEmailChange(event,formState,setFormState)}
-
+                      onChange={(event) =>
+                        handleEmailChange(event, formState, setFormState)
+                      }
                     />
                   </div>
 
@@ -153,7 +154,9 @@ export default function Form(state,setState) {
                       placeholder={t("insertPassword")}
                       value={formState.password}
                       className="form-control form-control-lg "
-                      onChange={(event)=>handlePasswordChange(event,formState,setFormState)}
+                      onChange={(event) =>
+                        handlePasswordChange(event, formState, setFormState)
+                      }
                     />
                   </div>
 
@@ -164,7 +167,13 @@ export default function Form(state,setState) {
                       placeholder={t("insertPasswordConfirm")}
                       value={formState.confirmPassword}
                       className="form-control form-control-lg "
-                      onChange={(event)=>handleConfirmPasswordChange(event,formState,setFormState)}
+                      onChange={(event) =>
+                        handleConfirmPasswordChange(
+                          event,
+                          formState,
+                          setFormState
+                        )
+                      }
                     />
                   </div>
 
@@ -175,7 +184,9 @@ export default function Form(state,setState) {
                       placeholder={t("insertPhone")}
                       value={formState.phoneNumber}
                       className="form-control form-control-lg "
-                      onChange={(event)=>handlePhoneNumber(event,formState,setFormState)}
+                      onChange={(event) =>
+                        handlePhoneNumber(event, formState, setFormState)
+                      }
                     />
                   </div>
 
@@ -186,8 +197,9 @@ export default function Form(state,setState) {
                       placeholder={t("insertFirstname")}
                       value={formState.firstname}
                       className="form-control form-control-lg "
-                      onChange={(event)=>handleFirstname(event,formState,setFormState)}
-
+                      onChange={(event) =>
+                        handleFirstname(event, formState, setFormState)
+                      }
                     />
                   </div>
 
@@ -198,8 +210,9 @@ export default function Form(state,setState) {
                       placeholder={t("insertLastname")}
                       value={formState.lastname}
                       className="form-control form-control-lg "
-                      onChange={(event)=>handleLastname(event,formState,setFormState)}
-
+                      onChange={(event) =>
+                        handleLastname(event, formState, setFormState)
+                      }
                     />
                   </div>
 
@@ -226,8 +239,7 @@ export default function Form(state,setState) {
           </div>
         </div>
       </div>
-      {formState.modal ?  <RegisterNotificationModal/>
-       : null}
+      {formState.modal ? <RegisterNotificationModal /> : null}
     </section>
   );
 }
