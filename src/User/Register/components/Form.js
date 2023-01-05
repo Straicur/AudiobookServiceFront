@@ -72,8 +72,12 @@ export default function Form(state, setState) {
         });
     }
   };
-  
+
   useEffect(() => {
+    //todo tu teraz brakuje mi funkcji która wyrzuci mi odpowiedni error w zależności od przekazanego inta 
+    //I do przemyślenia co wyświetlam 
+    //Po tym jeszcze zostaje mi dodanie tu walidacji i przeniesienie wsyzstkich nadrzędnych statów do Register 
+    //I na koniec przejrzenie i przemyślenie czy już jest git(Przejrzyj notatki w wordzie)
     if (formState.error != 0) {
       throw new DataNotFoundError("Wrond", ["jakas cos "]);
     }
