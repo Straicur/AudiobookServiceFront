@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../../../components/HandleFetch";
 import md5 from "md5";
 import { RegisterNotificationModal } from "./RegisterNotificationModal";
-
 import DataNotFoundError from "../../../Errors/Errors/DataNotFoundError";
 import {
   validateEmail,
@@ -33,7 +32,7 @@ export default function Form(state, setState) {
     isButtonDisabled: true,
     helperText: 0,
     modal: false,
-    error: 0,
+    error: null,
   });
 
   const handleRegister = () => {
@@ -63,12 +62,10 @@ export default function Form(state, setState) {
           }
         })
         .catch((e) => {
-          if (e) {
-            setFormState({
-              ...formState,
-              error: parseInt(e.message),
-            });
-          }
+          setFormState({
+            ...formState,
+            error: e,
+          });
         });
     }
   };
@@ -77,9 +74,9 @@ export default function Form(state, setState) {
     //todo tu teraz brakuje mi funkcji która wyrzuci mi odpowiedni error w zależności od przekazanego inta 
     //I do przemyślenia co wyświetlam 
     //Po tym jeszcze zostaje mi dodanie tu walidacji i przeniesienie wsyzstkich nadrzędnych statów do Register 
-    //I na koniec przejrzenie i przemyślenie czy już jest git(Przejrzyj notatki w wordzie)
-    if (formState.error != 0) {
-      throw new DataNotFoundError("Wrond", ["jakas cos "]);
+    //I na koniec przejrzenie i przemyślenie czy już jest git(Przejrzyj notatki w wordzie) 
+    if (formState.error != null) {
+      throw formState.error
     }
   }, [formState.error]);
 

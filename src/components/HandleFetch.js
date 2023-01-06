@@ -1,4 +1,8 @@
-import { useTokenStore } from "../store";
+import DataNotFoundError from "../Errors/Errors/DataNotFoundError";
+import AuthenticationError from "../Errors/Errors/AuthenticationError";
+import InvalidJsonDataError from "../Errors/Errors/InvalidJsonDataError";
+import ServiceUnaviableError from "../Errors/Errors/ServiceUnaviableError";
+import PermissionError from "../Errors/Errors/PermissionError";
 
 export const HandleFetch = async (
   url,
@@ -32,7 +36,28 @@ export const HandleFetch = async (
       return {};
     }
   } else {
-    const error = new Error(response.status.toString() ?? "unknown");
+    const errJson = await response.json();
+
+    let error;
+    
+    switch (response.status) {
+      case 400:
+        error = new InvalidJsonDataError(errJson.error, errJson.data);
+        break;
+      case 401:
+        error = new AuthenticationError(errJson.error);
+        break;
+      case 403:
+        error = new PermissionError(errJson.error);
+        break;
+      case 404:
+        error = new DataNotFoundError(errJson.error, errJson.data);
+        break;
+      case 500:
+        error = new ServiceUnaviableError(errJson.error);
+        break;
+    }
+
     return Promise.reject(error);
   }
 };

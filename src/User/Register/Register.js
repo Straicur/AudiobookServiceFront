@@ -13,7 +13,7 @@ export default function Register() {
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
-      onReset={(e) => console.log(e)}
+      // onReset={(e) => console.log(e)}
     >
       <Form state={state} setState={setState} />
     </ErrorBoundary>
