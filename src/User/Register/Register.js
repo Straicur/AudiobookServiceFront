@@ -5,9 +5,6 @@ import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 
 export default function Register() {
   const [state, setState] = useState({
-    helperText: 0,
-    modalShow: false,
-    modalText: "",
   });
 
   return (

@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../../../components/HandleFetch";
 import md5 from "md5";
 import { RegisterNotificationModal } from "./RegisterNotificationModal";
-import DataNotFoundError from "../../../Errors/Errors/DataNotFoundError";
 import {
   validateEmail,
   validatePassword,
@@ -30,7 +29,6 @@ export default function Form(state, setState) {
     firstname: "",
     lastname: "",
     isButtonDisabled: true,
-    helperText: 0,
     modal: false,
     error: null,
   });
@@ -56,7 +54,6 @@ export default function Form(state, setState) {
           if (data) {
             setFormState({
               ...formState,
-              helperText: 200,
               modal: true,
             });
           }
@@ -71,8 +68,6 @@ export default function Form(state, setState) {
   };
 
   useEffect(() => {
-    //todo tu teraz brakuje mi funkcji która wyrzuci mi odpowiedni error w zależności od przekazanego inta 
-    //I do przemyślenia co wyświetlam 
     //Po tym jeszcze zostaje mi dodanie tu walidacji i przeniesienie wsyzstkich nadrzędnych statów do Register 
     //I na koniec przejrzenie i przemyślenie czy już jest git(Przejrzyj notatki w wordzie) 
     if (formState.error != null) {
