@@ -4,13 +4,13 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 
 export default function Register() {
-  const [state, setState] = useState({
-  });
+  const [state, setState] = useState({});
 
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
-      // onReset={(e) => console.log(e)}
+      onReset={() => {}}
+      // Tu mam dwie przydatne funkcje jeśli chce mogę wykorzystać
     >
       <Form state={state} setState={setState} />
     </ErrorBoundary>
