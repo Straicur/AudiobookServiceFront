@@ -16,36 +16,28 @@ import {
   handleLastname,
 } from "./Events";
 
-export default function Form(state, setState) {
+export default function Form(props) {
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
 
   const [formState, setFormState] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    phoneNumber: "",
-    firstname: "",
-    lastname: "",
-    isButtonDisabled: true,
     modal: false,
-    error: null,
   });
 
   const handleRegister = () => {
     if (
-      formState.password == formState.confirmPassword &&
-      validateEmail(formState.email) &&
-      validatePassword(formState.password)
+      props.state.password == props.state.confirmPassword &&
+      validateEmail(props.state.email) &&
+      validatePassword(props.state.password)
     ) {
       const url = "http://127.0.0.1:8000/api/register";
       const jsonData = {
-        email: formState.email,
-        phoneNumber: formState.phoneNumber,
-        firstname: formState.firstname,
-        lastname: formState.lastname,
-        password: md5(formState.password),
+        email: props.state.email,
+        phoneNumber: props.state.phoneNumber,
+        firstname: props.state.firstname,
+        lastname: props.state.lastname,
+        password: md5(props.state.password),
       };
       const method = "PUT";
 
@@ -59,7 +51,7 @@ export default function Form(state, setState) {
           }
         })
         .catch((e) => {
-          setFormState({
+          props.setState({
             ...formState,
             error: e,
           });
@@ -75,35 +67,14 @@ export default function Form(state, setState) {
     // Do obsługi tylko błędne pola, Dopiero po kliknięciu przycisku mi wyswietla 
     // Inputy mają trimować dane jeszcze 
 
-    if (formState.error != null) {
-      throw formState.error
+    if (props.state.error != null) {
+      throw props.state.error
     }
-  }, [formState.error]);
+  }, [props.state.error]);
 
-  useEffect(() => {
-    if (
-      formState.email.trim() != "" &&
-      formState.password.trim() != "" &&
-      formState.confirmPassword.trim() != "" &&
-      formState.firstname.trim() != "" &&
-      formState.lastname.trim() != "" &&
-      formState.phoneNumber.trim() != "" &&
-      formState.password.trim() == formState.confirmPassword.trim()
-    ) {
-      setFormState({ ...formState, isButtonDisabled: false });
-    } else {
-      setFormState({ ...formState, isButtonDisabled: true });
-    }
-  }, [
-    formState.email,
-    formState.password,
-    formState.confirmPassword,
-    formState.lastname,
-    formState.phoneNumber,
-    formState.password,
-  ]);
 
   return (
+
     <section className="vh-100">
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
@@ -140,10 +111,10 @@ export default function Form(state, setState) {
                       type="email"
                       name="email"
                       placeholder={t("insertEmail")}
-                      value={formState.email}
+                      value={props.state.email}
                       className="form-control form-control-lg"
                       onChange={(event) =>
-                        handleEmailChange(event, formState, setFormState)
+                        handleEmailChange(event, props.state, props.setState)
                       }
                     />
                   </div>
@@ -153,10 +124,10 @@ export default function Form(state, setState) {
                       type="password"
                       name="Password"
                       placeholder={t("insertPassword")}
-                      value={formState.password}
+                      value={props.state.password}
                       className="form-control form-control-lg "
                       onChange={(event) =>
-                        handlePasswordChange(event, formState, setFormState)
+                        handlePasswordChange(event, props.state, props.setState)
                       }
                     />
                   </div>
@@ -166,13 +137,13 @@ export default function Form(state, setState) {
                       type="password"
                       name="passwordConfirm"
                       placeholder={t("insertPasswordConfirm")}
-                      value={formState.confirmPassword}
+                      value={props.state.confirmPassword}
                       className="form-control form-control-lg "
                       onChange={(event) =>
                         handleConfirmPasswordChange(
                           event,
-                          formState,
-                          setFormState
+                          props.state,
+                          props.setState
                         )
                       }
                     />
@@ -183,10 +154,10 @@ export default function Form(state, setState) {
                       type="phoneNumber"
                       name="phoneNumber"
                       placeholder={t("insertPhone")}
-                      value={formState.phoneNumber}
+                      value={props.state.phoneNumber}
                       className="form-control form-control-lg "
                       onChange={(event) =>
-                        handlePhoneNumber(event, formState, setFormState)
+                        handlePhoneNumber(event, props.state, props.setState)
                       }
                     />
                   </div>
@@ -196,10 +167,10 @@ export default function Form(state, setState) {
                       type="firstname"
                       name="firstname"
                       placeholder={t("insertFirstname")}
-                      value={formState.firstname}
+                      value={props.state.firstname}
                       className="form-control form-control-lg "
                       onChange={(event) =>
-                        handleFirstname(event, formState, setFormState)
+                        handleFirstname(event, props.state, props.setState)
                       }
                     />
                   </div>
@@ -209,10 +180,10 @@ export default function Form(state, setState) {
                       type="lastname"
                       name="lastname"
                       placeholder={t("insertLastname")}
-                      value={formState.lastname}
+                      value={props.state.lastname}
                       className="form-control form-control-lg "
                       onChange={(event) =>
-                        handleLastname(event, formState, setFormState)
+                        handleLastname(event, props.state, props.setState)
                       }
                     />
                   </div>
@@ -223,7 +194,7 @@ export default function Form(state, setState) {
                     size="lg"
                     className="btn auth-btn px-5 form-control"
                     onClick={() => handleRegister()}
-                    disabled={formState.isButtonDisabled}
+                    disabled={props.state.isButtonDisabled}
                   >
                     {t("register")}
                   </Button>
