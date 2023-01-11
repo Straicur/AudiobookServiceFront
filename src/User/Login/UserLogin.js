@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import md5 from "md5";
 import { ForgotPasswordModal } from "./ForgotPasswordModal";
 import { useTranslation } from "react-i18next";
-
+import DataNotFoundError from "../../Errors/Errors/DataNotFoundError"
 export default function UserLogin() {
   const [state, setState] = useState({
     email: "",
@@ -25,7 +25,7 @@ export default function UserLogin() {
 
   const fetchToken = (e) => {
     e.preventDefault();
-
+    
     fetchData.setToken({
       email: state.email,
       password: md5(state.password),

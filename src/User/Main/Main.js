@@ -74,7 +74,6 @@ export default function Main() {
       <Helmet>
         <style>{"body { background-color: black; }"}</style>
       </Helmet>
-      {console.log(data)}
       <div className="container-fluid main-container mt-3">
         <div className="card position-relative p-3 mb-5  bg-dark shadow">
           <UserNavBar />
