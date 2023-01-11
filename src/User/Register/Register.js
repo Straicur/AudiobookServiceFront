@@ -42,11 +42,11 @@ export default function Register() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        // setState({
-        //   ...state,
-        //   isButtonDisabled: true,
-        //   error: null,
-        // });
+        setState({
+          ...state,
+          isButtonDisabled: true,
+          error: null,
+        });
       }}
     >
       <Form state={state} setState={setState} />

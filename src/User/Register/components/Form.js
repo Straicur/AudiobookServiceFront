@@ -52,7 +52,7 @@ export default function Form(props) {
         })
         .catch((e) => {
           props.setState({
-            ...formState,
+            ...props.state,
             error: e,
           });
         });
@@ -60,12 +60,8 @@ export default function Form(props) {
   };
 
   useEffect(() => {
-    //Po tym jeszcze zostaje mi dodanie tu walidacji i przeniesienie wsyzstkich nadrzędnych statów do Register 
-    //I na koniec przejrzenie i przemyślenie czy już jest git(Przejrzyj notatki w wordzie) 
-    // funkcja która przyjmuje inta i wyświetli odpowiedni text na podstawie oddzielnego stata errorów
-    // I robiłbym to tak jak jest zawsze w formularzach przy pomocy tego czerownego bg przy polu 
-    // Do obsługi tylko błędne pola, Dopiero po kliknięciu przycisku mi wyswietla 
-    // Inputy mają trimować dane jeszcze 
+    //todo Zostaje mi to na koniec do dopisania walidacja pól 
+    // Wykorzystaj tu bootstrapowe errory (te czerwone prostokąty)
 
     if (props.state.error != null) {
       throw props.state.error
