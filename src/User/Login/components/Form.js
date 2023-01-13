@@ -22,11 +22,24 @@ export default function Form(props) {
   const fetchToken = (e) => {
     e.preventDefault();
 
-    fetchData.setToken({
-      email: props.state.email,
-      password: md5(props.state.password),
-    });
+    fetchData.setToken(
+      {
+        email: props.state.email,
+        password: md5(props.state.password),
+      },
+      props.state,
+      props.setState
+    );
   };
+
+  useEffect(() => {
+    //todo Zostaje mi to na koniec do dopisania walidacja pól
+    // Wykorzystaj tu bootstrapowe errory (te czerwone prostokąty)
+
+    if (props.state.error != null) {
+      throw props.state.error;
+    }
+  }, [props.state.error]);
 
   return (
     <section className="vh-100 ">
