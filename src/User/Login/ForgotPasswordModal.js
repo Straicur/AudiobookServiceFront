@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../../components/HandleFetch";
 
-export const ForgotPasswordModal = ({ setUserState, userState }) => {
+export const ForgotPasswordModal = ({ formState, setFormState }) => {
   const { t } = useTranslation();
 
   const [state, setState] = useState({
@@ -45,7 +45,7 @@ export const ForgotPasswordModal = ({ setUserState, userState }) => {
   };
 
   const handleClose = () =>
-    setUserState({ ...userState, modal: !userState.modal });
+    setFormState({ ...formState, modal: !formState.modal });
 
   useEffect(() => {
     if (state.email.trim()) {
@@ -58,35 +58,33 @@ export const ForgotPasswordModal = ({ setUserState, userState }) => {
   }, [state.email]);
 
   return (
-    <>
-      <Modal show={userState.modal} onHide={handleClose}>
-        <Modal.Header className="">
-          <Modal.Title> {t("changePassword")}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="">
-          <input
-            id="email"
-            type="email"
-            placeholder={t("insertEmail")}
-            value={state.email}
-            className="form-control mt-2 shadow"
-            onChange={handleEmailChange}
-          />
-        </Modal.Body>
-        <Modal.Footer className="">
-          <Button
-            variant="dark"
-            disabled={state.isButtonDisabled}
-            className="auth-btn"
-            onClick={handleSend}
-          >
-            {t("sendEmail")}
-          </Button>
-          <Button variant="dark" onClick={handleClose}>
-            {t("cancel")}
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+    <Modal show={formState.modal} onHide={handleClose}>
+      <Modal.Header className="">
+        <Modal.Title> {t("changePassword")}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="">
+        <input
+          id="email"
+          type="email"
+          placeholder={t("insertEmail")}
+          value={state.email}
+          className="form-control mt-2 shadow"
+          onChange={handleEmailChange}
+        />
+      </Modal.Body>
+      <Modal.Footer className="">
+        <Button
+          variant="dark"
+          disabled={state.isButtonDisabled}
+          className="auth-btn"
+          onClick={handleSend}
+        >
+          {t("sendEmail")}
+        </Button>
+        <Button variant="dark" onClick={handleClose}>
+          {t("cancel")}
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };

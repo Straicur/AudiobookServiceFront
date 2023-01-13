@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useTokenStore } from "../../store";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import md5 from "md5";
-import { ForgotPasswordModal } from "./ForgotPasswordModal";
-import { useTranslation } from "react-i18next";
-import {Form} from "./components/Form";
+import Form from "./components/Form";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 
 export default function UserLogin() {
+  const navigate = useNavigate();
+  const token = useTokenStore((state) => state.token);
+
   const [state, setState] = useState({
     email: "",
     password: "",
     isButtonDisabled: true,
     error: null,
   });
+
+  useEffect(() => {
+    if (token !== "") {
+      navigate("/main");
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (state.email.trim() && state.password.trim()) {
+      setState({ ...state, isButtonDisabled: false });
+    } else {
+      setState({ ...state, isButtonDisabled: true });
+    }
+  }, [state.email, state.password]);
 
   return (
     <ErrorBoundary
@@ -28,7 +41,7 @@ export default function UserLogin() {
         });
       }}
     >
-      <Form state={state} setState={setState} />
+      <Form state={state} setState={setState} token={token} />
     </ErrorBoundary>
   );
 }
