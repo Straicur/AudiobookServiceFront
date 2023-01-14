@@ -53,5 +53,7 @@
     "systemError": "Występił błąd sytemu",
     "validationError": "Wystąpił błąd walidacji",
     "errorOccurred": "Wystąpił błąd",
-    "insertNewPassword": "Podaj nowe hasło"
+    "insertNewPassword": "Podaj nowe hasło",
+    "enterValidEmail": "Podaj poprawny email",
+    "enterValidPassword": "Podaj poprawne hasło"
 }

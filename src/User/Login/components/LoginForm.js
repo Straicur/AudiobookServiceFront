@@ -126,7 +126,7 @@ export default function LoginForm(props) {
                           }
                         />
                         <Form.Control.Feedback type="invalid">
-                          Podaj poprawny email
+                          {t("enterValidEmail")}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
@@ -156,7 +156,7 @@ export default function LoginForm(props) {
                           }
                         />
                         <Form.Control.Feedback type="invalid">
-                          Podaj poprawne hasło
+                          {t("enterValidPassword")}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
