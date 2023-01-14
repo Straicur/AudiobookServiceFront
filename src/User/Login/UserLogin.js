@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTokenStore } from "../../store";
 import { useNavigate } from "react-router-dom";
-import Form from "./components/Form";
+import LoginForm from "./components/LoginForm";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 
@@ -12,6 +12,7 @@ export default function UserLogin() {
   const [state, setState] = useState({
     email: "",
     password: "",
+    validated: false,
     isButtonDisabled: true,
     error: null,
   });
@@ -37,11 +38,12 @@ export default function UserLogin() {
         setState({
           ...state,
           isButtonDisabled: true,
+          validated: false,
           error: null,
         });
       }}
     >
-      <Form state={state} setState={setState} token={token} />
+      <LoginForm state={state} setState={setState} token={token} />
     </ErrorBoundary>
   );
 }

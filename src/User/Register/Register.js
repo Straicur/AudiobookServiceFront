@@ -1,5 +1,5 @@
-import React, { useEffect,useState } from "react";
-import Form from "./components/Form";
+import React, { useEffect, useState } from "react";
+import RegisterForm from "./components/RegisterForm";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 
@@ -49,7 +49,7 @@ export default function Register() {
         });
       }}
     >
-      <Form state={state} setState={setState} />
+      <RegisterForm state={state} setState={setState} />
     </ErrorBoundary>
   );
 }

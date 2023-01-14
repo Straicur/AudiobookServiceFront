@@ -16,7 +16,7 @@ import {
   handleLastname,
 } from "./Events";
 
-export default function Form(props) {
+export default function RegisterForm(props) {
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
@@ -60,17 +60,15 @@ export default function Form(props) {
   };
 
   useEffect(() => {
-    //todo Zostaje mi to na koniec do dopisania walidacja pól 
+    //todo Zostaje mi to na koniec do dopisania walidacja pól
     // Wykorzystaj tu bootstrapowe errory (te czerwone prostokąty)
 
     if (props.state.error != null) {
-      throw props.state.error
+      throw props.state.error;
     }
   }, [props.state.error]);
 
-
   return (
-
     <section className="vh-100">
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
