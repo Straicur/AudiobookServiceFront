@@ -10,42 +10,47 @@ function validatePassword(pass) {
   return re.test(pass);
 }
 
-const handleEmailChange = (event,state,setState) => {
+function validatePhoneNumber(pass) {
+  const re = /^\+?[0-9]{3}-?[0-9]{6,12}$/;
+  return re.test(pass);
+}
+
+const handleEmailChange = (event, state, setState) => {
   setState({
     ...state,
     email: event.target.value,
   });
 };
 
-const handlePasswordChange = (event,state,setState) => {
+const handlePasswordChange = (event, state, setState) => {
   setState({
     ...state,
     password: event.target.value,
   });
 };
 
-const handleConfirmPasswordChange = (event,state,setState) => {
+const handleConfirmPasswordChange = (event, state, setState) => {
   setState({
     ...state,
     confirmPassword: event.target.value,
   });
 };
 
-const handlePhoneNumber = (event,state,setState) => {
+const handlePhoneNumber = (event, state, setState) => {
   setState({
     ...state,
     phoneNumber: event.target.value,
   });
 };
 
-const handleFirstname = (event,state,setState) => {
+const handleFirstname = (event, state, setState) => {
   setState({
     ...state,
     firstname: event.target.value,
   });
 };
 
-const handleLastname = (event,state,setState) => {
+const handleLastname = (event, state, setState) => {
   setState({
     ...state,
     lastname: event.target.value,
@@ -55,6 +60,7 @@ const handleLastname = (event,state,setState) => {
 export {
   validateEmail,
   validatePassword,
+  validatePhoneNumber,
   handleEmailChange,
   handlePasswordChange,
   handleConfirmPasswordChange,

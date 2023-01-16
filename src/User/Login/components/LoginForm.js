@@ -132,7 +132,7 @@ export default function LoginForm(props) {
                     </Row>
                     <Row className="mb-3">
                       <Form.Group
-                        controlId="validationCustom01"
+                        controlId="validationCustom02"
                         className="form-outline form-white mb-4"
                       >
                         <Form.Control

@@ -5,9 +5,12 @@ import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../../../components/HandleFetch";
 import md5 from "md5";
 import { RegisterNotificationModal } from "./RegisterNotificationModal";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 import {
   validateEmail,
   validatePassword,
+  validatePhoneNumber,
   handleEmailChange,
   handlePasswordChange,
   handleConfirmPasswordChange,
@@ -25,7 +28,11 @@ export default function RegisterForm(props) {
     modal: false,
   });
 
-  const handleRegister = () => {
+  const handleRegister = (e) => {
+
+    e.preventDefault();
+    e.stopPropagation();
+
     if (
       props.state.password == props.state.confirmPassword &&
       validateEmail(props.state.email) &&
@@ -57,12 +64,16 @@ export default function RegisterForm(props) {
           });
         });
     }
+    else {
+      props.setState({
+        ...props.state,
+        isButtonDisabled: true,
+        validated: false,
+      });
+    }
   };
 
   useEffect(() => {
-    //todo Zostaje mi to na koniec do dopisania walidacja pól
-    // Wykorzystaj tu bootstrapowe errory (te czerwone prostokąty)
-
     if (props.state.error != null) {
       throw props.state.error;
     }
@@ -99,106 +110,224 @@ export default function RegisterForm(props) {
                   </div>
                   <hr className="line" />
                   <p className="mb-5">{t("pleaseEmailAndPassword")}</p>
-
-                  <div className="form-outline form-white mb-4">
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder={t("insertEmail")}
-                      value={props.state.email}
-                      className="form-control form-control-lg"
-                      onChange={(event) =>
-                        handleEmailChange(event, props.state, props.setState)
-                      }
-                    />
-                  </div>
-
-                  <div className="form-outline form-white mb-4">
-                    <input
-                      type="password"
-                      name="Password"
-                      placeholder={t("insertPassword")}
-                      value={props.state.password}
-                      className="form-control form-control-lg "
-                      onChange={(event) =>
-                        handlePasswordChange(event, props.state, props.setState)
-                      }
-                    />
-                  </div>
-
-                  <div className="form-outline form-white mb-4">
-                    <input
-                      type="password"
-                      name="passwordConfirm"
-                      placeholder={t("insertPasswordConfirm")}
-                      value={props.state.confirmPassword}
-                      className="form-control form-control-lg "
-                      onChange={(event) =>
-                        handleConfirmPasswordChange(
-                          event,
-                          props.state,
-                          props.setState
-                        )
-                      }
-                    />
-                  </div>
-
-                  <div className="form-outline form-white mb-4">
-                    <input
-                      type="phoneNumber"
-                      name="phoneNumber"
-                      placeholder={t("insertPhone")}
-                      value={props.state.phoneNumber}
-                      className="form-control form-control-lg "
-                      onChange={(event) =>
-                        handlePhoneNumber(event, props.state, props.setState)
-                      }
-                    />
-                  </div>
-
-                  <div className="form-outline form-white mb-4">
-                    <input
-                      type="firstname"
-                      name="firstname"
-                      placeholder={t("insertFirstname")}
-                      value={props.state.firstname}
-                      className="form-control form-control-lg "
-                      onChange={(event) =>
-                        handleFirstname(event, props.state, props.setState)
-                      }
-                    />
-                  </div>
-
-                  <div className="form-outline form-white mb-4">
-                    <input
-                      type="lastname"
-                      name="lastname"
-                      placeholder={t("insertLastname")}
-                      value={props.state.lastname}
-                      className="form-control form-control-lg "
-                      onChange={(event) =>
-                        handleLastname(event, props.state, props.setState)
-                      }
-                    />
-                  </div>
-
-                  <hr></hr>
-                  <Button
-                    variant="dark"
-                    size="lg"
-                    className="btn auth-btn px-5 form-control"
-                    onClick={() => handleRegister()}
-                    disabled={props.state.isButtonDisabled}
+                  <Form
+                    noValidate
+                    validated={props.state.validated}
+                    onSubmit={handleRegister}
+                    autoComplete="off"
                   >
-                    {t("register")}
-                  </Button>
+                    <Row className="mb-3">
+                      <Form.Group
+                        controlId="validationCustom01"
+                        className="form-outline form-white mb-4"
+                      >
+                        <Form.Control
+                          required
+                          type="email"
+                          name="email"
+                          placeholder={t("insertEmail")}
+                          value={props.state.email}
+                          className="form-control form-control-lg"
+                          isValid={
+                            props.state.email.length > 1 &&
+                            validateEmail(props.state.email)
+                          }
+                          isInvalid={
+                            props.state.email.length > 1 &&
+                            !validateEmail(props.state.email)
+                          }
+                          onChange={(event) =>
+                            handleEmailChange(
+                              event,
+                              props.state,
+                              props.setState
+                            )
+                          }
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {t("enterValidEmail")}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                      <Form.Group
+                        controlId="validationCustom02"
+                        className="form-outline form-white mb-4"
+                      >
+                        <Form.Control
+                          required
+                          type="password"
+                          name="Password"
+                          placeholder={t("insertPassword")}
+                          value={props.state.password}
+                          className="form-control form-control-lg "
+                          isValid={
+                            props.state.password.length > 1 &&
+                            validatePassword(props.state.password)  &&
+                            props.state.password.trim() == props.state.confirmPassword.trim() 
+                          }
+                          isInvalid={
+                            props.state.password.length > 1 &&
+                            !validatePassword(props.state.password) &&
+                            props.state.password.trim() != props.state.confirmPassword.trim() 
+                          }
+                          onChange={(event) =>
+                            handlePasswordChange(
+                              event,
+                              props.state,
+                              props.setState
+                            )
+                          }
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {/* {t("enterValidEmail")} */}
+                          P
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                      <Form.Group
+                        controlId="validationCustom03"
+                        className="form-outline form-white mb-4"
+                      >
+                        <Form.Control
+                          required
+                          type="password"
+                          name="passwordConfirm"
+                          placeholder={t("insertPasswordConfirm")}
+                          value={props.state.confirmPassword}
+                          className="form-control form-control-lg "
+                          isValid={
+                            props.state.confirmPassword.length > 1 &&
+                            validatePassword(props.state.confirmPassword) &&
+                            props.state.password.trim() == props.state.confirmPassword.trim() 
+                          }
+                          isInvalid={
+                            props.state.confirmPassword.length > 1 &&
+                            !validatePassword(props.state.confirmPassword) &&
+                            props.state.password.trim() != props.state.confirmPassword.trim() 
+                          }
+                          onChange={(event) =>
+                            handleConfirmPasswordChange(
+                              event,
+                              props.state,
+                              props.setState
+                            )
+                          }
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {t("enterValidEmail")}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                      <Form.Group
+                        controlId="validationCustom04"
+                        className="form-outline form-white mb-4"
+                      >
+                        <Form.Control
+                          required
+                          type="phoneNumber"
+                          name="phoneNumber"
+                          placeholder={t("insertPhone")}
+                          value={props.state.phoneNumber}
+                          className="form-control form-control-lg "
+                          isValid={
+                            props.state.phoneNumber.length > 1 &&
+                            validatePhoneNumber(props.state.phoneNumber)
+                          }
+                          isInvalid={
+                            props.state.phoneNumber.length > 1 &&
+                            !validatePhoneNumber(
+                              props.state.phoneNumber
+                            )
+                          }
+                          onChange={(event) =>
+                            handlePhoneNumber(
+                              event,
+                              props.state,
+                              props.setState
+                            )
+                          }
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {t("enterValidEmail")}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                      <Form.Group
+                        controlId="validationCustom05"
+                        className="form-outline form-white mb-4"
+                      >
+                        <Form.Control
+                          required
+                          type="firstname"
+                          name="firstname"
+                          placeholder={t("insertFirstname")}
+                          value={props.state.firstname}
+                          className="form-control form-control-lg "
+                          isValid={props.state.firstname.length > 3}
+                          isInvalid={
+                            props.state.firstname.length > 1 &&
+                            props.state.firstname.length < 3
+                          }
+                          onChange={(event) =>
+                            handleFirstname(event, props.state, props.setState)
+                          }
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {t("enterValidEmail")}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                      <Form.Group
+                        controlId="validationCustom06"
+                        className="form-outline form-white mb-4"
+                      >
+                        <Form.Control
+                          type="lastname"
+                          name="lastname"
+                          placeholder={t("insertLastname")}
+                          value={props.state.lastname}
+                          className="form-control form-control-lg "
+                          isValid={props.state.lastname.length > 3}
+                          isInvalid={
+                            props.state.lastname.length > 1 &&
+                            props.state.lastname.length < 3
+                          }
+                          onChange={(event) =>
+                            handleLastname(event, props.state, props.setState)
+                          }
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {t("enterValidEmail")}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+                    <hr></hr>
+                    <Button
+                      variant="dark"
+                      size="lg"
+                      className="btn auth-btn px-5 form-control"
+                      type="submit"
+                      // onClick={() => handleRegister()}
+                      disabled={props.state.isButtonDisabled}
+                    >
+                      {t("register")}
+                    </Button>
 
-                  <p className="mt-4 small pb-lg-2 fw-bold mb-0">
-                    {t("haveAccount")}{" "}
-                    <a onClick={() => navigate("/login")} className="link-info">
-                      {t("loginToAccount")}
-                    </a>
-                  </p>
+                    <p className="mt-4 small pb-lg-2 fw-bold mb-0">
+                      {t("haveAccount")}{" "}
+                      <a
+                        onClick={() => navigate("/login")}
+                        className="link-info"
+                      >
+                        {t("loginToAccount")}
+                      </a>
+                    </p>
+                  </Form>
                 </div>
               </div>
             </div>
