@@ -29,7 +29,6 @@ export default function RegisterForm(props) {
   });
 
   const handleRegister = (e) => {
-
     e.preventDefault();
     e.stopPropagation();
 
@@ -63,8 +62,7 @@ export default function RegisterForm(props) {
             error: e,
           });
         });
-    }
-    else {
+    } else {
       props.setState({
         ...props.state,
         isButtonDisabled: true,
@@ -163,13 +161,15 @@ export default function RegisterForm(props) {
                           className="form-control form-control-lg "
                           isValid={
                             props.state.password.length > 1 &&
-                            validatePassword(props.state.password)  &&
-                            props.state.password.trim() == props.state.confirmPassword.trim() 
+                            validatePassword(props.state.password) &&
+                            props.state.password.trim() ==
+                              props.state.confirmPassword.trim()
                           }
                           isInvalid={
                             props.state.password.length > 1 &&
                             !validatePassword(props.state.password) &&
-                            props.state.password.trim() != props.state.confirmPassword.trim() 
+                            props.state.password.trim() !=
+                              props.state.confirmPassword.trim()
                           }
                           onChange={(event) =>
                             handlePasswordChange(
@@ -180,8 +180,7 @@ export default function RegisterForm(props) {
                           }
                         />
                         <Form.Control.Feedback type="invalid">
-                          {/* {t("enterValidEmail")} */}
-                          P
+                          {t("enterValidPassword")}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
@@ -200,12 +199,14 @@ export default function RegisterForm(props) {
                           isValid={
                             props.state.confirmPassword.length > 1 &&
                             validatePassword(props.state.confirmPassword) &&
-                            props.state.password.trim() == props.state.confirmPassword.trim() 
+                            props.state.password.trim() ==
+                              props.state.confirmPassword.trim()
                           }
                           isInvalid={
                             props.state.confirmPassword.length > 1 &&
                             !validatePassword(props.state.confirmPassword) &&
-                            props.state.password.trim() != props.state.confirmPassword.trim() 
+                            props.state.password.trim() !=
+                              props.state.confirmPassword.trim()
                           }
                           onChange={(event) =>
                             handleConfirmPasswordChange(
@@ -216,7 +217,7 @@ export default function RegisterForm(props) {
                           }
                         />
                         <Form.Control.Feedback type="invalid">
-                          {t("enterValidEmail")}
+                          {t("enterValidConfirmPassword")}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
@@ -238,9 +239,7 @@ export default function RegisterForm(props) {
                           }
                           isInvalid={
                             props.state.phoneNumber.length > 1 &&
-                            !validatePhoneNumber(
-                              props.state.phoneNumber
-                            )
+                            !validatePhoneNumber(props.state.phoneNumber)
                           }
                           onChange={(event) =>
                             handlePhoneNumber(
@@ -251,7 +250,7 @@ export default function RegisterForm(props) {
                           }
                         />
                         <Form.Control.Feedback type="invalid">
-                          {t("enterValidEmail")}
+                          {t("enterValidPhoneNumber")}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
@@ -277,7 +276,7 @@ export default function RegisterForm(props) {
                           }
                         />
                         <Form.Control.Feedback type="invalid">
-                          {t("enterValidEmail")}
+                          {t("enterValidFirstName")}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
@@ -302,7 +301,7 @@ export default function RegisterForm(props) {
                           }
                         />
                         <Form.Control.Feedback type="invalid">
-                          {t("enterValidEmail")}
+                          {t("enterValidLastName")}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>

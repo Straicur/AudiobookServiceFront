@@ -55,5 +55,9 @@
     "errorOccurred": "A error has occurred",
     "insertNewPassword": "Insert new password",
     "enterValidEmail": "Enter valid email",
-    "enterValidPassword": "Enter valid password"
+    "enterValidPassword": "Enter valid password",
+    "enterValidConfirmPassword": "Enter valid confirm password",
+    "enterValidPhoneNumber": "Enter valid phone number",
+    "enterValidFirstName": "Enter valid firstname",
+    "enterValidLastName": "Enter valid lastname"
 }
