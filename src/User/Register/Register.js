@@ -1,7 +1,8 @@
-import React, { useEffect,useState } from "react";
-import Form from "./components/Form";
+import React, { useEffect, useState } from "react";
+import RegisterForm from "./components/RegisterForm";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
+import { validateEmail, validatePassword } from "./components/Events";
 
 export default function Register() {
   const [state, setState] = useState({
@@ -11,6 +12,7 @@ export default function Register() {
     phoneNumber: "",
     firstname: "",
     lastname: "",
+    validated: false,
     isButtonDisabled: true,
     error: null,
   });
@@ -23,7 +25,10 @@ export default function Register() {
       state.firstname.trim() != "" &&
       state.lastname.trim() != "" &&
       state.phoneNumber.trim() != "" &&
-      state.password.trim() == state.confirmPassword.trim()
+      state.password.trim() == state.confirmPassword.trim() &&
+      state.password == state.confirmPassword &&
+      validateEmail(state.email) &&
+      validatePassword(state.password)
     ) {
       setState({ ...state, isButtonDisabled: false });
     } else {
@@ -49,7 +54,7 @@ export default function Register() {
         });
       }}
     >
-      <Form state={state} setState={setState} />
+      <RegisterForm state={state} setState={setState} />
     </ErrorBoundary>
   );
 }
