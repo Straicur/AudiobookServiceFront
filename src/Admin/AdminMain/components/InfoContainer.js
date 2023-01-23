@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../../components/AdminNavBar";
-import { useTokenStore } from "../../store";
+import { AdminNavBar } from "../../../components/AdminNavBar";
+import { useTokenStore } from "../../../store";
 import { useQuery } from "react-query";
-import { HandleFetch } from "../../components/HandleFetch";
+import { HandleFetch } from "../../../components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
+import { ErrorHandlerModal } from "../../../Errors/ErrorHandlerModal";
 
 export default function InfoContainer(props) {
   const { t } = useTranslation();
@@ -24,14 +24,14 @@ export default function InfoContainer(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        setInfoState({
-          ...infoState,
+        props.setInfoState({
+          ...props.infoState,
           error: e,
         });
       },
       onSuccess: (data) => {
-        setInfoState({
-          ...infoState,
+        props.setInfoState({
+          ...props.infoState,
           users: data.users,
           categories: data.categories,
           audiobooks: data.audiobooks,
@@ -44,10 +44,10 @@ export default function InfoContainer(props) {
   );
 
   useEffect(() => {
-    if (infoState.error != null) {
-      throw infoState.error;
+    if (props.infoState.error != null) {
+      throw props.infoState.error;
     }
-  }, [infoState.error]);
+  }, [props.infoState.error]);
 
   return (
     <div className="container-fluid main-container mt-3">
@@ -62,24 +62,24 @@ export default function InfoContainer(props) {
 
             <div className="p-3 text-light">{t("currentApp")}</div>
             <div className="p-3 text-light">
-              {t("categories")} :{infoState.categories}
+              {t("categories")} :{props.infoState.categories}
             </div>
             <div className="p-3 text-light">
-              {t("audiobooks")} :{infoState.audiobooks}
+              {t("audiobooks")} :{props.infoState.audiobooks}
             </div>
             <div className="p-3 text-light">
-              {t("users")} :{infoState.users}
+              {t("users")} :{props.infoState.users}
             </div>
 
             <div className="p-3 text-light">{t("lastWeek")}</div>
             <div className="p-3 text-light">
-              {t("registered")} {infoState.lastWeekRegistered} {t("smallUsers")}
+              {t("registered")} {props.infoState.lastWeekRegistered} {t("smallUsers")}
             </div>
             <div className="p-3 text-light">
-              {t("loggedIn")} {infoState.lastWeekLogins}
+              {t("loggedIn")} {props.infoState.lastWeekLogins}
             </div>
             <div className="p-3 text-light">
-              {t("wasCreated")} {infoState.lastWeekNotifications}{" "}
+              {t("wasCreated")} {props.infoState.lastWeekNotifications}{" "}
               {t("smallNotifications")}
             </div>
           </div>
