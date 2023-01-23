@@ -5,7 +5,6 @@ import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import InfoContainer from "./components/InfoContainer";
 
 export default function AdminMain() {
-
   const token = useTokenStore((state) => state.token);
 
   const [infoState, setInfoState] = useState({
@@ -28,7 +27,11 @@ export default function AdminMain() {
         });
       }}
     >
-      <InfoContainer infoState={infoState} setInfoState={setInfoState} token={token} />
+      <InfoContainer
+        infoState={infoState}
+        setInfoState={setInfoState}
+        token={token}
+      />
     </ErrorBoundary>
   );
 }

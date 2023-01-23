@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { AdminNavBar } from "../../../components/AdminNavBar";
-import { useTokenStore } from "../../../store";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../../components/HandleFetch";
 import { useTranslation } from "react-i18next";
-import { ErrorBoundary } from "react-error-boundary";
-import { ErrorHandlerModal } from "../../../Errors/ErrorHandlerModal";
 
 export default function InfoContainer(props) {
   const { t } = useTranslation();
@@ -73,7 +70,8 @@ export default function InfoContainer(props) {
 
             <div className="p-3 text-light">{t("lastWeek")}</div>
             <div className="p-3 text-light">
-              {t("registered")} {props.infoState.lastWeekRegistered} {t("smallUsers")}
+              {t("registered")} {props.infoState.lastWeekRegistered}{" "}
+              {t("smallUsers")}
             </div>
             <div className="p-3 text-light">
               {t("loggedIn")} {props.infoState.lastWeekLogins}
