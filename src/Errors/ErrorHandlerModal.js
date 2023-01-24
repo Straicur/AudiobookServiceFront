@@ -2,17 +2,29 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useTokenStore } from "../store";
 
 export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
   const { t } = useTranslation();
+
+  const tokenStore = useTokenStore();
+  const navigate = useNavigate();
 
   const [state, setState] = useState({
     message: "",
     data: [],
     show: true,
+    notAuthenticated: false,
   });
 
   const handleClose = () => setState({ ...state, show: !state.show });
+
+  function logout() {
+    tokenStore.removeToken();
+
+    navigate("/login");
+  }
 
   function reloadFunction() {
     window.location.reload(false);
@@ -42,7 +54,7 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
         setState({ ...state, data: error.data, message: error.message });
         break;
       case "AuthenticationError":
-        setState({ ...state, message: error.message });
+        setState({ ...state, message: error.message, notAuthenticated: true });
         break;
       default: {
         setState({ ...state, message: t("systemError") });
@@ -63,7 +75,11 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
         <Button
           variant="dark"
           onClick={
-            resetErrorBoundary != null ? resetErrorBoundary : reloadFunction()
+            state.notAuthenticated
+              ? logout()
+              : resetErrorBoundary != null
+              ? resetErrorBoundary
+              : reloadFunction()
           }
         >
           {t("accept")}
