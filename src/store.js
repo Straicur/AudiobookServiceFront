@@ -5,7 +5,7 @@ import { HandleFetch } from "./components/HandleFetch";
 let tokenStore = (set) => ({
   token: "",
   roles: [],
-  setToken: (jsonData,state,setState) => {
+  setToken: (jsonData, state, setState) => {
     HandleFetch("http://127.0.0.1:8000/api/authorize", "POST", jsonData)
       .then((data) => {
         set(() => ({
@@ -20,10 +20,27 @@ let tokenStore = (set) => ({
         });
       });
   },
-  removeToken: () => set(() => ({
-    token: "",
-    roles: [],
-  })),
+  removeToken: () =>
+    set(() => ({
+      token: "",
+      roles: [],
+    })),
+});
+
+let categoryListStore = (set) => ({
+  categories: [],
+  dateUpdate: 0,
+  addCategory: (category) => {
+    set((state) => ({
+      categories: [...state.categories, category],
+      dateUpdate: Date.now(),
+    }));
+  },
+  removeCategories: () =>
+    set(() => ({
+      categories: [],
+      dateUpdate: 0,
+    })),
 });
 
 let audiobookListStore = (set) => ({
