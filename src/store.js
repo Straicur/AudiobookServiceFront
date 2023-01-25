@@ -55,7 +55,11 @@ let audiobookListStore = (set) => ({
 tokenStore = devtools(tokenStore);
 tokenStore = persist(tokenStore, { name: "auth_token" });
 
+categoryListStore = devtools(categoryListStore);
+categoryListStore = persist(categoryListStore, { name: "categories" });
+
 audiobookListStore = devtools(audiobookListStore);
 
 export const useTokenStore = create(tokenStore);
+export const useCategoryListStore = create(categoryListStore);
 export const useAudiobookListStore = create(audiobookListStore);
