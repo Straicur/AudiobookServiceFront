@@ -33,7 +33,7 @@ let categoryListStore = (set) => ({
   addCategory: (category) => {
     set((state) => ({
       categories: [...state.categories, category],
-      dateUpdate: Date.now(),
+      dateUpdate: Date.now() + 1800000,
     }));
   },
   removeCategories: () =>
