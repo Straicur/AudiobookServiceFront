@@ -70,7 +70,7 @@ export default function CategoriesList(props) {
 
   return (
     <div className="container-fluid main-container mt-3">
-      <div className="card position-relative p-3 mb-5  bg-dark shadow">
+      <div className="card position-relative p-3 mb-5  shadow">
         <AdminNavBar />
 
         <hr className="line" />
