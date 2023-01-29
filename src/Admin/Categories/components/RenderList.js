@@ -7,7 +7,7 @@ export default function RenderList(props) {
     let kids = [];
 
     recursiveTree(props.categories, renderArray, kids, null);
-    // console.log(kids);
+
     return renderArray;
   };
 
@@ -32,10 +32,11 @@ export default function RenderList(props) {
       let children = [];
 
       child.push = element;
-      // console.log(element);
-      //todo tu zostaje mi do rozkminy jak to ifami zrobić
-      // Po tym jak będzie dobrze się renderować muszę ogarnąć reRender
-      // I na koniec zostaje mi zrobienie krawdziwego drzewa z rozwijaniem tych okienek
+
+      // Todo  refactor kodu na trochę bardzie poukładany
+      // Po tym jak będzie dobrze się renderować muszę ogarnąć reRender (za dużo razy się odświerza)
+      // I na koniec zostaje mi zrobienie prawdziwego drzewa z rozwijaniem tych okienek
+
       if (element["children"].length != 0) {
         let cos = recursiveTree(
           element["children"],
@@ -63,10 +64,8 @@ export default function RenderList(props) {
             children.push(iterator);
           }
         }
-        
-        if (
-          element.parentCategoryKey == null
-        ) {
+
+        if (element.parentCategoryKey == null) {
           renderArray.push(listParent(element, children));
         } else {
           let val = [listParent(element, children)];
@@ -76,38 +75,16 @@ export default function RenderList(props) {
             kids[parent.id] = val;
           }
         }
-      }
-      else{
-        if (
-          element.parentCategoryKey == null
-        ) {
+        s;
+      } else {
+        if (element.parentCategoryKey == null) {
           renderArray.push(listParent(element, children));
         }
       }
-      console.log(element)
+
       ar.push(child);
     }
     return ar;
-
-    // let elArray= [];
-    // for(const [index, element] of array.entries()) {
-
-    //     let elementList = [];
-    //     if(element["children"].length != 0){
-    //       console.log("cs")
-    //         let cos = recursiveTree(element["children"])
-    //         for(const [index, value] of cos.entries()){
-    //           // elementList[index] = React.createElement("li",{},elementList)
-    //           let childList = <ul></ul>
-    //           console.log(value)
-    //           // element.appendChild()child["parent"]["child"] = value;
-    //         }
-    //     }
-
-    //   // let el = React.createElement("li",{},elementList);
-    //   // elArray[index] = el;
-    // };
-    // return elArray;
   }
 
   return (
