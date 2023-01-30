@@ -75,7 +75,7 @@ export default function RenderList(props) {
             kids[parent.id] = val;
           }
         }
-        s;
+        
       } else {
         if (element.parentCategoryKey == null) {
           renderArray.push(listParent(element, children));
