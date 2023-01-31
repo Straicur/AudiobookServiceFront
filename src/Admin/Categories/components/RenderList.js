@@ -13,10 +13,10 @@ export default function RenderList(props) {
 
   function listParent(parent, child) {
     return (
-      <ul>
+      <li>
         {parent.name}
-        {child}
-      </ul>
+        <ul>{child}</ul>
+      </li>
     );
   }
 
@@ -25,38 +25,40 @@ export default function RenderList(props) {
   }
 
   function recursiveTree(array, renderArray, kids, parent = null) {
-    let ar = [];
+    let returnArray = [];
 
     for (const element of array) {
-      let child = [];
+      let elementArray = [];
       let children = [];
 
-      child.push = element;
+      elementArray.push = element;
 
-      // Todo  refactor kodu na trochę bardzie poukładany
+      // Todo  refactor kodu na trochę bardziej poukładany
       // Po tym jak będzie dobrze się renderować muszę ogarnąć reRender (za dużo razy się odświerza)
       // I na koniec zostaje mi zrobienie prawdziwego drzewa z rozwijaniem tych okienek
 
       if (element["children"].length != 0) {
-        let cos = recursiveTree(
+        let returnedChildren = recursiveTree(
           element["children"],
           renderArray,
           kids,
           element
         );
-        for (const [index, value] of cos.entries()) {
-          let val = [createListElement(value.push)];
+
+        for (const value of returnedChildren) {
+          let childElement = [createListElement(value.push)];
+
           if (kids[element.id] != undefined) {
             let ul = kids[element.id].filter((x) => x.type == "ul");
 
             if (!ul.some((cat) => cat.props.children[0] == value.push.name)) {
-              kids[element.id] = kids[element.id].concat(val);
+              kids[element.id] = kids[element.id].concat(childElement);
             }
           } else {
-            kids[element.id] = val;
+            kids[element.id] = childElement;
           }
 
-          child["child"] = value;
+          elementArray["child"] = value;
         }
 
         if (Object.keys(kids).some((key) => key == element.id)) {
@@ -68,23 +70,22 @@ export default function RenderList(props) {
         if (element.parentCategoryKey == null) {
           renderArray.push(listParent(element, children));
         } else {
-          let val = [listParent(element, children)];
+          let parentElement = [listParent(element, children)];
+
           if (kids[parent.id] != undefined) {
-            kids[parent.id] = kids[parent.id].concat(val);
+            kids[parent.id] = kids[parent.id].concat(parentElement);
           } else {
-            kids[parent.id] = val;
+            kids[parent.id] = parentElement;
           }
         }
-        
       } else {
         if (element.parentCategoryKey == null) {
           renderArray.push(listParent(element, children));
         }
       }
-
-      ar.push(child);
+      returnArray.push(elementArray);
     }
-    return ar;
+    return returnArray;
   }
 
   return (

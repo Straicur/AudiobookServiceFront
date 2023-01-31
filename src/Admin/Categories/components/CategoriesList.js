@@ -39,7 +39,6 @@ export default function CategoriesList(props) {
       refetchOnWindowFocus: false,
       onError: (e) => {},
       onSuccess: (data) => {
-        console.log(data.categories)
         if (dateUpdate < Date.now()) {
           categoriesStore.removeCategories();
 
