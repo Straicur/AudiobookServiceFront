@@ -10,8 +10,8 @@ export default function RenderList(props) {
 
     return renderArray;
   };
-
-  function oparateParentList(element){
+  const oparateParentList=element=>{
+    element.stopPropagation();
     if(element.target.attributes['data-clicable'].value == "true"){
       openParentList(element)
     }
@@ -19,9 +19,12 @@ export default function RenderList(props) {
       closeParentList(element)
     }
   }
+
   function openParentList(element){
     let children = element.target.children;
- 
+
+    element.target.attributes['data-clicable'].value = "false";
+
     for (const element of children) {
 
       if(element.nodeName == "UL")
@@ -33,14 +36,25 @@ export default function RenderList(props) {
     }
   }
 
-  function closeParentList(){
-    console.log("dsa")
+  function closeParentList(element){
+    let children = element.target.children;
+
+    element.target.attributes['data-clicable'].value = "true";
+
+    for (const element of children) {
+
+      if(element.nodeName == "UL")
+      {
+        for (const el of element.children) {
+          el.classList.add("d-none");
+        }
+      }
+    }
   }
 
   function listParent(element, child, parent) {
-    
     return (
-      <li className={parent == null? "visible" : "d-none"} onClick={child.length > 0 ?(e)=>oparateParentList(e):undefined} data-clicable = {true}>
+      <li className={parent == null? "visible" : "d-none"} onClick={child.length > 0 ? oparateParentList : undefined} data-clicable = {true}>
         {child.length > 0 ? <i className="bi bi-arrow-down-square" >{element.name}</i>:element.name}
         <ul>{child}</ul>
       </li>
