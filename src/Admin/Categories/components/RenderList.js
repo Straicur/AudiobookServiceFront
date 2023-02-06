@@ -11,17 +11,44 @@ export default function RenderList(props) {
     return renderArray;
   };
 
-  function listParent(parent, child) {
+  function oparateParentList(element){
+    if(element.target.attributes['data-clicable'].value == "true"){
+      openParentList(element)
+    }
+    else{
+      closeParentList(element)
+    }
+  }
+  function openParentList(element){
+    let children = element.target.children;
+ 
+    for (const element of children) {
+
+      if(element.nodeName == "UL")
+      {
+        for (const el of element.children) {
+          el.classList.remove("d-none");
+        }
+      }
+    }
+  }
+
+  function closeParentList(){
+    console.log("dsa")
+  }
+
+  function listParent(element, child, parent) {
+    
     return (
-      <li>
-        {parent.name}
+      <li className={parent == null? "visible" : "d-none"} onClick={child.length > 0 ?(e)=>oparateParentList(e):undefined} data-clicable = {true}>
+        {child.length > 0 ? <i className="bi bi-arrow-down-square" >{element.name}</i>:element.name}
         <ul>{child}</ul>
       </li>
     );
   }
 
   function createListElement(element) {
-    return <li id={element.id}>{element.name}</li>;
+    return <li className="d-none" id={element.id}>{element.name}</li>;
   }
 
   function recursiveTree(array, renderArray, kids, parent = null) {
@@ -68,9 +95,9 @@ export default function RenderList(props) {
         }
 
         if (element.parentCategoryKey == null) {
-          renderArray.push(listParent(element, children));
+          renderArray.push(listParent(element, children, parent));
         } else {
-          let parentElement = [listParent(element, children)];
+          let parentElement = [listParent(element, children, parent)];
 
           if (kids[parent.id] != undefined) {
             kids[parent.id] = kids[parent.id].concat(parentElement);
@@ -80,7 +107,7 @@ export default function RenderList(props) {
         }
       } else {
         if (element.parentCategoryKey == null) {
-          renderArray.push(listParent(element, children));
+          renderArray.push(listParent(element, children, parent));
         }
       }
       returnArray.push(elementArray);
