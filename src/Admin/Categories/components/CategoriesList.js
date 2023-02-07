@@ -39,33 +39,18 @@ export default function CategoriesList(props) {
       refetchOnWindowFocus: false,
       onError: (e) => {},
       onSuccess: (data) => {
+        console.log(data)
         if (dateUpdate < Date.now()) {
           categoriesStore.removeCategories();
 
           for (const category of data.categories) {
+        
             categoriesStore.addCategory(category);
           }
         }
       },
     }
   );
-
-  //   function recursiveTree(array) {
-  //     let ar = [];
-  //     for(const element of array) {
-  //         let child = [];
-  //         // console.log(element)
-  //         child["parent"] = element;
-  //         if(element["children"].length != 0){
-  //             let cos = recursiveTree(element["children"])
-  //             for(const [index, value] of cos.entries()){
-  //                 child["parent"]["child"] = value.name;
-  //             }
-  //         }
-  //         ar.push(child)
-  //     };
-  //     return ar;
-  //   }
 
   return (
     <div className="container-fluid main-container mt-3">

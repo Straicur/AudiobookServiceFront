@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function RenderList(props) {
   // https://codesandbox.io/s/13mxj2w2j7?file=/src/js/Account/TreeView.js
@@ -10,43 +11,55 @@ export default function RenderList(props) {
 
     return renderArray;
   };
-  const oparateParentList=element=>{
-    element.stopPropagation();
-    if(element.target.attributes['data-clicable'].value == "true"){
-      openParentList(element)
+  const oparateParentList = (element) => {
+    if (element.currentTarget == element.target) {
+      if (element.target.attributes["data-clicable"].value == "true") {
+        openParentList(element);
+      } else {
+        closeParentList(element);
+      }
     }
-    else{
-      closeParentList(element)
-    }
-  }
+  };
 
-  function openParentList(element){
+  function openParentList(element) {
     let children = element.target.children;
 
-    element.target.attributes['data-clicable'].value = "false";
+    element.target.attributes["data-clicable"].value = "false";
 
     for (const element of children) {
-
-      if(element.nodeName == "UL")
-      {
+      if (element.nodeName == "UL") {
         for (const el of element.children) {
           el.classList.remove("d-none");
+        }
+      }
+      if (element.nodeName == "DIV") {
+        for (const el of element.children) {
+          if (el.nodeName == "I") {
+            el.classList.remove("bi-arrow-right-square");
+            el.classList.add("bi-arrow-down-square");
+          }
         }
       }
     }
   }
 
-  function closeParentList(element){
+  function closeParentList(element) {
     let children = element.target.children;
 
-    element.target.attributes['data-clicable'].value = "true";
+    element.target.attributes["data-clicable"].value = "true";
 
     for (const element of children) {
-
-      if(element.nodeName == "UL")
-      {
+      if (element.nodeName == "UL") {
         for (const el of element.children) {
           el.classList.add("d-none");
+        }
+      }
+      if (element.nodeName == "DIV") {
+        for (const el of element.children) {
+          if (el.nodeName == "I") {
+            el.classList.remove("bi-arrow-down-square");
+            el.classList.add("bi-arrow-right-square");
+          }
         }
       }
     }
@@ -54,15 +67,55 @@ export default function RenderList(props) {
 
   function listParent(element, child, parent) {
     return (
-      <li className={parent == null? "visible" : "d-none"} onClick={child.length > 0 ? oparateParentList : undefined} data-clicable = {true}>
-        {child.length > 0 ? <i className="bi bi-arrow-down-square" >{element.name}</i>:element.name}
-        <ul>{child}</ul>
+      <li
+        key={uuidv4()}
+        className={parent == null ? "visible border mb-2" : "d-none"}
+        onClick={child.length > 0 ? oparateParentList : undefined}
+        data-clicable={true}
+      >
+        <div className="d-flex flex-row bd-highlight mb-2">
+          {child.length > 0 ? (
+            <i className="bi bi-arrow-right-square"></i>
+          ) : (
+            <div className="p-2 bd-highlight"></div>
+          )}
+          <div className="p-2 bd-highlight"> {element.name}</div>
+          <div className="p-2 bd-highlight">
+            {" "}
+            {element.active ? (
+              <i className="bi bi-bookmark-check-fill"></i>
+            ) : (
+              <i className="bi bi-bookmark-dash"></i>
+            )}
+          </div>
+          <div className="p-2 bd-highlight"> {element.categoryKey}</div>
+          <div className="p-2 bd-highlight"> {element.children.length}</div>
+        </div>
+        <ul className="mb-2">{child}</ul>
       </li>
     );
   }
-
+  //todo tłumaczenia dodaj do tych kolumn, buttony odpowiednio i napraw te klikanie bo nie idzie tego używać 
   function createListElement(element) {
-    return <li className="d-none" id={element.id}>{element.name}</li>;
+    return (
+      <li
+        key={uuidv4()}
+        className="d-none p-2 d-flex  flex-row  bd-highlight border mb-2"
+        id={element.id}
+      >
+        <div className="p-2 bd-highlight"> {element.name}</div>
+        <div className="p-2 bd-highlight">
+          {" "}
+          {element.active ? (
+            <i className="bi bi-bookmark-check-fill"></i>
+          ) : (
+            <i className="bi bi-bookmark-dash"></i>
+          )}
+        </div>
+        <div className="p-2 bd-highlight"> {element.categoryKey}</div>
+        <div className="p-2 bd-highlight"> {element.children.length}</div>
+      </li>
+    );
   }
 
   function recursiveTree(array, renderArray, kids, parent = null) {
