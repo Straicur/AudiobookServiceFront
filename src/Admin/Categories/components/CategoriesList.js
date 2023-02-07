@@ -39,12 +39,10 @@ export default function CategoriesList(props) {
       refetchOnWindowFocus: false,
       onError: (e) => {},
       onSuccess: (data) => {
-        console.log(data)
         if (dateUpdate < Date.now()) {
           categoriesStore.removeCategories();
 
           for (const category of data.categories) {
-        
             categoriesStore.addCategory(category);
           }
         }
@@ -72,7 +70,7 @@ export default function CategoriesList(props) {
             </thead>
             <tbody> {createTable()} </tbody>
           </table>
-        </div>
+        </div> */}
         <div className="row">
           <div className="col">
             <Button
@@ -82,7 +80,7 @@ export default function CategoriesList(props) {
               className=" btn button mt-2"
               // onClick={()=>setSetState({...state,modalShow:(!state.modalShow)})}
             >
-               + {t('AddSetButton')}
+               + {t('addCategory')}
             </Button>
           </div>
           <div className="col">
@@ -93,12 +91,12 @@ export default function CategoriesList(props) {
               className=" btn button mt-2"
               // onClick={()=>setJsonModal(!jsonModal)}
             >
-               {t('SetJson')} 
+               {t('categoryJson')} 
             </Button>
           </div>
-           {(state.redirect && state.redirect !== undefined && state.redirectTo && state.redirectTo !== undefined)?<Redirect to={state.redirectTo} />:null} 
+           {/* {(state.redirect && state.redirect !== undefined && state.redirectTo && state.redirectTo !== undefined)?<Redirect to={state.redirectTo} />:null}  */}
         </div> 
-        */}
+       
       </div>
     </div>
   );

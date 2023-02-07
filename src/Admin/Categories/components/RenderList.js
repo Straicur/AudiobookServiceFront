@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Button from "react-bootstrap/Button";
 
 export default function RenderList(props) {
   // https://codesandbox.io/s/13mxj2w2j7?file=/src/js/Account/TreeView.js
@@ -69,16 +70,89 @@ export default function RenderList(props) {
     return (
       <li
         key={uuidv4()}
-        className={parent == null ? "visible border mb-2" : "d-none"}
+        className={
+          parent == null
+            ? "visible border mb-2 list-group-item p-1"
+            : "d-none border mb-2 list-group-item"
+        }
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
       >
         <div className="d-flex flex-row bd-highlight mb-2">
           {child.length > 0 ? (
-            <i className="bi bi-arrow-right-square"></i>
+            <i className="p-2 bi bi-arrow-right-square "></i>
           ) : (
             <div className="p-2 bd-highlight"></div>
           )}
+          <div className="p-2 bd-highlight">
+            {" "}
+            <h5>{props.t("categoryName")}</h5>
+          </div>
+          <div className="p-2 bd-highlight"> {element.name}</div>
+          <div className="p-2 bd-highlight">
+            {" "}
+            <h5>{props.t("categoryActive")}</h5>
+          </div>
+          <div className="p-2 bd-highlight">
+            {element.active ? (
+              <i className="bi bi-bookmark-check-fill"></i>
+            ) : (
+              <i className="bi bi-bookmark-dash"></i>
+            )}
+          </div>
+          <div className="p-2 bd-highlight">
+            {" "}
+            <h5>{props.t("categoryKey")}</h5>
+          </div>
+          <div className="p-2 bd-highlight"> {element.categoryKey}</div>
+          <div className="p-2 bd-highlight">
+            {" "}
+            <h5>{props.t("categoryChilds")}</h5>
+          </div>
+          <div className="p-2 bd-highlight"> {element.children.length}</div>
+          <div className="p-2 bd-highlight"> 
+          <Button
+            name="en"
+            variant="dark"
+            size="lg"
+            className="btn button"
+            // onClick={()=>setUserState({
+            //     ...userState,
+            //     changeLang:"en"
+            // })}
+          >
+            {props.t("edit")}
+          </Button>
+          </div>
+          <div className="p-2 bd-highlight"> 
+          <Button
+            name="en"
+            variant="dark"
+            size="lg"
+            className="btn button"
+            // onClick={()=>setUserState({
+            //     ...userState,
+            //     changeLang:"en"
+            // })}
+          >
+            {props.t("audiobooks")}
+          </Button>
+             
+        </div>
+        </div>
+        <ul className="list-group">{child}</ul>
+      </li>
+    );
+  }
+  //todo tłumaczenia dodaj do tych kolumn, buttony odpowiednio i napraw te klikanie bo nie idzie tego używać
+  function createListElement(element) {
+    return (
+      <li
+        key={uuidv4()}
+        className="d-none p-2 border list-group-item"
+        id={element.id}
+      >
+        <div className="d-flex flex-row bd-highlight mb-2">
           <div className="p-2 bd-highlight"> {element.name}</div>
           <div className="p-2 bd-highlight">
             {" "}
@@ -91,29 +165,6 @@ export default function RenderList(props) {
           <div className="p-2 bd-highlight"> {element.categoryKey}</div>
           <div className="p-2 bd-highlight"> {element.children.length}</div>
         </div>
-        <ul className="mb-2">{child}</ul>
-      </li>
-    );
-  }
-  //todo tłumaczenia dodaj do tych kolumn, buttony odpowiednio i napraw te klikanie bo nie idzie tego używać 
-  function createListElement(element) {
-    return (
-      <li
-        key={uuidv4()}
-        className="d-none p-2 d-flex  flex-row  bd-highlight border mb-2"
-        id={element.id}
-      >
-        <div className="p-2 bd-highlight"> {element.name}</div>
-        <div className="p-2 bd-highlight">
-          {" "}
-          {element.active ? (
-            <i className="bi bi-bookmark-check-fill"></i>
-          ) : (
-            <i className="bi bi-bookmark-dash"></i>
-          )}
-        </div>
-        <div className="p-2 bd-highlight"> {element.categoryKey}</div>
-        <div className="p-2 bd-highlight"> {element.children.length}</div>
       </li>
     );
   }
@@ -184,7 +235,7 @@ export default function RenderList(props) {
 
   return (
     <div>
-      <ul>{createTableTitles()}</ul>
+      <ul className="list-group">{createTableTitles()}</ul>
     </div>
   );
 }

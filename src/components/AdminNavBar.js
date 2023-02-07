@@ -32,7 +32,7 @@ export const AdminNavBar = () => {
           variant="dark"
           size="lg"
           color="dark"
-          className=" btn button  mt-2"
+          className=" btn button mt-2 mx-2"
           onClick={() => navigate("/admin")}
         >
           {t("mainPage")}
@@ -41,7 +41,7 @@ export const AdminNavBar = () => {
           variant="dark"
           size="lg"
           color="dark"
-          className=" btn button  mt-2"
+          className=" btn button mt-2 mx-2"
           onClick={() => navigate("/admin/categories")}
         >
           {t("categories")}
@@ -50,7 +50,7 @@ export const AdminNavBar = () => {
           variant="dark"
           size="lg"
           color="dark"
-          className=" btn button  mt-2"
+          className=" btn button mt-2 mx-2"
           onClick={() => navigate("/admin/audiobooks")}
         >
           {t("audiobooks")}
@@ -59,7 +59,7 @@ export const AdminNavBar = () => {
           variant="dark"
           size="lg"
           color="dark"
-          className=" btn button  mt-2"
+          className=" btn button mt-2 mx-2"
           onClick={() => navigate("/admin/users")}
         >
           {t("users")}
@@ -68,7 +68,7 @@ export const AdminNavBar = () => {
           variant="dark"
           size="lg"
           color="dark"
-          className=" btn button  mt-2"
+          className=" btn button mt-2 mx-2"
           onClick={() => navigate("/admin/notifications")}
         >
           {t("notifications")}
