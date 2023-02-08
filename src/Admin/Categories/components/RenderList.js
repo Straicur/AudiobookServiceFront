@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function RenderList(props) {
   // https://codesandbox.io/s/13mxj2w2j7?file=/src/js/Account/TreeView.js
+
+  const navigate = useNavigate();
+
   const createTableTitles = () => {
     let renderArray = [];
     let kids = [];
@@ -85,13 +89,11 @@ export default function RenderList(props) {
             <div className="p-2 bd-highlight"></div>
           )}
           <div className="p-2 bd-highlight">
-            {" "}
-            <h5>{props.t("categoryName")}</h5>
+            <h5>{props.t("categoryName")}:</h5>
           </div>
           <div className="p-2 bd-highlight"> {element.name}</div>
           <div className="p-2 bd-highlight">
-            {" "}
-            <h5>{props.t("categoryActive")}</h5>
+            <h5>{props.t("categoryActive")}:</h5>
           </div>
           <div className="p-2 bd-highlight">
             {element.active ? (
@@ -101,44 +103,38 @@ export default function RenderList(props) {
             )}
           </div>
           <div className="p-2 bd-highlight">
-            {" "}
-            <h5>{props.t("categoryKey")}</h5>
+            <h5>{props.t("categoryKey")}:</h5>
           </div>
           <div className="p-2 bd-highlight"> {element.categoryKey}</div>
           <div className="p-2 bd-highlight">
-            {" "}
-            <h5>{props.t("categoryChilds")}</h5>
+            <h5>{props.t("categoryChilds")}:</h5>
           </div>
           <div className="p-2 bd-highlight"> {element.children.length}</div>
-          <div className="p-2 bd-highlight"> 
-          <Button
-            name="en"
-            variant="dark"
-            size="lg"
-            className="btn button"
-            // onClick={()=>setUserState({
-            //     ...userState,
-            //     changeLang:"en"
-            // })}
-          >
-            {props.t("edit")}
-          </Button>
+          <div className="p-2 bd-highlight">
+            <Button
+              name="en"
+              variant="dark"
+              size="lg"
+              className="btn button"
+              // onClick={}
+              // Tu ustawiam state żeby pokazać modal
+            >
+              {props.t("edit")}
+            </Button>
           </div>
-          <div className="p-2 bd-highlight"> 
-          <Button
-            name="en"
-            variant="dark"
-            size="lg"
-            className="btn button"
-            // onClick={()=>setUserState({
-            //     ...userState,
-            //     changeLang:"en"
-            // })}
-          >
-            {props.t("audiobooks")}
-          </Button>
-             
-        </div>
+          <div className="p-2 bd-highlight">
+            <Button
+              name="en"
+              variant="dark"
+              size="lg"
+              className="btn button"
+              onClick={() => {
+                navigate(`/admin/category/${element.categoryKey}`);
+              }}
+            >
+              {props.t("audiobooks")}
+            </Button>
+          </div>
         </div>
         <ul className="list-group">{child}</ul>
       </li>
@@ -153,16 +149,27 @@ export default function RenderList(props) {
         id={element.id}
       >
         <div className="d-flex flex-row bd-highlight mb-2">
+          <div className="p-2 bd-highlight">
+            <h5>{props.t("categoryName")}:</h5>
+          </div>
           <div className="p-2 bd-highlight"> {element.name}</div>
           <div className="p-2 bd-highlight">
-            {" "}
+            <h5>{props.t("categoryActive")}:</h5>
+          </div>
+          <div className="p-2 bd-highlight">
             {element.active ? (
               <i className="bi bi-bookmark-check-fill"></i>
             ) : (
               <i className="bi bi-bookmark-dash"></i>
             )}
           </div>
+          <div className="p-2 bd-highlight">
+            <h5>{props.t("categoryKey")}:</h5>
+          </div>
           <div className="p-2 bd-highlight"> {element.categoryKey}</div>
+          <div className="p-2 bd-highlight">
+            <h5>{props.t("categoryChilds")}:</h5>
+          </div>
           <div className="p-2 bd-highlight"> {element.children.length}</div>
         </div>
       </li>

@@ -1,28 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AdminNavBar } from "../../../components/AdminNavBar";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../../components/HandleFetch";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import Accordion from "react-bootstrap/Accordion";
 import { useCategoryListStore } from "../../../store";
 import RenderList from "../components/RenderList";
-import { AES } from "crypto-js";
+import JsonModal from "../../../components/JsonModal";
+import AddCategoryModal from "../components/AddCategoryModal";
 
 export default function CategoriesList(props) {
   const { t } = useTranslation();
+
+  const [state, setState] = useState({
+    jsonModal: false,
+    addCategoryModal: false,
+    isButtonDisabled: true,
+    error: null,
+  });
 
   const categoriesStore = useCategoryListStore();
 
   const categories = useCategoryListStore((state) => state.categories);
   const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
-
-  const navigate = useNavigate();
-
-  function viewDetails(categoryKey) {
-    navigate("/admin/category/".categoryKey);
-  }
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     "data",
@@ -54,23 +54,9 @@ export default function CategoriesList(props) {
     <div className="container-fluid main-container mt-3">
       <div className="card position-relative p-3 mb-5  shadow">
         <AdminNavBar />
-
         <hr className="line" />
-
         <div className="table-title">{/* <h2>{t('SetsTitle')}</h2> */}</div>
         <RenderList categories={categories} t={t} />
-        {/* <div>
-          <table className="table">
-            <thead>
-              <tr>
-                 {createTableTitles()}
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody> {createTable()} </tbody>
-          </table>
-        </div> */}
         <div className="row">
           <div className="col">
             <Button
@@ -78,9 +64,14 @@ export default function CategoriesList(props) {
               size="lg"
               color="dark"
               className=" btn button mt-2"
-              // onClick={()=>setSetState({...state,modalShow:(!state.modalShow)})}
+              onClick={() =>
+                setState({
+                  ...state,
+                  addCategoryModal: !state.addCategoryModal,
+                })
+              }
             >
-               + {t('addCategory')}
+              + {t("addCategory")}
             </Button>
           </div>
           <div className="col">
@@ -89,14 +80,24 @@ export default function CategoriesList(props) {
               size="lg"
               color="dark"
               className=" btn button mt-2"
-              // onClick={()=>setJsonModal(!jsonModal)}
+              onClick={() =>
+                setState({ ...state, jsonModal: !state.jsonModal })
+              }
             >
-               {t('categoryJson')} 
+              {t("categoryJson")}
             </Button>
           </div>
-           {/* {(state.redirect && state.redirect !== undefined && state.redirectTo && state.redirectTo !== undefined)?<Redirect to={state.redirectTo} />:null}  */}
-        </div> 
-       
+          {state.jsonModal ? (
+            <JsonModal
+              state={state}
+              setState={setState}
+              json={categoriesStore.categories}
+            />
+          ) : null}
+          {state.addCategoryModal ? (
+            <AddCategoryModal state={state} setState={setState} />
+          ) : null}
+        </div>
       </div>
     </div>
   );
