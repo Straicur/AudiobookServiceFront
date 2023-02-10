@@ -59,5 +59,12 @@
     "enterValidConfirmPassword": "Enter valid confirm password",
     "enterValidPhoneNumber": "Enter valid phone number",
     "enterValidFirstName": "Enter valid firstname",
-    "enterValidLastName": "Enter valid lastname"
+    "enterValidLastName": "Enter valid lastname",
+    "categoryName":"Name",
+    "categoryKey":"Key",
+    "categoryChilds":"Childs",
+    "categoryActive":"Active",
+    "edit":"Edit",
+    "addCategory":"Add category",
+    "categoryJson":"Category Json"
 }

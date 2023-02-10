@@ -59,5 +59,12 @@
     "enterValidConfirmPassword": "Zweryfikuj hasło",
     "enterValidPhoneNumber": "Podaj poprawny numer telefonu",
     "enterValidFirstName": "Podaj poprawne imię",
-    "enterValidLastName": "Podaj poprawne nazwisko"
+    "enterValidLastName": "Podaj poprawne nazwisko",
+    "categoryName":"Nazwa",
+    "categoryKey":"Klucz",
+    "categoryChilds":"Dzieci",
+    "categoryActive":"Aktywny",
+    "edit":"Edytuj",
+    "addCategory":"Dodaj kategorię",
+    "categoryJson":"Json kategori"
 }
