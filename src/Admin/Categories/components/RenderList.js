@@ -76,8 +76,8 @@ export default function RenderList(props) {
         key={uuidv4()}
         className={
           parent == null
-            ? "visible border mb-2 list-group-item p-1"
-            : "d-none border mb-2 list-group-item"
+            ? "visible border border-4 border-secondary list-group-item"
+            : "d-none border list-group-item"
         }
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
@@ -136,11 +136,12 @@ export default function RenderList(props) {
             </Button>
           </div>
         </div>
-        <ul className="list-group">{child}</ul>
+        <ul className="list-group" data-name={element.name}>{child}</ul>
       </li>
     );
   }
   //todo tłumaczenia dodaj do tych kolumn, buttony odpowiednio i napraw te klikanie bo nie idzie tego używać
+  
   function createListElement(element) {
     return (
       <li
@@ -185,10 +186,6 @@ export default function RenderList(props) {
 
       elementArray.push = element;
 
-      // Todo  refactor kodu na trochę bardziej poukładany
-      // Po tym jak będzie dobrze się renderować muszę ogarnąć reRender (za dużo razy się odświerza)
-      // I na koniec zostaje mi zrobienie prawdziwego drzewa z rozwijaniem tych okienek
-
       if (element["children"].length != 0) {
         let returnedChildren = recursiveTree(
           element["children"],
@@ -201,9 +198,10 @@ export default function RenderList(props) {
           let childElement = [createListElement(value.push)];
 
           if (kids[element.id] != undefined) {
-            let ul = kids[element.id].filter((x) => x.type == "ul");
+            let ul = kids[element.id].filter((x) => x.type == "li");
 
-            if (!ul.some((cat) => cat.props.children[0] == value.push.name)) {
+            if (!ul.some((cat) => cat.props.children[1] != undefined?cat.props.children[1].props["data-name"] == value.push.name:false)
+            ) {
               kids[element.id] = kids[element.id].concat(childElement);
             }
           } else {
