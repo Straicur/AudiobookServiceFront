@@ -110,7 +110,7 @@ export default function RenderList(props) {
             <h5>{props.t("categoryChilds")}:</h5>
           </div>
           <div className="p-2 bd-highlight"> {element.children.length}</div>
-          <div className="p-2 bd-highlight">
+         <div className="p-2 bd-highlight">
             <Button
               name="en"
               variant="dark"
@@ -131,7 +131,7 @@ export default function RenderList(props) {
               onClick={() => {
                 navigate(`/admin/category/${element.categoryKey}`);
               }}
-            >
+            > 
               {props.t("audiobooks")}
             </Button>
           </div>
@@ -172,6 +172,31 @@ export default function RenderList(props) {
             <h5>{props.t("categoryChilds")}:</h5>
           </div>
           <div className="p-2 bd-highlight"> {element.children.length}</div>
+          <div className="p-2 bd-highlight">
+            <Button
+              name="en"
+              variant="dark"
+              size="lg"
+              className="btn button"
+              // onClick={}
+              // Tu ustawiam state żeby pokazać modal
+            >
+              {props.t("edit")}
+            </Button>
+          </div>
+          <div className="p-2 bd-highlight">
+            <Button
+              name="en"
+              variant="dark"
+              size="lg"
+              className="btn button"
+              onClick={() => {
+                navigate(`/admin/category/${element.categoryKey}`);
+              }}
+            > 
+              {props.t("audiobooks")}
+            </Button>
+          </div>
         </div>
       </li>
     );

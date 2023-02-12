@@ -15,7 +15,7 @@ export default function CategoriesList(props) {
   const [state, setState] = useState({
     jsonModal: false,
     addCategoryModal: false,
-    isButtonDisabled: true,
+    refresh: false,
     error: null,
   });
 
@@ -37,18 +37,39 @@ export default function CategoriesList(props) {
       retry: 1,
       retryDelay: 500,
       refetchOnWindowFocus: false,
-      onError: (e) => {},
+      onError: (e) => {
+        props.setCategoiesState({
+          ...props.categoiesState,
+          error: e,
+        });
+      },
       onSuccess: (data) => {
-        if (dateUpdate < Date.now()) {
+        console.log(state.refresh);
+        if (dateUpdate < Date.now() || state.refresh) {
           categoriesStore.removeCategories();
 
           for (const category of data.categories) {
             categoriesStore.addCategory(category);
           }
+          if (state.refresh) {
+            setState({ ...state, refresh: !state.refresh });
+          }
         }
       },
     }
   );
+
+  useEffect(() => {
+    if (state.refresh) {
+      refetch();
+    }
+  }, [state.refresh]);
+
+  useEffect(() => {
+    if (props.categoiesState.error != null) {
+      throw props.categoiesState.error;
+    }
+  }, [props.categoiesState.error]);
 
   return (
     <div className="container-fluid main-container mt-3">
@@ -95,7 +116,12 @@ export default function CategoriesList(props) {
             />
           ) : null}
           {state.addCategoryModal ? (
-            <AddCategoryModal state={state} setState={setState} />
+            <AddCategoryModal
+              state={state}
+              setState={setState}
+              t={t}
+              token={props.token}
+            />
           ) : null}
         </div>
       </div>
