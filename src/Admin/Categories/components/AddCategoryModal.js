@@ -7,7 +7,7 @@ import { HandleFetch } from "../../../components/HandleFetch";
 // i w sumie to tyle bo jeszcze w fetchu dodaje to jeśli jest, jak nie to nie dodaje do jsonBody i tyle,
 // Json kategorii ustawiam tak jak wcześniej i w sumie tyle, Przekazuje mu to z pamięci podręcznej 
 // Zostaje jeszcze cały modal edycji  I jeszcze aktywacja dodatkowo w edycji 
-//
+// Na koniec jeszcsze przjrzenie kodu i te errory muszę wszędzie porobić 
 
 export default function AddCategoryModal(props) {
   const [modalState, setModalState] = useState({
@@ -36,12 +36,18 @@ export default function AddCategoryModal(props) {
   }, [modalState.name]);
 
   const addNewSet = () => {
+    let additionalData = {};
+
+    if( props.state.addCategoryParent != null){
+      additionalData = {parentId: props.state.addCategoryParent.id}
+    }
+
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/category/add",
       "PUT",
       {
         name: modalState.name,
-        additionalData: [],
+        additionalData: additionalData,
       },
       props.token
     )
@@ -69,12 +75,12 @@ export default function AddCategoryModal(props) {
       <Modal.Header>
         <Modal.Title>
           <h3>
-            <b>{props.t("AddSetButton")}</b>
+            <b>{props.t("addCategory")}</b>
           </h3>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h5>{props.t("Name")}</h5>
+        <h5>{props.t("name")}</h5>
         <input
           id="name"
           type="text"
@@ -93,7 +99,7 @@ export default function AddCategoryModal(props) {
           variant="dark"
           onClick={addNewSet}
         >
-          {props.t("save")}
+          {props.t("add")}
         </Button>
       </Modal.Footer>
     </Modal>

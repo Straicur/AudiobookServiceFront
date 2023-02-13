@@ -15,6 +15,7 @@ export default function CategoriesList(props) {
   const [state, setState] = useState({
     jsonModal: false,
     addCategoryModal: false,
+    addCategoryParent:null,
     refresh: false,
     error: null,
   });
@@ -44,7 +45,6 @@ export default function CategoriesList(props) {
         });
       },
       onSuccess: (data) => {
-        console.log(state.refresh);
         if (dateUpdate < Date.now() || state.refresh) {
           categoriesStore.removeCategories();
 
@@ -77,7 +77,7 @@ export default function CategoriesList(props) {
         <AdminNavBar />
         <hr className="line" />
         <div className="table-title">{/* <h2>{t('SetsTitle')}</h2> */}</div>
-        <RenderList categories={categories} t={t} />
+        <RenderList state={state} setState={setState} categories={categories} t={t} />
         <div className="row">
           <div className="col">
             <Button
@@ -88,7 +88,7 @@ export default function CategoriesList(props) {
               onClick={() =>
                 setState({
                   ...state,
-                  addCategoryModal: !state.addCategoryModal,
+                  addCategoryModal: !state.addCategoryModal
                 })
               }
             >

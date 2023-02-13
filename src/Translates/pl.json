@@ -60,11 +60,16 @@
     "enterValidPhoneNumber": "Podaj poprawny numer telefonu",
     "enterValidFirstName": "Podaj poprawne imię",
     "enterValidLastName": "Podaj poprawne nazwisko",
-    "categoryName":"Nazwa",
-    "categoryKey":"Klucz",
-    "categoryChilds":"Dzieci",
-    "categoryActive":"Aktywny",
-    "edit":"Edytuj",
-    "addCategory":"Dodaj kategorię",
-    "categoryJson":"Json kategori"
+    "categoryName": "Nazwa",
+    "categoryKey": "Klucz",
+    "categoryChilds": "Dzieci",
+    "categoryActive": "Aktywny",
+    "edit": "Edytuj",
+    "addCategory": "Dodaj kategorię",
+    "categoryJson": "Json kategori",
+    "add": "Dodaj",
+    "save": "Zapisz",
+    "name": "Nazwa",
+    "to": "do",
+    "addChildCategory": "Dodaj podkategorię"
 }

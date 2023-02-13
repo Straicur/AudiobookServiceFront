@@ -60,11 +60,16 @@
     "enterValidPhoneNumber": "Enter valid phone number",
     "enterValidFirstName": "Enter valid firstname",
     "enterValidLastName": "Enter valid lastname",
-    "categoryName":"Name",
-    "categoryKey":"Key",
-    "categoryChilds":"Childs",
-    "categoryActive":"Active",
-    "edit":"Edit",
-    "addCategory":"Add category",
-    "categoryJson":"Category Json"
+    "categoryName": "Name",
+    "categoryKey": "Key",
+    "categoryChilds": "Childs",
+    "categoryActive": "Active",
+    "edit": "Edit",
+    "addCategory": "Add category",
+    "categoryJson": "Category Json",
+    "add": "Add",
+    "save": "Save",
+    "name": "Name",
+    "to": "to",
+    "addChildCategory": "Add child category"
 }

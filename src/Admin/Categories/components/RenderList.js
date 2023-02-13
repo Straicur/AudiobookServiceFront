@@ -135,6 +135,23 @@ export default function RenderList(props) {
               {props.t("audiobooks")}
             </Button>
           </div>
+          <div className="p-2 bd-highlight">
+            <Button
+              name="en"
+              variant="dark"
+              size="lg"
+              className="btn button"
+              onClick={() =>
+                props.setState({
+                  ...props.state,
+                  addCategoryModal: !props.state.addCategoryModal,
+                  addCategoryParent: element
+                })
+              }
+            > 
+              {props.t("addChildCategory")}
+            </Button>
+          </div>
         </div>
         <ul className="list-group" data-name={element.name}>{child}</ul>
       </li>
@@ -195,6 +212,23 @@ export default function RenderList(props) {
               }}
             > 
               {props.t("audiobooks")}
+            </Button>
+          </div>
+          <div className="p-2 bd-highlight">
+            <Button
+              name="en"
+              variant="dark"
+              size="lg"
+              className="btn button"
+              onClick={() => {
+                props.setState({
+                  ...props.state,
+                  addCategoryModal: !props.state.addCategoryModal,
+                  addCategoryParent: element
+                })
+              }}
+            > 
+              {props.t("addChildCategory")}
             </Button>
           </div>
         </div>
