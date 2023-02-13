@@ -71,5 +71,6 @@
     "save": "Zapisz",
     "name": "Nazwa",
     "to": "do",
-    "addChildCategory": "Dodaj podkategorię"
+    "addChildCategory": "Dodaj podkategorię",
+    "jsonData":"Dane Json"
 }

@@ -3,9 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../components/HandleFetch";
 
-//todo tu teraz przerabiam to na podstawie tego czy dostaje w propsie parenta, jeśli nie to wyświetla "Dodaj główną kat", jak nie to dodaj dziecko czy jakoś tak
-// i w sumie to tyle bo jeszcze w fetchu dodaje to jeśli jest, jak nie to nie dodaje do jsonBody i tyle,
-// Json kategorii ustawiam tak jak wcześniej i w sumie tyle, Przekazuje mu to z pamięci podręcznej 
+//todo
 // Zostaje jeszcze cały modal edycji  I jeszcze aktywacja dodatkowo w edycji 
 // Na koniec jeszcsze przjrzenie kodu i te errory muszę wszędzie porobić 
 
@@ -70,7 +68,6 @@ export default function AddCategoryModal(props) {
       show={props.state.addCategoryModal}
       backdrop="static"
       keyboard={false}
-      dialogClassName="custom-dialog"
     >
       <Modal.Header>
         <Modal.Title>

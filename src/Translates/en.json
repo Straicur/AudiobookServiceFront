@@ -71,5 +71,6 @@
     "save": "Save",
     "name": "Name",
     "to": "to",
-    "addChildCategory": "Add child category"
+    "addChildCategory": "Add child category",
+    "jsonData":"Json Data"
 }

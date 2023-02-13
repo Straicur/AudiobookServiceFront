@@ -14,6 +14,7 @@ export default function CategoriesList(props) {
 
   const [state, setState] = useState({
     jsonModal: false,
+    json: null,
     addCategoryModal: false,
     addCategoryParent:null,
     refresh: false,
@@ -45,6 +46,8 @@ export default function CategoriesList(props) {
         });
       },
       onSuccess: (data) => {
+        setState({ ...state, json: data.categories});
+
         if (dateUpdate < Date.now() || state.refresh) {
           categoriesStore.removeCategories();
 
@@ -112,7 +115,7 @@ export default function CategoriesList(props) {
             <JsonModal
               state={state}
               setState={setState}
-              json={categoriesStore.categories}
+              t={t}
             />
           ) : null}
           {state.addCategoryModal ? (
