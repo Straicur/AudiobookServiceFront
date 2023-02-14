@@ -8,6 +8,7 @@ import { useCategoryListStore } from "../../../store";
 import RenderList from "../components/RenderList";
 import JsonModal from "../../../components/JsonModal";
 import AddCategoryModal from "../components/AddCategoryModal";
+import EditCategoryModal from "../components/EditCategoryModal";
 
 export default function CategoriesList(props) {
   const { t } = useTranslation();
@@ -17,6 +18,8 @@ export default function CategoriesList(props) {
     json: null,
     addCategoryModal: false,
     addCategoryParent:null,
+    editCategoryModal: false,
+    editCategoryElement: null,
     refresh: false,
     error: null,
   });
@@ -116,6 +119,14 @@ export default function CategoriesList(props) {
               state={state}
               setState={setState}
               t={t}
+            />
+          ) : null}
+          {state.editCategoryModal && state.editCategoryElement != null ? (
+            <EditCategoryModal
+              state={state}
+              setState={setState}
+              t={t}
+              token={props.token}
             />
           ) : null}
           {state.addCategoryModal ? (

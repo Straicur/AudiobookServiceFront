@@ -116,8 +116,13 @@ export default function RenderList(props) {
               variant="dark"
               size="lg"
               className="btn button"
-              // onClick={}
-              // Tu ustawiam state żeby pokazać modal
+              onClick={() => {
+                props.setState({
+                  ...props.state,
+                  editCategoryModal: !props.state.editCategoryModal,
+                  editCategoryElement: element
+                })
+              }}
             >
               {props.t("edit")}
             </Button>
@@ -195,8 +200,13 @@ export default function RenderList(props) {
               variant="dark"
               size="lg"
               className="btn button"
-              // onClick={}
-              // Tu ustawiam state żeby pokazać modal
+              onClick={() => {
+                props.setState({
+                  ...props.state,
+                  editCategoryModal: !props.state.editCategoryModal,
+                  editCategoryElement: element
+                })
+              }}
             >
               {props.t("edit")}
             </Button>
