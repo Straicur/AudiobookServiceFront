@@ -72,5 +72,10 @@
     "name": "Nazwa",
     "to": "do",
     "addChildCategory": "Dodaj podkategorię",
-    "jsonData":"Dane Json"
+    "jsonData": "Dane Json",
+    "delete": "Usuń",
+    "editName": "Edytuj nazwę",
+    "editCategory": "Edytuj kategorię",
+    "yes": "Tak",
+    "no": "Nie"
 }

@@ -71,7 +71,7 @@ export default function EditCategoryModal(props) {
       <Modal.Header>
         <Modal.Title>
           <h3>
-            <b>{props.t("EditSet")}</b>
+            <b>{props.t("editCategory")}</b>
           </h3>
         </Modal.Title>
       </Modal.Header>
@@ -95,7 +95,7 @@ export default function EditCategoryModal(props) {
                 className="form-control mt-2"
                 onClick={editSetName}
               >
-                {props.t("update")}
+                {props.t("edit")}
               </Button>
             </div>
           </div>
@@ -128,13 +128,13 @@ export default function EditCategoryModal(props) {
           variant="dark"
           onClick={() => setEditModal({ ...editModal, edit: true })}
         >
-          {props.t("EditSetName")}
+          {props.t("editName")}
         </Button>
         <Button
           variant="dark"
           onClick={() => setEditModal({ ...editModal, edit: false })}
         >
-          {props.t("DeleteSet")}
+          {props.t("delete")}
         </Button>
         <Button variant="dark" onClick={handleClose}>
           {props.t("close")}
