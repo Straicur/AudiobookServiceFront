@@ -4,8 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../components/HandleFetch";
 
 //todo
-// Zostaje jeszcze cały modal edycji  I jeszcze aktywacja dodatkowo w edycji 
-// Na koniec jeszcsze przjrzenie kodu i te errory muszę wszędzie porobić 
+// Zostaje jeszcze cały modal edycji  I jeszcze aktywacja dodatkowo w edycji
+// Na koniec jeszcsze przjrzenie kodu i te errory muszę wszędzie porobić
 
 export default function AddCategoryModal(props) {
   const [modalState, setModalState] = useState({
@@ -36,8 +36,8 @@ export default function AddCategoryModal(props) {
   const addNewSet = () => {
     let additionalData = {};
 
-    if( props.state.addCategoryParent != null){
-      additionalData = {parentId: props.state.addCategoryParent.id}
+    if (props.state.addCategoryParent != null) {
+      additionalData = { parentId: props.state.addCategoryParent.id };
     }
 
     HandleFetch(
