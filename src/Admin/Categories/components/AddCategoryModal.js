@@ -3,10 +3,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../components/HandleFetch";
 
-//todo
-// Zostaje jeszcze cały modal edycji  I jeszcze aktywacja dodatkowo w edycji
-// Na koniec jeszcsze przjrzenie kodu i te errory muszę wszędzie porobić
-
 export default function AddCategoryModal(props) {
   const [modalState, setModalState] = useState({
     name: "",
@@ -49,17 +45,15 @@ export default function AddCategoryModal(props) {
       },
       props.token
     )
-      .then((data) => {
+      .then(() => {
         handleClose();
       })
       .catch((e) => {
-        if (e) {
-          props.setCategoiesState({
-            ...props.categoiesState,
-            error: e,
-          });
-          handleClose();
-        }
+        props.setCategoiesState({
+          ...props.categoiesState,
+          error: e,
+        });
+        handleClose();
       });
   };
 

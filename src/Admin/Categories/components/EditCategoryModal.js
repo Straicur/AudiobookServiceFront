@@ -45,8 +45,14 @@ export default function EditCategoryModal(props) {
       .then(() => {
         handleClose();
       })
-      .catch((e) => {});
+      .catch((e) => {
+        props.setCategoiesState({
+          ...props.categoiesState,
+          error: e,
+        });
+      });
   };
+  
   const deleteSet = () => {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/category/remove",
@@ -59,7 +65,12 @@ export default function EditCategoryModal(props) {
       .then(() => {
         handleClose();
       })
-      .catch((e) => {});
+      .catch((e) => {
+        props.setCategoiesState({
+          ...props.categoiesState,
+          error: e,
+        });
+      });
   };
 
   return (

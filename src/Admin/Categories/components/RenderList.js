@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 
 export default function RenderList(props) {
-  // https://codesandbox.io/s/13mxj2w2j7?file=/src/js/Account/TreeView.js
 
   const navigate = useNavigate();
 
@@ -110,7 +108,7 @@ export default function RenderList(props) {
             <h5>{props.t("categoryChilds")}:</h5>
           </div>
           <div className="p-2 bd-highlight"> {element.children.length}</div>
-         <div className="p-2 bd-highlight">
+          <div className="p-2 bd-highlight">
             <Button
               name="en"
               variant="dark"
@@ -120,8 +118,8 @@ export default function RenderList(props) {
                 props.setState({
                   ...props.state,
                   editCategoryModal: !props.state.editCategoryModal,
-                  editCategoryElement: element
-                })
+                  editCategoryElement: element,
+                });
               }}
             >
               {props.t("edit")}
@@ -136,7 +134,7 @@ export default function RenderList(props) {
               onClick={() => {
                 navigate(`/admin/category/${element.categoryKey}`);
               }}
-            > 
+            >
               {props.t("audiobooks")}
             </Button>
           </div>
@@ -150,20 +148,21 @@ export default function RenderList(props) {
                 props.setState({
                   ...props.state,
                   addCategoryModal: !props.state.addCategoryModal,
-                  addCategoryParent: element
+                  addCategoryParent: element,
                 })
               }
-            > 
+            >
               {props.t("addChildCategory")}
             </Button>
           </div>
         </div>
-        <ul className="list-group" data-name={element.name}>{child}</ul>
+        <ul className="list-group" data-name={element.name}>
+          {child}
+        </ul>
       </li>
     );
   }
-  //todo tłumaczenia dodaj do tych kolumn, buttony odpowiednio i napraw te klikanie bo nie idzie tego używać
-  
+
   function createListElement(element) {
     return (
       <li
@@ -204,8 +203,8 @@ export default function RenderList(props) {
                 props.setState({
                   ...props.state,
                   editCategoryModal: !props.state.editCategoryModal,
-                  editCategoryElement: element
-                })
+                  editCategoryElement: element,
+                });
               }}
             >
               {props.t("edit")}
@@ -220,7 +219,7 @@ export default function RenderList(props) {
               onClick={() => {
                 navigate(`/admin/category/${element.categoryKey}`);
               }}
-            > 
+            >
               {props.t("audiobooks")}
             </Button>
           </div>
@@ -234,10 +233,10 @@ export default function RenderList(props) {
                 props.setState({
                   ...props.state,
                   addCategoryModal: !props.state.addCategoryModal,
-                  addCategoryParent: element
-                })
+                  addCategoryParent: element,
+                });
               }}
-            > 
+            >
               {props.t("addChildCategory")}
             </Button>
           </div>
@@ -269,7 +268,12 @@ export default function RenderList(props) {
           if (kids[element.id] != undefined) {
             let ul = kids[element.id].filter((x) => x.type == "li");
 
-            if (!ul.some((cat) => cat.props.children[1] != undefined?cat.props.children[1].props["data-name"] == value.push.name:false)
+            if (
+              !ul.some((cat) =>
+                cat.props.children[1] != undefined
+                  ? cat.props.children[1].props["data-name"] == value.push.name
+                  : false
+              )
             ) {
               kids[element.id] = kids[element.id].concat(childElement);
             }

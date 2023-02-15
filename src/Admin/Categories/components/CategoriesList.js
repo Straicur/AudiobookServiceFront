@@ -11,13 +11,14 @@ import AddCategoryModal from "../components/AddCategoryModal";
 import EditCategoryModal from "../components/EditCategoryModal";
 
 export default function CategoriesList(props) {
+  
   const { t } = useTranslation();
 
   const [state, setState] = useState({
     jsonModal: false,
     json: null,
     addCategoryModal: false,
-    addCategoryParent:null,
+    addCategoryParent: null,
     editCategoryModal: false,
     editCategoryElement: null,
     refresh: false,
@@ -49,7 +50,7 @@ export default function CategoriesList(props) {
         });
       },
       onSuccess: (data) => {
-        setState({ ...state, json: data.categories});
+        setState({ ...state, json: data.categories });
 
         if (dateUpdate < Date.now() || state.refresh) {
           categoriesStore.removeCategories();
@@ -82,8 +83,13 @@ export default function CategoriesList(props) {
       <div className="card position-relative p-3 mb-5  shadow">
         <AdminNavBar />
         <hr className="line" />
-        <div className="table-title">{/* <h2>{t('SetsTitle')}</h2> */}</div>
-        <RenderList state={state} setState={setState} categories={categories} t={t} />
+        <div className="table-title my-2"><h1>{t('categories')}</h1></div>
+        <RenderList
+          state={state}
+          setState={setState}
+          categories={categories}
+          t={t}
+        />
         <div className="row">
           <div className="col">
             <Button
@@ -94,7 +100,7 @@ export default function CategoriesList(props) {
               onClick={() =>
                 setState({
                   ...state,
-                  addCategoryModal: !state.addCategoryModal
+                  addCategoryModal: !state.addCategoryModal,
                 })
               }
             >
@@ -115,11 +121,7 @@ export default function CategoriesList(props) {
             </Button>
           </div>
           {state.jsonModal ? (
-            <JsonModal
-              state={state}
-              setState={setState}
-              t={t}
-            />
+            <JsonModal state={state} setState={setState} t={t} />
           ) : null}
           {state.editCategoryModal && state.editCategoryElement != null ? (
             <EditCategoryModal

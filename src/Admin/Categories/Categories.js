@@ -5,6 +5,7 @@ import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import CategoriesList from "./components/CategoriesList";
 
 export default function Categories() {
+  
   const token = useTokenStore((state) => state.token);
 
   const [categoiesState, setCategoiesState] = useState({
