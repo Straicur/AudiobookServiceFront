@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../components/HandleFetch";
 
 export default function EditCategoryModal(props) {
+
   const [stateEditButton, setStateEditButton] = useState(true);
 
   const [editModal, setEditModal] = useState({
@@ -20,6 +21,7 @@ export default function EditCategoryModal(props) {
       refresh: !props.state.refresh,
     });
   };
+  
   const handleNewNameChange = (event) => {
     setEditModal({ ...editModal, new_name: event.target.value });
   };
@@ -52,7 +54,7 @@ export default function EditCategoryModal(props) {
         });
       });
   };
-  
+
   const deleteSet = () => {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/category/remove",

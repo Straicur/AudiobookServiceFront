@@ -15,19 +15,18 @@ export default function RenderList(props) {
     return renderArray;
   };
   const oparateParentList = (element) => {
-    if (element.currentTarget == element.target) {
-      if (element.target.attributes["data-clicable"].value == "true") {
+      element.stopPropagation()
+      if (element.currentTarget.attributes["data-clicable"].value == "true") {
         openParentList(element);
       } else {
         closeParentList(element);
       }
-    }
   };
 
   function openParentList(element) {
-    let children = element.target.children;
+    let children = element.currentTarget.children;
 
-    element.target.attributes["data-clicable"].value = "false";
+    element.currentTarget.attributes["data-clicable"].value = "false";
 
     for (const element of children) {
       if (element.nodeName == "UL") {
@@ -47,9 +46,9 @@ export default function RenderList(props) {
   }
 
   function closeParentList(element) {
-    let children = element.target.children;
+    let children = element.currentTarget.children;
 
-    element.target.attributes["data-clicable"].value = "true";
+    element.currentTarget.attributes["data-clicable"].value = "true";
 
     for (const element of children) {
       if (element.nodeName == "UL") {
