@@ -8,12 +8,9 @@ import { useCategoryListStore } from "../../../store";
 import RenderList from "../components/RenderList";
 import JsonModal from "../../../components/JsonModal";
 import AddCategoryModal from "../components/AddCategoryModal";
-import EditCategoryModal from "../components/EditCategoryModal";
+import AddAudiobookModal from "../components/AddAudiobookModal";
 
 export default function AudiobooksList(props) {
-    //     
-
-
   const { t } = useTranslation();
 
   const [state, setState] = useState({
@@ -85,7 +82,13 @@ export default function AudiobooksList(props) {
     // Modal tego audiobooka będzie miał listę kategorii, możliwość wybrania dodatkowej i jej dodania i te wszyustkie jego dane 
   return (
     <>
-
+        <AddAudiobookModal
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+            categoryKey={props.categoryKey}
+        />
     </>
   )
 }
