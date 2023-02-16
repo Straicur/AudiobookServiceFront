@@ -81,7 +81,7 @@ function App() {
           />
           <Route
             exact
-            path="/admin/category/:token"
+            path="/admin/category/:categoryKey"
             element={<Category />}
             errorElement={<Page404 />}
           />
