@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 
 export default function RenderList(props) {
-  // https://codesandbox.io/s/13mxj2w2j7?file=/src/js/Account/TreeView.js
 
   const navigate = useNavigate();
 
@@ -17,19 +15,18 @@ export default function RenderList(props) {
     return renderArray;
   };
   const oparateParentList = (element) => {
-    if (element.currentTarget == element.target) {
-      if (element.target.attributes["data-clicable"].value == "true") {
+      element.stopPropagation()
+      if (element.currentTarget.attributes["data-clicable"].value == "true") {
         openParentList(element);
       } else {
         closeParentList(element);
       }
-    }
   };
 
   function openParentList(element) {
-    let children = element.target.children;
+    let children = element.currentTarget.children;
 
-    element.target.attributes["data-clicable"].value = "false";
+    element.currentTarget.attributes["data-clicable"].value = "false";
 
     for (const element of children) {
       if (element.nodeName == "UL") {
@@ -49,9 +46,9 @@ export default function RenderList(props) {
   }
 
   function closeParentList(element) {
-    let children = element.target.children;
+    let children = element.currentTarget.children;
 
-    element.target.attributes["data-clicable"].value = "true";
+    element.currentTarget.attributes["data-clicable"].value = "true";
 
     for (const element of children) {
       if (element.nodeName == "UL") {
@@ -116,8 +113,13 @@ export default function RenderList(props) {
               variant="dark"
               size="lg"
               className="btn button"
-              // onClick={}
-              // Tu ustawiam state żeby pokazać modal
+              onClick={() => {
+                props.setState({
+                  ...props.state,
+                  editCategoryModal: !props.state.editCategoryModal,
+                  editCategoryElement: element,
+                });
+              }}
             >
               {props.t("edit")}
             </Button>
@@ -135,13 +137,31 @@ export default function RenderList(props) {
               {props.t("audiobooks")}
             </Button>
           </div>
+          <div className="p-2 bd-highlight">
+            <Button
+              name="en"
+              variant="dark"
+              size="lg"
+              className="btn button"
+              onClick={() =>
+                props.setState({
+                  ...props.state,
+                  addCategoryModal: !props.state.addCategoryModal,
+                  addCategoryParent: element,
+                })
+              }
+            >
+              {props.t("addChildCategory")}
+            </Button>
+          </div>
         </div>
-        <ul className="list-group" data-name={element.name}>{child}</ul>
+        <ul className="list-group" data-name={element.name}>
+          {child}
+        </ul>
       </li>
     );
   }
-  //todo tłumaczenia dodaj do tych kolumn, buttony odpowiednio i napraw te klikanie bo nie idzie tego używać
-  
+
   function createListElement(element) {
     return (
       <li
@@ -172,6 +192,53 @@ export default function RenderList(props) {
             <h5>{props.t("categoryChilds")}:</h5>
           </div>
           <div className="p-2 bd-highlight"> {element.children.length}</div>
+          <div className="p-2 bd-highlight">
+            <Button
+              name="en"
+              variant="dark"
+              size="lg"
+              className="btn button"
+              onClick={() => {
+                props.setState({
+                  ...props.state,
+                  editCategoryModal: !props.state.editCategoryModal,
+                  editCategoryElement: element,
+                });
+              }}
+            >
+              {props.t("edit")}
+            </Button>
+          </div>
+          <div className="p-2 bd-highlight">
+            <Button
+              name="en"
+              variant="dark"
+              size="lg"
+              className="btn button"
+              onClick={() => {
+                navigate(`/admin/category/${element.categoryKey}`);
+              }}
+            >
+              {props.t("audiobooks")}
+            </Button>
+          </div>
+          <div className="p-2 bd-highlight">
+            <Button
+              name="en"
+              variant="dark"
+              size="lg"
+              className="btn button"
+              onClick={() => {
+                props.setState({
+                  ...props.state,
+                  addCategoryModal: !props.state.addCategoryModal,
+                  addCategoryParent: element,
+                });
+              }}
+            >
+              {props.t("addChildCategory")}
+            </Button>
+          </div>
         </div>
       </li>
     );
@@ -200,7 +267,12 @@ export default function RenderList(props) {
           if (kids[element.id] != undefined) {
             let ul = kids[element.id].filter((x) => x.type == "li");
 
-            if (!ul.some((cat) => cat.props.children[1] != undefined?cat.props.children[1].props["data-name"] == value.push.name:false)
+            if (
+              !ul.some((cat) =>
+                cat.props.children[1] != undefined
+                  ? cat.props.children[1].props["data-name"] == value.push.name
+                  : false
+              )
             ) {
               kids[element.id] = kids[element.id].concat(childElement);
             }
