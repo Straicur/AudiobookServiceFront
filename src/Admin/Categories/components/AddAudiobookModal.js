@@ -3,8 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../components/HandleFetch";
 import sha256 from "crypto-js/sha256";
+import {Buffer} from 'buffer';
 
 export default function AddAudiobookModal(props) {
+
   const [stateModal, setSateModal] = useState({
     author: "",
     title: "",
@@ -35,6 +37,7 @@ export default function AddAudiobookModal(props) {
       return;
     }
     let file = e.target.files[0];
+    
     setSateModal({ ...stateModal, fileAdded: true, file: file });
   };
 
@@ -59,14 +62,14 @@ export default function AddAudiobookModal(props) {
   }, [stateModal.author, stateModal.title]);
 
   const addNewAudiobook = () => {
-    const url = "http://127.0.0.1:8000/admin/audiobooks/addAudiobook";
+    const url = "http://127.0.0.1:8000/api/admin/audiobook/add";
     const method = "PUT";
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
     const fileName = stateModal.title + "_" + stateModal.author;
     const hashName = sha256(fileName).toString();
 
-    setSateModal({ upload: true, modal: 3 });
+    setSateModal({ ...stateModal,  upload: true, modal: 3 });
 
     reader.onload = function (e) {
       if (e.target.result instanceof ArrayBuffer) {
@@ -78,12 +81,10 @@ export default function AddAudiobookModal(props) {
           let b64 = Buffer.from(buf).toString("base64");
 
           const jsonData = {
-            login_token: props.categoryKey,
-            set_key: props.token,
-            hash_name: hashName,
-            file_name: fileName,
-            part_nr: part,
-            all_parts_nr: part,
+            hashName: hashName,
+            fileName: fileName,
+            part: part,
+            parts: part,
             base64: b64,
           };
 
@@ -93,7 +94,7 @@ export default function AddAudiobookModal(props) {
             currentPart: part,
           });
 
-          HandleFetch(url, jsonData, method)
+          HandleFetch(url, method, jsonData, props.token)
             .then((data) => {
               if (data.status != 200) {
                 setStateProgress({ ...stateProgress, error: true });
@@ -101,21 +102,15 @@ export default function AddAudiobookModal(props) {
             })
             .catch((e) => {
               if (e) {
-                if (parseInt.t(e.message) === 401) {
-                  props.setState({
-                    ...props.state,
-                    redirect: true,
-                    redirectTo: "/admin/login",
-                  });
-                }
-                console.log(e);
+                console.log(e)
                 props.setState({
                   ...props.state,
-                  errors: parseInt.t(e.message),
+                  errors: parseInt(e.message),
                 });
               }
             });
-        } else {
+        } 
+        else {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
             allparts = allparts + 1;
           }
@@ -132,16 +127,14 @@ export default function AddAudiobookModal(props) {
             let b64 = Buffer.from(arr).toString("base64");
 
             const jsonData = {
-              login_token: props.categoryKey,
-              set_key: props.token,
-              hash_name: hashName,
-              file_name: fileName,
-              part_nr: part,
-              all_parts_nr: allparts,
+              hashName: hashName,
+              fileName: fileName,
+              part: part,
+              parts: allparts,
               base64: b64,
             };
 
-            HandleFetch(url, jsonData, method)
+            HandleFetch(url, method, jsonData, props.token)
               .then((data) => {
                 if (data.status != 200) {
                   setStateProgress({ ...stateProgress, error: true });
@@ -149,16 +142,10 @@ export default function AddAudiobookModal(props) {
               })
               .catch((e) => {
                 if (e) {
-                  if (parseInt.t(e.message) === 401) {
-                    props.setState({
-                      redirect: true,
-                      redirectTo: "/admin/login",
-                    });
-                  }
-                  console.log(e);
+                  console.log(e)
                   props.setState({
                     ...props.state,
-                    errors: parseInt.t(e.message),
+                    errors: parseInt(e.message),
                   });
                 }
               });

@@ -11,6 +11,7 @@ import AddCategoryModal from "../components/AddCategoryModal";
 import AddAudiobookModal from "../components/AddAudiobookModal";
 
 export default function AudiobooksList(props) {
+
   const { t } = useTranslation();
 
   const [state, setState] = useState({
@@ -78,18 +79,18 @@ export default function AudiobooksList(props) {
 //     }
 //   }, [props.categoiesState.error]);
 
-    //todobackend 2 endpointy które pobiorą mi wszystki kategorie dla audiobooka które nie są już używane i wszystkie audiobooki dla ktegorii które już w niej nie są
-    //t odo najpierw raczej zrobiłbym dodawanie audiobooka w modalu i podepne go pod tą kategorie 
+    //todo backend 2 endpointy które pobiorą mi wszystki kategorie dla audiobooka które nie są już używane i wszystkie audiobooki dla ktegorii które już w niej nie są
+    //todo najpierw raczej zrobiłbym dodawanie audiobooka w modalu i podepne go pod tą kategorie 
     // Modal tego audiobooka będzie miał listę kategorii, możliwość wybrania dodatkowej i jej dodania i te wszyustkie jego dane 
   return (
-    <>
-        <AddAudiobookModal
-            state={state}
-            setState={setState}
-            t={t}
-            token={props.token}
-            categoryKey={props.categoryKey}
-        />
-    </>
+   
+    <AddAudiobookModal
+        state={state}
+        setState={setState}
+        t={t}
+        token={props.token}
+        categoryKey={props.categoryKey}
+    />
+
   )
 }
