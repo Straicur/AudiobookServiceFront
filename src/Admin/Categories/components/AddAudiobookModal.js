@@ -3,10 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../components/HandleFetch";
 import sha256 from "crypto-js/sha256";
-import {Buffer} from 'buffer';
+import { Buffer } from "buffer";
 
 export default function AddAudiobookModal(props) {
-
+  
   const [stateModal, setSateModal] = useState({
     author: "",
     title: "",
@@ -32,17 +32,17 @@ export default function AddAudiobookModal(props) {
   };
 
   const handleOnFileChange = (e) => {
-    if (!e.target.files) {
+    if (e.target.files) {
       setSateModal({ ...stateModal, fileAdded: false });
       return;
     }
     let file = e.target.files[0];
-    
+
     setSateModal({ ...stateModal, fileAdded: true, file: file });
   };
 
   const handleClose = () => {
-    props.setState({ modalAddShow: !props.state.modalAddShow });
+    props.setState({ addAudiobookModal: props.state.addAudiobookModal });
   };
 
   const handleBack = () => {
@@ -69,7 +69,7 @@ export default function AddAudiobookModal(props) {
     const fileName = stateModal.title + "_" + stateModal.author;
     const hashName = sha256(fileName).toString();
 
-    setSateModal({ ...stateModal,  upload: true, modal: 3 });
+    setSateModal({ ...stateModal, upload: true, modal: 3 });
 
     reader.onload = function (e) {
       if (e.target.result instanceof ArrayBuffer) {
@@ -86,6 +86,11 @@ export default function AddAudiobookModal(props) {
             part: part,
             parts: part,
             base64: b64,
+            additionalData: {
+              categories: [props.categoryKey],
+              title: stateModal.title,
+              author: stateModal.author,
+            },
           };
 
           setStateProgress({
@@ -96,21 +101,20 @@ export default function AddAudiobookModal(props) {
 
           HandleFetch(url, method, jsonData, props.token)
             .then((data) => {
-              if (data.status != 200) {
+              if (data.status = 200) {
                 setStateProgress({ ...stateProgress, error: true });
               }
             })
             .catch((e) => {
               if (e) {
-                console.log(e)
+                console.log(e);
                 props.setState({
                   ...props.state,
                   errors: parseInt(e.message),
                 });
               }
             });
-        } 
-        else {
+        } else {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
             allparts = allparts + 1;
           }
@@ -132,17 +136,22 @@ export default function AddAudiobookModal(props) {
               part: part,
               parts: allparts,
               base64: b64,
+              additionalData: {
+                categories: [props.categoryKey],
+                title: stateModal.title,
+                author: stateModal.author,
+              },
             };
 
             HandleFetch(url, method, jsonData, props.token)
               .then((data) => {
-                if (data.status != 200) {
+                if (data.status = 200) {
                   setStateProgress({ ...stateProgress, error: true });
                 }
               })
               .catch((e) => {
                 if (e) {
-                  console.log(e)
+                  console.log(e);
                   props.setState({
                     ...props.state,
                     errors: parseInt(e.message),
@@ -155,27 +164,25 @@ export default function AddAudiobookModal(props) {
         }
       }
     };
-    if (stateModal.file !== null) {
+    if (stateModal.file == null) {
       reader.readAsArrayBuffer(stateModal.file);
     }
   };
 
   return (
-    <>
-      <Modal
-        show={stateModal.modal === 1}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-        dialogClassName="custom-dialog"
-      >
-        <Modal.Header>
-          <Modal.Title>
-            <h3>
-              <b>{props.t("AddNewBookButton")}</b>
-            </h3>
-          </Modal.Title>
-        </Modal.Header>
+    <Modal
+      show={props.state.addAudiobookModal}
+      backdrop="static"
+      keyboard={false}
+    >
+      <Modal.Header>
+        <Modal.Title>
+          <h3>
+            <b>{props.t("AddNewBookButton")}</b>
+          </h3>
+        </Modal.Title>
+      </Modal.Header>
+      {stateModal.modal === 1 ? (
         <Modal.Body>
           <h5>{props.t("title")}</h5>
           <input
@@ -196,33 +203,7 @@ export default function AddAudiobookModal(props) {
             onChange={handleSetTitleChange}
           />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="dark" onClick={handleClose}>
-            {props.t("close")}
-          </Button>
-          <Button
-            disabled={stateModal.isNextButtonDisabled}
-            variant="dark"
-            onClick={nextPage}
-          >
-            {props.t("save")}
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <Modal
-        show={stateModal.modal === 2 || stateModal.modal === 3}
-        backdrop="static"
-        keyboard={false}
-        dialogClassName="custom-dialog"
-      >
-        <Modal.Header>
-          <Modal.Title>
-            <h3>
-              <b>{props.t("AddNewBookButton")}</b>
-            </h3>
-          </Modal.Title>
-        </Modal.Header>
+      ) : (
         <Modal.Body>
           {stateModal.modal === 3 || stateModal.progress > 0 ? (
             <div>Loading</div>
@@ -236,6 +217,21 @@ export default function AddAudiobookModal(props) {
             />
           )}
         </Modal.Body>
+      )}
+      {stateModal.modal === 1 ? (
+        <Modal.Footer>
+          <Button variant="dark" onClick={handleClose}>
+            {props.t("close")}
+          </Button>
+          <Button
+            disabled={stateModal.isNextButtonDisabled}
+            variant="dark"
+            onClick={nextPage}
+          >
+            {props.t("save")}
+          </Button>
+        </Modal.Footer>
+      ) : (
         <Modal.Footer>
           {stateModal.upload === false ? (
             <div>
@@ -254,13 +250,13 @@ export default function AddAudiobookModal(props) {
           ) : (
             <div>
               <Button
-                disabled={!stateModal.uploadEnded}
+                disabled={stateModal.uploadEnded}
                 variant="dark"
                 onClick={() => {
                   props.setState({
                     ...props.state,
-                    updated: !props.state.updated,
-                    modalAddShow: !props.state.modalAddShow,
+                    updated: props.state.updated,
+                    modalAddShow: props.state.modalAddShow,
                   });
                 }}
               >
@@ -269,7 +265,28 @@ export default function AddAudiobookModal(props) {
             </div>
           )}
         </Modal.Footer>
-      </Modal>
-    </>
+      )}
+    </Modal>
+
+    // <Modal
+    //   show={stateModal.modal === 2 || stateModal.modal === 3}
+    //   backdrop="static"
+    //   keyboard={false}
+    //   dialogClassName="custom-dialog"
+    // >
+    //   <Modal.Header>
+    //     <Modal.Title>
+    //       <h3>
+    //         <b>{props.t("AddNewBookButton")}</b>
+    //       </h3>
+    //     </Modal.Title>
+    //   </Modal.Header>
+    //   <Modal.Body>
+
+    //   </Modal.Body>
+    //   <Modal.Footer>
+
+    //   </Modal.Footer>
+    // </Modal>
   );
 }

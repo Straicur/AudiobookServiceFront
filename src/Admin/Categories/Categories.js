@@ -9,7 +9,6 @@ export default function Categories() {
   const token = useTokenStore((state) => state.token);
 
   const [categoiesState, setCategoiesState] = useState({
-    categories: [],
     error: null,
   });
 

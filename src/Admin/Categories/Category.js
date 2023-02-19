@@ -12,7 +12,6 @@ export default function Category() {
   const { categoryKey } = useParams();
 
   const [audiobooksState, setAudiobooksState] = useState({
-    audiobooks: [],
     error: null,
   });
 
