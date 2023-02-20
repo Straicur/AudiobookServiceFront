@@ -5,7 +5,7 @@ import { HandleFetch } from "../../../components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import { useCategoryListStore } from "../../../store";
-import RenderList from "../components/RenderList";
+import RenderCategoriesList from "../components/RenderCategoriesList";
 import JsonModal from "../../../components/JsonModal";
 import AddCategoryModal from "../components/AddCategoryModal";
 import EditCategoryModal from "../components/EditCategoryModal";
@@ -84,7 +84,7 @@ export default function CategoriesList(props) {
         <AdminNavBar />
         <hr className="line" />
         <div className="table-title my-2"><h1>{t('categories')}</h1></div>
-        <RenderList
+        <RenderCategoriesList
           state={state}
           setState={setState}
           categories={categories}

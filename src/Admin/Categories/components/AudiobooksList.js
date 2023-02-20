@@ -4,11 +4,9 @@ import { useQuery } from "react-query";
 import { HandleFetch } from "../../../components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
-import { useCategoryListStore } from "../../../store";
-import RenderList from "../components/RenderList";
 import JsonModal from "../../../components/JsonModal";
-import AddCategoryModal from "../components/AddCategoryModal";
 import AddAudiobookModal from "../components/AddAudiobookModal";
+import RenderAudiobooksList from "../components/RenderAudiobooksList";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
@@ -52,31 +50,21 @@ export default function AudiobooksList(props) {
         console.log(data);
         setState({ ...state, json: data.audiobooks });
 
-        // if (dateUpdate < Date.now() || state.refresh) {
-        //   categoriesStore.removeCategories();
-
-        //   for (const category of data.categories) {
-        //     categoriesStore.addCategory(category);
-        //   }
-        //   if (state.refresh) {
-        //     setState({ ...state, refresh: !state.refresh });
-        //   }
-        // }
       },
     }
   );
 
-  //   useEffect(() => {
-  //     if (state.refresh) {
-  //       refetch();
-  //     }
-  //   }, [state.refresh]);
+    useEffect(() => {
+      if (state.refresh) {
+        refetch();
+      }
+    }, [state.refresh]);
 
-  //   useEffect(() => {
-  //     if (props.categoiesState.error != null) {
-  //       throw props.categoiesState.error;
-  //     }
-  //   }, [props.categoiesState.error]);
+    useEffect(() => {
+      if (props.audiobooksState.error != null) {
+        throw props.audiobooksState.error;
+      }
+    }, [props.audiobooksState.error]);
 
   //todo backend 2 endpointy które pobiorą mi wszystki kategorie dla audiobooka które nie są już używane i wszystkie audiobooki dla ktegorii które już w niej nie są
   //todo najpierw raczej zrobiłbym dodawanie audiobooka w modalu i podepne go pod tą kategorie
@@ -93,6 +81,12 @@ export default function AudiobooksList(props) {
         <hr className="line" />
         <div className="table-title my-2">
           <h1>{t("categories")}</h1>
+          
+          <RenderAudiobooksList
+          state={state}
+          setState={setState}
+          t={t}
+        />
         </div>
         <div className="row">
   

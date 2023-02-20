@@ -2,11 +2,11 @@ import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 
-export default function RenderList(props) {
+export default function RenderCategoriesList(props) {
 
   const navigate = useNavigate();
 
-  const createTableTitles = () => {
+  const createTree = () => {
     let renderArray = [];
     let kids = [];
 
@@ -14,6 +14,7 @@ export default function RenderList(props) {
 
     return renderArray;
   };
+
   const oparateParentList = (element) => {
       element.stopPropagation()
       if (element.currentTarget.attributes["data-clicable"].value == "true") {
@@ -312,7 +313,7 @@ export default function RenderList(props) {
 
   return (
     <div>
-      <ul className="list-group">{createTableTitles()}</ul>
+      <ul className="list-group">{createTree()}</ul>
     </div>
   );
 }
