@@ -77,5 +77,17 @@
     "editName": "Edytuj nazwę",
     "editCategory": "Edytuj kategorię",
     "yes": "Tak",
-    "no": "Nie"
+    "no": "Nie",
+    "addAudiobook": "Dodaj audiobooka",
+    "title": "Tytuł",
+    "active": "Aktywny",
+    "author": "Autor",
+    "duration": "Długość",
+    "age": "Pzedział wiekowy",
+    "parts": "Części",
+    "size": "Rozmiar",
+    "year": "Rok",
+    "details": "Detale",
+    "back": "Cofnij",
+    "upload": "Wyślij"
 }

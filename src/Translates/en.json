@@ -77,5 +77,17 @@
     "editName": "Edit name",
     "editCategory": "Edit Category",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "addAudiobook": "Add audiobook",
+    "title": "Title",
+    "active": "Active",
+    "author": "Author",
+    "duration": "Duration",
+    "age": "Age range",
+    "parts": "Parts",
+    "size": "Size",
+    "year": "Year",
+    "details": "Details",
+    "back": "Go back",
+    "upload": "Upload"
 }

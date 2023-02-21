@@ -32,17 +32,19 @@ export default function AddAudiobookModal(props) {
   };
 
   const handleOnFileChange = (e) => {
+    
     if (e.target.files) {
       setSateModal({ ...stateModal, fileAdded: false });
       return;
     }
+
     let file = e.target.files[0];
 
     setSateModal({ ...stateModal, fileAdded: true, file: file });
   };
 
   const handleClose = () => {
-    props.setState({ addAudiobookModal: props.state.addAudiobookModal });
+    props.setState({...props.state, addAudiobookModal: !props.state.addAudiobookModal });
   };
 
   const handleBack = () => {
@@ -106,13 +108,10 @@ export default function AddAudiobookModal(props) {
               }
             })
             .catch((e) => {
-              if (e) {
-                console.log(e);
-                props.setState({
-                  ...props.state,
-                  errors: parseInt(e.message),
-                });
-              }
+              props.setCategoiesState({
+                ...props.categoiesState,
+                error: e,
+              });
             });
         } else {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
@@ -150,13 +149,10 @@ export default function AddAudiobookModal(props) {
                 }
               })
               .catch((e) => {
-                if (e) {
-                  console.log(e);
-                  props.setState({
-                    ...props.state,
-                    errors: parseInt(e.message),
-                  });
-                }
+                props.setCategoiesState({
+                  ...props.categoiesState,
+                  error: e,
+                });
               });
 
             part = part + 1;
@@ -169,6 +165,10 @@ export default function AddAudiobookModal(props) {
     }
   };
 
+  let currentProcent = () => {
+    return ((stateProgress.currentPart/stateProgress.maxParts)*100)
+  }
+  //Skończ modal z progressem
   return (
     <Modal
       show={props.state.addAudiobookModal}
@@ -178,7 +178,7 @@ export default function AddAudiobookModal(props) {
       <Modal.Header>
         <Modal.Title>
           <h3>
-            <b>{props.t("AddNewBookButton")}</b>
+            <b>{props.t("addAudiobook")}</b>
           </h3>
         </Modal.Title>
       </Modal.Header>
@@ -206,7 +206,9 @@ export default function AddAudiobookModal(props) {
       ) : (
         <Modal.Body>
           {stateModal.modal === 3 || stateModal.progress > 0 ? (
-            <div>Loading</div>
+            <div className="progress">
+              <div className="progress-bar progress-bar-striped bg-info" role="progressbar" aria-valuenow={currentProcent()} aria-valuemin="0" aria-valuemax="100"></div>
+           </div>
           ) : (
             <input
               id="name"
@@ -236,15 +238,15 @@ export default function AddAudiobookModal(props) {
           {stateModal.upload === false ? (
             <div>
               <Button variant="dark" onClick={handleBack}>
-                {props.t("GoBack")}
+                {props.t("back")}
               </Button>
 
               <Button
-                disabled={stateModal.fileAdded === false}
+                disabled={!stateModal.fileAdded}
                 variant="dark"
                 onClick={addNewAudiobook}
               >
-                {props.t("Upload")}
+                {props.t("upload")}
               </Button>
             </div>
           ) : (
@@ -260,7 +262,7 @@ export default function AddAudiobookModal(props) {
                   });
                 }}
               >
-                {props.t("end")}
+                {props.t("close")}
               </Button>
             </div>
           )}

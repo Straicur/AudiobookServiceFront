@@ -16,8 +16,8 @@ export default function AudiobooksList(props) {
     json: null,
     addAudiobookModal: false,
     addAudiobookParent: null,
-    editAudiobookModal: false,
-    editAudiobookElement: null,
+    detailAudiobookModal: false,
+    detailAudiobookElement: null,
     refresh: false,
     error: null,
   });
@@ -40,16 +40,13 @@ export default function AudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        //t
-        // props.setCategoiesState({
-        //   ...props.categoiesState,
-        //   error: e,
-        // });
+        props.setCategoiesState({
+          ...props.categoiesState,
+          error: e,
+        });
       },
       onSuccess: (data) => {
-        console.log(data);
         setState({ ...state, json: data.audiobooks });
-
       },
     }
   );
@@ -74,13 +71,14 @@ export default function AudiobooksList(props) {
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!11
   //Skończenie dodawania i poprawa tego progresu bo jest chujowy 
   //Zrobienie listy i po niej zostaje mi jeszcze Modal tego audiobooka i jego edycja
+
   return (
     <div className="container-fluid main-container mt-3">
       <div className="card position-relative p-3 mb-5  shadow">
         <AdminNavBar />
         <hr className="line" />
         <div className="table-title my-2">
-          <h1>{t("categories")}</h1>
+          <h1>Nazwa kategorii</h1>
           
           <RenderAudiobooksList
           state={state}

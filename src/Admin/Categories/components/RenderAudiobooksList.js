@@ -39,7 +39,7 @@ export default function RenderAudiobooksList(props) {
               className="btn button"
               onClick={() => {}}
             >
-              Detail
+              {props.t("details")}
             </Button>
           </div>
         </td>
@@ -51,9 +51,9 @@ export default function RenderAudiobooksList(props) {
     <table className="table">
       <thead className="">
         <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Author</th>
-          <th scope="col">Active</th>
+          <th scope="col">{props.t("title")}</th>
+          <th scope="col">{props.t("author")}</th>
+          <th scope="col">{props.t("active")}</th>
           <th scope="col"></th>
         </tr>
       </thead>
