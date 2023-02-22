@@ -89,5 +89,10 @@
     "year": "Year",
     "details": "Details",
     "back": "Go back",
-    "upload": "Upload"
+    "upload": "Upload",
+    "activate": "Activate",
+    "deActivate": "Deactivate",
+    "youDelete": "You want to delete ?",
+    "youDeactivate": "You want to deactivate ?",
+    "youActivete": "You want to activate ?"
 }

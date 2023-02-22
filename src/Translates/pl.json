@@ -89,5 +89,10 @@
     "year": "Rok",
     "details": "Detale",
     "back": "Cofnij",
-    "upload": "Wyślij"
+    "upload": "Wyślij",
+    "activate": "Aktywuj",
+    "deActivate": "Deaktywuj",
+    "youDelete": "Napewno chcesz usunąć ?",
+    "youDeactivate": "Napewno chcesz deaktywować ?",
+    "youActivete": "Napewno chcesz aktywować ?"
 }
