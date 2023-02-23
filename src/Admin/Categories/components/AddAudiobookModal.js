@@ -6,7 +6,6 @@ import sha256 from "crypto-js/sha256";
 import { Buffer } from "buffer";
 
 export default function AddAudiobookModal(props) {
-  
   const [stateModal, setSateModal] = useState({
     author: "",
     title: "",
@@ -32,19 +31,22 @@ export default function AddAudiobookModal(props) {
   };
 
   const handleOnFileChange = (e) => {
-    
     if (e.target.files) {
-      setSateModal({ ...stateModal, fileAdded: false });
-      return;
+      let file = e.target.files[0];
+
+      if (file.type == "application/zip") {
+        setSateModal({ ...stateModal, fileAdded: true, file: file });
+      }
     }
-
-    let file = e.target.files[0];
-
-    setSateModal({ ...stateModal, fileAdded: true, file: file });
   };
 
   const handleClose = () => {
-    props.setState({...props.state, addAudiobookModal: !props.state.addAudiobookModal });
+    props.setState({
+      ...props.state,
+      addAudiobookModal: !props.state.addAudiobookModal,
+      updated: props.state.updated,
+      modalAddShow: props.state.modalAddShow,
+    });
   };
 
   const handleBack = () => {
@@ -74,6 +76,7 @@ export default function AddAudiobookModal(props) {
     setSateModal({ ...stateModal, upload: true, modal: 3 });
 
     reader.onload = function (e) {
+      console.log(e.target.result);
       if (e.target.result instanceof ArrayBuffer) {
         let buf = new Uint8Array(e.target.result);
         let allparts = 0;
@@ -103,9 +106,10 @@ export default function AddAudiobookModal(props) {
 
           HandleFetch(url, method, jsonData, props.token)
             .then((data) => {
-              if (data.status = 200) {
-                setStateProgress({ ...stateProgress, error: true });
-              }
+              setStateProgress({
+                ...stateProgress,
+                currentPart: stateProgress.currentPart + 1,
+              });
             })
             .catch((e) => {
               props.setCategoiesState({
@@ -144,9 +148,10 @@ export default function AddAudiobookModal(props) {
 
             HandleFetch(url, method, jsonData, props.token)
               .then((data) => {
-                if (data.status = 200) {
-                  setStateProgress({ ...stateProgress, error: true });
-                }
+                setStateProgress({
+                  ...stateProgress,
+                  currentPart: stateProgress.currentPart + 1,
+                });
               })
               .catch((e) => {
                 props.setCategoiesState({
@@ -160,15 +165,16 @@ export default function AddAudiobookModal(props) {
         }
       }
     };
-    if (stateModal.file == null) {
+    if (stateModal.file != null) {
       reader.readAsArrayBuffer(stateModal.file);
     }
   };
 
   let currentProcent = () => {
-    return ((stateProgress.currentPart/stateProgress.maxParts)*100)
-  }
-  
+    console.log((stateProgress.currentPart / stateProgress.maxParts) * 100)
+    return (stateProgress.currentPart / stateProgress.maxParts) * 100;
+  };
+
   return (
     <Modal
       show={props.state.addAudiobookModal}
@@ -207,8 +213,14 @@ export default function AddAudiobookModal(props) {
         <Modal.Body>
           {stateModal.modal === 3 || stateModal.progress > 0 ? (
             <div className="progress">
-              <div className="progress-bar progress-bar-striped bg-info" role="progressbar" aria-valuenow={currentProcent()} aria-valuemin="0" aria-valuemax="100"></div>
-           </div>
+              <div
+                className="progress-bar progress-bar-striped bg-info"
+                role="progressbar"
+                aria-valuenow={currentProcent()}
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
           ) : (
             <input
               id="name"
@@ -240,11 +252,12 @@ export default function AddAudiobookModal(props) {
               <Button variant="dark" onClick={handleBack}>
                 {props.t("back")}
               </Button>
-
               <Button
                 disabled={!stateModal.fileAdded}
                 variant="dark"
-                onClick={addNewAudiobook}
+                onClick={() => {
+                  addNewAudiobook();
+                }}
               >
                 {props.t("upload")}
               </Button>
@@ -255,11 +268,7 @@ export default function AddAudiobookModal(props) {
                 disabled={stateModal.uploadEnded}
                 variant="dark"
                 onClick={() => {
-                  props.setState({
-                    ...props.state,
-                    updated: props.state.updated,
-                    modalAddShow: props.state.modalAddShow,
-                  });
+                  handleClose();
                 }}
               >
                 {props.t("close")}
