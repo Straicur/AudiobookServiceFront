@@ -5,17 +5,16 @@ export default function RenderAudiobooksList(props) {
   const createTable = () => {
     let renderArray = [];
 
-    if(props.state.json != null){
-        props.state.json.forEach((element) => {
-            renderArray.push(createColumn(element));
-          });
+    if (props.state.json != null) {
+      props.state.json.forEach((element) => {
+        renderArray.push(createColumn(element));
+      });
     }
 
     return renderArray;
   };
 
   const createColumn = (element) => {
-   
     return (
       <tr key={uuidv4()}>
         <th scope="row">{element.title}</th>
@@ -34,7 +33,13 @@ export default function RenderAudiobooksList(props) {
               variant="dark"
               size="sm"
               className="btn button"
-              onClick={() => {}}
+              onClick={() =>
+                props.setState({
+                  ...props.state,
+                  detailAudiobookModal: !props.state.detailAudiobookModal,
+                  detailAudiobookElement: element,
+                })
+              }
             >
               {props.t("details")}
             </Button>

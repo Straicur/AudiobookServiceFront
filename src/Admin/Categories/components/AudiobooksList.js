@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import JsonModal from "../../../components/JsonModal";
 import AddAudiobookModal from "../components/AddAudiobookModal";
+import CategoryAudiobookDetailModal from "../components/CategoryAudiobookDetailModal";
 import RenderAudiobooksList from "../components/RenderAudiobooksList";
 
 export default function AudiobooksList(props) {
@@ -154,6 +155,15 @@ export default function AudiobooksList(props) {
         </div>
         {state.addAudiobookModal ? (
           <AddAudiobookModal
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+            categoryKey={props.categoryKey}
+          />
+        ) : null}
+        {state.detailAudiobookModal && state.detailAudiobookElement != null ? (
+          <CategoryAudiobookDetailModal
             state={state}
             setState={setState}
             t={t}

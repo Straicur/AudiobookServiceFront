@@ -168,7 +168,7 @@ export default function AddAudiobookModal(props) {
   let currentProcent = () => {
     return ((stateProgress.currentPart/stateProgress.maxParts)*100)
   }
-  //Skończ modal z progressem
+  
   return (
     <Modal
       show={props.state.addAudiobookModal}
@@ -269,26 +269,5 @@ export default function AddAudiobookModal(props) {
         </Modal.Footer>
       )}
     </Modal>
-
-    // <Modal
-    //   show={stateModal.modal === 2 || stateModal.modal === 3}
-    //   backdrop="static"
-    //   keyboard={false}
-    //   dialogClassName="custom-dialog"
-    // >
-    //   <Modal.Header>
-    //     <Modal.Title>
-    //       <h3>
-    //         <b>{props.t("AddNewBookButton")}</b>
-    //       </h3>
-    //     </Modal.Title>
-    //   </Modal.Header>
-    //   <Modal.Body>
-
-    //   </Modal.Body>
-    //   <Modal.Footer>
-
-    //   </Modal.Footer>
-    // </Modal>
   );
 }
