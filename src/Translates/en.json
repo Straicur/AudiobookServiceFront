@@ -94,5 +94,6 @@
     "deActivate": "Deactivate",
     "youDelete": "You want to delete ?",
     "youDeactivate": "You want to deactivate ?",
-    "youActivete": "You want to activate ?"
+    "youActivete": "You want to activate ?",
+    "youChangeName": "You want to change name ?"
 }

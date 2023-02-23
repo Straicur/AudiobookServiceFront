@@ -79,12 +79,12 @@ export default function EditCategoryModal(props) {
       "PATCH",
       {
         categoryId: props.state.editCategoryElement.id,
-        active: !props.state.editCategoryElement.active
+        active: !props.state.editCategoryElement.active,
       },
       props.token
     )
       .then(() => {
-        console.log(!props.state.editCategoryElement.active)
+        console.log(!props.state.editCategoryElement.active);
         handleClose();
       })
       .catch((e) => {
@@ -108,8 +108,9 @@ export default function EditCategoryModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {editModal.edit == 1  ?(
+        {editModal.edit == 1 ? (
           <div className="row">
+            <h3>{props.t("youChangeName")}</h3>
             <div className="col">
               <input
                 id="name"
@@ -131,10 +132,14 @@ export default function EditCategoryModal(props) {
               </Button>
             </div>
           </div>
-        ): null} 
-        {editModal.edit == 2 ?(
+        ) : null}
+        {editModal.edit == 2 ? (
           <div className="row">
-                 <h3>{props.state.editCategoryElement.active ? props.t("youDeactivate"): props.t("youActivete")}</h3>
+            <h3>
+              {props.state.editCategoryElement.active
+                ? props.t("youDeactivate")
+                : props.t("youActivete")}
+            </h3>
 
             <div className="col">
               <Button
@@ -156,10 +161,10 @@ export default function EditCategoryModal(props) {
               </Button>
             </div>
           </div>
-        ): null}
-        {editModal.edit == 3 ?(
+        ) : null}
+        {editModal.edit == 3 ? (
           <div className="row">
-                   <h3>{props.t("youDelete")}</h3>
+            <h3>{props.t("youDelete")}</h3>
             <div className="col">
               <Button
                 variant="danger"
@@ -180,7 +185,7 @@ export default function EditCategoryModal(props) {
               </Button>
             </div>
           </div>
-        ): null}
+        ) : null}
       </Modal.Body>
       <Modal.Footer>
         <Button

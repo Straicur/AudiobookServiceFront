@@ -75,7 +75,7 @@ export const AdminNavBar = () => {
         </Button>
       </div>
       <div className="col d-flex justify-content-end  align-items-center">
-        <div className="ps-4 ">
+        <div className="ps-4 mx-2">
           <Button
             name="pl"
             variant={i18n.language === "pl" ? "dark" : "light"}
