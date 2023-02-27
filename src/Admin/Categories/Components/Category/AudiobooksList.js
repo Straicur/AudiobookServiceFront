@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../../../Components/NavBars/AdminNavBar";
+import { AdminNavBar } from "../../../../Components/NavBars/AdminNavBar";
 import { useQuery } from "react-query";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { HandleFetch } from "../../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
-import JsonModal from "../../../Components/JsonModal";
-import AddAudiobookModal from "./AddAudiobookModal";
-import CategoryAudiobookDetailModal from "./CategoryAudiobookDetailModal";
-import RenderAudiobooksList from "./RenderAudiobooksList";
+import JsonModal from "../../../../Components/JsonModal";
+import AddAudiobookModal from "../Category/AddAudiobookModal";
+import CategoryAudiobookDetailModal from "../Category/CategoryAudiobookDetailModal";
+import RenderAudiobooksList from "../Category/RenderAudiobooksList";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
