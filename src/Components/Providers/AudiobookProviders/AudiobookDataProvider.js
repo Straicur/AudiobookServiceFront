@@ -1,44 +1,45 @@
-import React, { useContext, useState } from "react";
+import React, {useContext, useState } from "react";
+import { useQuery } from "react-query";
 import { HandleFetch } from "../../HandleFetch";
 
-const Context = React.createContext();
+const Context = React.createContext(null);
 
-export const AudiobookDataProvider = ({ children,props }) => {
+export const AudiobookDataProvider = ({ children,token,audiobookId }) => {
 
-  const [comments, setComments] = useState();
+  const [audiobookDetail, setAudiobookDetail] = useState(null);
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/categories",
-        "GET",
-        null,
-        props.token
+        "http://127.0.0.1:8000/api/admin/audiobook/details",
+        "POST",
+        {
+          audiobookId:audiobookId
+        },
+        token
       ),
     {
       retry: 1,
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
-          error: e,
-        });
+        // props.setCategoiesState({
+        //   ...props.categoiesState,
+        //   error: e,
+        // });
       },
       onSuccess: (data) => {
-        //I tu ustawiam state, tylko muszę jeszczę podać mu id audiobookai klucz kategorii chyba 
-    
-        // setState({ ...state, json: data.categories });
+        setAudiobookDetail(data);
       },
     }
   );
 
   return (
-    <Context.Provider value={comments}>
+    <Context.Provider value={audiobookDetail}>
       {children}
     </Context.Provider>
   )
 }
 
-export const useComments = () => useContext(Context);
+export const useAudiobookDetail = () => useContext(Context);

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../../Components/HandleFetch";
-import sha256 from "crypto-js/sha256";
 import { Buffer } from "buffer";
 import AudioPlayer from 'react-h5-audio-player';
+import {AudiobookDataProvider, useAudiobookDetail} from '../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider';
 
 export default function CategoryAudiobookDetailModal(props) {
 
 
-    
+    const audiobookDetail = useAudiobookDetail();
 
 
     const handleClose = () => {
@@ -29,6 +29,9 @@ export default function CategoryAudiobookDetailModal(props) {
                     {/* <Modal.Title><h3 className="text-light"><b>{modalState.title}</b></h3></Modal.Title> */}
                 </Modal.Header>
                 <Modal.Body className="bg-dark">
+                    <AudiobookDataProvider token={props.token} audiobookId={props.state.detailAudiobookElement.id}>
+                        {console.log(audiobookDetail)}
+                    </AudiobookDataProvider>
 {/*     
                     <AudioPlayer
                         header={<h3>{t('Part')}: {modalState.part}</h3>}
