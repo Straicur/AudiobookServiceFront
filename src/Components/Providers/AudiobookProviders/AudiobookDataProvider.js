@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { HandleFetch } from "../components/HandleFetch";
+import { HandleFetch } from "../../HandleFetch";
 
 const Context = React.createContext();
 

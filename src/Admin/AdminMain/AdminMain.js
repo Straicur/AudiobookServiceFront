@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
-import InfoContainer from "./components/InfoContainer";
+import InfoContainer from "./Components/InfoContainer";
 
 export default function AdminMain() {
   const token = useTokenStore((state) => state.token);

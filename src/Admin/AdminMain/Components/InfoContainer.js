@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { AdminNavBar } from "../../../components/AdminNavBar";
+import { AdminNavBar } from "../../../Components/NavBars/AdminNavBar";
 import { useQuery } from "react-query";
-import { HandleFetch } from "../../../components/HandleFetch";
+import { HandleFetch } from "../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 
 export default function InfoContainer(props) {

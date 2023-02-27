@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { HandleFetch } from "../../components/HandleFetch";
+import { HandleFetch } from "../../Components/HandleFetch";
 import md5 from "md5";
 
 export default function Forgot() {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../components/HandleFetch";
+import { HandleFetch } from "../../../Components/HandleFetch";
 import sha256 from "crypto-js/sha256";
 import { Buffer } from "buffer";
 import AudioPlayer from 'react-h5-audio-player';

@@ -1,8 +1,8 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { useTranslation } from "react-i18next";
-import { HandleFetch } from "./HandleFetch";
-import { useTokenStore } from "../store";
+import { HandleFetch } from "../HandleFetch";
+import { useTokenStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 
 export const AdminNavBar = () => {

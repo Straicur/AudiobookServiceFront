@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
-import CategoriesList from "./components/CategoriesList";
+import CategoriesList from "./Components/CategoriesList";
 
 export default function Categories() {
   

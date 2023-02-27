@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { HandleFetch } from "./HandleFetch";
-import { useTokenStore } from "../store";
+import { HandleFetch } from "../HandleFetch";
+import { useTokenStore } from "../../store";
 
 export const UserNavBar = () => {
   const { t, i18n } = useTranslation();
