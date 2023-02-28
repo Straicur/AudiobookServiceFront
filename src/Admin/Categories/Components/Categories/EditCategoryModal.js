@@ -84,7 +84,6 @@ export default function EditCategoryModal(props) {
       props.token
     )
       .then(() => {
-        console.log(!props.state.editCategoryElement.active);
         handleClose();
       })
       .catch((e) => {

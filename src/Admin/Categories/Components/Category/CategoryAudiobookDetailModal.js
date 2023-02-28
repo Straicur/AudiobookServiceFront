@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 import { Buffer } from "buffer";
 import AudioPlayer from 'react-h5-audio-player';
-import {AudiobookDataProvider, useAudiobookDetail} from '../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider';
+import {AudiobookDataProvider} from '../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider';
+import {AudiobookDataContext} from '../../../../Components/Providers/AudiobookProviders/AudiobookDataContext';
 
 export default function CategoryAudiobookDetailModal(props) {
 
 
-    const audiobookDetail = useAudiobookDetail();
+    const audiobookDetail = useContext(AudiobookDataContext);
 
 
     const handleClose = () => {
@@ -17,7 +18,8 @@ export default function CategoryAudiobookDetailModal(props) {
       };
 
     return (
-        <Modal
+        <AudiobookDataProvider token={props.token} audiobookId={props.state.detailAudiobookElement.id}>
+                <Modal
                 show={props.state.detailAudiobookModal}
                 onHide={handleClose}
                 size="lg"
@@ -29,9 +31,8 @@ export default function CategoryAudiobookDetailModal(props) {
                     {/* <Modal.Title><h3 className="text-light"><b>{modalState.title}</b></h3></Modal.Title> */}
                 </Modal.Header>
                 <Modal.Body className="bg-dark">
-                    <AudiobookDataProvider token={props.token} audiobookId={props.state.detailAudiobookElement.id}>
-                        {console.log(audiobookDetail)}
-                    </AudiobookDataProvider>
+                {console.log(audiobookDetail)}
+               
 {/*     
                     <AudioPlayer
                         header={<h3>{t('Part')}: {modalState.part}</h3>}
@@ -45,6 +46,8 @@ export default function CategoryAudiobookDetailModal(props) {
                     /> */}
                    
                 </Modal.Body>
-            </Modal>
+            </Modal> 
+        </AudiobookDataProvider>
+        
     )
 }

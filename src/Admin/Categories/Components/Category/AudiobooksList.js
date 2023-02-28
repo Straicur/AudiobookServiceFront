@@ -24,8 +24,12 @@ export default function AudiobooksList(props) {
     error: null,
   });
 
-  const { isLoading, error, data, isFetching, refetch } = useQuery(
-    "data",
+  const { isLoading: isLoadingFirst,
+    error: errorFirst,
+    data: dataFirst,
+    isFetching: isFetchingFirst,
+    refetch: refetchFirst } = useQuery(
+    "dataFirst",
     () =>
       HandleFetch(
         "http://127.0.0.1:8000/api/admin/category/audiobooks",
@@ -95,7 +99,7 @@ export default function AudiobooksList(props) {
 
   useEffect(() => {
     if (state.refresh) {
-      refetch();
+      refetchFirst();
     }
   }, [state.refresh]);
 
