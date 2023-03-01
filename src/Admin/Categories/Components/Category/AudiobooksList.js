@@ -8,6 +8,7 @@ import JsonModal from "../../../../Components/JsonModal";
 import AddAudiobookModal from "../Category/AddAudiobookModal";
 import CategoryAudiobookDetailModal from "../Category/CategoryAudiobookDetailModal";
 import RenderAudiobooksList from "../Category/RenderAudiobooksList";
+import CategoryDetailProviders from "../Category/CategoryDetailProviders";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ export default function AudiobooksList(props) {
     addAudiobookParent: null,
     detailAudiobookModal: false,
     detailAudiobookElement: null,
+    detailAudiobookElementPart: 0,
     refresh: false,
     error: null,
   });
@@ -167,7 +169,7 @@ export default function AudiobooksList(props) {
           />
         ) : null}
         {state.detailAudiobookModal && state.detailAudiobookElement != null ? (
-          <CategoryAudiobookDetailModal
+          <CategoryDetailProviders
             state={state}
             setState={setState}
             t={t}
