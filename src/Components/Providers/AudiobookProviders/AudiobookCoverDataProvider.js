@@ -10,7 +10,7 @@ export const AudiobookCoverDataProvider = ({
   audiobookId,
 }) => {
   const [audiobookCover, setAudiobookCover] = useState(null);
-
+    console.log("http://127.0.0.1:8000/api/audiobook/cover/"+audiobookId)
   const {
     isLoading: isLoadingAudiobookCover,
     error: errorAudiobookCover,
@@ -21,7 +21,7 @@ export const AudiobookCoverDataProvider = ({
     "dataAudiobookCover",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/audiobook/cover/".audiobookId,
+        "http://127.0.0.1:8000/api/audiobook/cover/"+audiobookId,
         "GET",
         null,
         token
