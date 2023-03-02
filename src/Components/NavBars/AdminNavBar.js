@@ -1,8 +1,8 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { useTranslation } from "react-i18next";
-import { HandleFetch } from "./HandleFetch";
-import { useTokenStore } from "../store";
+import { HandleFetch } from "../HandleFetch";
+import { useTokenStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 
 export const AdminNavBar = () => {
@@ -75,7 +75,7 @@ export const AdminNavBar = () => {
         </Button>
       </div>
       <div className="col d-flex justify-content-end  align-items-center">
-        <div className="ps-4 ">
+        <div className="ps-4 mx-2">
           <Button
             name="pl"
             variant={i18n.language === "pl" ? "dark" : "light"}

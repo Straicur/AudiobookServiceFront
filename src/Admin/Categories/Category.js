@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
-import AudiobooksList from "./components/AudiobooksList";
+import AudiobooksList from "./Components/Category/AudiobooksList";
 import {useParams} from 'react-router-dom'
 
 export default function Category() {
@@ -12,7 +12,6 @@ export default function Category() {
   const { categoryKey } = useParams();
 
   const [audiobooksState, setAudiobooksState] = useState({
-    audiobooks: [],
     error: null,
   });
 

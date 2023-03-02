@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../../../components/AdminNavBar";
+import { AdminNavBar } from "../../../../Components/NavBars/AdminNavBar";
 import { useQuery } from "react-query";
-import { HandleFetch } from "../../../components/HandleFetch";
+import { HandleFetch } from "../../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
-import { useCategoryListStore } from "../../../store";
-import RenderList from "../components/RenderList";
-import JsonModal from "../../../components/JsonModal";
-import AddCategoryModal from "../components/AddCategoryModal";
-import EditCategoryModal from "../components/EditCategoryModal";
+import { useCategoryListStore } from "../../../../store";
+import RenderCategoriesList from "./RenderCategoriesList";
+import JsonModal from "../../../../Components/JsonModal";
+import AddCategoryModal from "./AddCategoryModal";
+import EditCategoryModal from "./EditCategoryModal";
 
 export default function CategoriesList(props) {
   
@@ -84,7 +84,7 @@ export default function CategoriesList(props) {
         <AdminNavBar />
         <hr className="line" />
         <div className="table-title my-2"><h1>{t('categories')}</h1></div>
-        <RenderList
+        <RenderCategoriesList
           state={state}
           setState={setState}
           categories={categories}

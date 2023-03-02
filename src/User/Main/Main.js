@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { UserNavBar } from "../../components/UserNavBar";
+import { UserNavBar } from "../../Components/NavBars/UserNavBar";
 import { useTokenStore } from "../../store";
 import { useMutation, useQuery, queryCache } from "react-query";
-import { HandleFetch } from "../../components/HandleFetch";
+import { HandleFetch } from "../../Components/HandleFetch";
 
 export default function Main() {
   const token = useTokenStore((state) => state.token);

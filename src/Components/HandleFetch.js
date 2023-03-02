@@ -31,6 +31,10 @@ export const HandleFetch = async (
 
   if (response.ok) {
     if (response.headers.get("content-length") != 0) {
+      if (response.headers.get("content-type") != "application/json") {
+        return response.blob();
+      }
+
       return response.json();
     } else {
       return {};
@@ -39,7 +43,7 @@ export const HandleFetch = async (
     const errJson = await response.json();
 
     let error;
-    
+
     switch (response.status) {
       case 400:
         error = new InvalidJsonDataError(errJson.error, errJson.data);

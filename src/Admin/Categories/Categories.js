@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
-import CategoriesList from "./components/CategoriesList";
+import CategoriesList from "./Components/Categories/CategoriesList";
 
 export default function Categories() {
   
   const token = useTokenStore((state) => state.token);
 
   const [categoiesState, setCategoiesState] = useState({
-    categories: [],
     error: null,
   });
 

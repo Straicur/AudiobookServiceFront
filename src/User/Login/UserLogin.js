@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTokenStore } from "../../store";
 import { useNavigate } from "react-router-dom";
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./Components/LoginForm";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 
