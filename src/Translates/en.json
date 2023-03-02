@@ -95,5 +95,10 @@
     "youDelete": "You want to delete ?",
     "youDeactivate": "You want to deactivate ?",
     "youActivete": "You want to activate ?",
-    "youChangeName": "You want to change name ?"
+    "youChangeName": "You want to change name ?",
+    "album": "Album",
+    "description": "Description",
+    "encoded": "Encoded",
+    "version": "Version",
+    "comments": "Comments"
 }

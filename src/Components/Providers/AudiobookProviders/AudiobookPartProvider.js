@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext,useEffect, useState, useContext } from "react";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../HandleFetch";
 
@@ -40,6 +40,10 @@ export const AudiobookPartProvider = ({
       },
     }
   );
+
+  useEffect(() => {
+    refetchAudiobookPart()
+  },[part]);
 
   return (
     <AudiobookPartContext.Provider value={audiobookPart}>

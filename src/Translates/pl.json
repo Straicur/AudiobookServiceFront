@@ -95,5 +95,10 @@
     "youDelete": "Napewno chcesz usunąć ?",
     "youDeactivate": "Napewno chcesz deaktywować ?",
     "youActivete": "Napewno chcesz aktywować ?",
-    "youChangeName": "Napewno chcesz nazwę ?"
+    "youChangeName": "Napewno chcesz nazwę ?",
+    "album": "Album",
+    "description": "Opis",
+    "encoded": "Zakodowane",
+    "version": "Wersja",
+    "comments": "Komentarze"
 }

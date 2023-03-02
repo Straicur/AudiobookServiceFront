@@ -7,8 +7,7 @@ const AudiobookCommentsContext = createContext(null);
 export const AudiobookCommentsProvider = ({ children,token,audiobookId, categoryKey }) => {
 
   const [audiobookComments, setAudiobookComments] = useState(null);
-  console.log(categoryKey)
-  console.log(audiobookId)
+
   const {  isLoading: isLoadingAudiobookComments,
     error: errorAudiobookComments,
     data: dataAudiobookComments,
