@@ -41,7 +41,7 @@ export default function CategoryAudiobookDetailModal(props) {
         {console.log(useAudiobookCover())}
         <div className="col">
           <img
-            src={audiobookCover === null ? "/noImg.jpg" : audiobookCover}
+            src={audiobookCover == null ? "/noImg.jpg" : audiobookCover}
             className="card-img-top"
             alt="..."
           />
