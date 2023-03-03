@@ -52,7 +52,7 @@ export default function CategoryAudiobookDetailModal(props) {
                 className="btn button px-4 my-2 modal_img_button"
               >
                 {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
-                Zamień cover
+                {props.t("editCover")}
               </Button>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function CategoryAudiobookDetailModal(props) {
                 className="btn button px-4 mt-3 mb-1 modal_button success_button"
               >
                 {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
-                Edytuj
+                {props.t("edit")}
               </Button>
             </div>
             <div className="row d-flex justify-content-center">
@@ -158,7 +158,7 @@ export default function CategoryAudiobookDetailModal(props) {
                 className="btn button px-4 my-1 modal_button danger_button"
               >
                 {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
-                Usuń z aktualnej kategorii
+                {props.t("deleteFromCurrentCategory")}
               </Button>
             </div>
             <div className="row d-flex justify-content-center">
@@ -168,7 +168,7 @@ export default function CategoryAudiobookDetailModal(props) {
                 className="btn button px-4 my-1 modal_button danger_button"
               >
                 {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
-                Usuń całkowicie
+                {props.t("deleteEntarly")}
               </Button>
             </div>
           </div>
@@ -180,7 +180,7 @@ export default function CategoryAudiobookDetailModal(props) {
                 className="btn button primary_button"
               >
                 {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
-                Pobierz Zip
+                {props.t("downloadZip")}
               </Button>
             </div>
           </div>
