@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../../Components/HandleFetch";
-import { Buffer } from "buffer";
 import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 import { useAudiobookData } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
 import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
 import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
@@ -34,28 +33,36 @@ export default function CategoryAudiobookDetailModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton className="bg-dark">
-        <Modal.Title>
-          <h3 className="text-light">
-            <b>
-              {audiobookDetail != null
-                ? props.t("title") + ": " + audiobookDetail.title
-                : null}
-            </b>
-          </h3>
-        </Modal.Title>
-      </Modal.Header>
+      <Modal.Header closeButton className="bg-dark"></Modal.Header>
       <Modal.Body className="bg-dark">
         <div className="row ">
-          <div className="col">
-            <img
-              src={audiobookCover == null ? "/noImg.jpg" : audiobookCover}
-              className="card-img-top"
-              alt="..."
-            />
-          </div>
-          <div className="col">
+          <div className="col-5">
             <div className="row ">
+              <img
+                src={audiobookCover == null ? "/noImg.jpg" : audiobookCover}
+                className="card-img-top"
+                alt="..."
+              />
+            </div>
+            <div className="row d-flex justify-content-center">
+              <Button
+                name="en"
+                variant="secondary"
+                size="sm"
+                className="btn button px-4 my-2 modal_img_button"
+              >
+                {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
+                Zamień cover
+              </Button>
+            </div>
+          </div>
+          <div className="col-6 ">
+            <div className="row ms-2">
+              <div className="row text-light">
+                {audiobookDetail != null
+                  ? props.t("title") + ": " + audiobookDetail.title
+                  : null}
+              </div>
               <div className="row text-light">
                 {audiobookDetail != null
                   ? props.t("author") + ": " + audiobookDetail.author
@@ -125,31 +132,63 @@ export default function CategoryAudiobookDetailModal(props) {
                   : null}
               </div>
               <div className="row text-light">
-                {audiobookDetail != null
-                  ?( props.t("active")+": " + audiobookDetail.active ? (
+                {audiobookDetail != null ? (
+                  props.t("active") + ": " + audiobookDetail.active ? (
                     <i className="bi bi-bookmark-check-fill"></i>
                   ) : (
                     <i className="bi bi-bookmark-dash"></i>
-                  ))
-                  : null}
-     
+                  )
+                ) : null}
               </div>
             </div>
-            <div className="row ">
+            <div className="row d-flex justify-content-center">
               <Button
-              // variant={audiobookDetail.like ? "warning" : "success"}
-              // onClick={() => like()}
+                name="en"
+                size="sm"
+                className="btn button px-4 mt-3 mb-1 modal_button success_button"
               >
                 {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
+                Edytuj
+              </Button>
+            </div>
+            <div className="row d-flex justify-content-center">
+              <Button
+                name="en"
+                size="sm"
+                className="btn button px-4 my-1 modal_button danger_button"
+              >
+                {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
+                Usuń z aktualnej kategorii
+              </Button>
+            </div>
+            <div className="row d-flex justify-content-center">
+              <Button
+                name="en"
+                size="sm"
+                className="btn button px-4 my-1 modal_button danger_button"
+              >
+                {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
+                Usuń całkowicie
+              </Button>
+            </div>
+          </div>
+          <div className="col-1">
+            <div className="row d-flex justify-content-center">
+              <Button
+                name="en"
+                size="sm"
+                className="btn button primary_button"
+              >
+                {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
+                Pobierz Zip
               </Button>
             </div>
           </div>
         </div>
         <hr className="text-light"></hr>
-        <div className="row audio">
+        <div className="row ">
           {audiobookPart != null ? (
             <AudioPlayer
-              header={<h3></h3>}
               autoPlay={false}
               src={audiobookPart}
               // onListen={e=>timeCur(e)}

@@ -1,0 +1,58 @@
+
+.custom-dialog {
+    top: 38rem;
+    right: 41rem;
+}
+.rhap_theme-color{
+    color:#868686;
+}
+.rhap_background-color{
+    background-color: #282c34;
+}
+.rhap_container{
+    border-radius: 0.25rem;
+    background-color: #282c34 !important;
+}
+.rhap_button-clear{
+    color: aliceblue !important;
+}
+.rhap_header{
+
+    color: ghostwhite !important;
+}
+.rhap_progress-bar-show-download{
+    color: ghostwhite !important;
+}
+.rhap_progress-indicator{
+    background-color: #015331;
+}
+.rhap_progress-filled{
+    background-color: #015331;
+}
+.rhap_time{
+    color: ghostwhite !important;
+}
+.audio{
+    margin:0.03rem;
+}
+.table-image{
+    width: 20rem !important;
+}
+.modal_img_button{
+    width: 19rem !important;
+}
+.modal_button{
+    width: 22rem !important;
+}
+.primary_button{
+    background-color: #001057 !important;
+    border-color: #001057 !important;
+}
+.danger_button{
+    background-color: #530019 !important;
+    border-color: #530019 !important;
+}
+.success_button{
+    background-color: #005331 !important;
+    border-color: #005331 !important;
+}
