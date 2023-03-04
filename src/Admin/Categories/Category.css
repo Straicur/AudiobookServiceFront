@@ -1,58 +1,98 @@
-
 .custom-dialog {
     top: 38rem;
     right: 41rem;
 }
-.rhap_theme-color{
-    color:#868686;
+
+.rhap_theme-color {
+    color: #868686;
 }
-.rhap_background-color{
+
+.rhap_background-color {
     background-color: #282c34;
 }
-.rhap_container{
+
+.rhap_container {
     border-radius: 0.25rem;
     background-color: #282c34 !important;
+    width: 48rem !important;
 }
-.rhap_button-clear{
+
+.rhap_button-clear {
     color: aliceblue !important;
 }
-.rhap_header{
+
+.rhap_header {
 
     color: ghostwhite !important;
 }
-.rhap_progress-bar-show-download{
+
+.rhap_progress-bar-show-download {
     color: ghostwhite !important;
 }
-.rhap_progress-indicator{
+
+.rhap_progress-indicator {
     background-color: #015331;
 }
-.rhap_progress-filled{
+
+.rhap_progress-filled {
     background-color: #015331;
 }
-.rhap_time{
+
+.rhap_time {
     color: ghostwhite !important;
 }
-.audio{
-    margin:0.03rem;
+
+.audio {
+    margin: 0.03rem;
 }
-.table-image{
+
+.table-image {
     width: 20rem !important;
 }
-.modal_img_button{
-    width: 19rem !important;
+
+.modal_img_button {
+    width: 23.3rem !important;
 }
-.modal_button{
-    width: 22rem !important;
+
+.modal_button {
+    width: 22.4rem !important;
 }
-.primary_button{
+
+.primary_button {
     background-color: #001057 !important;
     border-color: #001057 !important;
 }
-.danger_button{
+
+.danger_button {
     background-color: #530019 !important;
     border-color: #530019 !important;
 }
-.success_button{
+
+.success_button {
     background-color: #005331 !important;
     border-color: #005331 !important;
+}
+
+.input_modal {
+    padding-left: 0 !important;
+}
+
+.btn-close {
+    background-color: #7e5600 !important;
+}
+
+.category_data {
+    font-size: 0.75rem !important;
+}
+
+.input-group-text-new {
+    width: 7rem !important;
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+.input-group-new {
+    width: 7rem !important;
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
 }

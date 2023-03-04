@@ -104,5 +104,7 @@
     "downloadZip": "Pobierz ZIP",
     "editCover": "Edytuj okładkę",
     "deleteFromCurrentCategory": "Usuń z aktualnej kategorii",
-    "deleteEntarly": "Usuń całkowicie"
+    "deleteEntarly": "Usuń całkowicie",
+    "comment": "Komentarz",
+    "owner": "Właściciel"
 }

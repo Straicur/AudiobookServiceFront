@@ -104,5 +104,7 @@
     "downloadZip": "Download ZIP",
     "editCover": "Edit cover",
     "deleteFromCurrentCategory": "Delete from current category",
-    "deleteEntarly": "Delete entarly"
+    "deleteEntarly": "Delete entarly",
+    "comment": "Comment",
+    "owner": "Owner"
 }
