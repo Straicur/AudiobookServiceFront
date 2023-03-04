@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import JsonModal from "../../../../Components/JsonModal";
 import AddAudiobookModal from "../Category/AddAudiobookModal";
-import CategoryAudiobookDetailModal from "../Category/CategoryAudiobookDetailModal";
 import RenderAudiobooksList from "../Category/RenderAudiobooksList";
 import CategoryDetailProviders from "../Category/CategoryDetailProviders";
 
@@ -90,6 +89,7 @@ export default function AudiobooksList(props) {
         setState({
           ...state,
           category: {
+            id: dataSecond.id,
             name: dataSecond.name,
             active: dataSecond.active,
             parentCategoryName: dataSecond.parentCategoryName,
@@ -101,6 +101,7 @@ export default function AudiobooksList(props) {
 
   useEffect(() => {
     if (state.refresh) {
+      setState({ ...state, refresh: !state.refresh });
       refetchFirst();
     }
   }, [state.refresh]);

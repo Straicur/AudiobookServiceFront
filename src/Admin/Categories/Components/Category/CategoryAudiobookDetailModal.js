@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
 import AudioPlayer from "react-h5-audio-player";
+import { HandleFetch } from "../../../../Components/HandleFetch";
 import "react-h5-audio-player/lib/styles.css";
 import { useAudiobookData } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
 import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
@@ -12,6 +13,11 @@ import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProv
 import { useAudiobookComments } from "../../../../Components/Providers/AudiobookProviders/AudiobookCommentsProvider";
 
 export default function CategoryAudiobookDetailModal(props) {
+
+  const [stateModal, setStateModal] = useState({
+    file: null,
+  });
+
   const audiobookDetail = useAudiobookData();
   const audiobookCover = window.URL.createObjectURL(
     new Blob([useAudiobookCover()])
@@ -21,15 +27,132 @@ export default function CategoryAudiobookDetailModal(props) {
   );
   const audiobookComments = useAudiobookComments();
 
+  const handleOnFileChange = (e) => {
+    if (e.target.files) {
+      let file = e.target.files[0];
+ 
+      if (file.type == "image/png" || file.type == "image/jpeg" || file.type == "image/jpg") {
+        setStateModal({ ...stateModal, file: file });
+      }
+    }
+  };
+  const editCover = () => {
+    if(stateModal.file != null){
+      // HandleFetch(
+      //   "http://127.0.0.1:8000/api/admin/audiobook/change/cover",
+      //   "PATCH",
+      //   {
+      //     // type:
+      //     // base64:
+      //     audiobookId: audiobookDetail.id,
+      //   },
+      //   props.token
+      // )
+      //   .then((blob) => {
+
+      //   })
+      //   .catch((e) => {
+      //     props.setCategoiesState({
+      //       ...props.categoiesState,
+      //       error: e,
+      //     });
+      //     handleClose();
+      //   });
+    }
+
+  }
+
   const handleClose = () => {
     props.setState({
       ...props.state,
       detailAudiobookModal: !props.state.detailAudiobookModal,
+      refresh: !props.state.refresh,
     });
+  };
+
+  const getZip = () => {
+    HandleFetch(
+      "http://127.0.0.1:8000/api/admin/audiobook/zip",
+      "POST",
+      {
+        audiobookId: audiobookDetail.id,
+      },
+      props.token
+    )
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+
+        const link = document.createElement("a");
+
+        link.href = url;
+
+        link.setAttribute("download", "YourAudiobook.zip");
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.parentNode.removeChild(link);
+      })
+      .catch((e) => {
+        props.setCategoiesState({
+          ...props.categoiesState,
+          error: e,
+        });
+        handleClose();
+      });
+  };
+
+  const deleteEntarly = () => {
+    HandleFetch(
+      "http://127.0.0.1:8000/api/admin/audiobook/delete",
+      "DELETE",
+      {
+        audiobookId: audiobookDetail.id,
+      },
+      props.token
+    )
+      .then(() => {
+        handleClose();
+      })
+      .catch((e) => {
+        props.setCategoiesState({
+          ...props.categoiesState,
+          error: e,
+        });
+        handleClose();
+      });
+  };
+
+  const deleteFromCategory = () => {
+    console.log(props.state.category);
+    HandleFetch(
+      "http://127.0.0.1:8000/api/admin/category/remove/audiobook",
+      "DELETE",
+      {
+        categoryId: props.state.category.id,
+        audiobookId: audiobookDetail.id,
+      },
+      props.token
+    )
+      .then(() => {
+        handleClose();
+      })
+      .catch((e) => {
+        props.setCategoiesState({
+          ...props.categoiesState,
+          error: e,
+        });
+        handleClose();
+      });
   };
 
   const createComment = (comment) => {
     //Todo tu mam do zrobienia te drzewo komentarzy
+    // dodaj do providera zmianę pól detali audiobooka (wszystkich)
+    // Potwierdzenie usuwania w obu !!!!
+    // Podepnij edycję okładki, tu muszę wymyślić jak zrobić refetcha w nich bo bez tego nic nie zrobię 
+
     return (
       <div className="row border border-secondary category_data mb-1">
         <div className="row">
@@ -68,7 +191,7 @@ export default function CategoryAudiobookDetailModal(props) {
         <div className="row">
           <div className="col">{props.t("name")}:</div>
           <div className="col">{category.name}</div>
-          <div className="col">{props.t("active")}</div>
+          <div className="col">{props.t("active")}:</div>
           <div className="col">
             {category.active ? (
               <i className="bi bi-bookmark-check-fill"></i>
@@ -111,8 +234,12 @@ export default function CategoryAudiobookDetailModal(props) {
       centered
     >
       <Modal.Header closeButton className="bg-dark">
-        <Button name="en" size="sm" className="btn button primary_button">
-          {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
+        <Button
+          name="en"
+          size="sm"
+          className="btn button primary_button"
+          onClick={getZip}
+        >
           {props.t("downloadZip")}
         </Button>
       </Modal.Header>
@@ -127,13 +254,17 @@ export default function CategoryAudiobookDetailModal(props) {
               />
             </div>
             <div className="row d-flex justify-content-center">
+              <Form.Group controlId="formFileSm" className="my-1">
+                <Form.Control onChange={handleOnFileChange} type="file" size="sm" />
+              </Form.Group>
               <Button
                 name="en"
                 variant="secondary"
                 size="sm"
                 className="btn button px-4 my-2 modal_img_button"
+                disabled={stateModal.file==null}
+                onClick={editCover}
               >
-                {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
                 {props.t("editCover")}
               </Button>
             </div>
@@ -288,7 +419,11 @@ export default function CategoryAudiobookDetailModal(props) {
                 <div className="col-7 input_modal pe-0">
                   <InputGroup className="mb-1">
                     <Dropdown>
-                      <Dropdown.Toggle className=" text-start" variant="success" id="dropdown-basic">
+                      <Dropdown.Toggle
+                        className=" text-start"
+                        variant="success"
+                        id="dropdown-basic"
+                      >
                         {props.t("age")}
                       </Dropdown.Toggle>
 
@@ -375,8 +510,8 @@ export default function CategoryAudiobookDetailModal(props) {
                   name="en"
                   size="sm"
                   className="btn button px-4 mt-3 mb-1 modal_button success_button"
+                  // onClick={}
                 >
-                  {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
                   {props.t("edit")}
                 </Button>
               </div>
@@ -385,8 +520,8 @@ export default function CategoryAudiobookDetailModal(props) {
                   name="en"
                   size="sm"
                   className="btn button px-4 my-1 modal_button danger_button"
+                  onClick={deleteFromCategory}
                 >
-                  {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
                   {props.t("deleteFromCurrentCategory")}
                 </Button>
               </div>
@@ -395,8 +530,8 @@ export default function CategoryAudiobookDetailModal(props) {
                   name="en"
                   size="sm"
                   className="btn button px-4 my-1 modal_button danger_button"
+                  onClick={deleteEntarly}
                 >
-                  {/* {audiobookDetail.like ? t("Unlike") : t("Like")} */}
                   {props.t("deleteEntarly")}
                 </Button>
               </div>
