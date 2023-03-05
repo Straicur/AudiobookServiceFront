@@ -39,14 +39,15 @@ export const AudiobookPartProvider = ({
         setAudiobookPart(data);
       },
     }
-  );
+    );
+    const value = [audiobookPart, setAudiobookPart]
 
   useEffect(() => {
     refetchAudiobookPart()
   },[part]);
 
   return (
-    <AudiobookPartContext.Provider value={audiobookPart}>
+    <AudiobookPartContext.Provider value={value}>
       {children}
     </AudiobookPartContext.Provider>
   );

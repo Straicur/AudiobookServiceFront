@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
@@ -11,56 +11,79 @@ import { useAudiobookData } from "../../../../Components/Providers/AudiobookProv
 import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
 import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
 import { useAudiobookComments } from "../../../../Components/Providers/AudiobookProviders/AudiobookCommentsProvider";
+import { Buffer } from "buffer";
+import { v4 as uuidv4 } from "uuid";
 
 export default function CategoryAudiobookDetailModal(props) {
-
   const [stateModal, setStateModal] = useState({
     file: null,
+    edit: false,
+    deleteFromCategory: false,
+    deleteEntarly: false,
   });
 
-  const audiobookDetail = useAudiobookData();
-  const audiobookCover = window.URL.createObjectURL(
-    new Blob([useAudiobookCover()])
-  );
-  const audiobookPart = window.URL.createObjectURL(
-    new Blob([useAudiobookPart()])
-  );
-  const audiobookComments = useAudiobookComments();
+  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] =
+    useAudiobookData();
+  const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] =
+    useAudiobookCover();
+  const [audiobookPart, setAudiobookPart] = useAudiobookPart();
+  const [audiobookComments, setAudiobookComments, setAudiobookCommentsRefetch] =
+    useAudiobookComments();
 
   const handleOnFileChange = (e) => {
     if (e.target.files) {
       let file = e.target.files[0];
- 
-      if (file.type == "image/png" || file.type == "image/jpeg" || file.type == "image/jpg") {
+
+      if (
+        file.type == "image/png" ||
+        file.type == "image/jpeg" ||
+        file.type == "image/jpg"
+      ) {
         setStateModal({ ...stateModal, file: file });
       }
     }
   };
+
   const editCover = () => {
-    if(stateModal.file != null){
-      // HandleFetch(
-      //   "http://127.0.0.1:8000/api/admin/audiobook/change/cover",
-      //   "PATCH",
-      //   {
-      //     // type:
-      //     // base64:
-      //     audiobookId: audiobookDetail.id,
-      //   },
-      //   props.token
-      // )
-      //   .then((blob) => {
+    if (stateModal.file != null) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        if (e.target.result instanceof ArrayBuffer) {
+          let pattern = "/jpeg|png|jpg/i";
+          let result = stateModal.file.type.match(pattern);
 
-      //   })
-      //   .catch((e) => {
-      //     props.setCategoiesState({
-      //       ...props.categoiesState,
-      //       error: e,
-      //     });
-      //     handleClose();
-      //   });
+          if (result != null) {
+            let buf = new Uint8Array(e.target.result);
+            let b64 = Buffer.from(buf).toString("base64");
+            HandleFetch(
+              "http://127.0.0.1:8000/api/admin/audiobook/change/cover",
+              "PATCH",
+              {
+                type: result[0],
+                base64: b64,
+                audiobookId: audiobookDetail.id,
+              },
+              props.token
+            )
+              .then(() => {
+                setAudiobookCoverRefetch(true);
+                setStateModal({...stateModal, file:null})
+              })
+              .catch((e) => {
+                props.setState({
+                  ...props.state,
+                  error: e,
+                });
+                handleClose();
+              });
+          }
+        }
+      };
+      if (stateModal.file != null) {
+        reader.readAsArrayBuffer(stateModal.file);
+      }
     }
-
-  }
+  };
 
   const handleClose = () => {
     props.setState({
@@ -95,15 +118,15 @@ export default function CategoryAudiobookDetailModal(props) {
         link.parentNode.removeChild(link);
       })
       .catch((e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setState({
+          ...props.state,
           error: e,
         });
         handleClose();
       });
   };
 
-  const deleteEntarly = () => {
+  const deleteAudiobookEntarly = () => {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/delete",
       "DELETE",
@@ -116,16 +139,15 @@ export default function CategoryAudiobookDetailModal(props) {
         handleClose();
       })
       .catch((e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setState({
+          ...props.state,
           error: e,
         });
         handleClose();
       });
   };
 
-  const deleteFromCategory = () => {
-    console.log(props.state.category);
+  const deleteAudiobookFromCategory = () => {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/category/remove/audiobook",
       "DELETE",
@@ -139,8 +161,8 @@ export default function CategoryAudiobookDetailModal(props) {
         handleClose();
       })
       .catch((e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setState({
+          ...props.state,
           error: e,
         });
         handleClose();
@@ -149,12 +171,15 @@ export default function CategoryAudiobookDetailModal(props) {
 
   const createComment = (comment) => {
     //Todo tu mam do zrobienia te drzewo komentarzy
-    // dodaj do providera zmianę pól detali audiobooka (wszystkich)
-    // Potwierdzenie usuwania w obu !!!!
-    // Podepnij edycję okładki, tu muszę wymyślić jak zrobić refetcha w nich bo bez tego nic nie zrobię 
+    // zostaje mi jeszcze aktywacja bo to w oddzielnym endpoincie jest i przeniesienie raczej tej aktywacji o pole niżej 
+    // rozjerzdza mi się też przedział wiekowy przez to 
+    
 
     return (
-      <div className="row border border-secondary category_data mb-1">
+      <div
+        key={uuidv4()}
+        className="row border border-secondary category_data mb-1"
+      >
         <div className="row">
           <div className="col">{props.t("owner")}:</div>
           <div className="col">{comment.userModel.email}</div>
@@ -167,11 +192,132 @@ export default function CategoryAudiobookDetailModal(props) {
     );
   };
 
+  const editAudiobookData = () => {
+    HandleFetch(
+      "http://127.0.0.1:8000/api/admin/audiobook/edit",
+      "PATCH",
+      {
+        audiobookId: audiobookDetail.id,
+        title: audiobookDetail.title,
+        author: audiobookDetail.author,
+        version: audiobookDetail.version,
+        album: audiobookDetail.album,
+        year: createDate(audiobookDetail.year),
+        duration: audiobookDetail.duration,
+        size: audiobookDetail.size,
+        parts: audiobookDetail.parts,
+        description: audiobookDetail.description,
+        age: audiobookDetail.age,
+        encoded: audiobookDetail.encoded,
+      },
+      props.token
+    )
+      .then(() => {
+        setAudiobookDetailRefetch(true)
+        setStateModal({...stateModal, edit:!stateModal.edit})
+      })
+      .catch((e) => {
+        props.setState({
+          ...props.state,
+          error: e,
+        });
+        handleClose();
+      });
+  };
+
+  const handleVersionChange = (event) => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      verison: event.target.value,
+    });
+  };
+  const handlePartsChange = (event) => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      parts: parseInt(event.target.value),
+    });
+  };
+  const handleEncodedChange = (event) => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      encoded: event.target.value,
+    });
+  };
+  const handleDescriptionChange = (event) => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      description: event.target.value,
+    });
+  };
+  const handleDurationChange = (event) => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      duration: event.target.value,
+    });
+  };
+
+  const handleYearChange = (event) => {
+    let myDate = event.target.value.split(".");
+    let newDate = new Date(myDate[2], myDate[1] - 1, myDate[0]);
+    setAudiobookDetail({
+      ...audiobookDetail,
+      year: parseInt(newDate.getTime()),
+    });
+  };
+  const handleAlbumChange = (event) => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      album: event.target.value,
+    });
+  };
+  const handleAuthorChange = (event) => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      author: event.target.value,
+    });
+  };
+  const handleTitleChange = (event) => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      title: event.target.value,
+    });
+  };
+  const handleSizeChange = (event) => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      size: event.target.value,
+    });
+  };
+  const handleAgeChange = (event) => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      age: parseInt(event),
+    });
+  };
+  const handleActiveChange = () => {
+    setAudiobookDetail({
+      ...audiobookDetail,
+      active: !audiobookDetail.active,
+    });
+  };
+  const createDate = (timeStamp) => {
+    const dateFormat = new Date(timeStamp);
+    
+    const day = dateFormat.getDate() 
+    const month = dateFormat.getMonth() +1
+    const year =  dateFormat.getFullYear()
+
+    return (
+      day
+      +"." +month
+      +"." +year
+    );
+  };
+
   const getCommentList = () => {
     let comments = [];
     if (audiobookComments != null) {
       if (audiobookComments.audiobookCommentGetModels != undefined) {
-        console.log(audiobookComments.audiobookCommentGetModels);
         audiobookComments.audiobookCommentGetModels.forEach((comment) => {
           comments.push(createComment(comment));
         });
@@ -187,7 +333,10 @@ export default function CategoryAudiobookDetailModal(props) {
 
   const createCategory = (category) => {
     return (
-      <div className="row border border-secondary category_data mb-1">
+      <div
+        key={uuidv4()}
+        className="row border border-secondary category_data mb-1"
+      >
         <div className="row">
           <div className="col">{props.t("name")}:</div>
           <div className="col">{category.name}</div>
@@ -211,7 +360,7 @@ export default function CategoryAudiobookDetailModal(props) {
 
   const getCategoryList = () => {
     let categories = [];
-    if (audiobookDetail != null) {
+    if (audiobookDetail != null && audiobookDetail.categories != undefined) {
       audiobookDetail.categories.forEach((category) => {
         categories.push(createCategory(category));
       });
@@ -248,21 +397,29 @@ export default function CategoryAudiobookDetailModal(props) {
           <div className="col">
             <div className="row ">
               <img
-                src={audiobookCover == null ? "/noImg.jpg" : audiobookCover}
+                src={
+                  audiobookCover == null
+                    ? "/noImg.jpg"
+                    : window.URL.createObjectURL(new Blob([audiobookCover]))
+                }
                 className="card-img-top"
                 alt="..."
               />
             </div>
             <div className="row d-flex justify-content-center">
               <Form.Group controlId="formFileSm" className="my-1">
-                <Form.Control onChange={handleOnFileChange} type="file" size="sm" />
+                <Form.Control
+                  onChange={handleOnFileChange}
+                  type="file"
+                  size="sm"
+                />
               </Form.Group>
               <Button
                 name="en"
                 variant="secondary"
                 size="sm"
                 className="btn button px-4 my-2 modal_img_button"
-                disabled={stateModal.file==null}
+                disabled={stateModal.file == null}
                 onClick={editCover}
               >
                 {props.t("editCover")}
@@ -286,8 +443,11 @@ export default function CategoryAudiobookDetailModal(props) {
                   </InputGroup.Text>
                   <Form.Control
                     defaultValue={
-                      audiobookDetail != null ? +"" + audiobookDetail.title : ""
+                      audiobookDetail != null ? audiobookDetail.title : ""
                     }
+                    onChange={(event) => {
+                      handleTitleChange(event);
+                    }}
                   />
                 </InputGroup>
               </div>
@@ -298,8 +458,13 @@ export default function CategoryAudiobookDetailModal(props) {
                   </InputGroup.Text>
                   <Form.Control
                     defaultValue={
-                      audiobookDetail != null ? +"" + audiobookDetail.title : ""
+                      audiobookDetail != null
+                        ? audiobookDetail.author
+                        : ""
                     }
+                    onChange={(event) => {
+                      handleAuthorChange(event);
+                    }}
                   />
                 </InputGroup>
               </div>
@@ -310,8 +475,11 @@ export default function CategoryAudiobookDetailModal(props) {
                   </InputGroup.Text>
                   <Form.Control
                     defaultValue={
-                      audiobookDetail != null ? +"" + audiobookDetail.album : ""
+                      audiobookDetail != null ? audiobookDetail.album : ""
                     }
+                    onChange={(event) => {
+                      handleAlbumChange(event);
+                    }}
                   />
                 </InputGroup>
               </div>
@@ -322,8 +490,13 @@ export default function CategoryAudiobookDetailModal(props) {
                   </InputGroup.Text>
                   <Form.Control
                     defaultValue={
-                      audiobookDetail != null ? +"" + audiobookDetail.year : ""
+                      audiobookDetail != null
+                        ? createDate(audiobookDetail.year)
+                        : ""
                     }
+                    onChange={(event) => {
+                      handleYearChange(event);
+                    }}
                   />
                 </InputGroup>
               </div>
@@ -334,8 +507,11 @@ export default function CategoryAudiobookDetailModal(props) {
                   </InputGroup.Text>
                   <Form.Control
                     defaultValue={
-                      audiobookDetail != null ? +"" + audiobookDetail.parts : ""
+                      audiobookDetail != null ? audiobookDetail.parts : ""
                     }
+                    onChange={(event) => {
+                      handlePartsChange(event);
+                    }}
                   />
                 </InputGroup>
               </div>
@@ -347,9 +523,12 @@ export default function CategoryAudiobookDetailModal(props) {
                   <Form.Control
                     defaultValue={
                       audiobookDetail != null
-                        ? +"" + audiobookDetail.duration
+                        ? audiobookDetail.duration
                         : ""
                     }
+                    onChange={(event) => {
+                      handleDurationChange(event);
+                    }}
                   />
                 </InputGroup>
               </div>
@@ -363,9 +542,12 @@ export default function CategoryAudiobookDetailModal(props) {
                     rows={4}
                     defaultValue={
                       audiobookDetail != null
-                        ? +"" + audiobookDetail.description
+                        ? audiobookDetail.description
                         : ""
                     }
+                    onChange={(event) => {
+                      handleDescriptionChange(event);
+                    }}
                   />
                 </InputGroup>
               </div>
@@ -377,21 +559,27 @@ export default function CategoryAudiobookDetailModal(props) {
                   <Form.Control
                     defaultValue={
                       audiobookDetail != null
-                        ? +"" + audiobookDetail.encoded
+                        ? audiobookDetail.encoded
                         : ""
                     }
+                    onChange={(event) => {
+                      handleEncodedChange(event);
+                    }}
                   />
                 </InputGroup>
               </div>
               <div className="row text-light">
                 <InputGroup className="mb-1 input_modal">
                   <InputGroup.Text className="input-group-text-new text-light">
-                    {props.t("parts")}
+                    {props.t("size")}
                   </InputGroup.Text>
                   <Form.Control
                     defaultValue={
-                      audiobookDetail != null ? +"" + audiobookDetail.parts : ""
+                      audiobookDetail != null ? audiobookDetail.size : ""
                     }
+                    onChange={(event) => {
+                      handleSizeChange(event);
+                    }}
                   />
                 </InputGroup>
               </div>
@@ -403,22 +591,19 @@ export default function CategoryAudiobookDetailModal(props) {
                   <Form.Control
                     defaultValue={
                       audiobookDetail != null
-                        ? +"" + audiobookDetail.version
+                        ? + audiobookDetail.version
                         : ""
                     }
+                    onChange={(event) => {
+                      handleVersionChange(event);
+                    }}
                   />
                 </InputGroup>
               </div>
               <div className="row text-light">
-                {/* {t("desc")}: {audiobookDetail.comments} */}
-              </div>
-              <div className="row text-light">
-                {/* {t("desc")}: {audiobookDetail.categories} */}
-              </div>
-              <div className="row text-light">
                 <div className="col-7 input_modal pe-0">
                   <InputGroup className="mb-1">
-                    <Dropdown>
+                    <Dropdown onSelect={(event) => handleAgeChange(event)}>
                       <Dropdown.Toggle
                         className=" text-start"
                         variant="success"
@@ -493,7 +678,11 @@ export default function CategoryAudiobookDetailModal(props) {
                 <div className="col-5 ">
                   <InputGroup className="mb-3">
                     <InputGroup.Text>{props.t("active")}</InputGroup.Text>
-                    <Button variant="outline-secondary" id="button-addon2">
+                    <Button
+                      onClick={() => handleActiveChange()}
+                      variant="outline-secondary"
+                      id="button-addon2"
+                    >
                       {audiobookDetail != null ? (
                         audiobookDetail.active ? (
                           <i className="bi bi-bookmark-check-fill"></i>
@@ -505,36 +694,143 @@ export default function CategoryAudiobookDetailModal(props) {
                   </InputGroup>
                 </div>
               </div>
-              <div className="row">
-                <Button
-                  name="en"
-                  size="sm"
-                  className="btn button px-4 mt-3 mb-1 modal_button success_button"
-                  // onClick={}
-                >
-                  {props.t("edit")}
-                </Button>
-              </div>
-              <div className="row">
-                <Button
-                  name="en"
-                  size="sm"
-                  className="btn button px-4 my-1 modal_button danger_button"
-                  onClick={deleteFromCategory}
-                >
-                  {props.t("deleteFromCurrentCategory")}
-                </Button>
-              </div>
-              <div className="row">
-                <Button
-                  name="en"
-                  size="sm"
-                  className="btn button px-4 my-1 modal_button danger_button"
-                  onClick={deleteEntarly}
-                >
-                  {props.t("deleteEntarly")}
-                </Button>
-              </div>
+              {stateModal.edit ? (
+                <div className="row">
+                  <div className="col">
+                    <Button
+                      name="en"
+                      size="sm"
+                      className="btn button px-4 my-1 question_button success_button"
+                      onClick={editAudiobookData}
+                    >
+                      {props.t("yes")}
+                    </Button>
+                  </div>
+                  <div className="col">
+                    <Button
+                      name="en"
+                      size="sm"
+                      className="btn button px-4 my-1 question_button danger_button me-2"
+                      onClick={() =>
+                        setStateModal({
+                          ...stateModal,
+                          edit: !stateModal.edit,
+                        })
+                      }
+                    >
+                      {props.t("no")}
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="row">
+                  <Button
+                    name="en"
+                    size="sm"
+                    className="btn button px-4 mt-3 mb-1 modal_button success_button"
+                    onClick={() =>
+                      setStateModal({
+                        ...stateModal,
+                        edit: !stateModal.edit,
+                      })
+                    }
+                  >
+                    {props.t("edit")}
+                  </Button>
+                </div>
+              )}
+
+              {stateModal.deleteFromCategory ? (
+                <div className="row">
+                  <div className="col">
+                    <Button
+                      name="en"
+                      size="sm"
+                      className="btn button px-4 my-1 question_button success_button"
+                      onClick={deleteAudiobookFromCategory}
+                    >
+                      {props.t("yes")}
+                    </Button>
+                  </div>
+                  <div className="col">
+                    <Button
+                      name="en"
+                      size="sm"
+                      className="btn button px-4 my-1 question_button danger_button me-2"
+                      onClick={() =>
+                        setStateModal({
+                          ...stateModal,
+                          deleteFromCategory: !stateModal.deleteFromCategory,
+                        })
+                      }
+                    >
+                      {props.t("no")}
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="row">
+                  <Button
+                    name="en"
+                    size="sm"
+                    className="btn button px-4 my-1 modal_button danger_button"
+                    onClick={() =>
+                      setStateModal({
+                        ...stateModal,
+                        deleteFromCategory: !stateModal.deleteFromCategory,
+                      })
+                    }
+                  >
+                    {props.t("deleteFromCurrentCategory")}
+                  </Button>
+                </div>
+              )}
+
+              {stateModal.deleteEntarly ? (
+                <div className="row">
+                  <div className="col">
+                    <Button
+                      name="en"
+                      size="sm"
+                      className="btn button px-4 my-1 question_button success_button"
+                      onClick={deleteAudiobookEntarly}
+                    >
+                      {props.t("yes")}
+                    </Button>
+                  </div>
+                  <div className="col">
+                    <Button
+                      name="en"
+                      size="sm"
+                      className="btn button px-4 my-1 question_button danger_button me-2"
+                      onClick={() =>
+                        setStateModal({
+                          ...stateModal,
+                          deleteEntarly: !stateModal.deleteEntarly,
+                        })
+                      }
+                    >
+                      {props.t("no")}
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="row">
+                  <Button
+                    name="en"
+                    size="sm"
+                    className="btn button px-4 my-1 modal_button danger_button"
+                    onClick={() =>
+                      setStateModal({
+                        ...stateModal,
+                        deleteEntarly: !stateModal.deleteEntarly,
+                      })
+                    }
+                  >
+                    {props.t("deleteEntarly")}
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -543,7 +839,7 @@ export default function CategoryAudiobookDetailModal(props) {
           {audiobookPart != null ? (
             <AudioPlayer
               autoPlay={false}
-              src={audiobookPart}
+              src={window.URL.createObjectURL(new Blob([audiobookPart]))}
               // onListen={e=>timeCur(e)}
               autoPlayAfterSrcChange={false}
               showSkipControls={true}

@@ -77,7 +77,6 @@ export default function AddAudiobookModal(props) {
     setStateModal({ ...stateModal, upload: true, modal: 3 });
 
     reader.onload = function (e) {
-      console.log(e.target.result);
       if (e.target.result instanceof ArrayBuffer) {
         let buf = new Uint8Array(e.target.result);
         let allparts = 0;

@@ -11,7 +11,6 @@ export default function JsonModal(props) {
   };
 
   const format = () => {
-    console.log(props.state.json);
     const jsonData = JSON.stringify(props.state.json);
     return (
       <div>

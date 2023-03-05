@@ -78,7 +78,7 @@ export const AdminNavBar = () => {
         <div className="ps-4 mx-2">
           <Button
             name="pl"
-            variant={i18n.language === "pl" ? "dark" : "light"}
+            variant={i18n.language == "pl" ? "dark" : "light"}
             size="sm"
             className="btn button"
             value="dsa"
@@ -88,7 +88,7 @@ export const AdminNavBar = () => {
           </Button>
           <Button
             name="en"
-            variant={i18n.language === "en" ? "dark" : "light"}
+            variant={i18n.language == "en" ? "dark" : "light"}
             size="sm"
             className="btn button"
             onClick={() => i18n.changeLanguage("en")}
