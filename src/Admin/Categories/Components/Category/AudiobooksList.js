@@ -20,6 +20,7 @@ export default function AudiobooksList(props) {
     addAudiobookParent: null,
     detailAudiobookModal: false,
     detailAudiobookElement: null,
+    detailCommentsAudiobookModal: false,
     detailAudiobookElementPart: 0,
     refresh: false,
     error: null,
@@ -127,7 +128,7 @@ export default function AudiobooksList(props) {
         <hr className="line" />
         <div className="table-title my-2">
           <h1>{state.category == null ? null : state.category.name}</h1>
-          <RenderAudiobooksList state={state} setState={setState} t={t} />
+          <RenderAudiobooksList state={state} setState={setState} t={t}   token={props.token} />
         </div>
         <div className="row">
           <div className="col">

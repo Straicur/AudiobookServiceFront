@@ -67,7 +67,7 @@ export default function CategoryAudiobookDetailModal(props) {
             )
               .then(() => {
                 setAudiobookCoverRefetch(true);
-                setStateModal({...stateModal, file:null})
+                setStateModal({ ...stateModal, file: null });
               })
               .catch((e) => {
                 props.setState({
@@ -169,29 +169,6 @@ export default function CategoryAudiobookDetailModal(props) {
       });
   };
 
-  const createComment = (comment) => {
-    //Todo tu mam do zrobienia te drzewo komentarzy
-    // zostaje mi jeszcze aktywacja bo to w oddzielnym endpoincie jest i przeniesienie raczej tej aktywacji o pole niżej 
-    // rozjerzdza mi się też przedział wiekowy przez to 
-    
-
-    return (
-      <div
-        key={uuidv4()}
-        className="row border border-secondary category_data mb-1"
-      >
-        <div className="row">
-          <div className="col">{props.t("owner")}:</div>
-          <div className="col">{comment.userModel.email}</div>
-        </div>
-        <div className="row">
-          <div className="col">{props.t("comment")}:</div>
-          <div className="col">{comment.comment}</div>
-        </div>
-      </div>
-    );
-  };
-
   const editAudiobookData = () => {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/edit",
@@ -213,8 +190,8 @@ export default function CategoryAudiobookDetailModal(props) {
       props.token
     )
       .then(() => {
-        setAudiobookDetailRefetch(true)
-        setStateModal({...stateModal, edit:!stateModal.edit})
+        setAudiobookDetailRefetch(true);
+        setStateModal({ ...stateModal, edit: !stateModal.edit });
       })
       .catch((e) => {
         props.setState({
@@ -294,41 +271,15 @@ export default function CategoryAudiobookDetailModal(props) {
       age: parseInt(event),
     });
   };
-  const handleActiveChange = () => {
-    setAudiobookDetail({
-      ...audiobookDetail,
-      active: !audiobookDetail.active,
-    });
-  };
+
   const createDate = (timeStamp) => {
     const dateFormat = new Date(timeStamp);
-    
-    const day = dateFormat.getDate() 
-    const month = dateFormat.getMonth() +1
-    const year =  dateFormat.getFullYear()
 
-    return (
-      day
-      +"." +month
-      +"." +year
-    );
-  };
+    const day = dateFormat.getDate();
+    const month = dateFormat.getMonth() + 1;
+    const year = dateFormat.getFullYear();
 
-  const getCommentList = () => {
-    let comments = [];
-    if (audiobookComments != null) {
-      if (audiobookComments.audiobookCommentGetModels != undefined) {
-        audiobookComments.audiobookCommentGetModels.forEach((comment) => {
-          comments.push(createComment(comment));
-        });
-      }
-    }
-
-    return (
-      <div className="row text-light d-flex justify-content-center mx-1">
-        {comments}
-      </div>
-    );
+    return day + "." + month + "." + year;
   };
 
   const createCategory = (category) => {
@@ -429,10 +380,7 @@ export default function CategoryAudiobookDetailModal(props) {
               <h4>{props.t("categories")}</h4>
             </div>
             {getCategoryList()}
-            <div className="row d-flex justify-content-center text-light text-center">
-              <h4>{props.t("comments")}</h4>
-            </div>
-            {getCommentList()}
+   
           </div>
           <div className="col">
             <div className="row ">
@@ -458,9 +406,7 @@ export default function CategoryAudiobookDetailModal(props) {
                   </InputGroup.Text>
                   <Form.Control
                     defaultValue={
-                      audiobookDetail != null
-                        ? audiobookDetail.author
-                        : ""
+                      audiobookDetail != null ? audiobookDetail.author : ""
                     }
                     onChange={(event) => {
                       handleAuthorChange(event);
@@ -522,9 +468,7 @@ export default function CategoryAudiobookDetailModal(props) {
                   </InputGroup.Text>
                   <Form.Control
                     defaultValue={
-                      audiobookDetail != null
-                        ? audiobookDetail.duration
-                        : ""
+                      audiobookDetail != null ? audiobookDetail.duration : ""
                     }
                     onChange={(event) => {
                       handleDurationChange(event);
@@ -541,9 +485,7 @@ export default function CategoryAudiobookDetailModal(props) {
                     as="textarea"
                     rows={4}
                     defaultValue={
-                      audiobookDetail != null
-                        ? audiobookDetail.description
-                        : ""
+                      audiobookDetail != null ? audiobookDetail.description : ""
                     }
                     onChange={(event) => {
                       handleDescriptionChange(event);
@@ -558,9 +500,7 @@ export default function CategoryAudiobookDetailModal(props) {
                   </InputGroup.Text>
                   <Form.Control
                     defaultValue={
-                      audiobookDetail != null
-                        ? audiobookDetail.encoded
-                        : ""
+                      audiobookDetail != null ? audiobookDetail.encoded : ""
                     }
                     onChange={(event) => {
                       handleEncodedChange(event);
@@ -590,9 +530,7 @@ export default function CategoryAudiobookDetailModal(props) {
                   </InputGroup.Text>
                   <Form.Control
                     defaultValue={
-                      audiobookDetail != null
-                        ? + audiobookDetail.version
-                        : ""
+                      audiobookDetail != null ? +audiobookDetail.version : ""
                     }
                     onChange={(event) => {
                       handleVersionChange(event);
@@ -600,99 +538,79 @@ export default function CategoryAudiobookDetailModal(props) {
                   />
                 </InputGroup>
               </div>
-              <div className="row text-light">
-                <div className="col-7 input_modal pe-0">
-                  <InputGroup className="mb-1">
-                    <Dropdown onSelect={(event) => handleAgeChange(event)}>
-                      <Dropdown.Toggle
-                        className=" text-start"
-                        variant="success"
-                        id="dropdown-basic"
-                      >
-                        {props.t("age")}
-                      </Dropdown.Toggle>
-
-                      <Dropdown.Menu>
-                        {audiobookDetail != null ? (
-                          <Dropdown.Item
-                            eventKey={1}
-                            active={audiobookDetail.age == 1}
-                          >
-                            3-7
-                          </Dropdown.Item>
-                        ) : null}
-                        {audiobookDetail != null ? (
-                          <Dropdown.Item
-                            eventKey={2}
-                            active={audiobookDetail.age == 2}
-                          >
-                            7-12
-                          </Dropdown.Item>
-                        ) : null}
-
-                        {audiobookDetail != null ? (
-                          <Dropdown.Item
-                            eventKey={3}
-                            active={audiobookDetail.age == 3}
-                          >
-                            12-16
-                          </Dropdown.Item>
-                        ) : null}
-
-                        {audiobookDetail != null ? (
-                          <Dropdown.Item
-                            eventKey={4}
-                            active={audiobookDetail.age == 4}
-                          >
-                            16-18
-                          </Dropdown.Item>
-                        ) : null}
-
-                        {audiobookDetail != null ? (
-                          <Dropdown.Item
-                            eventKey={5}
-                            active={audiobookDetail.age == 5}
-                          >
-                            18+
-                          </Dropdown.Item>
-                        ) : null}
-                      </Dropdown.Menu>
-                      <InputGroup.Text id="inputGroup-sizing-default">
-                        {audiobookDetail != null
-                          ? audiobookDetail.age == 1
-                            ? "3-7"
-                            : audiobookDetail.age == 2
-                            ? "7-12"
-                            : audiobookDetail.age == 3
-                            ? "12-16"
-                            : audiobookDetail.age == 3
-                            ? "16-18"
-                            : audiobookDetail.age == 5
-                            ? "18+"
-                            : null
-                          : null}
-                      </InputGroup.Text>
-                    </Dropdown>
-                  </InputGroup>
-                </div>
-                <div className="col-5 ">
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text>{props.t("active")}</InputGroup.Text>
-                    <Button
-                      onClick={() => handleActiveChange()}
-                      variant="outline-secondary"
-                      id="button-addon2"
+              <div className="row text-light pe-0 input_modal">
+                <InputGroup className="mb-1">
+                  <Dropdown onSelect={(event) => handleAgeChange(event)}>
+                    <Dropdown.Toggle
+                      className=" text-start"
+                      variant="success"
+                      id="dropdown-basic"
                     >
+                      {props.t("age")}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
                       {audiobookDetail != null ? (
-                        audiobookDetail.active ? (
-                          <i className="bi bi-bookmark-check-fill"></i>
-                        ) : (
-                          <i className="bi bi-bookmark-dash"></i>
-                        )
+                        <Dropdown.Item
+                          eventKey={1}
+                          active={audiobookDetail.age == 1}
+                        >
+                          3-7
+                        </Dropdown.Item>
                       ) : null}
-                    </Button>
-                  </InputGroup>
-                </div>
+                      {audiobookDetail != null ? (
+                        <Dropdown.Item
+                          eventKey={2}
+                          active={audiobookDetail.age == 2}
+                        >
+                          7-12
+                        </Dropdown.Item>
+                      ) : null}
+
+                      {audiobookDetail != null ? (
+                        <Dropdown.Item
+                          eventKey={3}
+                          active={audiobookDetail.age == 3}
+                        >
+                          12-16
+                        </Dropdown.Item>
+                      ) : null}
+
+                      {audiobookDetail != null ? (
+                        <Dropdown.Item
+                          eventKey={4}
+                          active={audiobookDetail.age == 4}
+                        >
+                          16-18
+                        </Dropdown.Item>
+                      ) : null}
+
+                      {audiobookDetail != null ? (
+                        <Dropdown.Item
+                          eventKey={5}
+                          active={audiobookDetail.age == 5}
+                        >
+                          18+
+                        </Dropdown.Item>
+                      ) : null}
+                    </Dropdown.Menu>
+                    <InputGroup.Text id="inputGroup-sizing-default">
+                      {audiobookDetail != null
+                        ? audiobookDetail.age == 1
+                          ? "3-7"
+                          : audiobookDetail.age == 2
+                          ? "7-12"
+                          : audiobookDetail.age == 3
+                          ? "12-16"
+                          : audiobookDetail.age == 4
+                          ? "16-18"
+                          : audiobookDetail.age == 5
+                          ? "18+"
+                          : null
+                        : null}
+                    </InputGroup.Text>
+                  </Dropdown>
+                </InputGroup>
               </div>
               {stateModal.edit ? (
                 <div className="row">
