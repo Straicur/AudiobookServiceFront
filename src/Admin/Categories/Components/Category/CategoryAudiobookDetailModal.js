@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
@@ -10,7 +10,6 @@ import "react-h5-audio-player/lib/styles.css";
 import { useAudiobookData } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
 import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
 import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
-import { useAudiobookComments } from "../../../../Components/Providers/AudiobookProviders/AudiobookCommentsProvider";
 import { Buffer } from "buffer";
 import { v4 as uuidv4 } from "uuid";
 
@@ -27,8 +26,6 @@ export default function CategoryAudiobookDetailModal(props) {
   const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] =
     useAudiobookCover();
   const [audiobookPart, setAudiobookPart] = useAudiobookPart();
-  const [audiobookComments, setAudiobookComments, setAudiobookCommentsRefetch] =
-    useAudiobookComments();
 
   const handleOnFileChange = (e) => {
     if (e.target.files) {
@@ -89,6 +86,7 @@ export default function CategoryAudiobookDetailModal(props) {
     props.setState({
       ...props.state,
       detailAudiobookModal: !props.state.detailAudiobookModal,
+      detailAudiobookElement: null,
       refresh: !props.state.refresh,
     });
   };
@@ -324,6 +322,21 @@ export default function CategoryAudiobookDetailModal(props) {
     );
   };
 
+  const nextPart = () => {
+    let nextPart = props.state.detailAudiobookElementPart + 1;
+
+    if (nextPart < props.state.detailAudiobookElement.parts) {
+      props.setState({ ...props.state, detailAudiobookElementPart: nextPart });
+    }
+  };
+  const prevPart = () => {
+    let prevPart = props.state.detailAudiobookElementPart - 1;
+
+    if (prevPart >= 0) {
+      props.setState({ ...props.state, detailAudiobookElementPart: prevPart });
+    }
+  };
+
   return (
     <Modal
       show={props.state.detailAudiobookModal}
@@ -380,7 +393,6 @@ export default function CategoryAudiobookDetailModal(props) {
               <h4>{props.t("categories")}</h4>
             </div>
             {getCategoryList()}
-   
           </div>
           <div className="col">
             <div className="row ">
@@ -758,11 +770,10 @@ export default function CategoryAudiobookDetailModal(props) {
             <AudioPlayer
               autoPlay={false}
               src={window.URL.createObjectURL(new Blob([audiobookPart]))}
-              // onListen={e=>timeCur(e)}
               autoPlayAfterSrcChange={false}
               showSkipControls={true}
-              // onClickPrevious={()=>prevPart()}
-              // onClickNext={()=>nextPart()}
+              onClickPrevious={prevPart}
+              onClickNext={nextPart}
             />
           ) : null}
         </div>

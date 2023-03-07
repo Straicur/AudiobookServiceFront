@@ -15,7 +15,7 @@ export default function RenderAudiobooksList(props) {
     return renderArray;
   };
 
-  const activeteAudiobook = (element,selectedAudiobook) => {
+  const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add("disabled");
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/active",
@@ -78,8 +78,7 @@ export default function RenderAudiobooksList(props) {
               onClick={() =>
                 props.setState({
                   ...props.state,
-                  detailAudiobookModal:
-                    !props.state.detailAudiobookModal,
+                  detailAudiobookModal: !props.state.detailAudiobookModal,
                   detailAudiobookElement: element,
                 })
               }
@@ -95,7 +94,8 @@ export default function RenderAudiobooksList(props) {
               onClick={() =>
                 props.setState({
                   ...props.state,
-                  detailCommentsAudiobookModal: !props.state.detailCommentsAudiobookModal,
+                  detailCommentsAudiobookModal:
+                    !props.state.detailCommentsAudiobookModal,
                   detailAudiobookElement: element,
                 })
               }
@@ -109,7 +109,7 @@ export default function RenderAudiobooksList(props) {
               size="sm"
               className="btn button mx-2"
               onClick={(e) => {
-                activeteAudiobook(e,element);
+                activeteAudiobook(e, element);
               }}
             >
               {props.t("activate")}

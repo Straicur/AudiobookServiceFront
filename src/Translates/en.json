@@ -106,5 +106,6 @@
     "deleteFromCurrentCategory": "Delete from current category",
     "deleteEntarly": "Delete entarly",
     "comment": "Comment",
-    "owner": "Owner"
+    "owner": "Owner",
+    "empty": "Empty"
 }
