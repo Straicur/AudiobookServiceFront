@@ -18,7 +18,7 @@ export default function UserLogin() {
   });
 
   useEffect(() => {
-    if (token !== "") {
+    if (token != "") {
       navigate("/main");
     }
   }, [token]);

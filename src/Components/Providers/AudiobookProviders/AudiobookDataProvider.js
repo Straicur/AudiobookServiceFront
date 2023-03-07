@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../HandleFetch";
 
@@ -6,6 +6,7 @@ const AudiobookDataContext = createContext(null);
 
 export const AudiobookDataProvider = ({ children, token, audiobookId }) => {
   const [audiobookDetail, setAudiobookDetail] = useState(null);
+  const [refetchState, setRefetchState] = useState(false);
 
   const {
     isLoading: isLoadingAudiobookData,
@@ -35,8 +36,17 @@ export const AudiobookDataProvider = ({ children, token, audiobookId }) => {
     }
   );
 
+  useEffect(() => {
+    if (!refetchState) {
+      refetchAudiobookData();
+      setRefetchState(!refetchState);
+    }
+  }, [refetchState]);
+
+  const value = [audiobookDetail, setAudiobookDetail, setRefetchState];
+
   return (
-    <AudiobookDataContext.Provider value={audiobookDetail}>
+    <AudiobookDataContext.Provider value={value}>
       {children}
     </AudiobookDataContext.Provider>
   );

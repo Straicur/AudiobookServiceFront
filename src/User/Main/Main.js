@@ -17,48 +17,6 @@ export default function Main() {
     redirectTo: "",
   });
 
-  // const [mutate, info] = useMutation(UpdatePost, {
-  //   onSuccess: (data) => {
-  //     queryCache.setQueryData(["posts", {id: id}], (prev) => {
-  //       return {
-  //         ...prev,
-  //         name: data.name,
-  //         body: data.body
-  //       }
-  //     })
-  //     refetch()
-  //   }
-  // })
-
-  const { isLoading, error, data, isFetching, refetch} = useQuery(
-    "data",
-    () => {
-      const url = "http://127.0.0.1:8000/api/user/audiobooks";
-      const jsonData = {
-        page: 1,
-        limit: 10,
-      };
-      const method = "POST";
-
-      HandleFetch(url, method, jsonData, token)
-        .then((resData) => {
-          if (resData) {
-            console.log(resData);
-          }
-        });
-    },
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onSuccess: (data) => {
-        // setState({
-        //   name: data.name,
-        //   body: data.body,
-        // });
-      },
-    }
-  );
   //mutate umożliwia mi zmianę a info pobranie tych danych 
   // Można wykorzystać przy dodawaniu jakichś danych, doda do cache i wyświe jednocześnie 
   // const update = async () => {

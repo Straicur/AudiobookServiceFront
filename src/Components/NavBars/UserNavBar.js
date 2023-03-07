@@ -57,7 +57,7 @@ export const UserNavBar = () => {
           >
             {t("myList")}
           </Button>
-          {roles.some((name) => name === "Administrator") ? (
+          {roles.some((name) => name == "Administrator") ? (
             <Button
               variant="success"
               size="lg"
@@ -73,7 +73,7 @@ export const UserNavBar = () => {
           <div className="ps-3 me-3">
             <Button
               name="pl"
-              variant={i18n.language === "pl" ? "dark" : "light"}
+              variant={i18n.language == "pl" ? "dark" : "light"}
               size="sm"
               className="btn button m-1"
               onClick={() => i18n.changeLanguage("pl")}
@@ -82,7 +82,7 @@ export const UserNavBar = () => {
             </Button>
             <Button
               name="en"
-              variant={i18n.language === "en" ? "dark" : "light"}
+              variant={i18n.language == "en" ? "dark" : "light"}
               size="sm"
               className="btn button m-1"
               onClick={() => i18n.changeLanguage("en")}

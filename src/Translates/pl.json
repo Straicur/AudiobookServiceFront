@@ -100,5 +100,12 @@
     "description": "Opis",
     "encoded": "Zakodowane",
     "version": "Wersja",
-    "comments": "Komentarze"
+    "comments": "Komentarze",
+    "downloadZip": "Pobierz ZIP",
+    "editCover": "Edytuj okładkę",
+    "deleteFromCurrentCategory": "Usuń z aktualnej kategorii",
+    "deleteEntarly": "Usuń całkowicie",
+    "comment": "Komentarz",
+    "owner": "Właściciel",
+    "empty": "Pusto"
 }

@@ -6,9 +6,9 @@ import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import JsonModal from "../../../../Components/JsonModal";
 import AddAudiobookModal from "../Category/AddAudiobookModal";
-import CategoryAudiobookDetailModal from "../Category/CategoryAudiobookDetailModal";
 import RenderAudiobooksList from "../Category/RenderAudiobooksList";
 import CategoryDetailProviders from "../Category/CategoryDetailProviders";
+import CategoryAudiobookDetailModalProviders from "./AudiobookCommentsDetailModalProviders";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
@@ -21,6 +21,7 @@ export default function AudiobooksList(props) {
     addAudiobookParent: null,
     detailAudiobookModal: false,
     detailAudiobookElement: null,
+    detailCommentsAudiobookModal: false,
     detailAudiobookElementPart: 0,
     refresh: false,
     error: null,
@@ -90,6 +91,7 @@ export default function AudiobooksList(props) {
         setState({
           ...state,
           category: {
+            id: dataSecond.id,
             name: dataSecond.name,
             active: dataSecond.active,
             parentCategoryName: dataSecond.parentCategoryName,
@@ -101,6 +103,7 @@ export default function AudiobooksList(props) {
 
   useEffect(() => {
     if (state.refresh) {
+      setState({ ...state, refresh: !state.refresh });
       refetchFirst();
     }
   }, [state.refresh]);
@@ -112,12 +115,6 @@ export default function AudiobooksList(props) {
   }, [props.audiobooksState.error]);
 
   //todo backend 2 endpointy które pobiorą mi wszystki kategorie dla audiobooka które nie są już używane i wszystkie audiobooki dla ktegorii które już w niej nie są
-  //todo najpierw raczej zrobiłbym dodawanie audiobooka w modalu i podepne go pod tą kategorie
-  // Modal tego audiobooka będzie miał listę kategorii, możliwość wybrania dodatkowej i jej dodania i te wszyustkie jego dane
-
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!11
-  //Skończenie dodawania i poprawa tego progresu bo jest chujowy
-  //Zrobienie listy i po niej zostaje mi jeszcze Modal tego audiobooka i jego edycja
 
   return (
     <div className="container-fluid main-container mt-3">
@@ -126,7 +123,7 @@ export default function AudiobooksList(props) {
         <hr className="line" />
         <div className="table-title my-2">
           <h1>{state.category == null ? null : state.category.name}</h1>
-          <RenderAudiobooksList state={state} setState={setState} t={t} />
+          <RenderAudiobooksList state={state} setState={setState} t={t}   token={props.token} />
         </div>
         <div className="row">
           <div className="col">
@@ -170,6 +167,15 @@ export default function AudiobooksList(props) {
         ) : null}
         {state.detailAudiobookModal && state.detailAudiobookElement != null ? (
           <CategoryDetailProviders
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+            categoryKey={props.categoryKey}
+          />
+        ) : null}
+          {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (
+          <CategoryAudiobookDetailModalProviders
             state={state}
             setState={setState}
             t={t}

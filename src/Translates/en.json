@@ -100,5 +100,12 @@
     "description": "Description",
     "encoded": "Encoded",
     "version": "Version",
-    "comments": "Comments"
+    "comments": "Comments",
+    "downloadZip": "Download ZIP",
+    "editCover": "Edit cover",
+    "deleteFromCurrentCategory": "Delete from current category",
+    "deleteEntarly": "Delete entarly",
+    "comment": "Comment",
+    "owner": "Owner",
+    "empty": "Empty"
 }

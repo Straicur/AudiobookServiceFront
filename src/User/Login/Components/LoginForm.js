@@ -30,7 +30,7 @@ export default function LoginForm(props) {
 
     const form = e.currentTarget;
 
-    if (form.checkValidity() === true && validateEmail(form[0].value)) {
+    if (form.checkValidity() == true && validateEmail(form[0].value)) {
       props.setState({
         ...props.state,
         validated: true,
