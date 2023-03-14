@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 
 export default function RenderCommentsList(props) {
-
   function deleteCommnet(element) {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/comment/delete",
@@ -14,7 +13,10 @@ export default function RenderCommentsList(props) {
       props.token
     )
       .then(() => {
-        props.setRefetchState(true);
+        props.setState({
+          ...props.state,
+          refetch: !props.state.refetch,
+        });
       })
       .catch((e) => {
         props.setState({
@@ -28,11 +30,11 @@ export default function RenderCommentsList(props) {
     let renderArray = [];
     let kids = [];
 
-    if (props.comments != null) {
-      recursiveTree(props.comments.comments, renderArray, kids, null);
+    if (props.state.comments != undefined) {
+      recursiveTree(props.state.comments.comments, renderArray, kids, null);
     }
 
-    if(props.comments != null && props.comments.comments.length == 0){
+    if (props.comments != null && props.comments.comments.length == 0) {
       renderArray.push(
         <div key={uuidv4()} className="row text-center text-light">
           <div className="col-md-6 offset-md-3 ">
@@ -66,12 +68,10 @@ export default function RenderCommentsList(props) {
         }
       }
       if (element.nodeName == "DIV") {
-        for (const el of element.children) {
-          if (el.nodeName == "I") {
-            el.classList.remove("bi-arrow-right-square");
-            el.classList.add("bi-arrow-down-square");
-          }
-        }
+        element.children[0].children[0].classList.remove(
+          "bi-arrow-right-square"
+        );
+        element.children[0].children[0].classList.add("bi-arrow-down-square");
       }
     }
   }
@@ -88,12 +88,10 @@ export default function RenderCommentsList(props) {
         }
       }
       if (element.nodeName == "DIV") {
-        for (const el of element.children) {
-          if (el.nodeName == "I") {
-            el.classList.remove("bi-arrow-down-square");
-            el.classList.add("bi-arrow-right-square");
-          }
-        }
+        element.children[0].children[0].classList.remove(
+          "bi-arrow-down-square"
+        );
+        element.children[0].children[0].classList.add("bi-arrow-right-square");
       }
     }
   }
@@ -123,9 +121,8 @@ export default function RenderCommentsList(props) {
           <div className="col-1">{props.t("owner")}:</div>
           <div className="col-3">{element.userModel.email}</div>
           <div className="col-1">
-          {element.deleted ? (
-                 <i className="bi bi-bookmark-dash"></i>
-         
+            {element.deleted ? (
+              <i className="bi bi-bookmark-dash"></i>
             ) : (
               <i className="bi bi-bookmark-check-fill"></i>
             )}
@@ -136,7 +133,9 @@ export default function RenderCommentsList(props) {
               variant="dark"
               size="sm"
               className="btn button"
-              onClick={()=>{deleteCommnet(element)}}
+              onClick={() => {
+                deleteCommnet(element);
+              }}
             >
               {props.t("delete")}
             </Button>
@@ -162,9 +161,8 @@ export default function RenderCommentsList(props) {
           <div className="col-1">{props.t("owner")}:</div>
           <div className="col-3">{element.userModel.email}</div>
           <div className="col-1">
-          {element.deleted ? (
-                 <i className="bi bi-bookmark-dash"></i>
-         
+            {element.deleted ? (
+              <i className="bi bi-bookmark-dash"></i>
             ) : (
               <i className="bi bi-bookmark-check-fill"></i>
             )}
@@ -175,7 +173,9 @@ export default function RenderCommentsList(props) {
               variant="dark"
               size="sm"
               className="btn button"
-              onClick={()=>{deleteCommnet(element)}}
+              onClick={() => {
+                deleteCommnet(element);
+              }}
             >
               {props.t("delete")}
             </Button>

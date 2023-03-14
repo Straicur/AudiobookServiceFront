@@ -8,7 +8,7 @@ import JsonModal from "../../../../Components/JsonModal";
 import AddAudiobookModal from "../Category/AddAudiobookModal";
 import RenderAudiobooksList from "../Category/RenderAudiobooksList";
 import CategoryDetailProviders from "../Category/CategoryDetailProviders";
-import AudiobookCommentsDetailModalProviders from "./AudiobookCommentsDetailModalProviders";
+import AudiobookCommentsModal from "./AudiobookCommentsModal";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
@@ -27,11 +27,13 @@ export default function AudiobooksList(props) {
     error: null,
   });
 
-  const { isLoading: isLoadingFirst,
+  const {
+    isLoading: isLoadingFirst,
     error: errorFirst,
     data: dataFirst,
     isFetching: isFetchingFirst,
-    refetch: refetchFirst } = useQuery(
+    refetch: refetchFirst,
+  } = useQuery(
     "dataFirst",
     () =>
       HandleFetch(
@@ -123,7 +125,12 @@ export default function AudiobooksList(props) {
         <hr className="line" />
         <div className="table-title my-2">
           <h1>{state.category == null ? null : state.category.name}</h1>
-          <RenderAudiobooksList state={state} setState={setState} t={t}   token={props.token} />
+          <RenderAudiobooksList
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+          />
         </div>
         <div className="row">
           <div className="col">
@@ -174,8 +181,9 @@ export default function AudiobooksList(props) {
             categoryKey={props.categoryKey}
           />
         ) : null}
-          {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (
-          <AudiobookCommentsDetailModalProviders
+        {state.detailCommentsAudiobookModal &&
+        state.detailAudiobookElement != null ? (
+          <AudiobookCommentsModal
             state={state}
             setState={setState}
             t={t}
