@@ -1,102 +1,19 @@
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { useQuery } from "react-query";
+import { HandleFetch } from "../../../../Components/HandleFetch";
 import Modal from "react-bootstrap/Modal";
 import "react-h5-audio-player/lib/styles.css";
-import { v4 as uuidv4 } from "uuid";
-import { useAudiobookComments } from "../../../../Components/Providers/AudiobookProviders/AudiobookCommentsProvider";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import RenderCommentsList from "../Category/RenderCommentsList";
 
 export default function AudiobookCommentsModal(props) {
-  const [audiobookComments, setAudiobookComments] = useAudiobookComments();
+  //dokończ to i zrób żeby się odświerzało
+  // Poukładaj i coś z 500 nie działa
+  // Zrób oddzielny css bo nadpisałem wszędzie te modele w kategorii, albo dostosuj resztę jakoś
 
-  const getCommentList = () => {
-    let comments = [];
-    if (audiobookComments != null) {
-      if (audiobookComments.audiobookCommentGetModels != undefined) {
-        audiobookComments.audiobookCommentGetModels.forEach((comment) => {
-          comments.push(createComment(comment));
-        });
-      }
-    }
-
-    if (
-      audiobookComments == null ||
-      audiobookComments.audiobookCommentGetModels == undefined
-    ) {
-      comments.push(
-        <div key={uuidv4()} className="row text-center">
-          <div className="col-md-6 offset-md-3 ">
-            <h3>{props.t("empty")}</h3>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="row text-light d-flex justify-content-center mx-1">
-        {comments}
-      </div>
-    );
-  };
-
-  const createComment = (comment) => {
-    return (
-      <div
-        key={uuidv4()}
-        className="row border border-secondary mb-1"
-        onClick={
-          comment.childComments > 0
-            ? (e) => createChildComment(e, comment)
-            : undefined
-        }
-        data-clicable={true}
-      >
-        <div className="row">
-          {comment.childComments > 0 ? (
-            <div className="col-1">
-              <i className="p-2 bi bi-arrow-right-square "></i>
-            </div>
-          ) : (
-            <div className="col-1"></div>
-          )}
-
-          <div className="col-4">{props.t("owner")}:</div>
-          <div className="col-7">{comment.userModel.email}</div>
-        </div>
-        <div className="row">
-          <div className="col">{props.t("comment")}:</div>
-          <div className="col">{comment.comment}</div>
-        </div>
-      </div>
-    );
-  };
-
-  const createChildComment = (element, comment) => {
-    element.stopPropagation();
-    let parent = element.currentTarget;
-    // HandleFetch(
-    //   "http://127.0.0.1:8000/api/audiobook/comment/get/detail",
-    //   "POST",
-    //   {
-    //     audiobookCommentId: comment.id,
-    //   },
-    //   props.token
-    // )
-    //   .then((data) => {
-
-    //     data.audiobookCommentGetDetailModels.forEach(childComment => {
-    //       console.log(element.currentTarget)
-    //       console.log(element)
-    //       parent.appendChild(createComment(childComment))
-    //     });
-    //   })
-    //   .catch((e) => {
-    //     console.log(e)
-    //     props.setState({
-    //       ...props.state,
-    //       error: e,
-    //     });
-    //     handleClose();
-    //   });
-  };
+  const [state, setState] = useState({
+    comments: null,
+    refresh: false,
+  });
 
   const handleClose = () => {
     props.setState({
@@ -105,6 +22,43 @@ export default function AudiobookCommentsModal(props) {
       detailAudiobookElement: null,
     });
   };
+
+  const {
+    isLoading: isLoadingAudiobookComments,
+    error: errorAudiobookComments,
+    data: dataAudiobookComments,
+    isFetching: isFetchingAudiobookComments,
+    refetch: refetchAudiobookComments,
+  } = useQuery(
+    "dataAudiobookComments",
+    () =>
+      HandleFetch(
+        "http://127.0.0.1:8000/api/audiobook/comment/get",
+        "POST",
+        {
+          audiobookId: props.state.detailAudiobookElement.id,
+          categoryKey: props.categoryKey,
+        },
+        props.token
+      ),
+    {
+      retry: 1,
+      retryDelay: 500,
+      refetchOnWindowFocus: false,
+      onError: (e) => {},
+      onSuccess: (data) => {
+        setState({ ...state, comments: data });
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (state.refetch) {
+      refetchAudiobookComments();
+      setState({ ...state, refetch: !state.refetch });
+    }
+  }, [state.refetch]);
+
   return (
     <Modal
       show={props.state.detailCommentsAudiobookModal}
@@ -120,8 +74,12 @@ export default function AudiobookCommentsModal(props) {
           <h1>{props.t("comments")}</h1>
         </div>
         <hr className="text-light"></hr>
-
-        {getCommentList()}
+        <RenderCommentsList
+          state={state}
+          setState={setState}
+          t={props.t}
+          token={props.token}
+        />
       </Modal.Body>
     </Modal>
   );
