@@ -12,7 +12,7 @@ import { useAudiobookCover } from "../../../../Components/Providers/AudiobookPro
 import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
 import { Buffer } from "buffer";
 import { v4 as uuidv4 } from "uuid";
-
+//todo to jest do rozbicia na mniejsze pliki 
 export default function CategoryAudiobookDetailModal(props) {
   const [stateModal, setStateModal] = useState({
     file: null,

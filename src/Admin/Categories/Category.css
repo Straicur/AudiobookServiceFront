@@ -93,6 +93,3 @@
 .table_buttons_with{
     width: 30rem;
 }
-.modal-dialog{
-    --bs-modal-width: 70rem  !important;
-}
