@@ -7,13 +7,11 @@ import "react-h5-audio-player/lib/styles.css";
 import { useAudiobookData } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
 import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
 import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
-import { Buffer } from "buffer";
 import CategoryEditForm from "./CategoryEditForm";
 import AudiobookCategoryList from "./AudiobookCategoryList";
 import AudiobookCover from "./AudiobookCover";
 import GetAudiobookZipButton from "./GetAudiobookZipButton";
 
-//todo to jest do rozbicia na mniejsze pliki
 export default function CategoryAudiobookDetailModal(props) {
   const [stateModal, setStateModal] = useState({
     file: null,
@@ -28,61 +26,6 @@ export default function CategoryAudiobookDetailModal(props) {
     useAudiobookCover();
   const [audiobookPart, setAudiobookPart] = useAudiobookPart();
 
-  const handleOnFileChange = (e) => {
-    if (e.target.files) {
-      let file = e.target.files[0];
-
-      if (
-        file.type == "image/png" ||
-        file.type == "image/jpeg" ||
-        file.type == "image/jpg"
-      ) {
-        setStateModal({ ...stateModal, file: file });
-      }
-    }
-  };
-
-  const editCover = () => {
-    if (stateModal.file != null) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        if (e.target.result instanceof ArrayBuffer) {
-          let pattern = "/jpeg|png|jpg/i";
-          let result = stateModal.file.type.match(pattern);
-
-          if (result != null) {
-            let buf = new Uint8Array(e.target.result);
-            let b64 = Buffer.from(buf).toString("base64");
-            HandleFetch(
-              "http://127.0.0.1:8000/api/admin/audiobook/change/cover",
-              "PATCH",
-              {
-                type: result[0],
-                base64: b64,
-                audiobookId: audiobookDetail.id,
-              },
-              props.token
-            )
-              .then(() => {
-                setAudiobookCoverRefetch(true);
-                setStateModal({ ...stateModal, file: null });
-              })
-              .catch((e) => {
-                props.setState({
-                  ...props.state,
-                  error: e,
-                });
-                handleClose();
-              });
-          }
-        }
-      };
-      if (stateModal.file != null) {
-        reader.readAsArrayBuffer(stateModal.file);
-      }
-    }
-  };
-
   const handleClose = () => {
     props.setState({
       ...props.state,
@@ -91,7 +34,6 @@ export default function CategoryAudiobookDetailModal(props) {
       refresh: !props.state.refresh,
     });
   };
-
 
   const deleteAudiobookEntarly = () => {
     HandleFetch(
@@ -146,12 +88,30 @@ export default function CategoryAudiobookDetailModal(props) {
       centered
     >
       <Modal.Header closeButton className="bg-dark">
-        <GetAudiobookZipButton setState={props.setState} state={props.state} t={props.t}/>
+        <GetAudiobookZipButton
+          audiobookDetail={audiobookDetail}
+          setState={props.setState}
+          state={props.state}
+          handleClose={handleClose}
+          t={props.t}
+          token={props.token}
+        />
       </Modal.Header>
       <Modal.Body className="bg-dark">
         <div className="row ">
           <div className="col">
-            <AudiobookCover setState={props.setState} state={props.state} t={props.t}/>
+            <AudiobookCover
+              audiobookCover={audiobookCover}
+              setState={props.setState}
+              state={props.state}
+              t={props.t}
+              setAudiobookCoverRefetch={setAudiobookCoverRefetch}
+              stateModal={stateModal}
+              setStateModal={setStateModal}
+              handleClose={handleClose}
+              audiobookDetail={audiobookDetail}
+              token={props.token}
+            />
             <div className="row d-flex justify-content-center text-light text-center">
               <h4>{props.t("categories")}</h4>
             </div>
