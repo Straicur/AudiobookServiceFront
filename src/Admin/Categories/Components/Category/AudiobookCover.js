@@ -25,14 +25,14 @@ export default function AudiobookCover(props) {
       reader.onload = function (e) {
         if (e.target.result instanceof ArrayBuffer) {
 
-          let pattern = "/jpeg|png|jpg/i";
+          let pattern = "jpeg|png|jpg/i";
           let result = props.stateModal.file.type.match(pattern);
 
           if (result != null) {
 
             let buf = new Uint8Array(e.target.result);
             let b64 = Buffer.from(buf).toString("base64");
-            
+
             HandleFetch(
               "http://127.0.0.1:8000/api/admin/audiobook/change/cover",
               "PATCH",
