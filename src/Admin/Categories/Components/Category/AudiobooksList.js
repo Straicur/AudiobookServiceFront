@@ -116,8 +116,6 @@ export default function AudiobooksList(props) {
     }
   }, [props.audiobooksState.error]);
 
-  //todo backend 2 endpointy które pobiorą mi wszystki kategorie dla audiobooka które nie są już używane i wszystkie audiobooki dla ktegorii które już w niej nie są
-
   return (
     <div className="container-fluid main-container mt-3">
       <div className="card position-relative p-3 mb-5  shadow">
