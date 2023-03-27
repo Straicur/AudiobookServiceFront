@@ -72,8 +72,8 @@ export default function AddAudiobookModal(props) {
     const reader = new FileReader();
     const fileName = stateModal.title + "_" + stateModal.author;
     const hashName = sha256(fileName).toString();
-    //todo to jest do rozkminy bo przeszkadza 
-    // Nie wykonuje się po i nie mogę zmienić stanu 
+    //todo to jest do rozkminy bo przeszkadza
+    // Nie wykonuje się po i nie mogę zmienić stanu
     setStateModal({ ...stateModal, upload: true, modal: 3 });
 
     reader.onload = function (e) {
@@ -106,9 +106,18 @@ export default function AddAudiobookModal(props) {
 
           HandleFetch(url, method, jsonData, props.token)
             .then((data) => {
-              if (stateProgress.currentPart == stateProgress.maxParts) {
-                console.log("Da")
-                // setStateModal({ ...stateModal, uploadEnded: true });
+              if (
+                stateProgress.currentPart == stateProgress.maxParts ||
+                Object.keys(data).length !== 0
+              ) {
+                setStateModal({
+                  author: "",
+                  title: "",
+                  modal: 3,
+                  fileAdded: true,
+                  isNextButtonDisabled: false,
+                  uploadEnded: false,
+                });
               }
               setStateProgress({
                 ...stateProgress,
@@ -152,10 +161,18 @@ export default function AddAudiobookModal(props) {
 
             HandleFetch(url, method, jsonData, props.token)
               .then((data) => {
-                if (stateProgress.currentPart == stateProgress.maxParts) {
-                  // console.log(stateModal)
-                  // setStateModal({ ...stateModal, uploadEnded: true });
-                  // console.log(stateModal)
+                if (
+                  stateProgress.currentPart == stateProgress.maxParts ||
+                  Object.keys(data).length !== 0
+                ) {
+                  setStateModal({
+                    author: "",
+                    title: "",
+                    modal: 3,
+                    fileAdded: true,
+                    isNextButtonDisabled: false,
+                    uploadEnded: false,
+                  });
                 }
                 setStateProgress({
                   ...stateProgress,

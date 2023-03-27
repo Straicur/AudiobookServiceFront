@@ -78,6 +78,33 @@ export default function CategoryAudiobookDetailModal(props) {
       });
   };
 
+  const renderStars = () => {
+    let stars = [];
+    let amountOfStars = 5;
+    if (audiobookDetail != null) {
+ 
+      if (audiobookDetail.avgRating != 0) {
+        for (let i = 0; i < audiobookDetail.avgRating; i++) {
+          stars.push(
+            <div className="col-1">
+              <i className="bi bi-star-fill"></i>
+            </div>
+          );
+          amountOfStars = amountOfStars - 1;
+        }
+      }
+
+      for (let i = 0; i < amountOfStars; i++) {
+        stars.push(
+          <div className="col-1">
+            <i className="bi bi-star"></i>
+          </div>
+        );
+      }
+    }
+    return stars;
+  };
+
   return (
     <Modal
       show={props.state.detailAudiobookModal}
@@ -112,6 +139,9 @@ export default function CategoryAudiobookDetailModal(props) {
               audiobookDetail={audiobookDetail}
               token={props.token}
             />
+            <div className="row d-flex justify-content-center text-light text-center">
+              {renderStars()}
+            </div>
             <div className="row d-flex justify-content-center text-light text-center">
               <h4>{props.t("categories")}</h4>
             </div>
