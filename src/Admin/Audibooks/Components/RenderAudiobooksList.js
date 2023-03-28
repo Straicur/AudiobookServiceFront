@@ -14,7 +14,14 @@ export default function RenderAudiobooksList(props) {
 
     return renderArray;
   };
+  // niech zapsze wysyłane dane do pamięci podręcznej żeby następnym razem szukać z tego co było wcześniej i niech to też ustawia w state od razu
+  // Ma mieć dane jego i można przejść od detali od razu lub zobaczyć komentarze
+  // W liście oprócz tytułu, autora i tego czy aktywny niech jesszcze będzie rok, ilość partów, age
 
+  // Po przejściu do detali ma mieć Oprócz tego co ma w modalu dodatkowo pod listą kategorii powinien mieć jeszcze oddzielny modal z możliwiścią przypisania do kategorii
+  // Render niech będzie tak jak w drzewie oraz obok każdej kategorii do której należy niech ma przycisk usuwający z niej 
+
+  // Jest problem z pobieraniem komentarzy 
   const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add("disabled");
     console.log(selectedAudiobook)
