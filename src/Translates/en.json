@@ -107,5 +107,6 @@
     "deleteEntarly": "Delete entarly",
     "comment": "Comment",
     "owner": "Owner",
-    "empty": "Empty"
+    "empty": "Empty",
+    "audiobooksAmount": "Audiobooks"
 }
