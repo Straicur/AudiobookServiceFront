@@ -17,7 +17,7 @@ export default function RenderAudiobooksList(props) {
 
   const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add("disabled");
-    console.log(selectedAudiobook)
+    
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/active",
       "PATCH",

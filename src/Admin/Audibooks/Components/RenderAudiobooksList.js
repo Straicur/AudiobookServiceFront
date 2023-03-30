@@ -1,8 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Components/HandleFetch";
+import { useNavigate } from "react-router-dom";
 
 export default function RenderAudiobooksList(props) {
+  const navigate = useNavigate();
+
   const createTable = () => {
     let renderArray = [];
 
@@ -24,7 +27,7 @@ export default function RenderAudiobooksList(props) {
 
   const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add("disabled");
-    console.log(selectedAudiobook)
+
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/active",
       "PATCH",
@@ -84,11 +87,7 @@ export default function RenderAudiobooksList(props) {
               size="sm"
               className="btn button mx-2"
               onClick={() =>
-                props.setState({
-                  ...props.state,
-                  detailAudiobookModal: !props.state.detailAudiobookModal,
-                  detailAudiobookElement: element,
-                })
+                navigate("/admin/audiobook/"+element.id)
               }
             >
               {props.t("details")}

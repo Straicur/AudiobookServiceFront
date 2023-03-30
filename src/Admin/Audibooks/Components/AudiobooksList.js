@@ -4,20 +4,24 @@ import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
+import JsonModal from "../../../Components/JsonModal";
+import AudiobookCommentsModal from "./AudiobookCommentsModal";
+import AddAudiobookModal from "./AddAudiobookModal";
+import RenderAudiobooksList from "./RenderAudiobooksList";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
 
+  const navigate = useNavigate();
+  
   const [state, setState] = useState({
     jsonModal: false,
     json: null,
     category: null,
     addAudiobookModal: false,
     addAudiobookParent: null,
-    detailAudiobookModal: false,
-    detailAudiobookElement: null,
     detailCommentsAudiobookModal: false,
-    detailAudiobookElementPart: 0,
     refresh: false,
     error: null,
   });
@@ -61,12 +65,13 @@ const {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setAudiobookState({
+          ...props.audiobooksState,
           error: e,
         });
       },
       onSuccess: (data) => {
+        console.log(data)
         setState({ ...state, json: data.audiobooks });
       },
     }
@@ -79,12 +84,12 @@ const {
       <hr className="line" />
       <div className="table-title my-2">
         <h1>{state.category == null ? null : state.category.name}</h1>
-        {/* <RenderAudiobooksList
+        <RenderAudiobooksList
           state={state}
           setState={setState}
           t={t}
           token={props.token}
-        /> */}
+        />
       </div>
       <div className="row">
         <div className="col">
@@ -117,24 +122,16 @@ const {
           </Button>
         </div>
       </div>
-      {/* {state.addAudiobookModal ? (
-        <AddAudiobookModal
-          state={state}
-          setState={setState}
-          t={t}
-          token={props.token}
-          categoryKey={props.categoryKey}
-        />
-      ) : null}
-      {state.detailAudiobookModal && state.detailAudiobookElement != null ? (
-        <CategoryDetailProviders
-          state={state}
-          setState={setState}
-          t={t}
-          token={props.token}
-          categoryKey={props.categoryKey}
-        />
-      ) : null}
+     
+      {state.addAudiobookModal ? (
+          <AddAudiobookModal
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+            categoryKey={props.categoryKey}
+          />
+        ) : null}
       {state.detailCommentsAudiobookModal &&
       state.detailAudiobookElement != null ? (
         <AudiobookCommentsModal
@@ -147,7 +144,7 @@ const {
       ) : null}
       {state.jsonModal ? (
         <JsonModal state={state} setState={setState} t={t} />
-      ) : null} */}
+      ) : null}
     </div>
   </div>
   )

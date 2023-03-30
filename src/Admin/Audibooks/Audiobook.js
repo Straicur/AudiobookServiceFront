@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
-// import AudiobooksList from "./Components/AudiobooksList";
+import AudiobookDetail from "./Components/AudiobookDetail";
 
 export default function Audiobook() {
   const token = useTokenStore((state) => state.token);
@@ -21,11 +21,11 @@ export default function Audiobook() {
         });
       }}
     >
-      {/* <AudiobookDetail
-        audiobooksState={audiobooksState}
-        setAudiobooksState={setAudiobooksState}
+      <AudiobookDetail
+        audiobookState={audiobookState}
+        setAudiobookState={setAudiobookState}
         token={token}
-      /> */}
+      />
     </ErrorBoundary>
   );
 }
