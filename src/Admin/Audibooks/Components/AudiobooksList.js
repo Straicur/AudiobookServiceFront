@@ -4,16 +4,13 @@ import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
 import JsonModal from "../../../Components/JsonModal";
-import AudiobookCommentsModal from "./AudiobookCommentsModal";
+import AudiobookCommentsModal from "../../Categories/Components/Category/AudiobookCommentsModal";
 import AddAudiobookModal from "./AddAudiobookModal";
 import RenderAudiobooksList from "./RenderAudiobooksList";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
-
-  const navigate = useNavigate();
   
   const [state, setState] = useState({
     jsonModal: false,
@@ -139,7 +136,6 @@ const {
           setState={setState}
           t={t}
           token={props.token}
-          categoryKey={props.categoryKey}
         />
       ) : null}
       {state.jsonModal ? (

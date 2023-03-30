@@ -3,7 +3,8 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { HandleFetch } from "./../../../../Components/HandleFetch";
+import { CreateDate } from "./../../../../Components/CrateDate";
 
 export default function CategoryEditForm(props) {
   const editAudiobookData = () => {
@@ -16,7 +17,7 @@ export default function CategoryEditForm(props) {
         author: props.audiobookDetail.author,
         version: props.audiobookDetail.version,
         album: props.audiobookDetail.album,
-        year: createDate(props.audiobookDetail.year),
+        year: CreateDate(props.audiobookDetail.year),
         duration: props.audiobookDetail.duration,
         size: props.audiobookDetail.size,
         parts: props.audiobookDetail.parts,
@@ -112,16 +113,6 @@ export default function CategoryEditForm(props) {
     });
   };
 
-  const createDate = (timeStamp) => {
-    const dateFormat = new Date(timeStamp);
-
-    const day = dateFormat.getDate();
-    const month = dateFormat.getMonth() + 1;
-    const year = dateFormat.getFullYear();
-
-    return day + "." + month + "." + year;
-  };
-
   return (
     <div className="row ">
       <div className="row text-light">
@@ -177,7 +168,7 @@ export default function CategoryEditForm(props) {
           <Form.Control
             defaultValue={
               props.audiobookDetail != null
-                ? createDate(props.audiobookDetail.year)
+                ? CreateDate(props.audiobookDetail.year)
                 : ""
             }
             onChange={(event) => {

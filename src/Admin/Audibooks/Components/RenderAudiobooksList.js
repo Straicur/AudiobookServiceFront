@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import { useNavigate } from "react-router-dom";
+import { CreateDate } from "../../../Components/CrateDate";
 
 export default function RenderAudiobooksList(props) {
   const navigate = useNavigate();
@@ -18,12 +19,10 @@ export default function RenderAudiobooksList(props) {
     return renderArray;
   };
   //todo niech zapisze wysyłane dane do pamięci podręcznej żeby następnym razem szukać z tego co było wcześniej i niech to też ustawia w state od razu
-  // Ma mieć dane jego i można przejść od detali od razu lub zobaczyć komentarze
-  // W liście oprócz tytułu, autora i tego czy aktywny niech jesszcze będzie rok, ilość partów, age
   // wyszukiwarka ma być z boku i to jest Offcanvas. W nim mam mieć ten formularz i w sumie ma on być na state żeby mi się przy powrocie od razu ustawiał
 
   // Po przejściu do detali ma mieć Oprócz tego co ma w modalu dodatkowo pod listą kategorii powinien mieć jeszcze oddzielny modal z możliwiścią przypisania do kategorii
-  // Render niech będzie tak jak w drzewie oraz obok każdej kategorii do której należy niech ma przycisk usuwający z niej 
+  // Render niech będzie tak jak w drzewie oraz obok każdej kategorii do której należy niech ma przycisk usuwający z niej
 
   const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add("disabled");
@@ -66,6 +65,25 @@ export default function RenderAudiobooksList(props) {
         });
       });
   };
+  const getAge = (element) => {
+    switch (element.age) {
+      case 1:
+        return "3-7";
+        break;
+      case 2:
+        return "7-12";
+        break;
+      case 3:
+        return "12-16";
+        break;
+      case 4:
+        return "16-18";
+        break;
+      case 5:
+        return "18+";
+        break;
+    }
+  };
 
   const createColumn = (element) => {
     return (
@@ -79,6 +97,9 @@ export default function RenderAudiobooksList(props) {
             <i className="bi bi-bookmark-dash"></i>
           )}
         </td>
+        <td>{CreateDate(element.year)}</td>
+        <td>{element.parts}</td>
+        <td>{getAge(element)}</td>
         <td className="table_buttons_with">
           <div className="d-grid gap-2 d-md-block">
             <Button
@@ -86,9 +107,7 @@ export default function RenderAudiobooksList(props) {
               variant="dark"
               size="sm"
               className="btn button mx-2"
-              onClick={() =>
-                navigate("/admin/audiobook/"+element.id)
-              }
+              onClick={() => navigate("/admin/audiobook/" + element.id)}
             >
               {props.t("details")}
             </Button>
@@ -119,8 +138,7 @@ export default function RenderAudiobooksList(props) {
                 activeteAudiobook(e, element);
               }}
             >
-            
-              {element.active ?props.t("deActivate"):props.t("activate")}
+              {element.active ? props.t("deActivate") : props.t("activate")}
             </Button>
           </div>
         </td>
@@ -135,6 +153,9 @@ export default function RenderAudiobooksList(props) {
           <th scope="col">{props.t("title")}</th>
           <th scope="col">{props.t("author")}</th>
           <th scope="col">{props.t("active")}</th>
+          <th scope="col">{props.t("year")}</th>
+          <th scope="col">{props.t("parts")}</th>
+          <th scope="col">{props.t("age")}</th>
           <th scope="col"></th>
         </tr>
       </thead>

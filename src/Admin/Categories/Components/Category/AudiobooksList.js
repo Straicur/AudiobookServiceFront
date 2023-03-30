@@ -186,7 +186,6 @@ export default function AudiobooksList(props) {
             setState={setState}
             t={t}
             token={props.token}
-            categoryKey={props.categoryKey}
           />
         ) : null}
         {state.jsonModal ? (
