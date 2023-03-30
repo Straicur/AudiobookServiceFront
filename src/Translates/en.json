@@ -110,5 +110,6 @@
     "empty": "Empty",
     "audiobooksAmount": "Audiobooks",
     "search": "Search",
-    "filters": "Filters"
+    "filters": "Filters",
+    "sort": "Sort"
 }

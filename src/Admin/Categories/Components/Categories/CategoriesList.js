@@ -34,7 +34,7 @@ export default function CategoriesList(props) {
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/categories",
+        "http://127.0.0.1:8000/api/admin/categories/tree",
         "GET",
         null,
         props.token
