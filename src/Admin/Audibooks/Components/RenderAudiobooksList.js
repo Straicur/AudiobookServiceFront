@@ -20,6 +20,8 @@ export default function RenderAudiobooksList(props) {
   };
   //todo niech zapisze wysyłane dane do pamięci podręcznej żeby następnym razem szukać z tego co było wcześniej i niech to też ustawia w state od razu
   // wyszukiwarka ma być z boku i to jest Offcanvas. W nim mam mieć ten formularz i w sumie ma on być na state żeby mi się przy powrocie od razu ustawiał
+  // Dodawanie m,a mieć te kategoriee jeszcze to pamiętaj
+
 
   // Po przejściu do detali ma mieć Oprócz tego co ma w modalu dodatkowo pod listą kategorii powinien mieć jeszcze oddzielny modal z możliwiścią przypisania do kategorii
   // Render niech będzie tak jak w drzewie oraz obok każdej kategorii do której należy niech ma przycisk usuwający z niej
@@ -90,6 +92,9 @@ export default function RenderAudiobooksList(props) {
       <tr key={uuidv4()}>
         <th scope="row">{element.title}</th>
         <td>{element.author}</td>
+        <td>{CreateDate(element.year)}</td>
+        <td>{element.parts}</td>
+        <td>{getAge(element)}</td>
         <td>
           {element.active ? (
             <i className="bi bi-bookmark-check-fill"></i>
@@ -97,9 +102,6 @@ export default function RenderAudiobooksList(props) {
             <i className="bi bi-bookmark-dash"></i>
           )}
         </td>
-        <td>{CreateDate(element.year)}</td>
-        <td>{element.parts}</td>
-        <td>{getAge(element)}</td>
         <td className="table_buttons_with">
           <div className="d-grid gap-2 d-md-block">
             <Button
@@ -152,10 +154,10 @@ export default function RenderAudiobooksList(props) {
         <tr>
           <th scope="col">{props.t("title")}</th>
           <th scope="col">{props.t("author")}</th>
-          <th scope="col">{props.t("active")}</th>
           <th scope="col">{props.t("year")}</th>
           <th scope="col">{props.t("parts")}</th>
           <th scope="col">{props.t("age")}</th>
+          <th scope="col">{props.t("active")}</th>
           <th scope="col"></th>
         </tr>
       </thead>

@@ -8,10 +8,11 @@ import JsonModal from "../../../Components/JsonModal";
 import AudiobookCommentsModal from "../../Categories/Components/Category/AudiobookCommentsModal";
 import AddAudiobookModal from "./AddAudiobookModal";
 import RenderAudiobooksList from "./RenderAudiobooksList";
+import SearchAudiobooksOffCanvas from "./SearchAudiobooksOffCanvas";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
-  
+
   const [state, setState] = useState({
     jsonModal: false,
     json: null,
@@ -19,6 +20,7 @@ export default function AudiobooksList(props) {
     addAudiobookModal: false,
     addAudiobookParent: null,
     detailCommentsAudiobookModal: false,
+    searchModal: false,
     refresh: false,
     error: null,
   });
@@ -36,7 +38,7 @@ export default function AudiobooksList(props) {
     }
   }, [props.audiobooksState.error]);
 
-const {
+  const {
     isLoading: isLoadingFirst,
     error: errorFirst,
     data: dataFirst,
@@ -51,9 +53,7 @@ const {
         {
           page: 0,
           limit: 10,
-          searchData:{
-            
-          }
+          searchData: {},
         },
         props.token
       ),
@@ -68,80 +68,109 @@ const {
         });
       },
       onSuccess: (data) => {
-        console.log(data)
+        console.log(data);
         setState({ ...state, json: data.audiobooks });
       },
     }
   );
 
-  return(
+  return (
     <div className="container-fluid main-container mt-3">
-    <div className="card position-relative p-3 mb-5  shadow">
-      <AdminNavBar />
-      <hr className="line" />
-      <div className="table-title my-2">
-        <h1>{state.category == null ? null : state.category.name}</h1>
-        <RenderAudiobooksList
-          state={state}
-          setState={setState}
-          t={t}
-          token={props.token}
-        />
-      </div>
-      <div className="row">
-        <div className="col">
-          <Button
-            variant="dark"
-            size="lg"
-            color="dark"
-            className=" btn button mt-2"
-            onClick={() =>
-              setState({
-                ...state,
-                addAudiobookModal: !state.addAudiobookModal,
-              })
-            }
-          >
-            {t("addAudiobook")}
-          </Button>
+      <div className="card position-relative p-3 mb-5  shadow">
+        <AdminNavBar />
+        <hr className="line" />
+        <div className="table-title my-2">
+          <div className="d-flex justify-content-end ">
+            <div className="p-2 bd-highlight">
+              {" "}
+              <h2>Wyszukaj:</h2>
+            </div>
+            <div className="p-2 bd-highlight">
+              <Button
+                variant="dark"
+                size="sm"
+                color="dark"
+                className=" btn button mt-2"
+                onClick={() =>
+                  setState({
+                    ...state,
+                    searchModal: !state.searchModal,
+                  })
+                }
+              >
+                {t("search")}
+              </Button>
+            </div>
+          </div>
+          <RenderAudiobooksList
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+          />
         </div>
-        <div className="col">
-          <Button
-            variant="dark"
-            size="lg"
-            color="dark"
-            className=" btn button mt-2"
-            onClick={() =>
-              setState({ ...state, jsonModal: !state.jsonModal })
-            }
-          >
-            {t("categoryJson")}
-          </Button>
+        <div className="row">
+          <div className="col">
+            <Button
+              variant="dark"
+              size="lg"
+              color="dark"
+              className=" btn button mt-2"
+              onClick={() =>
+                setState({
+                  ...state,
+                  addAudiobookModal: !state.addAudiobookModal,
+                })
+              }
+            >
+              {t("addAudiobook")}
+            </Button>
+          </div>
+          <div className="col">
+            <Button
+              variant="dark"
+              size="lg"
+              color="dark"
+              className=" btn button mt-2"
+              onClick={() =>
+                setState({ ...state, jsonModal: !state.jsonModal })
+              }
+            >
+              {t("categoryJson")}
+            </Button>
+          </div>
         </div>
-      </div>
-     
-      {state.addAudiobookModal ? (
+
+        {state.addAudiobookModal ? (
           <AddAudiobookModal
             state={state}
             setState={setState}
             t={t}
             token={props.token}
-            categoryKey={props.categoryKey}
           />
         ) : null}
-      {state.detailCommentsAudiobookModal &&
-      state.detailAudiobookElement != null ? (
-        <AudiobookCommentsModal
-          state={state}
-          setState={setState}
-          t={t}
-          token={props.token}
-        />
-      ) : null}
-      {state.jsonModal ? (
-        <JsonModal state={state} setState={setState} t={t} />
-      ) : null}
+
+        {state.searchModal ? (
+          <SearchAudiobooksOffCanvas
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+          />
+        ) : null}
+        {state.detailCommentsAudiobookModal &&
+        state.detailAudiobookElement != null ? (
+          <AudiobookCommentsModal
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+          />
+        ) : null}
+        {state.jsonModal ? (
+          <JsonModal state={state} setState={setState} t={t} />
+        ) : null}
+      </div>
     </div>
-  </div>
-  )
+  );
 }

@@ -108,5 +108,7 @@
     "comment": "Comment",
     "owner": "Owner",
     "empty": "Empty",
-    "audiobooksAmount": "Audiobooks"
+    "audiobooksAmount": "Audiobooks",
+    "search": "Search",
+    "filters": "Filters"
 }

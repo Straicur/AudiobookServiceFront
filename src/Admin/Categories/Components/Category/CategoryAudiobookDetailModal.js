@@ -111,7 +111,6 @@ export default function CategoryAudiobookDetailModal(props) {
       onHide={handleClose}
       size="lg"
       backdrop="static"
-      aria-labelledby="contained-modal-title-vcenter"
       centered
     >
       <Modal.Header closeButton className="bg-dark">
