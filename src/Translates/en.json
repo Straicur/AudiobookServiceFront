@@ -111,5 +111,17 @@
     "audiobooksAmount": "Audiobooks",
     "search": "Search",
     "filters": "Filters",
-    "sort": "Sort"
+    "sort": "Sort",
+    "popular": "Most popular",
+    "lestPopular": "Least popular",
+    "latest": "Latest",
+    "oldest": "Oldest",
+    "aplhabeticalAsc": "Alphabetically A-Z",
+    "aplhabeticalDesc": "Alphabetically Z-A",
+    "topRated": "Top rated",
+    "worstRated": "Worst rated",
+    "selectSort": "Seclect sort",
+    "selectCategories": " Select category",
+    "slectedMultiCategories": "Selected multiple categories",
+    "slelectAge": " Selcet age"
 }

@@ -27,6 +27,22 @@ let tokenStore = (set) => ({
     })),
 });
 
+let categoryTreeListStore = (set) => ({
+  categories: [],
+  dateUpdate: 0,
+  addCategory: (category) => {
+    set((state) => ({
+      categories: [...state.categories, category],
+      dateUpdate: Date.now() + 1800000,
+    }));
+  },
+  removeCategories: () =>
+    set(() => ({
+      categories: [],
+      dateUpdate: 0,
+    })),
+});
+
 let categoryListStore = (set) => ({
   categories: [],
   dateUpdate: 0,
@@ -43,6 +59,7 @@ let categoryListStore = (set) => ({
     })),
 });
 
+
 let audiobookListStore = (set) => ({
   people: [],
   addPerson: (person) =>
@@ -55,11 +72,15 @@ let audiobookListStore = (set) => ({
 tokenStore = devtools(tokenStore);
 tokenStore = persist(tokenStore, { name: "auth_token" });
 
+categoryTreeListStore = devtools(categoryTreeListStore);
+categoryTreeListStore = persist(categoryTreeListStore, { name: "categoriesTree" });
+
 categoryListStore = devtools(categoryListStore);
 categoryListStore = persist(categoryListStore, { name: "categories" });
 
 audiobookListStore = devtools(audiobookListStore);
 
 export const useTokenStore = create(tokenStore);
+export const useCategoryTreeListStore = create(categoryTreeListStore);
 export const useCategoryListStore = create(categoryListStore);
 export const useAudiobookListStore = create(audiobookListStore);

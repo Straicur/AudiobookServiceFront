@@ -27,18 +27,6 @@ export default function AudiobooksList(props) {
 
   //tu musi być state wyszukiwarki 
 
-  useEffect(() => {
-    if (state.refresh) {
-      setState({ ...state, refresh: !state.refresh });
-      refetchFirst();
-    }
-  }, [state.refresh]);
-
-  useEffect(() => {
-    if (props.audiobooksState.error != null) {
-      throw props.audiobooksState.error;
-    }
-  }, [props.audiobooksState.error]);
 
   const {
     isLoading: isLoadingFirst,
@@ -75,6 +63,19 @@ export default function AudiobooksList(props) {
       },
     }
   );
+
+  useEffect(() => {
+    if (state.refresh) {
+      setState({ ...state, refresh: !state.refresh });
+      refetchFirst();
+    }
+  }, [state.refresh]);
+
+  useEffect(() => {
+    if (props.audiobooksState.error != null) {
+      throw props.audiobooksState.error;
+    }
+  }, [props.audiobooksState.error]);
 
   return (
     <div className="container-fluid main-container mt-3">
@@ -156,6 +157,8 @@ export default function AudiobooksList(props) {
           <SearchAudiobooksOffCanvas
             state={state}
             setState={setState}
+            audiobooksState={props.audiobooksState}
+            setAudiobooksState={props.setAudiobooksState}
             t={t}
             token={props.token}
           />

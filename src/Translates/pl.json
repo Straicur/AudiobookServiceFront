@@ -112,5 +112,17 @@
     "audiobooksAmount": "Audiobooki",
     "search": "Szukaj",
     "filters": "Filtry",
-    "sort": "Sortuj"
+    "sort": "Sortuj",
+    "popular": "Najpopularniejsze",
+    "lestPopular": "Najmniej popularne",
+    "latest": "Najnowsze",
+    "oldest": "Najstarsze",
+    "aplhabeticalAsc": "Alfabetycznie A-Z",
+    "aplhabeticalDesc": "Alfabetycznie Z-A",
+    "topRated": "Najlepiej oceniane",
+    "worstRated": "Najgorzej oceniane",
+    "selectSort": "Wybierz sortowanie",
+    "selectCategories": " Wybierz kategorie",
+    "slectedMultiCategories": "Wybrano wiele kategorii",
+    "slelectAge": "Wybierz wiek"
 }
