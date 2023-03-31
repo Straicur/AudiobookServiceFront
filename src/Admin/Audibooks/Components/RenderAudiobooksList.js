@@ -24,9 +24,6 @@ export default function RenderAudiobooksList(props) {
   // Na dole strony jeszcze po pobraniu muszę mieć przyciski które mówią mi czy mogę iść na next lub cofnąć stronę. Mają być na początku niewidoczne i jeśli 
   // Strona będzie mniejsza niż 1 to też
 
-  // W tym off Canvasie mam pobierać listę kategorii i z niej robić sobie tą listę, Ale to zapisz też do storage żeby szybciej działało i jak już będzie to żeby
-  // nie pobierać bo szkoda czasu
-
   // Po przejściu do detali ma mieć Oprócz tego co ma w modalu dodatkowo pod listą kategorii powinien mieć jeszcze oddzielny modal z możliwiścią przypisania do kategorii
   // Render niech będzie tak jak w drzewie oraz obok każdej kategorii do której należy niech ma przycisk usuwający z niej
 

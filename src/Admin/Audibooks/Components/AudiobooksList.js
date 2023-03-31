@@ -25,8 +25,17 @@ export default function AudiobooksList(props) {
     error: null,
   });
 
-  //tu musi być state wyszukiwarki 
-
+  const [searchState, setSearchState] = useState({
+    sort: 0,
+    categories: [],
+    title: "",
+    author: "",
+    album: "",
+    parts: 0,
+    age: 0,
+    year: 0,
+    duration: 0,
+  });
 
   const {
     isLoading: isLoadingFirst,
@@ -159,6 +168,8 @@ export default function AudiobooksList(props) {
             setState={setState}
             audiobooksState={props.audiobooksState}
             setAudiobooksState={props.setAudiobooksState}
+            searchState={searchState}
+            setSearchState={setSearchState}
             t={t}
             token={props.token}
           />

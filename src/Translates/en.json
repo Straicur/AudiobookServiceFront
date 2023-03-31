@@ -120,8 +120,9 @@
     "aplhabeticalDesc": "Alphabetically Z-A",
     "topRated": "Top rated",
     "worstRated": "Worst rated",
-    "selectSort": "Seclect sort",
+    "selectSort": "Select sort",
     "selectCategories": " Select category",
     "slectedMultiCategories": "Selected multiple categories",
-    "slelectAge": " Selcet age"
+    "slelectAge": "Select age",
+    "slectedAll": "Select all options"
 }

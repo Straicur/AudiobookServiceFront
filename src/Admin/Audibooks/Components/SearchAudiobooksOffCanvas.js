@@ -25,6 +25,8 @@ export default function SearchAudiobooksOffCanvas(props) {
   const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
 
   useEffect(() => {
+    //ru niech poszuka tych danych i przypisze do state
+
     if (dateUpdate > Date.now() && dateUpdate != 0) {
       setCategories(categories);
     } else {
@@ -60,6 +62,15 @@ export default function SearchAudiobooksOffCanvas(props) {
     return multiSelectTable;
   };
 
+
+  // 1 te zmieniające state metody oraz odpowiednie ustawienie daty oraz obliczanie długości względem podanych sekund (tak żeby mi wyswietlało w minutach)
+  // 2 store i ustawianie tych przechowywanych
+  // 3 ustaw button na refresh i close tego filtra (Po wysłaniu ma też zapisać te dane go store)
+  // 4 dodaj przewijanie stron
+  // 5 dodawanie audiobooka ma mieć jeszcze multi select przy dodaniu tytułu i autora, czyści state kategorii przy wyjściu z modalu
+  // 6 Dodaj przycisk który wyświetli mi listę kategorii w postaci drzewa i w niej mam mieć możliwsoć przypisania audiobooka do niej (DETALE)
+  // 7 w detalach audiobooka mam mieć listę jego kategorii i obok każdego rekordu ma być przycisk który umożliwi usunięcie go z kategorii (DETALE)
+  // 8 W detalach ma być na dole samym lista kometarzy i niech to nie będzie jak w kategoriach w modalu bo za dużo tych modali A strona i tak dla niego jest poświęcona (DETALE)
   return (
     <Offcanvas
       show={show}
@@ -93,13 +104,15 @@ export default function SearchAudiobooksOffCanvas(props) {
             {props.t("categories")}
           </InputGroup.Text>
           <DropdownMultiselect
-            placeholder=  {props.t("selectCategories")}
-            placeholderMultipleChecked=  {props.t("slectedMultiCategories")}
+            placeholder={props.t("selectCategories")}
+            placeholderMultipleChecked={props.t("slectedMultiCategories")}
+            selectDeselectLabel={props.t("slectedAll")}
             options={generateCategoriesList()}
             name="countries"
             handleOnChange={(selected) => {
               console.log(selected);
             }}
+            selected={props.searchState.categories}
             className={"dropdown_multiselect"}
           />
         </InputGroup>
@@ -108,9 +121,7 @@ export default function SearchAudiobooksOffCanvas(props) {
             {props.t("title")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
-              props.audiobookDetail != null ? props.audiobookDetail.title : ""
-            }
+            defaultValue={props.searchState.title}
             onChange={(event) => {
               //   handleTitleChange(event);
             }}
@@ -122,9 +133,7 @@ export default function SearchAudiobooksOffCanvas(props) {
             {props.t("author")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
-              props.audiobookDetail != null ? props.audiobookDetail.title : ""
-            }
+            defaultValue={props.searchState.author}
             onChange={(event) => {
               //   handleTitleChange(event);
             }}
@@ -135,9 +144,7 @@ export default function SearchAudiobooksOffCanvas(props) {
             {props.t("album")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
-              props.audiobookDetail != null ? props.audiobookDetail.title : ""
-            }
+            defaultValue={props.searchState.album}
             onChange={(event) => {
               //   handleTitleChange(event);
             }}
@@ -153,6 +160,7 @@ export default function SearchAudiobooksOffCanvas(props) {
             onChange={(event) => {
               //   handleTitleChange(event);
             }}
+            defaultValue={props.searchState.parts}
           />
         </InputGroup>
 
@@ -162,14 +170,23 @@ export default function SearchAudiobooksOffCanvas(props) {
           </InputGroup.Text>
           <Form.Select aria-label="Default select example">
             <option> {props.t("slelectAge")}</option>
-            <option value={1}>3-7</option>
-            <option value={2}>7-12</option>
-            <option value={3}>12-16</option>
-            <option value={4}>16-18</option>
-            <option value={5}>18+</option>
+            <option selected={props.searchState.age == 1} value={1}>
+              3-7
+            </option>
+            <option selected={props.searchState.age == 2} value={2}>
+              7-12
+            </option>
+            <option selected={props.searchState.age == 3} value={3}>
+              12-16
+            </option>
+            <option selected={props.searchState.age == 4} value={4}>
+              16-18
+            </option>
+            <option selected={props.searchState.age == 5} value={5}>
+              18+
+            </option>
           </Form.Select>
         </InputGroup>
-
 
         <InputGroup className="mb-1 input_modal py-1 ">
           <InputGroup.Text className="input-group-text-new text-light">
@@ -177,9 +194,7 @@ export default function SearchAudiobooksOffCanvas(props) {
           </InputGroup.Text>
           <Form.Control
             type="date"
-            defaultValue={
-              props.audiobookDetail != null ? props.audiobookDetail.title : ""
-            }
+            defaultValue={props.searchState.year}
             onChange={(event) => {
               //   handleTitleChange(event);
             }}
@@ -192,9 +207,10 @@ export default function SearchAudiobooksOffCanvas(props) {
             onChange={(selected) => {
               console.log(selected);
             }}
-            min="0"
-            max="5"
-            step="0.5"
+            min={0}
+            max={500}
+            step={1}
+            value = {props.searchState.duration}
           />
         </InputGroup>
         <div className="row mx-1">
