@@ -5,6 +5,7 @@ import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import AudiobooksList from "./Components/Category/AudiobooksList";
 import {useParams} from 'react-router-dom'
 import "./Category.css"
+//todo rozwiąż probmem z cssami bo to psuje wszystko
 export default function Category() {
   
   const token = useTokenStore((state) => state.token);

@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
-import { useCategoryListStore } from "../../../../store";
+import { useCategoryTreeListStore } from "../../../../store";
 import RenderCategoriesList from "./RenderCategoriesList";
 import JsonModal from "../../../../Components/JsonModal";
 import AddCategoryModal from "./AddCategoryModal";
@@ -25,16 +25,16 @@ export default function CategoriesList(props) {
     error: null,
   });
 
-  const categoriesStore = useCategoryListStore();
+  const categoriesStore = useCategoryTreeListStore();
 
-  const categories = useCategoryListStore((state) => state.categories);
-  const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
+  const categories = useCategoryTreeListStore((state) => state.categories);
+  const dateUpdate = useCategoryTreeListStore((state) => state.dateUpdate);
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/categories",
+        "http://127.0.0.1:8000/api/admin/categories/tree",
         "GET",
         null,
         props.token
@@ -51,8 +51,8 @@ export default function CategoriesList(props) {
       },
       onSuccess: (data) => {
         setState({ ...state, json: data.categories });
-
-        if (dateUpdate < Date.now() || state.refresh) {
+        //todo czy na pewno tak chciałem ? Bo tu może być problem że pobieram to a nie potrzebuje tak naprawdę jeśli trzymam to w storage
+        if ((dateUpdate < Date.now()) || state.refresh) {
           categoriesStore.removeCategories();
 
           for (const category of data.categories) {

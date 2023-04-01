@@ -6,6 +6,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import Page404 from "./Components/Page404";
 
 import Audiobooks from "./Admin/Audibooks/Audiobooks";
+import Audiobook from "./Admin/Audibooks/Audiobook";
 import AdminMain from "./Admin/AdminMain/AdminMain";
 import Category from "./Admin/Categories/Category";
 import Categories from "./Admin/Categories/Categories";
@@ -59,6 +60,12 @@ function App() {
             exact
             path="/admin/audiobooks"
             element={<Audiobooks />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/admin/audiobook/:audiobookId"
+            element={<Audiobook />}
             errorElement={<Page404 />}
           />
           <Route

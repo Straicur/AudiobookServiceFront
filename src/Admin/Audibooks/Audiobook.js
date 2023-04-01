@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
-import AudiobooksList from "./Components/AudiobooksList";
-import "./Audiobooks.css"
+import AudiobookDetail from "./Components/AudiobookDetail";
 
-export default function Audiobooks() {
+export default function Audiobook() {
   const token = useTokenStore((state) => state.token);
 
-  const [audiobooksState, setAudiobooksState] = useState({
+  const [audiobookState, setAudiobookState] = useState({
     error: null,
   });
 
@@ -16,15 +15,15 @@ export default function Audiobooks() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setAudiobooksState({
-          ...audiobooksState,
+        setAudiobookState({
+          ...audiobookState,
           error: null,
         });
       }}
     >
-      <AudiobooksList
-        audiobooksState={audiobooksState}
-        setAudiobooksState={setAudiobooksState}
+      <AudiobookDetail
+        audiobookState={audiobookState}
+        setAudiobookState={setAudiobookState}
         token={token}
       />
     </ErrorBoundary>

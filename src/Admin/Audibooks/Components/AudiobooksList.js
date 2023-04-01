@@ -3,17 +3,344 @@ import { AdminNavBar } from "../../../Components/NavBars/AdminNavBar";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
-
+import Button from "react-bootstrap/Button";
+import JsonModal from "../../../Components/JsonModal";
+import AudiobookCommentsModal from "../../Categories/Components/Category/AudiobookCommentsModal";
+import AddAudiobookModal from "./AddAudiobookModal";
+import RenderAudiobooksList from "./RenderAudiobooksList";
+import SearchAudiobooksOffCanvas from "./SearchAudiobooksOffCanvas";
+import { useCategoryListStore } from "../../../store";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
 
-  return(
+  const categoriesStore = useCategoryListStore();
+
+  const categories = useCategoryListStore((state) => state.categories);
+  const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
+
+  const [state, setState] = useState({
+    jsonModal: false,
+    json: null,
+    addAudiobookModal: false,
+    addAudiobookParent: null,
+    detailCommentsAudiobookModal: false,
+    detailAudiobookElement: null,
+    searchModal: false,
+    refresh: false,
+    error: null,
+    maxPage: 0,
+  });
+
+  const [searchState, setSearchState] = useState({
+    sort: 0,
+    categories: [],
+    title: "",
+    author: "",
+    album: "",
+    parts: 0,
+    age: 0,
+    year: 0,
+    duration: 0,
+  });
+
+  const [pageState, setPageState] = useState({
+    page: 0,
+    limit: 15,
+  });
+
+  const [categoriesState, setCategories] = useState([]);
+
+  const resetStates = () => {
+    setSearchState({
+      sort: 0,
+      categories: [],
+      title: "",
+      author: "",
+      album: "",
+      parts: 0,
+      age: 0,
+      year: 0,
+      duration: 0,
+    });
+  };
+
+  const createSearchData = () => {
+    let searchJson = {};
+
+    if (searchState.sort != 0) {
+      searchJson.order = parseInt(searchState.sort);
+    }
+    if (searchState.categories.length != 0) {
+      searchJson.categories = searchState.categories;
+    }
+    if (searchState.title != "") {
+      searchJson.title = searchState.title;
+    }
+    if (searchState.author != "") {
+      searchJson.author = searchState.author;
+    }
+    if (searchState.album != "") {
+      searchJson.album = searchState.album;
+    }
+    if (searchState.parts != 0) {
+      searchJson.parts = parseInt(searchState.parts);
+    }
+    if (searchState.age != 0) {
+      searchJson.age = parseInt(searchState.age);
+    }
+    if (searchState.year != 0) {
+      let date = new Date(searchState.year);
+      searchJson.year =
+        date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
+    }
+    if (searchState.duration != 0) {
+      searchJson.duration = parseInt(searchState.duration);
+    }
+
+    return searchJson;
+  };
+
+  const { isLoading, error, data, isFetching, refetch } = useQuery(
+    "data",
+    () =>
+      HandleFetch(
+        "http://127.0.0.1:8000/api/admin/audiobooks",
+        "POST",
+        {
+          page: pageState.page,
+          limit: pageState.limit,
+          searchData: createSearchData(),
+        },
+        props.token
+      ),
+    {
+      retry: 1,
+      retryDelay: 500,
+      refetchOnWindowFocus: false,
+      onError: (e) => {
+        props.setAudiobookState({
+          ...props.audiobooksState,
+          error: e,
+        });
+      },
+      onSuccess: (data) => {
+        console.log(data);
+        setState({ ...state, json: data });
+      },
+    }
+  );
+
+  const fetchCategoriesList = () => {
+    if (dateUpdate > Date.now() && dateUpdate != 0) {
+      setCategories(categories);
+    } else {
+      HandleFetch(
+        "http://127.0.0.1:8000/api/admin/categories",
+        "GET",
+        null,
+        props.token
+      )
+        .then((data) => {
+          categoriesStore.removeCategories();
+          for (const category of data.categories) {
+            categoriesStore.addCategory(category);
+          }
+
+          setCategories(data.categories);
+        })
+        .catch((e) => {
+          props.setAudiobooksState({
+            ...props.audiobooksState,
+            error: e,
+          });
+        });
+    }
+  };
+  const openAddModal = () => {
+    fetchCategoriesList();
+
+    setState({
+      ...state,
+      addAudiobookModal: !state.addAudiobookModal,
+    });
+  };
+  const openSearchModal = () => {
+    fetchCategoriesList();
+
+    setState({
+      ...state,
+      searchModal: !state.searchModal,
+    });
+  };
+
+  const nextPage = () => {
+    if (pageState.page+1 < state.json.maxPage) {
+      setPageState({
+        ...pageState,
+        page: pageState.page + 1,
+      });
+      setState({ ...state, refresh: !state.refresh });
+    }
+  };
+
+  const prevPage = () => {
+    if (pageState.page > 0) {
+      setPageState({
+        ...pageState,
+        page: pageState.page - 1,
+      });
+      setState({ ...state, refresh: !state.refresh });
+    }
+  };
+
+  const renderPageSwitches = () => {
+    if (state.json != null && state.json.maxPage > 1) {
+      return (
+        <div className="row justify-content-center">
+          <div className="col-1">
+            <Button
+              variant="light"
+              size="sm"
+              color="dark"
+              className=" btn button mt-2"
+              onClick={() => prevPage()}
+            >
+              <i className="bi bi-chevron-left"></i>
+            </Button>
+          </div>
+          <div className="col-1">
+            {pageState.page + 1}/{state.json.maxPage}
+          </div>
+          <div className="col-1">
+            <Button
+              variant="light"
+              size="sm"
+              color="dark"
+              className=" btn button mt-2"
+              onClick={() => nextPage()}
+            >
+              <i className="bi bi-chevron-right"></i>
+            </Button>
+          </div>
+        </div>
+      );
+    }
+  };
+  useEffect(() => {
+    if (state.refresh) {
+      setState({ ...state, refresh: !state.refresh });
+      refetch();
+    }
+  }, [state.refresh]);
+
+  useEffect(() => {
+    if (props.audiobooksState.error != null) {
+      throw props.audiobooksState.error;
+    }
+  }, [props.audiobooksState.error]);
+
+  return (
     <div className="container-fluid main-container mt-3">
-    <div className="card position-relative p-3 mb-5  shadow">
-      <AdminNavBar />
-      <hr className="line" />
+      <div className="card position-relative p-3 mb-5  shadow">
+        <AdminNavBar />
+        <hr className="line" />
+        <div className="table-title my-2">
+          <div className="d-flex justify-content-end ">
+            <div className="p-2 bd-highlight">
+              <h2>{t("filters")}</h2>
+            </div>
+            <div className="p-2 bd-highlight">
+              <Button
+                variant="dark"
+                size="sm"
+                color="dark"
+                className=" btn button mt-2"
+                onClick={() => openSearchModal()}
+              >
+                {t("search")}
+              </Button>
+            </div>
+          </div>
+          <RenderAudiobooksList
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+          />
+          {renderPageSwitches()}
+        </div>
+        <div className="row">
+          <div className="col">
+            <Button
+              variant="dark"
+              size="lg"
+              color="dark"
+              className=" btn button mt-2"
+              onClick={() => openAddModal()}
+            >
+              {t("addAudiobook")}
+            </Button>
+          </div>
+          <div className="col">
+            <Button
+              variant="dark"
+              size="lg"
+              color="dark"
+              className=" btn button mt-2"
+              onClick={() =>
+                setState({ ...state, jsonModal: !state.jsonModal })
+              }
+            >
+              {t("categoryJson")}
+            </Button>
+          </div>
+        </div>
+
+        {state.addAudiobookModal ? (
+          <AddAudiobookModal
+            state={state}
+            setState={setState}
+            audiobooksState={props.audiobooksState}
+            setAudiobooksState={props.setAudiobooksState}
+            t={t}
+            token={props.token}
+            categoriesState={categoriesState}
+            setCategories={setCategories}
+            resetStates={resetStates}
+          />
+        ) : null}
+
+        {state.searchModal && categoriesState.length != 0 ? (
+          <SearchAudiobooksOffCanvas
+            state={state}
+            setState={setState}
+            audiobooksState={props.audiobooksState}
+            setAudiobooksState={props.setAudiobooksState}
+            searchState={searchState}
+            setSearchState={setSearchState}
+            t={t}
+            token={props.token}
+            categoriesState={categoriesState}
+            setCategories={setCategories}
+            pageState={pageState}
+            setPageState={setPageState}
+            resetStates={resetStates}
+          />
+        ) : null}
+        {state.detailCommentsAudiobookModal &&
+        state.detailAudiobookElement != null ? (
+          <AudiobookCommentsModal
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+          />
+        ) : null}
+        {state.jsonModal ? (
+          <JsonModal state={state} setState={setState} t={t} />
+        ) : null}
       </div>
     </div>
-  )
+  );
 }

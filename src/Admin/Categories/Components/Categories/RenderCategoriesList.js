@@ -109,6 +109,10 @@ export default function RenderCategoriesList(props) {
           </div>
           <div className="p-2 bd-highlight"> {element.children.length}</div>
           <div className="p-2 bd-highlight">
+            <h5>{props.t("audiobooksAmount")}:</h5>
+          </div>
+          <div className="p-2 bd-highlight"> {element.audiobooks}</div>
+          <div className="p-2 bd-highlight">
             <Button
               name="en"
               variant="dark"
@@ -193,6 +197,10 @@ export default function RenderCategoriesList(props) {
             <h5>{props.t("categoryChilds")}:</h5>
           </div>
           <div className="p-2 bd-highlight"> {element.children.length}</div>
+          <div className="p-2 bd-highlight">
+            <h5>{props.t("audiobooksAmount")}:</h5>
+          </div>
+          <div className="p-2 bd-highlight"> {element.audiobooks}</div>
           <div className="p-2 bd-highlight">
             <Button
               name="en"

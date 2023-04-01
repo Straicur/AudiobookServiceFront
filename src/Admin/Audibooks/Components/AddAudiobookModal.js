@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Components/HandleFetch";
 import sha256 from "crypto-js/sha256";
 import { Buffer } from "buffer";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import InputGroup from "react-bootstrap/InputGroup";
+import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
+import Form from "react-bootstrap/Form";
 
 export default function AddAudiobookModal(props) {
   const [stateModal, setStateModal] = useState({
     author: "",
     title: "",
     modal: 1,
+    categories: [],
     fileAdded: false,
-    upload: false,
     uploadEnded: true,
   });
 
@@ -44,15 +47,37 @@ export default function AddAudiobookModal(props) {
     props.setState({
       ...props.state,
       addAudiobookModal: !props.state.addAudiobookModal,
-      updated: props.state.updated,
-      modalAddShow: props.state.modalAddShow,
     });
   };
-
+  const handleCloseAndUpdate = () => {
+    props.resetStates();
+    props.setState({
+      ...props.state,
+      addAudiobookModal: !props.state.addAudiobookModal,
+      refresh: !props.state.refresh,
+    });
+  };
   const handleBack = () => {
     setStateModal({ ...stateModal, modal: 1 });
   };
 
+  const generateCategoriesList = () => {
+    let multiSelectTable = [];
+
+    props.categoriesState.forEach((element) => {
+      multiSelectTable.push({ key: element.id, label: element.name });
+    });
+    return multiSelectTable;
+  };
+
+  const changeCategories = (element) => {
+    if (element != NaN && element != undefined) {
+      setStateModal({
+        ...stateModal,
+        categories: element,
+      });
+    }
+  };
   const nextPage = () => {
     setStateModal({ ...stateModal, modal: 2 });
   };
@@ -92,7 +117,7 @@ export default function AddAudiobookModal(props) {
             parts: part,
             base64: b64,
             additionalData: {
-              categories: [props.categoryID],
+              categories: stateModal.categories,
               title: stateModal.title,
               author: stateModal.author,
             },
@@ -153,7 +178,7 @@ export default function AddAudiobookModal(props) {
               parts: allparts,
               base64: b64,
               additionalData: {
-                categories: [props.categoryID],
+                categories: stateModal.categories,
                 title: stateModal.title,
                 author: stateModal.author,
               },
@@ -211,24 +236,45 @@ export default function AddAudiobookModal(props) {
       </Modal.Header>
       {stateModal.modal == 1 ? (
         <Modal.Body>
-          <h5>{props.t("title")}</h5>
-          <input
-            id="title"
-            type="text"
-            name="title"
-            value={stateModal.title}
-            className="form-control mt-2"
-            onChange={handleSetTitleChange}
-          />
-          <h5>{props.t("author")}</h5>
-          <input
-            id="author"
-            type="text"
-            name="author"
-            value={stateModal.author}
-            className="form-control mt-2"
-            onChange={handleSetAuthorChange}
-          />
+          <InputGroup className="mb-1 input_modal py-1 ">
+            <InputGroup.Text className="input-group-text-new text-light">
+              {props.t("title")}
+            </InputGroup.Text>
+            <Form.Control
+              value={stateModal.title}
+              onChange={(e) => {
+                handleSetTitleChange(e);
+              }}
+            />
+          </InputGroup>
+          <InputGroup className="mb-1 input_modal py-1 ">
+            <InputGroup.Text className="input-group-text-new text-light">
+              {props.t("author")}
+            </InputGroup.Text>
+            <Form.Control
+              value={stateModal.author}
+              onChange={(e) => {
+                handleSetAuthorChange(e);
+              }}
+            />
+          </InputGroup>
+          <InputGroup className="mb-1 input_modal py-1 ">
+            <InputGroup.Text className="input-group-text-new text-light">
+              {props.t("categories")}
+            </InputGroup.Text>
+            <DropdownMultiselect
+              placeholder={props.t("selectCategories")}
+              placeholderMultipleChecked={props.t("slectedMultiCategories")}
+              selectDeselectLabel={props.t("slectedAll")}
+              options={generateCategoriesList()}
+              name="countries"
+              handleOnChange={(e) => {
+                changeCategories(e);
+              }}
+              selected={stateModal.categories}
+              className={"dropdown_multiselect"}
+            />
+          </InputGroup>
         </Modal.Body>
       ) : (
         <Modal.Body>
@@ -290,7 +336,7 @@ export default function AddAudiobookModal(props) {
                 disabled={stateModal.uploadEnded}
                 variant="dark"
                 onClick={() => {
-                  handleClose();
+                  handleCloseAndUpdate();
                 }}
               >
                 {props.t("close")}

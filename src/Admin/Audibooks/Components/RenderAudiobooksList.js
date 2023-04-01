@@ -1,23 +1,32 @@
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Components/HandleFetch";
+import { useNavigate } from "react-router-dom";
+import { CreateDate } from "../../../Components/CrateDate";
 
 export default function RenderAudiobooksList(props) {
+  const navigate = useNavigate();
+
   const createTable = () => {
     let renderArray = [];
 
     if (props.state.json != null) {
-      props.state.json.forEach((element) => {
+      props.state.json.audiobooks.forEach((element) => {
         renderArray.push(createColumn(element));
       });
     }
 
     return renderArray;
   };
-
+  //todo Po przejściu do detali ma mieć Oprócz tego co ma w modalu dodatkowo pod listą kategorii powinien mieć jeszcze oddzielny modal z możliwiścią przypisania do kategorii
+  // Render niech będzie tak jak w drzewie oraz obok każdej kategorii do której należy niech ma przycisk usuwający z niej
+  // 6 Dodaj przycisk który wyświetli mi listę kategorii w postaci drzewa i w niej mam mieć możliwsoć przypisania audiobooka do niej (DETALE)
+  // 7 w detalach audiobooka mam mieć listę jego kategorii i obok każdego rekordu ma być przycisk który umożliwi usunięcie go z kategorii (DETALE)
+  // 8 W detalach ma być na dole samym lista kometarzy i niech to nie będzie jak w kategoriach w modalu bo za dużo tych modali A strona i tak dla niego jest poświęcona (DETALE)
+  // 9 formatuj i poukłdaj 
   const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add("disabled");
-    
+
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/active",
       "PATCH",
@@ -56,12 +65,34 @@ export default function RenderAudiobooksList(props) {
         });
       });
   };
+  const getAge = (element) => {
+    switch (element.age) {
+      case 1:
+        return "3-7";
+        break;
+      case 2:
+        return "7-12";
+        break;
+      case 3:
+        return "12-16";
+        break;
+      case 4:
+        return "16-18";
+        break;
+      case 5:
+        return "18+";
+        break;
+    }
+  };
 
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>
         <th scope="row">{element.title}</th>
         <td>{element.author}</td>
+        <td>{CreateDate(element.year)}</td>
+        <td>{element.parts}</td>
+        <td>{getAge(element)}</td>
         <td>
           {element.active ? (
             <i className="bi bi-bookmark-check-fill"></i>
@@ -76,13 +107,7 @@ export default function RenderAudiobooksList(props) {
               variant="dark"
               size="sm"
               className="btn button mx-2"
-              onClick={() =>
-                props.setState({
-                  ...props.state,
-                  detailAudiobookModal: !props.state.detailAudiobookModal,
-                  detailAudiobookElement: element,
-                })
-              }
+              onClick={() => navigate("/admin/audiobook/" + element.id)}
             >
               {props.t("details")}
             </Button>
@@ -113,8 +138,7 @@ export default function RenderAudiobooksList(props) {
                 activeteAudiobook(e, element);
               }}
             >
-            
-              {element.active ?props.t("deActivate"):props.t("activate")}
+              {element.active ? props.t("deActivate") : props.t("activate")}
             </Button>
           </div>
         </td>
@@ -128,6 +152,9 @@ export default function RenderAudiobooksList(props) {
         <tr>
           <th scope="col">{props.t("title")}</th>
           <th scope="col">{props.t("author")}</th>
+          <th scope="col">{props.t("year")}</th>
+          <th scope="col">{props.t("parts")}</th>
+          <th scope="col">{props.t("age")}</th>
           <th scope="col">{props.t("active")}</th>
           <th scope="col"></th>
         </tr>
