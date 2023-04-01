@@ -37,14 +37,44 @@ export default function AudiobooksList(props) {
     duration: 0,
   });
 
-  const {
-    isLoading: isLoadingFirst,
-    error: errorFirst,
-    data: dataFirst,
-    isFetching: isFetchingFirst,
-    refetch: refetchFirst,
-  } = useQuery(
-    "dataFirst",
+  const createSearchData = () => {
+    let searchJson = {};
+
+    if (searchState.sort != 0) {
+      searchJson.order = parseInt(searchState.sort);
+    }
+    if (searchState.categories.length != 0) {
+      searchJson.categories = searchState.categories;
+    }
+    if (searchState.title != "") {
+      searchJson.title = searchState.title;
+    }
+    if (searchState.author != "") {
+      searchJson.author = searchState.author;
+    }
+    if (searchState.album != "") {
+      searchJson.album = searchState.album;
+    }
+    if (searchState.parts != 0) {
+      searchJson.parts = parseInt(searchState.parts);
+    }
+    if (searchState.age != 0) {
+      searchJson.age = parseInt(searchState.age);
+    }
+    if (searchState.year != 0) {
+      let date = new Date(searchState.year);
+      searchJson.year =
+        date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
+    }
+    if (searchState.duration != 0) {
+      searchJson.duration = parseInt(searchState.duration);
+    }
+    console.log(searchJson)
+    return searchJson;
+  };
+
+  const { isLoading, error, data, isFetching, refetch } = useQuery(
+    "data",
     () =>
       HandleFetch(
         "http://127.0.0.1:8000/api/admin/audiobooks",
@@ -52,7 +82,7 @@ export default function AudiobooksList(props) {
         {
           page: 0,
           limit: 10,
-          searchData: {},
+          searchData: createSearchData(),
         },
         props.token
       ),
@@ -76,7 +106,7 @@ export default function AudiobooksList(props) {
   useEffect(() => {
     if (state.refresh) {
       setState({ ...state, refresh: !state.refresh });
-      refetchFirst();
+      refetch();
     }
   }, [state.refresh]);
 
@@ -94,8 +124,7 @@ export default function AudiobooksList(props) {
         <div className="table-title my-2">
           <div className="d-flex justify-content-end ">
             <div className="p-2 bd-highlight">
-              {" "}
-              <h2>Wyszukaj:</h2>
+              <h2>{t("filters")}</h2>
             </div>
             <div className="p-2 bd-highlight">
               <Button
@@ -172,6 +201,7 @@ export default function AudiobooksList(props) {
             setSearchState={setSearchState}
             t={t}
             token={props.token}
+            refetch={refetch}
           />
         ) : null}
         {state.detailCommentsAudiobookModal &&

@@ -62,8 +62,112 @@ export default function SearchAudiobooksOffCanvas(props) {
     return multiSelectTable;
   };
 
+  const changeSort = (element) => {
+    if (element.target.value != NaN && element.target.value != undefined) {
+      props.setSearchState({
+        ...props.searchState,
+        sort: element.target.value,
+      });
+    }
+  };
 
-  // 1 te zmieniające state metody oraz odpowiednie ustawienie daty oraz obliczanie długości względem podanych sekund (tak żeby mi wyswietlało w minutach)
+  const changeCategories = (element) => {
+    if (element.target.value != NaN && element.target.value != undefined) {
+      props.setSearchState({
+        ...props.searchState,
+        categories: element,
+      });
+    }
+  };
+
+  const changeTitle = (element) => {
+    if (element.target.value != NaN && element.target.value != undefined) {
+      props.setSearchState({
+        ...props.searchState,
+        title: element.target.value,
+      });
+    }
+  };
+
+  const changeAuthor = (element) => {
+    if (element.target.value != NaN && element.target.value != undefined) {
+      props.setSearchState({
+        ...props.searchState,
+        author: element.target.value,
+      });
+    }
+  };
+
+  const changeAlbum = (element) => {
+    if (element.target.value != NaN && element.target.value != undefined) {
+      props.setSearchState({
+        ...props.searchState,
+        album: element.target.value,
+      });
+    }
+  };
+
+  const changeParts = (element) => {
+    if (element.target.value != NaN && element.target.value != undefined) {
+      props.setSearchState({
+        ...props.searchState,
+        parts: element.target.value,
+      });
+    }
+  };
+
+  const changeAge = (element) => {
+    if (element.target.value != NaN && element.target.value != undefined) {
+      props.setSearchState({
+        ...props.searchState,
+        age: element.target.value,
+      });
+    }
+  };
+
+  const changeYear = (element) => {
+    if (element.target.value != NaN && element.target.value != undefined) {
+      props.setSearchState({
+        ...props.searchState,
+        year: element.target.value,
+      });
+    }
+  };
+
+  const changeDuration = (element) => {
+    if (element.target.value != NaN && element.target.value != undefined) {
+      props.setSearchState({
+        ...props.searchState,
+        duration: element.target.value,
+      });
+    }
+  };
+
+  const resetStates = () => {
+    props.setSearchState({
+      sort: 0,
+      categories: [],
+      title: "",
+      author: "",
+      album: "",
+      parts: 0,
+      age: 0,
+      year: 0,
+      duration: 0,
+    });
+  };
+
+  const formatDuration = () => {
+    return new Date(props.searchState.duration * 1000)
+      .toISOString()
+      .slice(11, 19);
+  };
+
+  const searchAgain = () => {
+    props.refetch();
+    handleClose();
+  };
+
   // 2 store i ustawianie tych przechowywanych
   // 3 ustaw button na refresh i close tego filtra (Po wysłaniu ma też zapisać te dane go store)
   // 4 dodaj przewijanie stron
@@ -80,14 +184,37 @@ export default function SearchAudiobooksOffCanvas(props) {
       placement="end"
     >
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title>{props.t("filters")}</Offcanvas.Title>
+        <Offcanvas.Title>
+          <div className="row">
+            <div className="col">
+              <h2>{props.t("filters")}</h2>
+            </div>
+            <div className="col">
+              <Button
+                variant="success"
+                size="sm"
+                color="success"
+                className=" btn button mt-2"
+                onClick={() => resetStates()}
+              >
+                {props.t("reset")}
+              </Button>
+            </div>
+          </div>
+        </Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
         <InputGroup className="mb-1 input_modal py-1">
           <InputGroup.Text className="input-group-text-new text-light">
             {props.t("sort")}
           </InputGroup.Text>
-          <Form.Select aria-label="Default select example">
+          <Form.Select
+            aria-label="Default select example"
+            onChange={(e) => {
+              changeSort(e);
+            }}
+            value={props.searchState.sort}
+          >
             <option>{props.t("selectSort")}</option>
             <option value={1}>{props.t("popular")}</option>
             <option value={2}>{props.t("lestPopular")}</option>
@@ -109,8 +236,8 @@ export default function SearchAudiobooksOffCanvas(props) {
             selectDeselectLabel={props.t("slectedAll")}
             options={generateCategoriesList()}
             name="countries"
-            handleOnChange={(selected) => {
-              console.log(selected);
+            handleOnChange={(e) => {
+              changeCategories(e);
             }}
             selected={props.searchState.categories}
             className={"dropdown_multiselect"}
@@ -121,9 +248,9 @@ export default function SearchAudiobooksOffCanvas(props) {
             {props.t("title")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={props.searchState.title}
-            onChange={(event) => {
-              //   handleTitleChange(event);
+            value={props.searchState.title}
+            onChange={(e) => {
+              changeTitle(e);
             }}
           />
         </InputGroup>
@@ -133,9 +260,9 @@ export default function SearchAudiobooksOffCanvas(props) {
             {props.t("author")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={props.searchState.author}
-            onChange={(event) => {
-              //   handleTitleChange(event);
+            value={props.searchState.author}
+            onChange={(e) => {
+              changeAuthor(e);
             }}
           />
         </InputGroup>
@@ -144,9 +271,9 @@ export default function SearchAudiobooksOffCanvas(props) {
             {props.t("album")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={props.searchState.album}
-            onChange={(event) => {
-              //   handleTitleChange(event);
+            value={props.searchState.album}
+            onChange={(e) => {
+              changeAlbum(e);
             }}
           />
         </InputGroup>
@@ -157,10 +284,10 @@ export default function SearchAudiobooksOffCanvas(props) {
           </InputGroup.Text>
           <Form.Control
             type="number"
-            onChange={(event) => {
-              //   handleTitleChange(event);
+            onChange={(e) => {
+              changeParts(e);
             }}
-            defaultValue={props.searchState.parts}
+            value={props.searchState.parts}
           />
         </InputGroup>
 
@@ -168,23 +295,19 @@ export default function SearchAudiobooksOffCanvas(props) {
           <InputGroup.Text className="input-group-text-new text-light">
             {props.t("age")}
           </InputGroup.Text>
-          <Form.Select aria-label="Default select example">
+          <Form.Select
+            aria-label="Default select example"
+            onChange={(e) => {
+              changeAge(e);
+            }}
+            value={props.searchState.age}
+          >
             <option> {props.t("slelectAge")}</option>
-            <option selected={props.searchState.age == 1} value={1}>
-              3-7
-            </option>
-            <option selected={props.searchState.age == 2} value={2}>
-              7-12
-            </option>
-            <option selected={props.searchState.age == 3} value={3}>
-              12-16
-            </option>
-            <option selected={props.searchState.age == 4} value={4}>
-              16-18
-            </option>
-            <option selected={props.searchState.age == 5} value={5}>
-              18+
-            </option>
+            <option value={1}>3-7</option>
+            <option value={2}>7-12</option>
+            <option value={3}>12-16</option>
+            <option value={4}>16-18</option>
+            <option value={5}>18+</option>
           </Form.Select>
         </InputGroup>
 
@@ -194,23 +317,22 @@ export default function SearchAudiobooksOffCanvas(props) {
           </InputGroup.Text>
           <Form.Control
             type="date"
-            defaultValue={props.searchState.year}
-            onChange={(event) => {
-              //   handleTitleChange(event);
+            value={props.searchState.year}
+            onChange={(e) => {
+              changeYear(e);
             }}
           />
         </InputGroup>
         <InputGroup className="mb-1 input_modal py-1 ">
-          {props.t("duration")}
-
+          {props.t("duration")}: {formatDuration()}
           <Form.Range
-            onChange={(selected) => {
-              console.log(selected);
+            onChange={(e) => {
+              changeDuration(e);
             }}
             min={0}
-            max={500}
+            max={86399}
             step={1}
-            value = {props.searchState.duration}
+            value={props.searchState.duration}
           />
         </InputGroup>
         <div className="row mx-1">
@@ -219,13 +341,7 @@ export default function SearchAudiobooksOffCanvas(props) {
             size="lg"
             color="success"
             className=" btn button mt-2"
-            onClick={
-              () => console.log("DAS")
-              // setState({
-              //   ...state,
-              //   searchModal: !state.searchModal,
-              // })
-            }
+            onClick={() => searchAgain()}
           >
             {props.t("search")}
           </Button>

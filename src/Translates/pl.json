@@ -125,5 +125,6 @@
     "selectCategories": " Wybierz kategorie",
     "slectedMultiCategories": "Wybrano wiele kategorii",
     "slelectAge": "Wybierz wiek",
-    "slectedAll": "Wybierz wszytkie opcje"
+    "slectedAll": "Wybierz wszytkie opcje",
+    "resetSearch": "Resetuj"
 }

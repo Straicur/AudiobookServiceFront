@@ -124,5 +124,6 @@
     "selectCategories": " Select category",
     "slectedMultiCategories": "Selected multiple categories",
     "slelectAge": "Select age",
-    "slectedAll": "Select all options"
+    "slectedAll": "Select all options",
+    "reset": "Reset"
 }
