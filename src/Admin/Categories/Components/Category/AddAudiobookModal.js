@@ -92,7 +92,7 @@ export default function AddAudiobookModal(props) {
             parts: part,
             base64: b64,
             additionalData: {
-              categories: [props.categoryKey],
+              categories: [props.categoryID],
               title: stateModal.title,
               author: stateModal.author,
             },
@@ -153,7 +153,7 @@ export default function AddAudiobookModal(props) {
               parts: allparts,
               base64: b64,
               additionalData: {
-                categories: [props.categoryKey],
+                categories: [props.categoryID],
                 title: stateModal.title,
                 author: stateModal.author,
               },
@@ -213,21 +213,21 @@ export default function AddAudiobookModal(props) {
         <Modal.Body>
           <h5>{props.t("title")}</h5>
           <input
-            id="author"
-            type="text"
-            name="author"
-            value={stateModal.author}
-            className="form-control mt-2"
-            onChange={handleSetAuthorChange}
-          />
-          <h5>{props.t("author")}</h5>
-          <input
             id="title"
             type="text"
             name="title"
             value={stateModal.title}
             className="form-control mt-2"
             onChange={handleSetTitleChange}
+          />
+          <h5>{props.t("author")}</h5>
+          <input
+            id="author"
+            type="text"
+            name="author"
+            value={stateModal.author}
+            className="form-control mt-2"
+            onChange={handleSetAuthorChange}
           />
         </Modal.Body>
       ) : (

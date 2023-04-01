@@ -11,22 +11,19 @@ export default function RenderAudiobooksList(props) {
     let renderArray = [];
 
     if (props.state.json != null) {
-      props.state.json.forEach((element) => {
+      props.state.json.audiobooks.forEach((element) => {
         renderArray.push(createColumn(element));
       });
     }
 
     return renderArray;
   };
-  //todo niech zapisze wysyłane dane do pamięci podręcznej żeby następnym razem szukać z tego co było wcześniej i niech to też ustawia w state od razu
-  // wyszukiwarka ma być z boku i to jest Offcanvas. W nim mam mieć ten formularz i w sumie ma on być na state żeby mi się przy powrocie od razu ustawiał
-  // Dodawanie ma mieć te kategoriee jeszcze to pamiętaj
-  // Na dole strony jeszcze po pobraniu muszę mieć przyciski które mówią mi czy mogę iść na next lub cofnąć stronę. Mają być na początku niewidoczne i jeśli 
-  // Strona będzie mniejsza niż 1 to też
-
-  // Po przejściu do detali ma mieć Oprócz tego co ma w modalu dodatkowo pod listą kategorii powinien mieć jeszcze oddzielny modal z możliwiścią przypisania do kategorii
+  //todo Po przejściu do detali ma mieć Oprócz tego co ma w modalu dodatkowo pod listą kategorii powinien mieć jeszcze oddzielny modal z możliwiścią przypisania do kategorii
   // Render niech będzie tak jak w drzewie oraz obok każdej kategorii do której należy niech ma przycisk usuwający z niej
-
+  // 6 Dodaj przycisk który wyświetli mi listę kategorii w postaci drzewa i w niej mam mieć możliwsoć przypisania audiobooka do niej (DETALE)
+  // 7 w detalach audiobooka mam mieć listę jego kategorii i obok każdego rekordu ma być przycisk który umożliwi usunięcie go z kategorii (DETALE)
+  // 8 W detalach ma być na dole samym lista kometarzy i niech to nie będzie jak w kategoriach w modalu bo za dużo tych modali A strona i tak dla niego jest poświęcona (DETALE)
+  // 9 formatuj i poukłdaj 
   const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add("disabled");
 

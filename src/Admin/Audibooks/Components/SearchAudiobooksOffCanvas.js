@@ -4,59 +4,39 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
-import { HandleFetch } from "../../../Components/HandleFetch";
-import { useCategoryListStore } from "../../../store";
+import { useLastSearchStore } from "../../../store";
 
 export default function SearchAudiobooksOffCanvas(props) {
   const [show, setShow] = useState(true);
-  const [categoriesState, setCategories] = useState([]);
 
   const handleClose = () => {
-    setShow(false);
     props.setState({
       ...props.state,
       searchModal: !props.state.searchModal,
     });
+    setShow(false);
   };
 
-  const categoriesStore = useCategoryListStore();
+  const searchStore = useLastSearchStore();
 
-  const categories = useCategoryListStore((state) => state.categories);
-  const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
+  const searchData = useLastSearchStore((state) => state.search);
+  const searchDateUpdate = useLastSearchStore((state) => state.dateUpdate);
 
   useEffect(() => {
-    //ru niech poszuka tych danych i przypisze do state
-
-    if (dateUpdate > Date.now() && dateUpdate != 0) {
-      setCategories(categories);
-    } else {
-      categoriesStore.removeCategories();
-
-      HandleFetch(
-        "http://127.0.0.1:8000/api/admin/categories",
-        "GET",
-        null,
-        props.token
-      )
-        .then((data) => {
-          for (const category of data.categories) {
-            categoriesStore.addCategory(category);
-          }
-          setCategories(data.categories);
-        })
-        .catch((e) => {
-          props.setAudiobooksState({
-            ...props.audiobooksState,
-            error: e,
-          });
-          handleClose();
-        });
+    if (
+      searchData != null &&
+      searchData != undefined &&
+      searchDateUpdate > Date.now() &&
+      searchDateUpdate != 0
+    ) {
+      props.setSearchState(searchData);
     }
   }, []);
 
   const generateCategoriesList = () => {
     let multiSelectTable = [];
-    categoriesState.forEach((element) => {
+
+    props.categoriesState.forEach((element) => {
       multiSelectTable.push({ key: element.id, label: element.name });
     });
     return multiSelectTable;
@@ -72,7 +52,7 @@ export default function SearchAudiobooksOffCanvas(props) {
   };
 
   const changeCategories = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (element != NaN && element != undefined) {
       props.setSearchState({
         ...props.searchState,
         categories: element,
@@ -143,19 +123,6 @@ export default function SearchAudiobooksOffCanvas(props) {
     }
   };
 
-  const resetStates = () => {
-    props.setSearchState({
-      sort: 0,
-      categories: [],
-      title: "",
-      author: "",
-      album: "",
-      parts: 0,
-      age: 0,
-      year: 0,
-      duration: 0,
-    });
-  };
 
   const formatDuration = () => {
     return new Date(props.searchState.duration * 1000)
@@ -164,17 +131,21 @@ export default function SearchAudiobooksOffCanvas(props) {
   };
 
   const searchAgain = () => {
-    props.refetch();
-    handleClose();
+    searchStore.setSearch(props.searchState);
+
+    props.setPageState({
+      ...props.pageState,
+      page: 0,
+    });
+
+    props.setState({
+      ...props.state,
+      searchModal: !props.state.searchModal,
+      refresh: !props.state.refresh,
+    });
+    setShow(false);
   };
 
-  // 2 store i ustawianie tych przechowywanych
-  // 3 ustaw button na refresh i close tego filtra (Po wysłaniu ma też zapisać te dane go store)
-  // 4 dodaj przewijanie stron
-  // 5 dodawanie audiobooka ma mieć jeszcze multi select przy dodaniu tytułu i autora, czyści state kategorii przy wyjściu z modalu
-  // 6 Dodaj przycisk który wyświetli mi listę kategorii w postaci drzewa i w niej mam mieć możliwsoć przypisania audiobooka do niej (DETALE)
-  // 7 w detalach audiobooka mam mieć listę jego kategorii i obok każdego rekordu ma być przycisk który umożliwi usunięcie go z kategorii (DETALE)
-  // 8 W detalach ma być na dole samym lista kometarzy i niech to nie będzie jak w kategoriach w modalu bo za dużo tych modali A strona i tak dla niego jest poświęcona (DETALE)
   return (
     <Offcanvas
       show={show}
@@ -195,7 +166,7 @@ export default function SearchAudiobooksOffCanvas(props) {
                 size="sm"
                 color="success"
                 className=" btn button mt-2"
-                onClick={() => resetStates()}
+                onClick={() => props.resetStates()}
               >
                 {props.t("reset")}
               </Button>

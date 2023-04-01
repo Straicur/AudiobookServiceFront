@@ -9,20 +9,27 @@ import AudiobookCommentsModal from "../../Categories/Components/Category/Audiobo
 import AddAudiobookModal from "./AddAudiobookModal";
 import RenderAudiobooksList from "./RenderAudiobooksList";
 import SearchAudiobooksOffCanvas from "./SearchAudiobooksOffCanvas";
+import { useCategoryListStore } from "../../../store";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
 
+  const categoriesStore = useCategoryListStore();
+
+  const categories = useCategoryListStore((state) => state.categories);
+  const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
+
   const [state, setState] = useState({
     jsonModal: false,
     json: null,
-    category: null,
     addAudiobookModal: false,
     addAudiobookParent: null,
     detailCommentsAudiobookModal: false,
+    detailAudiobookElement: null,
     searchModal: false,
     refresh: false,
     error: null,
+    maxPage: 0,
   });
 
   const [searchState, setSearchState] = useState({
@@ -36,6 +43,27 @@ export default function AudiobooksList(props) {
     year: 0,
     duration: 0,
   });
+
+  const [pageState, setPageState] = useState({
+    page: 0,
+    limit: 15,
+  });
+
+  const [categoriesState, setCategories] = useState([]);
+
+  const resetStates = () => {
+    setSearchState({
+      sort: 0,
+      categories: [],
+      title: "",
+      author: "",
+      album: "",
+      parts: 0,
+      age: 0,
+      year: 0,
+      duration: 0,
+    });
+  };
 
   const createSearchData = () => {
     let searchJson = {};
@@ -69,7 +97,7 @@ export default function AudiobooksList(props) {
     if (searchState.duration != 0) {
       searchJson.duration = parseInt(searchState.duration);
     }
-    console.log(searchJson)
+
     return searchJson;
   };
 
@@ -80,8 +108,8 @@ export default function AudiobooksList(props) {
         "http://127.0.0.1:8000/api/admin/audiobooks",
         "POST",
         {
-          page: 0,
-          limit: 10,
+          page: pageState.page,
+          limit: pageState.limit,
           searchData: createSearchData(),
         },
         props.token
@@ -98,11 +126,107 @@ export default function AudiobooksList(props) {
       },
       onSuccess: (data) => {
         console.log(data);
-        setState({ ...state, json: data.audiobooks });
+        setState({ ...state, json: data });
       },
     }
   );
 
+  const fetchCategoriesList = () => {
+    if (dateUpdate > Date.now() && dateUpdate != 0) {
+      setCategories(categories);
+    } else {
+      HandleFetch(
+        "http://127.0.0.1:8000/api/admin/categories",
+        "GET",
+        null,
+        props.token
+      )
+        .then((data) => {
+          categoriesStore.removeCategories();
+          for (const category of data.categories) {
+            categoriesStore.addCategory(category);
+          }
+
+          setCategories(data.categories);
+        })
+        .catch((e) => {
+          props.setAudiobooksState({
+            ...props.audiobooksState,
+            error: e,
+          });
+        });
+    }
+  };
+  const openAddModal = () => {
+    fetchCategoriesList();
+
+    setState({
+      ...state,
+      addAudiobookModal: !state.addAudiobookModal,
+    });
+  };
+  const openSearchModal = () => {
+    fetchCategoriesList();
+
+    setState({
+      ...state,
+      searchModal: !state.searchModal,
+    });
+  };
+
+  const nextPage = () => {
+    if (pageState.page+1 < state.json.maxPage) {
+      setPageState({
+        ...pageState,
+        page: pageState.page + 1,
+      });
+      setState({ ...state, refresh: !state.refresh });
+    }
+  };
+
+  const prevPage = () => {
+    if (pageState.page > 0) {
+      setPageState({
+        ...pageState,
+        page: pageState.page - 1,
+      });
+      setState({ ...state, refresh: !state.refresh });
+    }
+  };
+
+  const renderPageSwitches = () => {
+    if (state.json != null && state.json.maxPage > 1) {
+      return (
+        <div className="row justify-content-center">
+          <div className="col-1">
+            <Button
+              variant="light"
+              size="sm"
+              color="dark"
+              className=" btn button mt-2"
+              onClick={() => prevPage()}
+            >
+              <i className="bi bi-chevron-left"></i>
+            </Button>
+          </div>
+          <div className="col-1">
+            {pageState.page + 1}/{state.json.maxPage}
+          </div>
+          <div className="col-1">
+            <Button
+              variant="light"
+              size="sm"
+              color="dark"
+              className=" btn button mt-2"
+              onClick={() => nextPage()}
+            >
+              <i className="bi bi-chevron-right"></i>
+            </Button>
+          </div>
+        </div>
+      );
+    }
+  };
   useEffect(() => {
     if (state.refresh) {
       setState({ ...state, refresh: !state.refresh });
@@ -132,12 +256,7 @@ export default function AudiobooksList(props) {
                 size="sm"
                 color="dark"
                 className=" btn button mt-2"
-                onClick={() =>
-                  setState({
-                    ...state,
-                    searchModal: !state.searchModal,
-                  })
-                }
+                onClick={() => openSearchModal()}
               >
                 {t("search")}
               </Button>
@@ -149,6 +268,7 @@ export default function AudiobooksList(props) {
             t={t}
             token={props.token}
           />
+          {renderPageSwitches()}
         </div>
         <div className="row">
           <div className="col">
@@ -157,12 +277,7 @@ export default function AudiobooksList(props) {
               size="lg"
               color="dark"
               className=" btn button mt-2"
-              onClick={() =>
-                setState({
-                  ...state,
-                  addAudiobookModal: !state.addAudiobookModal,
-                })
-              }
+              onClick={() => openAddModal()}
             >
               {t("addAudiobook")}
             </Button>
@@ -186,12 +301,17 @@ export default function AudiobooksList(props) {
           <AddAudiobookModal
             state={state}
             setState={setState}
+            audiobooksState={props.audiobooksState}
+            setAudiobooksState={props.setAudiobooksState}
             t={t}
             token={props.token}
+            categoriesState={categoriesState}
+            setCategories={setCategories}
+            resetStates={resetStates}
           />
         ) : null}
 
-        {state.searchModal ? (
+        {state.searchModal && categoriesState.length != 0 ? (
           <SearchAudiobooksOffCanvas
             state={state}
             setState={setState}
@@ -201,7 +321,11 @@ export default function AudiobooksList(props) {
             setSearchState={setSearchState}
             t={t}
             token={props.token}
-            refetch={refetch}
+            categoriesState={categoriesState}
+            setCategories={setCategories}
+            pageState={pageState}
+            setPageState={setPageState}
+            resetStates={resetStates}
           />
         ) : null}
         {state.detailCommentsAudiobookModal &&

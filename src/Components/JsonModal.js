@@ -6,7 +6,6 @@ export default function JsonModal(props) {
     props.setState({
       ...props.state,
       jsonModal: !props.state.jsonModal,
-      refresh: !props.state.refresh,
     });
   };
 
