@@ -2,12 +2,21 @@ import React, { useState } from "react";
 import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
-import AudiobookDetail from "./Components/AudiobookDetail";
+import AuidobookDetailProviders from "./Components/AuidobookDetailProviders";
+import {useParams} from 'react-router-dom'
 
 export default function Audiobook() {
+
   const token = useTokenStore((state) => state.token);
 
+  const { audiobookId } = useParams();
+
   const [audiobookState, setAudiobookState] = useState({
+    file: null,
+    edit: false,
+    deleteFromCategory: false,
+    deleteEntarly: false,
+    part:0,
     error: null,
   });
 
@@ -21,9 +30,10 @@ export default function Audiobook() {
         });
       }}
     >
-      <AudiobookDetail
+      <AuidobookDetailProviders
         audiobookState={audiobookState}
         setAudiobookState={setAudiobookState}
+        audiobookId={audiobookId}
         token={token}
       />
     </ErrorBoundary>
