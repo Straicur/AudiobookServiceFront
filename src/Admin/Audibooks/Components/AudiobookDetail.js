@@ -203,6 +203,7 @@ export default function AudiobookDetail(props) {
         </div>
         <p className="text-center fs-1"> {t("comments")}</p>
         <hr></hr>
+        {console.log(audiobookCommnets)}
         <RenderCommentsList
           audiobookDetail={audiobookDetail}
           setAudiobookState={props.setAudiobookState}
