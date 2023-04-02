@@ -76,14 +76,14 @@ export default function AudiobookCover(props) {
         />
       </div>
       <div className="row d-flex justify-content-center">
-        <Form.Group controlId="formFileSm" className="my-1">
+        <Form.Group controlId="formFileSm" className="mt-2">
           <Form.Control onChange={handleOnFileChange} type="file" size="sm" />
         </Form.Group>
         <Button
           name="en"
           variant="secondary"
           size="sm"
-          className="btn button px-4 my-2 modal_img_button"
+          className="btn button px-4 my-2 audiobook_detail_modal_button"
           disabled={props.audiobookState.file == null}
           onClick={editCover}
         >

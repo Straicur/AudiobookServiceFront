@@ -4,6 +4,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import AuidobookDetailProviders from "./Components/AuidobookDetailProviders";
 import {useParams} from 'react-router-dom'
+import "./Audiobook.css"
 
 export default function Audiobook() {
 

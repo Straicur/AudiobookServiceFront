@@ -38,8 +38,8 @@ export default function GetAudiobookZipButton(props) {
   return (
     <Button
       name="en"
-      size="lg"
-      className="btn button primary_button"
+      size="sm"
+      className="btn button primary_button audiobook_detail_modal_button"
       onClick={getZip}
     >
       {props.t("downloadZip")}

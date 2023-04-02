@@ -1,28 +1,62 @@
 import { v4 as uuidv4 } from "uuid";
+import Button from "react-bootstrap/Button";
+import { HandleFetch } from "../../../Components/HandleFetch";
 
 export default function AudiobookCategoryList(props) {
+  const deleteFromCategory = (category) => {
+    HandleFetch(
+      "http://127.0.0.1:8000/api/admin/category/remove/audiobook",
+      "DELETE",
+      {
+        categoryId: category.id,
+        audiobookId: props.audiobookDetail.id,
+      },
+      props.token
+    )
+      .then(() => {
+        props.setAudiobookDetailRefetch(true);
+      })
+      .catch((e) => {
+        props.setAudiobookState({
+          ...props.audiobookState,
+          error: e,
+        });
+      });
+  };
+
   const createCategory = (category) => {
     return (
       <div
         key={uuidv4()}
         className="row border border-secondary category_data mb-1"
       >
-        <div className="row">
-          <div className="col">{props.t("name")}:</div>
-          <div className="col">{category.name}</div>
-          <div className="col">{props.t("active")}:</div>
-          <div className="col">
-            {category.active ? (
-              <i className="bi bi-bookmark-check-fill"></i>
-            ) : (
-              <i className="bi bi-bookmark-dash"></i>
-            )}
+        <div className="col-10">
+          <div className="row">
+            <div className="col">{props.t("name")}:</div>
+            <div className="col">{category.name}</div>
+            <div className="col">{props.t("active")}:</div>
+            <div className="col">
+              {category.active ? (
+                <i className="bi bi-bookmark-check-fill"></i>
+              ) : (
+                <i className="bi bi-bookmark-dash"></i>
+              )}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">{props.t("categoryKey")}:</div>
+            <div className="col">{category.categoryKey}</div>
           </div>
         </div>
-        <div className="row"></div>
-        <div className="row">
-          <div className="col">{props.t("categoryKey")}:</div>
-          <div className="col">{category.categoryKey}</div>
+        <div className="col-2 align-self-center">
+          <Button
+            name="en"
+            size="sm"
+            className="btn button danger_button"
+            onClick={() => deleteFromCategory(category)}
+          >
+            {props.t("delete")}
+          </Button>
         </div>
       </div>
     );
@@ -39,10 +73,18 @@ export default function AudiobookCategoryList(props) {
       });
     }
 
+    if (
+      props.audiobookDetail != null &&
+      props.audiobookDetail.categories.length == 0
+    ) {
+      categories.push(
+        <div key={uuidv4()} className="row d-flex justify-content-center text-center">
+          <h5>{props.t("empty")}</h5>
+        </div>
+      );
+    }
     return (
-      <div className="row  d-flex justify-content-center mx-1">
-        {categories}
-      </div>
+      <div className="row d-flex justify-content-center me-1">{categories}</div>
     );
   };
 

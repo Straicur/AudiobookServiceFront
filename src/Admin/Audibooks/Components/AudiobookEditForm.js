@@ -3,10 +3,10 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
-import { HandleFetch } from "./../../../Components/HandleFetch";
-import { CreateDate } from "./../../../Components/CrateDate";
+import { HandleFetch } from "../../../Components/HandleFetch";
+import { CreateDate } from "../../../Components/CrateDate";
 
-export default function CategoryEditForm(props) {
+export default function AudiobookEditForm(props) {
   const editAudiobookData = () => {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/edit",
@@ -39,7 +39,6 @@ export default function CategoryEditForm(props) {
           ...props.state,
           error: e,
         });
-
       });
   };
 
@@ -258,114 +257,117 @@ export default function CategoryEditForm(props) {
           />
         </InputGroup>
       </div>
-      <div className="row text-light">
-        <InputGroup className="mb-1 input_modal">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("version")}
-          </InputGroup.Text>
-          <Form.Control
-            defaultValue={
-              props.audiobookDetail != null
-                ? +props.audiobookDetail.version
-                : ""
-            }
-            onChange={(event) => {
-              handleVersionChange(event);
-            }}
-          />
-        </InputGroup>
-      </div>
-      <div className="row text-light pe-0 input_modal">
-        <InputGroup className="mb-1">
-          <Dropdown onSelect={(event) => handleAgeChange(event)}>
-            <Dropdown.Toggle
-              className=" text-start"
-              variant="success"
-              id="dropdown-basic"
-            >
-              {props.t("age")}
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {props.audiobookDetail != null ? (
-                <Dropdown.Item
-                  eventKey={1}
-                  active={props.audiobookDetail.age == 1}
-                >
-                  3-7
-                </Dropdown.Item>
-              ) : null}
-              {props.audiobookDetail != null ? (
-                <Dropdown.Item
-                  eventKey={2}
-                  active={props.audiobookDetail.age == 2}
-                >
-                  7-12
-                </Dropdown.Item>
-              ) : null}
-
-              {props.audiobookDetail != null ? (
-                <Dropdown.Item
-                  eventKey={3}
-                  active={props.audiobookDetail.age == 3}
-                >
-                  12-16
-                </Dropdown.Item>
-              ) : null}
-
-              {props.audiobookDetail != null ? (
-                <Dropdown.Item
-                  eventKey={4}
-                  active={props.audiobookDetail.age == 4}
-                >
-                  16-18
-                </Dropdown.Item>
-              ) : null}
-
-              {props.audiobookDetail != null ? (
-                <Dropdown.Item
-                  eventKey={5}
-                  active={props.audiobookDetail.age == 5}
-                >
-                  18+
-                </Dropdown.Item>
-              ) : null}
-            </Dropdown.Menu>
-            <InputGroup.Text id="inputGroup-sizing-default">
-              {props.audiobookDetail != null
-                ? props.audiobookDetail.age == 1
-                  ? "3-7"
-                  : props.audiobookDetail.age == 2
-                  ? "7-12"
-                  : props.audiobookDetail.age == 3
-                  ? "12-16"
-                  : props.audiobookDetail.age == 4
-                  ? "16-18"
-                  : props.audiobookDetail.age == 5
-                  ? "18+"
-                  : null
-                : null}
+      <div className="row text-light  justify-content-between">
+        <div className="col-8 input_modal me-auto">
+          <InputGroup className="mb-1">
+            <InputGroup.Text className="input-group-text-new text-light">
+              {props.t("version")}
             </InputGroup.Text>
-          </Dropdown>
-        </InputGroup>
+            <Form.Control
+              defaultValue={
+                props.audiobookDetail != null
+                  ? +props.audiobookDetail.version
+                  : ""
+              }
+              onChange={(event) => {
+                handleVersionChange(event);
+              }}
+            />
+          </InputGroup>
+        </div>
+        <div className="col-auto input_modal">
+          <InputGroup className="mb-1">
+            <Dropdown onSelect={(event) => handleAgeChange(event)}>
+              <Dropdown.Toggle
+                className=" text-start"
+                variant="success"
+                id="dropdown-basic"
+              >
+                {props.t("age")}
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                {props.audiobookDetail != null ? (
+                  <Dropdown.Item
+                    eventKey={1}
+                    active={props.audiobookDetail.age == 1}
+                  >
+                    3-7
+                  </Dropdown.Item>
+                ) : null}
+                {props.audiobookDetail != null ? (
+                  <Dropdown.Item
+                    eventKey={2}
+                    active={props.audiobookDetail.age == 2}
+                  >
+                    7-12
+                  </Dropdown.Item>
+                ) : null}
+
+                {props.audiobookDetail != null ? (
+                  <Dropdown.Item
+                    eventKey={3}
+                    active={props.audiobookDetail.age == 3}
+                  >
+                    12-16
+                  </Dropdown.Item>
+                ) : null}
+
+                {props.audiobookDetail != null ? (
+                  <Dropdown.Item
+                    eventKey={4}
+                    active={props.audiobookDetail.age == 4}
+                  >
+                    16-18
+                  </Dropdown.Item>
+                ) : null}
+
+                {props.audiobookDetail != null ? (
+                  <Dropdown.Item
+                    eventKey={5}
+                    active={props.audiobookDetail.age == 5}
+                  >
+                    18+
+                  </Dropdown.Item>
+                ) : null}
+              </Dropdown.Menu>
+              <InputGroup.Text id="inputGroup-sizing-default">
+                {props.audiobookDetail != null
+                  ? props.audiobookDetail.age == 1
+                    ? "3-7"
+                    : props.audiobookDetail.age == 2
+                    ? "7-12"
+                    : props.audiobookDetail.age == 3
+                    ? "12-16"
+                    : props.audiobookDetail.age == 4
+                    ? "16-18"
+                    : props.audiobookDetail.age == 5
+                    ? "18+"
+                    : null
+                  : null}
+              </InputGroup.Text>
+            </Dropdown>
+          </InputGroup>
+        </div>
       </div>
+
       {props.audiobookState.edit ? (
-        <div className="row">
-          <div className="col">
+        <div className="row justify-content-center mt-2 mb-1">
+          <div className="col-3">
             <Button
               name="en"
               size="sm"
-              className="btn button px-4 my-1 question_button success_button"
+              className="btn button px-4 mt-3  mb-1 question_button success_button"
               onClick={editAudiobookData}
             >
               {props.t("yes")}
             </Button>
           </div>
-          <div className="col">
+          <div className="col-3">
             <Button
               name="en"
               size="sm"
-              className="btn button px-4 my-1 question_button danger_button me-2"
+              className="btn button px-4 mt-3  mb-1 question_button danger_button me-2"
               onClick={() =>
                 props.setAudiobookState({
                   ...props.audiobookState,
@@ -378,11 +380,11 @@ export default function CategoryEditForm(props) {
           </div>
         </div>
       ) : (
-        <div className="row">
+        <div className="row justify-content-md-center mt-2 mb-1">
           <Button
             name="en"
             size="sm"
-            className="btn button px-4 mt-3 mb-1 modal_button success_button"
+            className="btn button px-4 mt-3 mb-1 audiobook_detail_modal_button success_button "
             onClick={() =>
               props.setAudiobookState({
                 ...props.audiobookState,

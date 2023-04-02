@@ -10,7 +10,7 @@ export const AudiobookCommentsProvider = ({
   audiobookId,
 }) => {
   const [audiobookComments, setAudiobookComments] = useState(null);
-  const [refetchState, setRefetchState] = useState(false);
+  const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
 
   const {
     isLoading: isLoadingAudiobookComments,
@@ -43,11 +43,11 @@ export const AudiobookCommentsProvider = ({
   useEffect(() => {
     if (refetchState) {
       refetchAudiobookComments();
-      setRefetchState(!refetchState);
+      setAudiobookCommnetsRefetchState(!refetchState);
     }
   }, [refetchState]);
 
-  const value = [audiobookComments, setAudiobookComments, setRefetchState];
+  const value = [audiobookComments, setAudiobookComments, setAudiobookCommnetsRefetchState];
 
   return (
     <AudiobookCommentsContext.Provider value={value}>
