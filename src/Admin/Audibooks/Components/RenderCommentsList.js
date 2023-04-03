@@ -23,13 +23,12 @@ export default function RenderCommentsList(props) {
       });
   }
 
-  const createTree = () => {
+  const renderTree = () => {
     let renderArray = [];
-    let kids = [];
 
     if (props.audiobookCommnets != undefined) {
    
-      recursiveTree(props.audiobookCommnets.comments, renderArray, kids, null);
+      createTree(props.audiobookCommnets.comments, renderArray);
     }
 
     if (props.audiobookCommnets != null && props.audiobookCommnets.comments.length == 0) {
@@ -94,14 +93,12 @@ export default function RenderCommentsList(props) {
     }
   }
 
-  function listParent(element, child, parent) {
+  function listParent(element, child) {
     return (
       <li
         key={uuidv4()}
         className={
-          parent == null
-            ? "visible border border-4 border-secondary list-group-item"
-            : "d-none border list-group-item"
+            "border border-4 border-secondary list-group-item"
         }
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
@@ -183,75 +180,24 @@ export default function RenderCommentsList(props) {
     );
   }
 
-  function recursiveTree(array, renderArray, kids, parent = null) {
-    let returnArray = [];
-
+  function createTree(array, renderArray) {
     for (const element of array) {
-      let elementArray = [];
+    
       let children = [];
 
-      elementArray.push = element;
-
       if (element["children"].length != 0) {
-        let returnedChildren = recursiveTree(
-          element["children"],
-          renderArray,
-          kids,
-          element
-        );
-
-        for (const value of returnedChildren) {
-          let childElement = [createListElement(value.push)];
-
-          if (kids[element.id] != undefined) {
-            let ul = kids[element.id].filter((x) => x.type == "li");
-
-            if (
-              !ul.some((cat) =>
-                cat.props.children[1] != undefined
-                  ? cat.props.children[1].props["data-name"] == value.push.id
-                  : false
-              )
-            ) {
-              kids[element.id] = kids[element.id].concat(childElement);
-            }
-          } else {
-            kids[element.id] = childElement;
-          }
-
-          elementArray["child"] = value;
-        }
-
-        if (Object.keys(kids).some((key) => key == element.id)) {
-          for (const iterator of kids[element.id]) {
-            children.push(iterator);
-          }
-        }
-
-        if (element.parentCategoryKey == null) {
-          renderArray.push(listParent(element, children, parent));
-        } else {
-          let parentElement = [listParent(element, children, parent)];
-
-          if (kids[parent.id] != undefined) {
-            kids[parent.id] = kids[parent.id].concat(parentElement);
-          } else {
-            kids[parent.id] = parentElement;
-          }
-        }
-      } else {
-        if (element.parentCategoryKey == null) {
-          renderArray.push(listParent(element, children, parent));
+        for (const child of element["children"]) {
+          children.push(createListElement(child))
         }
       }
-      returnArray.push(elementArray);
+      renderArray.push(listParent(element, children));
+     
     }
-    return returnArray;
   }
 
   return (
     <div>
-      <ul className="list-group">{createTree()}</ul>
+      <ul className="list-group">{renderTree()}</ul>
     </div>
   );
 }
