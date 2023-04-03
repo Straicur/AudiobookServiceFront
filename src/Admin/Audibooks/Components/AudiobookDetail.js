@@ -9,14 +9,17 @@ import AudiobookCategoryList from "./AudiobookCategoryList";
 import AudiobookCover from "./AudiobookCover";
 import GetAudiobookZipButton from "./GetAudiobookZipButton";
 import RenderCommentsList from "./RenderCommentsList";
+import AudiobookAddCategoriesModal from "./AudiobookAddCategoriesModal";
 import Button from "react-bootstrap/Button";
 import AudioPlayer from "./AudiobookPlayer";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 export default function AudiobookDetail(props) {
+
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] =
     useAudiobookData();
   const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] =
@@ -24,7 +27,7 @@ export default function AudiobookDetail(props) {
   const [audiobookPart, setAudiobookPart] = useAudiobookPart();
   const [audiobookCommnets, setAudiobookCommnets, setAudiobookCommnetsRefetchState] =
     useAudiobookComments();
-  console.log(audiobookDetail);
+
   const deleteAudiobookEntarly = () => {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/delete",
@@ -135,12 +138,12 @@ export default function AudiobookDetail(props) {
                 name="en"
                 size="sm"
                 className="btn button px-4 my-1 audiobook_detail_modal_button success_button"
-                // onClick={() =>
-                //   props.setAudiobookState({
-                //     ...props.audiobookState,
-                //     deleteEntarly: !props.audiobookState.deleteEntarly,
-                //   })
-                // }
+                onClick={() =>
+                  props.setAudiobookState({
+                    ...props.audiobookState,
+                    deleteEntarly: !props.audiobookState.deleteEntarly,
+                  })
+                }
               >
                 {t("addCategory")}
               </Button>
@@ -203,7 +206,6 @@ export default function AudiobookDetail(props) {
         </div>
         <p className="text-center fs-1"> {t("comments")}</p>
         <hr></hr>
-        {console.log(audiobookCommnets)}
         <RenderCommentsList
           audiobookDetail={audiobookDetail}
           setAudiobookState={props.setAudiobookState}
@@ -213,6 +215,14 @@ export default function AudiobookDetail(props) {
           token={props.token}
         />
       </div>
+      {props.addCategoriesModal?
+      <AudiobookAddCategoriesModal
+      audiobookDetail={audiobookDetail}
+      setAudiobookState={props.setAudiobookState}
+      t={t}
+      token={props.token}
+      />
+      :null}
     </div>
   );
 }
