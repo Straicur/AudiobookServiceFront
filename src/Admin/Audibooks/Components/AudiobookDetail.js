@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useAudiobookData } from "../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
 import { useAudiobookCover } from "../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
 import { useAudiobookPart } from "../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
@@ -15,21 +16,30 @@ import Button from "react-bootstrap/Button";
 import AudioPlayer from "./AudiobookPlayer";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useCategoryListStore } from "../../../store";
 
 export default function AudiobookDetail(props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const [categoriesState, setCategories] = useState([]);
+
   const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] =
     useAudiobookData();
   const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] =
     useAudiobookCover();
-  const [audiobookPart, setAudiobookPart] = useAudiobookPart();
+  const [audiobookPart, setAudiobookPart, setAudiobookPartRefetch] =
+    useAudiobookPart();
   const [
     audiobookCommnets,
     setAudiobookCommnets,
     setAudiobookCommnetsRefetchState,
   ] = useAudiobookComments();
+
+  const categoriesStore = useCategoryListStore();
+
+  const categories = useCategoryListStore((state) => state.categories);
+  const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
 
   const deleteAudiobookEntarly = () => {
     HandleFetch(
@@ -76,6 +86,48 @@ export default function AudiobookDetail(props) {
     }
     return stars;
   };
+
+  const fetchCategoriesList = () => {
+    if (dateUpdate > Date.now() && dateUpdate != 0) {
+      setCategories(categories);
+    } else {
+      HandleFetch(
+        "http://127.0.0.1:8000/api/admin/categories",
+        "GET",
+        null,
+        props.token
+      )
+        .then((data) => {
+          categoriesStore.removeCategories();
+          for (const category of data.categories) {
+            categoriesStore.addCategory(category);
+          }
+
+          setCategories(data.categories);
+        })
+        .catch((e) => {
+          props.setAudiobooksState({
+            ...props.audiobooksState,
+            error: e,
+          });
+        });
+    }
+  };
+
+  const openReAddingModal = () => {
+    fetchCategoriesList();
+
+    props.setAudiobookState({
+      ...props.audiobookState,
+      reAddingModal: !props.audiobookState.reAddingModal,
+    });
+  };
+  const resetStates = () => {
+    setAudiobookDetailRefetch(true);
+    setAudiobookCoverRefetch(true);
+    setAudiobookPartRefetch(true);
+  };
+
   return (
     <div className="container-fluid main-container mt-3">
       <div className="card position-relative p-3 mb-5  shadow">
@@ -111,6 +163,7 @@ export default function AudiobookDetail(props) {
             <div className="row d-flex justify-content-center me-1">
               {audiobookPart != null ? (
                 <AudioPlayer
+                  audiobookDetail={audiobookDetail}
                   audiobookPart={audiobookPart}
                   setAudiobookState={props.setAudiobookState}
                   audiobookState={props.audiobookState}
@@ -144,7 +197,8 @@ export default function AudiobookDetail(props) {
                 onClick={() =>
                   props.setAudiobookState({
                     ...props.audiobookState,
-                    addCategoriesModal: !props.audiobookState.addCategoriesModal,
+                    addCategoriesModal:
+                      !props.audiobookState.addCategoriesModal,
                   })
                 }
               >
@@ -196,17 +250,14 @@ export default function AudiobookDetail(props) {
                 </Button>
               </div>
             )}
-               {props.audiobookState.reAdding ? (
+            {props.audiobookState.reAdding ? (
               <div className="row justify-content-center">
                 <div className="col-4">
                   <Button
                     name="en"
                     size="sm"
                     className="btn button px-4 my-1 question_button success_button"
-                    onClick={props.setAudiobookState({
-                      ...props.audiobookState,
-                      reAddingModal: !props.audiobookState.reAddingModal,
-                    })}
+                    onClick={openReAddingModal}
                   >
                     {t("yes")}
                   </Button>
@@ -277,14 +328,16 @@ export default function AudiobookDetail(props) {
           setAudiobookDetailRefetch={setAudiobookDetailRefetch}
         />
       ) : null}
-       {props.audiobookState.reAddingModal ? (
+      {props.audiobookState.reAddingModal && categoriesState.length != 0 ? (
         <AudiobookReAddingModal
           audiobookDetail={audiobookDetail}
           audiobookState={props.audiobookState}
           setAudiobookState={props.setAudiobookState}
+          categoriesState={categoriesState}
+          setCategories={setCategories}
           t={t}
           token={props.token}
-          setAudiobookDetailRefetch={setAudiobookDetailRefetch}
+          resetStates={resetStates}
         />
       ) : null}
     </div>

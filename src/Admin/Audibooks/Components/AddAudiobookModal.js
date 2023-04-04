@@ -15,6 +15,7 @@ export default function AddAudiobookModal(props) {
     title: "",
     modal: 1,
     categories: [],
+    file:null,
     fileAdded: false,
     uploadEnded: true,
   });
@@ -90,7 +91,7 @@ export default function AddAudiobookModal(props) {
     }
   }, [stateModal.author, stateModal.title]);
 
-  const addNewAudiobook = () => {
+  const reAddAudiobook = () => {
     const url = "http://127.0.0.1:8000/api/admin/audiobook/add";
     const method = "PUT";
     const CHUNK_SIZE = 1024 * 1024 * 5;
@@ -315,16 +316,16 @@ export default function AddAudiobookModal(props) {
         </Modal.Footer>
       ) : (
         <Modal.Footer>
-          {stateModal.upload == false ? (
+          {stateModal.fileAdded == false ? (
             <div>
               <Button variant="dark" onClick={handleBack}>
                 {props.t("back")}
               </Button>
               <Button
-                disabled={!stateModal.fileAdded}
+                disabled={!stateModal.file}
                 variant="dark"
                 onClick={() => {
-                  addNewAudiobook();
+                  reAddAudiobook();
                 }}
               >
                 {props.t("upload")}

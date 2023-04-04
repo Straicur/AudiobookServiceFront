@@ -45,7 +45,7 @@ export default function AudiobookAddCategoriesModal(props) {
       },
       onSuccess: (data) => {
         let categoriesIds = [];
-
+        
         for (const category of props.audiobookDetail.categories) {
           categoriesIds.push(category.id);
         }

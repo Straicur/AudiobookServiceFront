@@ -24,12 +24,10 @@ export default function AudiobookCover(props) {
       const reader = new FileReader();
       reader.onload = function (e) {
         if (e.target.result instanceof ArrayBuffer) {
-
           let pattern = "jpeg|png|jpg/i";
           let result = props.audiobookState.file.type.match(pattern);
 
           if (result != null) {
-
             let buf = new Uint8Array(e.target.result);
             let b64 = Buffer.from(buf).toString("base64");
 
@@ -45,7 +43,10 @@ export default function AudiobookCover(props) {
             )
               .then(() => {
                 props.setAudiobookCoverRefetch(true);
-                props.setAudiobookState({ ...props.audiobookState, file: null });
+                props.setAudiobookState({
+                  ...props.audiobookState,
+                  file: null,
+                });
               })
               .catch((e) => {
                 props.setAudiobookState({
@@ -61,7 +62,7 @@ export default function AudiobookCover(props) {
       }
     }
   };
-
+  
   return (
     <div className="row ">
       <div className="row ">

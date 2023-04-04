@@ -3,18 +3,19 @@ import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
 export default function AudiobookPlayer(props) {
-  const nextPart = () => {
-    let nextPart = props.state.detailAudiobookElementPart + 1;
 
-    if (nextPart < props.state.detailAudiobookElement.parts) {
-      props.setState({ ...props.state, detailAudiobookElementPart: nextPart });
+  const nextPart = () => {
+    let nextPart = props.audiobookState.part + 1;
+
+    if (nextPart < props.audiobookDetail.parts) {
+      props.setAudiobookState({ ...props.audiobookState, part: nextPart });
     }
   };
   const prevPart = () => {
-    let prevPart = props.state.detailAudiobookElementPart - 1;
+    let prevPart = props.audiobookState.part  - 1;
 
     if (prevPart >= 0) {
-      props.setState({ ...props.state, detailAudiobookElementPart: prevPart });
+      props.setAudiobookState({ ...props.audiobookState, part: prevPart });
     }
   };
 

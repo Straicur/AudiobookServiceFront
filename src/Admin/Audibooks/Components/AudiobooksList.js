@@ -297,7 +297,7 @@ export default function AudiobooksList(props) {
           </div>
         </div>
 
-        {state.addAudiobookModal ? (
+        {state.addAudiobookModal && categoriesState.length != 0? (
           <AddAudiobookModal
             state={state}
             setState={setState}

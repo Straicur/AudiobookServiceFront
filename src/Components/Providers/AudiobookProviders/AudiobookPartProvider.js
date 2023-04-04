@@ -1,4 +1,4 @@
-import React, { createContext,useEffect, useState, useContext } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../HandleFetch";
 
@@ -11,6 +11,22 @@ export const AudiobookPartProvider = ({
   part,
 }) => {
   const [audiobookPart, setAudiobookPart] = useState(null);
+  const [refetchState, setRefetchState] = useState(false);
+
+  const createContext =()=>{
+    let json={
+      audiobookId: audiobookId
+    };
+
+    if(part == undefined || part == NaN){
+      json.part = 0
+    }
+    else{
+      json.part = part;
+    }
+    return json;
+  }
+
   const {
     isLoading: isLoadingAudiobookPart,
     error: errorAudiobookPart,
@@ -23,10 +39,7 @@ export const AudiobookPartProvider = ({
       HandleFetch(
         "http://127.0.0.1:8000/api/audiobook/part",
         "POST",
-        {
-          audiobookId: audiobookId,
-          part: part,
-        },
+        createContext(),
         token
       ),
     {
@@ -38,12 +51,21 @@ export const AudiobookPartProvider = ({
         setAudiobookPart(data);
       },
     }
-    );
-    const value = [audiobookPart, setAudiobookPart]
+  );
+
 
   useEffect(() => {
-    refetchAudiobookPart()
-  },[part]);
+    refetchAudiobookPart();
+  }, [part]);
+
+  useEffect(() => {
+    if (refetchState) {
+      refetchAudiobookPart();
+      setRefetchState(!refetchState);
+    }
+  }, [refetchState]);
+
+  const value = [audiobookPart, setAudiobookPart, setRefetchState];
 
   return (
     <AudiobookPartContext.Provider value={value}>

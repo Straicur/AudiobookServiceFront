@@ -15,6 +15,7 @@ export default function AudiobookReAddingModal(props) {
     title: "",
     modal: 1,
     categories: [],
+    file:null,
     fileAdded: false,
     uploadEnded: true,
   });
@@ -38,24 +39,28 @@ export default function AudiobookReAddingModal(props) {
       let file = e.target.files[0];
 
       if (file.type == "application/zip") {
-        setStateModal({ ...stateModal, fileAdded: true, file: file });
+        setStateModal({ ...stateModal, file: file });
       }
     }
   };
 
   const handleClose = () => {
-    props.setState({
-      ...props.audiobookState.state,
-      reAddingModal: !props.audiobookState.state.reAddingModal,
+    props.setAudiobookState({
+      ...props.audiobookState,
+      reAddingModal: !props.audiobookState.reAddingModal,
+      reAdding: !props.audiobookState.reAdding,
     });
   };
+
   const handleCloseAndUpdate = () => {
-    props.setAudiobookDetailRefetch();
-    props.setState({
+    props.resetStates();
+    props.setAudiobookState({
       ...props.state,
-      reAddingModal: !props.audiobookState.state.reAddingModal,
+      reAddingModal: !props.audiobookState.reAddingModal,
+      reAdding: !props.audiobookState.reAdding,
     });
   };
+
   const handleBack = () => {
     setStateModal({ ...stateModal, modal: 1 });
   };
@@ -63,9 +68,10 @@ export default function AudiobookReAddingModal(props) {
   const generateCategoriesList = () => {
     let multiSelectTable = [];
 
-    props.audiobookState.categoriesState.forEach((element) => {
+    props.categoriesState.forEach((element) => {
       multiSelectTable.push({ key: element.id, label: element.name });
     });
+
     return multiSelectTable;
   };
 
@@ -89,9 +95,17 @@ export default function AudiobookReAddingModal(props) {
     }
   }, [stateModal.author, stateModal.title]);
 
-  const addNewAudiobook = () => {
-    const url = "http://127.0.0.1:8000/api/admin/audiobook/add";
-    const method = "PUT";
+  useEffect(() => {
+    setStateModal({
+      ...stateModal,
+      author: props.audiobookDetail.author,
+      title: props.audiobookDetail.title,
+    });
+  }, [props]);
+
+  const reAddAudiobook = () => {
+    const url = "http://127.0.0.1:8000/api/admin/audiobook/reAdding";
+    const method = "PATCH";
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
     const fileName = stateModal.title + "_" + stateModal.author;
@@ -110,6 +124,7 @@ export default function AudiobookReAddingModal(props) {
           let b64 = Buffer.from(buf).toString("base64");
 
           const jsonData = {
+            audiobookId: props.audiobookDetail.id,
             hashName: hashName,
             fileName: fileName,
             part: part,
@@ -171,6 +186,7 @@ export default function AudiobookReAddingModal(props) {
             let b64 = Buffer.from(arr).toString("base64");
 
             const jsonData = {
+              audiobookId: props.audiobookDetail.id,
               hashName: hashName,
               fileName: fileName,
               part: part,
@@ -222,7 +238,7 @@ export default function AudiobookReAddingModal(props) {
 
   return (
     <Modal
-      show={props.state.reAddingModal}
+      show={props.audiobookState.reAddingModal}
       backdrop="static"
       keyboard={false}
       centered
@@ -242,6 +258,7 @@ export default function AudiobookReAddingModal(props) {
             </InputGroup.Text>
             <Form.Control
               value={stateModal.title}
+              defaultValue={props.audiobookDetail.title}
               onChange={(e) => {
                 handleSetTitleChange(e);
               }}
@@ -253,6 +270,7 @@ export default function AudiobookReAddingModal(props) {
             </InputGroup.Text>
             <Form.Control
               value={stateModal.author}
+              defaultValue={props.audiobookDetail.author}
               onChange={(e) => {
                 handleSetAuthorChange(e);
               }}
@@ -315,16 +333,16 @@ export default function AudiobookReAddingModal(props) {
         </Modal.Footer>
       ) : (
         <Modal.Footer>
-          {stateModal.upload == false ? (
+          {stateModal.fileAdded ==false ? (
             <div>
               <Button variant="dark" onClick={handleBack}>
                 {props.t("back")}
               </Button>
               <Button
-                disabled={!stateModal.fileAdded}
+                disabled={!stateModal.file}
                 variant="dark"
                 onClick={() => {
-                  addNewAudiobook();
+                  reAddAudiobook();
                 }}
               >
                 {props.t("upload")}
