@@ -28,8 +28,8 @@ export default function GetAudiobookZipButton(props) {
         link.parentNode.removeChild(link);
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setAudiobookState({
+          ...props.audiobookState,
           error: e,
         });
       });

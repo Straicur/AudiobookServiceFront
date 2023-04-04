@@ -16,7 +16,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 export default function AudiobookDetail(props) {
-
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -25,8 +24,11 @@ export default function AudiobookDetail(props) {
   const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] =
     useAudiobookCover();
   const [audiobookPart, setAudiobookPart] = useAudiobookPart();
-  const [audiobookCommnets, setAudiobookCommnets, setAudiobookCommnetsRefetchState] =
-    useAudiobookComments();
+  const [
+    audiobookCommnets,
+    setAudiobookCommnets,
+    setAudiobookCommnetsRefetchState,
+  ] = useAudiobookComments();
 
   const deleteAudiobookEntarly = () => {
     HandleFetch(
@@ -141,7 +143,7 @@ export default function AudiobookDetail(props) {
                 onClick={() =>
                   props.setAudiobookState({
                     ...props.audiobookState,
-                    deleteEntarly: !props.audiobookState.deleteEntarly,
+                    addCategoriesModal: !props.audiobookState.addCategoriesModal,
                   })
                 }
               >
@@ -208,6 +210,7 @@ export default function AudiobookDetail(props) {
         <hr></hr>
         <RenderCommentsList
           audiobookDetail={audiobookDetail}
+          audiobookState={props.audiobookState}
           setAudiobookState={props.setAudiobookState}
           audiobookCommnets={audiobookCommnets}
           setAudiobookCommnetsRefetchState={setAudiobookCommnetsRefetchState}
@@ -215,14 +218,16 @@ export default function AudiobookDetail(props) {
           token={props.token}
         />
       </div>
-      {props.addCategoriesModal?
-      <AudiobookAddCategoriesModal
-      audiobookDetail={audiobookDetail}
-      setAudiobookState={props.setAudiobookState}
-      t={t}
-      token={props.token}
-      />
-      :null}
+      {props.audiobookState.addCategoriesModal ? (
+        <AudiobookAddCategoriesModal
+          audiobookDetail={audiobookDetail}
+          audiobookState={props.audiobookState}
+          setAudiobookState={props.setAudiobookState}
+          t={t}
+          token={props.token}
+          setAudiobookDetailRefetch={setAudiobookDetailRefetch}
+        />
+      ) : null}
     </div>
   );
 }

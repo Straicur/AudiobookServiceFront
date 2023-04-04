@@ -35,8 +35,8 @@ export default function AudiobookEditForm(props) {
         });
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setAudiobookState({
+          ...props.audiobookState,
           error: e,
         });
       });

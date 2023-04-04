@@ -17,7 +17,7 @@ export default function RenderCommentsList(props) {
       })
       .catch((e) => {
         props.setAudiobookState({
-          ...props.audiobookDetail,
+          ...props.audiobookState,
           error: e,
         });
       });

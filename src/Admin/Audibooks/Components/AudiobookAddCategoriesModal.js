@@ -1,16 +1,26 @@
-import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
+import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { HandleFetch } from "../../../Components/HandleFetch";
+import { useCategoryTreeListStore } from "../../../store";
 import RenderCategoriesList from "./RenderCategoriesList";
+import Modal from "react-bootstrap/Modal";
 
 export default function AudiobookAddCategoriesModal(props) {
-  const [modalState, setModalState] = useState({
-    file: null,
+  const [categoriesState, setCategoriesState] = useState({
+    categoriesId: [],
+    refresh: false,
   });
 
+  const categoriesStore = useCategoryTreeListStore();
+
+  const categories = useCategoryTreeListStore((state) => state.categories);
+  const dateUpdate = useCategoryTreeListStore((state) => state.dateUpdate);
+
   const handleClose = () => {
-    props.setState({
-      ...props.state,
-      jsonModal: !props.state.jsonModal,
+    props.setAudiobookDetailRefetch(true);
+    props.setAudiobookState({
+      ...props.audiobookState,
+      addCategoriesModal: !props.audiobookState.addCategoriesModal,
     });
   };
 
@@ -34,16 +44,26 @@ export default function AudiobookAddCategoriesModal(props) {
         });
       },
       onSuccess: (data) => {
-        setState({ ...state, json: data.categories });
+        let categoriesIds = [];
+
+        for (const category of props.audiobookDetail.categories) {
+          categoriesIds.push(category.id);
+        }
+
+        setCategoriesState({ ...categoriesState, categoriesId: categoriesIds });
+
         //todo czy na pewno tak chciałem ? Bo tu może być problem że pobieram to a nie potrzebuje tak naprawdę jeśli trzymam to w storage
-        if (dateUpdate < Date.now() || state.refresh) {
+        if (dateUpdate < Date.now() || categoriesState.refresh) {
           categoriesStore.removeCategories();
 
           for (const category of data.categories) {
             categoriesStore.addCategory(category);
           }
-          if (state.refresh) {
-            setState({ ...state, refresh: !state.refresh });
+          if (categoriesState.refresh) {
+            setCategoriesState({
+              ...categoriesState,
+              refresh: !categoriesState.refresh,
+            });
           }
         }
       },
@@ -51,25 +71,29 @@ export default function AudiobookAddCategoriesModal(props) {
   );
 
   useEffect(() => {
-    if (state.refresh) {
+    if (categoriesState.refresh) {
       refetch();
     }
-  }, [state.refresh]);
+  }, [categoriesState.refresh]);
 
   return (
-    <Modal size="lg" show={props.state.jsonModal} onHide={handleClose}>
-      <Modal.Header>
-        <Modal.Title>{props.t("jsonData")}</Modal.Title>
+    <Modal
+      size="lg"
+      show={props.audiobookState.addCategoriesModal}
+      onHide={handleClose}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>{props.t("addCategory")}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>{format()}</Modal.Body>
-      <Modal.Footer>
+      <Modal.Body>
         <RenderCategoriesList
-          modalState={modalState}
-          setModalState={setModalState}
           categories={categories}
-          t={t}
+          audiobookDetail={props.audiobookDetail}
+          categoriesState={categoriesState}
+          t={props.t}
+          token={props.token}
         />
-      </Modal.Footer>
+      </Modal.Body>
     </Modal>
   );
 }

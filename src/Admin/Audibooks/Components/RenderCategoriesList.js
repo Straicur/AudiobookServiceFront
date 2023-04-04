@@ -1,10 +1,30 @@
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
+import { HandleFetch } from "../../../Components/HandleFetch";
 
 export default function RenderCategoriesList(props) {
-
-  const navigate = useNavigate();
+  
+  const addCategory = (element, category) => {
+    element.stopPropagation();
+    HandleFetch(
+      "http://127.0.0.1:8000/api/admin/category/add/audiobook",
+      "PATCH",
+      {
+        categoryId: category.id,
+        audiobookId: props.audiobookDetail.id,
+      },
+      props.token
+    )
+      .then(() => {
+        element.target.disabled = true;
+      })
+      .catch((e) => {
+        props.setAudiobookState({
+          ...props.audiobookState,
+          error: e,
+        });
+      });
+  };
 
   const createTree = () => {
     let renderArray = [];
@@ -16,12 +36,12 @@ export default function RenderCategoriesList(props) {
   };
 
   const oparateParentList = (element) => {
-      element.stopPropagation()
-      if (element.currentTarget.attributes["data-clicable"].value == "true") {
-        openParentList(element);
-      } else {
-        closeParentList(element);
-      }
+    element.stopPropagation();
+    if (element.currentTarget.attributes["data-clicable"].value == "true") {
+      openParentList(element);
+    } else {
+      closeParentList(element);
+    }
   };
 
   function openParentList(element) {
@@ -36,7 +56,10 @@ export default function RenderCategoriesList(props) {
         }
       }
       if (element.nodeName == "DIV") {
-        for (const el of element.children) {
+        const divfirst = element.children[0];
+        const divsecond = divfirst.children[0];
+
+        for (const el of divsecond.children) {
           if (el.nodeName == "I") {
             el.classList.remove("bi-arrow-right-square");
             el.classList.add("bi-arrow-down-square");
@@ -58,7 +81,10 @@ export default function RenderCategoriesList(props) {
         }
       }
       if (element.nodeName == "DIV") {
-        for (const el of element.children) {
+        const divfirst = element.children[0];
+        const divsecond = divfirst.children[0];
+
+        for (const el of divsecond.children) {
           if (el.nodeName == "I") {
             el.classList.remove("bi-arrow-down-square");
             el.classList.add("bi-arrow-right-square");
@@ -69,6 +95,10 @@ export default function RenderCategoriesList(props) {
   }
 
   function listParent(element, child, parent) {
+    const usedCategory = props.categoriesState.categoriesId.filter(
+      (x) => x == element.id
+    ).length;
+
     return (
       <li
         key={uuidv4()}
@@ -81,82 +111,46 @@ export default function RenderCategoriesList(props) {
         data-clicable={true}
       >
         <div className="d-flex flex-row bd-highlight mb-2">
-          {child.length > 0 ? (
-            <i className="p-2 bi bi-arrow-right-square "></i>
-          ) : (
-            <div className="p-2 bd-highlight"></div>
-          )}
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryName")}:</h5>
+          <div className="d-flex flex-column bd-highlight mb-3">
+            <div className="d-flex flex-row bd-highlight mb-2">
+              {child.length > 0 ? (
+                <i className="p-2 bi bi-arrow-right-square "></i>
+              ) : (
+                <div className=""></div>
+              )}
+              <div className="p-2 bd-highlight">
+                <h5>{props.t("categoryName")}:</h5>
+              </div>
+              <div className="p-2 bd-highlight"> {element.name}</div>
+              <div className="p-2 bd-highlight">
+                <h5>{props.t("categoryActive")}:</h5>
+              </div>
+              <div className="p-2 bd-highlight">
+                {element.active ? (
+                  <i className="bi bi-bookmark-check-fill"></i>
+                ) : (
+                  <i className="bi bi-bookmark-dash"></i>
+                )}
+              </div>
+            </div>
+            <div className="d-flex flex-row bd-highlight mb-2">
+              <div className="p-2 bd-highlight">
+                <h5>{props.t("categoryKey")}:</h5>
+              </div>
+              <div className="p-2 bd-highlight"> {element.categoryKey}</div>
+            </div>
           </div>
-          <div className="p-2 bd-highlight"> {element.name}</div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryActive")}:</h5>
-          </div>
-          <div className="p-2 bd-highlight">
-            {element.active ? (
-              <i className="bi bi-bookmark-check-fill"></i>
-            ) : (
-              <i className="bi bi-bookmark-dash"></i>
-            )}
-          </div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryKey")}:</h5>
-          </div>
-          <div className="p-2 bd-highlight"> {element.categoryKey}</div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryChilds")}:</h5>
-          </div>
-          <div className="p-2 bd-highlight"> {element.children.length}</div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("audiobooksAmount")}:</h5>
-          </div>
-          <div className="p-2 bd-highlight"> {element.audiobooks}</div>
-          <div className="p-2 bd-highlight">
+
+          <div className="ms-5 p-2 bd-highlight align-self-center">
             <Button
               name="en"
               variant="dark"
               size="lg"
               className="btn button"
-              onClick={() => {
-                props.setState({
-                  ...props.state,
-                  editCategoryModal: !props.state.editCategoryModal,
-                  editCategoryElement: element,
-                });
-              }}
+              disabled={usedCategory != 0}
+              onClick={(e) => addCategory(e, element)}
             >
-              {props.t("edit")}
-            </Button>
-          </div>
-          <div className="p-2 bd-highlight">
-            <Button
-              name="en"
-              variant="dark"
-              size="lg"
-              className="btn button"
-              onClick={() => {
-                navigate(`/admin/category/${element.categoryKey}`);
-              }}
-            >
-              {props.t("audiobooks")}
-            </Button>
-          </div>
-          <div className="p-2 bd-highlight">
-            <Button
-              name="en"
-              variant="dark"
-              size="lg"
-              className="btn button"
-              onClick={() =>
-                props.setState({
-                  ...props.state,
-                  addCategoryModal: !props.state.addCategoryModal,
-                  addCategoryParent: element,
-                })
-              }
-            >
-              {props.t("addChildCategory")}
+              {props.t("add")}
             </Button>
           </div>
         </div>
@@ -168,6 +162,9 @@ export default function RenderCategoriesList(props) {
   }
 
   function createListElement(element) {
+    const usedCategory = props.categoriesState.categoriesId.filter(
+      (x) => x == element.id
+    ).length;
     return (
       <li
         key={uuidv4()}
@@ -175,77 +172,41 @@ export default function RenderCategoriesList(props) {
         id={element.id}
       >
         <div className="d-flex flex-row bd-highlight mb-2">
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryName")}:</h5>
+          <div className="d-flex flex-column bd-highlight mb-3">
+            <div className="d-flex flex-row bd-highlight mb-2">
+              <div className="p-2 bd-highlight">
+                <h5>{props.t("categoryName")}:</h5>
+              </div>
+              <div className="p-2 bd-highlight"> {element.name}</div>
+              <div className="p-2 bd-highlight">
+                <h5>{props.t("categoryActive")}:</h5>
+              </div>
+              <div className="p-2 bd-highlight">
+                {element.active ? (
+                  <i className="bi bi-bookmark-check-fill"></i>
+                ) : (
+                  <i className="bi bi-bookmark-dash"></i>
+                )}
+              </div>
+            </div>
+            <div className="d-flex flex-row bd-highlight mb-2">
+              <div className="p-2 bd-highlight">
+                <h5>{props.t("categoryKey")}:</h5>
+              </div>
+              <div className="p-2 bd-highlight"> {element.categoryKey}</div>
+            </div>
           </div>
-          <div className="p-2 bd-highlight"> {element.name}</div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryActive")}:</h5>
-          </div>
-          <div className="p-2 bd-highlight">
-            {element.active ? (
-              <i className="bi bi-bookmark-check-fill"></i>
-            ) : (
-              <i className="bi bi-bookmark-dash"></i>
-            )}
-          </div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryKey")}:</h5>
-          </div>
-          <div className="p-2 bd-highlight"> {element.categoryKey}</div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryChilds")}:</h5>
-          </div>
-          <div className="p-2 bd-highlight"> {element.children.length}</div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("audiobooksAmount")}:</h5>
-          </div>
-          <div className="p-2 bd-highlight"> {element.audiobooks}</div>
-          <div className="p-2 bd-highlight">
+
+          <div className="ms-5 p-2 bd-highlight align-self-center">
             <Button
               name="en"
               variant="dark"
               size="lg"
               className="btn button"
-              onClick={() => {
-                props.setState({
-                  ...props.state,
-                  editCategoryModal: !props.state.editCategoryModal,
-                  editCategoryElement: element,
-                });
-              }}
+              disabled={usedCategory != 0}
+              onClick={(e) => addCategory(e, element)}
             >
-              {props.t("edit")}
-            </Button>
-          </div>
-          <div className="p-2 bd-highlight">
-            <Button
-              name="en"
-              variant="dark"
-              size="lg"
-              className="btn button"
-              onClick={() => {
-                navigate(`/admin/category/${element.categoryKey}`);
-              }}
-            >
-              {props.t("audiobooks")}
-            </Button>
-          </div>
-          <div className="p-2 bd-highlight">
-            <Button
-              name="en"
-              variant="dark"
-              size="lg"
-              className="btn button"
-              onClick={() => {
-                props.setState({
-                  ...props.state,
-                  addCategoryModal: !props.state.addCategoryModal,
-                  addCategoryParent: element,
-                });
-              }}
-            >
-              {props.t("addChildCategory")}
+              {props.t("add")}
             </Button>
           </div>
         </div>
