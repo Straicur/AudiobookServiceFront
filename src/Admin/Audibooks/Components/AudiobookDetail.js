@@ -10,6 +10,7 @@ import AudiobookCover from "./AudiobookCover";
 import GetAudiobookZipButton from "./GetAudiobookZipButton";
 import RenderCommentsList from "./RenderCommentsList";
 import AudiobookAddCategoriesModal from "./AudiobookAddCategoriesModal";
+import AudiobookReAddingModal from "./AudiobookReAddingModal";
 import Button from "react-bootstrap/Button";
 import AudioPlayer from "./AudiobookPlayer";
 import { useTranslation } from "react-i18next";
@@ -195,6 +196,54 @@ export default function AudiobookDetail(props) {
                 </Button>
               </div>
             )}
+               {props.audiobookState.reAdding ? (
+              <div className="row justify-content-center">
+                <div className="col-4">
+                  <Button
+                    name="en"
+                    size="sm"
+                    className="btn button px-4 my-1 question_button success_button"
+                    onClick={props.setAudiobookState({
+                      ...props.audiobookState,
+                      reAddingModal: !props.audiobookState.reAddingModal,
+                    })}
+                  >
+                    {t("yes")}
+                  </Button>
+                </div>
+                <div className="col-4">
+                  <Button
+                    name="en"
+                    size="sm"
+                    className="btn button px-4 my-1 question_button danger_button me-2"
+                    onClick={() =>
+                      props.setAudiobookState({
+                        ...props.audiobookState,
+                        reAdding: !props.audiobookState.reAdding,
+                      })
+                    }
+                  >
+                    {t("no")}
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="row">
+                <Button
+                  name="en"
+                  size="sm"
+                  className="btn button px-4 my-1 audiobook_detail_modal_button warning_button"
+                  onClick={() =>
+                    props.setAudiobookState({
+                      ...props.audiobookState,
+                      reAdding: !props.audiobookState.reAdding,
+                    })
+                  }
+                >
+                  {t("reAdding")}
+                </Button>
+              </div>
+            )}
             <div className="row my-1 ">
               <GetAudiobookZipButton
                 audiobookDetail={audiobookDetail}
@@ -220,6 +269,16 @@ export default function AudiobookDetail(props) {
       </div>
       {props.audiobookState.addCategoriesModal ? (
         <AudiobookAddCategoriesModal
+          audiobookDetail={audiobookDetail}
+          audiobookState={props.audiobookState}
+          setAudiobookState={props.setAudiobookState}
+          t={t}
+          token={props.token}
+          setAudiobookDetailRefetch={setAudiobookDetailRefetch}
+        />
+      ) : null}
+       {props.audiobookState.reAddingModal ? (
+        <AudiobookReAddingModal
           audiobookDetail={audiobookDetail}
           audiobookState={props.audiobookState}
           setAudiobookState={props.setAudiobookState}

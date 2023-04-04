@@ -67,7 +67,10 @@
     background-color: #005331 !important;
     border-color: #005331 !important;
 }
-
+.warning_button{
+    background-color: #928800 !important;
+    border-color: #928800 !important;
+}
 .input_modal {
     padding-left: 0 !important;
 }

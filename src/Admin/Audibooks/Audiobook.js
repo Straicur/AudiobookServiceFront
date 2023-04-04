@@ -17,6 +17,8 @@ export default function Audiobook() {
     deleteFromCategory: false,
     deleteEntarly: false,
     addCategoriesModal: false,
+    reAddingModal: false,
+    reAdding: false,
     part: 0,
     error: null,
   });
