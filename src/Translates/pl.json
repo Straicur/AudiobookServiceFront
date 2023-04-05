@@ -37,7 +37,7 @@
     "myList": "Moja lista",
     "administrationPage": "Strona Administracji",
     "chooseNabOptions": "Wybierz odpowiednie zagadnienie w pasku nawigacji",
-    "currentApp": "Aplikacj aktualnie posiada:",
+    "currentApp": "Aplikacja aktualnie posiada:",
     "lastWeek": "W ostatnim tygodniu:",
     "registered": "Zarejsetrowało się",
     "loggedIn": "Wystąpiło zalogowań ",
@@ -126,5 +126,7 @@
     "slectedMultiCategories": "Wybrano wiele kategorii",
     "slelectAge": "Wybierz wiek",
     "slectedAll": "Wybierz wszytkie opcje",
-    "resetSearch": "Resetuj"
+    "resetSearch": "Resetuj",
+    "rating": "Średnie oceny",
+    "reAdding": "Dodaj ponownie"
 }

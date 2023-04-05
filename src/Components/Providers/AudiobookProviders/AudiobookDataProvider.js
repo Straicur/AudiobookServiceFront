@@ -37,7 +37,7 @@ export const AudiobookDataProvider = ({ children, token, audiobookId }) => {
   );
 
   useEffect(() => {
-    if (!refetchState) {
+    if (refetchState) {
       refetchAudiobookData();
       setRefetchState(!refetchState);
     }

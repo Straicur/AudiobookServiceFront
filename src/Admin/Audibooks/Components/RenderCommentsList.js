@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Components/HandleFetch";
 
 export default function RenderCommentsList(props) {
   function deleteCommnet(element) {
@@ -13,14 +13,11 @@ export default function RenderCommentsList(props) {
       props.token
     )
       .then(() => {
-        props.setState({
-          ...props.state,
-          refetch: !props.state.refetch,
-        });
+        props.setAudiobookCommnetsRefetchState(true);
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setAudiobookState({
+          ...props.audiobookState,
           error: e,
         });
       });
@@ -29,13 +26,14 @@ export default function RenderCommentsList(props) {
   const renderTree = () => {
     let renderArray = [];
 
-    if (props.state.comments != undefined) {
-      createTree(props.state.comments.comments, renderArray);
+    if (props.audiobookCommnets != undefined) {
+   
+      createTree(props.audiobookCommnets.comments, renderArray);
     }
 
-    if (props.comments != null && props.comments.comments.length == 0) {
+    if (props.audiobookCommnets != null && props.audiobookCommnets.comments.length == 0) {
       renderArray.push(
-        <div key={uuidv4()} className="row text-center text-light">
+        <div key={uuidv4()} className="row text-center">
           <div className="col-md-6 offset-md-3 ">
             <h3>{props.t("empty")}</h3>
           </div>
@@ -100,8 +98,7 @@ export default function RenderCommentsList(props) {
       <li
         key={uuidv4()}
         className={
-      
-             "border border-4 border-secondary list-group-item"
+            "border border-4 border-secondary list-group-item"
         }
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
@@ -194,6 +191,7 @@ export default function RenderCommentsList(props) {
         }
       }
       renderArray.push(listParent(element, children));
+     
     }
   }
 

@@ -125,5 +125,7 @@
     "slectedMultiCategories": "Selected multiple categories",
     "slelectAge": "Select age",
     "slectedAll": "Select all options",
-    "reset": "Reset"
+    "reset": "Reset",
+    "rating": "Average rating",
+    "reAdding": "Add again"
 }
