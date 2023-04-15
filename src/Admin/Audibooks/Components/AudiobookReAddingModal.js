@@ -258,7 +258,6 @@ export default function AudiobookReAddingModal(props) {
             </InputGroup.Text>
             <Form.Control
               value={stateModal.title}
-              defaultValue={props.audiobookDetail.title}
               onChange={(e) => {
                 handleSetTitleChange(e);
               }}
@@ -270,7 +269,6 @@ export default function AudiobookReAddingModal(props) {
             </InputGroup.Text>
             <Form.Control
               value={stateModal.author}
-              defaultValue={props.audiobookDetail.author}
               onChange={(e) => {
                 handleSetAuthorChange(e);
               }}

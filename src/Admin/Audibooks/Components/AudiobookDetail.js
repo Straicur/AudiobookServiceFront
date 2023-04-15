@@ -14,13 +14,14 @@ import AudiobookAddCategoriesModal from "./AudiobookAddCategoriesModal";
 import AudiobookReAddingModal from "./AudiobookReAddingModal";
 import Button from "react-bootstrap/Button";
 import AudioPlayer from "./AudiobookPlayer";
+import ReAddAudiobookButton from "./ReAddAudiobookButton";
+import DeleteAudiobookEntarlyButton from "./DeleteAudiobookEntarlyButton";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+
 import { useCategoryListStore } from "../../../store";
 
 export default function AudiobookDetail(props) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const [categoriesState, setCategories] = useState([]);
 
@@ -40,26 +41,6 @@ export default function AudiobookDetail(props) {
 
   const categories = useCategoryListStore((state) => state.categories);
   const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
-
-  const deleteAudiobookEntarly = () => {
-    HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/delete",
-      "DELETE",
-      {
-        audiobookId: props.audiobookId,
-      },
-      props.token
-    )
-      .then(() => {
-        navigate(`/admin/audiobooks`);
-      })
-      .catch((e) => {
-        props.setAudiobookState({
-          ...props.audiobookState,
-          error: e,
-        });
-      });
-  };
 
   const renderStars = () => {
     let stars = [];
@@ -87,41 +68,6 @@ export default function AudiobookDetail(props) {
     return stars;
   };
 
-  const fetchCategoriesList = () => {
-    if (dateUpdate > Date.now() && dateUpdate != 0) {
-      setCategories(categories);
-    } else {
-      HandleFetch(
-        "http://127.0.0.1:8000/api/admin/categories",
-        "GET",
-        null,
-        props.token
-      )
-        .then((data) => {
-          categoriesStore.removeCategories();
-          for (const category of data.categories) {
-            categoriesStore.addCategory(category);
-          }
-
-          setCategories(data.categories);
-        })
-        .catch((e) => {
-          props.setAudiobooksState({
-            ...props.audiobooksState,
-            error: e,
-          });
-        });
-    }
-  };
-
-  const openReAddingModal = () => {
-    fetchCategoriesList();
-
-    props.setAudiobookState({
-      ...props.audiobookState,
-      reAddingModal: !props.audiobookState.reAddingModal,
-    });
-  };
   const resetStates = () => {
     setAudiobookDetailRefetch(true);
     setAudiobookCoverRefetch(true);
@@ -205,101 +151,29 @@ export default function AudiobookDetail(props) {
                 {t("addCategory")}
               </Button>
             </div>
-            {props.audiobookState.deleteEntarly ? (
-              <div className="row justify-content-center">
-                <div className="col-4">
-                  <Button
-                    name="en"
-                    size="sm"
-                    className="btn button px-4 my-1 question_button success_button"
-                    onClick={deleteAudiobookEntarly}
-                  >
-                    {t("yes")}
-                  </Button>
-                </div>
-                <div className="col-4">
-                  <Button
-                    name="en"
-                    size="sm"
-                    className="btn button px-4 my-1 question_button danger_button me-2"
-                    onClick={() =>
-                      props.setAudiobookState({
-                        ...props.audiobookState,
-                        deleteEntarly: !props.audiobookState.deleteEntarly,
-                      })
-                    }
-                  >
-                    {t("no")}
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div className="row">
-                <Button
-                  name="en"
-                  size="sm"
-                  className="btn button px-4 my-1 audiobook_detail_modal_button danger_button"
-                  onClick={() =>
-                    props.setAudiobookState({
-                      ...props.audiobookState,
-                      deleteEntarly: !props.audiobookState.deleteEntarly,
-                    })
-                  }
-                >
-                  {t("deleteEntarly")}
-                </Button>
-              </div>
-            )}
-            {props.audiobookState.reAdding ? (
-              <div className="row justify-content-center">
-                <div className="col-4">
-                  <Button
-                    name="en"
-                    size="sm"
-                    className="btn button px-4 my-1 question_button success_button"
-                    onClick={openReAddingModal}
-                  >
-                    {t("yes")}
-                  </Button>
-                </div>
-                <div className="col-4">
-                  <Button
-                    name="en"
-                    size="sm"
-                    className="btn button px-4 my-1 question_button danger_button me-2"
-                    onClick={() =>
-                      props.setAudiobookState({
-                        ...props.audiobookState,
-                        reAdding: !props.audiobookState.reAdding,
-                      })
-                    }
-                  >
-                    {t("no")}
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div className="row">
-                <Button
-                  name="en"
-                  size="sm"
-                  className="btn button px-4 my-1 audiobook_detail_modal_button warning_button"
-                  onClick={() =>
-                    props.setAudiobookState({
-                      ...props.audiobookState,
-                      reAdding: !props.audiobookState.reAdding,
-                    })
-                  }
-                >
-                  {t("reAdding")}
-                </Button>
-              </div>
-            )}
+            <DeleteAudiobookEntarlyButton
+              audiobookDetail={audiobookDetail}
+              audiobookState={props.audiobookState}
+              setAudiobookState={props.setAudiobookState}
+              token={props.token}
+              t={t}
+            />
+            <ReAddAudiobookButton
+              dateUpdate={dateUpdate}
+              categories={categories}
+              categoriesStore={categoriesStore}
+              setCategories={setCategories}
+              audiobookState={props.audiobookState}
+              setAudiobookState={props.setAudiobookState}
+              token={props.token}
+              t={t}
+            />
+
             <div className="row my-1 ">
               <GetAudiobookZipButton
                 audiobookDetail={audiobookDetail}
-                setAudiobookState={props.setAudiobookState}
                 audiobookState={props.audiobookState}
+                setAudiobookState={props.setAudiobookState}
                 t={t}
                 token={props.token}
               />
@@ -334,7 +208,6 @@ export default function AudiobookDetail(props) {
           audiobookState={props.audiobookState}
           setAudiobookState={props.setAudiobookState}
           categoriesState={categoriesState}
-          setCategories={setCategories}
           t={t}
           token={props.token}
           resetStates={resetStates}
