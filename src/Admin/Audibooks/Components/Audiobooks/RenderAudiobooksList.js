@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { HandleFetch } from "../../../../Components/HandleFetch";
 import { useNavigate } from "react-router-dom";
-import { CreateDate } from "../../../Components/CrateDate";
+import { CreateDate } from "../../../../Components/CrateDate";
 
 export default function RenderAudiobooksList(props) {
   const navigate = useNavigate();
@@ -18,11 +18,7 @@ export default function RenderAudiobooksList(props) {
 
     return renderArray;
   };
-  //todo Po przejściu do detali ma mieć Oprócz tego co ma w modalu dodatkowo pod listą kategorii powinien mieć jeszcze oddzielny modal z możliwiścią przypisania do kategorii
-  // 1 Render niech będzie tak jak w drzewie oraz obok każdej kategorii do której należy niech ma przycisk usuwający z niej
-  // 2 Dodaj przycisk który wyświetli mi listę kategorii w postaci drzewa (modal) i w niej mam mieć możliwsoć przypisania audiobooka do niej (DETALE)
-  // 4 Dodaj reading do detali audiobooka (to samo co dodawanie prawie)
-  // 5 formatuj i poukłdaj 
+
   const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add("disabled");
 
@@ -37,7 +33,8 @@ export default function RenderAudiobooksList(props) {
     )
       .then(() => {
         element.target.classList.remove("disabled");
-        let newJson = props.state.json.map((audiobook) => {
+
+        let newAudiobookList = props.state.json.audiobooks.map((audiobook) => {
           if (audiobook.id == selectedAudiobook.id) {
             return {
               id: audiobook.id,
@@ -55,6 +52,13 @@ export default function RenderAudiobooksList(props) {
           }
         });
 
+        const newJson = {
+          audiobooks: newAudiobookList,
+          page: 0,
+          limit: 15,
+          maxPage: 1,
+        };
+
         props.setState({ ...props.state, json: newJson });
       })
       .catch((e) => {
@@ -64,6 +68,7 @@ export default function RenderAudiobooksList(props) {
         });
       });
   };
+
   const getAge = (element) => {
     switch (element.age) {
       case 1:

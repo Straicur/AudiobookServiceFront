@@ -22,14 +22,6 @@ export default function AddCategoryModal(props) {
     });
   };
 
-  useEffect(() => {
-    if (modalState.name.trim()) {
-      setModalState({ ...modalState, isButtonDisabled: false });
-    } else {
-      setModalState({ ...modalState, isButtonDisabled: true });
-    }
-  }, [modalState.name]);
-
   const addNewSet = () => {
     let additionalData = {};
 
@@ -58,6 +50,14 @@ export default function AddCategoryModal(props) {
       });
   };
 
+  useEffect(() => {
+    if (modalState.name.trim()) {
+      setModalState({ ...modalState, isButtonDisabled: false });
+    } else {
+      setModalState({ ...modalState, isButtonDisabled: true });
+    }
+  }, [modalState.name]);
+  
   return (
     <Modal
       show={props.state.addCategoryModal}

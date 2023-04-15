@@ -17,7 +17,7 @@ export default function RenderAudiobooksList(props) {
 
   const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add("disabled");
-    
+
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/active",
       "PATCH",
@@ -113,8 +113,7 @@ export default function RenderAudiobooksList(props) {
                 activeteAudiobook(e, element);
               }}
             >
-            
-              {element.active ?props.t("deActivate"):props.t("activate")}
+              {element.active ? props.t("deActivate") : props.t("activate")}
             </Button>
           </div>
         </td>

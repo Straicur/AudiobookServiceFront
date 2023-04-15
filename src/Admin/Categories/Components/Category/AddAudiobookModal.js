@@ -57,14 +57,6 @@ export default function AddAudiobookModal(props) {
     setStateModal({ ...stateModal, modal: 2 });
   };
 
-  useEffect(() => {
-    if (stateModal.author.trim() && stateModal.title.trim()) {
-      setStateModal({ ...stateModal, isNextButtonDisabled: false });
-    } else {
-      setStateModal({ ...stateModal, isNextButtonDisabled: true });
-    }
-  }, [stateModal.author, stateModal.title]);
-
   const addNewAudiobook = () => {
     const url = "http://127.0.0.1:8000/api/admin/audiobook/add";
     const method = "PUT";
@@ -195,6 +187,14 @@ export default function AddAudiobookModal(props) {
       reader.readAsArrayBuffer(stateModal.file);
     }
   };
+
+  useEffect(() => {
+    if (stateModal.author.trim() && stateModal.title.trim()) {
+      setStateModal({ ...stateModal, isNextButtonDisabled: false });
+    } else {
+      setStateModal({ ...stateModal, isNextButtonDisabled: true });
+    }
+  }, [stateModal.author, stateModal.title]);
 
   return (
     <Modal

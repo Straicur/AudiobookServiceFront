@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { HandleFetch } from "../../../Components/HandleFetch";
-import { useCategoryTreeListStore } from "../../../store";
+import { HandleFetch } from "../../../../Components/HandleFetch";
+import { useCategoryTreeListStore } from "../../../../store";
 import RenderCategoriesList from "./RenderCategoriesList";
 import Modal from "react-bootstrap/Modal";
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { HandleFetch } from "../../../../Components/HandleFetch";
 import sha256 from "crypto-js/sha256";
 import { Buffer } from "buffer";
 import ProgressBar from "react-bootstrap/ProgressBar";
@@ -9,13 +9,13 @@ import InputGroup from "react-bootstrap/InputGroup";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import Form from "react-bootstrap/Form";
 
-export default function AudiobookReAddingModal(props) {
+export default function AddAudiobookModal(props) {
   const [stateModal, setStateModal] = useState({
     author: "",
     title: "",
     modal: 1,
     categories: [],
-    file:null,
+    file: null,
     fileAdded: false,
     uploadEnded: true,
   });
@@ -45,19 +45,18 @@ export default function AudiobookReAddingModal(props) {
   };
 
   const handleClose = () => {
-    props.setAudiobookState({
-      ...props.audiobookState,
-      reAddingModal: !props.audiobookState.reAddingModal,
-      reAdding: !props.audiobookState.reAdding,
+    props.setState({
+      ...props.state,
+      addAudiobookModal: !props.state.addAudiobookModal,
     });
   };
 
   const handleCloseAndUpdate = () => {
-    props.resetStates();
-    props.setAudiobookState({
+    props.resetSearchStates();
+    props.setState({
       ...props.state,
-      reAddingModal: !props.audiobookState.reAddingModal,
-      reAdding: !props.audiobookState.reAdding,
+      addAudiobookModal: !props.state.addAudiobookModal,
+      addAudiobook: !props.state.addAudiobook,
     });
   };
 
@@ -71,7 +70,6 @@ export default function AudiobookReAddingModal(props) {
     props.categoriesState.forEach((element) => {
       multiSelectTable.push({ key: element.id, label: element.name });
     });
-
     return multiSelectTable;
   };
 
@@ -87,25 +85,9 @@ export default function AudiobookReAddingModal(props) {
     setStateModal({ ...stateModal, modal: 2 });
   };
 
-  useEffect(() => {
-    if (stateModal.author.trim() && stateModal.title.trim()) {
-      setStateModal({ ...stateModal, isNextButtonDisabled: false });
-    } else {
-      setStateModal({ ...stateModal, isNextButtonDisabled: true });
-    }
-  }, [stateModal.author, stateModal.title]);
-
-  useEffect(() => {
-    setStateModal({
-      ...stateModal,
-      author: props.audiobookDetail.author,
-      title: props.audiobookDetail.title,
-    });
-  }, [props]);
-
-  const reAddAudiobook = () => {
-    const url = "http://127.0.0.1:8000/api/admin/audiobook/reAdding";
-    const method = "PATCH";
+  const addAudiobook = () => {
+    const url = "http://127.0.0.1:8000/api/admin/audiobook/add";
+    const method = "PUT";
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
     const fileName = stateModal.title + "_" + stateModal.author;
@@ -124,7 +106,6 @@ export default function AudiobookReAddingModal(props) {
           let b64 = Buffer.from(buf).toString("base64");
 
           const jsonData = {
-            audiobookId: props.audiobookDetail.id,
             hashName: hashName,
             fileName: fileName,
             part: part,
@@ -164,8 +145,8 @@ export default function AudiobookReAddingModal(props) {
               });
             })
             .catch((e) => {
-              props.setAudiobookState({
-                ...props.audiobookState,
+              props.setCategoiesState({
+                ...props.categoiesState,
                 error: e,
               });
             });
@@ -186,7 +167,6 @@ export default function AudiobookReAddingModal(props) {
             let b64 = Buffer.from(arr).toString("base64");
 
             const jsonData = {
-              audiobookId: props.audiobookDetail.id,
               hashName: hashName,
               fileName: fileName,
               part: part,
@@ -220,8 +200,8 @@ export default function AudiobookReAddingModal(props) {
                 });
               })
               .catch((e) => {
-                props.setAudiobookState({
-                  ...props.audiobookState,
+                props.setCategoiesState({
+                  ...props.categoiesState,
                   error: e,
                 });
               });
@@ -236,17 +216,24 @@ export default function AudiobookReAddingModal(props) {
     }
   };
 
+  useEffect(() => {
+    if (stateModal.author.trim() && stateModal.title.trim()) {
+      setStateModal({ ...stateModal, isNextButtonDisabled: false });
+    } else {
+      setStateModal({ ...stateModal, isNextButtonDisabled: true });
+    }
+  }, [stateModal.author, stateModal.title]);
+
   return (
     <Modal
-      show={props.audiobookState.reAddingModal}
+      show={props.state.addAudiobookModal}
       backdrop="static"
       keyboard={false}
-      centered
     >
       <Modal.Header>
         <Modal.Title>
           <h3>
-            <b>{props.t("reAdding")}</b>
+            <b>{props.t("addAudiobook")}</b>
           </h3>
         </Modal.Title>
       </Modal.Header>
@@ -258,7 +245,6 @@ export default function AudiobookReAddingModal(props) {
             </InputGroup.Text>
             <Form.Control
               value={stateModal.title}
-              defaultValue={props.audiobookDetail.title}
               onChange={(e) => {
                 handleSetTitleChange(e);
               }}
@@ -270,7 +256,6 @@ export default function AudiobookReAddingModal(props) {
             </InputGroup.Text>
             <Form.Control
               value={stateModal.author}
-              defaultValue={props.audiobookDetail.author}
               onChange={(e) => {
                 handleSetAuthorChange(e);
               }}
@@ -333,7 +318,7 @@ export default function AudiobookReAddingModal(props) {
         </Modal.Footer>
       ) : (
         <Modal.Footer>
-          {stateModal.fileAdded ==false ? (
+          {stateModal.fileAdded == false ? (
             <div>
               <Button variant="dark" onClick={handleBack}>
                 {props.t("back")}
@@ -342,7 +327,7 @@ export default function AudiobookReAddingModal(props) {
                 disabled={!stateModal.file}
                 variant="dark"
                 onClick={() => {
-                  reAddAudiobook();
+                  addAudiobook();
                 }}
               >
                 {props.t("upload")}
