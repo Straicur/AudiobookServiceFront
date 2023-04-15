@@ -8,6 +8,7 @@ import JsonModal from "../../../Components/JsonModal";
 import AudiobookCommentsModal from "../../Categories/Components/Category/AudiobookCommentsModal";
 import AddAudiobookModal from "./AddAudiobookModal";
 import RenderAudiobooksList from "./RenderAudiobooksList";
+import RenderPageSwitches from "./RenderPageSwitches";
 import SearchAudiobooksOffCanvas from "./SearchAudiobooksOffCanvas";
 import { useCategoryListStore } from "../../../store";
 
@@ -28,6 +29,7 @@ export default function AudiobooksList(props) {
     detailAudiobookElement: null,
     searchModal: false,
     refresh: false,
+    addAudiobook: false,
     error: null,
     maxPage: 0,
   });
@@ -51,7 +53,7 @@ export default function AudiobooksList(props) {
 
   const [categoriesState, setCategories] = useState([]);
 
-  const resetStates = () => {
+  const resetSearchStates = () => {
     setSearchState({
       sort: 0,
       categories: [],
@@ -157,6 +159,7 @@ export default function AudiobooksList(props) {
         });
     }
   };
+
   const openAddModal = () => {
     fetchCategoriesList();
 
@@ -165,6 +168,7 @@ export default function AudiobooksList(props) {
       addAudiobookModal: !state.addAudiobookModal,
     });
   };
+
   const openSearchModal = () => {
     fetchCategoriesList();
 
@@ -174,69 +178,22 @@ export default function AudiobooksList(props) {
     });
   };
 
-  const nextPage = () => {
-    if (pageState.page + 1 < state.json.maxPage) {
-      setPageState({
-        ...pageState,
-        page: pageState.page + 1,
-      });
-      setState({ ...state, refresh: !state.refresh });
-    }
-  };
-
-  const prevPage = () => {
-    if (pageState.page > 0) {
-      setPageState({
-        ...pageState,
-        page: pageState.page - 1,
-      });
-      setState({ ...state, refresh: !state.refresh });
-    }
-  };
-
-  const renderPageSwitches = () => {
-    if (state.json != null && state.json.maxPage > 1) {
-      return (
-        <div className="row justify-content-center">
-          <div className="col-1">
-            <Button
-              variant="light"
-              size="sm"
-              color="dark"
-              className=" btn button mt-2"
-              onClick={() => prevPage()}
-            >
-              <i className="bi bi-chevron-left"></i>
-            </Button>
-          </div>
-          <div className="col-1">
-            {pageState.page + 1}/{state.json.maxPage}
-          </div>
-          <div className="col-1">
-            <Button
-              variant="light"
-              size="sm"
-              color="dark"
-              className=" btn button mt-2"
-              onClick={() => nextPage()}
-            >
-              <i className="bi bi-chevron-right"></i>
-            </Button>
-          </div>
-        </div>
-      );
-    }
-  };
-
   useEffect(() => {
     if (state.refresh) {
       setState({ ...state, refresh: !state.refresh });
-      
+      refetch();
+    }
+  }, [state.refresh]);
+
+  useEffect(() => {
+    if (state.addAudiobook) {
+      setState({ ...state, addAudiobook: !state.addAudiobook });
+
       setTimeout(function () {
         refetch();
       }, 3000);
     }
-  }, [state.refresh]);
+  }, [state.addAudiobook]);
 
   useEffect(() => {
     if (props.audiobooksState.error != null) {
@@ -272,7 +229,14 @@ export default function AudiobooksList(props) {
             t={t}
             token={props.token}
           />
-          {renderPageSwitches()}
+          {state.json != null && state.json.maxPage > 1 ? (
+            <RenderPageSwitches
+              state={state}
+              setState={setState}
+              pageState={pageState}
+              setPageState={setPageState}
+            />
+          ) : null}
         </div>
         <div className="row">
           <div className="col">
@@ -311,7 +275,7 @@ export default function AudiobooksList(props) {
             token={props.token}
             categoriesState={categoriesState}
             setCategories={setCategories}
-            resetStates={resetStates}
+            resetSearchStates={resetSearchStates}
           />
         ) : null}
 
@@ -329,7 +293,7 @@ export default function AudiobooksList(props) {
             setCategories={setCategories}
             pageState={pageState}
             setPageState={setPageState}
-            resetStates={resetStates}
+            resetSearchStates={resetSearchStates}
           />
         ) : null}
         {state.detailCommentsAudiobookModal &&

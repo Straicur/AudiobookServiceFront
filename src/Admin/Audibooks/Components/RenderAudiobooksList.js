@@ -18,11 +18,7 @@ export default function RenderAudiobooksList(props) {
 
     return renderArray;
   };
-  //todo Po przejściu do detali ma mieć Oprócz tego co ma w modalu dodatkowo pod listą kategorii powinien mieć jeszcze oddzielny modal z możliwiścią przypisania do kategorii
-  // 1 Render niech będzie tak jak w drzewie oraz obok każdej kategorii do której należy niech ma przycisk usuwający z niej
-  // 2 Dodaj przycisk który wyświetli mi listę kategorii w postaci drzewa (modal) i w niej mam mieć możliwsoć przypisania audiobooka do niej (DETALE)
-  // 4 Dodaj reading do detali audiobooka (to samo co dodawanie prawie)
-  // 5 formatuj i poukłdaj 
+
   const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add("disabled");
 
@@ -64,6 +60,7 @@ export default function RenderAudiobooksList(props) {
         });
       });
   };
+
   const getAge = (element) => {
     switch (element.age) {
       case 1:

@@ -22,17 +22,6 @@ export default function SearchAudiobooksOffCanvas(props) {
   const searchData = useLastSearchStore((state) => state.search);
   const searchDateUpdate = useLastSearchStore((state) => state.dateUpdate);
 
-  useEffect(() => {
-    if (
-      searchData != null &&
-      searchData != undefined &&
-      searchDateUpdate > Date.now() &&
-      searchDateUpdate != 0
-    ) {
-      props.setSearchState(searchData);
-    }
-  }, []);
-
   const generateCategoriesList = () => {
     let multiSelectTable = [];
 
@@ -123,7 +112,6 @@ export default function SearchAudiobooksOffCanvas(props) {
     }
   };
 
-
   const formatDuration = () => {
     return new Date(props.searchState.duration * 1000)
       .toISOString()
@@ -146,6 +134,17 @@ export default function SearchAudiobooksOffCanvas(props) {
     setShow(false);
   };
 
+  useEffect(() => {
+    if (
+      searchData != null &&
+      searchData != undefined &&
+      searchDateUpdate > Date.now() &&
+      searchDateUpdate != 0
+    ) {
+      props.setSearchState(searchData);
+    }
+  }, []);
+
   return (
     <Offcanvas
       show={show}
@@ -166,7 +165,7 @@ export default function SearchAudiobooksOffCanvas(props) {
                 size="sm"
                 color="success"
                 className=" btn button mt-2"
-                onClick={() => props.resetStates()}
+                onClick={() => props.resetSearchStates()}
               >
                 {props.t("reset")}
               </Button>

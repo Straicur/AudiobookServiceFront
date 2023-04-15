@@ -50,15 +50,16 @@ export default function AddAudiobookModal(props) {
       addAudiobookModal: !props.state.addAudiobookModal,
     });
   };
-  
+
   const handleCloseAndUpdate = () => {
-    props.resetStates();
+    props.resetSearchStates();
     props.setState({
       ...props.state,
       addAudiobookModal: !props.state.addAudiobookModal,
-      refresh: !props.state.refresh,
+      addAudiobook: !props.state.addAudiobook,
     });
   };
+  
   const handleBack = () => {
     setStateModal({ ...stateModal, modal: 1 });
   };
@@ -83,14 +84,6 @@ export default function AddAudiobookModal(props) {
   const nextPage = () => {
     setStateModal({ ...stateModal, modal: 2 });
   };
-
-  useEffect(() => {
-    if (stateModal.author.trim() && stateModal.title.trim()) {
-      setStateModal({ ...stateModal, isNextButtonDisabled: false });
-    } else {
-      setStateModal({ ...stateModal, isNextButtonDisabled: true });
-    }
-  }, [stateModal.author, stateModal.title]);
 
   const addAudiobook = () => {
     const url = "http://127.0.0.1:8000/api/admin/audiobook/add";
@@ -223,6 +216,14 @@ export default function AddAudiobookModal(props) {
     }
   };
 
+  useEffect(() => {
+    if (stateModal.author.trim() && stateModal.title.trim()) {
+      setStateModal({ ...stateModal, isNextButtonDisabled: false });
+    } else {
+      setStateModal({ ...stateModal, isNextButtonDisabled: true });
+    }
+  }, [stateModal.author, stateModal.title]);
+  
   return (
     <Modal
       show={props.state.addAudiobookModal}
