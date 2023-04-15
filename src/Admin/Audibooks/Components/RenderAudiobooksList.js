@@ -33,7 +33,8 @@ export default function RenderAudiobooksList(props) {
     )
       .then(() => {
         element.target.classList.remove("disabled");
-        let newJson = props.state.json.map((audiobook) => {
+
+        let newAudiobookList = props.state.json.audiobooks.map((audiobook) => {
           if (audiobook.id == selectedAudiobook.id) {
             return {
               id: audiobook.id,
@@ -50,6 +51,13 @@ export default function RenderAudiobooksList(props) {
             return audiobook;
           }
         });
+
+        const newJson = {
+          audiobooks: newAudiobookList,
+          page: 0,
+          limit: 15,
+          maxPage: 1,
+        };
 
         props.setState({ ...props.state, json: newJson });
       })
