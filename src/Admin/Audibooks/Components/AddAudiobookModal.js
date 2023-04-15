@@ -15,7 +15,7 @@ export default function AddAudiobookModal(props) {
     title: "",
     modal: 1,
     categories: [],
-    file:null,
+    file: null,
     fileAdded: false,
     uploadEnded: true,
   });
@@ -39,7 +39,7 @@ export default function AddAudiobookModal(props) {
       let file = e.target.files[0];
 
       if (file.type == "application/zip") {
-        setStateModal({ ...stateModal, fileAdded: true, file: file });
+        setStateModal({ ...stateModal, file: file });
       }
     }
   };
@@ -50,6 +50,7 @@ export default function AddAudiobookModal(props) {
       addAudiobookModal: !props.state.addAudiobookModal,
     });
   };
+  
   const handleCloseAndUpdate = () => {
     props.resetStates();
     props.setState({
@@ -91,7 +92,7 @@ export default function AddAudiobookModal(props) {
     }
   }, [stateModal.author, stateModal.title]);
 
-  const reAddAudiobook = () => {
+  const addAudiobook = () => {
     const url = "http://127.0.0.1:8000/api/admin/audiobook/add";
     const method = "PUT";
     const CHUNK_SIZE = 1024 * 1024 * 5;
@@ -325,7 +326,7 @@ export default function AddAudiobookModal(props) {
                 disabled={!stateModal.file}
                 variant="dark"
                 onClick={() => {
-                  reAddAudiobook();
+                  addAudiobook();
                 }}
               >
                 {props.t("upload")}

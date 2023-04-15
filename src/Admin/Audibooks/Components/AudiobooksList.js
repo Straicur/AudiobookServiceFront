@@ -175,7 +175,7 @@ export default function AudiobooksList(props) {
   };
 
   const nextPage = () => {
-    if (pageState.page+1 < state.json.maxPage) {
+    if (pageState.page + 1 < state.json.maxPage) {
       setPageState({
         ...pageState,
         page: pageState.page + 1,
@@ -227,10 +227,14 @@ export default function AudiobooksList(props) {
       );
     }
   };
+
   useEffect(() => {
     if (state.refresh) {
       setState({ ...state, refresh: !state.refresh });
-      refetch();
+      
+      setTimeout(function () {
+        refetch();
+      }, 3000);
     }
   }, [state.refresh]);
 
@@ -297,7 +301,7 @@ export default function AudiobooksList(props) {
           </div>
         </div>
 
-        {state.addAudiobookModal && categoriesState.length != 0? (
+        {state.addAudiobookModal && categoriesState.length != 0 ? (
           <AddAudiobookModal
             state={state}
             setState={setState}

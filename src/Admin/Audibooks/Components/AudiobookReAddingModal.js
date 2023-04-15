@@ -15,7 +15,7 @@ export default function AudiobookReAddingModal(props) {
     title: "",
     modal: 1,
     categories: [],
-    file:null,
+    file: null,
     fileAdded: false,
     uploadEnded: true,
   });
@@ -333,7 +333,7 @@ export default function AudiobookReAddingModal(props) {
         </Modal.Footer>
       ) : (
         <Modal.Footer>
-          {stateModal.fileAdded ==false ? (
+          {stateModal.fileAdded == false ? (
             <div>
               <Button variant="dark" onClick={handleBack}>
                 {props.t("back")}
