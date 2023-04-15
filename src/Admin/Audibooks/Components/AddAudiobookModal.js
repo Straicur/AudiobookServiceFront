@@ -59,7 +59,7 @@ export default function AddAudiobookModal(props) {
       addAudiobook: !props.state.addAudiobook,
     });
   };
-  
+
   const handleBack = () => {
     setStateModal({ ...stateModal, modal: 1 });
   };
@@ -223,7 +223,7 @@ export default function AddAudiobookModal(props) {
       setStateModal({ ...stateModal, isNextButtonDisabled: true });
     }
   }, [stateModal.author, stateModal.title]);
-  
+
   return (
     <Modal
       show={props.state.addAudiobookModal}

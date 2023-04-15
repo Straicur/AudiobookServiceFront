@@ -25,14 +25,6 @@ export default function EditCategoryModal(props) {
     setEditModal({ ...editModal, new_name: event.target.value });
   };
 
-  useEffect(() => {
-    if (editModal.new_name != "") {
-      setStateEditButton(false);
-    } else {
-      setStateEditButton(true);
-    }
-  }, [editModal.new_name]);
-
   const editCategoryName = () => {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/category/edit",
@@ -93,6 +85,15 @@ export default function EditCategoryModal(props) {
         });
       });
   };
+
+  useEffect(() => {
+    if (editModal.new_name != "") {
+      setStateEditButton(false);
+    } else {
+      setStateEditButton(true);
+    }
+  }, [editModal.new_name]);
+
   return (
     <Modal
       show={props.state.editCategoryModal}

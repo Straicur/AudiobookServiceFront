@@ -4,7 +4,6 @@ import { useAudiobookCover } from "../../../Components/Providers/AudiobookProvid
 import { useAudiobookPart } from "../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
 import { useAudiobookComments } from "../../../Components/Providers/AudiobookProviders/AudiobookCommentsProvider";
 import { AdminNavBar } from "../../../Components/NavBars/AdminNavBar";
-import { HandleFetch } from "../../../Components/HandleFetch";
 import CategoryEditForm from "./AudiobookEditForm";
 import AudiobookCategoryList from "./AudiobookCategoryList";
 import AudiobookCover from "./AudiobookCover";
@@ -151,6 +150,7 @@ export default function AudiobookDetail(props) {
                 {t("addCategory")}
               </Button>
             </div>
+
             <DeleteAudiobookEntarlyButton
               audiobookDetail={audiobookDetail}
               audiobookState={props.audiobookState}
@@ -158,6 +158,7 @@ export default function AudiobookDetail(props) {
               token={props.token}
               t={t}
             />
+
             <ReAddAudiobookButton
               dateUpdate={dateUpdate}
               categories={categories}
