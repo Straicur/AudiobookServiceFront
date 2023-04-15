@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useAudiobookData } from "../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
-import { useAudiobookCover } from "../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
-import { useAudiobookPart } from "../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
-import { useAudiobookComments } from "../../../Components/Providers/AudiobookProviders/AudiobookCommentsProvider";
-import { AdminNavBar } from "../../../Components/NavBars/AdminNavBar";
+import { useAudiobookData } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
+import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
+import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
+import { useAudiobookComments } from "../../../../Components/Providers/AudiobookProviders/AudiobookCommentsProvider";
+import { AdminNavBar } from "../../../../Components/NavBars/AdminNavBar";
 import CategoryEditForm from "./AudiobookEditForm";
 import AudiobookCategoryList from "./AudiobookCategoryList";
 import AudiobookCover from "./AudiobookCover";
@@ -17,7 +17,7 @@ import ReAddAudiobookButton from "./ReAddAudiobookButton";
 import DeleteAudiobookEntarlyButton from "./DeleteAudiobookEntarlyButton";
 import { useTranslation } from "react-i18next";
 
-import { useCategoryListStore } from "../../../store";
+import { useCategoryListStore } from "../../../../store";
 
 export default function AudiobookDetail(props) {
   const { t } = useTranslation();

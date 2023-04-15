@@ -4,7 +4,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
-import { useLastSearchStore } from "../../../store";
+import { useLastSearchStore } from "../../../../store";
 
 export default function SearchAudiobooksOffCanvas(props) {
   const [show, setShow] = useState(true);

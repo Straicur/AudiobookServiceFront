@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { HandleFetch } from "../../../../Components/HandleFetch";
 import { Buffer } from "buffer";
 
 export default function AudiobookCover(props) {
