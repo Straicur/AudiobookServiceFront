@@ -128,5 +128,12 @@
     "slectedAll": "Wybierz wszytkie opcje",
     "resetSearch": "Resetuj",
     "rating": "Średnie oceny",
-    "reAdding": "Dodaj ponownie"
+    "reAdding": "Dodaj ponownie",
+    "banned": "Zbanowany",
+    "firstname": "Imię",
+    "lastname": "Nazwisko",
+    "dateRegister": "Data rejestracji",
+    "email": "Email",
+    "toDelete": "Do usunięcia",
+    "deleteUserList": "Użytkownicy do usunięcia"
 }

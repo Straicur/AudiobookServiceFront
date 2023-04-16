@@ -127,5 +127,12 @@
     "slectedAll": "Select all options",
     "reset": "Reset",
     "rating": "Average rating",
-    "reAdding": "Add again"
+    "reAdding": "Add again",
+    "banned": "Banned",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "dateRegister": "Date regiseter",
+    "email": "Email",
+    "toDelete": "To deleted",
+    "deleteUserList": "Users to delete"
 }

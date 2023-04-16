@@ -127,7 +127,6 @@ export default function AudiobooksList(props) {
         });
       },
       onSuccess: (data) => {
-        console.log(data);
         setState({ ...state, json: data });
       },
     }
