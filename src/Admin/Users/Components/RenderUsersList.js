@@ -20,70 +20,51 @@ export default function RenderUsersList(props) {
     return renderArray;
   };
 
-  const activeteAudiobook = (element, selectedUser) => {
-    //   element.target.classList.add("disabled");
-    //   HandleFetch(
-    //     "http://127.0.0.1:8000/api/admin/audiobook/active",
-    //     "PATCH",
-    //     {
-    //       audiobookId: selectedAudiobook.id,
-    //       active: !selectedAudiobook.active,
-    //     },
-    //     props.token
-    //   )
-    //     .then(() => {
-    //       element.target.classList.remove("disabled");
-    //       let newAudiobookList = props.state.json.audiobooks.map((audiobook) => {
-    //         if (audiobook.id == selectedAudiobook.id) {
-    //           return {
-    //             id: audiobook.id,
-    //             title: audiobook.title,
-    //             author: audiobook.author,
-    //             year: audiobook.year,
-    //             duration: audiobook.duration,
-    //             size: audiobook.size,
-    //             parts: audiobook.parts,
-    //             age: audiobook.age,
-    //             active: !audiobook.active,
-    //           };
-    //         } else {
-    //           return audiobook;
-    //         }
-    //       });
-    //       const newJson = {
-    //         audiobooks: newAudiobookList,
-    //         page: 0,
-    //         limit: 15,
-    //         maxPage: 1,
-    //       };
-    //       props.setState({ ...props.state, json: newJson });
-    //     })
-    //     .catch((e) => {
-    //       props.setState({
-    //         ...props.state,
-    //         error: e,
-    //       });
-    //     });
-  };
-  const deleteUser = (element, selectedUser) => {};
-  const getAge = (element) => {
-    switch (element.age) {
-      case 1:
-        return "3-7";
-        break;
-      case 2:
-        return "7-12";
-        break;
-      case 3:
-        return "12-16";
-        break;
-      case 4:
-        return "16-18";
-        break;
-      case 5:
-        return "18+";
-        break;
-    }
+
+  const deleteUser = (element, selectedUser) => {
+    element.target.classList.add("disabled");
+    HandleFetch(
+      "http://127.0.0.1:8000/api/admin/user/delete",
+      "DELETE",
+      {
+        userId: selectedUser.id,
+      },
+      props.token
+    )
+      .then(() => {
+        element.target.classList.remove("disabled");
+
+        let newUserList = props.state.json.users.map((user) => {
+          if (user.id == selectedUser.id) {
+            return {
+                active: user.active,
+                banned: !user.banned,
+                dateCreated: user.dateCreated,
+                email: user.email,
+                firstname: user.firstname,
+                id: user.id,
+                lastname: user.lastname,
+            };
+          } else {
+            return user;
+          }
+        });
+
+        const newJson = {
+          users: newUserList,
+          page: 0,
+          limit: 15,
+          maxPage: 1,
+        };
+
+        props.setState({ ...props.state, json: newJson });
+      })
+      .catch((e) => {
+        props.setState({
+          ...props.state,
+          error: e,
+        });
+      });
   };
 
   const createColumn = (element) => {
@@ -130,6 +111,7 @@ export default function RenderUsersList(props) {
               variant="danger"
               size="sm"
               className="btn button mx-2"
+              disabled={element.banned}
               onClick={(e) => {
                 deleteUser(e, element);
               }}

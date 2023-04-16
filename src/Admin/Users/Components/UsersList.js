@@ -7,6 +7,8 @@ import Button from "react-bootstrap/Button";
 import JsonModal from "../../../Components/JsonModal";
 import RenderUsersList from "./RenderUsersList";
 import RenderPageSwitches from "./RenderPageSwitches";
+import DeleteUserModal from "./DeleteUserModal";
+import EditUserModal from "./EditUserModal";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
@@ -15,7 +17,7 @@ export default function AudiobooksList(props) {
     json: null,
     jsonModal: false,
     deleteUsersModal: false,
-    editUserModal:false,
+    editUserModal: false,
     editUserElement: null,
     searchModal: false,
     refresh: false,
@@ -57,7 +59,7 @@ export default function AudiobooksList(props) {
         {
           page: pageState.page,
           limit: pageState.limit,
-        //   searchData: createSearchData(),
+          //   searchData: createSearchData(),
         },
         props.token
       ),
@@ -91,14 +93,14 @@ export default function AudiobooksList(props) {
       refetch();
     }
   }, [state.refresh]);
-  
+
   return (
     <div className="container-fluid main-container mt-3">
       <div className="card position-relative p-3 mb-5  shadow">
         <AdminNavBar />
         <hr className="line" />
         <div className="table-title my-2">
-        <div className="d-flex justify-content-end ">
+          <div className="d-flex justify-content-end ">
             <div className="p-2 bd-highlight">
               <h2>{t("filters")}</h2>
             </div>
@@ -128,17 +130,19 @@ export default function AudiobooksList(props) {
               setPageState={setPageState}
             />
           ) : null}
-
         </div>
         <div className="row">
-        <div className="col">
+          <div className="col">
             <Button
               variant="dark"
               size="lg"
               color="dark"
               className=" btn button mt-2"
               onClick={() =>
-                setState({ ...state, deleteUsersModal: !state.deleteUsersModal })
+                setState({
+                  ...state,
+                  deleteUsersModal: !state.deleteUsersModal,
+                })
               }
             >
               {t("deleteUserList")}
@@ -159,6 +163,12 @@ export default function AudiobooksList(props) {
           </div>
         </div>
 
+        {state.editUserModal && state.editUserElement ? (
+          <EditUserModal state={state} setState={setState} t={t} />
+        ) : null}
+        {state.deleteUsersModal ? (
+          <DeleteUserModal state={state} setState={setState} t={t} />
+        ) : null}
         {state.jsonModal ? (
           <JsonModal state={state} setState={setState} t={t} />
         ) : null}

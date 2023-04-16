@@ -135,5 +135,6 @@
     "dateRegister": "Data rejestracji",
     "email": "Email",
     "toDelete": "Do usunięcia",
-    "deleteUserList": "Użytkownicy do usunięcia"
+    "deleteUserList": "Użytkownicy do usunięcia",
+    "editUser":"Edycja użytkownika"
 }

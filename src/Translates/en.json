@@ -134,5 +134,6 @@
     "dateRegister": "Date regiseter",
     "email": "Email",
     "toDelete": "To deleted",
-    "deleteUserList": "Users to delete"
+    "deleteUserList": "Users to delete",
+    "editUser": "Edit user"
 }
