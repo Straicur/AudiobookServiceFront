@@ -136,5 +136,8 @@
     "email": "Email",
     "toDelete": "Do usunięcia",
     "deleteUserList": "Użytkownicy do usunięcia",
-    "editUser":"Edycja użytkownika"
+    "editUser": "Edycja użytkownika",
+    "addRole": "Dodaj rolę",
+    "deleteRole": "Usuń rolę",
+    "roles": "Role"
 }

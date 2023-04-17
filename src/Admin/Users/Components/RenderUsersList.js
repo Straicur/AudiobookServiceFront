@@ -20,7 +20,6 @@ export default function RenderUsersList(props) {
     return renderArray;
   };
 
-
   const deleteUser = (element, selectedUser) => {
     element.target.classList.add("disabled");
     HandleFetch(
@@ -37,13 +36,13 @@ export default function RenderUsersList(props) {
         let newUserList = props.state.json.users.map((user) => {
           if (user.id == selectedUser.id) {
             return {
-                active: user.active,
-                banned: !user.banned,
-                dateCreated: user.dateCreated,
-                email: user.email,
-                firstname: user.firstname,
-                id: user.id,
-                lastname: user.lastname,
+              active: user.active,
+              banned: !user.banned,
+              dateCreated: user.dateCreated,
+              email: user.email,
+              firstname: user.firstname,
+              id: user.id,
+              lastname: user.lastname,
             };
           } else {
             return user;
@@ -66,7 +65,32 @@ export default function RenderUsersList(props) {
         });
       });
   };
+  const getUserRoles = (element) => {
+    if (props.dateUpdate < Date.now()) {
+      props.userRolesStore.removeRoles();
+      HandleFetch(
+        "http://127.0.0.1:8000/api/admin/user/system/roles",
+        "GET",
+        null,
+        props.token
+      )
+        .then((data) => {
+          props.userRolesStore.setRoles(data);
+        })
+        .catch((e) => {
+          props.setState({
+            ...props.state,
+            error: e,
+          });
+        });
+    }
 
+    props.setState({
+      ...props.state,
+      editUserModal: !props.state.editUserModal,
+      editUserElement: element,
+    });
+  };
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>
@@ -95,13 +119,7 @@ export default function RenderUsersList(props) {
               variant="dark"
               size="sm"
               className="btn button mx-2"
-              onClick={() =>
-                props.setState({
-                  ...props.state,
-                  editUserModal: !props.state.editUserModal,
-                  editUserElement: element,
-                })
-              }
+              onClick={() => getUserRoles(element)}
             >
               {props.t("edit")}
             </Button>

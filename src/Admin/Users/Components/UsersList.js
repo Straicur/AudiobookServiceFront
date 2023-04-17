@@ -9,9 +9,15 @@ import RenderUsersList from "./RenderUsersList";
 import RenderPageSwitches from "./RenderPageSwitches";
 import DeleteUserModal from "./DeleteUserModal";
 import EditUserModal from "./EditUserModal";
+import { useLastUserRolesStore } from "../../../store";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
+
+  const userRolesStore = useLastUserRolesStore();
+
+  const roles = useLastUserRolesStore((state) => state.roles);
+  const dateUpdate = useLastUserRolesStore((state) => state.dateUpdate);
 
   const [state, setState] = useState({
     json: null,
@@ -50,6 +56,7 @@ export default function AudiobooksList(props) {
       order: 0,
     });
   };
+  
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     "data",
     () =>
@@ -121,6 +128,9 @@ export default function AudiobooksList(props) {
             setState={setState}
             t={t}
             token={props.token}
+            roles={roles}
+            dateUpdate={dateUpdate}
+            userRolesStore={userRolesStore}
           />
           {state.json != null && state.json.maxPage > 1 ? (
             <RenderPageSwitches
@@ -163,8 +173,14 @@ export default function AudiobooksList(props) {
           </div>
         </div>
 
-        {state.editUserModal && state.editUserElement ? (
-          <EditUserModal state={state} setState={setState} t={t} />
+        {state.editUserModal && state.editUserElement && roles!= null? (
+          <EditUserModal
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+            roles={roles.roles}
+          />
         ) : null}
         {state.deleteUsersModal ? (
           <DeleteUserModal state={state} setState={setState} t={t} />

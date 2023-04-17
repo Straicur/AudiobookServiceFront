@@ -135,5 +135,8 @@
     "email": "Email",
     "toDelete": "To deleted",
     "deleteUserList": "Users to delete",
-    "editUser": "Edit user"
+    "editUser": "Edit user",
+    "addRole": "Add role",
+    "deleteRole": "Delete role",
+    "roles": "Roles"
 }
