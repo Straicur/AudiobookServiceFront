@@ -92,6 +92,8 @@
     "upload": "Upload",
     "activate": "Activate",
     "deActivate": "Deactivate",
+    "ban": "Ban",
+    "unban": "Unban",
     "youDelete": "You want to delete ?",
     "youDeactivate": "You want to deactivate ?",
     "youActivete": "You want to activate ?",
@@ -138,5 +140,6 @@
     "editUser": "Edit user",
     "addRole": "Add role",
     "deleteRole": "Delete role",
-    "roles": "Roles"
+    "roles": "Roles",
+    "changePhoneNumber": "Change phone number"
 }

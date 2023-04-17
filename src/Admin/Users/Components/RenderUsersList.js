@@ -129,7 +129,6 @@ export default function RenderUsersList(props) {
               variant="danger"
               size="sm"
               className="btn button mx-2"
-              disabled={element.banned}
               onClick={(e) => {
                 deleteUser(e, element);
               }}

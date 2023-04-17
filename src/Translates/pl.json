@@ -92,6 +92,8 @@
     "upload": "Wyślij",
     "activate": "Aktywuj",
     "deactivate": "Deaktywuj",
+    "ban": "Zbanuj",
+    "unban": "Odbanuj",
     "deActivate": "Deaktywuj",
     "youDelete": "Napewno chcesz usunąć ?",
     "youDeactivate": "Napewno chcesz deaktywować ?",
@@ -139,5 +141,6 @@
     "editUser": "Edycja użytkownika",
     "addRole": "Dodaj rolę",
     "deleteRole": "Usuń rolę",
-    "roles": "Role"
+    "roles": "Role",
+    "changePhoneNumber": "Zmień numer telefonu"
 }
