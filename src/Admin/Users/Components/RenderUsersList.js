@@ -20,8 +20,7 @@ export default function RenderUsersList(props) {
     return renderArray;
   };
 
-  const deleteUser = (element, selectedUser) => {
-    element.target.classList.add("disabled");
+  const deleteUser = (selectedUser) => {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/user/delete",
       "DELETE",
@@ -31,18 +30,17 @@ export default function RenderUsersList(props) {
       props.token
     )
       .then(() => {
-        element.target.classList.remove("disabled");
-
         let newUserList = props.state.json.users.map((user) => {
           if (user.id == selectedUser.id) {
             return {
               active: user.active,
-              banned: !user.banned,
+              banned: user.banned,
               dateCreated: user.dateCreated,
               email: user.email,
               firstname: user.firstname,
               id: user.id,
               lastname: user.lastname,
+              deleted: !user.deleted
             };
           } else {
             return user;
@@ -123,14 +121,14 @@ export default function RenderUsersList(props) {
             >
               {props.t("edit")}
             </Button>
-
             <Button
               name="en"
               variant="danger"
               size="sm"
               className="btn button mx-2"
+              disabled={element.deleted}
               onClick={(e) => {
-                deleteUser(e, element);
+                deleteUser(element);
               }}
             >
               {props.t("toDelete")}
