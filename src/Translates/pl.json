@@ -147,5 +147,6 @@
     "active/ban": "Aktywuj/Zbanuj",
     "changeData": "Zmień dane",
     "deleted": "Usunięty",
-    "deleteUsers": "Użytkownicy do usunięcia"
+    "deleteUsers": "Użytkownicy do usunięcia",
+    "deletedUsers": "Usunięci użytkownicy"
 }

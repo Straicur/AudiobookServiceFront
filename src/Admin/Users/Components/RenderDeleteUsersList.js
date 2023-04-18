@@ -24,7 +24,7 @@ export default function RenderDeleteUsersList(props) {
       props.token
     )
       .then(() => {
-        console.log("dsa")
+        console.log("dsa");
         props.setState({ ...props.state, refresh: !props.state.refresh });
       })
       .catch((e) => {
@@ -35,7 +35,7 @@ export default function RenderDeleteUsersList(props) {
       });
   };
   const declineDeleteUser = (selectedUser) => {
-    console.log(selectedUser.id)
+    console.log(selectedUser.id);
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/user/delete/decline",
       "PATCH",

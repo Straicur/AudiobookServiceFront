@@ -3,10 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
-import RenderDeleteUsersList from "./RenderDeleteUsersList";
+import RenderDeletedUsersList from "./RenderDeletedUsersList";
 import RenderPageSwitches from "./RenderPageSwitches";
 
-export default function DeleteUsersModal(props) {
+export default function DeletedUsersModal(props) {
   const [state, setState] = useState({
     users: [],
     refresh: false,
@@ -21,8 +21,7 @@ export default function DeleteUsersModal(props) {
   const handleClose = () => {
     props.setState({
       ...props.state,
-      deleteUsersModal: !props.state.deleteUsersModal,
-      refresh: !props.state.refresh,
+      deletedUsersModal: !props.state.deletedUsersModal,
     });
   };
 
@@ -36,7 +35,7 @@ export default function DeleteUsersModal(props) {
     "dataSecond",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/user/to/delete/list",
+        "http://127.0.0.1:8000/api/admin/user/delete/list",
         "POST",
         {
           page: pageState.page,
@@ -69,12 +68,12 @@ export default function DeleteUsersModal(props) {
   }, [state.refresh]);
 
   return (
-    <Modal size="lg" show={props.state.deleteUsersModal} onHide={handleClose}>
+    <Modal size="lg" show={props.state.deletedUsersModal} onHide={handleClose}>
       <Modal.Header>
-        <Modal.Title>{props.t("deleteUsers")}</Modal.Title>
+        <Modal.Title>{props.t("deletedUsers")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <RenderDeleteUsersList
+        <RenderDeletedUsersList
           state={state}
           setState={setState}
           token={props.token}

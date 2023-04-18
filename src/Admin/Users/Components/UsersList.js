@@ -9,6 +9,7 @@ import RenderUsersList from "./RenderUsersList";
 import RenderPageSwitches from "./RenderPageSwitches";
 import DeleteUsersModal from "./DeleteUsersModal";
 import EditUserModal from "./EditUserModal";
+import DeletedUsersModal from "./DeletedUsersModal";
 import SearchUsersOffCanvas from "./SearchUsersOffCanvas";
 import { useLastUserRolesStore } from "../../../store";
 
@@ -24,11 +25,12 @@ export default function AudiobooksList(props) {
     json: null,
     jsonModal: false,
     deleteUsersModal: false,
+    deletedUsersModal: false,
     editUserModal: false,
     editUserElement: null,
     searchModal: false,
     refresh: false,
-    error: null
+    error: null,
   });
   const [searchState, setSearchState] = useState({
     email: "",
@@ -196,6 +198,22 @@ export default function AudiobooksList(props) {
               color="dark"
               className=" btn button mt-2"
               onClick={() =>
+                setState({
+                  ...state,
+                  deletedUsersModal: !state.deletedUsersModal,
+                })
+              }
+            >
+              {t("deleteUserList")}
+            </Button>
+          </div>
+          <div className="col">
+            <Button
+              variant="dark"
+              size="lg"
+              color="dark"
+              className=" btn button mt-2"
+              onClick={() =>
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
@@ -224,6 +242,16 @@ export default function AudiobooksList(props) {
         ) : null}
         {state.deleteUsersModal ? (
           <DeleteUsersModal
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+            pageState={pageState}
+            setPageState={setPageState}
+          />
+        ) : null}
+        {state.deletedUsersModal ? (
+          <DeletedUsersModal
             state={state}
             setState={setState}
             t={t}
