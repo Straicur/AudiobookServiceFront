@@ -9,6 +9,7 @@ import RenderUsersList from "./RenderUsersList";
 import RenderPageSwitches from "./RenderPageSwitches";
 import DeleteUserModal from "./DeleteUserModal";
 import EditUserModal from "./EditUserModal";
+import SearchUsersOffCanvas from "./SearchUsersOffCanvas";
 import { useLastUserRolesStore } from "../../../store";
 
 export default function AudiobooksList(props) {
@@ -51,12 +52,39 @@ export default function AudiobooksList(props) {
       phoneNumber: "",
       firstname: "",
       lastname: "",
-      active: null,
-      banned: null,
+      active: false,
+      banned: false,
       order: 0,
     });
   };
-  
+
+  const createSearchData = () => {
+    let searchJson = {};
+
+    if (searchState.email != "") {
+      searchJson.email = searchState.email;
+    }
+    if (searchState.phoneNumber != "") {
+      searchJson.phoneNumber = searchState.phoneNumber;
+    }
+    if (searchState.firstname != "") {
+      searchJson.firstname = searchState.firstname;
+    }
+    if (searchState.lastname != "") {
+      searchJson.lastname = searchState.lastname;
+    }
+    if (searchState.active != null) {
+      searchJson.active = searchState.active;
+    }
+    if (searchState.banned != null) {
+      searchJson.banned = searchState.banned;
+    }
+    if (searchState.order != 0) {
+      searchJson.order = searchState.order;
+    }
+    return searchJson;
+  };
+
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     "data",
     () =>
@@ -66,7 +94,7 @@ export default function AudiobooksList(props) {
         {
           page: pageState.page,
           limit: pageState.limit,
-          //   searchData: createSearchData(),
+            searchData: createSearchData(),
         },
         props.token
       ),
@@ -75,8 +103,8 @@ export default function AudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setAudiobookState({
-          ...props.audiobooksState,
+        props.setUsersState({
+          ...props.usersState,
           error: e,
         });
       },
@@ -172,8 +200,11 @@ export default function AudiobooksList(props) {
             </Button>
           </div>
         </div>
-
-        {state.editUserModal && state.editUserElement && roles!= null? (
+        {console.log(searchState)}
+        {state.searchModal ? (
+          <SearchUsersOffCanvas state={state} setState={setState} resetSearchStates={resetSearchStates} searchState={searchState} setSearchState={setSearchState} t={t} />
+        ) : null}
+        {state.editUserModal && state.editUserElement && roles != null ? (
           <EditUserModal
             state={state}
             setState={setState}

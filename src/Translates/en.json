@@ -141,5 +141,6 @@
     "addRole": "Add role",
     "deleteRole": "Delete role",
     "roles": "Roles",
-    "changePhoneNumber": "Change phone number"
+    "changePhoneNumber": "Change phone number",
+    "phoneNumber": "Phone number"
 }
