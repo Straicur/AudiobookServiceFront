@@ -11,7 +11,7 @@ export default function Users() {
     error: null,
   });
 
-  return ( 
+  return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {

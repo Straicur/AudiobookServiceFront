@@ -142,5 +142,7 @@
     "deleteRole": "Delete role",
     "roles": "Roles",
     "changePhoneNumber": "Change phone number",
-    "phoneNumber": "Phone number"
+    "phoneNumber": "Phone number",
+    "active/ban": "Activate/Ban",
+    "changeData": "Change data"
 }

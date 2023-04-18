@@ -94,7 +94,7 @@ export default function AudiobooksList(props) {
         {
           page: pageState.page,
           limit: pageState.limit,
-            searchData: createSearchData(),
+          searchData: createSearchData(),
         },
         props.token
       ),
@@ -202,7 +202,14 @@ export default function AudiobooksList(props) {
         </div>
         {console.log(searchState)}
         {state.searchModal ? (
-          <SearchUsersOffCanvas state={state} setState={setState} resetSearchStates={resetSearchStates} searchState={searchState} setSearchState={setSearchState} t={t} />
+          <SearchUsersOffCanvas
+            state={state}
+            setState={setState}
+            resetSearchStates={resetSearchStates}
+            searchState={searchState}
+            setSearchState={setSearchState}
+            t={t}
+          />
         ) : null}
         {state.editUserModal && state.editUserElement && roles != null ? (
           <EditUserModal

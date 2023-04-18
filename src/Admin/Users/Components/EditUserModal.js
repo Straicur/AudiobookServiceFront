@@ -9,7 +9,7 @@ export default function EditUserModal(props) {
     props.setState({
       ...props.state,
       editUserModal: !props.state.editUserModal,
-      refresh: !props.state.refresh
+      refresh: !props.state.refresh,
     });
   };
 
