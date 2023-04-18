@@ -145,5 +145,6 @@
     "phoneNumber": "Phone number",
     "active/ban": "Activate/Ban",
     "changeData": "Change data",
-    "deleted": "Deleted"
+    "deleted": "Deleted",
+    "deleteUsers": "Users to delete"
 }

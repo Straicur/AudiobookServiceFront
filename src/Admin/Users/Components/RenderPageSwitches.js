@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 
 export default function RenderPageSwitches(props) {
   const nextPage = () => {
-    if (props.pageState.page + 1 < props.state.json.maxPage) {
+    if (props.pageState.page + 1 < props.pageState.maxPage) {
       props.setPageState({
         ...props.pageState,
         page: props.pageState.page + 1,
@@ -35,7 +35,7 @@ export default function RenderPageSwitches(props) {
         </Button>
       </div>
       <div className="col-1">
-        {props.pageState.page + 1}/{props.state.json.maxPage}
+        {props.pageState.page + 1}/{props.pageState.maxPage}
       </div>
       <div className="col-1">
         <Button

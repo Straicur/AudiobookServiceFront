@@ -31,7 +31,6 @@ export default function AudiobooksList(props) {
     refresh: false,
     addAudiobook: false,
     error: null,
-    maxPage: 0,
   });
 
   const [searchState, setSearchState] = useState({
@@ -49,6 +48,7 @@ export default function AudiobooksList(props) {
   const [pageState, setPageState] = useState({
     page: 0,
     limit: 15,
+    maxPage: 0,
   });
 
   const [categoriesState, setCategories] = useState([]);
@@ -128,6 +128,7 @@ export default function AudiobooksList(props) {
       },
       onSuccess: (data) => {
         setState({ ...state, json: data });
+        setPageState({ ...pageState, maxPage: data.maxPage });
       },
     }
   );
@@ -227,8 +228,10 @@ export default function AudiobooksList(props) {
             setState={setState}
             t={t}
             token={props.token}
+            pageState={pageState}
+            setPageState={setPageState}
           />
-          {state.json != null && state.json.maxPage > 1 ? (
+          {state.json != null && pageState.maxPage > 1 ? (
             <RenderPageSwitches
               state={state}
               setState={setState}

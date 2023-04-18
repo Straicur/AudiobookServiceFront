@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import JsonModal from "../../../Components/JsonModal";
 import RenderUsersList from "./RenderUsersList";
 import RenderPageSwitches from "./RenderPageSwitches";
-import DeleteUserModal from "./DeleteUserModal";
+import DeleteUsersModal from "./DeleteUsersModal";
 import EditUserModal from "./EditUserModal";
 import SearchUsersOffCanvas from "./SearchUsersOffCanvas";
 import { useLastUserRolesStore } from "../../../store";
@@ -28,8 +28,7 @@ export default function AudiobooksList(props) {
     editUserElement: null,
     searchModal: false,
     refresh: false,
-    error: null,
-    maxPage: 0,
+    error: null
   });
   const [searchState, setSearchState] = useState({
     email: "",
@@ -44,6 +43,7 @@ export default function AudiobooksList(props) {
   const [pageState, setPageState] = useState({
     page: 0,
     limit: 15,
+    maxPage: 0,
   });
 
   const resetSearchStates = () => {
@@ -110,7 +110,8 @@ export default function AudiobooksList(props) {
       },
       onSuccess: (data) => {
         setState({ ...state, json: data });
-        resetSearchStates()
+        setPageState({ ...pageState, maxPage: data.maxPage });
+        resetSearchStates();
       },
     }
   );
@@ -159,8 +160,10 @@ export default function AudiobooksList(props) {
             roles={roles}
             dateUpdate={dateUpdate}
             userRolesStore={userRolesStore}
+            pageState={pageState}
+            setPageState={setPageState}
           />
-          {state.json != null && state.json.maxPage > 1 ? (
+          {state.json != null && pageState.maxPage > 1 ? (
             <RenderPageSwitches
               state={state}
               setState={setState}
@@ -220,7 +223,14 @@ export default function AudiobooksList(props) {
           />
         ) : null}
         {state.deleteUsersModal ? (
-          <DeleteUserModal state={state} setState={setState} t={t} />
+          <DeleteUsersModal
+            state={state}
+            setState={setState}
+            t={t}
+            token={props.token}
+            pageState={pageState}
+            setPageState={setPageState}
+          />
         ) : null}
         {state.jsonModal ? (
           <JsonModal state={state} setState={setState} t={t} />

@@ -146,5 +146,6 @@
     "phoneNumber": "Numer telefonu",
     "active/ban": "Aktywuj/Zbanuj",
     "changeData": "Zmień dane",
-    "deleted": "Usunięty"
+    "deleted": "Usunięty",
+    "deleteUsers": "Użytkownicy do usunięcia"
 }

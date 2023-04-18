@@ -45,9 +45,9 @@ export default function RenderUsersList(props) {
 
         const newJson = {
           users: newUserList,
-          page: 0,
-          limit: 15,
-          maxPage: 1,
+          page: props.pageState.page,
+          limit: props.pageState.limit,
+          maxPage: props.pageState.maxPage,
         };
 
         props.setState({ ...props.state, json: newJson });
