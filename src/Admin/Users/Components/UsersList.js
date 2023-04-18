@@ -52,8 +52,8 @@ export default function AudiobooksList(props) {
       phoneNumber: "",
       firstname: "",
       lastname: "",
-      active: false,
-      banned: false,
+      active: null,
+      banned: null,
       order: 0,
     });
   };
@@ -109,8 +109,8 @@ export default function AudiobooksList(props) {
         });
       },
       onSuccess: (data) => {
-        console.log(data);
         setState({ ...state, json: data });
+        resetSearchStates()
       },
     }
   );
@@ -200,7 +200,6 @@ export default function AudiobooksList(props) {
             </Button>
           </div>
         </div>
-        {console.log(searchState)}
         {state.searchModal ? (
           <SearchUsersOffCanvas
             state={state}

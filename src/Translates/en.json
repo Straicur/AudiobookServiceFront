@@ -144,5 +144,6 @@
     "changePhoneNumber": "Change phone number",
     "phoneNumber": "Phone number",
     "active/ban": "Activate/Ban",
-    "changeData": "Change data"
+    "changeData": "Change data",
+    "deleted": "Deleted"
 }

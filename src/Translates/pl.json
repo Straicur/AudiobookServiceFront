@@ -145,5 +145,6 @@
     "changePhoneNumber": "Zmień numer telefonu",
     "phoneNumber": "Numer telefonu",
     "active/ban": "Aktywuj/Zbanuj",
-    "changeData": "Zmień dane"
+    "changeData": "Zmień dane",
+    "deleted": "Usunięty"
 }

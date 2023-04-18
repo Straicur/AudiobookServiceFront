@@ -12,6 +12,8 @@ export default function SearchUsersOffCanvas(props) {
       ...props.state,
       searchModal: !props.state.searchModal,
     });
+    props.resetSearchStates();
+
     setShow(false);
   };
 

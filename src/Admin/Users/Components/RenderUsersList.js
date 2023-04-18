@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../../../Components/NavBars/AdminNavBar";
-import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
-import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import { v4 as uuidv4 } from "uuid";
 import { CreateDate } from "../../../Components/CrateDate";
@@ -40,7 +36,7 @@ export default function RenderUsersList(props) {
               firstname: user.firstname,
               id: user.id,
               lastname: user.lastname,
-              deleted: !user.deleted
+              deleted: !user.deleted,
             };
           } else {
             return user;
@@ -131,7 +127,7 @@ export default function RenderUsersList(props) {
                 deleteUser(element);
               }}
             >
-              {props.t("toDelete")}
+              {element.deleted ? props.t("deleted") : props.t("toDelete")}
             </Button>
           </div>
         </td>
