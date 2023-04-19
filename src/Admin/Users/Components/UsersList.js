@@ -132,6 +132,12 @@ export default function AudiobooksList(props) {
     }
   }, [state.refresh]);
 
+  useEffect(() => {
+    if (props.usersState.error != null) {
+      throw props.usersState.error;
+    }
+  }, [props.usersState.error]);
+
   return (
     <div className="container-fluid main-container mt-3">
       <div className="card position-relative p-3 mb-5  shadow">
