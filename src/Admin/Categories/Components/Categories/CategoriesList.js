@@ -90,8 +90,8 @@ export default function CategoriesList(props) {
           categories={categories}
           t={t}
         />
-        <div className="row">
-          <div className="col">
+        <div className="row justify-content-md-center">
+          <div className="col-3 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"
@@ -107,7 +107,7 @@ export default function CategoriesList(props) {
               + {t("addCategory")}
             </Button>
           </div>
-          <div className="col">
+          <div className="col-3 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"

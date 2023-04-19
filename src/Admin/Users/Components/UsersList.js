@@ -174,8 +174,8 @@ export default function AudiobooksList(props) {
             />
           ) : null}
         </div>
-        <div className="row">
-          <div className="col">
+        <div className="row justify-content-md-center">
+          <div className="col-2 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"
@@ -191,7 +191,7 @@ export default function AudiobooksList(props) {
               {t("deleteUserList")}
             </Button>
           </div>
-          <div className="col">
+          <div className="col-2 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"
@@ -204,10 +204,10 @@ export default function AudiobooksList(props) {
                 })
               }
             >
-              {t("deleteUserList")}
+              {t("deletedUsers")}
             </Button>
           </div>
-          <div className="col">
+          <div className="col-2 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"

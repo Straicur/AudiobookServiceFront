@@ -130,8 +130,8 @@ export default function AudiobooksList(props) {
             token={props.token}
           />
         </div>
-        <div className="row">
-          <div className="col">
+        <div className="row justify-content-md-center">
+          <div className="col-3 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"
@@ -147,7 +147,7 @@ export default function AudiobooksList(props) {
               {t("addAudiobook")}
             </Button>
           </div>
-          <div className="col">
+          <div className="col-3 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"
