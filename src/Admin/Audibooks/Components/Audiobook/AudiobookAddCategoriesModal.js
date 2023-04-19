@@ -38,8 +38,8 @@ export default function AudiobookAddCategoriesModal(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setAudiobookState({
+          ...props.audiobookState,
           error: e,
         });
       },

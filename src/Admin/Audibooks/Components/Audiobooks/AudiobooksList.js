@@ -121,7 +121,7 @@ export default function AudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setAudiobookState({
+        props.setAudiobooksState({
           ...props.audiobooksState,
           error: e,
         });
@@ -305,6 +305,8 @@ export default function AudiobooksList(props) {
             setState={setState}
             t={t}
             token={props.token}
+            audiobooksState={props.audiobooksState}
+            setAudiobooksState={props.setAudiobooksState}
           />
         ) : null}
         {state.jsonModal ? (

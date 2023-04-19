@@ -58,8 +58,8 @@ export default function AudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setAudiobooksState({
+          ...props.audiobooksState,
           error: e,
         });
       },
@@ -92,8 +92,8 @@ export default function AudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setAudiobooksState({
+          ...props.audiobooksState,
           error: e,
         });
       },
@@ -184,9 +184,12 @@ export default function AudiobooksList(props) {
             t={t}
             token={props.token}
             categoryID={state.category.id}
+            setAudiobooksState={props.setAudiobooksState}
+            audiobooksState={props.audiobooksState}
           />
         ) : null}
         {state.detailAudiobookModal && state.detailAudiobookElement != null ? (
+          //todo tu pomyśl co z providerami zrobić bo nie ma gdzie zwracać errorów
           <CategoryDetailProviders
             state={state}
             setState={setState}
@@ -202,6 +205,8 @@ export default function AudiobooksList(props) {
             setState={setState}
             t={t}
             token={props.token}
+            setAudiobooksState={props.setAudiobooksState}
+            audiobooksState={props.audiobooksState}
           />
         ) : null}
         {state.jsonModal ? (
