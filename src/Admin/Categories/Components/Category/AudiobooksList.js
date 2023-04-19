@@ -9,6 +9,7 @@ import AddAudiobookModal from "../Category/AddAudiobookModal";
 import RenderAudiobooksList from "../Category/RenderAudiobooksList";
 import CategoryDetailProviders from "../Category/CategoryDetailProviders";
 import AudiobookCommentsModal from "./AudiobookCommentsModal";
+import RenderPageSwitches from "./RenderPageSwitches";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
@@ -26,7 +27,13 @@ export default function AudiobooksList(props) {
     refresh: false,
     error: null,
   });
-  //todo tu brakuje przewijania strony !!! Masz na sztywno ustawiona page i limit
+
+  const [pageState, setPageState] = useState({
+    page: 0,
+    limit: 15,
+    maxPage: 0,
+  });
+
   const {
     isLoading: isLoadingFirst,
     error: errorFirst,
@@ -41,8 +48,8 @@ export default function AudiobooksList(props) {
         "POST",
         {
           categoryKey: props.categoryKey,
-          page: 0,
-          limit: 10,
+          page: pageState.page,
+          limit: pageState.limit,
         },
         props.token
       ),
@@ -58,6 +65,7 @@ export default function AudiobooksList(props) {
       },
       onSuccess: (data) => {
         setState({ ...state, json: data.audiobooks });
+        setPageState({ ...pageState, maxPage: data.maxPage });
       },
     }
   );
@@ -129,6 +137,14 @@ export default function AudiobooksList(props) {
             t={t}
             token={props.token}
           />
+          {state.json != null && pageState.maxPage > 1 ? (
+            <RenderPageSwitches
+              state={state}
+              setState={setState}
+              pageState={pageState}
+              setPageState={setPageState}
+            />
+          ) : null}
         </div>
         <div className="row justify-content-md-center">
           <div className="col-3 d-flex justify-content-center">
