@@ -11,7 +11,6 @@ import AddCategoryModal from "./AddCategoryModal";
 import EditCategoryModal from "./EditCategoryModal";
 
 export default function CategoriesList(props) {
-  
   const { t } = useTranslation();
 
   const [state, setState] = useState({
@@ -52,7 +51,7 @@ export default function CategoriesList(props) {
       onSuccess: (data) => {
         setState({ ...state, json: data.categories });
         //todo czy na pewno tak chciałem ? Bo tu może być problem że pobieram to a nie potrzebuje tak naprawdę jeśli trzymam to w storage
-        if ((dateUpdate < Date.now()) || state.refresh) {
+        if (dateUpdate < Date.now() || state.refresh) {
           categoriesStore.removeCategories();
 
           for (const category of data.categories) {
@@ -83,15 +82,17 @@ export default function CategoriesList(props) {
       <div className="card position-relative p-3 mb-5  shadow">
         <AdminNavBar />
         <hr className="line" />
-        <div className="table-title my-2"><h1>{t('categories')}</h1></div>
+        <div className="table-title my-2">
+          <h1>{t("categories")}</h1>
+        </div>
         <RenderCategoriesList
           state={state}
           setState={setState}
           categories={categories}
           t={t}
         />
-        <div className="row">
-          <div className="col">
+        <div className="row justify-content-md-center">
+          <div className="col-3 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"
@@ -104,10 +105,10 @@ export default function CategoriesList(props) {
                 })
               }
             >
-              + {t("addCategory")}
+              {t("addCategory")}
             </Button>
           </div>
-          <div className="col">
+          <div className="col-3 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"

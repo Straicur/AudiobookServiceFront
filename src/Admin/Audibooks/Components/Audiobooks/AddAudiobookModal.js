@@ -145,8 +145,8 @@ export default function AddAudiobookModal(props) {
               });
             })
             .catch((e) => {
-              props.setCategoiesState({
-                ...props.categoiesState,
+              props.setAudiobooksState({
+                ...props.audiobooksState,
                 error: e,
               });
             });
@@ -200,8 +200,8 @@ export default function AddAudiobookModal(props) {
                 });
               })
               .catch((e) => {
-                props.setCategoiesState({
-                  ...props.categoiesState,
+                props.setAudiobooksState({
+                  ...props.audiobooksState,
                   error: e,
                 });
               });

@@ -40,7 +40,12 @@ export default function AudiobookCommentsModal(props) {
       retry: 1,
       retryDelay: 500,
       refetchOnWindowFocus: false,
-      onError: (e) => {},
+      onError: (e) => {
+        props.setAudiobooksState({
+          ...props.audiobooksState,
+          error: e,
+        });
+      },
       onSuccess: (data) => {
         setState({ ...state, comments: data });
       },

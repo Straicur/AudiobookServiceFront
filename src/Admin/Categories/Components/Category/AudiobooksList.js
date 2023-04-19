@@ -9,6 +9,7 @@ import AddAudiobookModal from "../Category/AddAudiobookModal";
 import RenderAudiobooksList from "../Category/RenderAudiobooksList";
 import CategoryDetailProviders from "../Category/CategoryDetailProviders";
 import AudiobookCommentsModal from "./AudiobookCommentsModal";
+import RenderPageSwitches from "./RenderPageSwitches";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();
@@ -27,6 +28,12 @@ export default function AudiobooksList(props) {
     error: null,
   });
 
+  const [pageState, setPageState] = useState({
+    page: 0,
+    limit: 15,
+    maxPage: 0,
+  });
+
   const {
     isLoading: isLoadingFirst,
     error: errorFirst,
@@ -41,8 +48,8 @@ export default function AudiobooksList(props) {
         "POST",
         {
           categoryKey: props.categoryKey,
-          page: 0,
-          limit: 10,
+          page: pageState.page,
+          limit: pageState.limit,
         },
         props.token
       ),
@@ -51,13 +58,14 @@ export default function AudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setAudiobooksState({
+          ...props.audiobooksState,
           error: e,
         });
       },
       onSuccess: (data) => {
         setState({ ...state, json: data.audiobooks });
+        setPageState({ ...pageState, maxPage: data.maxPage });
       },
     }
   );
@@ -84,8 +92,8 @@ export default function AudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setAudiobooksState({
+          ...props.audiobooksState,
           error: e,
         });
       },
@@ -129,9 +137,17 @@ export default function AudiobooksList(props) {
             t={t}
             token={props.token}
           />
+          {state.json != null && pageState.maxPage > 1 ? (
+            <RenderPageSwitches
+              state={state}
+              setState={setState}
+              pageState={pageState}
+              setPageState={setPageState}
+            />
+          ) : null}
         </div>
-        <div className="row">
-          <div className="col">
+        <div className="row justify-content-md-center">
+          <div className="col-3 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"
@@ -147,7 +163,7 @@ export default function AudiobooksList(props) {
               {t("addAudiobook")}
             </Button>
           </div>
-          <div className="col">
+          <div className="col-3 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"
@@ -168,9 +184,12 @@ export default function AudiobooksList(props) {
             t={t}
             token={props.token}
             categoryID={state.category.id}
+            setAudiobooksState={props.setAudiobooksState}
+            audiobooksState={props.audiobooksState}
           />
         ) : null}
         {state.detailAudiobookModal && state.detailAudiobookElement != null ? (
+          //todo tu pomyśl co z providerami zrobić bo nie ma gdzie zwracać errorów
           <CategoryDetailProviders
             state={state}
             setState={setState}
@@ -186,6 +205,8 @@ export default function AudiobooksList(props) {
             setState={setState}
             t={t}
             token={props.token}
+            setAudiobooksState={props.setAudiobooksState}
+            audiobooksState={props.audiobooksState}
           />
         ) : null}
         {state.jsonModal ? (

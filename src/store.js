@@ -75,6 +75,21 @@ let lastSearchStore = (set) => ({
     })),
 });
 
+let lastUserRolesStore = (set) => ({
+  roles: null,
+  dateUpdate: 0,
+  setRoles: (roles) => {
+    set((state) => ({
+      roles: roles,
+      dateUpdate: Date.now() + 1800000
+    }));
+  },
+  removeRoles: () =>
+    set(() => ({
+      roles: null,
+      dateUpdate: 0
+    })),
+});
 
 let audiobookListStore = (set) => ({
   people: [],
@@ -97,9 +112,13 @@ categoryListStore = persist(categoryListStore, { name: "categories" });
 lastSearchStore = devtools(lastSearchStore);
 lastSearchStore = persist(lastSearchStore, { name: "searchAudiobooks" });
 
+lastUserRolesStore = devtools(lastUserRolesStore);
+lastUserRolesStore = persist(lastUserRolesStore, { name: "userRolesStore" });
+
 audiobookListStore = devtools(audiobookListStore);
 
 export const useTokenStore = create(tokenStore);
+export const useLastUserRolesStore = create(lastUserRolesStore);
 export const useLastSearchStore = create(lastSearchStore);
 export const useCategoryTreeListStore = create(categoryTreeListStore);
 export const useCategoryListStore = create(categoryListStore);

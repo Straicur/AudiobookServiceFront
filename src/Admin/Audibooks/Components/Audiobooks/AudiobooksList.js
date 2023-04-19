@@ -31,7 +31,6 @@ export default function AudiobooksList(props) {
     refresh: false,
     addAudiobook: false,
     error: null,
-    maxPage: 0,
   });
 
   const [searchState, setSearchState] = useState({
@@ -49,6 +48,7 @@ export default function AudiobooksList(props) {
   const [pageState, setPageState] = useState({
     page: 0,
     limit: 15,
+    maxPage: 0,
   });
 
   const [categoriesState, setCategories] = useState([]);
@@ -121,14 +121,14 @@ export default function AudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setAudiobookState({
+        props.setAudiobooksState({
           ...props.audiobooksState,
           error: e,
         });
       },
       onSuccess: (data) => {
-        console.log(data);
         setState({ ...state, json: data });
+        setPageState({ ...pageState, maxPage: data.maxPage });
       },
     }
   );
@@ -228,8 +228,10 @@ export default function AudiobooksList(props) {
             setState={setState}
             t={t}
             token={props.token}
+            pageState={pageState}
+            setPageState={setPageState}
           />
-          {state.json != null && state.json.maxPage > 1 ? (
+          {state.json != null && pageState.maxPage > 1 ? (
             <RenderPageSwitches
               state={state}
               setState={setState}
@@ -238,8 +240,8 @@ export default function AudiobooksList(props) {
             />
           ) : null}
         </div>
-        <div className="row">
-          <div className="col">
+        <div className="row justify-content-md-center">
+          <div className="col-3 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"
@@ -250,7 +252,7 @@ export default function AudiobooksList(props) {
               {t("addAudiobook")}
             </Button>
           </div>
-          <div className="col">
+          <div className="col-3 d-flex justify-content-center">
             <Button
               variant="dark"
               size="lg"
@@ -303,6 +305,8 @@ export default function AudiobooksList(props) {
             setState={setState}
             t={t}
             token={props.token}
+            audiobooksState={props.audiobooksState}
+            setAudiobooksState={props.setAudiobooksState}
           />
         ) : null}
         {state.jsonModal ? (
