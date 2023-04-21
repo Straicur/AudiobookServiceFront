@@ -11,6 +11,7 @@ import AdminMain from "./Admin/AdminMain/AdminMain";
 import Category from "./Admin/Categories/Category";
 import Categories from "./Admin/Categories/Categories";
 import Notifications from "./Admin/Notifications/Notifications";
+import Notification from "./Admin/Notifications/Notification";
 import Users from "./Admin/Users/Users";
 
 import Forgot from "./User/Forgot/Forgot";
@@ -78,6 +79,12 @@ function App() {
             exact
             path="/admin/notifications"
             element={<Notifications />}
+            errorElement={<Page404 />}
+          />
+            <Route
+            exact
+            path="/admin/notification/:notificationId"
+            element={<Notification />}
             errorElement={<Page404 />}
           />
           <Route

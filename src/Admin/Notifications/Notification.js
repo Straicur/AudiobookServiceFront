@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
-// import AudiobooksList from "./Components/AudiobooksList";
+// import NotificationsList from "./Components/Notifications/NotificationsList";
 
 export default function Notification() {
   const token = useTokenStore((state) => state.token);
@@ -21,9 +21,9 @@ export default function Notification() {
         });
       }}
     >
-      {/* <AudiobooksList
-        audiobooksState={audiobooksState}
-        setAudiobooksState={setAudiobooksState}
+      {/* <NotificationsList
+        notificationState={notificationState}
+        setNotificationState={setNotificationState}
         token={token}
       /> */}
     </ErrorBoundary>
