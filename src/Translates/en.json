@@ -163,5 +163,7 @@
     "notificationType": "notification type",
     "actionId": "Action id",
     "type": "Type",
-    "selectType": "Select type"
+    "selectType": "Select type",
+    "addNotification": "Add notification",
+    "notificationDetail": "Notification details"
 }

@@ -164,5 +164,7 @@
     "notificationType": "Typ notyfikacji",
     "actionId": "Id akcji",
     "type": "Typ",
-    "selectType": "Wybierz typ"
+    "selectType": "Wybierz typ",
+    "addNotification": "Dodaj powiadomienie",
+    "notificationDetail": "Detale powiadomienia"
 }

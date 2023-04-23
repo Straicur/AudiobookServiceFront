@@ -5,8 +5,8 @@ import { HandleFetch } from "../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import JsonModal from "../../../Components/JsonModal";
-// import AddNotificationModal from "./AddNotificationModal";
-// import DetailNotificationkModal from "./DetailNotificationkModal";
+import AddNotificationModal from "./AddNotificationModal";
+import DetailNotificationkModal from "./DetailNotificationkModal";
 import SearchNotificationsOffCanvas from "./SearchNotificationsOffCanvas";
 import RenderNotificationsList from "./RenderNotificationsList";
 import RenderPageSwitches from "./RenderPageSwitches";
@@ -103,7 +103,7 @@ export default function NotificationsList(props) {
   const openAddModal = () => {
     setState({
       ...state,
-      addAudiobookModal: !state.addAudiobookModal,
+      addNotificationModal: !state.addNotificationModal
     });
   };
 
@@ -213,19 +213,17 @@ export default function NotificationsList(props) {
           </div>
         </div>
 
-        {/* {state.addAudiobookModal && categoriesState.length != 0 ? (
-          <AddAudiobookModal
+        {state.addNotificationModal ? (
+          <AddNotificationModal
             state={state}
             setState={setState}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
             t={t}
             token={props.token}
-            categoriesState={categoriesState}
-            setCategories={setCategories}
             resetSearchStates={resetSearchStates}
           />
-        ) : null} */}
+        ) : null}
         {console.log(searchState)}
         {state.searchModal? (
           <SearchNotificationsOffCanvas
@@ -242,9 +240,9 @@ export default function NotificationsList(props) {
             resetSearchStates={resetSearchStates}
           />
         ) : null}
-        {/* {state.detailCommentsAudiobookModal &&
-        state.detailAudiobookElement != null ? (
-          <AudiobookCommentsModal
+        {state.detailNotificationkModal &&
+        state.detailNotificationElement != null ? (
+          <DetailNotificationkModal
             state={state}
             setState={setState}
             t={t}
@@ -252,7 +250,7 @@ export default function NotificationsList(props) {
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
           />
-        ) : null} */}
+        ) : null}
         {state.jsonModal ? (
           <JsonModal state={state} setState={setState} t={t} />
         ) : null}
