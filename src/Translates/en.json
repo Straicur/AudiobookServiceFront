@@ -147,5 +147,19 @@
     "changeData": "Change data",
     "deleted": "Deleted",
     "deleteUsers": "Users to delete",
-    "deletedUsers": "Deleted users"
+    "deletedUsers": "Deleted users",
+    "notificationTypeNormal": "",
+    "notificationTypeAdmin": "",
+    "notificationTypeProposed": "",
+    "notificationTypeNewCategory": "",
+    "notificationTypeNewAudiobook": "",
+    "notificationTypeUserDeleteDecline": "",
+    "text": "",
+    "notDeleted": "",
+    "dateAdd": "",
+    "userType": "",
+    "notificationType": "",
+    "actionId": "",
+    "type": "",
+    "selectType": ""
 }

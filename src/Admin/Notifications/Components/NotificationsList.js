@@ -5,12 +5,11 @@ import { HandleFetch } from "../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import JsonModal from "../../../Components/JsonModal";
-// import AudiobookCommentsModal from "../../../Categories/Components/Category/AudiobookCommentsModal";
-// import AddAudiobookModal from "./AddAudiobookModal";
+// import AddNotificationModal from "./AddNotificationModal";
+// import DetailNotificationkModal from "./DetailNotificationkModal";
+import SearchNotificationsOffCanvas from "./SearchNotificationsOffCanvas";
 import RenderNotificationsList from "./RenderNotificationsList";
 import RenderPageSwitches from "./RenderPageSwitches";
-// import SearchAudiobooksOffCanvas from "./SearchAudiobooksOffCanvas";
-// import { useCategoryListStore } from "../../../../store";
 
 export default function NotificationsList(props) {
   const { t } = useTranslation();
@@ -18,26 +17,19 @@ export default function NotificationsList(props) {
   const [state, setState] = useState({
     jsonModal: false,
     json: null,
-    addAudiobookModal: false,
-    addAudiobookParent: null,
-    detailCommentsAudiobookModal: false,
-    detailAudiobookElement: null,
+    addNotificationModal: false,
+    detailNotificationkModal: false,
+    detailNotificationElement: null,
     searchModal: false,
     refresh: false,
-    addAudiobook: false,
     error: null,
   });
 
   const [searchState, setSearchState] = useState({
-    sort: 0,
-    categories: [],
-    title: "",
-    author: "",
-    album: "",
-    parts: 0,
-    age: 0,
-    year: 0,
-    duration: 0,
+    text: "",
+    type: 0,
+    deleted: null,
+    order: 0,
   });
 
   const [pageState, setPageState] = useState({
@@ -48,17 +40,31 @@ export default function NotificationsList(props) {
 
   const resetSearchStates = () => {
     setSearchState({
-      sort: 0,
-      categories: [],
-      title: "",
-      author: "",
-      album: "",
-      parts: 0,
-      age: 0,
-      year: 0,
-      duration: 0,
+      text: "",
+      type: 0,
+      deleted: null,
+      order: 0
     });
   };
+
+  const formatData = () => {
+    let searchJson = {};
+
+    if (searchState.text != "") {
+      searchJson.text = searchState.text;
+    } 
+    if (searchState.deleted != null) {
+      searchJson.deleted = searchState.deleted;
+    } 
+    if (searchState.type != 0) {
+      searchJson.type = parseInt(searchState.type);
+    } 
+    if (searchState.text != 0) {
+      searchJson.order = parseInt(searchState.order);
+    } 
+
+    return searchJson;
+  }
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     "data",
@@ -69,6 +75,7 @@ export default function NotificationsList(props) {
         {
           page: pageState.page,
           limit: pageState.limit,
+          searchData: formatData()
         },
         props.token
       ),
@@ -194,10 +201,10 @@ export default function NotificationsList(props) {
             setCategories={setCategories}
             resetSearchStates={resetSearchStates}
           />
-        ) : null}
+        ) : null} */}
 
-        {state.searchModal && categoriesState.length != 0 ? (
-          <SearchAudiobooksOffCanvas
+        {state.searchModal? (
+          <SearchNotificationsOffCanvas
             state={state}
             setState={setState}
             notificationsState={props.notificationsState}
@@ -206,14 +213,12 @@ export default function NotificationsList(props) {
             setSearchState={setSearchState}
             t={t}
             token={props.token}
-            categoriesState={categoriesState}
-            setCategories={setCategories}
             pageState={pageState}
             setPageState={setPageState}
             resetSearchStates={resetSearchStates}
           />
         ) : null}
-        {state.detailCommentsAudiobookModal &&
+        {/* {state.detailCommentsAudiobookModal &&
         state.detailAudiobookElement != null ? (
           <AudiobookCommentsModal
             state={state}

@@ -148,5 +148,19 @@
     "changeData": "Zmień dane",
     "deleted": "Usunięty",
     "deleteUsers": "Użytkownicy do usunięcia",
-    "deletedUsers": "Usunięci użytkownicy"
+    "deletedUsers": "Usunięci użytkownicy",
+    "notificationTypeNormal": "",
+    "notificationTypeAdmin": "",
+    "notificationTypeProposed": "",
+    "notificationTypeNewCategory": "",
+    "notificationTypeNewAudiobook": "",
+    "notificationTypeUserDeleteDecline": "",
+    "text": "",
+    "notDeleted": "",
+    "dateAdd": "",
+    "userType": "",
+    "notificationType": "",
+    "actionId": "",
+    "type": "",
+    "selectType": ""
 }

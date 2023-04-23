@@ -179,7 +179,6 @@ export default function SearchAudiobooksOffCanvas(props) {
             {props.t("sort")}
           </InputGroup.Text>
           <Form.Select
-            aria-label="Default select example"
             onChange={(e) => {
               changeSort(e);
             }}
@@ -266,7 +265,6 @@ export default function SearchAudiobooksOffCanvas(props) {
             {props.t("age")}
           </InputGroup.Text>
           <Form.Select
-            aria-label="Default select example"
             onChange={(e) => {
               changeAge(e);
             }}

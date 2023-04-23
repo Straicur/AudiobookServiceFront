@@ -1,10 +1,16 @@
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
 import { CreateDate } from "../../../Components/CrateDate";
 
 export default function RenderAudiobooksList(props) {
-  const navigate = useNavigate();
+
+  const openDetailNotificationModal = (element) => {
+    props.setState({
+      ...props.state,
+      detailNotificationkModal: !props.detailNotificationkModal,
+      detailNotificationElement:element
+    })
+  }
 
   const createTable = () => {
     let renderArray = [];
@@ -40,7 +46,7 @@ export default function RenderAudiobooksList(props) {
               variant="dark"
               size="sm"
               className="btn button mx-2"
-              onClick={() => navigate("/admin/notification/" + element.id)}
+              onClick={() => openDetailNotificationModal(element)}
             >
               {props.t("details")}
             </Button>
@@ -54,7 +60,7 @@ export default function RenderAudiobooksList(props) {
     <table className="table">
       <thead className="">
         <tr>
-          <th scope="col">{props.t("date")}</th>
+          <th scope="col">{props.t("dateAdd")}</th>
           <th scope="col">{props.t("userType")}</th>
           <th scope="col">{props.t("notificationType")}</th>
           <th scope="col">{props.t("actionId")}</th>
