@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../../../../Components/NavBars/AdminNavBar";
+import { AdminNavBar } from "../../../Components/NavBars/AdminNavBar";
 import { useQuery } from "react-query";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
-import JsonModal from "../../../../Components/JsonModal";
+import JsonModal from "../../../Components/JsonModal";
 // import AudiobookCommentsModal from "../../../Categories/Components/Category/AudiobookCommentsModal";
 // import AddAudiobookModal from "./AddAudiobookModal";
 import RenderNotificationsList from "./RenderNotificationsList";

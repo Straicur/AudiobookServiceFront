@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
-import NotificationsList from "./Components/Notifications/NotificationsList";
+import NotificationsList from "./Components/NotificationsList";
 
 export default function Notifications() {
   const token = useTokenStore((state) => state.token);
