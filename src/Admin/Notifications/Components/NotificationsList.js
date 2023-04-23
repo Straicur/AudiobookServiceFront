@@ -10,6 +10,7 @@ import JsonModal from "../../../Components/JsonModal";
 import SearchNotificationsOffCanvas from "./SearchNotificationsOffCanvas";
 import RenderNotificationsList from "./RenderNotificationsList";
 import RenderPageSwitches from "./RenderPageSwitches";
+import { useLastUserRolesStore } from "../../../store";
 
 export default function NotificationsList(props) {
   const { t } = useTranslation();
@@ -37,6 +38,9 @@ export default function NotificationsList(props) {
     limit: 15,
     maxPage: 0,
   });
+  const userRolesStore = useLastUserRolesStore();
+  const roles = useLastUserRolesStore((state) => state.roles);
+  const dateUpdate = useLastUserRolesStore((state) => state.dateUpdate);
 
   const resetSearchStates = () => {
     setSearchState({
@@ -104,6 +108,25 @@ export default function NotificationsList(props) {
   };
 
   const openSearchModal = () => {
+    if (dateUpdate < Date.now()) {
+      userRolesStore.removeRoles();
+      HandleFetch(
+        "http://127.0.0.1:8000/api/admin/user/system/roles",
+        "GET",
+        null,
+        props.token
+      )
+        .then((data) => {
+          userRolesStore.setRoles(data);
+        })
+        .catch((e) => {
+          props.setNotificationsState({
+            ...props.notificationsState,
+            error: e,
+          });
+        });
+    }
+
     setState({
       ...state,
       searchModal: !state.searchModal,
@@ -152,6 +175,7 @@ export default function NotificationsList(props) {
             token={props.token}
             pageState={pageState}
             setPageState={setPageState}
+            roles={roles}
           />
           {state.json != null && pageState.maxPage > 1 ? (
             <RenderPageSwitches
@@ -202,7 +226,7 @@ export default function NotificationsList(props) {
             resetSearchStates={resetSearchStates}
           />
         ) : null} */}
-
+        {console.log(searchState)}
         {state.searchModal? (
           <SearchNotificationsOffCanvas
             state={state}

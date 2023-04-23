@@ -62,11 +62,11 @@ export default function SearchUsersOffCanvas(props) {
     }
   };
 
-  const changeActive = () => {
+  const changeActive = (element) => {
     if (props.searchState.active == null) {
       props.setSearchState({
         ...props.searchState,
-        active: true,
+        active: element.target.checked,
       });
     } else {
       props.setSearchState({
@@ -76,11 +76,11 @@ export default function SearchUsersOffCanvas(props) {
     }
   };
 
-  const changeBanned = () => {
+  const changeBanned = (element) => {
     if (props.searchState.banned == null) {
       props.setSearchState({
         ...props.searchState,
-        banned: true,
+        banned: element.target.checked,
       });
     } else {
       props.setSearchState({
@@ -115,7 +115,7 @@ export default function SearchUsersOffCanvas(props) {
                 size="sm"
                 color="success"
                 className=" btn button mt-2"
-                onClick={() => props.resetSearchStates()}
+                onClick={props.resetSearchStates}
               >
                 {props.t("reset")}
               </Button>
@@ -191,16 +191,30 @@ export default function SearchUsersOffCanvas(props) {
           <Form.Check
             type="switch"
             id="custom-switch"
-            label={props.t("active")}
-            onChange={changeActive}
+            label={
+              props.searchState.active != null && props.searchState.active
+                ? props.t("active")
+                : props.t("notActive")
+            }
+            checked={
+              props.searchState.active != null && props.searchState.active
+            }
+            onChange={(e) => changeActive(e)}
           />
         </InputGroup>
         <InputGroup className="mb-1 input_modal py-1 ">
           <Form.Check
             type="switch"
             id="custom-switch"
-            label={props.t("banned")}
-            onChange={changeBanned}
+            label={
+              props.searchState.banned != null && props.searchState.banned
+                ? props.t("banned")
+                : props.t("notBanned")
+            }
+            checked={
+              props.searchState.banned != null && props.searchState.banned
+            }
+            onChange={(e) => changeBanned(e)}
           />
         </InputGroup>
         <div className="row mx-1">

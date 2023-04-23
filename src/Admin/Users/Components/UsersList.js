@@ -13,7 +13,7 @@ import DeletedUsersModal from "./DeletedUsersModal";
 import SearchUsersOffCanvas from "./SearchUsersOffCanvas";
 import { useLastUserRolesStore } from "../../../store";
 
-export default function AudiobooksList(props) {
+export default function UsersList(props) {
   const { t } = useTranslation();
 
   const userRolesStore = useLastUserRolesStore();

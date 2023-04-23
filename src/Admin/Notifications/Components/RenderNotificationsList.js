@@ -1,20 +1,19 @@
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { CreateDate } from "../../../Components/CrateDate";
+import { HandleFetch } from "../../../Components/HandleFetch";
 
 export default function RenderAudiobooksList(props) {
-
   const openDetailNotificationModal = (element) => {
     props.setState({
       ...props.state,
       detailNotificationkModal: !props.detailNotificationkModal,
-      detailNotificationElement:element
-    })
-  }
+      detailNotificationElement: element,
+    });
+  };
 
   const createTable = () => {
     let renderArray = [];
-    console.log(props.state.json)
     if (props.state.json != null) {
       props.state.json.systemNotifications.forEach((element) => {
         renderArray.push(createColumn(element));
@@ -24,13 +23,43 @@ export default function RenderAudiobooksList(props) {
     return renderArray;
   };
 
+  const createUserType = (element) => {
+    let role = props.roles.roles.filter((role) => role.type == element);
+    if (role.length > 0) {
+      return role[0].name;
+    }
+  };
+
+  const createNotificationType = (element) => {
+    switch (element) {
+      case 1: {
+        return props.t("notificationTypeNormal");
+      }
+      case 2: {
+        return props.t("notificationTypeAdmin");
+      }
+      case 3: {
+        return props.t("notificationTypeProposed");
+      }
+      case 4: {
+        return props.t("notificationTypeNewCategory");
+      }
+      case 5: {
+        return props.t("notificationTypeNewAudiobook");
+      }
+      case 6: {
+        return props.t("notificationTypeUserDeleteDecline");
+      }
+    }
+  };
+
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>
         {console.log(element)}
         <th scope="row">{CreateDate(element.dateAdd)}</th>
-        <td>{element.userType}</td>
-        <td>{element.notificationType}</td>
+        <td>{createNotificationType(element.notificationType)}</td>
+        <td>{createUserType(element.userType)}</td>
         <td>{element.actionId}</td>
         <td>
           {element.delete ? (
@@ -61,8 +90,8 @@ export default function RenderAudiobooksList(props) {
       <thead className="">
         <tr>
           <th scope="col">{props.t("dateAdd")}</th>
-          <th scope="col">{props.t("userType")}</th>
           <th scope="col">{props.t("notificationType")}</th>
+          <th scope="col">{props.t("userType")}</th>
           <th scope="col">{props.t("actionId")}</th>
           <th scope="col">{props.t("deleted")}</th>
           <th scope="col"></th>

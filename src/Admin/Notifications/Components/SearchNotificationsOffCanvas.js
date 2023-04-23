@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 
 export default function SearchNotificationsOffCanvas(props) {
   const [show, setShow] = useState(true);
-
+  //todo tu chyba za dużo razy się odświerza lista po zamknięciu i otwarciu !!!
   const handleClose = () => {
     props.setState({
       ...props.state,
@@ -33,6 +33,40 @@ export default function SearchNotificationsOffCanvas(props) {
     }
   };
 
+  const changeType = (element) => {
+    if (element.target.value != NaN && element.target.value != undefined) {
+      props.setSearchState({
+        ...props.searchState,
+        type: parseInt(element.target.value),
+      });
+    }
+  };
+  const changeDeleted = (element) => {
+    if (element.target.checked) {
+      props.setSearchState({
+        ...props.searchState,
+        deleted: element.target.checked,
+      });
+    } else {
+      props.setSearchState({
+        ...props.searchState,
+        deleted: null,
+      });
+    }
+  };
+  const changeNotDeleted = (element) => {
+    if (element.target.checked) {
+      props.setSearchState({
+        ...props.searchState,
+        deleted: !element.target.checked,
+      });
+    } else {
+      props.setSearchState({
+        ...props.searchState,
+        deleted: null,
+      });
+    }
+  };
   const searchAgain = () => {
     props.setPageState({
       ...props.pageState,
@@ -81,7 +115,6 @@ export default function SearchNotificationsOffCanvas(props) {
             {props.t("sort")}
           </InputGroup.Text>
           <Form.Select
-     
             onChange={(e) => {
               changeOrder(e);
             }}
@@ -109,9 +142,9 @@ export default function SearchNotificationsOffCanvas(props) {
             {props.t("type")}
           </InputGroup.Text>
           <Form.Select
-            // onChange={(e) => {
-            //   changeSort(e);
-            // }}
+            onChange={(e) => {
+              changeType(e);
+            }}
             value={props.searchState.sort}
           >
             <option>{props.t("selectType")}</option>
@@ -120,8 +153,9 @@ export default function SearchNotificationsOffCanvas(props) {
             <option value={3}>{props.t("notificationTypeProposed")}</option>
             <option value={4}>{props.t("notificationTypeNewCategory")}</option>
             <option value={5}>{props.t("notificationTypeNewAudiobook")}</option>
-            <option value={6}>{props.t("notificationTypeUserDeleteDecline")}</option>
-
+            <option value={6}>
+              {props.t("notificationTypeUserDeleteDecline")}
+            </option>
           </Form.Select>
         </InputGroup>
         <InputGroup className="mb-1 input_modal py-1 ">
@@ -129,6 +163,10 @@ export default function SearchNotificationsOffCanvas(props) {
             type="switch"
             id="custom-switch"
             label={props.t("deleted")}
+            checked={
+              props.searchState.deleted != null && props.searchState.deleted
+            }
+            onChange={(e) => changeDeleted(e)}
           />
         </InputGroup>
         <InputGroup className="mb-1 input_modal py-1 ">
@@ -136,6 +174,10 @@ export default function SearchNotificationsOffCanvas(props) {
             type="switch"
             id="custom-switch"
             label={props.t("notDeleted")}
+            checked={
+              props.searchState.deleted != null && !props.searchState.deleted
+            }
+            onChange={(e) => changeNotDeleted(e)}
           />
         </InputGroup>
         <div className="row mx-1">
