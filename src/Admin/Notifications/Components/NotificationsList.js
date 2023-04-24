@@ -222,9 +222,9 @@ export default function NotificationsList(props) {
             t={t}
             token={props.token}
             resetSearchStates={resetSearchStates}
+            roles={roles}
           />
         ) : null}
-        {console.log(searchState)}
         {state.searchModal? (
           <SearchNotificationsOffCanvas
             state={state}
@@ -249,6 +249,7 @@ export default function NotificationsList(props) {
             token={props.token}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
+            roles={roles}
           />
         ) : null}
         {state.jsonModal ? (

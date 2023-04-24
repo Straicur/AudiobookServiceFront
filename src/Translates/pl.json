@@ -34,6 +34,7 @@
     "accountSettings": "Ustawienia konta",
     "settings": "Ustawienia",
     "administration": "Administracja",
+    "system": "System",
     "myList": "Moja lista",
     "administrationPage": "Strona Administracji",
     "chooseNabOptions": "Wybierz odpowiednie zagadnienie w pasku nawigacji",
@@ -166,5 +167,7 @@
     "type": "Typ",
     "selectType": "Wybierz typ",
     "addNotification": "Dodaj powiadomienie",
-    "notificationDetail": "Detale powiadomienia"
+    "notificationDetail": "Detale powiadomienia",
+    "select": "Wybierz",
+    "selectNotificationType": "Wybierz typ notyfikacji"
 }

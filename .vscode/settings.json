@@ -1,6 +1,8 @@
 {
     "vscode-pets.theme": "forest",
     "vscode-pets.throwBallWithMouse": true,
+    "vscode-pets.petColor": "black",
+    "vscode-pets.petType": "fox",
     // "background.enabled": true,
     // "background.loop": false,
     // "background.useDefault": false,

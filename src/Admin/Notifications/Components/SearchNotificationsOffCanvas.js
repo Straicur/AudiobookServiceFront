@@ -120,7 +120,7 @@ export default function SearchNotificationsOffCanvas(props) {
             }}
             value={props.searchState.sort}
           >
-            <option>{props.t("selectSort")}</option>
+            <option value={0}>{props.t("selectSort")}</option>
             <option value={1}>{props.t("latest")}</option>
             <option value={2}>{props.t("oldest")}</option>
           </Form.Select>
@@ -145,9 +145,9 @@ export default function SearchNotificationsOffCanvas(props) {
             onChange={(e) => {
               changeType(e);
             }}
-            value={props.searchState.sort}
+            value={props.searchState.type}
           >
-            <option>{props.t("selectType")}</option>
+            <option value={0}>{props.t("selectType")}</option>
             <option value={1}>{props.t("notificationTypeNormal")}</option>
             <option value={2}>{props.t("notificationTypeAdmin")}</option>
             <option value={3}>{props.t("notificationTypeProposed")}</option>

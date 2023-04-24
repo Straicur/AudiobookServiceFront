@@ -24,9 +24,13 @@ export default function RenderAudiobooksList(props) {
   };
 
   const createUserType = (element) => {
-    let role = props.roles.roles.filter((role) => role.type == element);
-    if (role.length > 0) {
-      return role[0].name;
+    switch (element) {
+      case 1: {
+        return props.t("administration");
+      }
+      case 2: {
+        return props.t("system");
+      }
     }
   };
 
@@ -77,7 +81,7 @@ export default function RenderAudiobooksList(props) {
               className="btn button mx-2"
               onClick={() => openDetailNotificationModal(element)}
             >
-              {props.t("details")}
+              {props.t("edit")}
             </Button>
           </div>
         </td>

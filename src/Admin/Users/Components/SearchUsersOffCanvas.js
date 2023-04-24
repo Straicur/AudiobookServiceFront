@@ -134,7 +134,7 @@ export default function SearchUsersOffCanvas(props) {
             }}
             value={props.searchState.sort}
           >
-            <option>{props.t("selectSort")}</option>
+            <option value={0}>{props.t("selectSort")}</option>
             <option value={1}>{props.t("latest")}</option>
             <option value={2}>{props.t("oldest")}</option>
             <option value={3}>{props.t("aplhabeticalAsc")}</option>
