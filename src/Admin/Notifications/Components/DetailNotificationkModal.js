@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import PickActionIdList from "./PickActionIdList";
 
 export default function DetailNotificationkModal(props) {
   const [state, setState] = useState({
@@ -18,7 +19,7 @@ export default function DetailNotificationkModal(props) {
   });
 
   const [actionState, setActionState] = useState({
-    list: 0,
+    list: true,
   });
 
   const [deleteState, setDelteteState] = useState({
@@ -69,7 +70,7 @@ export default function DetailNotificationkModal(props) {
         setDelteteState({
           ...deleteState,
           sure: !deleteState.sure,
-        })
+        });
         setState({
           ...state,
           delete: !state.delete,
@@ -84,12 +85,17 @@ export default function DetailNotificationkModal(props) {
   };
 
   const selectActionId = (element) => {
-    // setState({
-    //   ...state,
-    //   actionId: element.target.value
-    // });
+    setActionState({
+      ...actionState,
+      list: true,
+    });
   };
-
+  const goBack = () => {
+    setActionState({
+      ...actionState,
+      list: false,
+    });
+  };
   const saveChanges = (element) => {
     // HandleFetch(
     //   "http://127.0.0.1:8000/api/admin/user/notification",
@@ -133,86 +139,116 @@ export default function DetailNotificationkModal(props) {
         <Modal.Title>{props.t("notificationDetail")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="row">
-          <InputGroup>
-            <InputGroup.Text>{props.t("description")}</InputGroup.Text>
-            <Form.Control
-              as="textarea"
-              aria-label="With textarea"
-              value={state.text}
-              onChange={(e) => {
-                changeText(e);
-              }}
-            />
-          </InputGroup>
-          <InputGroup className="mb-1 input_modal py-1">
-            <InputGroup.Text className="input-group-text-new text-light">
-              {props.t("notificationType")}
-            </InputGroup.Text>
-            <Form.Select
-              onChange={(e) => {
-                changeNotificationType(e);
-              }}
-              value={state.notificationType}
-            >
-              <option value={0}>{props.t("selectNotificationType")}</option>
-              <option value={1}>{props.t("administration")}</option>
-              <option value={2}>{props.t("system")}</option>
-            </Form.Select>
-          </InputGroup>
-          <InputGroup className="mb-1 input_modal py-1">
-            <InputGroup.Text className="input-group-text-new text-light">
-              {props.t("userType")}
-            </InputGroup.Text>
-            <Form.Select
-              onChange={(e) => {
-                changeUserType(e);
-              }}
-              value={state.userType}
-            >
-              <option value={0}>{props.t("selectType")}</option>
-              <option value={1}>{props.t("notificationTypeNormal")}</option>
-              <option value={2}>{props.t("notificationTypeAdmin")}</option>
-              <option value={3}>{props.t("notificationTypeProposed")}</option>
-              <option value={4}>
-                {props.t("notificationTypeNewCategory")}
-              </option>
-              <option value={5}>
-                {props.t("notificationTypeNewAudiobook")}
-              </option>
-              <option value={6}>
-                {props.t("notificationTypeUserDeleteDecline")}
-              </option>
-            </Form.Select>
-          </InputGroup>
-          <div className="col">
+        {actionState.list ? (
+          <PickActionIdList
+            state={state}
+            setState={setState}
+            actionState={actionState}
+            setActionState={setActionState}
+            t={props.t}
+            token={props.token}
+          />
+        ) : (
+          <div className="container">
             <div className="row">
-              <div className="col">{props.t("deleted")}:</div>
+              <InputGroup>
+                <InputGroup.Text>{props.t("description")}</InputGroup.Text>
+                <Form.Control
+                  as="textarea"
+                  aria-label="With textarea"
+                  value={state.text}
+                  onChange={(e) => {
+                    changeText(e);
+                  }}
+                />
+              </InputGroup>
+              <InputGroup className="mb-1 input_modal py-1">
+                <InputGroup.Text className="input-group-text-new text-light">
+                  {props.t("notificationType")}
+                </InputGroup.Text>
+                <Form.Select
+                  onChange={(e) => {
+                    changeNotificationType(e);
+                  }}
+                  value={state.notificationType}
+                >
+                  <option value={0}>{props.t("selectNotificationType")}</option>
+                  <option value={1}>{props.t("administration")}</option>
+                  <option value={2}>{props.t("system")}</option>
+                </Form.Select>
+              </InputGroup>
+              <InputGroup className="mb-1 input_modal py-1">
+                <InputGroup.Text className="input-group-text-new text-light">
+                  {props.t("userType")}
+                </InputGroup.Text>
+                <Form.Select
+                  onChange={(e) => {
+                    changeUserType(e);
+                  }}
+                  value={state.userType}
+                >
+                  <option value={0}>{props.t("selectType")}</option>
+                  <option value={1}>{props.t("notificationTypeNormal")}</option>
+                  <option value={2}>{props.t("notificationTypeAdmin")}</option>
+                  <option value={3}>
+                    {props.t("notificationTypeProposed")}
+                  </option>
+                  <option value={4}>
+                    {props.t("notificationTypeNewCategory")}
+                  </option>
+                  <option value={5}>
+                    {props.t("notificationTypeNewAudiobook")}
+                  </option>
+                  <option value={6}>
+                    {props.t("notificationTypeUserDeleteDecline")}
+                  </option>
+                </Form.Select>
+              </InputGroup>
               <div className="col">
-                {state.delete ? (
-                  <i className="bi bi-bookmark-check-fill"></i>
-                ) : (
-                  <i className="bi bi-bookmark-dash"></i>
-                )}
-              </div>
-              <div className="col">
-                {deleteState.sure ? (
-                  <div className="row justify-content-center mt-2 mb-1">
-                    <div className="col-3">
+                <div className="row">
+                  <div className="col">{props.t("deleted")}:</div>
+                  <div className="col">
+                    {state.delete ? (
+                      <i className="bi bi-bookmark-check-fill"></i>
+                    ) : (
+                      <i className="bi bi-bookmark-dash"></i>
+                    )}
+                  </div>
+                  <div className="col">
+                    {deleteState.sure ? (
+                      <div className="row justify-content-center mt-2 mb-1">
+                        <div className="col-3">
+                          <Button
+                            name="en"
+                            size="sm"
+                            className="btn button px-4 my-1 question_button success_button"
+                            onClick={(e) => deleteNotification(e)}
+                          >
+                            {props.t("yes")}
+                          </Button>
+                        </div>
+                        <div className="col-3">
+                          <Button
+                            name="en"
+                            size="sm"
+                            className="btn button px-4 my-1 question_button danger_button me-2"
+                            onClick={() =>
+                              setDelteteState({
+                                ...deleteState,
+                                sure: !deleteState.sure,
+                              })
+                            }
+                          >
+                            {props.t("no")}
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
                       <Button
                         name="en"
+                        variant={state.delete ? "success" : "danger"}
                         size="sm"
-                        className="btn button px-4 my-1 question_button success_button"
-                        onClick={(e) => deleteNotification(e)}
-                      >
-                        {props.t("yes")}
-                      </Button>
-                    </div>
-                    <div className="col-3">
-                      <Button
-                        name="en"
-                        size="sm"
-                        className="btn button px-4 my-1 question_button danger_button me-2"
+                        className="btn button mx-2"
                         onClick={() =>
                           setDelteteState({
                             ...deleteState,
@@ -220,57 +256,49 @@ export default function DetailNotificationkModal(props) {
                           })
                         }
                       >
-                        {props.t("no")}
+                        {state.delete ? props.t("activate") : props.t("delete")}
                       </Button>
-                    </div>
+                    )}
                   </div>
-                ) : (
-                  <Button
-                    name="en"
-                    variant={state.delete ? "success" : "danger"}
-                    size="sm"
-                    className="btn button mx-2"
-                    onClick={() =>setDelteteState({
-                      ...deleteState,
-                      sure: !deleteState.sure,
-                    })}
-                  >
-                    {state.delete ? props.t("activate") : props.t("delete")}
-                  </Button>
-                )}
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="col">
-            <div className="row">
-              <div className="col">{props.t("actionId")}:</div>
               <div className="col">
-                <Button
-                  name="en"
-                  variant="dark"
-                  size="sm"
-                  className="btn button mx-2"
-                  onClick={(e) => selectActionId(e)}
-                >
-                  {props.t("select")}
-                </Button>
+                <div className="row">
+                  <div className="col">{props.t("actionId")}:</div>
+                  <div className="col">
+                    <Button
+                      name="en"
+                      variant="dark"
+                      size="sm"
+                      className="btn button mx-2"
+                      onClick={(e) => selectActionId(e)}
+                    >
+                      {props.t("select")}
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
+            <div className="row mx-5 mt-3">
+              <Button
+                name="en"
+                variant="success"
+                size="sm"
+                className="btn button"
+                onClick={(e) => saveChanges(e)}
+              >
+                {props.t("save")}
+              </Button>
+            </div>
           </div>
-        </div>
-        <div className="row mx-5 mt-3">
-          <Button
-            name="en"
-            variant="success"
-            size="sm"
-            className="btn button"
-            onClick={(e) => saveChanges(e)}
-          >
-            {props.t("save")}
-          </Button>
-        </div>
+        )}
       </Modal.Body>
       <Modal.Footer>
+        {actionState.list != 0 ? (
+          <Button variant="dark" onClick={goBack}>
+            {props.t("back")}
+          </Button>
+        ) : null}
         <Button variant="dark" onClick={handleClose}>
           {props.t("close")}
         </Button>
