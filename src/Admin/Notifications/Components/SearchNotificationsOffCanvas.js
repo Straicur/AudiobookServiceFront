@@ -4,94 +4,80 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 
-export default function SearchUsersOffCanvas(props) {
+export default function SearchNotificationsOffCanvas(props) {
   const [show, setShow] = useState(true);
-
+  //todo tu chyba za dużo razy się odświerza lista po zamknięciu i otwarciu !!!
   const handleClose = () => {
     props.setState({
       ...props.state,
       searchModal: !props.state.searchModal,
     });
-    props.resetSearchStates();
-
     setShow(false);
   };
 
-  const changeSort = (element) => {
+  const changeOrder = (element) => {
     if (element.target.value != NaN && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
-        sort: element.target.value,
+        order: element.target.value,
       });
     }
   };
 
-  const changeEmail = (element) => {
+  const changeText = (element) => {
     if (element.target.value != NaN && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
-        email: element.target.value,
+        text: element.target.value,
       });
     }
   };
 
-  const changePhoneNumber = (element) => {
+  const changeType = (element) => {
     if (element.target.value != NaN && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
-        phoneNumber: element.target.value,
+        type: parseInt(element.target.value),
       });
     }
   };
-
-  const changeFirstname = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+  const changeDeleted = (element) => {
+    if (element.target.checked) {
       props.setSearchState({
         ...props.searchState,
-        firstname: element.target.value,
-      });
-    }
-  };
-
-  const changeLastname = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        lastname: element.target.value,
-      });
-    }
-  };
-
-  const changeActive = (element) => {
-    if (props.searchState.active == null) {
-      props.setSearchState({
-        ...props.searchState,
-        active: element.target.checked,
+        deleted: element.target.checked,
       });
     } else {
       props.setSearchState({
         ...props.searchState,
-        active: !props.searchState.active,
+        deleted: null,
       });
     }
   };
-
-  const changeBanned = (element) => {
-    if (props.searchState.banned == null) {
+  const changeNotDeleted = (element) => {
+    if (element.target.checked) {
       props.setSearchState({
         ...props.searchState,
-        banned: element.target.checked,
+        deleted: !element.target.checked,
       });
     } else {
       props.setSearchState({
         ...props.searchState,
-        banned: !props.searchState.banned,
+        deleted: null,
       });
     }
   };
-
   const searchAgain = () => {
-    props.setState({ ...props.state, refresh: !props.state.refresh });
+    props.setPageState({
+      ...props.pageState,
+      page: 0,
+    });
+
+    props.setState({
+      ...props.state,
+      searchModal: !props.state.searchModal,
+      refresh: !props.state.refresh,
+    });
     setShow(false);
   };
 
@@ -115,7 +101,7 @@ export default function SearchUsersOffCanvas(props) {
                 size="sm"
                 color="success"
                 className=" btn button mt-2"
-                onClick={props.resetSearchStates}
+                onClick={() => props.resetSearchStates()}
               >
                 {props.t("reset")}
               </Button>
@@ -130,91 +116,68 @@ export default function SearchUsersOffCanvas(props) {
           </InputGroup.Text>
           <Form.Select
             onChange={(e) => {
-              changeSort(e);
+              changeOrder(e);
             }}
             value={props.searchState.sort}
           >
             <option value={0}>{props.t("selectSort")}</option>
             <option value={1}>{props.t("latest")}</option>
             <option value={2}>{props.t("oldest")}</option>
-            <option value={3}>{props.t("aplhabeticalAsc")}</option>
-            <option value={4}>{props.t("aplhabeticalDesc")}</option>
           </Form.Select>
         </InputGroup>
         <InputGroup className="mb-1 input_modal py-1 ">
           <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("email")}
+            {props.t("text")}
           </InputGroup.Text>
           <Form.Control
-            value={props.searchState.title}
+            value={props.searchState.text}
             onChange={(e) => {
-              changeEmail(e);
+              changeText(e);
             }}
           />
         </InputGroup>
 
-        <InputGroup className="mb-1 input_modal py-1 ">
+        <InputGroup className="mb-1 input_modal py-1">
           <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("phoneNumber")}
+            {props.t("type")}
           </InputGroup.Text>
-          <Form.Control
-            value={props.searchState.author}
+          <Form.Select
             onChange={(e) => {
-              changePhoneNumber(e);
+              changeType(e);
             }}
-          />
+            value={props.searchState.type}
+          >
+            <option value={0}>{props.t("selectType")}</option>
+            <option value={1}>{props.t("notificationTypeNormal")}</option>
+            <option value={2}>{props.t("notificationTypeAdmin")}</option>
+            <option value={3}>{props.t("notificationTypeProposed")}</option>
+            <option value={4}>{props.t("notificationTypeNewCategory")}</option>
+            <option value={5}>{props.t("notificationTypeNewAudiobook")}</option>
+            <option value={6}>
+              {props.t("notificationTypeUserDeleteDecline")}
+            </option>
+          </Form.Select>
         </InputGroup>
         <InputGroup className="mb-1 input_modal py-1 ">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("firstname")}
-          </InputGroup.Text>
-          <Form.Control
-            value={props.searchState.album}
-            onChange={(e) => {
-              changeFirstname(e);
-            }}
-          />
-        </InputGroup>
-
-        <InputGroup className="mb-1 input_modal py-1 ">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("lastname")}
-          </InputGroup.Text>
-          <Form.Control
-            onChange={(e) => {
-              changeLastname(e);
-            }}
-            value={props.searchState.parts}
+          <Form.Check
+            type="switch"
+            id="custom-switch"
+            label={props.t("deleted")}
+            checked={
+              props.searchState.deleted != null && props.searchState.deleted
+            }
+            onChange={(e) => changeDeleted(e)}
           />
         </InputGroup>
         <InputGroup className="mb-1 input_modal py-1 ">
           <Form.Check
             type="switch"
             id="custom-switch"
-            label={
-              props.searchState.active != null && props.searchState.active
-                ? props.t("active")
-                : props.t("notActive")
-            }
+            label={props.t("notDeleted")}
             checked={
-              props.searchState.active != null && props.searchState.active
+              props.searchState.deleted != null && !props.searchState.deleted
             }
-            onChange={(e) => changeActive(e)}
-          />
-        </InputGroup>
-        <InputGroup className="mb-1 input_modal py-1 ">
-          <Form.Check
-            type="switch"
-            id="custom-switch"
-            label={
-              props.searchState.banned != null && props.searchState.banned
-                ? props.t("banned")
-                : props.t("notBanned")
-            }
-            checked={
-              props.searchState.banned != null && props.searchState.banned
-            }
-            onChange={(e) => changeBanned(e)}
+            onChange={(e) => changeNotDeleted(e)}
           />
         </InputGroup>
         <div className="row mx-1">

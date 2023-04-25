@@ -1,48 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../../../../Components/NavBars/AdminNavBar";
+import { AdminNavBar } from "../../../Components/NavBars/AdminNavBar";
 import { useQuery } from "react-query";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
-import JsonModal from "../../../../Components/JsonModal";
-import AudiobookCommentsModal from "../../../Categories/Components/Category/AudiobookCommentsModal";
-import AddAudiobookModal from "./AddAudiobookModal";
-import RenderAudiobooksList from "./RenderAudiobooksList";
+import JsonModal from "../../../Components/JsonModal";
+import AddNotificationModal from "./AddNotificationModal";
+import EditNotificationModal from "./EditNotificationModal";
+import SearchNotificationsOffCanvas from "./SearchNotificationsOffCanvas";
+import RenderNotificationsList from "./RenderNotificationsList";
 import RenderPageSwitches from "./RenderPageSwitches";
-import SearchAudiobooksOffCanvas from "./SearchAudiobooksOffCanvas";
-import { useCategoryListStore } from "../../../../store";
+import { useLastUserRolesStore } from "../../../store";
 
-export default function AudiobooksList(props) {
+export default function NotificationsList(props) {
   const { t } = useTranslation();
-
-  const categoriesStore = useCategoryListStore();
-
-  const categories = useCategoryListStore((state) => state.categories);
-  const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
 
   const [state, setState] = useState({
     jsonModal: false,
     json: null,
-    addAudiobookModal: false,
-    addAudiobookParent: null,
-    detailCommentsAudiobookModal: false,
-    detailAudiobookElement: null,
+    addNotificationModal: false,
+    editNotificationkModal: false,
+    editNotificationElement: null,
     searchModal: false,
     refresh: false,
-    addAudiobook: false,
     error: null,
   });
 
   const [searchState, setSearchState] = useState({
-    sort: 0,
-    categories: [],
-    title: "",
-    author: "",
-    album: "",
-    parts: 0,
-    age: 0,
-    year: 0,
-    duration: 0,
+    text: "",
+    type: 0,
+    deleted: null,
+    order: 0,
   });
 
   const [pageState, setPageState] = useState({
@@ -51,53 +39,49 @@ export default function AudiobooksList(props) {
     maxPage: 0,
   });
 
-  const [categoriesState, setCategories] = useState([]);
+  const [audiobooksState, setAudiobooksState] = useState({
+    audiobooks: [],
+    fetched: false,
+    fetch: false,
+  });
+  const [categoriesState, setCategoriesState] = useState({
+    categories: [],
+    fetched: false,
+    fetch: false,
+  });
+  const [usersState, setUsersState] = useState({
+    users: [],
+    fetched: false,
+    fetch: false,
+  });
+
+  const userRolesStore = useLastUserRolesStore();
+  const roles = useLastUserRolesStore((state) => state.roles);
+  const dateUpdate = useLastUserRolesStore((state) => state.dateUpdate);
 
   const resetSearchStates = () => {
     setSearchState({
-      sort: 0,
-      categories: [],
-      title: "",
-      author: "",
-      album: "",
-      parts: 0,
-      age: 0,
-      year: 0,
-      duration: 0,
+      text: "",
+      type: 0,
+      deleted: null,
+      order: 0,
     });
   };
 
-  const createSearchData = () => {
+  const formatData = () => {
     let searchJson = {};
 
-    if (searchState.sort != 0) {
-      searchJson.order = parseInt(searchState.sort);
+    if (searchState.text != "") {
+      searchJson.text = searchState.text;
     }
-    if (searchState.categories.length != 0) {
-      searchJson.categories = searchState.categories;
+    if (searchState.deleted != null) {
+      searchJson.deleted = searchState.deleted;
     }
-    if (searchState.title != "") {
-      searchJson.title = searchState.title;
+    if (searchState.type != 0) {
+      searchJson.type = parseInt(searchState.type);
     }
-    if (searchState.author != "") {
-      searchJson.author = searchState.author;
-    }
-    if (searchState.album != "") {
-      searchJson.album = searchState.album;
-    }
-    if (searchState.parts != 0) {
-      searchJson.parts = parseInt(searchState.parts);
-    }
-    if (searchState.age != 0) {
-      searchJson.age = parseInt(searchState.age);
-    }
-    if (searchState.year != 0) {
-      let date = new Date(searchState.year);
-      searchJson.year =
-        date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
-    }
-    if (searchState.duration != 0) {
-      searchJson.duration = parseInt(searchState.duration);
+    if (searchState.text != 0) {
+      searchJson.order = parseInt(searchState.order);
     }
 
     return searchJson;
@@ -107,12 +91,12 @@ export default function AudiobooksList(props) {
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobooks",
+        "http://127.0.0.1:8000/api/admin/user/notifications",
         "POST",
         {
           page: pageState.page,
           limit: pageState.limit,
-          searchData: createSearchData(),
+          searchData: formatData(),
         },
         props.token
       ),
@@ -121,8 +105,8 @@ export default function AudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setAudiobooksState({
-          ...props.audiobooksState,
+        props.setNotificationsState({
+          ...props.notificationsState,
           error: e,
         });
       },
@@ -133,44 +117,32 @@ export default function AudiobooksList(props) {
     }
   );
 
-  const fetchCategoriesList = () => {
-    if (dateUpdate > Date.now() && dateUpdate != 0) {
-      setCategories(categories);
-    } else {
+  const openAddModal = () => {
+    setState({
+      ...state,
+      addNotificationModal: !state.addNotificationModal,
+    });
+  };
+
+  const openSearchModal = () => {
+    if (dateUpdate < Date.now()) {
+      userRolesStore.removeRoles();
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/categories",
+        "http://127.0.0.1:8000/api/admin/user/system/roles",
         "GET",
         null,
         props.token
       )
         .then((data) => {
-          categoriesStore.removeCategories();
-          for (const category of data.categories) {
-            categoriesStore.addCategory(category);
-          }
-
-          setCategories(data.categories);
+          userRolesStore.setRoles(data);
         })
         .catch((e) => {
-          props.setAudiobooksState({
-            ...props.audiobooksState,
+          props.setNotificationsState({
+            ...props.notificationsState,
             error: e,
           });
         });
     }
-  };
-
-  const openAddModal = () => {
-    fetchCategoriesList();
-
-    setState({
-      ...state,
-      addAudiobookModal: !state.addAudiobookModal,
-    });
-  };
-
-  const openSearchModal = () => {
-    fetchCategoriesList();
 
     setState({
       ...state,
@@ -186,20 +158,10 @@ export default function AudiobooksList(props) {
   }, [state.refresh]);
 
   useEffect(() => {
-    if (state.addAudiobook) {
-      setState({ ...state, addAudiobook: !state.addAudiobook });
-
-      setTimeout(function () {
-        refetch();
-      }, 3000);
+    if (props.notificationsState.error != null) {
+      throw props.notificationsState.error;
     }
-  }, [state.addAudiobook]);
-
-  useEffect(() => {
-    if (props.audiobooksState.error != null) {
-      throw props.audiobooksState.error;
-    }
-  }, [props.audiobooksState.error]);
+  }, [props.notificationsState.error]);
 
   return (
     <div className="container-fluid main-container mt-3">
@@ -223,13 +185,14 @@ export default function AudiobooksList(props) {
               </Button>
             </div>
           </div>
-          <RenderAudiobooksList
+          <RenderNotificationsList
             state={state}
             setState={setState}
             t={t}
             token={props.token}
             pageState={pageState}
             setPageState={setPageState}
+            roles={roles}
           />
           {state.json != null && pageState.maxPage > 1 ? (
             <RenderPageSwitches
@@ -249,7 +212,7 @@ export default function AudiobooksList(props) {
               className=" btn button mt-2"
               onClick={() => openAddModal()}
             >
-              {t("addAudiobook")}
+              {t("addNotification")}
             </Button>
           </div>
           <div className="col-3 d-flex justify-content-center">
@@ -267,46 +230,49 @@ export default function AudiobooksList(props) {
           </div>
         </div>
 
-        {state.addAudiobookModal && categoriesState.length != 0 ? (
-          <AddAudiobookModal
+        {state.addNotificationModal ? (
+          <AddNotificationModal
             state={state}
             setState={setState}
-            audiobooksState={props.audiobooksState}
-            setAudiobooksState={props.setAudiobooksState}
+            notificationsState={props.notificationsState}
+            setNotificationsState={props.setNotificationsState}
             t={t}
             token={props.token}
-            categoriesState={categoriesState}
-            setCategories={setCategories}
             resetSearchStates={resetSearchStates}
+            roles={roles}
           />
         ) : null}
-
-        {state.searchModal && categoriesState.length != 0 ? (
-          <SearchAudiobooksOffCanvas
+        {state.searchModal ? (
+          <SearchNotificationsOffCanvas
             state={state}
             setState={setState}
-            audiobooksState={props.audiobooksState}
-            setAudiobooksState={props.setAudiobooksState}
+            notificationsState={props.notificationsState}
+            setNotificationsState={props.setNotificationsState}
             searchState={searchState}
             setSearchState={setSearchState}
             t={t}
             token={props.token}
-            categoriesState={categoriesState}
-            setCategories={setCategories}
             pageState={pageState}
             setPageState={setPageState}
             resetSearchStates={resetSearchStates}
           />
         ) : null}
-        {state.detailCommentsAudiobookModal &&
-        state.detailAudiobookElement != null ? (
-          <AudiobookCommentsModal
+        {state.editNotificationkModal &&
+        state.editNotificationElement != null ? (
+          <EditNotificationModal
             state={state}
             setState={setState}
             t={t}
             token={props.token}
-            audiobooksState={props.audiobooksState}
-            setAudiobooksState={props.setAudiobooksState}
+            notificationsState={props.notificationsState}
+            setNotificationsState={props.setNotificationsState}
+            roles={roles}
+            audiobooksState={audiobooksState}
+            setAudiobooksState={setAudiobooksState}
+            categoriesState={categoriesState}
+            setCategoriesState={setCategoriesState}
+            usersState={usersState}
+            setUsersState={setUsersState}
           />
         ) : null}
         {state.jsonModal ? (
