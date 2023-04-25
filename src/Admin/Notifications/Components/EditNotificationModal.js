@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import PickActionIdList from "./PickActionIdList";
 
-export default function DetailNotificationModal(props) {
+export default function EditNotificationModal(props) {
   const [state, setState] = useState({
     actionId: "",
     dateAdd: 0,
@@ -18,7 +18,7 @@ export default function DetailNotificationModal(props) {
   });
 
   const [actionState, setActionState] = useState({
-    list: true,
+    list: false,
     actionIdChanged: false,
   });
 
@@ -29,22 +29,27 @@ export default function DetailNotificationModal(props) {
   const handleClose = () => {
     props.setState({
       ...props.state,
-      detailNotificationkModal: !props.state.detailNotificationkModal,
+      editNotificationkModal: !props.state.editNotificationkModal,
+      refresh: !props.state.refresh,
     });
   };
 
   const changeNotificationType = (element) => {
-    setState({
-      ...state,
-      notificationType: parseInt(element.target.value),
-    });
+    if (element.target.value != 0) {
+      setState({
+        ...state,
+        notificationType: parseInt(element.target.value),
+      });
+    }
   };
 
   const changeUserType = (element) => {
-    setState({
-      ...state,
-      userType: parseInt(element.target.value),
-    });
+    if (element.target.value != 0) {
+      setState({
+        ...state,
+        userType: parseInt(element.target.value),
+      });
+    }
   };
 
   const changeText = (element) => {
@@ -53,7 +58,7 @@ export default function DetailNotificationModal(props) {
       text: element.target.value,
     });
   };
-  console.log(state);
+
   const deleteNotification = (element) => {
     element.target.classList.add("disabled");
     HandleFetch(
@@ -61,16 +66,18 @@ export default function DetailNotificationModal(props) {
       "PATCH",
       {
         notificationId: state.id,
-        delete: state.delete,
+        delete: !state.delete,
       },
       props.token
     )
       .then(() => {
         element.target.classList.remove("disabled");
+
         setDelteteState({
           ...deleteState,
           sure: !deleteState.sure,
         });
+
         setState({
           ...state,
           delete: !state.delete,
@@ -96,43 +103,45 @@ export default function DetailNotificationModal(props) {
       list: false,
     });
   };
-  const saveChanges = (element) => {
-    // HandleFetch(
-    //   "http://127.0.0.1:8000/api/admin/user/notification",
-    //   "PATCH",
-    //   {
-    // notificationType: pageState.page,
-    //   notificationUserType: pageState.limit,
-    //   actionId: formatData(),
-    //   additionalData: {
-    //     text:
-    //   },
-    //   },
-    //   props.token
-    // )
-    //   .then(() => {
-    //     props.setState({
-    //         ...props.state,
-    //         detailNotificationkModal: !props.state.detailNotificationkModal,
-    //         refresh: !props.state.refresh,
-    //       });
-    //   })
-    //   .catch((e) => {
-    //     props.setAudiobookState({
-    //       ...props.audiobookState,
-    //       error: e,
-    //     });
-    //   });
+
+  const saveChanges = () => {
+    HandleFetch(
+      "http://127.0.0.1:8000/api/admin/user/notification",
+      "PATCH",
+      {
+        notificationId: state.id,
+        notificationType: state.notificationType,
+        notificationUserType: state.userType,
+        actionId: state.actionId,
+        additionalData: {
+          text: state.text,
+        },
+      },
+      props.token
+    )
+      .then(() => {
+        props.setState({
+          ...props.state,
+          editNotificationkModal: !props.state.editNotificationkModal,
+          refresh: !props.state.refresh,
+        });
+      })
+      .catch((e) => {
+        props.setNotificationsState({
+          ...props.notificationsState,
+          error: e,
+        });
+      });
   };
 
   useEffect(() => {
-    setState(props.state.detailNotificationElement);
+    setState(props.state.editNotificationElement);
   }, [props]);
 
   return (
     <Modal
       size="lg"
-      show={props.state.detailNotificationkModal}
+      show={props.state.editNotificationkModal}
       onHide={handleClose}
     >
       <Modal.Header>
@@ -172,13 +181,13 @@ export default function DetailNotificationModal(props) {
               </InputGroup>
               <InputGroup className="mb-1 input_modal py-1">
                 <InputGroup.Text className="input-group-text-new text-light">
-                  {props.t("notificationType")}
+                  {props.t("userType")}
                 </InputGroup.Text>
                 <Form.Select
                   onChange={(e) => {
-                    changeNotificationType(e);
+                    changeUserType(e);
                   }}
-                  value={state.notificationType}
+                  value={state.userType}
                 >
                   <option value={0}>{props.t("selectNotificationType")}</option>
                   <option value={1}>{props.t("administration")}</option>
@@ -187,13 +196,13 @@ export default function DetailNotificationModal(props) {
               </InputGroup>
               <InputGroup className="mb-1 input_modal py-1">
                 <InputGroup.Text className="input-group-text-new text-light">
-                  {props.t("userType")}
+                  {props.t("notificationType")}
                 </InputGroup.Text>
                 <Form.Select
                   onChange={(e) => {
-                    changeUserType(e);
+                    changeNotificationType(e);
                   }}
-                  value={state.userType}
+                  value={state.notificationType}
                 >
                   <option value={0}>{props.t("selectType")}</option>
                   <option value={1}>{props.t("notificationTypeNormal")}</option>
@@ -214,32 +223,32 @@ export default function DetailNotificationModal(props) {
               </InputGroup>
               <div className="col">
                 <div className="row">
-                  <div className="col">{props.t("deleted")}:</div>
-                  <div className="col">
+                  <div className="col-2">{props.t("deleted")}:</div>
+                  <div className="col-1">
                     {state.delete ? (
                       <i className="bi bi-bookmark-check-fill"></i>
                     ) : (
                       <i className="bi bi-bookmark-dash"></i>
                     )}
                   </div>
-                  <div className="col">
+                  <div className="col-8">
                     {deleteState.sure ? (
-                      <div className="row justify-content-center mt-2 mb-1">
-                        <div className="col-3">
+                      <div className="row justify-content-cente">
+                        <div className="col-4">
                           <Button
                             name="en"
                             size="sm"
-                            className="btn button px-4 my-1 question_button success_button"
+                            className="btn button question_button success_button"
                             onClick={(e) => deleteNotification(e)}
                           >
                             {props.t("yes")}
                           </Button>
                         </div>
-                        <div className="col-3">
+                        <div className="col-4">
                           <Button
                             name="en"
                             size="sm"
-                            className="btn button px-4 my-1 question_button danger_button me-2"
+                            className="btn button question_button danger_button me-2"
                             onClick={() =>
                               setDelteteState({
                                 ...deleteState,
@@ -270,25 +279,24 @@ export default function DetailNotificationModal(props) {
                   </div>
                 </div>
               </div>
-              <div className="col">
-                <div className="row">
-                  <div className="col-3">{props.t("actionId")}:</div>
-                  <div className="col-3 text-success">
-                    {" "}
-                    {actionState.actionIdChanged ? props.t("changed") : null}
-                  </div>
-                  <div className="col">
-                    <Button
-                      name="en"
-                      variant="dark"
-                      size="sm"
-                      className="btn button mx-2"
-                      onClick={(e) => selectActionId(e)}
-                    >
-                      {props.t("select")}
-                    </Button>
-                  </div>
-                </div>
+            </div>
+            <div className="row mt-2">
+              <div className="col-3">{props.t("actionId")}:</div>
+
+              {actionState.actionIdChanged ? (
+                <div className="col-3 text-success">{props.t("changed")} </div>
+              ) : null}
+
+              <div className="col-2">
+                <Button
+                  name="en"
+                  variant="dark"
+                  size="sm"
+                  className="btn button mx-2"
+                  onClick={(e) => selectActionId(e)}
+                >
+                  {props.t("select")}
+                </Button>
               </div>
             </div>
             <div className="row mx-5 mt-3">

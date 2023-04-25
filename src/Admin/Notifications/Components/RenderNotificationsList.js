@@ -6,12 +6,12 @@ export default function RenderAudiobooksList(props) {
   const openDetailNotificationModal = (element) => {
     props.setState({
       ...props.state,
-      detailNotificationkModal: !props.detailNotificationkModal,
-      detailNotificationElement: element,
+      editNotificationkModal: !props.editNotificationkModal,
+      editNotificationElement: element,
     });
   };
 
-  const createTable = () => {
+  const createTable = () => { 
     let renderArray = [];
     if (props.state.json != null && props.state.json.systemNotifications != undefined) {
       props.state.json.systemNotifications.forEach((element) => {

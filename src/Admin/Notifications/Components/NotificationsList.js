@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import JsonModal from "../../../Components/JsonModal";
 import AddNotificationModal from "./AddNotificationModal";
-import DetailNotificationkModal from "./DetailNotificationModal";
+import EditNotificationModal from "./EditNotificationModal";
 import SearchNotificationsOffCanvas from "./SearchNotificationsOffCanvas";
 import RenderNotificationsList from "./RenderNotificationsList";
 import RenderPageSwitches from "./RenderPageSwitches";
@@ -19,8 +19,8 @@ export default function NotificationsList(props) {
     jsonModal: false,
     json: null,
     addNotificationModal: false,
-    detailNotificationkModal: false,
-    detailNotificationElement: null,
+    editNotificationkModal: false,
+    editNotificationElement: null,
     searchModal: false,
     refresh: false,
     error: null,
@@ -257,9 +257,9 @@ export default function NotificationsList(props) {
             resetSearchStates={resetSearchStates}
           />
         ) : null}
-        {state.detailNotificationkModal &&
-        state.detailNotificationElement != null ? (
-          <DetailNotificationkModal
+        {state.editNotificationkModal &&
+        state.editNotificationElement != null ? (
+          <EditNotificationModal
             state={state}
             setState={setState}
             t={t}
