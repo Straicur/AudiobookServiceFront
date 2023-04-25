@@ -169,5 +169,6 @@
     "addNotification": "Dodaj powiadomienie",
     "notificationDetail": "Detale powiadomienia",
     "select": "Wybierz",
-    "selectNotificationType": "Wybierz typ notyfikacji"
+    "selectNotificationType": "Wybierz typ notyfikacji",
+    "changed": "Zmieniony"
 }

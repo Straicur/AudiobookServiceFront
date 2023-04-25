@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -20,6 +19,7 @@ export default function DetailNotificationkModal(props) {
 
   const [actionState, setActionState] = useState({
     list: true,
+    actionIdChanged: false
   });
 
   const [deleteState, setDelteteState] = useState({
@@ -53,7 +53,7 @@ export default function DetailNotificationkModal(props) {
       text: element.target.value,
     });
   };
-
+  console.log(state)
   const deleteNotification = (element) => {
     element.target.classList.add("disabled");
     HandleFetch(
@@ -77,8 +77,8 @@ export default function DetailNotificationkModal(props) {
         });
       })
       .catch((e) => {
-        props.setAudiobookState({
-          ...props.audiobookState,
+        props.setNotificationsState({
+          ...props.notificationsState,
           error: e,
         });
       });
@@ -145,6 +145,8 @@ export default function DetailNotificationkModal(props) {
             setState={setState}
             actionState={actionState}
             setActionState={setActionState}
+            notificationsState={props.notificationsState}
+            setNotificationsState={props.setNotificationsState}
             t={props.t}
             token={props.token}
           />
@@ -264,7 +266,8 @@ export default function DetailNotificationkModal(props) {
               </div>
               <div className="col">
                 <div className="row">
-                  <div className="col">{props.t("actionId")}:</div>
+                  <div className="col-3">{props.t("actionId")}:</div>
+                  <div className="col-3 text-success"> {actionState.actionIdChanged ?props.t("changed"):null}</div>
                   <div className="col">
                     <Button
                       name="en"

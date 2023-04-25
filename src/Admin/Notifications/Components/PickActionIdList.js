@@ -5,8 +5,8 @@ import GetAudiobooksList from "./GetAudiobooksList";
 import GetCategoriesList from "./GetCategoriesList";
 
 export default function PickActionIdList(props) {
-  const [audioboksState, setAudioboksState] = useState({
-    audioboks: [],
+  const [audiobooksState, setAudiobooksState] = useState({
+    audiobooks: [],
     fetched: false,
     fetch: false,
   });
@@ -30,15 +30,17 @@ export default function PickActionIdList(props) {
         fetch: !usersState.fetch,
       });
     }
+    setListState(1);
   };
 
   const getAudiobooksList = () => {
-    if (!audioboksState.fetched) {
-      setAudioboksState({
-        ...audioboksState,
-        fetch: !audioboksState.fetch,
+    if (!audiobooksState.fetched) {
+      setAudiobooksState({
+        ...audiobooksState,
+        fetch: !audiobooksState.fetch,
       });
     }
+    setListState(2);
   };
 
   const getCategriesList = () => {
@@ -48,12 +50,14 @@ export default function PickActionIdList(props) {
         fetch: !categoriesState.fetch,
       });
     }
+    setListState(3);
   };
 
   const goBack = (element) => {
     props.setActionState({
       ...props.actionState,
-      list: 0,
+      list: !props.actionState.list,
+      actionIdChanged: !props.actionState.actionIdChanged
     });
   };
 
@@ -67,15 +71,25 @@ export default function PickActionIdList(props) {
             state={props.state}
             setState={props.setState}
             setListState={setListState}
+            notificationsState={props.notificationsState}
+            setNotificationsState={props.setNotificationsState}
+            goBack={goBack}
+            token={props.token}
+            t={props.t}
           />
         ) : null}
         {listState == 2 ? (
           <GetAudiobooksList
-            audioboksState={audioboksState}
-            setAudioboksState={setAudioboksState}
+            audiobooksState={audiobooksState}
+            setAudiobooksState={setAudiobooksState}
             state={props.state}
             setState={props.setState}
             setListState={setListState}
+            notificationsState={props.notificationsState}
+            setNotificationsState={props.setNotificationsState}
+            goBack={goBack}
+            token={props.token}
+            t={props.t}
           />
         ) : null}
         {listState == 3 ? (
@@ -85,6 +99,11 @@ export default function PickActionIdList(props) {
             state={props.state}
             setState={props.setState}
             setListState={setListState}
+            notificationsState={props.notificationsState}
+            setNotificationsState={props.setNotificationsState}
+            goBack={goBack}
+            token={props.token}
+            t={props.t}
           />
         ) : null}
       </div>

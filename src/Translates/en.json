@@ -168,5 +168,6 @@
     "addNotification": "Add notification",
     "notificationDetail": "Notification details",
     "select": "Select",
-    "selectNotificationType": "Select notification type"
+    "selectNotificationType": "Select notification type",
+    "changed": "Changed"
 }
