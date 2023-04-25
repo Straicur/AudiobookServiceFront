@@ -223,7 +223,7 @@ export default function UsersList(props) {
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("categoryJson")}
+              {t("jsonData")}
             </Button>
           </div>
         </div>

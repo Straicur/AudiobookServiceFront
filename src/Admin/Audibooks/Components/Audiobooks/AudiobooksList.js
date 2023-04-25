@@ -262,7 +262,7 @@ export default function AudiobooksList(props) {
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("categoryJson")}
+              {t("jsonData")}
             </Button>
           </div>
         </div>

@@ -118,7 +118,7 @@ export default function CategoriesList(props) {
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("categoryJson")}
+              {t("jsonData")}
             </Button>
           </div>
           {state.jsonModal ? (

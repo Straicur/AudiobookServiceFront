@@ -212,7 +212,7 @@ export default function NotificationsList(props) {
               className=" btn button mt-2"
               onClick={() => openAddModal()}
             >
-              {t("addAudiobook")}
+              {t("addNotification")}
             </Button>
           </div>
           <div className="col-3 d-flex justify-content-center">
@@ -225,7 +225,7 @@ export default function NotificationsList(props) {
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("categoryJson")}
+              {t("jsonData")}
             </Button>
           </div>
         </div>
