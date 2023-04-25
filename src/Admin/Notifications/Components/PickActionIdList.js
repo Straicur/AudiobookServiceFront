@@ -5,49 +5,33 @@ import GetAudiobooksList from "./GetAudiobooksList";
 import GetCategoriesList from "./GetCategoriesList";
 
 export default function PickActionIdList(props) {
-  const [audiobooksState, setAudiobooksState] = useState({
-    audiobooks: [],
-    fetched: false,
-    fetch: false,
-  });
-  const [categoriesState, setCategoriesState] = useState({
-    categories: [],
-    fetched: false,
-    fetch: false,
-  });
-  const [usersState, setUsersState] = useState({
-    users: [],
-    fetched: false,
-    fetch: false,
-  });
-
   const [listState, setListState] = useState(0);
 
   const getUsersList = () => {
-    if (!usersState.fetched) {
-      setUsersState({
-        ...usersState,
-        fetch: !usersState.fetch,
+    if (!props.usersState.fetched) {
+      props.setUsersState({
+        ...props.usersState,
+        fetch: !props.usersState.fetch,
       });
     }
     setListState(1);
   };
 
   const getAudiobooksList = () => {
-    if (!audiobooksState.fetched) {
-      setAudiobooksState({
-        ...audiobooksState,
-        fetch: !audiobooksState.fetch,
+    if (!props.audiobooksState.fetched) {
+      props.setAudiobooksState({
+        ...props.audiobooksState,
+        fetch: !props.audiobooksState.fetch,
       });
     }
     setListState(2);
   };
 
   const getCategriesList = () => {
-    if (!categoriesState.fetched) {
-      setCategoriesState({
-        ...categoriesState,
-        fetch: !categoriesState.fetch,
+    if (!props.categoriesState.fetched) {
+      props.setCategoriesState({
+        ...props.categoriesState,
+        fetch: !props.categoriesState.fetch,
       });
     }
     setListState(3);
@@ -57,7 +41,7 @@ export default function PickActionIdList(props) {
     props.setActionState({
       ...props.actionState,
       list: !props.actionState.list,
-      actionIdChanged: !props.actionState.actionIdChanged
+      actionIdChanged: !props.actionState.actionIdChanged,
     });
   };
 
@@ -66,8 +50,8 @@ export default function PickActionIdList(props) {
       <div className="row">
         {listState == 1 ? (
           <GetUsersList
-            usersState={usersState}
-            setUsersState={setUsersState}
+            usersState={props.usersState}
+            setUsersState={props.setUsersState}
             state={props.state}
             setState={props.setState}
             setListState={setListState}
@@ -80,8 +64,8 @@ export default function PickActionIdList(props) {
         ) : null}
         {listState == 2 ? (
           <GetAudiobooksList
-            audiobooksState={audiobooksState}
-            setAudiobooksState={setAudiobooksState}
+            audiobooksState={props.audiobooksState}
+            setAudiobooksState={props.setAudiobooksState}
             state={props.state}
             setState={props.setState}
             setListState={setListState}
@@ -94,8 +78,8 @@ export default function PickActionIdList(props) {
         ) : null}
         {listState == 3 ? (
           <GetCategoriesList
-            categoriesState={categoriesState}
-            setCategoriesState={setCategoriesState}
+            categoriesState={props.categoriesState}
+            setCategoriesState={props.setCategoriesState}
             state={props.state}
             setState={props.setState}
             setListState={setListState}

@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import PickActionIdList from "./PickActionIdList";
 
-export default function DetailNotificationkModal(props) {
+export default function DetailNotificationModal(props) {
   const [state, setState] = useState({
     actionId: "",
     dateAdd: 0,
@@ -19,7 +19,7 @@ export default function DetailNotificationkModal(props) {
 
   const [actionState, setActionState] = useState({
     list: true,
-    actionIdChanged: false
+    actionIdChanged: false,
   });
 
   const [deleteState, setDelteteState] = useState({
@@ -53,7 +53,7 @@ export default function DetailNotificationkModal(props) {
       text: element.target.value,
     });
   };
-  console.log(state)
+  console.log(state);
   const deleteNotification = (element) => {
     element.target.classList.add("disabled");
     HandleFetch(
@@ -147,6 +147,12 @@ export default function DetailNotificationkModal(props) {
             setActionState={setActionState}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
+            audiobooksState={props.audiobooksState}
+            setAudiobooksState={props.setAudiobooksState}
+            categoriesState={props.categoriesState}
+            setCategoriesState={props.setCategoriesState}
+            usersState={props.usersState}
+            setUsersState={props.setUsersState}
             t={props.t}
             token={props.token}
           />
@@ -267,7 +273,10 @@ export default function DetailNotificationkModal(props) {
               <div className="col">
                 <div className="row">
                   <div className="col-3">{props.t("actionId")}:</div>
-                  <div className="col-3 text-success"> {actionState.actionIdChanged ?props.t("changed"):null}</div>
+                  <div className="col-3 text-success">
+                    {" "}
+                    {actionState.actionIdChanged ? props.t("changed") : null}
+                  </div>
                   <div className="col">
                     <Button
                       name="en"

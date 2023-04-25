@@ -55,7 +55,6 @@ export default function GetCategoriesList(props) {
         props.token
       )
         .then((data) => {
-          console.log(data);
           props.setCategoriesState({
             ...props.categoriesState,
             categories: data.categories,

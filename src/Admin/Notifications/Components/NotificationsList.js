@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import JsonModal from "../../../Components/JsonModal";
 import AddNotificationModal from "./AddNotificationModal";
-import DetailNotificationkModal from "./DetailNotificationkModal";
+import DetailNotificationkModal from "./DetailNotificationModal";
 import SearchNotificationsOffCanvas from "./SearchNotificationsOffCanvas";
 import RenderNotificationsList from "./RenderNotificationsList";
 import RenderPageSwitches from "./RenderPageSwitches";
@@ -38,6 +38,23 @@ export default function NotificationsList(props) {
     limit: 15,
     maxPage: 0,
   });
+
+  const [audiobooksState, setAudiobooksState] = useState({
+    audiobooks: [],
+    fetched: false,
+    fetch: false,
+  });
+  const [categoriesState, setCategoriesState] = useState({
+    categories: [],
+    fetched: false,
+    fetch: false,
+  });
+  const [usersState, setUsersState] = useState({
+    users: [],
+    fetched: false,
+    fetch: false,
+  });
+
   const userRolesStore = useLastUserRolesStore();
   const roles = useLastUserRolesStore((state) => state.roles);
   const dateUpdate = useLastUserRolesStore((state) => state.dateUpdate);
@@ -47,7 +64,7 @@ export default function NotificationsList(props) {
       text: "",
       type: 0,
       deleted: null,
-      order: 0
+      order: 0,
     });
   };
 
@@ -56,19 +73,19 @@ export default function NotificationsList(props) {
 
     if (searchState.text != "") {
       searchJson.text = searchState.text;
-    } 
+    }
     if (searchState.deleted != null) {
       searchJson.deleted = searchState.deleted;
-    } 
+    }
     if (searchState.type != 0) {
       searchJson.type = parseInt(searchState.type);
-    } 
+    }
     if (searchState.text != 0) {
       searchJson.order = parseInt(searchState.order);
-    } 
+    }
 
     return searchJson;
-  }
+  };
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     "data",
@@ -79,7 +96,7 @@ export default function NotificationsList(props) {
         {
           page: pageState.page,
           limit: pageState.limit,
-          searchData: formatData()
+          searchData: formatData(),
         },
         props.token
       ),
@@ -103,7 +120,7 @@ export default function NotificationsList(props) {
   const openAddModal = () => {
     setState({
       ...state,
-      addNotificationModal: !state.addNotificationModal
+      addNotificationModal: !state.addNotificationModal,
     });
   };
 
@@ -225,7 +242,7 @@ export default function NotificationsList(props) {
             roles={roles}
           />
         ) : null}
-        {state.searchModal? (
+        {state.searchModal ? (
           <SearchNotificationsOffCanvas
             state={state}
             setState={setState}
@@ -250,6 +267,12 @@ export default function NotificationsList(props) {
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
             roles={roles}
+            audiobooksState={audiobooksState}
+            setAudiobooksState={setAudiobooksState}
+            categoriesState={categoriesState}
+            setCategoriesState={setCategoriesState}
+            usersState={usersState}
+            setUsersState={setUsersState}
           />
         ) : null}
         {state.jsonModal ? (
