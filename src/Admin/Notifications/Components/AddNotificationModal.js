@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../Components/HandleFetch";
@@ -7,19 +7,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import PickActionIdAddList from "./PickActionIdAddList";
 
 export default function AddNotificationModal(props) {
-  // /api/admin/user/notification
-  //Dodawanie jest bardziej skomplikowane i tu muszę dodać jakieś opcje wyboru pobocznie id akcji !!!
-  // 1+text
-  // 2+userId i opcjonalnie text
-  // 4+ actionId i opcjonalnie text
-  // 5+ actionId i opcjonalnie text
-  // notificationType
-  // notificationUserType
-  // additionalData:{
-  //   text
-  //   actionId
-  //   userId
-  // }
+
   const [state, setState] = useState({
     actionId: "",
     notificationType: 0,
@@ -79,20 +67,19 @@ export default function AddNotificationModal(props) {
   };
 
   const createAdditionalData = () => {
-    let additionalData={};
+    let additionalData = {};
 
-    if(state.notificationType == 4 || state.notificationType == 5){
+    if (state.notificationType == 4 || state.notificationType == 5) {
       additionalData.actionId = state.actionId;
     }
-    if(state.notificationType == 2){
+    if (state.notificationType == 2) {
       additionalData.userId = state.userId;
     }
-    if(state.text != ""){
-      additionalData.text = state.text
-    } 
+    if (state.text != "") {
+      additionalData.text = state.text;
+    }
     return additionalData;
-  }
-
+  };
 
   const addNotification = () => {
     HandleFetch(
