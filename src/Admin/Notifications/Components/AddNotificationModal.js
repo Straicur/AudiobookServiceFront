@@ -1,21 +1,18 @@
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { HandleFetch } from "../../../Components/HandleFetch";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import PickActionIdAddList from "./PickActionIdAddList";
 
 export default function AddNotificationModal(props) {
-  const handleClose = () => {
-    props.setState({
-      ...props.state,
-      addNotificationModal: !props.state.addNotificationModal,
-    });
-  };
   // /api/admin/user/notification
   //Dodawanie jest bardziej skomplikowane i tu muszę dodać jakieś opcje wyboru pobocznie id akcji !!!
-  // 1+text 
+  // 1+text
   // 2+userId i opcjonalnie text
-  // 3 odpada całkowicie
   // 4+ actionId i opcjonalnie text
   // 5+ actionId i opcjonalnie text
-  // 6+ userId, i actionId i opcjonalnie text
   // notificationType
   // notificationUserType
   // additionalData:{
@@ -23,13 +20,226 @@ export default function AddNotificationModal(props) {
   //   actionId
   //   userId
   // }
+  const [state, setState] = useState({
+    actionId: "",
+    notificationType: 0,
+    text: "",
+    userType: 0,
+  });
+
+  const [actionState, setActionState] = useState({
+    list: false,
+    actionIdChanged: false,
+  });
+
+  const handleClose = () => {
+    props.setState({
+      ...props.state,
+      addNotificationModal: !props.state.addNotificationModal,
+      refresh: !props.state.refresh,
+    });
+  };
+
+  const changeNotificationType = (element) => {
+    if (element.target.value != 0) {
+      setState({
+        ...state,
+        notificationType: parseInt(element.target.value),
+      });
+    }
+  };
+
+  const changeUserType = (element) => {
+    if (element.target.value != 0) {
+      setState({
+        ...state,
+        userType: parseInt(element.target.value),
+      });
+    }
+  };
+
+  const changeText = (element) => {
+    setState({
+      ...state,
+      text: element.target.value,
+    });
+  };
+
+  const selectActionId = () => {
+    setActionState({
+      ...actionState,
+      list: true,
+    });
+  };
+  const goBack = () => {
+    setActionState({
+      ...actionState,
+      list: false,
+    });
+  };
+
+  const createAdditionalData = () => {
+    let additionalData={};
+
+    if(state.notificationType == 4 || state.notificationType == 5){
+      additionalData.actionId = state.actionId;
+    }
+    if(state.notificationType == 2){
+      additionalData.userId = state.userId;
+    }
+    if(state.text != ""){
+      additionalData.text = state.text
+    } 
+    return additionalData;
+  }
+
+
+  const addNotification = () => {
+    HandleFetch(
+      "http://127.0.0.1:8000/api/admin/user/notification",
+      "PUT",
+      {
+        notificationType: state.notificationType,
+        notificationUserType: state.userType,
+        actionId: state.actionId,
+        additionalData: createAdditionalData(),
+      },
+      props.token
+    )
+      .then(() => {
+        props.setState({
+          ...props.state,
+          addNotificationModal: !props.state.addNotificationModal,
+          refresh: !props.state.refresh,
+        });
+      })
+      .catch((e) => {
+        props.setNotificationsState({
+          ...props.notificationsState,
+          error: e,
+        });
+      });
+  };
+
   return (
-    <Modal size="sm" show={props.state.addNotificationModal} onHide={handleClose}>
+    <Modal
+      size="lg"
+      show={props.state.addNotificationModal}
+      onHide={handleClose}
+    >
       <Modal.Header>
         <Modal.Title>{props.t("addNotification")}</Modal.Title>
       </Modal.Header>
-      <Modal.Body></Modal.Body>
+      <Modal.Body>
+        {actionState.list ? (
+          <PickActionIdAddList
+            state={state}
+            setState={setState}
+            actionState={actionState}
+            setActionState={setActionState}
+            notificationsState={props.notificationsState}
+            setNotificationsState={props.setNotificationsState}
+            audiobooksState={props.audiobooksState}
+            setAudiobooksState={props.setAudiobooksState}
+            categoriesState={props.categoriesState}
+            setCategoriesState={props.setCategoriesState}
+            usersState={props.usersState}
+            setUsersState={props.setUsersState}
+            t={props.t}
+            token={props.token}
+          />
+        ) : (
+          <div className="container">
+            <div className="row">
+              <InputGroup>
+                <InputGroup.Text>{props.t("description")}</InputGroup.Text>
+                <Form.Control
+                  as="textarea"
+                  aria-label="With textarea"
+                  value={state.text}
+                  onChange={(e) => {
+                    changeText(e);
+                  }}
+                />
+              </InputGroup>
+              <InputGroup className="mb-1 input_modal py-1">
+                <InputGroup.Text className="input-group-text-new text-light">
+                  {props.t("userType")}
+                </InputGroup.Text>
+                <Form.Select
+                  onChange={(e) => {
+                    changeUserType(e);
+                  }}
+                  value={state.userType}
+                >
+                  <option value={0}>{props.t("selectNotificationType")}</option>
+                  <option value={1}>{props.t("administration")}</option>
+                  <option value={2}>{props.t("system")}</option>
+                </Form.Select>
+              </InputGroup>
+              <InputGroup className="mb-1 input_modal py-1">
+                <InputGroup.Text className="input-group-text-new text-light">
+                  {props.t("notificationType")}
+                </InputGroup.Text>
+                <Form.Select
+                  onChange={(e) => {
+                    changeNotificationType(e);
+                  }}
+                  value={state.notificationType}
+                >
+                  <option value={0}>{props.t("selectType")}</option>
+                  <option value={1}>{props.t("notificationTypeNormal")}</option>
+                  <option value={2}>{props.t("notificationTypeAdmin")}</option>
+                  <option value={4}>
+                    {props.t("notificationTypeNewCategory")}
+                  </option>
+                  <option value={5}>
+                    {props.t("notificationTypeNewAudiobook")}
+                  </option>
+                </Form.Select>
+              </InputGroup>
+            </div>
+            <div className="row mt-2">
+              <div className="col-3">{props.t("actionId")}:</div>
+              {actionState.actionIdChanged ? (
+                <div className="col-8 text-success">{state.actionId} </div>
+              ) : null}
+            </div>
+            {actionState.actionIdChanged || state.notificationType == 1 ? (
+              <div className="row mx-5 mt-3">
+                <Button
+                  name="en"
+                  variant="success"
+                  size="sm"
+                  className="btn button"
+                  onClick={(e) => addNotification(e)}
+                >
+                  {props.t("save")}
+                </Button>
+              </div>
+            ) : (
+              <div className="row mx-5 mt-3">
+                <Button
+                  name="en"
+                  variant="dark"
+                  disabled={state.notificationType == 0 || state.userType == 0}
+                  size="sm"
+                  className="btn button"
+                  onClick={(e) => selectActionId(e)}
+                >
+                  {props.t("select")}
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
+      </Modal.Body>
       <Modal.Footer>
+        {actionState.list != 0 ? (
+          <Button variant="dark" onClick={goBack}>
+            {props.t("back")}
+          </Button>
+        ) : null}
         <Button variant="dark" onClick={handleClose}>
           {props.t("close")}
         </Button>
