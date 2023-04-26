@@ -91,7 +91,7 @@ export default function EditNotificationModal(props) {
       });
   };
 
-  const selectActionId = (element) => {
+  const selectActionId = () => {
     setActionState({
       ...actionState,
       list: true,
@@ -216,9 +216,6 @@ export default function EditNotificationModal(props) {
                   <option value={5}>
                     {props.t("notificationTypeNewAudiobook")}
                   </option>
-                  <option value={6}>
-                    {props.t("notificationTypeUserDeleteDecline")}
-                  </option>
                 </Form.Select>
               </InputGroup>
               <div className="col">
@@ -282,11 +279,9 @@ export default function EditNotificationModal(props) {
             </div>
             <div className="row mt-2">
               <div className="col-3">{props.t("actionId")}:</div>
-
               {actionState.actionIdChanged ? (
                 <div className="col-3 text-success">{props.t("changed")} </div>
               ) : null}
-
               <div className="col-2">
                 <Button
                   name="en"

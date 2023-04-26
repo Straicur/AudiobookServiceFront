@@ -240,6 +240,12 @@ export default function NotificationsList(props) {
             token={props.token}
             resetSearchStates={resetSearchStates}
             roles={roles}
+            audiobooksState={audiobooksState}
+            setAudiobooksState={setAudiobooksState}
+            categoriesState={categoriesState}
+            setCategoriesState={setCategoriesState}
+            usersState={usersState}
+            setUsersState={setUsersState}
           />
         ) : null}
         {state.searchModal ? (
