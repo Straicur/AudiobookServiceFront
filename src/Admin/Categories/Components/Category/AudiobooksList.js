@@ -64,6 +64,7 @@ export default function AudiobooksList(props) {
         });
       },
       onSuccess: (data) => {
+        console.log(data)
         setState({ ...state, json: data.audiobooks });
         setPageState({ ...pageState, maxPage: data.maxPage });
       },
@@ -175,7 +176,7 @@ export default function AudiobooksList(props) {
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("categoryJson")}
+              {t("jsonData")}
             </Button>
           </div>
         </div>

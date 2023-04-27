@@ -106,7 +106,7 @@ export default function RenderAudiobooksList(props) {
 
             <Button
               name="en"
-              variant="dark"
+              variant={element.active ? "danger":"success"}
               size="sm"
               className="btn button mx-2"
               onClick={(e) => {

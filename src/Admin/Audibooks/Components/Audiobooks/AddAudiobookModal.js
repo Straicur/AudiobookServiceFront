@@ -17,6 +17,7 @@ export default function AddAudiobookModal(props) {
     categories: [],
     file: null,
     fileAdded: false,
+    upload: false,
     uploadEnded: true,
   });
 
@@ -63,6 +64,9 @@ export default function AddAudiobookModal(props) {
   const handleBack = () => {
     setStateModal({ ...stateModal, modal: 1 });
   };
+  const nextPage = () => {
+    setStateModal({ ...stateModal, modal: 2 });
+  };
 
   const generateCategoriesList = () => {
     let multiSelectTable = [];
@@ -80,9 +84,6 @@ export default function AddAudiobookModal(props) {
         categories: element,
       });
     }
-  };
-  const nextPage = () => {
-    setStateModal({ ...stateModal, modal: 2 });
   };
 
   const addAudiobook = () => {
@@ -318,7 +319,7 @@ export default function AddAudiobookModal(props) {
         </Modal.Footer>
       ) : (
         <Modal.Footer>
-          {stateModal.fileAdded == false ? (
+          {stateModal.upload == false ? (
             <div>
               <Button variant="dark" onClick={handleBack}>
                 {props.t("back")}
