@@ -114,7 +114,9 @@ export default function AudiobooksList(props) {
   useEffect(() => {
     if (state.refresh) {
       setState({ ...state, refresh: !state.refresh });
-      refetchFirst();
+      setTimeout(function () {
+        refetchFirst();
+      }, 3000);
     }
   }, [state.refresh]);
 
