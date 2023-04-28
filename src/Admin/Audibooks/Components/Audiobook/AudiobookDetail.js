@@ -16,7 +16,7 @@ import AudioPlayer from "./AudiobookPlayer";
 import ReAddAudiobookButton from "./ReAddAudiobookButton";
 import DeleteAudiobookEntarlyButton from "./DeleteAudiobookEntarlyButton";
 import { useTranslation } from "react-i18next";
-
+import { v4 as uuidv4 } from "uuid";
 import { useCategoryListStore } from "../../../../store";
 
 export default function AudiobookDetail(props) {
@@ -48,7 +48,7 @@ export default function AudiobookDetail(props) {
       if (audiobookDetail.avgRating != 0) {
         for (let i = 0; i < audiobookDetail.avgRating; i++) {
           stars.push(
-            <div className="col-1">
+            <div key={uuidv4()}  className="col-1">
               <i className="bi bi-star-fill"></i>
             </div>
           );
@@ -58,7 +58,7 @@ export default function AudiobookDetail(props) {
 
       for (let i = 0; i < amountOfStars; i++) {
         stars.push(
-          <div className="col-1">
+          <div key={uuidv4()}  className="col-1">
             <i className="bi bi-star"></i>
           </div>
         );

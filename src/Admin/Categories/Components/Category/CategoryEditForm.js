@@ -4,10 +4,17 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import { HandleFetch } from "./../../../../Components/HandleFetch";
-import { CreateDate } from "./../../../../Components/CrateDate";
+import { CreateJsonFormatDate } from "./../../../../Components/CreateJsonFormatDate";
 
 export default function CategoryEditForm(props) {
   const editAudiobookData = () => {
+    let myDate = props.audiobookDetail.duration.split(":");
+
+    let hours = parseInt(myDate[0] * 60 * 60);
+    let minutes = parseInt(myDate[1] * 60);
+    let seconds = parseInt(myDate[2]);
+
+
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/edit",
       "PATCH",
@@ -17,8 +24,8 @@ export default function CategoryEditForm(props) {
         author: props.audiobookDetail.author,
         version: props.audiobookDetail.version,
         album: props.audiobookDetail.album,
-        year: CreateDate(props.audiobookDetail.year),
-        duration: props.audiobookDetail.duration,
+        year: CreateJsonFormatDate(props.audiobookDetail.year),
+        duration: hours + minutes + seconds,
         size: props.audiobookDetail.size,
         parts: props.audiobookDetail.parts,
         description: props.audiobookDetail.description,
@@ -75,11 +82,9 @@ export default function CategoryEditForm(props) {
   };
 
   const handleYearChange = (event) => {
-    let myDate = event.target.value.split(".");
-    let newDate = new Date(myDate[2], myDate[1] - 1, myDate[0]);
     props.setAudiobookDetail({
       ...props.audiobookDetail,
-      year: parseInt(newDate.getTime()),
+      year: event.target.value,
     });
   };
   const handleAlbumChange = (event) => {
@@ -121,7 +126,7 @@ export default function CategoryEditForm(props) {
             {props.t("title")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
+            value={
               props.audiobookDetail != null ? props.audiobookDetail.title : ""
             }
             onChange={(event) => {
@@ -136,7 +141,7 @@ export default function CategoryEditForm(props) {
             {props.t("author")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
+            value={
               props.audiobookDetail != null ? props.audiobookDetail.author : ""
             }
             onChange={(event) => {
@@ -151,7 +156,7 @@ export default function CategoryEditForm(props) {
             {props.t("album")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
+            value={
               props.audiobookDetail != null ? props.audiobookDetail.album : ""
             }
             onChange={(event) => {
@@ -166,9 +171,10 @@ export default function CategoryEditForm(props) {
             {props.t("year")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
+           type="date"
+            value={
               props.audiobookDetail != null
-                ? CreateDate(props.audiobookDetail.year)
+                ? props.audiobookDetail.year
                 : ""
             }
             onChange={(event) => {
@@ -183,7 +189,7 @@ export default function CategoryEditForm(props) {
             {props.t("parts")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
+            value={
               props.audiobookDetail != null ? props.audiobookDetail.parts : ""
             }
             onChange={(event) => {
@@ -198,7 +204,7 @@ export default function CategoryEditForm(props) {
             {props.t("duration")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
+            value={
               props.audiobookDetail != null
                 ? props.audiobookDetail.duration
                 : ""
@@ -217,7 +223,7 @@ export default function CategoryEditForm(props) {
           <Form.Control
             as="textarea"
             rows={4}
-            defaultValue={
+            value={
               props.audiobookDetail != null
                 ? props.audiobookDetail.description
                 : ""
@@ -234,7 +240,7 @@ export default function CategoryEditForm(props) {
             {props.t("encoded")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
+            value={
               props.audiobookDetail != null ? props.audiobookDetail.encoded : ""
             }
             onChange={(event) => {
@@ -249,7 +255,7 @@ export default function CategoryEditForm(props) {
             {props.t("size")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
+            value={
               props.audiobookDetail != null ? props.audiobookDetail.size : ""
             }
             onChange={(event) => {
@@ -264,7 +270,7 @@ export default function CategoryEditForm(props) {
             {props.t("version")}
           </InputGroup.Text>
           <Form.Control
-            defaultValue={
+            value={
               props.audiobookDetail != null
                 ? +props.audiobookDetail.version
                 : ""
