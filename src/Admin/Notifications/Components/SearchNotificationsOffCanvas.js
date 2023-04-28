@@ -19,7 +19,7 @@ export default function SearchNotificationsOffCanvas(props) {
     if (element.target.value != NaN && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
-        order: element.target.value,
+        order: parseInt(element.target.value),
       });
     }
   };

@@ -80,7 +80,7 @@ export default function NotificationsList(props) {
     if (searchState.type != 0) {
       searchJson.type = parseInt(searchState.type);
     }
-    if (searchState.text != 0) {
+    if (searchState.order != 0) {
       searchJson.order = parseInt(searchState.order);
     }
 
