@@ -11,6 +11,7 @@ import CategoryEditForm from "./CategoryEditForm";
 import AudiobookCategoryList from "./AudiobookCategoryList";
 import AudiobookCover from "./AudiobookCover";
 import GetAudiobookZipButton from "./GetAudiobookZipButton";
+import { v4 as uuidv4 } from "uuid";
 
 export default function CategoryAudiobookDetailModal(props) {
   const [stateModal, setStateModal] = useState({
@@ -86,7 +87,7 @@ export default function CategoryAudiobookDetailModal(props) {
       if (audiobookDetail.avgRating != 0) {
         for (let i = 0; i < audiobookDetail.avgRating; i++) {
           stars.push(
-            <div className="col-1">
+            <div key={uuidv4()} className="col-1">
               <i className="bi bi-star-fill"></i>
             </div>
           );
@@ -96,7 +97,7 @@ export default function CategoryAudiobookDetailModal(props) {
 
       for (let i = 0; i < amountOfStars; i++) {
         stars.push(
-          <div className="col-1">
+          <div key={uuidv4()} className="col-1">
             <i className="bi bi-star"></i>
           </div>
         );

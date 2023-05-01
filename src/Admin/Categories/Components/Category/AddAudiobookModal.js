@@ -44,7 +44,7 @@ export default function AddAudiobookModal(props) {
     props.setState({
       ...props.state,
       addAudiobookModal: !props.state.addAudiobookModal,
-      updated: props.state.updated,
+      refresh: !props.state.refresh,
       modalAddShow: props.state.modalAddShow,
     });
   };

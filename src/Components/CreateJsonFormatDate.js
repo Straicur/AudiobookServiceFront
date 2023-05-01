@@ -1,5 +1,5 @@
-export const CreateDate = (timeStamp) => {
-  const dateFormat = new Date(timeStamp);
+export const CreateJsonFormatDate = (date) => {
+  const dateFormat = new Date(date);
 
   const day = dateFormat.getDate();
   const month =
@@ -7,6 +7,8 @@ export const CreateDate = (timeStamp) => {
       ? "0" + (dateFormat.getMonth() + 1)
       : dateFormat.getMonth() + 1;
   const year = dateFormat.getFullYear();
-  
-  return year + "-" + month + "-" + day;
+
+  const data = day + "." + month + "." + year;
+
+  return data;
 };

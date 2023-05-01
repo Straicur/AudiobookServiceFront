@@ -67,7 +67,7 @@ export default function AddCategoryModal(props) {
       <Modal.Header>
         <Modal.Title>
           <h3>
-            <b>{props.t("addCategory")}</b>
+            <b>{props.t("addMainCategory")}</b>
           </h3>
         </Modal.Title>
       </Modal.Header>

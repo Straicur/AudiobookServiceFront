@@ -64,6 +64,7 @@ export default function AudiobooksList(props) {
         });
       },
       onSuccess: (data) => {
+        console.log(data)
         setState({ ...state, json: data.audiobooks });
         setPageState({ ...pageState, maxPage: data.maxPage });
       },
@@ -114,7 +115,9 @@ export default function AudiobooksList(props) {
   useEffect(() => {
     if (state.refresh) {
       setState({ ...state, refresh: !state.refresh });
-      refetchFirst();
+      setTimeout(function () {
+        refetchFirst();
+      }, 3000);
     }
   }, [state.refresh]);
 
@@ -173,7 +176,7 @@ export default function AudiobooksList(props) {
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("categoryJson")}
+              {t("jsonData")}
             </Button>
           </div>
         </div>

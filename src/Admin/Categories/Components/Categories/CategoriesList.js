@@ -105,7 +105,7 @@ export default function CategoriesList(props) {
                 })
               }
             >
-              {t("addCategory")}
+              {t("addMainCategory")}
             </Button>
           </div>
           <div className="col-3 d-flex justify-content-center">

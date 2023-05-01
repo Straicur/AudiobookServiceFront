@@ -1,6 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../HandleFetch";
+import { CreateDate } from "../../../Components/CrateDate";
+import { CreateTime } from "../../../Components/CreateTime";
 
 const AudiobookDataContext = createContext(null);
 
@@ -31,7 +33,23 @@ export const AudiobookDataProvider = ({ children, token, audiobookId }) => {
       refetchOnWindowFocus: false,
       onError: (e) => {},
       onSuccess: (data) => {
-        setAudiobookDetail(data);
+        setAudiobookDetail({
+          active: data.active,
+          age: data.age,
+          album: data.album,
+          author: data.author,
+          avgRating: data.avgRating,
+          categories: data.categories,
+          description: data.description,
+          duration: CreateTime(data.duration),
+          encoded: data.encoded,
+          id: data.id,
+          parts: data.parts,
+          size: data.size,
+          title: data.title,
+          version: data.version,
+          year: CreateDate(data.year),
+        });
       },
     }
   );

@@ -101,9 +101,9 @@ export default function RenderUsersList(props) {
         </td>
         <td>
           {element.banned ? (
-            <i className="bi bi-shield-fill-exclamation"></i>
-          ) : (
             <i className="bi bi-shield-fill-check"></i>
+          ) : (
+            <i className="bi bi-shield-fill-exclamation"></i>
           )}
         </td>
         <td className="table_buttons_with">
