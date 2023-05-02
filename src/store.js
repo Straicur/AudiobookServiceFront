@@ -95,7 +95,6 @@ let audiobookListStore = (set) => ({
   people: [],
   addPerson: (person) =>
     set((state) => ({ people: [...state.people, person] })),
-  //todo tu jeszcze inne metody
 });
 
 //todo tu jeszcze mogę trzymać te ustawienia języka i likalizację (jeśli nie pl to na eng ustawiam i tyle)

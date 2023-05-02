@@ -17,8 +17,8 @@ export default function EditUserFrom(props) {
     wrong: false,
     buttonDisabled: false,
   });
-  //todo tu zostaje mi dadać jakąś prostą walidację dla hasła jak i telefonu
-  const banUser = (element) => {
+
+  const banUser = () => {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/user/ban",
       "PATCH",
@@ -101,7 +101,7 @@ export default function EditUserFrom(props) {
       wrong: false,
     });
   };
-
+  //todo tu dodaj te ukryte wiadomości o złym haśle i telefonie
   function validatePassword(pass) {
     const re =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -222,8 +222,8 @@ export default function EditUserFrom(props) {
             variant="warning"
             size="sm"
             className=" btn button mt-2 text-light"
-            onClick={(e) => {
-              banUser(e);
+            onClick={() => {
+              banUser();
             }}
           >
             {props.state.editUserElement.banned

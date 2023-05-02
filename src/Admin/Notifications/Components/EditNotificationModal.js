@@ -168,19 +168,8 @@ export default function EditNotificationModal(props) {
         ) : (
           <div className="container">
             <div className="row">
-              <InputGroup>
-                <InputGroup.Text>{props.t("description")}</InputGroup.Text>
-                <Form.Control
-                  as="textarea"
-                  aria-label="With textarea"
-                  value={state.text}
-                  onChange={(e) => {
-                    changeText(e);
-                  }}
-                />
-              </InputGroup>
               <InputGroup className="mb-1 input_modal py-1">
-                <InputGroup.Text className="input-group-text-new text-light">
+                <InputGroup.Text className="input-notification-text-new text-light">
                   {props.t("userType")}
                 </InputGroup.Text>
                 <Form.Select
@@ -195,7 +184,7 @@ export default function EditNotificationModal(props) {
                 </Form.Select>
               </InputGroup>
               <InputGroup className="mb-1 input_modal py-1">
-                <InputGroup.Text className="input-group-text-new text-light">
+                <InputGroup.Text className="input-notification-text-new text-light">
                   {props.t("notificationType")}
                 </InputGroup.Text>
                 <Form.Select
@@ -218,83 +207,88 @@ export default function EditNotificationModal(props) {
                   </option>
                 </Form.Select>
               </InputGroup>
-              <div className="col">
-                <div className="row">
-                  <div className="col-2">{props.t("deleted")}:</div>
-                  <div className="col-1">
-                    {state.delete ? (
-                      <i className="bi bi-bookmark-check-fill"></i>
-                    ) : (
-                      <i className="bi bi-bookmark-dash"></i>
-                    )}
-                  </div>
-                  <div className="col-8">
-                    {deleteState.sure ? (
-                      <div className="row justify-content-cente">
-                        <div className="col-4">
-                          <Button
-                            name="en"
-                            size="sm"
-                            className="btn button question_button success_button"
-                            onClick={(e) => deleteNotification(e)}
-                          >
-                            {props.t("yes")}
-                          </Button>
-                        </div>
-                        <div className="col-4">
-                          <Button
-                            name="en"
-                            size="sm"
-                            className="btn button question_button danger_button me-2"
-                            onClick={() =>
-                              setDelteteState({
-                                ...deleteState,
-                                sure: !deleteState.sure,
-                              })
-                            }
-                          >
-                            {props.t("no")}
-                          </Button>
-                        </div>
-                      </div>
-                    ) : (
-                      <Button
-                        name="en"
-                        variant={state.delete ? "success" : "danger"}
-                        size="sm"
-                        className="btn button mx-2"
-                        onClick={() =>
-                          setDelteteState({
-                            ...deleteState,
-                            sure: !deleteState.sure,
-                          })
-                        }
-                      >
-                        {state.delete ? props.t("activate") : props.t("delete")}
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row mt-2">
-              <div className="col-3">{props.t("actionId")}:</div>
-              {actionState.actionIdChanged ? (
-                <div className="col-3 text-success">{props.t("changed")} </div>
-              ) : null}
-              <div className="col-2">
+              <InputGroup className="mt-2 input_modal">
+                <InputGroup.Text>
+                  {props.t("description")} ({props.t("optional")})
+                </InputGroup.Text>
+                <Form.Control
+                  as="textarea"
+                  aria-label="With textarea"
+                  value={state.text}
+                  onChange={(e) => {
+                    changeText(e);
+                  }}
+                />
+              </InputGroup>
+
+              <InputGroup className="mb-2 mt-3 input_modal">
+                <InputGroup.Text>{props.t("actionId")}</InputGroup.Text>
+                <Form.Control value={state.actionId} />
                 <Button
                   name="en"
-                  variant="dark"
+                  variant="outline-secondary"
                   size="sm"
                   className="btn button mx-2"
                   onClick={(e) => selectActionId(e)}
                 >
                   {props.t("select")}
                 </Button>
-              </div>
+              </InputGroup>
+
+              <InputGroup className="my-2 input_modal">
+                <InputGroup.Text>{props.t("deleted")}</InputGroup.Text>
+                <Form.Control
+                  disabled
+                  value={state.delete ? props.t("yes") : props.t("no")}
+                />
+                {deleteState.sure ? (
+                  <Button
+                    name="en"
+                    size="sm"
+                    className="btn button"
+                    variant="outline-danger"
+                    onClick={(e) => deleteNotification(e)}
+                  >
+                    {props.t("yes")}
+                  </Button>
+                ) : null}
+                {deleteState.sure ? (
+                  <Button
+                    name="en"
+                    size="sm"
+                    className="btn button"
+                    variant="outline-success"
+                    onClick={() =>
+                      setDelteteState({
+                        ...deleteState,
+                        sure: !deleteState.sure,
+                      })
+                    }
+                  >
+                    {props.t("no")}
+                  </Button>
+                ) : null}
+                {!deleteState.sure ? (
+                  <Button
+                    name="en"
+                    variant={
+                      state.delete ? "outline-success" : "outline-danger"
+                    }
+                    size="sm"
+                    className="btn button mx-2"
+                    onClick={() =>
+                      setDelteteState({
+                        ...deleteState,
+                        sure: !deleteState.sure,
+                      })
+                    }
+                  >
+                    {state.delete ? props.t("activate") : props.t("delete")}
+                  </Button>
+                ) : null}
+              </InputGroup>
             </div>
-            <div className="row mx-5 mt-3">
+            <div className="row mx-5 mt-2">
               <Button
                 name="en"
                 variant="success"

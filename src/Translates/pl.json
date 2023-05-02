@@ -170,5 +170,6 @@
     "notificationDetail": "Detale powiadomienia",
     "select": "Wybierz",
     "selectNotificationType": "Wybierz typ notyfikacji",
-    "changed": "Zmieniony"
+    "changed": "Zmieniony",
+    "optional": "Opcjonalny"
 }

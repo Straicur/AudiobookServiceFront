@@ -19,7 +19,7 @@ export default function JsonModal(props) {
   };
   return (
     <Modal size="lg" show={props.state.jsonModal} onHide={handleClose}>
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>{props.t("jsonData")}</Modal.Title>
       </Modal.Header>
       <Modal.Body className="background_json">{format()}</Modal.Body>

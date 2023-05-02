@@ -169,5 +169,6 @@
     "notificationDetail": "Notification details",
     "select": "Select",
     "selectNotificationType": "Select notification type",
-    "changed": "Changed"
+    "changed": "Changed",
+    "optional": "Optional"
 }
