@@ -6,7 +6,13 @@ import { CreateTime } from "../../../Components/CreateTime";
 
 const AudiobookDataContext = createContext(null);
 
-export const AudiobookDataProvider = ({ children, token, audiobookId }) => {
+export const AudiobookDataProvider = ({
+  children,
+  token,
+  audiobookId,
+  state,
+  setState,
+}) => {
   const [audiobookDetail, setAudiobookDetail] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
@@ -31,7 +37,9 @@ export const AudiobookDataProvider = ({ children, token, audiobookId }) => {
       retry: 1,
       retryDelay: 500,
       refetchOnWindowFocus: false,
-      onError: (e) => {},
+      onError: (e) => {
+        setState({ ...state, error: e });
+      },
       onSuccess: (data) => {
         setAudiobookDetail({
           active: data.active,

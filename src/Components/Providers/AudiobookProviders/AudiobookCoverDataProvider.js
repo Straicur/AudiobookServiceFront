@@ -8,6 +8,8 @@ export const AudiobookCoverDataProvider = ({
   children,
   token,
   audiobookId,
+  state,
+  setState
 }) => {
   const [audiobookCover, setAudiobookCover] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -31,7 +33,9 @@ export const AudiobookCoverDataProvider = ({
       retry: 1,
       retryDelay: 500,
       refetchOnWindowFocus: false,
-      onError: (e) => {},
+      onError: (e) => {
+        setState({ ...state, error: e });
+      },
       onSuccess: (data) => {
         setAudiobookCover(data);
       },

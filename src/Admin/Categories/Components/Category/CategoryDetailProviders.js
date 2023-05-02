@@ -7,14 +7,20 @@ import CategoryAudiobookDetailModal from "../Category/CategoryAudiobookDetailMod
 export default function CategoryDetailProviders(props) {
   return (
     <AudiobookDataProvider
+      state={props.audiobooksState}
+      setState={props.setAudiobooksState}
       token={props.token}
       audiobookId={props.state.detailAudiobookElement.id}
     >
       <AudiobookCoverDataProvider
+        state={props.audiobooksState}
+        setState={props.setAudiobooksState}
         token={props.token}
         audiobookId={props.state.detailAudiobookElement.id}
       >
         <AudiobookPartProvider
+          state={props.audiobooksState}
+          setState={props.setAudiobooksState}
           token={props.token}
           audiobookId={props.state.detailAudiobookElement.id}
           part={props.state.detailAudiobookElementPart}
@@ -25,6 +31,8 @@ export default function CategoryDetailProviders(props) {
             t={props.t}
             token={props.token}
             categoryKey={props.categoryKey}
+            audiobooksState={props.audiobooksState}
+            setAudiobooksState={props.setAudiobooksState}
           />
         </AudiobookPartProvider>
       </AudiobookCoverDataProvider>

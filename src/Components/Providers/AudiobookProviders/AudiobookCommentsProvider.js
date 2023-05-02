@@ -8,6 +8,8 @@ export const AudiobookCommentsProvider = ({
   children,
   token,
   audiobookId,
+  state,
+  setState
 }) => {
   const [audiobookComments, setAudiobookComments] = useState(null);
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
@@ -33,7 +35,9 @@ export const AudiobookCommentsProvider = ({
       retry: 1,
       retryDelay: 500,
       refetchOnWindowFocus: false,
-      onError: (e) => {},
+      onError: (e) => {
+        setState({ ...state, error: e });
+      },
       onSuccess: (data) => {
         setAudiobookComments(data);
       },
