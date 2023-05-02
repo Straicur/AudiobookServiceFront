@@ -54,13 +54,18 @@ export default function CategoryEditForm(props) {
   const handleVersionChange = (event) => {
     props.setAudiobookDetail({
       ...props.audiobookDetail,
-      verison: event.target.value,
+      version: event.target.value,
     });
   };
   const handlePartsChange = (event) => {
+    let value = event.target.value;
+    if (value == "") {
+      value = 0;
+    }
+
     props.setAudiobookDetail({
       ...props.audiobookDetail,
-      parts: parseInt(event.target.value),
+      parts: parseInt(value),
     });
   };
   const handleEncodedChange = (event) => {
@@ -118,9 +123,10 @@ export default function CategoryEditForm(props) {
       age: parseInt(event),
     });
   };
-  //todo dodaj dokładne sprawdzanie regexem tutaj
+
   const validateFields = () => {
     setWrongState(0);
+
     if (props.audiobookDetail.title.length < 1) {
       setWrongState(1);
     }
@@ -148,11 +154,11 @@ export default function CategoryEditForm(props) {
     if (props.audiobookDetail.size.length < 1) {
       setWrongState(8);
     }
-    if (props.audiobookDetail.verison <= 0) {
+    if (props.audiobookDetail.version.length < 1) {
       setWrongState(9);
     }
   };
-  
+
   const returnFormError = () => {
     switch (wrongState) {
       case 1:
@@ -290,6 +296,7 @@ export default function CategoryEditForm(props) {
             {props.t("parts")}
           </InputGroup.Text>
           <Form.Control
+            type="number"
             value={
               props.audiobookDetail != null ? props.audiobookDetail.parts : ""
             }
@@ -376,9 +383,7 @@ export default function CategoryEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             value={
-              props.audiobookDetail != null
-                ? +props.audiobookDetail.version
-                : ""
+              props.audiobookDetail != null ? props.audiobookDetail.version : ""
             }
             onChange={(event) => {
               handleVersionChange(event);
