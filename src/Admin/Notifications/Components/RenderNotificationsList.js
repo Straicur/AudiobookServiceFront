@@ -62,7 +62,6 @@ export default function RenderAudiobooksList(props) {
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>
-        {console.log(element)}
         <th scope="row">{CreateDate(element.dateAdd)}</th>
         <td>{createNotificationType(element.notificationType)}</td>
         <td>{createUserType(element.userType)}</td>

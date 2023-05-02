@@ -77,7 +77,7 @@ export default function AddNotificationModal(props) {
     if (state.text != "") {
       additionalData.text = state.text;
     }
-    console.log(additionalData)
+
     return additionalData;
   };
 

@@ -101,7 +101,7 @@ export default function EditUserFrom(props) {
       wrong: false,
     });
   };
-  //todo tu dodaj te ukryte wiadomości o złym haśle i telefonie
+  
   function validatePassword(pass) {
     const re =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -236,7 +236,7 @@ export default function EditUserFrom(props) {
       <div className="row">
         <h3>{props.t("changeData")}</h3>
       </div>
-      <InputGroup className="mb-1 input_modal">
+      <InputGroup className="mb-1 input_modal ms-3">
         <InputGroup.Text className="input-group-text-new">
           {props.t("changePassword")}
         </InputGroup.Text>
@@ -247,6 +247,9 @@ export default function EditUserFrom(props) {
           }}
         />
       </InputGroup>
+      {passwordState.wrong ? (
+        <p className="text-danger text-center">{props.t("enterValidPassword")}</p>
+      ) : null}
       {passwordState.sure ? (
         <div className="row justify-content-center mt-2 mb-1">
           <div className="col-3">
@@ -291,13 +294,10 @@ export default function EditUserFrom(props) {
           >
             {props.t("save")}
           </Button>
-          {passwordState.wrong ? (
-            <p className="text-danger">{props.t("enterValidPassword")}</p>
-          ) : null}
         </div>
       )}
 
-      <InputGroup className="mb-1 input_modal">
+      <InputGroup className="mb-1 input_modal ms-3">
         <InputGroup.Text className="input-group-text-new">
           {props.t("changePhoneNumber")}
         </InputGroup.Text>
@@ -307,6 +307,9 @@ export default function EditUserFrom(props) {
           }}
         />
       </InputGroup>
+      {phoneNumberState.wrong ? (
+        <p className="text-danger text-center">{props.t("enterValidPhoneNumber")}</p>
+      ) : null}
       {phoneNumberState.sure ? (
         <div className="row justify-content-center mt-2 mb-1">
           <div className="col-3">
@@ -351,9 +354,6 @@ export default function EditUserFrom(props) {
           >
             {props.t("save")}
           </Button>
-          {phoneNumberState.wrong ? (
-            <p className="text-danger">{props.t("enterValidPhoneNumber")}</p>
-          ) : null}
         </div>
       )}
     </div>

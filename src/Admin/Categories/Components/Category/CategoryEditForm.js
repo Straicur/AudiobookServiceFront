@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
@@ -7,13 +7,14 @@ import { HandleFetch } from "./../../../../Components/HandleFetch";
 import { CreateJsonFormatDate } from "./../../../../Components/CreateJsonFormatDate";
 
 export default function CategoryEditForm(props) {
+  const [wrongState, setWrongState] = useState(0);
+
   const editAudiobookData = () => {
     let myDate = props.audiobookDetail.duration.split(":");
 
     let hours = parseInt(myDate[0] * 60 * 60);
     let minutes = parseInt(myDate[1] * 60);
     let seconds = parseInt(myDate[2]);
-
 
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/edit",
@@ -117,6 +118,108 @@ export default function CategoryEditForm(props) {
       age: parseInt(event),
     });
   };
+  //todo dodaj dokładne sprawdzanie regexem tutaj
+  const validateFields = () => {
+    setWrongState(0);
+    if (props.audiobookDetail.title.length < 1) {
+      setWrongState(1);
+    }
+    if (props.audiobookDetail.author.length < 1) {
+      setWrongState(2);
+    }
+    if (props.audiobookDetail.album.length < 1) {
+      setWrongState(3);
+    }
+    if (props.audiobookDetail.year.length < 1) {
+      setWrongState(4);
+    }
+    if (props.audiobookDetail.duration.length < 1) {
+      setWrongState(5);
+    }
+    if (props.audiobookDetail.parts <= 0) {
+      setWrongState(6);
+    }
+    if (
+      props.audiobookDetail.encoded == undefined ||
+      props.audiobookDetail.encoded.length < 1
+    ) {
+      setWrongState(7);
+    }
+    if (props.audiobookDetail.size.length < 1) {
+      setWrongState(8);
+    }
+    if (props.audiobookDetail.verison <= 0) {
+      setWrongState(9);
+    }
+  };
+  
+  const returnFormError = () => {
+    switch (wrongState) {
+      case 1:
+        return (
+          <p className="text-danger text-center">
+            {props.t("enterValidTitle")}
+          </p>
+        );
+        break;
+      case 2:
+        return (
+          <p className="text-danger text-center">
+            {props.t("enterValidAuthor")}
+          </p>
+        );
+        break;
+      case 3:
+        return (
+          <p className="text-danger text-center">
+            {props.t("enterValidAlbum")}
+          </p>
+        );
+        break;
+      case 4:
+        return (
+          <p className="text-danger text-center">{props.t("enterValidYear")}</p>
+        );
+        break;
+      case 5:
+        return (
+          <p className="text-danger text-center">{props.t("enterValidPart")}</p>
+        );
+        break;
+      case 6:
+        return (
+          <p className="text-danger text-center">
+            {props.t("enterValidDuration")}
+          </p>
+        );
+        break;
+      case 7:
+        return (
+          <p className="text-danger text-center">
+            {props.t("enterValidEncoded")}
+          </p>
+        );
+        break;
+      case 8:
+        return (
+          <p className="text-danger text-center">{props.t("enterValidSize")}</p>
+        );
+        break;
+      case 9:
+        return (
+          <p className="text-danger text-center">
+            {props.t("enterValidVersion")}
+          </p>
+        );
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (props.audiobookDetail != null) {
+      validateFields();
+    }
+  }, [props.audiobookDetail]);
 
   return (
     <div className="row ">
@@ -171,11 +274,9 @@ export default function CategoryEditForm(props) {
             {props.t("year")}
           </InputGroup.Text>
           <Form.Control
-           type="date"
+            type="date"
             value={
-              props.audiobookDetail != null
-                ? props.audiobookDetail.year
-                : ""
+              props.audiobookDetail != null ? props.audiobookDetail.year : ""
             }
             onChange={(event) => {
               handleYearChange(event);
@@ -241,7 +342,11 @@ export default function CategoryEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             value={
-              props.audiobookDetail != null ? props.audiobookDetail.encoded : ""
+              props.audiobookDetail != null
+                ? props.audiobookDetail.encoded != undefined
+                  ? props.audiobookDetail.encoded
+                  : ""
+                : ""
             }
             onChange={(event) => {
               handleEncodedChange(event);
@@ -355,12 +460,14 @@ export default function CategoryEditForm(props) {
           </Dropdown>
         </InputGroup>
       </div>
+      {returnFormError()}
       {props.stateModal.edit ? (
         <div className="row">
           <div className="col">
             <Button
               name="en"
               size="sm"
+              disabled={wrongState != 0}
               className="btn button px-4 my-1 question_button success_button"
               onClick={editAudiobookData}
             >
@@ -388,6 +495,7 @@ export default function CategoryEditForm(props) {
           <Button
             name="en"
             size="sm"
+            disabled={wrongState != 0}
             className="btn button px-4 mt-3 mb-1 modal_button success_button"
             onClick={() =>
               props.setStateModal({

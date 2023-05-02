@@ -43,7 +43,6 @@ export default function PickActionIdAddList(props) {
   return (
     <div className="row">
       <div className="row">
-        {console.log(props.state.notificationType)}
         {props.state.notificationType == 2 ? (
           <GetUsersList
             usersState={props.usersState}

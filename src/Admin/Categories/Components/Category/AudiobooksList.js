@@ -24,6 +24,7 @@ export default function AudiobooksList(props) {
     detailAudiobookElement: null,
     detailCommentsAudiobookModal: false,
     detailAudiobookElementPart: 0,
+    addAudiobook: false,
     refresh: false,
     error: null,
   });
@@ -64,7 +65,6 @@ export default function AudiobooksList(props) {
         });
       },
       onSuccess: (data) => {
-        console.log(data)
         setState({ ...state, json: data.audiobooks });
         setPageState({ ...pageState, maxPage: data.maxPage });
       },
@@ -111,13 +111,19 @@ export default function AudiobooksList(props) {
       },
     }
   );
+  useEffect(() => {
+    if (state.addAudiobook) {
+      setState({ ...state, addAudiobook: !state.addAudiobook });
+      setTimeout(function () {
+        refetchFirst();
+      }, 3000);
+    }
+  }, [state.addAudiobook]);
 
   useEffect(() => {
     if (state.refresh) {
       setState({ ...state, refresh: !state.refresh });
-      setTimeout(function () {
-        refetchFirst();
-      }, 3000);
+      refetchFirst();
     }
   }, [state.refresh]);
 
@@ -192,7 +198,6 @@ export default function AudiobooksList(props) {
           />
         ) : null}
         {state.detailAudiobookModal && state.detailAudiobookElement != null ? (
-          //todo tu pomyśl co z providerami zrobić bo nie ma gdzie zwracać errorów
           <CategoryDetailProviders
             state={state}
             setState={setState}

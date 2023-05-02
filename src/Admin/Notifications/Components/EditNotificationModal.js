@@ -223,7 +223,7 @@ export default function EditNotificationModal(props) {
 
               <InputGroup className="mb-2 mt-3 input_modal">
                 <InputGroup.Text>{props.t("actionId")}</InputGroup.Text>
-                <Form.Control value={state.actionId} />
+                <Form.Control disabled value={state.actionId} />
                 <Button
                   name="en"
                   variant="outline-secondary"
