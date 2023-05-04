@@ -65,13 +65,13 @@ let lastSearchStore = (set) => ({
   setSearch: (search) => {
     set((state) => ({
       search: search,
-      dateUpdate: Date.now() + 1800000
+      dateUpdate: Date.now() + 1800000,
     }));
   },
   removeSearch: () =>
     set(() => ({
       search: null,
-      dateUpdate: 0
+      dateUpdate: 0,
     })),
 });
 
@@ -81,20 +81,38 @@ let lastUserRolesStore = (set) => ({
   setRoles: (roles) => {
     set((state) => ({
       roles: roles,
-      dateUpdate: Date.now() + 1800000
+      dateUpdate: Date.now() + 1800000,
     }));
   },
   removeRoles: () =>
     set(() => ({
       roles: null,
-      dateUpdate: 0
+      dateUpdate: 0,
     })),
 });
 
-let audiobookListStore = (set) => ({
-  people: [],
-  addPerson: (person) =>
-    set((state) => ({ people: [...state.people, person] })),
+let audiobookCoverListStore = (set) => ({
+  audiobooks: [],
+  dateUpdate: 0,
+  addCover: (audiobook) => {
+    set((state) => ({
+      audiobooks: [...state.audiobooks, audiobook],
+      dateUpdate: Date.now() + 1800000,
+    }));
+  },
+  removeCover: (id) =>
+    set((audiobooks) => {
+      let removeArray = audiobooks.audiobooks;
+      removeArray.splice(removeArray.findIndex(el => el.id == id ),1)
+      return {
+          audiobooks: removeArray,
+          dateUpdate: audiobooks.dateUpdate,
+        }
+      //   {
+      //   audiobooks: [],
+      //   dateUpdate: 0,
+      // }
+    }),
 });
 
 //todo tu jeszcze mogę trzymać te ustawienia języka i likalizację (jeśli nie pl to na eng ustawiam i tyle)
@@ -103,7 +121,9 @@ tokenStore = devtools(tokenStore);
 tokenStore = persist(tokenStore, { name: "auth_token" });
 
 categoryTreeListStore = devtools(categoryTreeListStore);
-categoryTreeListStore = persist(categoryTreeListStore, { name: "categoriesTree" });
+categoryTreeListStore = persist(categoryTreeListStore, {
+  name: "categoriesTree",
+});
 
 categoryListStore = devtools(categoryListStore);
 categoryListStore = persist(categoryListStore, { name: "categories" });
@@ -114,11 +134,14 @@ lastSearchStore = persist(lastSearchStore, { name: "searchAudiobooks" });
 lastUserRolesStore = devtools(lastUserRolesStore);
 lastUserRolesStore = persist(lastUserRolesStore, { name: "userRolesStore" });
 
-audiobookListStore = devtools(audiobookListStore);
+audiobookCoverListStore = devtools(audiobookCoverListStore);
+audiobookCoverListStore = persist(audiobookCoverListStore, {
+  name: "audiobookCoverListStore",
+});
 
 export const useTokenStore = create(tokenStore);
 export const useLastUserRolesStore = create(lastUserRolesStore);
 export const useLastSearchStore = create(lastSearchStore);
 export const useCategoryTreeListStore = create(categoryTreeListStore);
 export const useCategoryListStore = create(categoryListStore);
-export const useAudiobookListStore = create(audiobookListStore);
+export const useAudiobookCoverListStore = create(audiobookCoverListStore);
