@@ -95,10 +95,18 @@ let audiobookCoverListStore = (set) => ({
   audiobooks: [],
   dateUpdate: 0,
   addCover: (audiobook) => {
-    set((state) => ({
-      audiobooks: [...state.audiobooks, audiobook],
-      dateUpdate: Date.now() + 1800000,
-    }));
+    set((state) => {
+      if(!state.audiobooks.findIndex(el => el.id == audiobook.id )){
+        return {audiobooks: [...state.audiobooks],
+          dateUpdate: state.dateUpdate
+          }
+      }
+      else{
+        return {audiobooks: [...state.audiobooks, audiobook],
+          dateUpdate: Date.now() + 1800000
+          }
+      }
+    });
   },
   removeCover: (id) =>
     set((audiobooks) => {
@@ -108,10 +116,6 @@ let audiobookCoverListStore = (set) => ({
           audiobooks: removeArray,
           dateUpdate: audiobooks.dateUpdate,
         }
-      //   {
-      //   audiobooks: [],
-      //   dateUpdate: 0,
-      // }
     }),
 });
 

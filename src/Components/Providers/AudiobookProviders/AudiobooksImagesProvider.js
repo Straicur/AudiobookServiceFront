@@ -33,14 +33,14 @@ export const AudiobooksImagesProvider = ({
           .then((data) => {
             if (dateUpdate < Date.now()) {
               audiobookCoverListStore.removeCover(audiobook.id);
-              audiobookCoverListStore.addCover({
-                audiobook: audiobook.id,
-                url:
-                  data != null
-                    ? window.URL.createObjectURL(new Blob([data]))
-                    : null,
-              });
             }
+            audiobookCoverListStore.addCover({
+              audiobook: audiobook.id,
+              url:
+                data != null
+                  ? window.URL.createObjectURL(new Blob([data]))
+                  : null,
+            });
           })
           .catch((e) => {
             setState({
