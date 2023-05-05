@@ -1,18 +1,20 @@
 import { v4 as uuidv4 } from "uuid";
-import { useUserAudiobooks } from "../../../Components/Providers/AudiobookProviders/AudiobooksImagesProvider";
-
-export default function RenderAudiobookColumn(audiobooks) {
-  const [audiobooksCovers, setAudiobooksCovers] = useUserAudiobooks();
+export default function RenderAudiobookColumn(audiobooks,userAudiobooks) {
 
   const getImgUrl = (audiobook) =>{
-    if(audiobooksCovers != undefined){
-      let url = audiobooksCovers.filter(obj => obj.audiobook == audiobook.id)
-
-     return url[0].url;
+    if(userAudiobooks != undefined){
+      let url = userAudiobooks.filter(obj => obj.audiobook == audiobook.id)
+      console.log(url)
+      if(url.length > 0){
+        return url[0].url;
+      }
+      else{
+        return "/noImg.jpg"
+      }
     }
   
     else{
-      // return "/noImg.jpg"
+      return "/noImg.jpg"
     }
   }
 
@@ -29,11 +31,11 @@ export default function RenderAudiobookColumn(audiobooks) {
             // }}
           >
 
-            <img
-              src={getImgUrl(audiobook)}
-              className="card-img-top"
-              alt="..."
-            />
+             <img
+                src={getImgUrl(audiobook)}
+               className="card-img-top"
+               alt="..."
+             /> 
             <div className="card-body">
               <h5 className="card-title text-light">{audiobook.title}</h5>
               <p className="card-text text-light">{audiobook.author}</p>

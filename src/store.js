@@ -103,7 +103,7 @@ let audiobookCoverListStore = (set) => ({
       }
       else{
         return {audiobooks: [...state.audiobooks, audiobook],
-          dateUpdate: Date.now() + 1800000
+          dateUpdate: Date.now() + 100000
           }
       }
     });

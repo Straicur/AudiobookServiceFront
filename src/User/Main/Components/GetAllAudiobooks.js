@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { AudiobookUserDataProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDataProvider";
 import { AudiobookUserProposedProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookUserProposedProvider";
-import { AudiobooksImagesProvider } from "../../../Components/Providers/AudiobookProviders/AudiobooksImagesProvider";
 import RenderAudiobooksList from "./RenderAudiobooksList";
 import RenderProposedList from "./RenderProposedList";
 
@@ -29,11 +28,6 @@ export default function GetAllAudiobooks(props) {
           state={props.audiobooksState}
           setState={props.setAudiobooksState}
         />
-        <AudiobooksImagesProvider
-          state={props.audiobooksState}
-          setState={props.setAudiobooksState}
-          token={props.token}
-        >
           <RenderAudiobooksList
             state={props.audiobooksState}
             setState={props.setAudiobooksState}
@@ -41,7 +35,6 @@ export default function GetAllAudiobooks(props) {
             page={props.audiobooksState.page}
             limit={props.audiobooksState.limit}
           />
-        </AudiobooksImagesProvider>
       </AudiobookUserDataProvider>
     </AudiobookUserProposedProvider>
   );
