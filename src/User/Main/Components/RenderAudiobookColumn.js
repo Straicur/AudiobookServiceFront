@@ -2,23 +2,24 @@ import { v4 as uuidv4 } from "uuid";
 export default function RenderAudiobookColumn(audiobooks,userAudiobooks) {
 
   const getImgUrl = (audiobook) =>{
-    if(userAudiobooks != undefined){
+    if(userAudiobooks != undefined && userAudiobooks.length > 0){
       let url = userAudiobooks.filter(obj => obj.audiobook == audiobook.id)
-      userAudiobooks.forEach(element => {
-        console.log(element)
-      });
-      // console.log(audiobook.id)
-   
-      // console.log(userAudiobooks)
-      // console.log(url)
-      // if(url.length > 0){
-      //   return url[0].url;
-      // }
-      // else{
+
+      // userAudiobooks.forEach(element => {
+      // //   // if(element.audiobook == audiobook.id){
+      // //   //   console.log(url[0].url)
+      // //   // }
+        
+      //   console.log(element)
+      // });
+      // console.log(userAudiobooks[1])
+      if(url.length > 0){
+        return url[0].url;
+      }
+      else{
         return "/noImg.jpg"
-      // }
+      }
     }
-  
     else{
       return "/noImg.jpg"
     }

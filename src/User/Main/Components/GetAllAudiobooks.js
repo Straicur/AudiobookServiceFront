@@ -10,9 +10,8 @@ export default function GetAllAudiobooks(props) {
 
   const [coversState, setCoversState] = useState([]);
 
-
   const getAudiobooksImages = () => {
-    let  covers= [];
+    let covers = [];
 
     if (audiobooks != null) {
       let copy = audiobooks;
@@ -25,16 +24,16 @@ export default function GetAllAudiobooks(props) {
             props.token
           )
             .then((data) => {
-              if (
-                  !covers.some(el => el.audiobook == audiobook.id)
-              ) {
-              covers.push({
-                audiobook: audiobook.id,
-                url:
-                  data != null
-                    ? window.URL.createObjectURL(new Blob([data]))
-                    : null,
-              });
+              if (!covers.some((el) => el.audiobook == audiobook.id)) {
+                covers.push({
+                  audiobook: audiobook.id,
+                  url:
+                    data != null
+                      ? window.URL.createObjectURL(new Blob([data]))
+                      : null,
+                });
+                console.log(covers)
+                setCoversState(covers);
               }
             })
             .catch((e) => {
@@ -46,16 +45,23 @@ export default function GetAllAudiobooks(props) {
         });
       });
     }
-    setCoversState(covers);
+
+   
   };
 
-//   const value = useMemo(() => getAudiobooksImages(), [audiobooks]);
+  //   const value = useMemo(() => getAudiobooksImages(), [audiobooks]);
 
-    useEffect(() => {
-      if (audiobooks != null) {
-        getAudiobooksImages();
-      }
-    }, [audiobooks]);
+  useEffect(() => {
+    if (audiobooks != null) {
+      getAudiobooksImages();
+    }
+  }, [audiobooks]);
 
-  return <ChildMemo props={props} coversState={coversState} audiobooks={audiobooks} />;
+  return (
+    <RenderAudiobooksList
+      props={props}
+      coversState={coversState}
+      audiobooks={audiobooks}
+    />
+  );
 }
