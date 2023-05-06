@@ -4,13 +4,19 @@ export default function RenderAudiobookColumn(audiobooks,userAudiobooks) {
   const getImgUrl = (audiobook) =>{
     if(userAudiobooks != undefined){
       let url = userAudiobooks.filter(obj => obj.audiobook == audiobook.id)
-      console.log(url)
-      if(url.length > 0){
-        return url[0].url;
-      }
-      else{
+      userAudiobooks.forEach(element => {
+        console.log(element)
+      });
+      // console.log(audiobook.id)
+   
+      // console.log(userAudiobooks)
+      // console.log(url)
+      // if(url.length > 0){
+      //   return url[0].url;
+      // }
+      // else{
         return "/noImg.jpg"
-      }
+      // }
     }
   
     else{
@@ -19,7 +25,6 @@ export default function RenderAudiobookColumn(audiobooks,userAudiobooks) {
   }
 
   const render = () => {
-
     return audiobooks.map((audiobook) => {
       return (
         

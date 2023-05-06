@@ -41,7 +41,6 @@ export const AudiobookUserDataProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
-        console.log(data)
         setAudiobooks(data);
       },
     }

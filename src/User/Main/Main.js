@@ -5,7 +5,7 @@ import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 
-import GetAllAudiobooks from "./Components/GetAllAudiobooks";
+import GetAudiobooksProviders from "./Components/GetAudiobooksProviders";
 
 export default function Main() {
   const token = useTokenStore((state) => state.token);
@@ -34,7 +34,7 @@ export default function Main() {
         <div className="container-fluid main-container mt-3">
           <div className="card position-relative p-3 mb-5  bg-dark shadow">
             <UserNavBar />
-            <GetAllAudiobooks
+            <GetAudiobooksProviders
               audiobooksState={audiobooksState}
               setAudiobooksState={setAudiobooksState}
               token={token}

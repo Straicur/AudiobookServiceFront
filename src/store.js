@@ -91,33 +91,33 @@ let lastUserRolesStore = (set) => ({
     })),
 });
 
-let audiobookCoverListStore = (set) => ({
-  audiobooks: [],
-  dateUpdate: 0,
-  addCover: (audiobook) => {
-    set((state) => {
-      if(!state.audiobooks.findIndex(el => el.id == audiobook.id )){
-        return {audiobooks: [...state.audiobooks],
-          dateUpdate: state.dateUpdate
-          }
-      }
-      else{
-        return {audiobooks: [...state.audiobooks, audiobook],
-          dateUpdate: Date.now() + 100000
-          }
-      }
-    });
-  },
-  removeCover: (id) =>
-    set((audiobooks) => {
-      let removeArray = audiobooks.audiobooks;
-      removeArray.splice(removeArray.findIndex(el => el.id == id ),1)
-      return {
-          audiobooks: removeArray,
-          dateUpdate: audiobooks.dateUpdate,
-        }
-    }),
-});
+// let audiobookCoverListStore = (set) => ({
+//   audiobooks: [],
+//   dateUpdate: 0,
+//   addCover: (audiobook) => {
+//     set((state) => {
+//       if(!state.audiobooks.findIndex(el => el.id == audiobook.id )){
+//         return {audiobooks: [...state.audiobooks],
+//           dateUpdate: state.dateUpdate
+//           }
+//       }
+//       else{
+//         return {audiobooks: [...state.audiobooks, audiobook],
+//           dateUpdate: Date.now() + 100000
+//           }
+//       }
+//     });
+//   },
+//   removeCover: (id) =>
+//     set((audiobooks) => {
+//       let removeArray = audiobooks.audiobooks;
+//       removeArray.splice(removeArray.findIndex(el => el.id == id ),1)
+//       return {
+//           audiobooks: removeArray,
+//           dateUpdate: audiobooks.dateUpdate,
+//         }
+//     }),
+// });
 
 //todo tu jeszcze mogę trzymać te ustawienia języka i likalizację (jeśli nie pl to na eng ustawiam i tyle)
 
@@ -138,14 +138,14 @@ lastSearchStore = persist(lastSearchStore, { name: "searchAudiobooks" });
 lastUserRolesStore = devtools(lastUserRolesStore);
 lastUserRolesStore = persist(lastUserRolesStore, { name: "userRolesStore" });
 
-audiobookCoverListStore = devtools(audiobookCoverListStore);
-audiobookCoverListStore = persist(audiobookCoverListStore, {
-  name: "audiobookCoverListStore",
-});
+// audiobookCoverListStore = devtools(audiobookCoverListStore);
+// audiobookCoverListStore = persist(audiobookCoverListStore, {
+//   name: "audiobookCoverListStore",
+// });
 
 export const useTokenStore = create(tokenStore);
 export const useLastUserRolesStore = create(lastUserRolesStore);
 export const useLastSearchStore = create(lastSearchStore);
 export const useCategoryTreeListStore = create(categoryTreeListStore);
 export const useCategoryListStore = create(categoryListStore);
-export const useAudiobookCoverListStore = create(audiobookCoverListStore);
+// export const useAudiobookCoverListStore = create(audiobookCoverListStore);
