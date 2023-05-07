@@ -28,13 +28,12 @@ export default function GetAudiobooksProviders(props) {
           state={props.audiobooksState}
           setState={props.setAudiobooksState}
         />
-          <GetAllAudiobooks
-            state={props.audiobooksState}
-            setState={props.setAudiobooksState}
-            token={props.token}
-            page={props.audiobooksState.page}
-            limit={props.audiobooksState.limit}
-          />
+        <GetAllAudiobooks
+          state={props.audiobooksState}
+          setState={props.setAudiobooksState}
+          token={props.token}
+          t={props.t}
+        />
       </AudiobookUserDataProvider>
     </AudiobookUserProposedProvider>
   );

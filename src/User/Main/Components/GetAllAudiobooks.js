@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect} from "react";
 import RenderAudiobooksList from "./RenderAudiobooksList";
 import { useAudiobookUserData } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDataProvider";
 import { HandleFetch } from "../../../Components/HandleFetch";
@@ -14,7 +14,10 @@ export default function GetAllAudiobooks(props) {
     let covers = [];
 
     if (audiobooks != null) {
+      setCoversState([]);
+
       let copy = audiobooks;
+
       copy.categories.forEach((category) => {
         category.audiobooks.map((audiobook) => {
           HandleFetch(
@@ -32,24 +35,31 @@ export default function GetAllAudiobooks(props) {
                       ? window.URL.createObjectURL(new Blob([data]))
                       : null,
                 });
-                console.log(covers)
-                setCoversState(covers);
+                setCoversState((coversState) => [
+                  ...coversState,
+                  {
+                    audiobook: audiobook.id,
+                    url:
+                      data != null
+                        ? window.URL.createObjectURL(new Blob([data]))
+                        : null,
+                  },
+                ]);
               }
             })
-            .catch((e) => {
-              covers.push({
-                audiobook: audiobook.id,
-                url: null,
-              });
+            .catch(() => {
+              setCoversState((coversState) => [
+                  ...coversState,
+                  {
+                    audiobook: audiobook.id,
+                    url: null,
+                  },
+                ]);
             });
         });
       });
     }
-
-   
   };
-
-  //   const value = useMemo(() => getAudiobooksImages(), [audiobooks]);
 
   useEffect(() => {
     if (audiobooks != null) {
@@ -58,8 +68,11 @@ export default function GetAllAudiobooks(props) {
   }, [audiobooks]);
 
   return (
-    <RenderAudiobooksList
-      props={props}
+    <ChildMemo
+      state={props.state}
+      setState={props.setState}
+      token={props.token}
+      t={props.t}
       coversState={coversState}
       audiobooks={audiobooks}
     />

@@ -8,11 +8,11 @@ export default function RenderAudiobooksList(props) {
   const renderColumns = () => {
     let renderCategories = [];
 
-    if (props.audiobooks != null) {  
+    if (props.audiobooks != null && props.coversState.length >0) {  
       props.audiobooks.categories.forEach((category) => {
         let renderAudiobooks = [];
         if (category.audiobooks.length > 0 && category.audiobooks.length < 4) {
-          renderAudiobooks.push(RenderAudiobookColumn(category.audiobooks,props.coversState));
+          renderAudiobooks.push(RenderAudiobookColumn(props,category.audiobooks));
         } else if (category.audiobooks.length > 4) {
           // renderAudiobooks.push(RenderCarousel(category.audiobooks));
         }
