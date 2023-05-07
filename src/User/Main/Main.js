@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { UserNavBar } from "../../Components/NavBars/UserNavBar";
 import { useTokenStore } from "../../store";
@@ -7,15 +7,16 @@ import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import { useTranslation } from "react-i18next";
 import GetAudiobooksProviders from "./Components/GetAudiobooksProviders";
 import AudiobookDetailModal from "./Components/AudiobookDetailModal";
+import "./Main.css";
 
 export default function Main() {
   const { t } = useTranslation();
-
+ 
   const token = useTokenStore((state) => state.token);
 
   const [audiobooksState, setAudiobooksState] = useState({
     page: 0,
-    limit: 10,
+    limit: 3,
     detailModal: false,
     detailModalAudiobook: null,
     error: null,
@@ -46,10 +47,10 @@ export default function Main() {
               t={t}
             />
             <AudiobookDetailModal
-             audiobooksState={audiobooksState}
-             setAudiobooksState={setAudiobooksState}
-             token={token}
-             t={t}
+              audiobooksState={audiobooksState}
+              setAudiobooksState={setAudiobooksState}
+              token={token}
+              t={t}
             />
             <div className="p-5">
               <div className="p-3"></div>

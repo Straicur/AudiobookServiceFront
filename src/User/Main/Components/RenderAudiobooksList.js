@@ -8,20 +8,27 @@ export default function RenderAudiobooksList(props) {
   const renderColumns = () => {
     let renderCategories = [];
 
-    if (props.audiobooks != null && props.coversState.length >0) {  
+    if (props.audiobooks != null && props.coversState.length > 0) {
       props.audiobooks.categories.forEach((category) => {
+
         let renderAudiobooks = [];
-        if (category.audiobooks.length > 0 && category.audiobooks.length < 4) {
-          renderAudiobooks.push(RenderAudiobookColumn(props,category.audiobooks));
+
+        if (category.audiobooks.length > 0 && category.audiobooks.length <= 4) {
+          renderAudiobooks.push(
+            RenderAudiobookColumn(props, category.audiobooks)
+          );
         } else if (category.audiobooks.length > 4) {
-          // renderAudiobooks.push(RenderCarousel(category.audiobooks));
+          renderAudiobooks.push(RenderCarousel(props, category.audiobooks));
         }
+
         renderCategories.push(
           <div key={uuidv4()} className="text-light">
-            {category.name}
+            <div className="fw-bold fs-1 ms-2 mb-1">{category.name}</div>
             {renderAudiobooks}
+            <hr></hr>
           </div>
         );
+        
       });
     }
     return renderCategories;

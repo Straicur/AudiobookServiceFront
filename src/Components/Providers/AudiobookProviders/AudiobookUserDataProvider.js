@@ -28,8 +28,8 @@ export const AudiobookUserDataProvider = ({
         "http://127.0.0.1:8000/api/user/audiobooks",
         "POST",
         {
-            page: page,
-            limit:limit
+          page: page,
+          limit: limit,
         },
         token
       ),
@@ -41,7 +41,26 @@ export const AudiobookUserDataProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
-        setAudiobooks(data);
+        if (audiobooks == null) {
+          setAudiobooks(data);
+        }
+      
+        if (refetchState) {
+          let newCategories = [...audiobooks.categories, data.categories];
+          console.log(newCategories)
+          console.log("cze")
+          setAudiobooks({
+            ...audiobooks,
+            categories: newCategories,
+            page: data.page,
+          });
+        }
+        // else{
+        //   let newCategories = [...audiobooks.categories,data.categories]
+        //   setAudiobooks({...audiobooks,categories:newCategories,page:data.page});
+        // }
+
+        // setAudiobooks(data);
       },
     }
   );
