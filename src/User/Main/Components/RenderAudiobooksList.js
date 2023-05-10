@@ -10,9 +10,8 @@ export default function RenderAudiobooksList(props) {
 
     if (props.audiobooks != null && props.coversState.length > 0) {
       props.audiobooks.categories.forEach((category) => {
-
         let renderAudiobooks = [];
-
+        
         if (category.audiobooks.length > 0 && category.audiobooks.length <= 4) {
           renderAudiobooks.push(
             RenderAudiobookColumn(props, category.audiobooks)
@@ -28,7 +27,6 @@ export default function RenderAudiobooksList(props) {
             <hr></hr>
           </div>
         );
-        
       });
     }
     return renderCategories;

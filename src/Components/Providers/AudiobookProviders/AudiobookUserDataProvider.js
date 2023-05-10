@@ -41,36 +41,28 @@ export const AudiobookUserDataProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
+   
         if (audiobooks == null) {
           setAudiobooks(data);
-        }
-      
-        if (refetchState) {
-          let newCategories = [...audiobooks.categories, data.categories];
-          console.log(newCategories)
-          console.log("cze")
+        } else if (audiobooks.categories != undefined) {
+     
+          let newCategories = audiobooks.categories.concat(data.categories);
+
           setAudiobooks({
             ...audiobooks,
             categories: newCategories,
             page: data.page,
           });
         }
-        // else{
-        //   let newCategories = [...audiobooks.categories,data.categories]
-        //   setAudiobooks({...audiobooks,categories:newCategories,page:data.page});
-        // }
-
-        // setAudiobooks(data);
       },
     }
   );
 
   useEffect(() => {
-    if (refetchState) {
+    if (page != 0 && audiobooks != null && audiobooks.maxPage >= page) {
       refetchAudiobookUserData();
-      setRefetchState(!refetchState);
     }
-  }, [refetchState]);
+  }, [page]);
 
   const value = [audiobooks, setAudiobooks, setRefetchState];
 

@@ -7,20 +7,32 @@ import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import { useTranslation } from "react-i18next";
 import GetAudiobooksProviders from "./Components/GetAudiobooksProviders";
 import AudiobookDetailModal from "./Components/AudiobookDetailModal";
+import {BottomScrollListener} from "react-bottom-scroll-listener";
 import "./Main.css";
 
 export default function Main() {
   const { t } = useTranslation();
- 
+
   const token = useTokenStore((state) => state.token);
 
   const [audiobooksState, setAudiobooksState] = useState({
     page: 0,
-    limit: 3,
+    limit: 5,
     detailModal: false,
     detailModalAudiobook: null,
     error: null,
   });
+
+  const handleScroll = () => {
+    console.log(audiobooksState.page);
+    // console.log(props.state.page)
+    // if (audiobooksState.page + 1 <= audiobooks.maxPage) {
+      setAudiobooksState({
+        ...audiobooksState,
+        page: audiobooksState.page + 1,
+      });
+    // }
+  };
 
   return (
     <ErrorBoundary
@@ -40,12 +52,15 @@ export default function Main() {
         <div className="container-fluid main-container mt-3">
           <div className="card position-relative p-3 mb-5  bg-dark shadow">
             <UserNavBar />
-            <GetAudiobooksProviders
-              audiobooksState={audiobooksState}
-              setAudiobooksState={setAudiobooksState}
-              token={token}
-              t={t}
-            />
+            <BottomScrollListener onBottom={handleScroll}>
+              <GetAudiobooksProviders
+                audiobooksState={audiobooksState}
+                setAudiobooksState={setAudiobooksState}
+                token={token}
+                t={t}
+              />
+            </BottomScrollListener>
+
             <AudiobookDetailModal
               audiobooksState={audiobooksState}
               setAudiobooksState={setAudiobooksState}
