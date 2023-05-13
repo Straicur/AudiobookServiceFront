@@ -31,11 +31,9 @@ export const AudiobookUserDataProvider = ({
         if (audiobooks == null) {
           setAudiobooks(data);
         } else if (audiobooks.categories != undefined) {
-          let newCategories = audiobooks.categories.concat(data.categories);
-
           setAudiobooks({
             ...audiobooks,
-            categories: newCategories,
+            categories: [...audiobooks.categories, ...data.categories.map(category=>category)],
             page: data.page,
           });
         }

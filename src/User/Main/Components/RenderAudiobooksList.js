@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-
+import React, { useEffect, useRef, useCallback } from "react";
 import RenderCarousel from "./RenderCarousel";
 import RenderAudiobookColumn from "./RenderAudiobookColumn";
 import { v4 as uuidv4 } from "uuid";
 
 export default function RenderAudiobooksList(props) {
+  const lastItemRef = useRef(null);
+  const lastItemOffsetTopRef = useRef(null);
+
   const observer = useRef();
   const lastBookElementRef = useCallback(
     (node) => {
@@ -18,22 +20,23 @@ export default function RenderAudiobooksList(props) {
             ...props.state,
             page: props.state.page + 1,
           });
-
-          // if(observer.height != undefined){
-          //   window.scroll({
-          //     top: observer.height,
-          //     left: 100,
-          //     behavior: "smooth",
-          //   });
-          // }
-       
-
         }
       });
       if (node) observer.current.observe(node);
     },
     [props.loading, props.hasMore]
   );
+
+  useEffect(() => {
+    if (lastItemRef.current && lastItemOffsetTopRef.current !== null) {
+      setTimeout(function () {
+        window.scrollTo({
+          top: lastItemOffsetTopRef.current,
+          behavior: "smooth",
+        });
+      }, 1500);
+    }
+  }, [props.audiobooks]);
 
   const renderColumns = () => {
     let renderCategories = [];
@@ -44,25 +47,32 @@ export default function RenderAudiobooksList(props) {
 
         if (category.audiobooks.length > 0 && category.audiobooks.length <= 4) {
           renderAudiobooks.push(
-            RenderAudiobookColumn(
-              props,
-              category.audiobooks,
-              lastBookElementRef
-            )
+            RenderAudiobookColumn(props, category.audiobooks)
           );
         } else if (category.audiobooks.length > 4) {
-          renderAudiobooks.push(
-            RenderCarousel(props, category.audiobooks, lastBookElementRef)
-          );
+          renderAudiobooks.push(RenderCarousel(props, category.audiobooks));
         }
 
         if (props.audiobooks.categories.length == index + 1) {
           renderCategories.push(
-            <div key={uuidv4()} className="text-light">
+            <div
+              id={category.categoryKey}
+              key={uuidv4()}
+              ref={lastItemRef}
+              onLoad={() => {
+                if (
+                  lastItemRef.current &&
+                  lastItemOffsetTopRef.current === null
+                ) {
+                  lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
+                }
+              }}
+              className="text-light cos"
+            >
               <div className="fw-bold fs-1 ms-2 mb-1">{category.name}</div>
               {renderAudiobooks}
               <hr></hr>
-              <div className="text-light"  ref={lastBookElementRef}></div>
+              <div className="text-light" ref={lastBookElementRef}></div>
             </div>
           );
         } else {
@@ -71,7 +81,6 @@ export default function RenderAudiobooksList(props) {
               <div className="fw-bold fs-1 ms-2 mb-1">{category.name}</div>
               {renderAudiobooks}
               <hr></hr>
-
             </div>
           );
         }
