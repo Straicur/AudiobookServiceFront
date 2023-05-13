@@ -2,27 +2,13 @@ import React, { useState, useEffect } from "react";
 import RenderAudiobooksList from "./RenderAudiobooksList";
 import { useAudiobookUserData } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDataProvider";
 import { HandleFetch } from "../../../Components/HandleFetch";
-// import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
 const ChildMemo = React.memo(RenderAudiobooksList);
 
 export default function GetAllAudiobooks(props) {
-  const [audiobooks, setAudiobooks, setRefetchState] = useAudiobookUserData();
+  const [audiobooks, loading, hasMore, setAudiobooks, setRefetchState] = useAudiobookUserData();
 
   const [coversState, setCoversState] = useState([]);
-
-  // const handleScroll = (e) => {
-  //   console.log(e);
-  //   // console.log(props.state.page)
-  //   // if (props.state.page + 1 <= audiobooks.maxPage) {
-  //   //   props.setState({
-  //   //     ...props.state,
-  //   //     page: props.state.page + 1,
-  //   //   });
-  //   // }
-  // };
-
-  // useBottomScrollListener((e) => handleScroll(e));
 
   const getAudiobooksImages = () => {
     let covers = [];
@@ -76,10 +62,6 @@ export default function GetAllAudiobooks(props) {
       });
     }
   };
-  // console.log(props.state.page)
-  // useEffect(() => {
-  //   setRefetchState(true);
-  // }, [props.state.page]);
 
   useEffect(() => {
     if (audiobooks != null) {
@@ -95,6 +77,8 @@ export default function GetAllAudiobooks(props) {
       t={props.t}
       coversState={coversState}
       audiobooks={audiobooks}
+      loading={loading}
+      hasMore={hasMore}
     />
   );
 }

@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { useQuery } from "react-query";
 import { HandleFetch } from "../../HandleFetch";
 
 const AudiobookUserDataContext = createContext(null);
@@ -14,38 +13,24 @@ export const AudiobookUserDataProvider = ({
 }) => {
   const [audiobooks, setAudiobooks] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
 
-  const {
-    isLoading: isLoadingAudiobookUserData,
-    error: errorAudiobookUserData,
-    data: dataAudiobookUserData,
-    isFetching: isFetchingAudiobookUserData,
-    refetch: refetchAudiobookUserData,
-  } = useQuery(
-    "dataAudiobookUserData",
-    () =>
-      HandleFetch(
-        "http://127.0.0.1:8000/api/user/audiobooks",
-        "POST",
-        {
-          page: page,
-          limit: limit,
-        },
-        token
-      ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        setState({ ...state, error: e });
+  const fetchData = () => {
+    setLoading(true);
+    HandleFetch(
+      "http://127.0.0.1:8000/api/user/audiobooks",
+      "POST",
+      {
+        page: page,
+        limit: limit,
       },
-      onSuccess: (data) => {
-   
+      token
+    )
+      .then((data) => {
         if (audiobooks == null) {
           setAudiobooks(data);
         } else if (audiobooks.categories != undefined) {
-     
           let newCategories = audiobooks.categories.concat(data.categories);
 
           setAudiobooks({
@@ -54,17 +39,27 @@ export const AudiobookUserDataProvider = ({
             page: data.page,
           });
         }
-      },
-    }
-  );
+        setHasMore(data.maxPage > page+1);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log(e);
+        setState({
+          ...state,
+          error: e,
+        });
+      });
+  };
 
   useEffect(() => {
-    if (page != 0 && audiobooks != null && audiobooks.maxPage >= page) {
-      refetchAudiobookUserData();
-    }
+    fetchData();
   }, [page]);
 
-  const value = [audiobooks, setAudiobooks, setRefetchState];
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const value = [audiobooks, loading, hasMore, setAudiobooks, setRefetchState];
 
   return (
     <AudiobookUserDataContext.Provider value={value}>

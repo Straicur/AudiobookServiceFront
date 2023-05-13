@@ -17,24 +17,11 @@ export default function Main() {
 
   const [audiobooksState, setAudiobooksState] = useState({
     page: 0,
-    limit: 5,
+    limit: 10,
     detailModal: false,
     detailModalAudiobook: null,
     error: null,
   });
-
-  const handleScroll = () => {
-    console.log(audiobooksState.page);
-    // console.log(props.state.page)
-    // if (audiobooksState.page + 1 <= audiobooks.maxPage) {
-      setTimeout(() => {
-      setAudiobooksState({
-        ...audiobooksState,
-        page: audiobooksState.page + 1,
-      });
-    }, 1000);
-    // }
-  };
 
   return (
     <ErrorBoundary
@@ -54,9 +41,6 @@ export default function Main() {
         <div className="container-fluid main-container mt-3">
           <div className="card position-relative p-3 mb-5  bg-dark shadow">
             <UserNavBar />
-            <BottomScrollListener onBottom={handleScroll}>
-            <div />
-            </BottomScrollListener>
               <GetAudiobooksProviders
                 audiobooksState={audiobooksState}
                 setAudiobooksState={setAudiobooksState}
