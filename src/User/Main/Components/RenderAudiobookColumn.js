@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-export default function RenderAudiobookColumn(props, audiobooks) {
+export default function RenderAudiobookColumn(props, category) {
   const getImgUrl = (audiobook) => {
     if (props.coversState != undefined && props.coversState.length > 0) {
       let url = props.coversState.filter(
@@ -16,32 +16,31 @@ export default function RenderAudiobookColumn(props, audiobooks) {
     }
   };
 
-  const showAudiobookModal = (audiobook) => {
+  const showAudiobookModal = (audiobook, imgUrl) => {
     props.setState({
       ...props.state,
       detailModal: !props.detailModal,
       detailModalAudiobook: audiobook,
+      detailModalCover: imgUrl,
+      detailModalCategory: category,
     });
   };
 
   const render = () => {
-    return audiobooks.map((audiobook) => {
+    return category.audiobooks.map((audiobook) => {
+      let imgUrl = getImgUrl(audiobook);
       return (
         <div key={uuidv4()} className="col-sm-3 py-2 ">
           <div
             className="card h-100 list-bg"
             onClick={() => {
-              showAudiobookModal(audiobook);
+              showAudiobookModal(audiobook, imgUrl);
             }}
           >
-            <img
-              src={getImgUrl(audiobook)}
-              className="card-img-top"
-              alt="..."
-            />
-            <div className="card-body">
-              <h5 className="card-title text-light">{audiobook.title}</h5>
-              <p className="card-text text-light">{audiobook.author}</p>
+            <img src={imgUrl} className="card-img-top" alt="..." />
+            <div className="card-body ">
+              <h5 className="card-title">{audiobook.title}</h5>
+              <p className="card-text">{audiobook.author}</p>
             </div>
           </div>
         </div>

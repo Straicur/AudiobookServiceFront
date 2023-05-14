@@ -47,10 +47,10 @@ export default function RenderAudiobooksList(props) {
 
         if (category.audiobooks.length > 0 && category.audiobooks.length <= 4) {
           renderAudiobooks.push(
-            RenderAudiobookColumn(props, category.audiobooks)
+            RenderAudiobookColumn(props, category)
           );
         } else if (category.audiobooks.length > 4) {
-          renderAudiobooks.push(RenderCarousel(props, category.audiobooks));
+          renderAudiobooks.push(RenderCarousel(props, category));
         }
 
         if (props.audiobooks.categories.length == index + 1) {
@@ -67,16 +67,17 @@ export default function RenderAudiobooksList(props) {
                   lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
                 }
               }}
-              className="text-light"
             >
-              <div className="fw-bold fs-1 ms-2 mb-2">{category.name}</div>
+              <div className="fw-bold fs-1 ms-2 mb-2  text-light">
+                {category.name}
+              </div>
               {renderAudiobooks}
-              <hr></hr>
+              <hr className=" text-light"></hr>
               {props.hasMore ? (
-                <div className="row mb-4 p-5 justify-content-center">
+                <div className="row mb-4 p-5 justify-content-center  text-light">
                   <div className="col-2 fs-2">{props.t("loadMore")}</div>
                   <div className="col-1 align-self-center">
-                    <i class="bi bi-chevron-double-down"></i>
+                    <i className="bi bi-chevron-double-down"></i>
                   </div>
                 </div>
               ) : null}
@@ -85,10 +86,12 @@ export default function RenderAudiobooksList(props) {
           );
         } else {
           renderCategories.push(
-            <div key={uuidv4()} className="text-light">
-              <div className="fw-bold fs-1 ms-2 mb-2">{category.name}</div>
+            <div key={uuidv4()}>
+              <div className="fw-bold fs-1 ms-2 mb-2 text-light">
+                {category.name}
+              </div>
               {renderAudiobooks}
-              <hr></hr>
+              <hr className=" text-light"></hr>
             </div>
           );
         }

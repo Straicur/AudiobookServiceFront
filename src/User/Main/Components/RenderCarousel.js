@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-export default function RenderCarousel(props, audiobooks) {
+export default function RenderCarousel(props, category) {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -37,34 +37,34 @@ export default function RenderCarousel(props, audiobooks) {
     }
   };
 
-  const showAudiobookModal = (audiobook) => {
+  const showAudiobookModal = (audiobook, imgUrl) => {
     props.setState({
       ...props.state,
       detailModal: !props.detailModal,
       detailModalAudiobook: audiobook,
+      detailModalCover: imgUrl,
+      detailModalCategory: category,
     });
   };
+
   const returnAudioboks = () => {
     let audiobooksArray = [];
 
     audiobooksArray.push(
-      audiobooks.map((audiobook) => {
+      category.audiobooks.map((audiobook) => {
+        let imgUrl = getImgUrl(audiobook);
         return (
           <div
             className="card mx-3 h-100 list-bg"
             key={uuidv4()}
             onClick={() => {
-              showAudiobookModal(audiobook);
+              showAudiobookModal(audiobook, imgUrl);
             }}
           >
-            <img
-              src={getImgUrl(audiobook)}
-              className="card-img-top"
-              alt="..."
-            />
+            <img src={imgUrl} className="card-img-top" alt="..." />
             <div className="card-body">
-              <h5 className="card-title text-light">{audiobook.title}</h5>
-              <p className="card-text text-light">{audiobook.desc}</p>
+              <h5 className="card-title">{audiobook.title}</h5>
+              <p className="card-text">{audiobook.desc}</p>
             </div>
           </div>
         );
