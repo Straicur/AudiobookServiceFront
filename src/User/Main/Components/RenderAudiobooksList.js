@@ -67,18 +67,26 @@ export default function RenderAudiobooksList(props) {
                   lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
                 }
               }}
-              className="text-light cos"
+              className="text-light"
             >
-              <div className="fw-bold fs-1 ms-2 mb-1">{category.name}</div>
+              <div className="fw-bold fs-1 ms-2 mb-2">{category.name}</div>
               {renderAudiobooks}
               <hr></hr>
-              <div className="text-light" ref={lastBookElementRef}></div>
+              {props.hasMore ? (
+                <div className="row mb-4 p-5 justify-content-center">
+                  <div className="col-2 fs-2">{props.t("loadMore")}</div>
+                  <div className="col-1 align-self-center">
+                    <i class="bi bi-chevron-double-down"></i>
+                  </div>
+                </div>
+              ) : null}
+              <div className="mt-4" ref={lastBookElementRef}></div>
             </div>
           );
         } else {
           renderCategories.push(
             <div key={uuidv4()} className="text-light">
-              <div className="fw-bold fs-1 ms-2 mb-1">{category.name}</div>
+              <div className="fw-bold fs-1 ms-2 mb-2">{category.name}</div>
               {renderAudiobooks}
               <hr></hr>
             </div>

@@ -180,5 +180,6 @@
     "select": "Wybierz",
     "selectNotificationType": "Wybierz typ notyfikacji",
     "changed": "Zmieniony",
-    "optional": "Opcjonalny"
+    "optional": "Opcjonalny",
+    "loadMore": "Załaduj więcej"
 }
