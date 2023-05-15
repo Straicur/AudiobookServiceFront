@@ -21,6 +21,32 @@ export default function AudiobookDetailModal(props) {
   const [audiobookPart, setAudiobookPart, setRefetchPartState] =
     useAudiobookPart();
 
+    const renderStars = () => {
+      // let stars = [];
+      // let amountOfStars = 5;
+      // if (audiobookDetail != null) {
+      //   if (audiobookDetail.avgRating != 0) {
+      //     for (let i = 0; i < audiobookDetail.avgRating; i++) {
+      //       stars.push(
+      //         <div key={uuidv4()}  className="col-1">
+      //           <i className="bi bi-star-fill"></i>
+      //         </div>
+      //       );
+      //       amountOfStars = amountOfStars - 1;
+      //     }
+      //   }
+  
+      //   for (let i = 0; i < amountOfStars; i++) {
+      //     stars.push(
+      //       <div key={uuidv4()}  className="col-1">
+      //         <i className="bi bi-star"></i>
+      //       </div>
+      //     );
+      //   }
+      // }
+      // return stars;
+    };
+
   return (
     <Modal
       size="lg"
@@ -29,15 +55,17 @@ export default function AudiobookDetailModal(props) {
     >
       <Modal.Body className="text-white">
         {audiobookDetail != null ? (
-          <div className="row ">
-            <div className="col">
-              <img
-                src={props.audiobooksState.detailModalCover}
-                className="card-img-top"
-                alt="..."
-              />
+          <div className="row "style={{ 
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(255,255,255,0.1)), url(${props.audiobooksState.detailModalCover})`, 
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'contain',
+            backgroundPosition: 'left center',
+            marginLeft: '1rem',
+          }}>
+            <div className="col-3">
+
             </div>
-            <div className="col">
+            <div className="col-9">
               <div className="row">
                 <h1>{audiobookDetail.title}</h1>
               </div>
