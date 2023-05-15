@@ -82,8 +82,8 @@ export default function AudiobookDetailProviders(props) {
               <AudiobookDetailModal
                 audiobooksState={props.audiobooksState}
                 setAudiobooksState={props.setAudiobooksState}
-                audiobookState={props.audiobookState}
-                setAudiobookState={props.setAudiobookState}
+                audiobookState={audiobookState}
+                setAudiobookState={setAudiobookState}
                 t={props.t}
                 token={props.token}
               />

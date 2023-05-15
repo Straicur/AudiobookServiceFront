@@ -3,3 +3,7 @@
     min-width: 4.25rem;
     min-height: 4.25rem;
 }
+
+.modal-content{
+    background-color: black !important;
+}

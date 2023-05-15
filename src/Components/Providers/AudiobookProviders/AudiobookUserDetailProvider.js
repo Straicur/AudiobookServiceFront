@@ -43,18 +43,16 @@ export const AudiobookUserDetailProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
-        console.log(data);
         setAudiobookDetail({
-          active: data.active,
           age: data.age,
           album: data.album,
           author: data.author,
-          avgRating: data.avgRating,
           categories: data.categories,
+          comments:data.comments,
           description: data.description,
           duration: CreateTime(data.duration),
-          encoded: data.encoded,
           id: data.id,
+          inList:data.inList,
           parts: data.parts,
           title: data.title,
           version: data.version,
