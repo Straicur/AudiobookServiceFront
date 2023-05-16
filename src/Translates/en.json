@@ -180,5 +180,6 @@
     "selectNotificationType": "Select notification type",
     "changed": "Changed",
     "optional": "Optional",
-    "loadMore": "Load more"
+    "loadMore": "Load more",
+    "part": "Part"
 }

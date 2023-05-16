@@ -7,3 +7,9 @@
 .modal-content{
     background-color: black !important;
 }
+.detail-button{
+    width: 27.2rem !important;
+}
+.comments-button{
+    width: 13.2rem !important;
+}
