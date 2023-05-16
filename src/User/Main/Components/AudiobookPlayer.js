@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
@@ -18,27 +17,8 @@ export default function AudiobookPlayer(props) {
     }
   };
 
-  const [timeAudio, setTime] = useState("00:00:00");
-
-  function fancyTimeFormat(duration) {
-    let hrs = ~~(duration / 3600);
-    let mins = ~~((duration % 3600) / 60);
-    let secs = ~~duration % 60;
-
-    let ret = "";
-
-    if (hrs > 0) {
-      ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-    }
-
-    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-    ret += "" + secs;
-    return ret;
-  }
-
   const timeCur = (audio) => {
-    console.log(fancyTimeFormat(parseInt(audio.target.currentTime)));
-    // setTime(fancyTimeFormat(parseInt(audio.target.currentTime)))
+    props.setTime(parseInt(audio.target.currentTime));
   };
 
   return (
@@ -46,7 +26,7 @@ export default function AudiobookPlayer(props) {
       header={
         <div className="row  justify-content-center">
           <div className="col-2 fs-5 text-center">
-            {props.t("part")}: {props.audiobookState.part+1}
+            {props.t("part")}: {props.audiobookState.part + 1}
           </div>
         </div>
       }
