@@ -48,5 +48,9 @@ export default function RenderAudiobookColumn(props, category) {
     });
   };
 
-  return <div className="row">{render()}</div>;
+  return (
+    <div key={uuidv4()} className="row">
+      {render()}
+    </div>
+  );
 }

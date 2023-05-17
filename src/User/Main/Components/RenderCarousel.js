@@ -56,7 +56,6 @@ export default function RenderCarousel(props, category) {
         return (
           <div
             className="card mx-3 h-100 list-bg"
-            key={uuidv4()}
             onClick={() => {
               showAudiobookModal(audiobook, imgUrl);
             }}
@@ -82,7 +81,7 @@ export default function RenderCarousel(props, category) {
   };
 
   return (
-    <div>
+    <div key={uuidv4()}>
       {props.coversState != undefined && props.coversState.length > 0
         ? render()
         : null}

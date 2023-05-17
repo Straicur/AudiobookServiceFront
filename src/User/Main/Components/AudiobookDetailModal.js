@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { useAudiobookRating } from "../../../Components/Providers/AudiobookProviders/AudiobookRatingProvider";
 import { useAudiobookDetail } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDetailProvider";
 import { useAudiobookPart } from "../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
@@ -8,7 +8,7 @@ import AudiobookPlayer from "./AudiobookPlayer";
 import { HandleFetch } from "../../../Components/HandleFetch";
 
 export default function AudiobookDetailModal(props) {
-  const [timeAudio, setTime] = useState("00:00:00");
+  const timeAudio = useRef(0);
 
   const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] =
     useAudiobookDetail();
@@ -18,7 +18,7 @@ export default function AudiobookDetailModal(props) {
     useAudiobookPart();
 
   const handleClose = () => {
-    addInfo()
+    addInfo();
     props.setAudiobooksState({
       ...props.audiobooksState,
       detailModal: !props.audiobooksState.detailModal,
@@ -26,22 +26,6 @@ export default function AudiobookDetailModal(props) {
       detailModalCover: null,
     });
   };
-
-  function fancyTimeFormat(duration) {
-    let hrs = ~~(duration / 3600);
-    let mins = ~~((duration % 3600) / 60);
-    let secs = ~~duration % 60;
-
-    let ret = "";
-
-    if (hrs > 0) {
-      ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-    }
-
-    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-    ret += "" + secs;
-    return ret;
-  }
 
   const addToMyList = (element) => {
     element.target.classList.add("disabled");
@@ -57,8 +41,8 @@ export default function AudiobookDetailModal(props) {
       .then(() => {
         setAudiobookDetail({
           ...audiobookDetail,
-          inList: !audiobookDetail.inList
-        })
+          inList: !audiobookDetail.inList,
+        });
 
         element.target.classList.remove("disabled");
       })
@@ -70,34 +54,53 @@ export default function AudiobookDetailModal(props) {
       });
   };
 
-  // tu muszę tera dodać do końca te info i ustawić tak jak skończył ostatnio 
-  // Dodatkowow jeszcze tu weź zmień tą długość audiobooka na sekundy i zrób przedziały kiedy będzie mógł oceniać 
-  // Brakuje tu jeszcze opcji oceniania i wyświetlania tych gwiazdek 
+  //  zrób przedziały kiedy będzie mógł oceniać
+  // Brakuje tu jeszcze opcji oceniania i wyświetlania tych gwiazdek
+
   const addInfo = () => {
-    HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobook/info/add",
-      "PUT",
-      {
-        audiobookId: props.audiobooksState.detailModalAudiobook.id,
-        categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
-        part: props.audiobookState.part ,
-        endedTime: fancyTimeFormat(timeAudio),
-        watched: false
-      },
-      props.token
-    )
-      .then(() => {
-        // setAudiobookDetail({
-        //   ...audiobookDetail,
-        //   inList: !audiobookDetail.inList
-        // })
-      })
-      .catch((e) => {
-        props.setAudiobooksState({
-          ...props.audiobooksState,
-          error: e,
-        });
+    let audioContext = new window.AudioContext();
+    let arrayBuffer;
+
+    let fileReader = new FileReader();
+
+    fileReader.onload = function (event) {
+      arrayBuffer = event.target.result;
+      audioContext.decodeAudioData(arrayBuffer, function (buffer) {
+        let duration = buffer.duration;
+        let procent = (timeAudio.current / duration) * 100;
+        let watched = false;
+
+        if (procent >= 70) {
+          watched = true;
+        }
+        if (procent >= 20) {
+          HandleFetch(
+            "http://127.0.0.1:8000/api/user/audiobook/info/add",
+            "PUT",
+            {
+              audiobookId: props.audiobooksState.detailModalAudiobook.id,
+              categoryKey:
+                props.audiobooksState.detailModalCategory.categoryKey,
+              part: props.audiobookState.part,
+              endedTime: timeAudio.current,
+              watched: watched,
+            },
+            props.token
+          )
+            .then(() => {})
+            .catch((e) => {
+              props.setAudiobooksState({
+                ...props.audiobooksState,
+                error: e,
+              });
+            });
+        }
+
+        timeAudio.current = 0;
       });
+    };
+
+    fileReader.readAsArrayBuffer(new Blob([audiobookPart]));
   };
   const addComment = () => {};
   const showComments = () => {};
@@ -182,7 +185,7 @@ export default function AudiobookDetailModal(props) {
               <div className="row justify-content-center mb-2">
                 <div className="col-6">
                   <Button
-                    onClick={(e)=>addToMyList(e)}
+                    onClick={(e) => addToMyList(e)}
                     variant={audiobookDetail.inList ? "danger" : "success"}
                   >
                     {props.t("myList")}{" "}
@@ -225,7 +228,7 @@ export default function AudiobookDetailModal(props) {
                   ) : null}
                 </div>
               </div>
-              <div className="row justify-content-start mb-2">
+              {audiobookDetail.canComment > 0 ?<div className="row justify-content-start mb-2">
                 <div className="col-8">
                   <Button
                     size="sm"
@@ -236,7 +239,8 @@ export default function AudiobookDetailModal(props) {
                     {props.t("add")}
                   </Button>
                 </div>
-              </div>
+              </div> :null}
+              
             </div>
             <div className="col-6"></div>
           </div>
@@ -249,7 +253,8 @@ export default function AudiobookDetailModal(props) {
               setAudiobookState={props.setAudiobookState}
               audiobookState={props.audiobookState}
               audiobooksState={props.audiobooksState}
-              setTime={setTime}
+              timeAudio={timeAudio}
+              addInfo={addInfo}
               t={props.t}
             />
           </div>
