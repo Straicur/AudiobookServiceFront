@@ -6,6 +6,7 @@ import { useAudiobookDetail } from "../../../Components/Providers/AudiobookProvi
 import { useAudiobookPart } from "../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
 import AudiobookPlayer from "./AudiobookPlayer";
 import { HandleFetch } from "../../../Components/HandleFetch";
+import StarRating from "./StarRating";
 
 export default function AudiobookDetailModal(props) {
   const timeAudio = useRef(0);
@@ -104,30 +105,6 @@ export default function AudiobookDetailModal(props) {
   };
   const addComment = () => {};
   const showComments = () => {};
-  const renderStars = () => {
-    // let stars = [];
-    // let amountOfStars = 5;
-    // if (audiobookDetail != null) {
-    //   if (audiobookDetail.avgRating != 0) {
-    //     for (let i = 0; i < audiobookDetail.avgRating; i++) {
-    //       stars.push(
-    //         <div key={uuidv4()}  className="col-1">
-    //           <i className="bi bi-star-fill"></i>
-    //         </div>
-    //       );
-    //       amountOfStars = amountOfStars - 1;
-    //     }
-    //   }
-    //   for (let i = 0; i < amountOfStars; i++) {
-    //     stars.push(
-    //       <div key={uuidv4()}  className="col-1">
-    //         <i className="bi bi-star"></i>
-    //       </div>
-    //     );
-    //   }
-    // }
-    // return stars;
-  };
 
   return (
     <Modal
@@ -211,6 +188,12 @@ export default function AudiobookDetailModal(props) {
                   })}
                 </div>
               </div>
+              <div className="row">
+                <div className="col-4">{props.t("rating")}:</div>
+                <div className="col-8">
+                  <StarRating count={5} audiobookDetail={audiobookDetail} audiobookRating={audiobookRating} token={props.token} categoryKey={props.audiobooksState.detailModalCategory.categoryKey} t={props.t}/>
+                </div>
+              </div>
               <div className="row my-1">
                 <div className="col-5 fs-5">
                   {props.t("comments")}: {audiobookDetail.comments}
@@ -228,19 +211,20 @@ export default function AudiobookDetailModal(props) {
                   ) : null}
                 </div>
               </div>
-              {audiobookDetail.canComment > 0 ?<div className="row justify-content-start mb-2">
-                <div className="col-8">
-                  <Button
-                    size="sm"
-                    variant="dark"
-                    onClick={addComment}
-                    className="comments-button"
-                  >
-                    {props.t("add")}
-                  </Button>
+              {audiobookDetail.canComment > 0 ? (
+                <div className="row justify-content-start mb-2">
+                  <div className="col-8">
+                    <Button
+                      size="sm"
+                      variant="dark"
+                      onClick={addComment}
+                      className="comments-button"
+                    >
+                      {props.t("add")}
+                    </Button>
+                  </div>
                 </div>
-              </div> :null}
-              
+              ) : null}
             </div>
             <div className="col-6"></div>
           </div>

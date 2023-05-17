@@ -16,7 +16,6 @@ export default function AudiobookEditForm(props) {
     let minutes = parseInt(myDate[1] * 60);
     let seconds = parseInt(myDate[2]);
 
-    // if (data.match(/^\d{2}([./-])\d{2}\1\d{4}$/)) {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/edit",
       "PATCH",

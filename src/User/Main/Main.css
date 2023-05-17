@@ -19,11 +19,28 @@
 .comments-show-button {
     width: 8.2rem !important;
 }
-.carousel-card{
+
+.carousel-card {
     min-height: 27rem;
     max-height: 27rem;
 }
-.card-img-sm{
+
+.card-img-sm {
     min-height: 21rem;
     max-height: 21rem;
+}
+
+.button-star {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.on {
+    color: #f8cb05;
+}
+
+.off {
+    color: #ccc;
 }
