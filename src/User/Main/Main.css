@@ -1,18 +1,29 @@
-.react-multiple-carousel__arrow{
+.react-multiple-carousel__arrow {
     background-color: #a5a5a5;
-    min-width: 4.25rem;
-    min-height: 4.25rem;
+    min-width: 3.25rem;
+    min-height: 3.25rem;
 }
 
-.modal-content{
+.modal-content {
     background-color: black !important;
 }
-.detail-button{
+
+.detail-button {
     width: 27.2rem !important;
 }
-.comments-button{
+
+.comments-button {
     width: 13.2rem !important;
 }
-.comments-show-button{
+
+.comments-show-button {
     width: 8.2rem !important;
+}
+.carousel-card{
+    min-height: 27rem;
+    max-height: 27rem;
+}
+.card-img-sm{
+    min-height: 21rem;
+    max-height: 21rem;
 }

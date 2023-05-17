@@ -6,19 +6,19 @@ export default function RenderCarousel(props, category) {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
-      items: 5,
+      items: 8,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 4,
+      items: 7,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2,
+      items: 5,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 1,
+      items: 3,
     },
   };
   const getImgUrl = (audiobook) => {
@@ -55,15 +55,18 @@ export default function RenderCarousel(props, category) {
         let imgUrl = getImgUrl(audiobook);
         return (
           <div
-            className="card mx-3 h-100 list-bg"
+            className="card mx-3 carousel-card"
             onClick={() => {
               showAudiobookModal(audiobook, imgUrl);
             }}
           >
+            <div className="card-img-sm">
             <img src={imgUrl} className="card-img-top" alt="..." />
+            </div>
+
             <div className="card-body">
               <h5 className="card-title">{audiobook.title}</h5>
-              <p className="card-text">{audiobook.desc}</p>
+              <p className="card-text">{audiobook.author}</p>
             </div>
           </div>
         );

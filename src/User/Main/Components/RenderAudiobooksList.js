@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import RenderCarousel from "./RenderCarousel";
-import RenderAudiobookColumn from "./RenderAudiobookColumn";
 import { v4 as uuidv4 } from "uuid";
 
 export default function RenderAudiobooksList(props) {
@@ -45,11 +44,7 @@ export default function RenderAudiobooksList(props) {
       props.audiobooks.categories.forEach((category, index) => {
         let renderAudiobooks = [];
 
-        if (category.audiobooks.length > 0 && category.audiobooks.length <= 4) {
-          renderAudiobooks.push(
-            RenderAudiobookColumn(props, category)
-          );
-        } else if (category.audiobooks.length > 4) {
+        if (category.audiobooks.length > 0) {
           renderAudiobooks.push(RenderCarousel(props, category));
         }
 
