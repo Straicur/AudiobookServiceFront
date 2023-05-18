@@ -45,7 +45,15 @@
     color: #ccc;
 }
 
-.comments-heigth{
-max-height: 25rem !important;
-min-height: 10rem;
+.comments-heigth {
+    max-height: 25rem !important;
+    min-height: 10rem;
+}
+
+.accordion {
+    --bs-accordion-btn-padding-y: 0.4rem !important;
+}
+
+.accordion-customs {
+    width: 22rem !important;
 }

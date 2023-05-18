@@ -63,6 +63,12 @@ export default function AudiobookDetailModal(props) {
       });
   };
 
+  //1 likowanie (3 stany null,true i false) i jeszcze ilość lików w górę i dół i jest jeszcze deleted które ma świadczyć o zerowym
+  //2 dodawanie komentarza (pod główny tylko), ma mi na samym dole się wyświetlić pole tekstowe pod komentarzami wraz z przyciskiem dodania i 
+  //ma mnie tam przenieć przy koliknięciu dodaj 
+  //po tym też edycja moich i usuwanie moich 
+  // Po tym wszystkim to ostyluj 
+
   //todo zrób teraz generację komentarzy oraz możliwość dodawania, edytowania i likowania (można pobrać dodatkowo dzieci komentarzy)
   // po tym muszę jeszcze zrobić listę proponowanych i tu muszę dodać trochę audiobooków, dorobić info słuchając i komenda na koniec w backendzie
   // Do tego jeszcze wyszukiwarka dojdzie po nazwie

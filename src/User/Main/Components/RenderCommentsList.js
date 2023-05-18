@@ -4,7 +4,6 @@ import { HandleFetch } from "../../../Components/HandleFetch";
 import Accordion from "react-bootstrap/Accordion";
 
 export default function RenderCommentsList(props) {
-
   function deleteCommnet(element) {
     HandleFetch(
       "http://127.0.0.1:8000/api/admin/audiobook/comment/delete",
@@ -121,7 +120,9 @@ export default function RenderCommentsList(props) {
             )}
           </div>
           <div className="col-1">
-            <span className="badge bg-dark rounded-pill">{element.children.length}</span>
+            <span className="badge bg-dark rounded-pill">
+              {element.children.length}
+            </span>
           </div>
           <div className="col-8">{element.userModel.email}</div>
           <div className="col-2">
@@ -138,12 +139,15 @@ export default function RenderCommentsList(props) {
             </Button>
           </div>
         </div>
-        <Accordion>
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>{props.t("comment")}...</Accordion.Header>
-            <Accordion.Body>{element.comment}</Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+        {console.log(element)}
+        <div className="row accordion-customs mx-1">
+          <Accordion>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>{props.t("comment")}...</Accordion.Header>
+              <Accordion.Body>{element.comment}</Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </div>
         <ul className="list-group" data-name={element.id}>
           {child}
         </ul>
@@ -190,9 +194,8 @@ export default function RenderCommentsList(props) {
       let children = [];
 
       if (element["children"].length != 0) {
-        children.push(<hr key={uuidv4()} className="d-none "></hr>)
+        children.push(<hr key={uuidv4()} className="d-none "></hr>);
         for (const child of element["children"]) {
-            
           children.push(createListElement(child));
         }
       }
