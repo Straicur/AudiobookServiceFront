@@ -4,9 +4,11 @@ import React, { useRef } from "react";
 import { useAudiobookRating } from "../../../Components/Providers/AudiobookProviders/AudiobookRatingProvider";
 import { useAudiobookDetail } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDetailProvider";
 import { useAudiobookPart } from "../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
+import { useAudiobookUserComments } from "../../../Components/Providers/AudiobookProviders/AudiobookUserCommentsProvider";
 import AudiobookPlayer from "./AudiobookPlayer";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import StarRating from "./StarRating";
+import RenderCommentsList from "./RenderCommentsList";
 
 export default function AudiobookDetailModal(props) {
   const timeAudio = useRef(0);
@@ -17,6 +19,12 @@ export default function AudiobookDetailModal(props) {
     useAudiobookRating();
   const [audiobookPart, setAudiobookPart, setRefetchPartState] =
     useAudiobookPart();
+
+  const [
+    audiobookUserComments,
+    setAudiobookUserComments,
+    setAudiobookCommnetsRefetchState,
+  ] = useAudiobookUserComments();
 
   const handleClose = () => {
     addInfo();
@@ -55,8 +63,10 @@ export default function AudiobookDetailModal(props) {
       });
   };
 
-  //  zrób przedziały kiedy będzie mógł oceniać
-  // Brakuje tu jeszcze opcji oceniania i wyświetlania tych gwiazdek
+  //todo zrób teraz generację komentarzy oraz możliwość dodawania, edytowania i likowania (można pobrać dodatkowo dzieci komentarzy)
+  // po tym muszę jeszcze zrobić listę proponowanych i tu muszę dodać trochę audiobooków, dorobić info słuchając i komenda na koniec w backendzie
+  // Do tego jeszcze wyszukiwarka dojdzie po nazwie
+  // To są już wtedy wszystkie detale, po nich tworze moją listę i zostają mi ustawienia
 
   const addInfo = () => {
     let audioContext = new window.AudioContext();
@@ -121,10 +131,10 @@ export default function AudiobookDetailModal(props) {
               backgroundRepeat: "no-repeat",
               backgroundSize: "60%",
               backgroundPosition: "95% 15%",
-              paddingBottom: "15rem",
+              paddingBottom: "3rem",
             }}
           >
-            <div className="col-6">
+            <div className="col-8">
               <div className="row">
                 <h1>{audiobookDetail.title}</h1>
               </div>
@@ -191,25 +201,31 @@ export default function AudiobookDetailModal(props) {
               <div className="row">
                 <div className="col-4">{props.t("rating")}:</div>
                 <div className="col-8">
-                  <StarRating count={5} audiobookDetail={audiobookDetail} audiobookRating={audiobookRating} token={props.token} categoryKey={props.audiobooksState.detailModalCategory.categoryKey} t={props.t}/>
+                  <StarRating
+                    count={5}
+                    audiobookDetail={audiobookDetail}
+                    audiobookRating={audiobookRating}
+                    token={props.token}
+                    categoryKey={
+                      props.audiobooksState.detailModalCategory.categoryKey
+                    }
+                    t={props.t}
+                  />
                 </div>
               </div>
               <div className="row my-1">
                 <div className="col-5 fs-5">
                   {props.t("comments")}: {audiobookDetail.comments}
                 </div>
-                <div className="col">
-                  {audiobookDetail.comments > 0 ? (
-                    <Button
-                      size="sm"
-                      variant="dark"
-                      onClick={showComments}
-                      className="comments-show-button"
-                    >
-                      {props.t("show")}
-                    </Button>
-                  ) : null}
-                </div>
+              </div>
+              <div className="row comments-heigth overflow-auto my-1">
+                <RenderCommentsList
+                  comments={audiobookUserComments}
+                  audiobooksState={props.audiobooksState}
+                  setAudiobooksState={props.setAudiobooksState}
+                  t={props.t}
+                  token={props.token}
+                />
               </div>
               {audiobookDetail.canComment > 0 ? (
                 <div className="row justify-content-start mb-2">
@@ -226,7 +242,7 @@ export default function AudiobookDetailModal(props) {
                 </div>
               ) : null}
             </div>
-            <div className="col-6"></div>
+            <div className="col-4"></div>
           </div>
         ) : null}
 

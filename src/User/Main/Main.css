@@ -44,3 +44,8 @@
 .off {
     color: #ccc;
 }
+
+.comments-heigth{
+max-height: 25rem !important;
+min-height: 10rem;
+}

@@ -3,6 +3,7 @@ import { HandleFetch } from "../../../Components/HandleFetch";
 import { AudiobookUserDetailProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDetailProvider";
 import { AudiobookPartProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
 import { AudiobookRatingProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookRatingProvider";
+import { AudiobookUserCommentsProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookUserCommentsProvider";
 import DataNotFoundError from "../../../Errors/Errors/DataNotFoundError";
 
 import AudiobookDetailModal from "./AudiobookDetailModal";
@@ -79,14 +80,24 @@ export default function AudiobookDetailProviders(props) {
                 props.audiobooksState.detailModalCategory.categoryKey
               }
             >
-              <AudiobookDetailModal
-                audiobooksState={props.audiobooksState}
-                setAudiobooksState={props.setAudiobooksState}
-                audiobookState={audiobookState}
-                setAudiobookState={setAudiobookState}
-                t={props.t}
+              <AudiobookUserCommentsProvider
+                state={props.audiobooksState}
+                setState={props.setAudiobooksState}
                 token={props.token}
-              />
+                audiobookId={props.audiobooksState.detailModalAudiobook.id}
+                categoryKey={
+                  props.audiobooksState.detailModalCategory.categoryKey
+                }
+              >
+                <AudiobookDetailModal
+                  audiobooksState={props.audiobooksState}
+                  setAudiobooksState={props.setAudiobooksState}
+                  audiobookState={audiobookState}
+                  setAudiobookState={setAudiobookState}
+                  t={props.t}
+                  token={props.token}
+                />
+              </AudiobookUserCommentsProvider>
             </AudiobookRatingProvider>
           </AudiobookPartProvider>
         </AudiobookUserDetailProvider>
