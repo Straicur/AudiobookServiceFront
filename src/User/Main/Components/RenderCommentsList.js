@@ -4,23 +4,74 @@ import { HandleFetch } from "../../../Components/HandleFetch";
 import Accordion from "react-bootstrap/Accordion";
 
 export default function RenderCommentsList(props) {
-  function deleteCommnet(element) {
-    HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/comment/delete",
-      "DELETE",
-      {
-        audiobookCommentId: element.id,
-      },
-      props.token
-    )
+  function likeCommnet(comment, element, bool) {
+    let url;
+    let method;
+    let jsonData;
+    if (comment.liked == bool) {
+      url = "http://127.0.0.1:8000/api/user/audiobook/comment/like/delete";
+      method = "DELETE";
+      jsonData = {
+        commentId: comment.id,
+      };
+    } else {
+      url = "http://127.0.0.1:8000/api/user/audiobook/comment/like/add";
+      method = "PATCH";
+      jsonData = {
+        commentId: comment.id,
+        like: bool,
+      };
+    }
+
+    element.target.classList.add("disabled");
+
+    HandleFetch(url, method, jsonData, props.token)
       .then(() => {
-        props.setAudiobookCommnetsRefetchState(true);
+        let newComments = props.comments.map((element) => {
+          let like = element.audiobookCommentLike;
+          let unlike = element.audiobookCommentUnlike;
+
+          if (bool) {
+            if (comment.liked == bool) {
+              like = like - 1;
+            } else if (comment.liked != null && comment.liked != bool) {
+              like = like + 1;
+              unlike = unlike - 1;
+            } else {
+              like = like + 1;
+            }
+          } else {
+            if (comment.liked == bool) {
+              unlike = unlike - 1;
+            } else if (comment.liked != null && comment.liked != bool) {
+              unlike = unlike + 1;
+              like = like - 1;
+            } else {
+              unlike = unlike + 1;
+            }
+          }
+
+          if (element.id == comment.id) {
+            return {
+              audiobookCommentLike: like,
+              audiobookCommentUnlike: unlike,
+              children: element.children,
+              comment: element.comment,
+              deleted: element.deleted,
+              edited: element.edited,
+              id: element.id,
+              liked: element.liked == bool ? null : bool,
+              myComment: element.myComment,
+              userModel: element.userModel,
+            };
+          }
+          return element;
+        });
+        props.setAudiobookUserComments(newComments);
+        element.target.classList.remove("disabled");
       })
       .catch((e) => {
-        props.setAudiobooksState({
-          ...props.audiobooksState,
-          error: e,
-        });
+        element.target.classList.remove("disabled");
       });
   }
 
@@ -54,7 +105,7 @@ export default function RenderCommentsList(props) {
   };
 
   function openParentList(element) {
-    let children = element.currentTarget.parentElement.children;
+    let children = element.currentTarget.parentElement.parentElement.children;
 
     element.currentTarget.attributes["data-clicable"].value = "false";
 
@@ -65,19 +116,18 @@ export default function RenderCommentsList(props) {
         }
       }
       if (
-        element.nodeName == "DIV" &&
-        element.attributes["data-clicable"] != undefined
+        element.children[0].nodeName == "DIV" &&
+        element.children[0].attributes["data-clicable"] != undefined
       ) {
-        element.children[0].children[0].classList.remove(
-          "bi-arrow-right-square"
-        );
-        element.children[0].children[0].classList.add("bi-arrow-down-square");
+        let icon = element.children[0].children[0].children[0].children[0];
+        icon.classList.remove("bi-arrow-right-square");
+        icon.classList.add("bi-arrow-down-square");
       }
     }
   }
 
   function closeParentList(element) {
-    let children = element.currentTarget.parentElement.children;
+    let children = element.currentTarget.parentElement.parentElement.children;
 
     element.currentTarget.attributes["data-clicable"].value = "true";
 
@@ -88,18 +138,18 @@ export default function RenderCommentsList(props) {
         }
       }
       if (
-        element.nodeName == "DIV" &&
-        element.attributes["data-clicable"] != undefined
+        element.children[0].nodeName == "DIV" &&
+        element.children[0].attributes["data-clicable"] != undefined
       ) {
-        element.children[0].children[0].classList.remove(
-          "bi-arrow-down-square"
-        );
-        element.children[0].children[0].classList.add("bi-arrow-right-square");
+        let icon = element.children[0].children[0].children[0].children[0];
+        icon.classList.remove("bi-arrow-down-square");
+        icon.classList.add("bi-arrow-right-square");
       }
     }
   }
 
   function listParent(element, child) {
+    console.log(element);
     return (
       <li
         key={uuidv4()}
@@ -107,39 +157,78 @@ export default function RenderCommentsList(props) {
           "border border-4 border-secondary list-group-item list-group-item-dark"
         }
       >
-        <div
-          className="row p-1 bd-highlight"
-          onClick={child.length > 0 ? oparateParentList : undefined}
-          data-clicable={true}
-        >
-          <div className="col-1 cs">
-            {child.length > 0 ? (
-              <i className="p-2 bi bi-arrow-right-square "></i>
-            ) : (
-              <div className="p-2 bd-highlight"></div>
-            )}
+        <div className="row p-1 bd-highlight">
+          <div
+            className="col-8"
+            onClick={child.length > 0 ? oparateParentList : undefined}
+            data-clicable={true}
+          >
+            <div className="row">
+              <div className="col-1 cs">
+                {child.length > 0 ? (
+                  <i className="p-2 bi bi-arrow-right-square "></i>
+                ) : (
+                  <div className="p-2 bd-highlight"></div>
+                )}
+              </div>
+              <div className="col-1">
+                <span className="badge bg-dark rounded-pill">
+                  {element.children.length}
+                </span>
+              </div>
+              <div className="col-8">{element.userModel.email}</div>
+            </div>
           </div>
-          <div className="col-1">
-            <span className="badge bg-dark rounded-pill">
-              {element.children.length}
-            </span>
-          </div>
-          <div className="col-8">{element.userModel.email}</div>
-          <div className="col-2">
-            <Button
-              name="en"
-              variant="dark"
-              size="sm"
-              className="btn button rounded-3"
-              //   onClick={() => {
-              //     deleteCommnet(element);
-              //   }}
-            >
-              {props.t("like")}
-            </Button>
+          <div className="col-4">
+            <div className="row justify-content-center ">
+              <div className="row">
+                <div className="col-1">
+                  <span className="badge bg-dark rounded-pill">
+                    {element.audiobookCommentLike}
+                  </span>
+                </div>
+                <div className="col-3">
+                  <Button
+                    name="en"
+                    variant={
+                      element.liked == null || !element.liked
+                        ? "dark"
+                        : "success"
+                    }
+                    size="sm"
+                    className="btn button rounded-3"
+                    onClick={(e) => {
+                      likeCommnet(element, e, true);
+                    }}
+                  >
+                    <i class="bi bi-hand-thumbs-up"></i>
+                  </Button>
+                </div>
+                <div className="col-3">
+                  <Button
+                    name="en"
+                    variant={
+                      element.liked == null || element.liked ? "dark" : "danger"
+                    }
+                    size="sm"
+                    className="btn button rounded-3"
+                    onClick={(e) => {
+                      likeCommnet(element, e, false);
+                    }}
+                  >
+                    <i class="bi bi-hand-thumbs-down"></i>
+                  </Button>
+                </div>
+                <div className="col-1">
+                  <span className="badge bg-dark rounded-pill">
+                    {element.audiobookCommentUnlike}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        {console.log(element)}
+
         <div className="row accordion-customs mx-1">
           <Accordion>
             <Accordion.Item eventKey="0">
@@ -164,18 +253,34 @@ export default function RenderCommentsList(props) {
       >
         <div className="row p-1 bd-highlight">
           <div className="col-8">{element.userModel.email}</div>
-
           <div className="col-2">
             <Button
               name="en"
-              variant="dark"
+              variant={
+                element.liked == null || !element.liked ? "dark" : "success"
+              }
               size="sm"
               className="btn button rounded-3"
-              //   onClick={() => {
-              //     deleteCommnet(element);
-              //   }}
+              onClick={(e) => {
+                likeCommnet(element, e, true);
+              }}
             >
-              {props.t("like")}
+              <i class="bi bi-hand-thumbs-up"></i>
+            </Button>
+          </div>
+          <div className="col-2">
+            <Button
+              name="en"
+              variant={
+                element.liked == null || element.liked ? "dark" : "danger"
+              }
+              size="sm"
+              className="btn button rounded-3"
+              onClick={(e) => {
+                likeCommnet(element, e, false);
+              }}
+            >
+              <i class="bi bi-hand-thumbs-down"></i>
             </Button>
           </div>
         </div>

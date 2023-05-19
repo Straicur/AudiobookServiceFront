@@ -120,7 +120,6 @@ export default function AudiobookDetailModal(props) {
     fileReader.readAsArrayBuffer(new Blob([audiobookPart]));
   };
   const addComment = () => {};
-  const showComments = () => {};
 
   return (
     <Modal
@@ -227,26 +226,13 @@ export default function AudiobookDetailModal(props) {
               <div className="row comments-heigth overflow-auto my-1">
                 <RenderCommentsList
                   comments={audiobookUserComments}
+                  setAudiobookUserComments={setAudiobookUserComments}
                   audiobooksState={props.audiobooksState}
                   setAudiobooksState={props.setAudiobooksState}
                   t={props.t}
                   token={props.token}
                 />
               </div>
-              {audiobookDetail.canComment > 0 ? (
-                <div className="row justify-content-start mb-2">
-                  <div className="col-8">
-                    <Button
-                      size="sm"
-                      variant="dark"
-                      onClick={addComment}
-                      className="comments-button"
-                    >
-                      {props.t("add")}
-                    </Button>
-                  </div>
-                </div>
-              ) : null}
             </div>
             <div className="col-4"></div>
           </div>
