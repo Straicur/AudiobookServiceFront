@@ -47,13 +47,14 @@
 
 .comments-heigth {
     max-height: 25rem !important;
-    min-height: 10rem;
+    min-height: 20rem;
 }
 
 .accordion {
     --bs-accordion-btn-padding-y: 0.4rem !important;
 }
 
-.accordion-customs {
-    width: 22rem !important;
+.comment-button {
+    width: 4rem;
+    height: 2.75rem;
 }

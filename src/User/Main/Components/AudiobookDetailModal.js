@@ -63,8 +63,7 @@ export default function AudiobookDetailModal(props) {
       });
   };
 
-  //1 likowanie (3 stany null,true i false) i jeszcze ilość lików w górę i dół i jest jeszcze deleted które ma świadczyć o zerowym
-  //2 dodawanie komentarza (pod główny tylko), ma mi na samym dole się wyświetlić pole tekstowe pod komentarzami wraz z przyciskiem dodania i 
+  //2 dodawanie\edycja komentarza (pod główny tylko), ma mi na samym dole się wyświetlić pole tekstowe pod komentarzami wraz z przyciskiem dodania i 
   //ma mnie tam przenieć przy koliknięciu dodaj 
   //po tym też edycja moich i usuwanie moich 
   // Po tym wszystkim to ostyluj 
@@ -223,7 +222,7 @@ export default function AudiobookDetailModal(props) {
                   {props.t("comments")}: {audiobookDetail.comments}
                 </div>
               </div>
-              <div className="row comments-heigth overflow-auto my-1">
+              <div className="row my-1">
                 <RenderCommentsList
                   comments={audiobookUserComments}
                   setAudiobookUserComments={setAudiobookUserComments}

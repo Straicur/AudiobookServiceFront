@@ -1,10 +1,133 @@
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import Accordion from "react-bootstrap/Accordion";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 export default function RenderCommentsList(props) {
-  function likeCommnet(comment, element, bool) {
+  const [commentState, setCommentState] = useState({
+    parentId: null,
+    commentId: null,
+    comment: "",
+    add: true,
+    edit: false,
+  });
+
+  //todo tu mam do naprawy to żeby przy renderze mi się nie ustawiało znowu na d-none
+  function setComment(comment, bool) {
+    let newComments = props.comments.map((element) => {
+      let like = element.audiobookCommentLike;
+      let unlike = element.audiobookCommentUnlike;
+
+      if (bool) {
+        if (comment.liked == bool) {
+          like = like - 1;
+        } else if (comment.liked != null && comment.liked != bool) {
+          like = like + 1;
+          unlike = unlike - 1;
+        } else {
+          like = like + 1;
+        }
+      } else {
+        if (comment.liked == bool) {
+          unlike = unlike - 1;
+        } else if (comment.liked != null && comment.liked != bool) {
+          unlike = unlike + 1;
+          like = like - 1;
+        } else {
+          unlike = unlike + 1;
+        }
+      }
+
+      if (element.id == comment.id) {
+        return {
+          audiobookCommentLike: like,
+          audiobookCommentUnlike: unlike,
+          children: element.children,
+          comment: element.comment,
+          deleted: element.deleted,
+          edited: element.edited,
+          id: element.id,
+          liked: element.liked == bool ? null : bool,
+          myComment: element.myComment,
+          userModel: element.userModel,
+          parentId: element.parentId,
+        };
+      }
+      return element;
+    });
+    props.setAudiobookUserComments(newComments);
+  }
+
+  function setChildComment(parentId, comment, bool) {
+    let parent = props.comments.find((element) => element.id == parentId);
+
+    let children = parent.children.map((element) => {
+      let like = element.audiobookCommentLike;
+      let unlike = element.audiobookCommentUnlike;
+
+      if (bool) {
+        if (comment.liked == bool) {
+          like = like - 1;
+        } else if (comment.liked != null && comment.liked != bool) {
+          like = like + 1;
+          unlike = unlike - 1;
+        } else {
+          like = like + 1;
+        }
+      } else {
+        if (comment.liked == bool) {
+          unlike = unlike - 1;
+        } else if (comment.liked != null && comment.liked != bool) {
+          unlike = unlike + 1;
+          like = like - 1;
+        } else {
+          unlike = unlike + 1;
+        }
+      }
+
+      if (element.id == comment.id) {
+        return {
+          audiobookCommentLike: like,
+          audiobookCommentUnlike: unlike,
+          children: element.children,
+          comment: element.comment,
+          deleted: element.deleted,
+          edited: element.edited,
+          id: element.id,
+          liked: element.liked == bool ? null : bool,
+          myComment: element.myComment,
+          userModel: element.userModel,
+          parentId: element.parentId,
+        };
+      }
+      return element;
+    });
+
+    let newComments = props.comments.map((element) => {
+      if (element.id == parent.id) {
+        return {
+          audiobookCommentLike: element.audiobookCommentLike,
+          audiobookCommentUnlike: element.audiobookCommentUnlike,
+          children: children,
+          comment: element.comment,
+          deleted: element.deleted,
+          edited: element.edited,
+          id: element.id,
+          liked: element.liked,
+          myComment: element.myComment,
+          userModel: element.userModel,
+          parentId: element.parentId,
+        };
+      }
+      return element;
+    });
+    props.setAudiobookUserComments(newComments);
+  }
+
+  function likeComment(comment, element, bool) {
     let url;
     let method;
     let jsonData;
@@ -27,52 +150,123 @@ export default function RenderCommentsList(props) {
 
     HandleFetch(url, method, jsonData, props.token)
       .then(() => {
-        let newComments = props.comments.map((element) => {
-          let like = element.audiobookCommentLike;
-          let unlike = element.audiobookCommentUnlike;
+        if (comment.parentId != null) {
+          setChildComment(comment.parentId, comment, bool);
+        } else {
+          setComment(comment, bool);
+        }
 
-          if (bool) {
-            if (comment.liked == bool) {
-              like = like - 1;
-            } else if (comment.liked != null && comment.liked != bool) {
-              like = like + 1;
-              unlike = unlike - 1;
-            } else {
-              like = like + 1;
-            }
-          } else {
-            if (comment.liked == bool) {
-              unlike = unlike - 1;
-            } else if (comment.liked != null && comment.liked != bool) {
-              unlike = unlike + 1;
-              like = like - 1;
-            } else {
-              unlike = unlike + 1;
-            }
-          }
-
-          if (element.id == comment.id) {
-            return {
-              audiobookCommentLike: like,
-              audiobookCommentUnlike: unlike,
-              children: element.children,
-              comment: element.comment,
-              deleted: element.deleted,
-              edited: element.edited,
-              id: element.id,
-              liked: element.liked == bool ? null : bool,
-              myComment: element.myComment,
-              userModel: element.userModel,
-            };
-          }
-          return element;
-        });
-        props.setAudiobookUserComments(newComments);
         element.target.classList.remove("disabled");
       })
       .catch((e) => {
         element.target.classList.remove("disabled");
       });
+  }
+
+  function startEditComment(comment) {
+    setCommentState({
+      ...commentState,
+      commentId: comment.id,
+      comment: comment.comment,
+      edit: !commentState.edit,
+      add: !commentState.add,
+    });
+  }
+
+  function editComment(element) {
+    // element.target.classList.add("disabled");
+    let jsonData = {
+      audiobookId: props.audiobooksState.detailModalAudiobook.id,
+      categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
+      audiobookCommentId:commentState.commentId,
+      comment:commentState.comment,
+      deleted:false,
+    }
+    if(commentState.parentId != null){
+      jsonData.additionalData = {
+        parentId:commentState.parentId
+      }
+    }
+    console.log(jsonData)
+    // HandleFetch(
+    //   "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
+    //   "PATCH",
+    //   jsonData,
+    //   props.token
+    // )
+    //   .then(() => {
+    //     element.target.classList.remove("disabled");
+    //   })
+    //   .catch((e) => {
+    //     element.target.classList.remove("disabled");
+    //   });
+  }
+  function addComment(comment, element) {
+    // element.target.classList.add("disabled");
+    let jsonData = {
+      audiobookId: props.audiobooksState.detailModalAudiobook.id,
+      categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
+      audiobookCommentId:comment.id,
+      comment:commentState.comment,
+    }
+    if(commentState.parentId != null){
+      jsonData.additionalData = {
+        parentId:commentState.parentId
+      }
+    }
+    console.log(jsonData)
+    // HandleFetch(
+    //   "http://127.0.0.1:8000/api/user/audiobook/comment/add",
+    //   "PUT",
+    //   jsonData,
+    //   props.token
+    // )
+    //   .then(() => {
+    //     element.target.classList.remove("disabled");
+    //   })
+    //   .catch((e) => {
+    //     element.target.classList.remove("disabled");
+    //   });
+  }
+  function decline() {
+    setCommentState({
+      ...commentState,
+      parentId: null,
+      commentId: null,
+      comment: "",
+      add: true,
+      edit: false,
+    });
+  }
+
+  function textareaWrite(event) {
+    setCommentState({
+      ...commentState,
+      comment: event.target.value,
+    });
+  }
+
+  function deleteComment(comment, element) {
+    element.target.classList.add("disabled");
+
+    // HandleFetch(
+    //   "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
+    //   "PATCH",
+    //   {
+    //     audiobookId: props.audiobooksState.detailModalAudiobook.id,
+    //     categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
+    //     audiobookCommentId:comment.id,
+    //     comment:comment.comment,
+    //     deleted:true
+    //   },
+    //   props.token
+    // )
+    //   .then(() => {
+    //     element.target.classList.remove("disabled");
+    //   })
+    //   .catch((e) => {
+    //     element.target.classList.remove("disabled");
+    //   });
   }
 
   const renderTree = () => {
@@ -149,7 +343,6 @@ export default function RenderCommentsList(props) {
   }
 
   function listParent(element, child) {
-    console.log(element);
     return (
       <li
         key={uuidv4()}
@@ -198,7 +391,7 @@ export default function RenderCommentsList(props) {
                     size="sm"
                     className="btn button rounded-3"
                     onClick={(e) => {
-                      likeCommnet(element, e, true);
+                      likeComment(element, e, true);
                     }}
                   >
                     <i class="bi bi-hand-thumbs-up"></i>
@@ -213,7 +406,7 @@ export default function RenderCommentsList(props) {
                     size="sm"
                     className="btn button rounded-3"
                     onClick={(e) => {
-                      likeCommnet(element, e, false);
+                      likeComment(element, e, false);
                     }}
                   >
                     <i class="bi bi-hand-thumbs-down"></i>
@@ -229,13 +422,48 @@ export default function RenderCommentsList(props) {
           </div>
         </div>
 
-        <div className="row accordion-customs mx-1">
-          <Accordion>
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>{props.t("comment")}...</Accordion.Header>
-              <Accordion.Body>{element.comment}</Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
+        <div className="row mx-1">
+          <div className="col-8 accordion-customs">
+            <Accordion>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>{props.t("comment")}...</Accordion.Header>
+                <Accordion.Body>{element.comment}</Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+          </div>
+          {element.myComment ? (
+            <div className="col-4">
+              <div className="row mx-1">
+                <div className="col-6">
+                  <Button
+                    name="en"
+                    variant="warning"
+                    size="sm"
+                    className="btn button rounded-3"
+                    disabled={commentState.edit}
+                    onClick={(e) => {
+                      startEditComment(element, e);
+                    }}
+                  >
+                    {props.t("edit")}
+                  </Button>
+                </div>
+                <div className="col-6">
+                  <Button
+                    name="en"
+                    variant="danger"
+                    size="sm"
+                    className="btn button rounded-3"
+                    onClick={(e) => {
+                      deleteComment(element, e);
+                    }}
+                  >
+                    {props.t("delete")}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
         <ul className="list-group" data-name={element.id}>
           {child}
@@ -253,43 +481,99 @@ export default function RenderCommentsList(props) {
       >
         <div className="row p-1 bd-highlight">
           <div className="col-8">{element.userModel.email}</div>
-          <div className="col-2">
-            <Button
-              name="en"
-              variant={
-                element.liked == null || !element.liked ? "dark" : "success"
-              }
-              size="sm"
-              className="btn button rounded-3"
-              onClick={(e) => {
-                likeCommnet(element, e, true);
-              }}
-            >
-              <i class="bi bi-hand-thumbs-up"></i>
-            </Button>
-          </div>
-          <div className="col-2">
-            <Button
-              name="en"
-              variant={
-                element.liked == null || element.liked ? "dark" : "danger"
-              }
-              size="sm"
-              className="btn button rounded-3"
-              onClick={(e) => {
-                likeCommnet(element, e, false);
-              }}
-            >
-              <i class="bi bi-hand-thumbs-down"></i>
-            </Button>
+          <div className="col-4">
+            <div className="row justify-content-center ">
+              <div className="row">
+                <div className="col-1">
+                  <span className="badge bg-dark rounded-pill">
+                    {element.audiobookCommentLike}
+                  </span>
+                </div>
+                <div className="col-3">
+                  <Button
+                    name="en"
+                    variant={
+                      element.liked == null || !element.liked
+                        ? "dark"
+                        : "success"
+                    }
+                    size="sm"
+                    className="btn button rounded-3"
+                    onClick={(e) => {
+                      likeComment(element, e, true);
+                    }}
+                  >
+                    <i class="bi bi-hand-thumbs-up"></i>
+                  </Button>
+                </div>
+                <div className="col-3">
+                  <Button
+                    name="en"
+                    variant={
+                      element.liked == null || element.liked ? "dark" : "danger"
+                    }
+                    size="sm"
+                    className="btn button rounded-3"
+                    onClick={(e) => {
+                      likeComment(element, e, false);
+                    }}
+                  >
+                    <i class="bi bi-hand-thumbs-down"></i>
+                  </Button>
+                </div>
+                <div className="col-1">
+                  <span className="badge bg-dark rounded-pill">
+                    {element.audiobookCommentUnlike}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <Accordion>
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>{props.t("comment")}...</Accordion.Header>
-            <Accordion.Body>{element.comment}</Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+
+        <div className="row mx-1">
+          <div className="col-8 accordion-customs">
+            <Accordion>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>{props.t("comment")}...</Accordion.Header>
+                <Accordion.Body>{element.comment}</Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+          </div>
+          {element.myComment ? (
+            <div className="col-4">
+              <div className="row mx-1">
+                <div className="col-6">
+                  <Button
+                    name="en"
+                    variant="warning"
+                    size="sm"
+                    className="btn button rounded-3"
+                    disabled={commentState.edit}
+                    onClick={(e) => {
+                      startEditComment(element, e);
+                    }}
+                  >
+                    {props.t("edit")}
+                  </Button>
+                </div>
+                <div className="col-6">
+                  <Button
+                    name="en"
+                    variant="danger"
+                    size="sm"
+                    className="btn button rounded-3"
+                    onClick={(e) => {
+                      deleteComment(element, e);
+                    }}
+                  >
+                    {props.t("delete")}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
       </li>
     );
   }
@@ -304,14 +588,64 @@ export default function RenderCommentsList(props) {
           children.push(createListElement(child));
         }
       }
-
       renderArray.push(listParent(element, children));
     }
   }
 
   return (
     <div>
-      <ul className="list-group">{renderTree()}</ul>
+      <ul className="list-group comments-heigth overflow-auto ">
+        {renderTree()}
+      </ul>
+      <div className="row mt-2  justify-content-center align-items-center">
+        <div className="col-8">
+          <InputGroup>
+            <InputGroup.Text>{props.t("comment")}</InputGroup.Text>
+            <Form.Control
+              onChange={(e) => textareaWrite(e)}
+              value={commentState.comment}
+              as="textarea"
+              aria-label="With textarea"
+            />
+          </InputGroup>
+        </div>
+        <div className="col-2">
+          <Button
+            name="en"
+            variant="warning"
+            size="sm"
+            className="btn button rounded-3 comment-button"
+            onClick={decline}
+          >
+            {props.t("cancel")}
+          </Button>
+        </div>
+        <div className="col-2">
+          <Button
+            name="en"
+            variant="secondary"
+            size="sm"
+            className="btn button rounded-3 comment-button"
+            onClick={
+              commentState.add
+                ? (e) => {
+                    addComment(e);
+                  }
+                : commentState.edit
+                ? (e) => {
+                    editComment(e);
+                  }
+                : undefined
+            }
+          >
+            {commentState.add
+              ? props.t("add")
+              : commentState.edit
+              ? props.t("edit")
+              : null}
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
