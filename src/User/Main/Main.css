@@ -1,0 +1,60 @@
+.react-multiple-carousel__arrow {
+    background-color: #a5a5a5;
+    min-width: 3.25rem;
+    min-height: 3.25rem;
+}
+
+.modal-content {
+    background-color: black !important;
+}
+
+.detail-button {
+    width: 27.2rem !important;
+}
+
+.comments-button {
+    width: 13.2rem !important;
+}
+
+.comments-show-button {
+    width: 8.2rem !important;
+}
+
+.carousel-card {
+    min-height: 27rem;
+    max-height: 27rem;
+}
+
+.card-img-sm {
+    min-height: 21rem;
+    max-height: 21rem;
+}
+
+.button-star {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.on {
+    color: #f8cb05;
+}
+
+.off {
+    color: #ccc;
+}
+
+.comments-heigth {
+    max-height: 25rem !important;
+    min-height: 20rem;
+}
+
+.accordion {
+    --bs-accordion-btn-padding-y: 0.4rem !important;
+}
+
+.comment-button {
+    width: 4rem;
+    height: 2.75rem;
+}

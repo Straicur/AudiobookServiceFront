@@ -21,6 +21,13 @@ export default function AudiobookPlayer(props) {
 
   return (
     <AudioPlayer
+    header={
+      <div className="row  justify-content-center">
+        <div className="col-2 fs-5 text-center">
+          {props.t("part")}: {props.audiobookState.part+1}
+        </div>
+      </div>
+    }
       autoPlay={false}
       src={window.URL.createObjectURL(new Blob([props.audiobookPart]))}
       autoPlayAfterSrcChange={false}

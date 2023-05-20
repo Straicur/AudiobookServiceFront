@@ -61,6 +61,15 @@
     "enterValidPhoneNumber": "Podaj poprawny numer telefonu",
     "enterValidFirstName": "Podaj poprawne imię",
     "enterValidLastName": "Podaj poprawne nazwisko",
+    "enterValidTitle": "Podaj poprawny tytuł ",
+    "enterValidAuthor": "Podaj poprawnego autora ",
+    "enterValidAlbum": "Podaj poprawny album",
+    "enterValidYear": "Podaj poprawny rok ",
+    "enterValidPart": "Podaj poprawne części ",
+    "enterValidDuration": "Podaj poprawną długość",
+    "enterValidEncoded": "Podaj poprawne kodowanie",
+    "enterValidSize": "Podaj poprawny rozmiar ",
+    "enterValidVersion": "Podaj poprawną wersję",
     "categoryName": "Nazwa",
     "categoryKey": "Klucz",
     "categoryChilds": "Dzieci",
@@ -170,5 +179,10 @@
     "notificationDetail": "Detale powiadomienia",
     "select": "Wybierz",
     "selectNotificationType": "Wybierz typ notyfikacji",
-    "changed": "Zmieniony"
+    "changed": "Zmieniony",
+    "optional": "Opcjonalny",
+    "loadMore": "Załaduj więcej",
+    "part": "Części",
+    "show": "Wyświetl",
+    "rate": "Oceń"
 }

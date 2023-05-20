@@ -7,7 +7,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 import PickActionIdAddList from "./PickActionIdAddList";
 
 export default function AddNotificationModal(props) {
-
   const [state, setState] = useState({
     actionId: "",
     notificationType: 0,
@@ -73,11 +72,12 @@ export default function AddNotificationModal(props) {
       additionalData.actionId = state.actionId;
     }
     if (state.notificationType == 2) {
-      additionalData.userId = state.userId;
+      additionalData.userId = state.actionId;
     }
     if (state.text != "") {
       additionalData.text = state.text;
     }
+
     return additionalData;
   };
 
@@ -138,19 +138,8 @@ export default function AddNotificationModal(props) {
         ) : (
           <div className="container">
             <div className="row">
-              <InputGroup>
-                <InputGroup.Text>{props.t("description")}</InputGroup.Text>
-                <Form.Control
-                  as="textarea"
-                  aria-label="With textarea"
-                  value={state.text}
-                  onChange={(e) => {
-                    changeText(e);
-                  }}
-                />
-              </InputGroup>
               <InputGroup className="mb-1 input_modal py-1">
-                <InputGroup.Text className="input-group-text-new text-light">
+                <InputGroup.Text className="input-notification-text-new text-light">
                   {props.t("userType")}
                 </InputGroup.Text>
                 <Form.Select
@@ -165,7 +154,7 @@ export default function AddNotificationModal(props) {
                 </Form.Select>
               </InputGroup>
               <InputGroup className="mb-1 input_modal py-1">
-                <InputGroup.Text className="input-group-text-new text-light">
+                <InputGroup.Text className="input-notification-text-new text-light">
                   {props.t("notificationType")}
                 </InputGroup.Text>
                 <Form.Select
@@ -185,12 +174,27 @@ export default function AddNotificationModal(props) {
                   </option>
                 </Form.Select>
               </InputGroup>
-            </div>
-            <div className="row mt-2">
-              <div className="col-3">{props.t("actionId")}:</div>
-              {actionState.actionIdChanged ? (
-                <div className="col-8 text-success">{state.actionId} </div>
-              ) : null}
+              <InputGroup className="mb-1 input_modal py-1">
+                <InputGroup.Text>
+                  {props.t("description")} ({props.t("optional")})
+                </InputGroup.Text>
+                <Form.Control
+                  as="textarea"
+                  aria-label="With textarea"
+                  value={state.text}
+                  onChange={(e) => {
+                    changeText(e);
+                  }}
+                />
+              </InputGroup>
+              <InputGroup className="mt-2 mb-1 input_modal py-1">
+                <InputGroup.Text>{props.t("actionId")}</InputGroup.Text>
+                <Form.Control
+                  disabled
+                  className="text-success"
+                  value={state.actionId}
+                />
+              </InputGroup>
             </div>
             {actionState.actionIdChanged || state.notificationType == 1 ? (
               <div className="row mx-5 mt-3">

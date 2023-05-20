@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 
 export default function SearchNotificationsOffCanvas(props) {
   const [show, setShow] = useState(true);
-  //todo tu chyba za dużo razy się odświerza lista po zamknięciu i otwarciu !!!
+
   const handleClose = () => {
     props.setState({
       ...props.state,

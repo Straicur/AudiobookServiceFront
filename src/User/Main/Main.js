@@ -1,45 +1,77 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { UserNavBar } from "../../Components/NavBars/UserNavBar";
 import { useTokenStore } from "../../store";
-import { useMutation, useQuery, queryCache } from "react-query";
-import { HandleFetch } from "../../Components/HandleFetch";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
+import { useTranslation } from "react-i18next";
+import GetAudiobooksProviders from "./Components/GetAudiobooksProviders";
+import AudiobookDetailProviders from "./Components/AudiobookDetailProviders";
+import "./Main.css";
 
 export default function Main() {
+  const { t } = useTranslation();
+
   const token = useTokenStore((state) => state.token);
 
-  const [state, setState] = useState({
-    isButtonDisabled: false,
-    helperText: 0,
-    updated: false,
-    errors: 0,
-    redirect: false,
-    redirectTo: "",
+  const [audiobooksState, setAudiobooksState] = useState({
+    page: 0,
+    limit: 10,
+    detailModal: false,
+    detailModalAudiobook: null,
+    detailModalCover: null,
+    detailModalCategory: null,
+    error: null,
   });
 
-  //mutate umożliwia mi zmianę a info pobranie tych danych 
-  // Można wykorzystać przy dodawaniu jakichś danych, doda do cache i wyświe jednocześnie 
-  // const update = async () => {
-  //   try {
-  //     await mutate({
-  //       id: id,
-  //       body: state
-  //     })
-  //   } catch (e) {}
-  // }
+  useEffect(() => {
+    if (audiobooksState.error != null) {
+      throw audiobooksState.error;
+    }
+  }, [audiobooksState.error]);
+
   return (
-    <HelmetProvider>
-      <Helmet>
-        <style>{"body { background-color: black; }"}</style>
-      </Helmet>
-      <div className="container-fluid main-container mt-3">
-        <div className="card position-relative p-3 mb-5  bg-dark shadow">
-          <UserNavBar />
-          <div className="p-5">
-            <div className="p-3"></div>
+    <ErrorBoundary
+      FallbackComponent={ErrorHandlerModal}
+      onReset={() => {
+        setAudiobooksState({
+          ...audiobooksState,
+          error: null,
+        });
+      }}
+    >
+      <HelmetProvider>
+        <Helmet>
+          <style>{"body { background-color: black; }"}</style>
+        </Helmet>
+
+        <div className="container-fluid main-container mt-3">
+          <div className="card position-relative p-3 mb-5  bg-dark shadow">
+            <UserNavBar />
+            <GetAudiobooksProviders
+              audiobooksState={audiobooksState}
+              setAudiobooksState={setAudiobooksState}
+              token={token}
+              t={t}
+            />
+            {audiobooksState.detailModal &&
+            audiobooksState.detailModalAudiobook != null &&
+            audiobooksState.detailModalCover != null &&
+            audiobooksState.detailModalCategory != null ? (
+              <AudiobookDetailProviders
+                audiobooksState={audiobooksState}
+                setAudiobooksState={setAudiobooksState}
+                token={token}
+                t={t}
+              />
+            ) : null}
+
+            <div className="p-5">
+              <div className="p-3"></div>
+            </div>
           </div>
         </div>
-      </div>
-    </HelmetProvider>
+      </HelmetProvider>
+    </ErrorBoundary>
   );
 }

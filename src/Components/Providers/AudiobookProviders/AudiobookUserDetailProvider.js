@@ -4,12 +4,13 @@ import { HandleFetch } from "../../HandleFetch";
 import { CreateDate } from "../../../Components/CrateDate";
 import { CreateTime } from "../../../Components/CreateTime";
 
-const AudiobookDataContext = createContext(null);
+const AudiobookUserDetailContext = createContext(null);
 
-export const AudiobookDataProvider = ({
+export const AudiobookUserDetailProvider = ({
   children,
   token,
   audiobookId,
+  categoryKey,
   state,
   setState,
 }) => {
@@ -17,19 +18,20 @@ export const AudiobookDataProvider = ({
   const [refetchState, setRefetchState] = useState(false);
 
   const {
-    isLoading: isLoadingAudiobookData,
-    error: errorAudiobookData,
-    data: dataAudiobookData,
-    isFetching: isFetchingAudiobookData,
+    isLoading: isLoadingAudiobookDetail,
+    error: errorAudiobookDetail,
+    data: dataAudiobookDetail,
+    isFetching: isFetchingAudiobookDetail,
     refetch: refetchAudiobookData,
   } = useQuery(
-    "dataAudiobookData",
+    "dataAudiobookDetail",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobook/details",
+        "http://127.0.0.1:8000/api/user/audiobook/details",
         "POST",
         {
           audiobookId: audiobookId,
+          categoryKey: categoryKey,
         },
         token
       ),
@@ -42,21 +44,21 @@ export const AudiobookDataProvider = ({
       },
       onSuccess: (data) => {
         setAudiobookDetail({
-          active: data.active,
           age: data.age,
           album: data.album,
           author: data.author,
-          avgRating: data.avgRating,
           categories: data.categories,
+          comments: data.comments,
           description: data.description,
           duration: CreateTime(data.duration),
-          encoded: data.encoded,
           id: data.id,
+          inList: data.inList,
           parts: data.parts,
-          size: data.size,
           title: data.title,
           version: data.version,
           year: CreateDate(data.year),
+          canRate: data.canRate,
+          canComment: data.canComment
         });
       },
     }
@@ -72,10 +74,10 @@ export const AudiobookDataProvider = ({
   const value = [audiobookDetail, setAudiobookDetail, setRefetchState];
 
   return (
-    <AudiobookDataContext.Provider value={value}>
+    <AudiobookUserDetailContext.Provider value={value}>
       {children}
-    </AudiobookDataContext.Provider>
+    </AudiobookUserDetailContext.Provider>
   );
 };
 
-export const useAudiobookData = () => useContext(AudiobookDataContext);
+export const useAudiobookDetail = () => useContext(AudiobookUserDetailContext);

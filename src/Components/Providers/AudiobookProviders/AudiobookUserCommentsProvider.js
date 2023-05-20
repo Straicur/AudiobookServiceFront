@@ -2,32 +2,34 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../HandleFetch";
 
-const AudiobookCommentsContext = createContext(null);
+const AudiobookUserCommentsContext = createContext(null);
 
-export const AudiobookCommentsProvider = ({
+export const AudiobookUserCommentsProvider = ({
   children,
   token,
   audiobookId,
+  categoryKey,
   state,
   setState,
 }) => {
-  const [audiobookComments, setAudiobookComments] = useState(null);
+  const [audiobookUserComments, setAudiobookUserComments] = useState(null);
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
 
   const {
-    isLoading: isLoadingAudiobookComments,
-    error: errorAudiobookComments,
-    data: dataAudiobookComments,
-    isFetching: isFetchingAudiobookComments,
-    refetch: refetchAudiobookComments,
+    isLoading: isLoadingAudiobookUserComments,
+    error: errorAudiobookUserComments,
+    data: dataAudiobookUserComments,
+    isFetching: isFetchingAudiobookUserComments,
+    refetch: refetchAudiobookUserComments,
   } = useQuery(
-    "dataAudiobookComments",
+    "dataAudiobookUserComments",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobook/comment/get",
+        "http://127.0.0.1:8000/api/audiobook/comment/get",
         "POST",
         {
           audiobookId: audiobookId,
+          categoryKey: categoryKey,
         },
         token
       ),
@@ -39,29 +41,29 @@ export const AudiobookCommentsProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
-        setAudiobookComments(data);
+        setAudiobookUserComments(data.comments);
       },
     }
   );
 
   useEffect(() => {
     if (refetchState) {
-      refetchAudiobookComments();
+      refetchAudiobookUserComments();
       setAudiobookCommnetsRefetchState(!refetchState);
     }
   }, [refetchState]);
 
   const value = [
-    audiobookComments,
-    setAudiobookComments,
+    audiobookUserComments,
+    setAudiobookUserComments,
     setAudiobookCommnetsRefetchState,
   ];
 
   return (
-    <AudiobookCommentsContext.Provider value={value}>
+    <AudiobookUserCommentsContext.Provider value={value}>
       {children}
-    </AudiobookCommentsContext.Provider>
+    </AudiobookUserCommentsContext.Provider>
   );
 };
 
-export const useAudiobookComments = () => useContext(AudiobookCommentsContext);
+export const useAudiobookUserComments = () => useContext(AudiobookUserCommentsContext);

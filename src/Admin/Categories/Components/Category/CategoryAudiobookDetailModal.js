@@ -49,8 +49,8 @@ export default function CategoryAudiobookDetailModal(props) {
         handleClose();
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setAudiobooksState({
+          ...props.audiobooksState,
           error: e,
         });
         handleClose();
@@ -71,8 +71,8 @@ export default function CategoryAudiobookDetailModal(props) {
         handleClose();
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setAudiobooksState({
+          ...props.audiobooksState,
           error: e,
         });
         handleClose();

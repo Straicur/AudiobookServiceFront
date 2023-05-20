@@ -9,23 +9,24 @@ export const AudiobookPartProvider = ({
   token,
   audiobookId,
   part,
+  state,
+  setState,
 }) => {
   const [audiobookPart, setAudiobookPart] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
-  const createContext =()=>{
-    let json={
-      audiobookId: audiobookId
+  const createContext = () => {
+    let json = {
+      audiobookId: audiobookId,
     };
 
-    if(part == undefined || part == NaN){
-      json.part = 0
-    }
-    else{
+    if (part == undefined || part == NaN) {
+      json.part = 0;
+    } else {
       json.part = part;
     }
     return json;
-  }
+  };
 
   const {
     isLoading: isLoadingAudiobookPart,
@@ -46,13 +47,14 @@ export const AudiobookPartProvider = ({
       retry: 1,
       retryDelay: 500,
       refetchOnWindowFocus: false,
-      onError: (e) => {},
+      onError: (e) => {
+        setState({ ...state, error: e });
+      },
       onSuccess: (data) => {
         setAudiobookPart(data);
       },
     }
   );
-
 
   useEffect(() => {
     refetchAudiobookPart();

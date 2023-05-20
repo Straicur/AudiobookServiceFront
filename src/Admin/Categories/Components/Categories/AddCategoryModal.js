@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 
 export default function AddCategoryModal(props) {
-  
   const [modalState, setModalState] = useState({
     name: "",
     isButtonDisabled: true,
@@ -19,6 +18,7 @@ export default function AddCategoryModal(props) {
       ...props.state,
       addCategoryModal: !props.state.addCategoryModal,
       refresh: !props.state.refresh,
+      addCategoryParent: null,
     });
   };
 
@@ -57,7 +57,7 @@ export default function AddCategoryModal(props) {
       setModalState({ ...modalState, isButtonDisabled: true });
     }
   }, [modalState.name]);
-  
+
   return (
     <Modal
       show={props.state.addCategoryModal}
