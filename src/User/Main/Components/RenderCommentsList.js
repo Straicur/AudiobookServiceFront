@@ -168,8 +168,8 @@ export default function RenderCommentsList(props) {
       ...commentState,
       commentId: comment.id,
       comment: comment.comment,
-      edit: !commentState.edit,
-      add: !commentState.add,
+      edit: true,
+      add: false,
     });
   }
 
@@ -178,55 +178,65 @@ export default function RenderCommentsList(props) {
     let jsonData = {
       audiobookId: props.audiobooksState.detailModalAudiobook.id,
       categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
-      audiobookCommentId:commentState.commentId,
-      comment:commentState.comment,
-      deleted:false,
-    }
-    if(commentState.parentId != null){
+      audiobookCommentId: commentState.commentId,
+      comment: commentState.comment,
+      deleted: false,
+    };
+    if (commentState.parentId != null) {
       jsonData.additionalData = {
-        parentId:commentState.parentId
-      }
+        parentId: commentState.parentId,
+      };
     }
-    console.log(jsonData)
-    // HandleFetch(
-    //   "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
-    //   "PATCH",
-    //   jsonData,
-    //   props.token
-    // )
-    //   .then(() => {
-    //     element.target.classList.remove("disabled");
-    //   })
-    //   .catch((e) => {
-    //     element.target.classList.remove("disabled");
-    //   });
+
+    HandleFetch(
+      "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
+      "PATCH",
+      jsonData,
+      props.token
+    )
+      .then(() => {
+        element.target.classList.remove("disabled");
+        decline();
+      })
+      .catch((e) => {
+        element.target.classList.remove("disabled");
+      });
   }
-  function addComment(comment, element) {
+
+  function addChildComment(comment) {
+    setCommentState({
+      ...commentState,
+      parentId: comment.id,
+      edit: false,
+      add: true,
+    });
+  }
+
+  function addComment(element) {
     // element.target.classList.add("disabled");
     let jsonData = {
       audiobookId: props.audiobooksState.detailModalAudiobook.id,
       categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
-      audiobookCommentId:comment.id,
-      comment:commentState.comment,
-    }
-    if(commentState.parentId != null){
+      comment: commentState.comment,
+    };
+    if (commentState.parentId != null) {
       jsonData.additionalData = {
-        parentId:commentState.parentId
-      }
+        parentId: commentState.parentId,
+      };
     }
-    console.log(jsonData)
-    // HandleFetch(
-    //   "http://127.0.0.1:8000/api/user/audiobook/comment/add",
-    //   "PUT",
-    //   jsonData,
-    //   props.token
-    // )
-    //   .then(() => {
-    //     element.target.classList.remove("disabled");
-    //   })
-    //   .catch((e) => {
-    //     element.target.classList.remove("disabled");
-    //   });
+    HandleFetch(
+      "http://127.0.0.1:8000/api/user/audiobook/comment/add",
+      "PUT",
+      jsonData,
+      props.token
+    )
+      .then(() => {
+        element.target.classList.remove("disabled");
+        decline();
+      })
+      .catch((e) => {
+        element.target.classList.remove("disabled");
+      });
   }
   function decline() {
     setCommentState({
@@ -249,24 +259,25 @@ export default function RenderCommentsList(props) {
   function deleteComment(comment, element) {
     element.target.classList.add("disabled");
 
-    // HandleFetch(
-    //   "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
-    //   "PATCH",
-    //   {
-    //     audiobookId: props.audiobooksState.detailModalAudiobook.id,
-    //     categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
-    //     audiobookCommentId:comment.id,
-    //     comment:comment.comment,
-    //     deleted:true
-    //   },
-    //   props.token
-    // )
-    //   .then(() => {
-    //     element.target.classList.remove("disabled");
-    //   })
-    //   .catch((e) => {
-    //     element.target.classList.remove("disabled");
-    //   });
+    HandleFetch(
+      "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
+      "PATCH",
+      {
+        audiobookId: props.audiobooksState.detailModalAudiobook.id,
+        categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
+        audiobookCommentId: comment.id,
+        comment: comment.comment,
+        deleted: true,
+      },
+      props.token
+    )
+      .then(() => {
+        element.target.classList.remove("disabled");
+        decline();
+      })
+      .catch((e) => {
+        element.target.classList.remove("disabled");
+      });
   }
 
   const renderTree = () => {
@@ -304,10 +315,8 @@ export default function RenderCommentsList(props) {
     element.currentTarget.attributes["data-clicable"].value = "false";
 
     for (const element of children) {
-      if (element.nodeName == "UL") {
-        for (const el of element.children) {
-          el.classList.remove("d-none");
-        }
+      for (const el of element.children) {
+        el.classList.remove("d-none");
       }
       if (
         element.children[0].nodeName == "DIV" &&
@@ -465,9 +474,25 @@ export default function RenderCommentsList(props) {
             </div>
           ) : null}
         </div>
-        <ul className="list-group" data-name={element.id}>
-          {child}
-        </ul>
+        {element.children.length > 0 ? (
+          <ul className="list-group" data-name={element.id}>
+            {child}
+            <div className="row mt-2 d-none justify-content-center">
+              <div className="col-9">
+                <Button
+                  name="en"
+                  variant="success"
+                  size="sm"
+                  disabled={commentState.parentId != null}
+                  className="btn button rounded-3 add-parent-comment-button"
+                  onClick={() => addChildComment(element)}
+                >
+                  {props.t("add")}
+                </Button>
+              </div>
+            </div>
+          </ul>
+        ) : null}
       </li>
     );
   }
@@ -626,6 +651,7 @@ export default function RenderCommentsList(props) {
             variant="secondary"
             size="sm"
             className="btn button rounded-3 comment-button"
+            disabled={commentState.comment.length == 0}
             onClick={
               commentState.add
                 ? (e) => {
