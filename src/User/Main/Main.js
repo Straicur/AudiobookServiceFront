@@ -7,6 +7,7 @@ import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import { useTranslation } from "react-i18next";
 import GetAudiobooksProviders from "./Components/GetAudiobooksProviders";
 import AudiobookDetailProviders from "./Components/AudiobookDetailProviders";
+import SearchAudiobooks from "./Components/SearchAudiobooks";
 import "./Main.css";
 
 export default function Main() {
@@ -50,6 +51,12 @@ export default function Main() {
         <div className="container-fluid main-container mt-3">
           <div className="card position-relative p-3 mb-5  bg-dark shadow">
             <UserNavBar />
+            <SearchAudiobooks
+              audiobooksState={audiobooksState}
+              setAudiobooksState={setAudiobooksState}
+              token={token}
+              t={t}
+            />
             <GetAudiobooksProviders
               audiobooksState={audiobooksState}
               setAudiobooksState={setAudiobooksState}
