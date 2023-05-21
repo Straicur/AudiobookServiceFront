@@ -21,6 +21,9 @@ export default function RenderCommentsList(props) {
   // Wyglądowo to w sumie może niech będzie jednak jak facebookowe komentarze bo tak to dużo lepiej wyglądają
   // Ostyluj i podziel na mniejsze kawałki
 
+  //todo admin popotrzebuje przycisku do przejścia do panelu użytkownika 
+  // Aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy
+
   function setComment(comment, bool) {
     let newComments = props.comments.map((element) => {
       let like = element.audiobookCommentLike;
