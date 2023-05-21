@@ -47,7 +47,7 @@
 
 .comments-heigth {
     max-height: 25rem !important;
-    min-height: 20rem;
+    min-height: 10rem;
 }
 
 .accordion {

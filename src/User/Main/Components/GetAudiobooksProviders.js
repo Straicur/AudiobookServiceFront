@@ -17,10 +17,13 @@ export default function GetAudiobooksProviders(props) {
         page={props.audiobooksState.page}
         limit={props.audiobooksState.limit}
       >
-        <RenderProposedList
-          state={props.audiobooksState}
-          setState={props.setAudiobooksState}
-        />
+        {!props.audiobooksState.search ? (
+          <RenderProposedList
+            state={props.audiobooksState}
+            setState={props.setAudiobooksState}
+          />
+        ) : null}
+
         <GetAllAudiobooks
           state={props.audiobooksState}
           setState={props.setAudiobooksState}

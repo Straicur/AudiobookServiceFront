@@ -16,6 +16,11 @@ export default function RenderCommentsList(props) {
   });
 
   //todo tu mam do naprawy to żeby przy renderze mi się nie ustawiało znowu na d-none
+  // W useRef powinienem trzymać id rozwiniętego komentarza i w renderze jeśli mam to ustawione i id się zgadza to nie dodaje d-none 1 rozwiązanie
+  // Można też trzymać komentarz edytowany i w sumie jeśli jest w refie to wtedy go jakoś podświetlać borderem
+  // Wyglądowo to w sumie może niech będzie jednak jak facebookowe komentarze bo tak to dużo lepiej wyglądają
+  // Ostyluj i podziel na mniejsze kawałki
+
   function setComment(comment, bool) {
     let newComments = props.comments.map((element) => {
       let like = element.audiobookCommentLike;
@@ -182,6 +187,7 @@ export default function RenderCommentsList(props) {
       comment: commentState.comment,
       deleted: false,
     };
+
     if (commentState.parentId != null) {
       jsonData.additionalData = {
         parentId: commentState.parentId,
@@ -196,6 +202,7 @@ export default function RenderCommentsList(props) {
     )
       .then(() => {
         element.target.classList.remove("disabled");
+        props.refetch(true);
         decline();
       })
       .catch((e) => {
@@ -207,6 +214,7 @@ export default function RenderCommentsList(props) {
     setCommentState({
       ...commentState,
       parentId: comment.id,
+      comment: "",
       edit: false,
       add: true,
     });
@@ -219,11 +227,13 @@ export default function RenderCommentsList(props) {
       categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
       comment: commentState.comment,
     };
+
     if (commentState.parentId != null) {
       jsonData.additionalData = {
         parentId: commentState.parentId,
       };
     }
+
     HandleFetch(
       "http://127.0.0.1:8000/api/user/audiobook/comment/add",
       "PUT",
@@ -232,6 +242,7 @@ export default function RenderCommentsList(props) {
     )
       .then(() => {
         element.target.classList.remove("disabled");
+        props.refetch(true);
         decline();
       })
       .catch((e) => {
@@ -273,6 +284,7 @@ export default function RenderCommentsList(props) {
     )
       .then(() => {
         element.target.classList.remove("disabled");
+        props.refetch(true);
         decline();
       })
       .catch((e) => {
@@ -289,10 +301,8 @@ export default function RenderCommentsList(props) {
 
     if (props.comments != null && props.comments.length == 0) {
       renderArray.push(
-        <div key={uuidv4()} className="row text-center">
-          <div className="col-md-6 offset-md-3 ">
-            <h3>{props.t("empty")}</h3>
-          </div>
+        <div key={uuidv4()} className="text-center">
+          <h3>{props.t("empty")}</h3>
         </div>
       );
     }
@@ -432,7 +442,7 @@ export default function RenderCommentsList(props) {
         </div>
 
         <div className="row mx-1">
-          <div className="col-8 accordion-customs">
+          <div className="col-7 accordion-customs">
             <Accordion>
               <Accordion.Item eventKey="0">
                 <Accordion.Header>{props.t("comment")}...</Accordion.Header>
@@ -441,9 +451,9 @@ export default function RenderCommentsList(props) {
             </Accordion>
           </div>
           {element.myComment ? (
-            <div className="col-4">
+            <div className="col-5">
               <div className="row mx-1">
-                <div className="col-6">
+                <div className="col-4">
                   <Button
                     name="en"
                     variant="warning"
@@ -457,7 +467,7 @@ export default function RenderCommentsList(props) {
                     {props.t("edit")}
                   </Button>
                 </div>
-                <div className="col-6">
+                <div className="col-4">
                   <Button
                     name="en"
                     variant="danger"
@@ -470,9 +480,34 @@ export default function RenderCommentsList(props) {
                     {props.t("delete")}
                   </Button>
                 </div>
+                <div className="col-4">
+                  <Button
+                    name="en"
+                    variant="success"
+                    size="sm"
+                    disabled={commentState.parentId != null}
+                    className="btn button rounded-3"
+                    onClick={() => addChildComment(element)}
+                  >
+                    {props.t("add")}
+                  </Button>
+                </div>
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div className="col-5">
+              <Button
+                name="en"
+                variant="success"
+                size="sm"
+                disabled={commentState.parentId != null}
+                className="btn button rounded-3"
+                onClick={() => addChildComment(element)}
+              >
+                {props.t("add")}
+              </Button>
+            </div>
+          )}
         </div>
         {element.children.length > 0 ? (
           <ul className="list-group" data-name={element.id}>
@@ -640,6 +675,7 @@ export default function RenderCommentsList(props) {
             variant="warning"
             size="sm"
             className="btn button rounded-3 comment-button"
+            disabled={commentState.comment.length == 0 }
             onClick={decline}
           >
             {props.t("cancel")}

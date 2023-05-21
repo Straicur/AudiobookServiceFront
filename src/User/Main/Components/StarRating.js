@@ -79,9 +79,10 @@ export default function StarRating(props) {
 
   return (
     <div className="star-rating">
+      {console.log(props.audiobookDetail.canRate)}
       <div className="row">
-        <div className="col-7">{starRating}</div>
-        <div className="col-5">
+        <div className="col-5">{starRating}</div>
+        <div className="col-4">
           {props.audiobookDetail.canRate ? (
             !sure ? (
               <Button onClick={() => clearBoard()} variant="success" size="sm">

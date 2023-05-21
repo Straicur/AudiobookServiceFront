@@ -21,6 +21,8 @@ export default function Main() {
     detailModalAudiobook: null,
     detailModalCover: null,
     detailModalCategory: null,
+    search: false,
+    searchText: "",
     error: null,
   });
 
