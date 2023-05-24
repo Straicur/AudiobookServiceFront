@@ -21,6 +21,9 @@ export default function RenderCommentsList(props) {
   // Wyglądowo to w sumie może niech będzie jednak jak facebookowe komentarze bo tak to dużo lepiej wyglądają
   // Ostyluj i podziel na mniejsze kawałki
 
+  //Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się albo inny endpoint albo inne renderowanie
+  // Mogę podmienić po prostu provider i rzeczy
+
   //todo admin popotrzebuje przycisku do przejścia do panelu użytkownika 
   // Aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy
 
@@ -416,7 +419,7 @@ export default function RenderCommentsList(props) {
                       likeComment(element, e, true);
                     }}
                   >
-                    <i class="bi bi-hand-thumbs-up"></i>
+                    <i className="bi bi-hand-thumbs-up"></i>
                   </Button>
                 </div>
                 <div className="col-3">
@@ -431,7 +434,7 @@ export default function RenderCommentsList(props) {
                       likeComment(element, e, false);
                     }}
                   >
-                    <i class="bi bi-hand-thumbs-down"></i>
+                    <i className="bi bi-hand-thumbs-down"></i>
                   </Button>
                 </div>
                 <div className="col-1">
@@ -566,7 +569,7 @@ export default function RenderCommentsList(props) {
                       likeComment(element, e, true);
                     }}
                   >
-                    <i class="bi bi-hand-thumbs-up"></i>
+                    <i className="bi bi-hand-thumbs-up"></i>
                   </Button>
                 </div>
                 <div className="col-3">

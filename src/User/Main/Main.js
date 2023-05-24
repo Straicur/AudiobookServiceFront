@@ -27,12 +27,6 @@ export default function Main() {
     error: null,
   });
 
-  useEffect(() => {
-    if (audiobooksState.error != null) {
-      throw audiobooksState.error;
-    }
-  }, [audiobooksState.error]);
-
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}

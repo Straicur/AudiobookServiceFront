@@ -53,6 +53,12 @@ export default function AudiobookDetailProviders(props) {
   useEffect(() => {
     fetchData();
   }, []);
+  
+  useEffect(() => {
+    if (props.audiobooksState.error != null) {
+      throw props.audiobooksState.error;
+    }
+  }, [props.audiobooksState.error]);
 
   return (
     <div>
