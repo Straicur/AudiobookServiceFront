@@ -9,7 +9,7 @@ export default function SearchAudiobooks(props) {
     }
   }, [props.audiobooksState.error]);
   return (
-    <div className="row justify-content-start">
+    <div className="row ms-1 mt-3 justify-content-start">
       <div className="col-2">
         <InputGroup className="mb-3 ">
           <InputGroup.Text id="basic-addon1">
