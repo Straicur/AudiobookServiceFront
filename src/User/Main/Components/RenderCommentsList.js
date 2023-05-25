@@ -16,17 +16,12 @@ export default function RenderCommentsList(props) {
   });
 
   const lastOpenComment = useRef(null);
-  //todo tu mam do naprawy to żeby przy renderze mi się nie ustawiało znowu na d-none
-  // W useRef powinienem trzymać id rozwiniętego komentarza i w renderze jeśli mam to ustawione i id się zgadza to nie dodaje d-none 1 rozwiązanie
-  // Można też trzymać komentarz edytowany i w sumie jeśli jest w refie to wtedy go jakoś podświetlać borderem
-  // Wyglądowo to w sumie może niech będzie jednak jak facebookowe komentarze bo tak to dużo lepiej wyglądają
-  // Ostyluj i podziel na mniejsze kawałki
+  //todo Ostyluj i podziel na mniejsze kawałki
 
-  //Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się albo inny endpoint albo inne renderowanie
+  //Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się nowy endopoint i konycjonowanie rendera listy
   // Mogę podmienić po prostu provider i rzeczy
 
-  //todo admin popotrzebuje przycisku do przejścia do panelu użytkownika
-  // Aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy
+  //todo aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy w kategoriach i audibookach
 
   function setComment(comment, bool) {
     let newComments = props.comments.map((element) => {
@@ -181,7 +176,6 @@ export default function RenderCommentsList(props) {
   }
 
   function startEditComment(comment) {
-
     if (comment.parentId != null) {
       lastOpenComment.current = comment.parentId;
     }
@@ -344,6 +338,15 @@ export default function RenderCommentsList(props) {
   };
 
   function openParentList(element) {
+    element.currentTarget.parentElement.parentElement.classList.remove("ps-3");
+    element.currentTarget.parentElement.parentElement.classList.remove(
+      "comment-pill"
+    );
+    element.currentTarget.parentElement.parentElement.classList.add(
+      "rounded-3"
+    );
+    element.currentTarget.parentElement.parentElement.classList.add("px-2");
+
     let children = element.currentTarget.parentElement.parentElement.children;
 
     element.currentTarget.attributes["data-clicable"].value = "false";
@@ -364,6 +367,15 @@ export default function RenderCommentsList(props) {
   }
 
   function closeParentList(element) {
+    element.currentTarget.parentElement.parentElement.classList.remove(
+      "rounded-3"
+    );
+    element.currentTarget.parentElement.parentElement.classList.remove("px-2");
+    element.currentTarget.parentElement.parentElement.classList.add("ps-3");
+    element.currentTarget.parentElement.parentElement.classList.add(
+      "comment-pill"
+    );
+
     let children = element.currentTarget.parentElement.parentElement.children;
 
     element.currentTarget.attributes["data-clicable"].value = "true";
@@ -391,8 +403,12 @@ export default function RenderCommentsList(props) {
         key={uuidv4()}
         className={
           commentState.commentId == element.id
-            ? "border border-4 border-danger list-group-item list-group-item-dark"
-            : "border border-4 border-secondary list-group-item list-group-item-dark"
+            ? element.id == lastOpenComment.current
+              ? "border border-6 border-warning border  rounded-3 px-2 comment py-1"
+              : "border border-6 border-warning border comment-pill ps-3 pb-1 comment"
+            : element.id == lastOpenComment.current
+            ? "border border-6 border-secondary border rounded-3 px-2 comment py-1"
+            : "border border-6 border-secondary border comment-pill ps-3 pb-1 comment"
         }
       >
         <div className="row p-1 bd-highlight">
@@ -414,7 +430,7 @@ export default function RenderCommentsList(props) {
                 )}
               </div>
               <div className="col-1">
-                <span className="badge bg-dark rounded-pill">
+                <span className="badge bg-dark comment-pill">
                   {element.children.length}
                 </span>
               </div>
@@ -425,7 +441,7 @@ export default function RenderCommentsList(props) {
             <div className="row justify-content-center ">
               <div className="row">
                 <div className="col-1">
-                  <span className="badge bg-dark rounded-pill">
+                  <span className="badge bg-dark comment-pill">
                     {element.audiobookCommentLike}
                   </span>
                 </div>
@@ -462,7 +478,7 @@ export default function RenderCommentsList(props) {
                   </Button>
                 </div>
                 <div className="col-1">
-                  <span className="badge bg-dark rounded-pill">
+                  <span className="badge bg-dark comment-pill">
                     {element.audiobookCommentUnlike}
                   </span>
                 </div>
@@ -549,13 +565,13 @@ export default function RenderCommentsList(props) {
                   : "row mt-2 d-none justify-content-center"
               }
             >
-              <div className="col-9">
+              <div className="col-8 align-self-center">
                 <Button
                   name="en"
                   variant="success"
                   size="sm"
                   disabled={commentState.parentId != null}
-                  className="btn button rounded-3 add-parent-comment-button"
+                  className="btn button rounded-3 add-parent-comment-button mb-1"
                   onClick={() => addChildComment(element)}
                 >
                   {props.t("add")}
@@ -574,8 +590,10 @@ export default function RenderCommentsList(props) {
         key={uuidv4()}
         className={
           lastOpenComment.current == element.parentId
-            ?   commentState.commentId == element.id ?"p-2  border-danger list-group-item" :"p-2 border list-group-item"
-            : "d-none p-2 border list-group-item"
+            ? commentState.commentId == element.id
+              ? "px-3 py-1 my-1 comment-pill border border-warning"
+              : "px-3 py-1 my-1 border comment-pill"
+            : "d-none px-3 py-1 my-1 border comment-pill"
         }
         id={element.id}
       >
@@ -585,7 +603,7 @@ export default function RenderCommentsList(props) {
             <div className="row justify-content-center ">
               <div className="row">
                 <div className="col-1">
-                  <span className="badge bg-dark rounded-pill">
+                  <span className="badge bg-dark comment-pill">
                     {element.audiobookCommentLike}
                   </span>
                 </div>
@@ -622,7 +640,7 @@ export default function RenderCommentsList(props) {
                   </Button>
                 </div>
                 <div className="col-1">
-                  <span className="badge bg-dark rounded-pill">
+                  <span className="badge bg-dark comment-pill">
                     {element.audiobookCommentUnlike}
                   </span>
                 </div>
@@ -698,11 +716,9 @@ export default function RenderCommentsList(props) {
   }
 
   return (
-    <div>
-      <ul className="list-group comments-heigth overflow-auto ">
-        {renderTree()}
-      </ul>
-      <div className="row mt-2  justify-content-center align-items-center">
+    <div className="row">
+      <ul className="comments-heigth overflow-auto">{renderTree()}</ul>
+      <div className="row mt-2  justify-content-center align-items-center ms-1">
         <div className="col-8">
           <InputGroup>
             <InputGroup.Text>{props.t("comment")}</InputGroup.Text>
@@ -720,7 +736,10 @@ export default function RenderCommentsList(props) {
             variant="warning"
             size="sm"
             className="btn button rounded-3 comment-button"
-            disabled={commentState.comment.length == 0}
+            disabled={
+              (!commentState.edit && commentState.comment.length == 0) ||
+              (commentState.add && commentState.comment.length == 0)
+            }
             onClick={decline}
           >
             {props.t("cancel")}
