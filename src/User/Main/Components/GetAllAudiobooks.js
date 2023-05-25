@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import RenderAudiobooksList from "./RenderAudiobooksList";
 import { useAudiobookUserData } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDataProvider";
 import { HandleFetch } from "../../../Components/HandleFetch";
+import RenderProposedList from "./RenderProposedList";
 
-const ChildMemo = React.memo(RenderAudiobooksList);
+const ChildFirstMemo = React.memo(RenderAudiobooksList);
+const ChildSecondMemo = React.memo(RenderProposedList);
 
 export default function GetAllAudiobooks(props) {
-  const [audiobooks, loading, hasMore, setAudiobooks, setRefetchState] = useAudiobookUserData();
+  const [audiobooks, loading, hasMore, setAudiobooks, setRefetchState] =
+    useAudiobookUserData();
 
   const [coversState, setCoversState] = useState([]);
 
@@ -70,15 +73,28 @@ export default function GetAllAudiobooks(props) {
   }, [audiobooks]);
 
   return (
-    <ChildMemo
-      state={props.state}
-      setState={props.setState}
-      token={props.token}
-      t={props.t}
-      coversState={coversState}
-      audiobooks={audiobooks}
-      loading={loading}
-      hasMore={hasMore}
-    />
+    <div>
+      {!props.state.search ? (
+        <ChildSecondMemo
+          state={props.state}
+          setState={props.setState}
+          token={props.token}
+          t={props.t}
+          coversState={coversState}
+          loading={loading}
+          hasMore={hasMore}
+        />
+      ) : null}
+      <ChildFirstMemo
+        state={props.state}
+        setState={props.setState}
+        token={props.token}
+        t={props.t}
+        coversState={coversState}
+        audiobooks={audiobooks}
+        loading={loading}
+        hasMore={hasMore}
+      />
+    </div>
   );
 }

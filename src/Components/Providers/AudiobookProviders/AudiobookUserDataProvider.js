@@ -41,7 +41,6 @@ export const AudiobookUserDataProvider = ({
         setLoading(false);
       })
       .catch((e) => {
-        console.log(e);
         setState({
           ...state,
           error: e,

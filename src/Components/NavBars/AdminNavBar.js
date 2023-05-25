@@ -27,7 +27,7 @@ export const AdminNavBar = () => {
 
   return (
     <div className="row navbar">
-      <div className="col">
+      <div className="col-8">
         <Button
           variant="dark"
           size="lg"
@@ -73,8 +73,17 @@ export const AdminNavBar = () => {
         >
           {t("notifications")}
         </Button>
+        <Button
+          variant="dark"
+          size="lg"
+          color="dark"
+          className=" btn button mt-2 mx-2"
+          onClick={() => navigate("/main")}
+        >
+          {t("userPanel")}
+        </Button>
       </div>
-      <div className="col d-flex justify-content-end  align-items-center">
+      <div className="col-4 d-flex justify-content-end  align-items-center">
         <div className="ps-4 mx-2">
           <Button
             name="pl"

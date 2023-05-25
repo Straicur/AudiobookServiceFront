@@ -47,7 +47,7 @@
 
 .comments-heigth {
     max-height: 25rem !important;
-    min-height: 20rem;
+    min-height: 10rem;
 }
 
 .accordion {
@@ -57,4 +57,25 @@
 .comment-button {
     width: 4rem;
     height: 2.75rem;
+}
+
+.add-parent-comment-button {
+    width: 20rem;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+.comment {
+    background: rgba(0, 0, 0, 0.6);
+}
+.comment-pill{
+    border-radius: 2.1rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
 }

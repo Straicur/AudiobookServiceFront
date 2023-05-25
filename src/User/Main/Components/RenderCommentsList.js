@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { HandleFetch } from "../../../Components/HandleFetch";
@@ -15,7 +15,17 @@ export default function RenderCommentsList(props) {
     edit: false,
   });
 
-  //todo tu mam do naprawy to żeby przy renderze mi się nie ustawiało znowu na d-none
+  const lastOpenComment = useRef(null);
+  // 1 Rozwiąż problem tego czarnego tła lub zmień wszędzie te tło na dowpowiednie 
+  // 2 Ostyluj| Kolory mają być dostosowanie nie podstawowe, te rozwijanie komentarza zrób jak na fb a nie jak tera bo jest źle,
+  // tak samo z tym polem do dodawania niech będzie przeźroczyste, poszukaj czegoś o animacji przejścia do innej klasy bo za szybko się zmienia,
+  // Napis pusto w komentarzach zamień na coś innego i go też ostyluj i do tego jakoś bliżej te dodawanie komentarzy , przycisk zamknięcia też niech ma inny kolor ciut
+  // 3 podziel na mniejsze kawałki
+  // 4 aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy w kategoriach i audibookach
+  // 5 Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się nowy endopoint i konycjonowanie rendera listy
+  // Mogę podmienić po prostu provider i rzeczy
+
+
   function setComment(comment, bool) {
     let newComments = props.comments.map((element) => {
       let like = element.audiobookCommentLike;
@@ -131,6 +141,11 @@ export default function RenderCommentsList(props) {
     let url;
     let method;
     let jsonData;
+
+    if (comment.children.length == 0) {
+      lastOpenComment.current = comment.parentId;
+    }
+
     if (comment.liked == bool) {
       url = "http://127.0.0.1:8000/api/user/audiobook/comment/like/delete";
       method = "DELETE";
@@ -164,69 +179,96 @@ export default function RenderCommentsList(props) {
   }
 
   function startEditComment(comment) {
+    if (comment.parentId != null) {
+      lastOpenComment.current = comment.parentId;
+    }
+
     setCommentState({
       ...commentState,
       commentId: comment.id,
       comment: comment.comment,
-      edit: !commentState.edit,
-      add: !commentState.add,
+      edit: true,
+      add: false,
     });
   }
 
   function editComment(element) {
-    // element.target.classList.add("disabled");
+    element.target.classList.add("disabled");
     let jsonData = {
       audiobookId: props.audiobooksState.detailModalAudiobook.id,
       categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
-      audiobookCommentId:commentState.commentId,
-      comment:commentState.comment,
-      deleted:false,
-    }
-    if(commentState.parentId != null){
+      audiobookCommentId: commentState.commentId,
+      comment: commentState.comment,
+      deleted: false,
+    };
+
+    if (commentState.parentId != null) {
+      lastOpenComment.current = commentState.parentId;
+
       jsonData.additionalData = {
-        parentId:commentState.parentId
-      }
+        parentId: commentState.parentId,
+      };
     }
-    console.log(jsonData)
-    // HandleFetch(
-    //   "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
-    //   "PATCH",
-    //   jsonData,
-    //   props.token
-    // )
-    //   .then(() => {
-    //     element.target.classList.remove("disabled");
-    //   })
-    //   .catch((e) => {
-    //     element.target.classList.remove("disabled");
-    //   });
+
+    HandleFetch(
+      "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
+      "PATCH",
+      jsonData,
+      props.token
+    )
+      .then(() => {
+        element.target.classList.remove("disabled");
+        props.refetch(true);
+        decline();
+      })
+      .catch((e) => {
+        element.target.classList.remove("disabled");
+      });
   }
-  function addComment(comment, element) {
-    // element.target.classList.add("disabled");
+
+  function addChildComment(comment) {
+    lastOpenComment.current = comment.id;
+
+    setCommentState({
+      ...commentState,
+      parentId: comment.id,
+      commentId: comment.id,
+      comment: "",
+      edit: false,
+      add: true,
+    });
+  }
+
+  function addComment(element) {
+    element.target.classList.add("disabled");
     let jsonData = {
       audiobookId: props.audiobooksState.detailModalAudiobook.id,
       categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
-      audiobookCommentId:comment.id,
-      comment:commentState.comment,
-    }
-    if(commentState.parentId != null){
+      comment: commentState.comment,
+    };
+
+    if (commentState.parentId != null) {
+      lastOpenComment.current = commentState.parentId;
+
       jsonData.additionalData = {
-        parentId:commentState.parentId
-      }
+        parentId: commentState.parentId,
+      };
     }
-    console.log(jsonData)
-    // HandleFetch(
-    //   "http://127.0.0.1:8000/api/user/audiobook/comment/add",
-    //   "PUT",
-    //   jsonData,
-    //   props.token
-    // )
-    //   .then(() => {
-    //     element.target.classList.remove("disabled");
-    //   })
-    //   .catch((e) => {
-    //     element.target.classList.remove("disabled");
-    //   });
+
+    HandleFetch(
+      "http://127.0.0.1:8000/api/user/audiobook/comment/add",
+      "PUT",
+      jsonData,
+      props.token
+    )
+      .then(() => {
+        element.target.classList.remove("disabled");
+        props.refetch(true);
+        decline();
+      })
+      .catch((e) => {
+        element.target.classList.remove("disabled");
+      });
   }
   function decline() {
     setCommentState({
@@ -249,24 +291,26 @@ export default function RenderCommentsList(props) {
   function deleteComment(comment, element) {
     element.target.classList.add("disabled");
 
-    // HandleFetch(
-    //   "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
-    //   "PATCH",
-    //   {
-    //     audiobookId: props.audiobooksState.detailModalAudiobook.id,
-    //     categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
-    //     audiobookCommentId:comment.id,
-    //     comment:comment.comment,
-    //     deleted:true
-    //   },
-    //   props.token
-    // )
-    //   .then(() => {
-    //     element.target.classList.remove("disabled");
-    //   })
-    //   .catch((e) => {
-    //     element.target.classList.remove("disabled");
-    //   });
+    HandleFetch(
+      "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
+      "PATCH",
+      {
+        audiobookId: props.audiobooksState.detailModalAudiobook.id,
+        categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
+        audiobookCommentId: comment.id,
+        comment: comment.comment,
+        deleted: true,
+      },
+      props.token
+    )
+      .then(() => {
+        element.target.classList.remove("disabled");
+        props.refetch(true);
+        decline();
+      })
+      .catch((e) => {
+        element.target.classList.remove("disabled");
+      });
   }
 
   const renderTree = () => {
@@ -278,10 +322,8 @@ export default function RenderCommentsList(props) {
 
     if (props.comments != null && props.comments.length == 0) {
       renderArray.push(
-        <div key={uuidv4()} className="row text-center">
-          <div className="col-md-6 offset-md-3 ">
-            <h3>{props.t("empty")}</h3>
-          </div>
+        <div key={uuidv4()} className="text-center">
+          <h3>{props.t("empty")}</h3>
         </div>
       );
     }
@@ -299,15 +341,22 @@ export default function RenderCommentsList(props) {
   };
 
   function openParentList(element) {
+    element.currentTarget.parentElement.parentElement.classList.remove("ps-3");
+    element.currentTarget.parentElement.parentElement.classList.remove(
+      "comment-pill"
+    );
+    element.currentTarget.parentElement.parentElement.classList.add(
+      "rounded-3"
+    );
+    element.currentTarget.parentElement.parentElement.classList.add("px-2");
+
     let children = element.currentTarget.parentElement.parentElement.children;
 
     element.currentTarget.attributes["data-clicable"].value = "false";
 
     for (const element of children) {
-      if (element.nodeName == "UL") {
-        for (const el of element.children) {
-          el.classList.remove("d-none");
-        }
+      for (const el of element.children) {
+        el.classList.remove("d-none");
       }
       if (
         element.children[0].nodeName == "DIV" &&
@@ -321,6 +370,15 @@ export default function RenderCommentsList(props) {
   }
 
   function closeParentList(element) {
+    element.currentTarget.parentElement.parentElement.classList.remove(
+      "rounded-3"
+    );
+    element.currentTarget.parentElement.parentElement.classList.remove("px-2");
+    element.currentTarget.parentElement.parentElement.classList.add("ps-3");
+    element.currentTarget.parentElement.parentElement.classList.add(
+      "comment-pill"
+    );
+
     let children = element.currentTarget.parentElement.parentElement.children;
 
     element.currentTarget.attributes["data-clicable"].value = "true";
@@ -347,7 +405,13 @@ export default function RenderCommentsList(props) {
       <li
         key={uuidv4()}
         className={
-          "border border-4 border-secondary list-group-item list-group-item-dark"
+          commentState.commentId == element.id
+            ? element.id == lastOpenComment.current
+              ? "border border-6 border-warning border  rounded-3 px-2 comment py-1"
+              : "border border-6 border-warning border comment-pill ps-3 pb-1 comment"
+            : element.id == lastOpenComment.current
+            ? "border border-6 border-secondary border rounded-3 px-2 comment py-1"
+            : "border border-6 border-secondary border comment-pill ps-3 pb-1 comment"
         }
       >
         <div className="row p-1 bd-highlight">
@@ -359,13 +423,17 @@ export default function RenderCommentsList(props) {
             <div className="row">
               <div className="col-1 cs">
                 {child.length > 0 ? (
-                  <i className="p-2 bi bi-arrow-right-square "></i>
+                  element.id == lastOpenComment.current ? (
+                    <i className="p-2 bi bi-arrow-down-square "></i>
+                  ) : (
+                    <i className="p-2 bi bi-arrow-right-square "></i>
+                  )
                 ) : (
                   <div className="p-2 bd-highlight"></div>
                 )}
               </div>
               <div className="col-1">
-                <span className="badge bg-dark rounded-pill">
+                <span className="badge bg-dark comment-pill">
                   {element.children.length}
                 </span>
               </div>
@@ -376,7 +444,7 @@ export default function RenderCommentsList(props) {
             <div className="row justify-content-center ">
               <div className="row">
                 <div className="col-1">
-                  <span className="badge bg-dark rounded-pill">
+                  <span className="badge bg-dark comment-pill">
                     {element.audiobookCommentLike}
                   </span>
                 </div>
@@ -394,7 +462,7 @@ export default function RenderCommentsList(props) {
                       likeComment(element, e, true);
                     }}
                   >
-                    <i class="bi bi-hand-thumbs-up"></i>
+                    <i className="bi bi-hand-thumbs-up"></i>
                   </Button>
                 </div>
                 <div className="col-3">
@@ -409,11 +477,11 @@ export default function RenderCommentsList(props) {
                       likeComment(element, e, false);
                     }}
                   >
-                    <i class="bi bi-hand-thumbs-down"></i>
+                    <i className="bi bi-hand-thumbs-down"></i>
                   </Button>
                 </div>
                 <div className="col-1">
-                  <span className="badge bg-dark rounded-pill">
+                  <span className="badge bg-dark comment-pill">
                     {element.audiobookCommentUnlike}
                   </span>
                 </div>
@@ -423,7 +491,7 @@ export default function RenderCommentsList(props) {
         </div>
 
         <div className="row mx-1">
-          <div className="col-8 accordion-customs">
+          <div className="col-7 accordion-customs">
             <Accordion>
               <Accordion.Item eventKey="0">
                 <Accordion.Header>{props.t("comment")}...</Accordion.Header>
@@ -432,9 +500,9 @@ export default function RenderCommentsList(props) {
             </Accordion>
           </div>
           {element.myComment ? (
-            <div className="col-4">
+            <div className="col-5">
               <div className="row mx-1">
-                <div className="col-6">
+                <div className="col-4">
                   <Button
                     name="en"
                     variant="warning"
@@ -448,7 +516,7 @@ export default function RenderCommentsList(props) {
                     {props.t("edit")}
                   </Button>
                 </div>
-                <div className="col-6">
+                <div className="col-4">
                   <Button
                     name="en"
                     variant="danger"
@@ -461,13 +529,60 @@ export default function RenderCommentsList(props) {
                     {props.t("delete")}
                   </Button>
                 </div>
+                <div className="col-4">
+                  <Button
+                    name="en"
+                    variant="success"
+                    size="sm"
+                    disabled={commentState.parentId != null}
+                    className="btn button rounded-3"
+                    onClick={() => addChildComment(element)}
+                  >
+                    {props.t("add")}
+                  </Button>
+                </div>
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div className="col-5">
+              <Button
+                name="en"
+                variant="success"
+                size="sm"
+                disabled={commentState.parentId != null}
+                className="btn button rounded-3"
+                onClick={() => addChildComment(element)}
+              >
+                {props.t("add")}
+              </Button>
+            </div>
+          )}
         </div>
-        <ul className="list-group" data-name={element.id}>
-          {child}
-        </ul>
+        {element.children.length > 0 ? (
+          <ul className="list-group" data-name={element.id}>
+            {child}
+            <div
+              className={
+                lastOpenComment.current == element.id
+                  ? "row mt-2 justify-content-center"
+                  : "row mt-2 d-none justify-content-center"
+              }
+            >
+              <div className="col-8 align-self-center">
+                <Button
+                  name="en"
+                  variant="success"
+                  size="sm"
+                  disabled={commentState.parentId != null}
+                  className="btn button rounded-3 add-parent-comment-button mb-1"
+                  onClick={() => addChildComment(element)}
+                >
+                  {props.t("add")}
+                </Button>
+              </div>
+            </div>
+          </ul>
+        ) : null}
       </li>
     );
   }
@@ -476,7 +591,13 @@ export default function RenderCommentsList(props) {
     return (
       <li
         key={uuidv4()}
-        className="d-none p-2 border list-group-item"
+        className={
+          lastOpenComment.current == element.parentId
+            ? commentState.commentId == element.id
+              ? "px-3 py-1 my-1 comment-pill border border-warning"
+              : "px-3 py-1 my-1 border comment-pill"
+            : "d-none px-3 py-1 my-1 border comment-pill"
+        }
         id={element.id}
       >
         <div className="row p-1 bd-highlight">
@@ -485,7 +606,7 @@ export default function RenderCommentsList(props) {
             <div className="row justify-content-center ">
               <div className="row">
                 <div className="col-1">
-                  <span className="badge bg-dark rounded-pill">
+                  <span className="badge bg-dark comment-pill">
                     {element.audiobookCommentLike}
                   </span>
                 </div>
@@ -503,7 +624,7 @@ export default function RenderCommentsList(props) {
                       likeComment(element, e, true);
                     }}
                   >
-                    <i class="bi bi-hand-thumbs-up"></i>
+                    <i className="bi bi-hand-thumbs-up"></i>
                   </Button>
                 </div>
                 <div className="col-3">
@@ -518,11 +639,11 @@ export default function RenderCommentsList(props) {
                       likeComment(element, e, false);
                     }}
                   >
-                    <i class="bi bi-hand-thumbs-down"></i>
+                    <i className="bi bi-hand-thumbs-down"></i>
                   </Button>
                 </div>
                 <div className="col-1">
-                  <span className="badge bg-dark rounded-pill">
+                  <span className="badge bg-dark comment-pill">
                     {element.audiobookCommentUnlike}
                   </span>
                 </div>
@@ -583,7 +704,12 @@ export default function RenderCommentsList(props) {
       let children = [];
 
       if (element["children"].length != 0) {
-        children.push(<hr key={uuidv4()} className="d-none "></hr>);
+        children.push(
+          <hr
+            key={uuidv4()}
+            className={element.id == lastOpenComment.current ? null : "d-none"}
+          ></hr>
+        );
         for (const child of element["children"]) {
           children.push(createListElement(child));
         }
@@ -593,11 +719,9 @@ export default function RenderCommentsList(props) {
   }
 
   return (
-    <div>
-      <ul className="list-group comments-heigth overflow-auto ">
-        {renderTree()}
-      </ul>
-      <div className="row mt-2  justify-content-center align-items-center">
+    <div className="row">
+      <ul className="comments-heigth overflow-auto">{renderTree()}</ul>
+      <div className="row mt-2  justify-content-center align-items-center ms-1">
         <div className="col-8">
           <InputGroup>
             <InputGroup.Text>{props.t("comment")}</InputGroup.Text>
@@ -615,6 +739,10 @@ export default function RenderCommentsList(props) {
             variant="warning"
             size="sm"
             className="btn button rounded-3 comment-button"
+            disabled={
+              (!commentState.edit && commentState.comment.length == 0) ||
+              (commentState.add && commentState.comment.length == 0)
+            }
             onClick={decline}
           >
             {props.t("cancel")}
@@ -626,6 +754,7 @@ export default function RenderCommentsList(props) {
             variant="secondary"
             size="sm"
             className="btn button rounded-3 comment-button"
+            disabled={commentState.comment.length == 0}
             onClick={
               commentState.add
                 ? (e) => {

@@ -22,7 +22,6 @@ export default function StarRating(props) {
   };
 
   const fetchData = () => {
-    console.log(props);
     HandleFetch(
       "http://127.0.0.1:8000/api/user/audiobook/rating/add",
       "PUT",
@@ -80,8 +79,8 @@ export default function StarRating(props) {
   return (
     <div className="star-rating">
       <div className="row">
-        <div className="col-7">{starRating}</div>
-        <div className="col-5">
+        <div className="col-5">{starRating}</div>
+        <div className="col-4">
           {props.audiobookDetail.canRate ? (
             !sure ? (
               <Button onClick={() => clearBoard()} variant="success" size="sm">

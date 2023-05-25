@@ -183,5 +183,7 @@
     "loadMore": "Load more",
     "part": "Part",
     "show": "Show",
-    "rate": "Rate"
+    "rate": "Rate",
+    "proposed": "Proposed",
+    "userPanel": "User panel"
 }

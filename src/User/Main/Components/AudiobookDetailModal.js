@@ -63,13 +63,7 @@ export default function AudiobookDetailModal(props) {
       });
   };
 
-  //2 dodawanie\edycja komentarza (pod główny tylko), ma mi na samym dole się wyświetlić pole tekstowe pod komentarzami wraz z przyciskiem dodania i 
-  //ma mnie tam przenieć przy koliknięciu dodaj 
-  //po tym też edycja moich i usuwanie moich 
-  // Po tym wszystkim to ostyluj 
-
-  //todo zrób teraz generację komentarzy oraz możliwość dodawania, edytowania i likowania (można pobrać dodatkowo dzieci komentarzy)
-  // po tym muszę jeszcze zrobić listę proponowanych i tu muszę dodać trochę audiobooków, dorobić info słuchając i komenda na koniec w backendzie
+  // po tym muszę jeszcze zrobić listę proponowanych i tu muszę dodać trochę audiobooków, dorobić info słuchając kilkanaście audiobooków i komenda na koniec w backendzie
   // Do tego jeszcze wyszukiwarka dojdzie po nazwie
   // To są już wtedy wszystkie detale, po nich tworze moją listę i zostają mi ustawienia
 
@@ -138,7 +132,7 @@ export default function AudiobookDetailModal(props) {
               paddingBottom: "3rem",
             }}
           >
-            <div className="col-8">
+            <div className="col-9">
               <div className="row">
                 <h1>{audiobookDetail.title}</h1>
               </div>
@@ -230,6 +224,7 @@ export default function AudiobookDetailModal(props) {
                   setAudiobooksState={props.setAudiobooksState}
                   t={props.t}
                   token={props.token}
+                  refetch={setAudiobookCommnetsRefetchState}
                 />
               </div>
             </div>
