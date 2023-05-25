@@ -16,12 +16,15 @@ export default function RenderCommentsList(props) {
   });
 
   const lastOpenComment = useRef(null);
-  //todo Ostyluj i podziel na mniejsze kawałki
-
-  //Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się nowy endopoint i konycjonowanie rendera listy
+  // 1 Rozwiąż problem tego czarnego tła lub zmień wszędzie te tło na dowpowiednie 
+  // 2 Ostyluj| Kolory mają być dostosowanie nie podstawowe, te rozwijanie komentarza zrób jak na fb a nie jak tera bo jest źle,
+  // tak samo z tym polem do dodawania niech będzie przeźroczyste, poszukaj czegoś o animacji przejścia do innej klasy bo za szybko się zmienia,
+  // Napis pusto w komentarzach zamień na coś innego i go też ostyluj i do tego jakoś bliżej te dodawanie komentarzy , przycisk zamknięcia też niech ma inny kolor ciut
+  // 3 podziel na mniejsze kawałki
+  // 4 aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy w kategoriach i audibookach
+  // 5 Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się nowy endopoint i konycjonowanie rendera listy
   // Mogę podmienić po prostu provider i rzeczy
 
-  //todo aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy w kategoriach i audibookach
 
   function setComment(comment, bool) {
     let newComments = props.comments.map((element) => {
