@@ -4,8 +4,6 @@
     min-height: 3.25rem;
 }
 
-
-
 .detail-button {
     width: 27.2rem !important;
 }
@@ -72,8 +70,29 @@ li {
 .comment {
     background: rgba(0, 0, 0, 0.6);
 }
-.comment-pill{
+
+.comment-pill {
     border-radius: 2.1rem;
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
+}
+
+.primary_button {
+    background-color: #292b36 !important;
+    border-color: #292b36 !important;
+}
+
+.danger_button {
+    background-color: #530019 !important;
+    border-color: #530019 !important;
+}
+
+.success_button {
+    background-color: #005331 !important;
+    border-color: #005331 !important;
+}
+
+.warning_button {
+    background-color: #928800 !important;
+    border-color: #928800 !important;
 }

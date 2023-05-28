@@ -175,7 +175,7 @@ export default function AudiobookDetailModal(props) {
                 <div className="col-6">
                   <Button
                     onClick={(e) => addToMyList(e)}
-                    variant={audiobookDetail.inList ? "danger" : "success"}
+                    className={audiobookDetail.inList ? "danger_button" : "success_button"}
                   >
                     {props.t("myList")}{" "}
                     {audiobookDetail.inList ? (

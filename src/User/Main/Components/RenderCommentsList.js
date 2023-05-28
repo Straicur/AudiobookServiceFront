@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { HandleFetch } from "../../../Components/HandleFetch";
@@ -23,7 +23,6 @@ export default function RenderCommentsList(props) {
   // 4 aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy w kategoriach i audibookach
   // 5 Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się nowy endopoint i konycjonowanie rendera listy
   // Mogę podmienić po prostu provider i rzeczy
-
 
   function setComment(comment, bool) {
     let newComments = props.comments.map((element) => {
@@ -456,7 +455,11 @@ export default function RenderCommentsList(props) {
                         : "success"
                     }
                     size="sm"
-                    className="btn button rounded-3"
+                    className={
+                      element.liked == null || !element.liked
+                        ? "btn button rounded-3 primary_button"
+                        : "btn button rounded-3 success_button"
+                    }
                     onClick={(e) => {
                       likeComment(element, e, true);
                     }}
@@ -471,7 +474,11 @@ export default function RenderCommentsList(props) {
                       element.liked == null || element.liked ? "dark" : "danger"
                     }
                     size="sm"
-                    className="btn button rounded-3"
+                    className={
+                      element.liked == null || element.liked
+                        ? "btn button rounded-3 primary_button"
+                        : "btn button rounded-3 danger_button"
+                    }
                     onClick={(e) => {
                       likeComment(element, e, false);
                     }}
@@ -506,7 +513,7 @@ export default function RenderCommentsList(props) {
                     name="en"
                     variant="warning"
                     size="sm"
-                    className="btn button rounded-3"
+                    className="btn button rounded-3 warning_button"
                     disabled={commentState.edit}
                     onClick={(e) => {
                       startEditComment(element, e);
@@ -520,7 +527,7 @@ export default function RenderCommentsList(props) {
                     name="en"
                     variant="danger"
                     size="sm"
-                    className="btn button rounded-3"
+                    className="btn button rounded-3 danger_button"
                     onClick={(e) => {
                       deleteComment(element, e);
                     }}
@@ -534,7 +541,7 @@ export default function RenderCommentsList(props) {
                     variant="success"
                     size="sm"
                     disabled={commentState.parentId != null}
-                    className="btn button rounded-3"
+                    className="btn button rounded-3 success_button"
                     onClick={() => addChildComment(element)}
                   >
                     {props.t("add")}
@@ -549,7 +556,7 @@ export default function RenderCommentsList(props) {
                 variant="success"
                 size="sm"
                 disabled={commentState.parentId != null}
-                className="btn button rounded-3"
+                className="btn button rounded-3 success_button"
                 onClick={() => addChildComment(element)}
               >
                 {props.t("add")}
@@ -573,7 +580,7 @@ export default function RenderCommentsList(props) {
                   variant="success"
                   size="sm"
                   disabled={commentState.parentId != null}
-                  className="btn button rounded-3 add-parent-comment-button mb-1"
+                  className="btn button rounded-3 add-parent-comment-button mb-1 success_button"
                   onClick={() => addChildComment(element)}
                 >
                   {props.t("add")}
@@ -618,7 +625,11 @@ export default function RenderCommentsList(props) {
                         : "success"
                     }
                     size="sm"
-                    className="btn button rounded-3"
+                    className={
+                      element.liked == null || !element.liked
+                        ? "btn button rounded-3 primary_button"
+                        : "btn button rounded-3 success_button"
+                    }
                     onClick={(e) => {
                       likeComment(element, e, true);
                     }}
@@ -633,7 +644,11 @@ export default function RenderCommentsList(props) {
                       element.liked == null || element.liked ? "dark" : "danger"
                     }
                     size="sm"
-                    className="btn button rounded-3"
+                    className={
+                      element.liked == null || element.liked
+                        ? "btn button rounded-3 primary_button"
+                        : "btn button rounded-3 danger_button"
+                    }
                     onClick={(e) => {
                       likeComment(element, e, false);
                     }}
@@ -668,7 +683,7 @@ export default function RenderCommentsList(props) {
                     name="en"
                     variant="warning"
                     size="sm"
-                    className="btn button rounded-3"
+                    className="btn button rounded-3 warning_button"
                     disabled={commentState.edit}
                     onClick={(e) => {
                       startEditComment(element, e);
@@ -682,7 +697,7 @@ export default function RenderCommentsList(props) {
                     name="en"
                     variant="danger"
                     size="sm"
-                    className="btn button rounded-3"
+                    className="btn button rounded-3 danger_button"
                     onClick={(e) => {
                       deleteComment(element, e);
                     }}
@@ -737,7 +752,7 @@ export default function RenderCommentsList(props) {
             name="en"
             variant="warning"
             size="sm"
-            className="btn button rounded-3 comment-button"
+            className="btn button rounded-3 comment-button warning_button"
             disabled={
               (!commentState.edit && commentState.comment.length == 0) ||
               (commentState.add && commentState.comment.length == 0)
@@ -752,7 +767,7 @@ export default function RenderCommentsList(props) {
             name="en"
             variant="secondary"
             size="sm"
-            className="btn button rounded-3 comment-button"
+            className="btn button rounded-3 comment-button primary_button"
             disabled={commentState.comment.length == 0}
             onClick={
               commentState.add
