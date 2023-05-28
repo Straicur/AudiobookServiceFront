@@ -264,6 +264,7 @@ export default function CategoryAudiobookDetailModal(props) {
               audiobookPart={audiobookPart}
               setState={props.setState}
               state={props.state}
+              t={props.t}
             />
           ) : null}
         </div>

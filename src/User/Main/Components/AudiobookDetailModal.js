@@ -112,7 +112,6 @@ export default function AudiobookDetailModal(props) {
 
     fileReader.readAsArrayBuffer(new Blob([audiobookPart]));
   };
-  const addComment = () => {};
 
   return (
     <Modal
@@ -120,7 +119,12 @@ export default function AudiobookDetailModal(props) {
       show={props.audiobooksState.detailModal}
       onHide={handleClose}
     >
-      <Modal.Body className="text-white">
+      <Modal.Body
+        className="text-white"
+        style={{
+          backgroundColor: "#000000",
+        }}
+      >
         {audiobookDetail != null ? (
           <div
             className="row "

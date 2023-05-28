@@ -16,7 +16,6 @@ export default function RenderCommentsList(props) {
   });
 
   const lastOpenComment = useRef(null);
-  // 1 Rozwiąż problem tego czarnego tła lub zmień wszędzie te tło na dowpowiednie 
   // 2 Ostyluj| Kolory mają być dostosowanie nie podstawowe, te rozwijanie komentarza zrób jak na fb a nie jak tera bo jest źle,
   // tak samo z tym polem do dodawania niech będzie przeźroczyste, poszukaj czegoś o animacji przejścia do innej klasy bo za szybko się zmienia,
   // Napis pusto w komentarzach zamień na coś innego i go też ostyluj i do tego jakoś bliżej te dodawanie komentarzy , przycisk zamknięcia też niech ma inny kolor ciut
