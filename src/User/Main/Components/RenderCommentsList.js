@@ -16,9 +16,8 @@ export default function RenderCommentsList(props) {
   });
 
   const lastOpenComment = useRef(null);
-  // 2 Ostyluj| Kolory mają być dostosowanie nie podstawowe, te rozwijanie komentarza zrób jak na fb a nie jak tera bo jest źle,
-  // tak samo z tym polem do dodawania niech będzie przeźroczyste, poszukaj czegoś o animacji przejścia do innej klasy bo za szybko się zmienia,
-  // Napis pusto w komentarzach zamień na coś innego i go też ostyluj i do tego jakoś bliżej te dodawanie komentarzy , przycisk zamknięcia też niech ma inny kolor ciut
+  // 2 Ostyluj| te rozwijanie komentarza zrób jak na fb a nie jak tera bo jest źle, poszukaj czegoś o animacji przejścia do innej klasy bo za szybko się zmienia,
+  // Napis pusto w komentarzach zamień na coś innego i go też ostyluj i do tego jakoś bliżej te dodawanie komentarzy
   // 3 podziel na mniejsze kawałki
   // 4 aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy w kategoriach i audibookach
   // 5 Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się nowy endopoint i konycjonowanie rendera listy
@@ -737,13 +736,22 @@ export default function RenderCommentsList(props) {
       <ul className="comments-heigth overflow-auto">{renderTree()}</ul>
       <div className="row mt-2  justify-content-center align-items-center ms-1">
         <div className="col-8">
-          <InputGroup>
-            <InputGroup.Text>{props.t("comment")}</InputGroup.Text>
+          <InputGroup >
+            <InputGroup.Text  style={{
+                backgroundColor: "rgba(0, 0, 0, 0.7)",
+                borderColor:"#3C3C3C",
+                color: 'white'
+              }}>{props.t("comment")}</InputGroup.Text>
             <Form.Control
               onChange={(e) => textareaWrite(e)}
               value={commentState.comment}
               as="textarea"
               aria-label="With textarea"
+              style={{
+                backgroundColor: "rgba(0, 0, 0, 0.7)",
+                borderColor:"#3C3C3C",
+                color: 'white'
+              }}
             />
           </InputGroup>
         </div>

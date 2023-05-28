@@ -70,7 +70,9 @@ li {
 .comment {
     background: rgba(0, 0, 0, 0.6);
 }
-
+.comment-input {
+    background: rgba(0, 0, 0, 0.7);
+}
 .comment-pill {
     border-radius: 2.1rem;
     margin-top: 0.25rem;
