@@ -15,7 +15,7 @@ export default function RenderCommentsList(props) {
   });
 
   const lastOpenComment = useRef(null);
-  //todo dodaj do rozwijania komentarzy jakieś lepsze przejście  
+  //todo dodaj do rozwijania komentarzy jakieś lepsze przejście
   // 2 Napis pusto w komentarzach zamień na coś innego i go też ostyluj i do tego jakoś bliżej te dodawanie komentarzy
   // 3 podziel na mniejsze kawałki
   // 4 aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy w kategoriach i audibookach
@@ -316,14 +316,6 @@ export default function RenderCommentsList(props) {
       createTree(props.comments, renderArray);
     }
 
-    if (props.comments != null && props.comments.length == 0) {
-      renderArray.push(
-        <div key={uuidv4()} className="text-center">
-          <h3>{props.t("empty")}</h3>
-        </div>
-      );
-    }
-
     return renderArray;
   };
 
@@ -499,70 +491,54 @@ export default function RenderCommentsList(props) {
           </div>
         </div>
 
-        <div className="row mx-1">
-          <div className="col-7">
-            {element.comment.length > 30 ? (
-              <div className="row">
-                <div className="col-6 small-text">
-                  {element.comment.slice(0, 40)}
-                </div>
-                <p
-                  className="col-6 show-more"
-                  onClick={(e) => showText(element.comment, e)}
-                >
-                  {props.t("showMore")}
-                </p>
+        <div className="row mx-1 small-text">
+          {element.comment.length > 20 ? (
+            <div className="row text-break">
+              <div className="col-8">
+                {element.comment.slice(0, 40)}
               </div>
-            ) : (
-              <div className="row small-text">{element.comment}</div>
-            )}
-          </div>
-          {element.myComment ? (
-            <div className="col-5">
-              <div className="row mx-1">
-                <div className="col-4">
-                  <Button
-                    name="en"
-                    variant="secondary"
-                    size="sm"
-                    className="btn button rounded-3 warning_button comment-button-small"
-                    disabled={commentState.edit}
-                    onClick={(e) => {
-                      startEditComment(element, e);
-                    }}
-                  >
-                    {props.t("edit")}
-                  </Button>
-                </div>
-                <div className="col-4">
-                  <Button
-                    name="en"
-                    variant="danger"
-                    size="sm"
-                    className="btn button rounded-3 danger_button comment-button-small text-center"
-                    onClick={(e) => {
-                      deleteComment(element, e);
-                    }}
-                  >
-                    {props.t("delete")}
-                  </Button>
-                </div>
-                <div className="col-4">
-                  <Button
-                    name="en"
-                    variant="success"
-                    size="sm"
-                    disabled={commentState.parentId != null}
-                    className="btn button rounded-3 success_button comment-button-small text-center"
-                    onClick={() => addChildComment(element)}
-                  >
-                    {props.t("add")}
-                  </Button>
-                </div>
-              </div>
+              <p
+                className="col-4 show-more"
+                onClick={(e) => showText(element.comment, e)}
+              >
+                {props.t("showMore")}
+              </p>
             </div>
           ) : (
-            <div className="col-5">
+            <div className="row">{element.comment}</div>
+          )}
+        </div>
+        {element.myComment ? (
+                    <div className="col-5">
+          <div className="row mx-1">
+            <div className="col-4">
+              <Button
+                name="en"
+                variant="secondary"
+                size="sm"
+                className="btn button rounded-3 warning_button comment-button-small"
+                disabled={commentState.edit}
+                onClick={(e) => {
+                  startEditComment(element, e);
+                }}
+              >
+                {props.t("edit")}
+              </Button>
+            </div>
+            <div className="col-4">
+              <Button
+                name="en"
+                variant="danger"
+                size="sm"
+                className="btn button rounded-3 danger_button comment-button-small text-center"
+                onClick={(e) => {
+                  deleteComment(element, e);
+                }}
+              >
+                {props.t("delete")}
+              </Button>
+            </div>
+            <div className="col-4">
               <Button
                 name="en"
                 variant="success"
@@ -574,8 +550,22 @@ export default function RenderCommentsList(props) {
                 {props.t("add")}
               </Button>
             </div>
-          )}
-        </div>
+          </div>
+          </div>
+        ) : (
+          <div className="col-5">
+            <Button
+              name="en"
+              variant="success"
+              size="sm"
+              disabled={commentState.parentId != null}
+              className="btn button rounded-3 success_button comment-button-small text-center"
+              onClick={() => addChildComment(element)}
+            >
+              {props.t("add")}
+            </Button>
+          </div>
+        )}
         {element.children.length > 0 ? (
           <ul className="list-group" data-name={element.id}>
             {child}
@@ -680,58 +670,56 @@ export default function RenderCommentsList(props) {
           </div>
         </div>
 
-        <div className="row mx-2">
-          <div className="col-7">
-            {element.comment.length > 30 ? (
-              <div className="row">
-                <div className="col-6 small-text">
-                  {element.comment.slice(0, 40)}
-                </div>
-                <p
-                  className="col-6 show-more"
-                  onClick={(e) => showText(element.comment, e)}
-                >
-                  {props.t("showMore")}
-                </p>
+        <div className="row mx-2 small-text">
+          {element.comment.length > 20 ? (
+            <div className="row text-break">
+              <div className="col-8">
+                {element.comment.slice(0, 40)}
               </div>
-            ) : (
-              <div className="row small-text">{element.comment}</div>
-            )}
-          </div>
-          {element.myComment ? (
-            <div className="col-4">
-              <div className="row mx-1">
-                <div className="col-6">
-                  <Button
-                    name="en"
-                    variant="secondary"
-                    size="sm"
-                    className="btn button rounded-3 warning_button comment-button-small text-center"
-                    disabled={commentState.edit}
-                    onClick={(e) => {
-                      startEditComment(element, e);
-                    }}
-                  >
-                    {props.t("edit")}
-                  </Button>
-                </div>
-                <div className="col-6">
-                  <Button
-                    name="en"
-                    variant="danger"
-                    size="sm"
-                    className="btn button rounded-3 danger_button comment-button-small text-center"
-                    onClick={(e) => {
-                      deleteComment(element, e);
-                    }}
-                  >
-                    {props.t("delete")}
-                  </Button>
-                </div>
-              </div>
+              <p
+                className="col-4 show-more"
+                onClick={(e) => showText(element.comment, e)}
+              >
+                {props.t("showMore")}
+              </p>
             </div>
-          ) : null}
+          ) : (
+            <div className="row">{element.comment}</div>
+          )}
         </div>
+        {element.myComment ? (
+           <div className="col-7">
+          <div className="row mx-1">
+            <div className="col-6">
+              <Button
+                name="en"
+                variant="secondary"
+                size="sm"
+                className="btn button rounded-3 warning_button comment-button-small text-center"
+                disabled={commentState.edit}
+                onClick={(e) => {
+                  startEditComment(element, e);
+                }}
+              >
+                {props.t("edit")}
+              </Button>
+            </div>
+            <div className="col-6">
+              <Button
+                name="en"
+                variant="danger"
+                size="sm"
+                className="btn button rounded-3 danger_button comment-button-small text-center"
+                onClick={(e) => {
+                  deleteComment(element, e);
+                }}
+              >
+                {props.t("delete")}
+              </Button>
+            </div>
+          </div>
+          </div>
+        ) : null}
       </li>
     );
   }
@@ -757,8 +745,8 @@ export default function RenderCommentsList(props) {
 
   return (
     <div className="row">
-      <ul className="comments-heigth overflow-auto">{renderTree()}</ul>
-      <div className="row mt-2  justify-content-center align-items-center ms-1">
+      <ul className="comments-heigth overflow-auto ">{renderTree()}</ul>
+      <div className="row mt-2 justify-content-center align-items-center">
         <div className="col-8">
           <InputGroup>
             <InputGroup.Text
@@ -779,6 +767,7 @@ export default function RenderCommentsList(props) {
                 backgroundColor: "rgba(0, 0, 0, 0.7)",
                 borderColor: "#3C3C3C",
                 color: "white",
+                fontSize: "0.9rem",
               }}
             />
           </InputGroup>
