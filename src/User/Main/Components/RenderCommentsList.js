@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { HandleFetch } from "../../../Components/HandleFetch";
-import Accordion from "react-bootstrap/Accordion";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
@@ -16,8 +15,8 @@ export default function RenderCommentsList(props) {
   });
 
   const lastOpenComment = useRef(null);
-  // 2 Ostyluj| te rozwijanie komentarza zrób jak na fb a nie jak tera bo jest źle, poszukaj czegoś o animacji przejścia do innej klasy bo za szybko się zmienia,
-  // Napis pusto w komentarzach zamień na coś innego i go też ostyluj i do tego jakoś bliżej te dodawanie komentarzy
+  //todo dodaj do rozwijania komentarzy jakieś lepsze przejście  
+  // 2 Napis pusto w komentarzach zamień na coś innego i go też ostyluj i do tego jakoś bliżej te dodawanie komentarzy
   // 3 podziel na mniejsze kawałki
   // 4 aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy w kategoriach i audibookach
   // 5 Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się nowy endopoint i konycjonowanie rendera listy
@@ -343,7 +342,7 @@ export default function RenderCommentsList(props) {
       "comment-pill"
     );
     element.currentTarget.parentElement.parentElement.classList.add(
-      "rounded-3"
+      "comments-pill"
     );
     element.currentTarget.parentElement.parentElement.classList.add("px-2");
 
@@ -368,7 +367,7 @@ export default function RenderCommentsList(props) {
 
   function closeParentList(element) {
     element.currentTarget.parentElement.parentElement.classList.remove(
-      "rounded-3"
+      "comments-pill"
     );
     element.currentTarget.parentElement.parentElement.classList.remove("px-2");
     element.currentTarget.parentElement.parentElement.classList.add("ps-3");
@@ -396,6 +395,9 @@ export default function RenderCommentsList(props) {
       }
     }
   }
+  function showText(comment, element) {
+    element.currentTarget.parentElement.innerHTML = comment;
+  }
 
   function listParent(element, child) {
     return (
@@ -404,11 +406,11 @@ export default function RenderCommentsList(props) {
         className={
           commentState.commentId == element.id
             ? element.id == lastOpenComment.current
-              ? "border border-6 border-warning border  rounded-3 px-2 comment py-1"
-              : "border border-6 border-warning border comment-pill ps-3 pb-1 comment"
+              ? "border border-6 border-warning border comment comments-pill px-2 py-1"
+              : "border border-6 border-warning border comment comment-pill ps-3 pb-1"
             : element.id == lastOpenComment.current
-            ? "border border-6 border-secondary border rounded-3 px-2 comment py-1"
-            : "border border-6 border-secondary border comment-pill ps-3 pb-1 comment"
+            ? "border border-6 border-secondary border comment comments-pill px-2 py-1"
+            : "border border-6 border-secondary border comment comment-pill ps-3 pb-1"
         }
       >
         <div className="row p-1 bd-highlight">
@@ -434,7 +436,9 @@ export default function RenderCommentsList(props) {
                   {element.children.length}
                 </span>
               </div>
-              <div className="col-8">{element.userModel.email}</div>
+              <div className="col-8 fw-bold medium-text">
+                {element.userModel.email}
+              </div>
             </div>
           </div>
           <div className="col-4">
@@ -496,13 +500,22 @@ export default function RenderCommentsList(props) {
         </div>
 
         <div className="row mx-1">
-          <div className="col-7 accordion-customs">
-            <Accordion>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>{props.t("comment")}...</Accordion.Header>
-                <Accordion.Body>{element.comment}</Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
+          <div className="col-7">
+            {element.comment.length > 30 ? (
+              <div className="row">
+                <div className="col-6 small-text">
+                  {element.comment.slice(0, 40)}
+                </div>
+                <p
+                  className="col-6 show-more"
+                  onClick={(e) => showText(element.comment, e)}
+                >
+                  {props.t("showMore")}
+                </p>
+              </div>
+            ) : (
+              <div className="row small-text">{element.comment}</div>
+            )}
           </div>
           {element.myComment ? (
             <div className="col-5">
@@ -510,9 +523,9 @@ export default function RenderCommentsList(props) {
                 <div className="col-4">
                   <Button
                     name="en"
-                    variant="warning"
+                    variant="secondary"
                     size="sm"
-                    className="btn button rounded-3 warning_button"
+                    className="btn button rounded-3 warning_button comment-button-small"
                     disabled={commentState.edit}
                     onClick={(e) => {
                       startEditComment(element, e);
@@ -526,7 +539,7 @@ export default function RenderCommentsList(props) {
                     name="en"
                     variant="danger"
                     size="sm"
-                    className="btn button rounded-3 danger_button"
+                    className="btn button rounded-3 danger_button comment-button-small text-center"
                     onClick={(e) => {
                       deleteComment(element, e);
                     }}
@@ -540,7 +553,7 @@ export default function RenderCommentsList(props) {
                     variant="success"
                     size="sm"
                     disabled={commentState.parentId != null}
-                    className="btn button rounded-3 success_button"
+                    className="btn button rounded-3 success_button comment-button-small text-center"
                     onClick={() => addChildComment(element)}
                   >
                     {props.t("add")}
@@ -555,7 +568,7 @@ export default function RenderCommentsList(props) {
                 variant="success"
                 size="sm"
                 disabled={commentState.parentId != null}
-                className="btn button rounded-3 success_button"
+                className="btn button rounded-3 success_button comment-button-small text-center"
                 onClick={() => addChildComment(element)}
               >
                 {props.t("add")}
@@ -606,7 +619,9 @@ export default function RenderCommentsList(props) {
         id={element.id}
       >
         <div className="row p-1 bd-highlight">
-          <div className="col-8">{element.userModel.email}</div>
+          <div className="col-8 fw-bold medium-text">
+            {element.userModel.email}
+          </div>
           <div className="col-4">
             <div className="row justify-content-center ">
               <div className="row">
@@ -665,14 +680,23 @@ export default function RenderCommentsList(props) {
           </div>
         </div>
 
-        <div className="row mx-1">
-          <div className="col-8 accordion-customs">
-            <Accordion>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>{props.t("comment")}...</Accordion.Header>
-                <Accordion.Body>{element.comment}</Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
+        <div className="row mx-2">
+          <div className="col-7">
+            {element.comment.length > 30 ? (
+              <div className="row">
+                <div className="col-6 small-text">
+                  {element.comment.slice(0, 40)}
+                </div>
+                <p
+                  className="col-6 show-more"
+                  onClick={(e) => showText(element.comment, e)}
+                >
+                  {props.t("showMore")}
+                </p>
+              </div>
+            ) : (
+              <div className="row small-text">{element.comment}</div>
+            )}
           </div>
           {element.myComment ? (
             <div className="col-4">
@@ -680,9 +704,9 @@ export default function RenderCommentsList(props) {
                 <div className="col-6">
                   <Button
                     name="en"
-                    variant="warning"
+                    variant="secondary"
                     size="sm"
-                    className="btn button rounded-3 warning_button"
+                    className="btn button rounded-3 warning_button comment-button-small text-center"
                     disabled={commentState.edit}
                     onClick={(e) => {
                       startEditComment(element, e);
@@ -696,7 +720,7 @@ export default function RenderCommentsList(props) {
                     name="en"
                     variant="danger"
                     size="sm"
-                    className="btn button rounded-3 danger_button"
+                    className="btn button rounded-3 danger_button comment-button-small text-center"
                     onClick={(e) => {
                       deleteComment(element, e);
                     }}
@@ -736,12 +760,16 @@ export default function RenderCommentsList(props) {
       <ul className="comments-heigth overflow-auto">{renderTree()}</ul>
       <div className="row mt-2  justify-content-center align-items-center ms-1">
         <div className="col-8">
-          <InputGroup >
-            <InputGroup.Text  style={{
+          <InputGroup>
+            <InputGroup.Text
+              style={{
                 backgroundColor: "rgba(0, 0, 0, 0.7)",
-                borderColor:"#3C3C3C",
-                color: 'white'
-              }}>{props.t("comment")}</InputGroup.Text>
+                borderColor: "#3C3C3C",
+                color: "white",
+              }}
+            >
+              {props.t("comment")}
+            </InputGroup.Text>
             <Form.Control
               onChange={(e) => textareaWrite(e)}
               value={commentState.comment}
@@ -749,8 +777,8 @@ export default function RenderCommentsList(props) {
               aria-label="With textarea"
               style={{
                 backgroundColor: "rgba(0, 0, 0, 0.7)",
-                borderColor:"#3C3C3C",
-                color: 'white'
+                borderColor: "#3C3C3C",
+                color: "white",
               }}
             />
           </InputGroup>
@@ -758,7 +786,7 @@ export default function RenderCommentsList(props) {
         <div className="col-2">
           <Button
             name="en"
-            variant="warning"
+            variant="secondary"
             size="sm"
             className="btn button rounded-3 comment-button warning_button"
             disabled={

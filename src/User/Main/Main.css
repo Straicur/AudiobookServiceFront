@@ -70,13 +70,19 @@ li {
 .comment {
     background: rgba(0, 0, 0, 0.6);
 }
+
 .comment-input {
     background: rgba(0, 0, 0, 0.7);
 }
+
 .comment-pill {
     border-radius: 2.1rem;
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
+}
+
+.comments-pill {
+    border-radius: 2.1rem;
 }
 
 .primary_button {
@@ -95,6 +101,31 @@ li {
 }
 
 .warning_button {
-    background-color: #928800 !important;
-    border-color: #928800 !important;
+    background-color: #575100 !important;
+    border-color: #696200 !important;
+}
+
+.show-more {
+    font-size: 0.8rem;
+}
+
+.small-text {
+    font-size: 0.8rem !important;
+}
+
+.medium-text {
+    font-size: 0.9rem !important;
+    padding-top: 0.2rem;
+}
+
+.show-more:hover {
+    color: #777777;
+    cursor: pointer;
+}
+
+.comment-button-small {
+    width: 3.5rem !important;
+    height: 1.7rem !important;
+    font-size: 0.8rem !important;
+    padding: 0.2rem !important;
 }
