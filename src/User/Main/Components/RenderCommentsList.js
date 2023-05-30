@@ -491,12 +491,10 @@ export default function RenderCommentsList(props) {
           </div>
         </div>
 
-        <div className="row mx-1 small-text">
+        <div className="row mx-1 small-text my-1">
           {element.comment.length > 20 ? (
             <div className="row text-break">
-              <div className="col-8">
-                {element.comment.slice(0, 40)}
-              </div>
+              <div className="col-8">{element.comment.slice(0, 40)}</div>
               <p
                 className="col-4 show-more"
                 onClick={(e) => showText(element.comment, e)}
@@ -509,48 +507,48 @@ export default function RenderCommentsList(props) {
           )}
         </div>
         {element.myComment ? (
-                    <div className="col-5">
-          <div className="row mx-1">
-            <div className="col-4">
-              <Button
-                name="en"
-                variant="secondary"
-                size="sm"
-                className="btn button rounded-3 warning_button comment-button-small"
-                disabled={commentState.edit}
-                onClick={(e) => {
-                  startEditComment(element, e);
-                }}
-              >
-                {props.t("edit")}
-              </Button>
+          <div className="col-5">
+            <div className="row mx-1 justify-content-start">
+              <div className="col-4">
+                <Button
+                  name="en"
+                  variant="secondary"
+                  size="sm"
+                  className="btn button rounded-3 warning_button comment-button-small"
+                  disabled={commentState.edit}
+                  onClick={(e) => {
+                    startEditComment(element, e);
+                  }}
+                >
+                  {props.t("edit")}
+                </Button>
+              </div>
+              <div className="col-4">
+                <Button
+                  name="en"
+                  variant="danger"
+                  size="sm"
+                  className="btn button rounded-3 danger_button comment-button-small text-center"
+                  onClick={(e) => {
+                    deleteComment(element, e);
+                  }}
+                >
+                  {props.t("delete")}
+                </Button>
+              </div>
+              <div className="col-4">
+                <Button
+                  name="en"
+                  variant="success"
+                  size="sm"
+                  disabled={commentState.parentId != null}
+                  className="btn button rounded-3 success_button comment-button-small text-center"
+                  onClick={() => addChildComment(element)}
+                >
+                  {props.t("add")}
+                </Button>
+              </div>
             </div>
-            <div className="col-4">
-              <Button
-                name="en"
-                variant="danger"
-                size="sm"
-                className="btn button rounded-3 danger_button comment-button-small text-center"
-                onClick={(e) => {
-                  deleteComment(element, e);
-                }}
-              >
-                {props.t("delete")}
-              </Button>
-            </div>
-            <div className="col-4">
-              <Button
-                name="en"
-                variant="success"
-                size="sm"
-                disabled={commentState.parentId != null}
-                className="btn button rounded-3 success_button comment-button-small text-center"
-                onClick={() => addChildComment(element)}
-              >
-                {props.t("add")}
-              </Button>
-            </div>
-          </div>
           </div>
         ) : (
           <div className="col-5">
@@ -670,12 +668,10 @@ export default function RenderCommentsList(props) {
           </div>
         </div>
 
-        <div className="row mx-2 small-text">
+        <div className="row mx-2 small-text my-1">
           {element.comment.length > 20 ? (
             <div className="row text-break">
-              <div className="col-8">
-                {element.comment.slice(0, 40)}
-              </div>
+              <div className="col-8">{element.comment.slice(0, 40)}</div>
               <p
                 className="col-4 show-more"
                 onClick={(e) => showText(element.comment, e)}
@@ -688,36 +684,36 @@ export default function RenderCommentsList(props) {
           )}
         </div>
         {element.myComment ? (
-           <div className="col-7">
-          <div className="row mx-1">
-            <div className="col-6">
-              <Button
-                name="en"
-                variant="secondary"
-                size="sm"
-                className="btn button rounded-3 warning_button comment-button-small text-center"
-                disabled={commentState.edit}
-                onClick={(e) => {
-                  startEditComment(element, e);
-                }}
-              >
-                {props.t("edit")}
-              </Button>
+          <div className="col-7">
+            <div className="row mx-1 justify-content-start">
+              <div className="col-3">
+                <Button
+                  name="en"
+                  variant="secondary"
+                  size="sm"
+                  className="btn button rounded-3 warning_button comment-button-small text-center"
+                  disabled={commentState.edit}
+                  onClick={(e) => {
+                    startEditComment(element, e);
+                  }}
+                >
+                  {props.t("edit")}
+                </Button>
+              </div>
+              <div className="col-3">
+                <Button
+                  name="en"
+                  variant="danger"
+                  size="sm"
+                  className="btn button rounded-3 danger_button comment-button-small text-center"
+                  onClick={(e) => {
+                    deleteComment(element, e);
+                  }}
+                >
+                  {props.t("delete")}
+                </Button>
+              </div>
             </div>
-            <div className="col-6">
-              <Button
-                name="en"
-                variant="danger"
-                size="sm"
-                className="btn button rounded-3 danger_button comment-button-small text-center"
-                onClick={(e) => {
-                  deleteComment(element, e);
-                }}
-              >
-                {props.t("delete")}
-              </Button>
-            </div>
-          </div>
           </div>
         ) : null}
       </li>
