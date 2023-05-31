@@ -61,7 +61,7 @@ export default function RenderCarousel(props, category) {
             }}
           >
             <div className="card-img-sm">
-            <img src={imgUrl} className="card-img-top" alt="..." />
+              <img src={imgUrl} className="card-img-top" alt="..." />
             </div>
 
             <div className="card-body">

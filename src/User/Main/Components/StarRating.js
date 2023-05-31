@@ -88,19 +88,23 @@ export default function StarRating(props) {
               </Button>
             ) : (
               <div className="row justify-content-center">
-                  <div className="col-6">
-                <Button onClick={() => fetchData()} variant="success" size="sm">
-                  {props.t("yes")}
-                </Button>
+                <div className="col-6">
+                  <Button
+                    onClick={() => fetchData()}
+                    variant="success"
+                    size="sm"
+                  >
+                    {props.t("yes")}
+                  </Button>
                 </div>
                 <div className="col-6">
-                <Button
-                  onClick={() => doubleClickRating()}
-                  variant="danger"
-                  size="sm"
-                >
-                  {props.t("no")}
-                </Button>
+                  <Button
+                    onClick={() => doubleClickRating()}
+                    variant="danger"
+                    size="sm"
+                  >
+                    {props.t("no")}
+                  </Button>
                 </div>
               </div>
             )

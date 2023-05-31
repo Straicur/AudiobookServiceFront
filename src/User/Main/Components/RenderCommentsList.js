@@ -16,12 +16,13 @@ export default function RenderCommentsList(props) {
 
   const lastOpenComment = useRef(null);
   //todo dodaj do rozwijania komentarzy jakieś lepsze przejście
-  // 2 Napis pusto w komentarzach zamień na coś innego i go też ostyluj i do tego jakoś bliżej te dodawanie komentarzy
-  // 3 podziel na mniejsze kawałki
+
   // 4 aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy w kategoriach i audibookach
   // 5 Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się nowy endopoint i konycjonowanie rendera listy
   // Mogę podmienić po prostu provider i rzeczy
 
+  //--------------------------------------------------------------------------------------------------------------------------------
+  //Changing comments functions
   function setComment(comment, bool) {
     let newComments = props.comments.map((element) => {
       let like = element.audiobookCommentLike;
@@ -174,20 +175,6 @@ export default function RenderCommentsList(props) {
       });
   }
 
-  function startEditComment(comment) {
-    if (comment.parentId != null) {
-      lastOpenComment.current = comment.parentId;
-    }
-
-    setCommentState({
-      ...commentState,
-      commentId: comment.id,
-      comment: comment.comment,
-      edit: true,
-      add: false,
-    });
-  }
-
   function editComment(element) {
     element.target.classList.add("disabled");
     let jsonData = {
@@ -222,19 +209,6 @@ export default function RenderCommentsList(props) {
       });
   }
 
-  function addChildComment(comment) {
-    lastOpenComment.current = comment.id;
-
-    setCommentState({
-      ...commentState,
-      parentId: comment.id,
-      commentId: comment.id,
-      comment: "",
-      edit: false,
-      add: true,
-    });
-  }
-
   function addComment(element) {
     element.target.classList.add("disabled");
     let jsonData = {
@@ -266,24 +240,6 @@ export default function RenderCommentsList(props) {
         element.target.classList.remove("disabled");
       });
   }
-  function decline() {
-    setCommentState({
-      ...commentState,
-      parentId: null,
-      commentId: null,
-      comment: "",
-      add: true,
-      edit: false,
-    });
-  }
-
-  function textareaWrite(event) {
-    setCommentState({
-      ...commentState,
-      comment: event.target.value,
-    });
-  }
-
   function deleteComment(comment, element) {
     element.target.classList.add("disabled");
 
@@ -309,15 +265,58 @@ export default function RenderCommentsList(props) {
       });
   }
 
-  const renderTree = () => {
-    let renderArray = [];
-
-    if (props.comments != undefined) {
-      createTree(props.comments, renderArray);
+  //--------------------------------------------------------------------------------------------------------------------------------
+  //Small state functions
+  function startEditComment(comment) {
+    if (comment.parentId != null) {
+      lastOpenComment.current = comment.parentId;
     }
 
-    return renderArray;
-  };
+    setCommentState({
+      ...commentState,
+      commentId: comment.id,
+      comment: comment.comment,
+      edit: true,
+      add: false,
+    });
+  }
+
+  function addChildComment(comment) {
+    lastOpenComment.current = comment.id;
+
+    setCommentState({
+      ...commentState,
+      parentId: comment.id,
+      commentId: comment.id,
+      comment: "",
+      edit: false,
+      add: true,
+    });
+  }
+
+  function decline() {
+    setCommentState({
+      ...commentState,
+      parentId: null,
+      commentId: null,
+      comment: "",
+      add: true,
+      edit: false,
+    });
+  }
+
+  function textareaWrite(event) {
+    setCommentState({
+      ...commentState,
+      comment: event.target.value,
+    });
+  }
+  function showText(comment, element) {
+    element.currentTarget.parentElement.innerHTML = comment;
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------------------
+  //Opening/Closing parent list
 
   const oparateParentList = (element) => {
     element.stopPropagation();
@@ -387,10 +386,9 @@ export default function RenderCommentsList(props) {
       }
     }
   }
-  function showText(comment, element) {
-    element.currentTarget.parentElement.innerHTML = comment;
-  }
 
+  //--------------------------------------------------------------------------------------------------------------------------------
+  //Render
   function listParent(element, child) {
     return (
       <li
@@ -739,6 +737,15 @@ export default function RenderCommentsList(props) {
     }
   }
 
+  const renderTree = () => {
+    let renderArray = [];
+
+    if (props.comments != undefined) {
+      createTree(props.comments, renderArray);
+    }
+
+    return renderArray;
+  };
   return (
     <div className="row">
       <ul className="comments-heigth overflow-auto ">{renderTree()}</ul>
