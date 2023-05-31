@@ -17,10 +17,6 @@ export default function RenderCommentsList(props) {
   const lastOpenComment = useRef(null);
   //todo dodaj do rozwijania komentarzy jakieś lepsze przejście
 
-  // 4 aktywacja tych audiobooków powinna czekać aż się wykona jeden bo tak to tylko jeden mi się zmienia !!!! Do poprawy w kategoriach i audibookach
-  // 5 Wyszukiwarka raczej powinna zwracać listę bez podziału na kategorie i do tego raczej przyda się nowy endopoint i konycjonowanie rendera listy
-  // Mogę podmienić po prostu provider i rzeczy
-
   //--------------------------------------------------------------------------------------------------------------------------------
   //Changing comments functions
   function setComment(comment, bool) {
