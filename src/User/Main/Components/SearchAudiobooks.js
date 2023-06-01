@@ -11,10 +11,13 @@ export default function SearchAudiobooks(props) {
   }, [props.audiobooksState.error]);
 
   const searchAudiobooks = () => {
-    props.setAudiobooksState({
-      ...props.audiobooksState,
-      search: !props.search,
-    });
+    if(props.audiobooksState.searchText.length > 0){
+      props.setAudiobooksState({
+        ...props.audiobooksState,
+        search: !props.search,
+        page: 0
+      });
+    }
   };
 
   const changeSearchText = (element) => {

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
+import RenderSearchAudiobooksList from "./RenderSearchAudiobooksList";
 
 export default function RenderAudiobookSearch(props) {
   const { isLoading, error, data, isFetching, refetch } = useQuery(
@@ -27,11 +28,10 @@ export default function RenderAudiobookSearch(props) {
         });
       },
       onSuccess: (data) => {
-        console.log(data.audiobooks);
-        // props.setAudiobooksState({
-        //   ...props.audiobooksState,
-        //   searchAudiobooks: data.users,
-        // });
+        props.setAudiobooksState({
+          ...props.audiobooksState,
+          searchAudiobooks: data.audiobooks,
+        });
       },
     }
   );
@@ -42,10 +42,20 @@ export default function RenderAudiobookSearch(props) {
     }
   }, [props.audiobooksState.error]);
 
-  
   useEffect(() => {
-    refetch()
-  }, [props.audiobooksState.searchText]);
+    if (props.audiobooksState.search) {
+      refetch();
+    }
+  }, [props.audiobooksState.search]);
 
-  return <div></div>;
+  return (
+    <div>
+      <RenderSearchAudiobooksList
+        audiobooksState={props.audiobooksState}
+        setAudiobooksState={props.setAudiobooksState}
+        token={props.token}
+        t={props.t}
+      />
+    </div>
+  );
 }
