@@ -14,7 +14,15 @@ export default function SearchAudiobooks(props) {
     if(props.audiobooksState.searchText.length > 0){
       props.setAudiobooksState({
         ...props.audiobooksState,
-        search: !props.search,
+        search: true,
+        searching: !props.audiobooksState.searching,
+        page: 0
+      });
+    }
+    else{
+      props.setAudiobooksState({
+        ...props.audiobooksState,
+        search: false,
         page: 0
       });
     }

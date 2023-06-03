@@ -70,8 +70,8 @@ export default function GetAllSearchAudiobooks(props) {
     if (props.state.search) {
       setRefetchState(true);
     }
-  }, [props.state.search]);
-  
+  }, [props.state.searching]);
+
   return (
     <div>
       <ChildMemo
