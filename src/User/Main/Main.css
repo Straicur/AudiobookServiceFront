@@ -26,6 +26,16 @@
     max-height: 21rem;
 }
 
+.carousel-search-card {
+    min-height: 28rem;
+    max-height: 28rem;
+}
+
+.card-search-img-sm {
+    min-height: 22rem;
+    max-height: 22rem;
+}
+
 .button-star {
     background-color: transparent;
     border: none;

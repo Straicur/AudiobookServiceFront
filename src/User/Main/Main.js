@@ -25,7 +25,6 @@ export default function Main() {
     detailModalCategory: null,
     search: false,
     searchText: "",
-    searchAudiobooks:[],
     error: null,
   });
 

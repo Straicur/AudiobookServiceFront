@@ -74,17 +74,15 @@ export default function GetAllAudiobooks(props) {
 
   return (
     <div>
-      {!props.state.search ? (
-        <ChildSecondMemo
-          state={props.state}
-          setState={props.setState}
-          token={props.token}
-          t={props.t}
-          coversState={coversState}
-          loading={loading}
-          hasMore={hasMore}
-        />
-      ) : null}
+      <ChildSecondMemo
+        state={props.state}
+        setState={props.setState}
+        token={props.token}
+        t={props.t}
+        coversState={coversState}
+        loading={loading}
+        hasMore={hasMore}
+      />
       <ChildFirstMemo
         state={props.state}
         setState={props.setState}
