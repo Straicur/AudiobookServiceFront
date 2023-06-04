@@ -18,6 +18,7 @@ export default function RenderAudiobooksList(props) {
           props.setState({
             ...props.state,
             page: props.state.page + 1,
+            wasSearch: false
           });
         }
       });
@@ -27,13 +28,13 @@ export default function RenderAudiobooksList(props) {
   );
 
   useEffect(() => {
-    if (lastItemRef.current && lastItemOffsetTopRef.current !== null) {
+    if (lastItemRef.current && lastItemOffsetTopRef.current !== null && !props.state.wasSearch) {
       setTimeout(function () {
         window.scrollTo({
           top: lastItemOffsetTopRef.current,
           behavior: "smooth",
         });
-      }, 1500);
+      }, 1000);
     }
   }, [props.audiobooks]);
 

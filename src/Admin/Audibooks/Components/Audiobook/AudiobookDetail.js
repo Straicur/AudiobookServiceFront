@@ -112,6 +112,7 @@ export default function AudiobookDetail(props) {
                   audiobookPart={audiobookPart}
                   setAudiobookState={props.setAudiobookState}
                   audiobookState={props.audiobookState}
+                  t={t}
                 />
               ) : null}
             </div>

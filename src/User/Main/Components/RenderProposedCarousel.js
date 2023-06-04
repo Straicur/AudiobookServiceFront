@@ -38,10 +38,9 @@ export default function RenderProposedCarousel(props, audiobooks) {
   };
 
   const showAudiobookModal = (audiobook, imgUrl) => {
-
     props.setState({
       ...props.state,
-      detailModal: !props.detailModal,
+      detailModal: !props.state.detailModal,
       detailModalAudiobook: audiobook,
       detailModalCover: imgUrl,
       detailModalCategory: audiobook.categories[0],
@@ -62,7 +61,7 @@ export default function RenderProposedCarousel(props, audiobooks) {
             }}
           >
             <div className="card-img-sm">
-            <img src={imgUrl} className="card-img-top" alt="..." />
+              <img src={imgUrl} className="card-img-top" alt="..." />
             </div>
 
             <div className="card-body">

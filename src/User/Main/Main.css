@@ -4,10 +4,6 @@
     min-height: 3.25rem;
 }
 
-.modal-content {
-    background-color: black !important;
-}
-
 .detail-button {
     width: 27.2rem !important;
 }
@@ -30,6 +26,16 @@
     max-height: 21rem;
 }
 
+.carousel-search-card {
+    min-height: 29rem;
+    max-height: 29rem;
+}
+
+.card-search-img-sm {
+    min-height: 23.35rem;
+    max-height: 23.35rem;
+}
+
 .button-star {
     background-color: transparent;
     border: none;
@@ -47,7 +53,7 @@
 
 .comments-heigth {
     max-height: 25rem !important;
-    min-height: 10rem;
+    min-height: 3rem;
 }
 
 .accordion {
@@ -74,8 +80,62 @@ li {
 .comment {
     background: rgba(0, 0, 0, 0.6);
 }
-.comment-pill{
+
+.comment-input {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.comment-pill {
     border-radius: 2.1rem;
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
+}
+
+.comments-pill {
+    border-radius: 2.1rem;
+}
+
+.primary_button {
+    background-color: #292b36 !important;
+    border-color: #292b36 !important;
+}
+
+.danger_button {
+    background-color: #530019 !important;
+    border-color: #530019 !important;
+}
+
+.success_button {
+    background-color: #005331 !important;
+    border-color: #005331 !important;
+}
+
+.warning_button {
+    background-color: #575100 !important;
+    border-color: #696200 !important;
+}
+
+.show-more {
+    font-size: 0.8rem;
+}
+
+.small-text {
+    font-size: 0.8rem !important;
+}
+
+.medium-text {
+    font-size: 0.9rem !important;
+    padding-top: 0.2rem;
+}
+
+.show-more:hover {
+    color: #777777;
+    cursor: pointer;
+}
+
+.comment-button-small {
+    width: 3.5rem !important;
+    height: 1.7rem !important;
+    font-size: 0.8rem !important;
+    padding: 0.2rem !important;
 }

@@ -63,10 +63,6 @@ export default function AudiobookDetailModal(props) {
       });
   };
 
-  // po tym muszę jeszcze zrobić listę proponowanych i tu muszę dodać trochę audiobooków, dorobić info słuchając kilkanaście audiobooków i komenda na koniec w backendzie
-  // Do tego jeszcze wyszukiwarka dojdzie po nazwie
-  // To są już wtedy wszystkie detale, po nich tworze moją listę i zostają mi ustawienia
-
   const addInfo = () => {
     let audioContext = new window.AudioContext();
     let arrayBuffer;
@@ -112,7 +108,6 @@ export default function AudiobookDetailModal(props) {
 
     fileReader.readAsArrayBuffer(new Blob([audiobookPart]));
   };
-  const addComment = () => {};
 
   return (
     <Modal
@@ -120,7 +115,12 @@ export default function AudiobookDetailModal(props) {
       show={props.audiobooksState.detailModal}
       onHide={handleClose}
     >
-      <Modal.Body className="text-white">
+      <Modal.Body
+        className="text-white"
+        style={{
+          backgroundColor: "#000000",
+        }}
+      >
         {audiobookDetail != null ? (
           <div
             className="row "
@@ -171,7 +171,11 @@ export default function AudiobookDetailModal(props) {
                 <div className="col-6">
                   <Button
                     onClick={(e) => addToMyList(e)}
-                    variant={audiobookDetail.inList ? "danger" : "success"}
+                    className={
+                      audiobookDetail.inList
+                        ? "danger_button"
+                        : "success_button"
+                    }
                   >
                     {props.t("myList")}{" "}
                     {audiobookDetail.inList ? (
