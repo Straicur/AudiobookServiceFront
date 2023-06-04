@@ -28,17 +28,22 @@ export const AudiobookUserDataProvider = ({
       token
     )
       .then((data) => {
+
+        setHasMore(data.maxPage > page + 1);
+        setLoading(false);
+
         if (audiobooks == null) {
           setAudiobooks(data);
         } else if (audiobooks.categories != undefined) {
           setAudiobooks({
             ...audiobooks,
-            categories: [...audiobooks.categories, ...data.categories.map(category=>category)],
+            categories: [
+              ...audiobooks.categories,
+              ...data.categories.map((category) => category),
+            ],
             page: data.page,
           });
         }
-        setHasMore(data.maxPage > page+1);
-        setLoading(false);
       })
       .catch((e) => {
         setState({

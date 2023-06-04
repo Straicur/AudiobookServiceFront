@@ -6,8 +6,6 @@ export default function RenderAudiobookSearch(props) {
     <AudiobookSearchProvider
       state={props.audiobooksState}
       setState={props.setAudiobooksState}
-      page={props.audiobooksState.page}
-      limit={props.audiobooksState.searchLimit}
       title={props.audiobooksState.searchText}
       token={props.token}
     >

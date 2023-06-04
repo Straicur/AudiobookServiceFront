@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import RenderAudiobooksList from "./RenderAudiobooksList";
 import { useAudiobookUserData } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDataProvider";
 import { HandleFetch } from "../../../Components/HandleFetch";
@@ -13,9 +13,9 @@ export default function GetAllAudiobooks(props) {
 
   const [coversState, setCoversState] = useState([]);
 
-  const getAudiobooksImages = () => {
-    let covers = [];
+  const covers = useRef([]);
 
+  const getAudiobooksImages = () => {
     if (audiobooks != null) {
       setCoversState([]);
 
@@ -24,21 +24,16 @@ export default function GetAllAudiobooks(props) {
       copy.categories.forEach((category) => {
         if (category.audiobooks != undefined) {
           category.audiobooks.map((audiobook) => {
-            HandleFetch(
-              "http://127.0.0.1:8000/api/audiobook/cover/" + audiobook.id,
-              "GET",
-              null,
-              props.token
-            )
-              .then((data) => {
-                if (!covers.some((el) => el.audiobook == audiobook.id)) {
-                  covers.push({
-                    audiobook: audiobook.id,
-                    url:
-                      data != null
-                        ? window.URL.createObjectURL(new Blob([data]))
-                        : null,
-                  });
+            if (!covers.current.some((el) => el == audiobook.id)) {
+              covers.current.push(audiobook.id);
+
+              HandleFetch(
+                "http://127.0.0.1:8000/api/audiobook/cover/" + audiobook.id,
+                "GET",
+                null,
+                props.token
+              )
+                .then((data) => {
                   setCoversState((coversState) => [
                     ...coversState,
                     {
@@ -49,17 +44,17 @@ export default function GetAllAudiobooks(props) {
                           : null,
                     },
                   ]);
-                }
-              })
-              .catch(() => {
-                setCoversState((coversState) => [
-                  ...coversState,
-                  {
-                    audiobook: audiobook.id,
-                    url: null,
-                  },
-                ]);
-              });
+                })
+                .catch(() => {
+                  setCoversState((coversState) => [
+                    ...coversState,
+                    {
+                      audiobook: audiobook.id,
+                      url: null,
+                    },
+                  ]);
+                });
+            }
           });
         }
       });
@@ -68,6 +63,7 @@ export default function GetAllAudiobooks(props) {
 
   useEffect(() => {
     if (audiobooks != null) {
+      covers.current = [];
       getAudiobooksImages();
     }
   }, [audiobooks]);

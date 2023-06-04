@@ -19,13 +19,13 @@ export default function Main() {
   const [audiobooksState, setAudiobooksState] = useState({
     page: 0,
     limit: 10,
-    searchLimit: 12,
     detailModal: false,
     detailModalAudiobook: null,
     detailModalCover: null,
     detailModalCategory: null,
     search: false,
     searching: false,
+    wasSearch: false,
     searchText: "",
     error: null,
   });

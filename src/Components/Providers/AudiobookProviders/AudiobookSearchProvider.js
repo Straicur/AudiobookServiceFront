@@ -7,8 +7,6 @@ const AudiobookSearchContext = createContext(null);
 export const AudiobookSearchProvider = ({
   children,
   token,
-  page,
-  limit,
   title,
   state,
   setState,
@@ -16,7 +14,6 @@ export const AudiobookSearchProvider = ({
   const [audiobookSearch, setAudiobookSearch] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(false);
 
   const {
     isLoading: isLoadingAudiobookData,
@@ -31,8 +28,6 @@ export const AudiobookSearchProvider = ({
         "http://127.0.0.1:8000/api/user/audiobooks/search",
         "POST",
         {
-          page: page,
-          limit: limit,
           title: title,
         },
         token
@@ -46,15 +41,10 @@ export const AudiobookSearchProvider = ({
       },
       onSuccess: (data) => {
         setAudiobookSearch(data.audiobooks);
-        setHasMore(data.maxPage > page + 1);
         setLoading(false);
       },
     }
   );
-
-  useEffect(() => {
-    refetchAudiobookData();
-  }, [page]);
 
   useEffect(() => {
     if (refetchState) {
@@ -66,7 +56,6 @@ export const AudiobookSearchProvider = ({
   const value = [
     audiobookSearch,
     loading,
-    hasMore,
     setAudiobookSearch,
     setRefetchState,
   ];
