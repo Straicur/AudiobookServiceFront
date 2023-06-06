@@ -1,5 +1,6 @@
 import { AudiobookMyListProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookMyListProvider";
-import RenderMyList from "./RenderMyList";
+import GetCovers from "./GetCovers";
+
 export default function GetMyList(props) {
   return (
     <AudiobookMyListProvider
@@ -7,7 +8,7 @@ export default function GetMyList(props) {
       setState={props.setMyListState}
       token={props.token}
     >
-      <RenderMyList
+      <GetCovers
         state={props.myListState}
         setState={props.setMyListState}
         token={props.token}

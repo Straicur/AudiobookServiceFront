@@ -14,8 +14,6 @@ export default function MyList() {
   const token = useTokenStore((state) => state.token);
 
   const [myListState, setMyListState] = useState({
-    page: 0,
-    limit: 10,
     detailModal: false,
     detailModalAudiobook: null,
     detailModalCover: null,
