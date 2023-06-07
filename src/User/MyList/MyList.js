@@ -7,6 +7,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import GetMyList from "./Components/GetMyList";
 import AudiobookDetailProviders from "./Components/AudiobookDetailProviders";
+import { AudiobookMyListProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookMyListProvider";
 import "./MyList.css";
 
 export default function MyList() {
@@ -39,23 +40,31 @@ export default function MyList() {
         <div className="container-fluid main-container mt-3">
           <div className="card position-relative p-3 mb-5  bg-dark shadow">
             <UserNavBar />
-            <GetMyList
-              myListState={myListState}
-              setMyListState={setMyListState}
-              token={token}
-              t={t}
-            />
-            {myListState.detailModal &&
-            myListState.detailModalAudiobook != null &&
-            myListState.detailModalCover != null &&
-            myListState.detailModalCategory != null ? (
-              <AudiobookDetailProviders
-                state={myListState}
-                setState={setMyListState}
+            {/* Sprawdź czy działa takie rozwiązanie bo muszę jakoś edytować tą listę w detalach przy odkliknięciu z mojej listy i to są dwie ostatnie rzeczy z 
+            tego zagadnienia  */}
+            <AudiobookMyListProvider
+              state={props.myListState}
+              setState={props.setMyListState}
+              token={props.token}
+            >
+              <GetMyList
+                myListState={myListState}
+                setMyListState={setMyListState}
                 token={token}
                 t={t}
               />
-            ) : null}
+              {myListState.detailModal &&
+              myListState.detailModalAudiobook != null &&
+              myListState.detailModalCover != null &&
+              myListState.detailModalCategory != null ? (
+                <AudiobookDetailProviders
+                  state={myListState}
+                  setState={setMyListState}
+                  token={token}
+                  t={t}
+                />
+              ) : null}
+            </AudiobookMyListProvider>
             <div className="p-5">
               <div className="p-3"></div>
             </div>
