@@ -75,8 +75,8 @@ export default function Main() {
             audiobooksState.detailModalCover != null &&
             audiobooksState.detailModalCategory != null ? (
               <AudiobookDetailProviders
-                audiobooksState={audiobooksState}
-                setAudiobooksState={setAudiobooksState}
+                state={audiobooksState}
+                setState={setAudiobooksState}
                 token={token}
                 t={t}
               />

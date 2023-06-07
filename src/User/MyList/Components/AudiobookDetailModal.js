@@ -20,6 +20,7 @@ export default function AudiobookDetailModal(props) {
   const [audiobookPart, setAudiobookPart, setRefetchPartState] =
     useAudiobookPart();
 
+
   const [
     audiobookUserComments,
     setAudiobookUserComments,
@@ -52,7 +53,7 @@ export default function AudiobookDetailModal(props) {
           ...audiobookDetail,
           inList: !audiobookDetail.inList,
         });
-
+        
         element.target.classList.remove("disabled");
       })
       .catch((e) => {
@@ -231,6 +232,7 @@ export default function AudiobookDetailModal(props) {
 
         <div className="row mt-4 justify-content-center">
           <div className="col">
+            {console.log(props.audiobookState)}
             <AudiobookPlayer
               audiobookPart={audiobookPart}
               setAudiobookState={props.setAudiobookState}

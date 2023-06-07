@@ -8,7 +8,7 @@ export default function AudiobookPlayer(props) {
   const nextPart = () => {
     let nextPart = props.audiobookState.part + 1;
 
-    if (nextPart < props.audiobooksState.detailModalAudiobook.parts) {
+    if (nextPart < props.state.detailModalAudiobook.parts) {
       props.addInfo();
       props.setAudiobookState({ ...props.audiobookState, part: nextPart });
     }

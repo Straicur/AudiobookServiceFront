@@ -6,6 +6,7 @@ import { UserNavBar } from "../../Components/NavBars/UserNavBar";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import GetMyList from "./Components/GetMyList";
+import AudiobookDetailProviders from "./Components/AudiobookDetailProviders";
 import "./MyList.css";
 
 export default function MyList() {
@@ -44,6 +45,17 @@ export default function MyList() {
               token={token}
               t={t}
             />
+            {myListState.detailModal &&
+            myListState.detailModalAudiobook != null &&
+            myListState.detailModalCover != null &&
+            myListState.detailModalCategory != null ? (
+              <AudiobookDetailProviders
+                state={myListState}
+                setState={setMyListState}
+                token={token}
+                t={t}
+              />
+            ) : null}
             <div className="p-5">
               <div className="p-3"></div>
             </div>
