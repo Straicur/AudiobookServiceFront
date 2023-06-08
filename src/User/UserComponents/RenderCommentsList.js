@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { HandleFetch } from "../../Components/HandleFetch";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
@@ -174,8 +174,8 @@ export default function RenderCommentsList(props) {
   function editComment(element) {
     element.target.classList.add("disabled");
     let jsonData = {
-      audiobookId: props.audiobooksState.detailModalAudiobook.id,
-      categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
+      audiobookId: props.state.detailModalAudiobook.id,
+      categoryKey: props.state.detailModalCategory.categoryKey,
       audiobookCommentId: commentState.commentId,
       comment: commentState.comment,
       deleted: false,
@@ -208,8 +208,8 @@ export default function RenderCommentsList(props) {
   function addComment(element) {
     element.target.classList.add("disabled");
     let jsonData = {
-      audiobookId: props.audiobooksState.detailModalAudiobook.id,
-      categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
+      audiobookId: props.state.detailModalAudiobook.id,
+      categoryKey: props.state.detailModalCategory.categoryKey,
       comment: commentState.comment,
     };
 
@@ -243,8 +243,8 @@ export default function RenderCommentsList(props) {
       "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
       "PATCH",
       {
-        audiobookId: props.audiobooksState.detailModalAudiobook.id,
-        categoryKey: props.audiobooksState.detailModalCategory.categoryKey,
+        audiobookId: props.state.detailModalAudiobook.id,
+        categoryKey: props.state.detailModalCategory.categoryKey,
         audiobookCommentId: comment.id,
         comment: comment.comment,
         deleted: true,
