@@ -9,6 +9,7 @@ import AudiobookPlayer from "../../UserComponents/AudiobookPlayer";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import StarRating from "../../UserComponents/StarRating";
 import RenderCommentsList from "../../UserComponents/RenderCommentsList";
+import { useAudiobookMy } from "../../../Components/Providers/AudiobookProviders/AudiobookMyListProvider";
 
 export default function AudiobookDetailModal(props) {
   const timeAudio = useRef(0);
@@ -19,7 +20,8 @@ export default function AudiobookDetailModal(props) {
     useAudiobookRating();
   const [audiobookPart, setAudiobookPart, setRefetchPartState] =
     useAudiobookPart();
-
+  const [audiobooks, loading, setAudiobooks, setRefetchState] =
+    useAudiobookMy();
 
   const [
     audiobookUserComments,
@@ -35,6 +37,16 @@ export default function AudiobookDetailModal(props) {
       detailModalAudiobook: null,
       detailModalCover: null,
     });
+  };
+
+  const removeFromMyList = () => {
+    if (audiobookDetail.inList) {
+      let newArr = audiobooks.filter(
+        (element) => element.id != audiobookDetail.id
+      );
+
+      setAudiobooks(newArr);
+    }
   };
 
   const addToMyList = (element) => {
@@ -53,8 +65,11 @@ export default function AudiobookDetailModal(props) {
           ...audiobookDetail,
           inList: !audiobookDetail.inList,
         });
-        
+
+        removeFromMyList();
+
         element.target.classList.remove("disabled");
+        handleClose();
       })
       .catch((e) => {
         props.setState({
@@ -232,7 +247,6 @@ export default function AudiobookDetailModal(props) {
 
         <div className="row mt-4 justify-content-center">
           <div className="col">
-            {console.log(props.audiobookState)}
             <AudiobookPlayer
               audiobookPart={audiobookPart}
               setAudiobookState={props.setAudiobookState}
