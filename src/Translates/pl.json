@@ -191,5 +191,9 @@
     "helpText": "Wybierz dogodną formę komunikacji. W razie braku odzewu wybierz inną formę.",
     "helpTitle": "Jak możemy pomóc ?",
     "helpAdress": "Nasza Siedziba",
-    "helpPhone": "Numer Telefonu"
+    "helpPhone": "Numer Telefonu",
+    "editEmail": "Edytuj Email",
+    "editPassword": "Edytuj Hasło",
+    "deleteAccount": "Usuń konto",
+    "changeAccountData": "Edytuj Dane Konta"
 }
