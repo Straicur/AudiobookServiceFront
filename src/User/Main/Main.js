@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { UserNavBar } from "../../Components/NavBars/UserNavBar";
 import { useTokenStore } from "../../store";
@@ -13,7 +13,7 @@ import "./Main.css";
 
 export default function Main() {
   const { t } = useTranslation();
-
+  //todo tu jest do poprawy te przesuwanie które czasami występuje od razu po odświerzeniu 
   const token = useTokenStore((state) => state.token);
 
   const [audiobooksState, setAudiobooksState] = useState({

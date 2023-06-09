@@ -187,5 +187,9 @@
     "rate": "Oceń",
     "proposed": "Proponowane",
     "userPanel": "Panel użytkownika",
-    "showMore": "Pokaż więcej..."
+    "showMore": "Pokaż więcej...",
+    "helpText": "Wybierz dogodną formę komunikacji. W razie braku odzewu wybierz inną formę.",
+    "helpTitle": "Jak możemy pomóc ?",
+    "helpAdress": "Nasza Siedziba",
+    "helpPhone": "Numer Telefonu"
 }

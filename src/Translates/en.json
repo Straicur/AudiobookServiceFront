@@ -186,5 +186,9 @@
     "rate": "Rate",
     "proposed": "Proposed",
     "userPanel": "User panel",
-    "showMore": "Show more..."
+    "showMore": "Show more...",
+    "helpText": "Choose a convenient form of communication. If no response, choose another form.",
+    "helpTitle": "How can we help?",
+    "helpAdress": "Our Headquarters",
+    "helpPhone": "Phone Number"
 }
