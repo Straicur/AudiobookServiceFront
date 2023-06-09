@@ -56,7 +56,7 @@ export default function SettingsForm(props) {
           onClick={() =>
             props.setState({
               ...props.state,
-              buttonEmail: !props.state.buttonDelete,
+              buttonDelete: !props.state.buttonDelete,
             })
           }
         >
