@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { HandleFetch } from "../../../Components/HandleFetch";
 
 export default function EditUserDataModal(props) {
   const [state, setState] = useState({
@@ -33,7 +34,7 @@ export default function EditUserDataModal(props) {
     >
       <Modal.Body
         style={{
-          backgroundColor: "#000000",
+          backgroundColor: "#262626",
         }}
       >
         <div className="text-white">

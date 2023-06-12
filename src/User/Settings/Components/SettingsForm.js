@@ -26,7 +26,7 @@ export default function SettingsForm(props) {
           onClick={() =>
             props.setState({
               ...props.state,
-              buttonEmail: !props.state.buttonPassword,
+              buttonPassword: !props.state.buttonPassword,
             })
           }
         >

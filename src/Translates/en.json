@@ -194,5 +194,11 @@
     "editEmail": "Edit Email",
     "editPassword": "Edit Password",
     "deleteAccount": "Delete Account",
-    "changeAccountData": "Edit Account Data"
+    "changeAccountData": "Edit Account Data",
+    "oldEmail": "Old email",
+    "newEmail": "New email",
+    "checkEmail": "Check your email",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "checkPassword": "Password changed"
 }

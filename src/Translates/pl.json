@@ -195,5 +195,11 @@
     "editEmail": "Edytuj Email",
     "editPassword": "Edytuj Hasło",
     "deleteAccount": "Usuń konto",
-    "changeAccountData": "Edytuj Dane Konta"
+    "changeAccountData": "Edytuj Dane Konta",
+    "oldEmail": "Aktualny email",
+    "newEmail": "Nowy email",
+    "checkEmail": "Sprawdź swoją pocztę emial",
+    "oldPassword": "Stare hasło",
+    "newPassword": "Nowe hasło",
+    "checkPassword": "Hasło zmienione"
 }
