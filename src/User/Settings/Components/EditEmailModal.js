@@ -48,7 +48,7 @@ export default function EditEmailModal(props) {
       setState({ ...state, wrongNewEmail: false });
     }
   };
-  
+
   const handleEmailChange = (event) => {
     setState({
       ...state,
@@ -69,10 +69,9 @@ export default function EditEmailModal(props) {
   }
 
   useEffect(() => {
-    if(state.oldEmail.length == 0){
+    if (state.oldEmail.length == 0) {
       setState({ ...state, wrongEmail: false });
-    }
-    else if (!validateEmail(state.oldEmail)) {
+    } else if (!validateEmail(state.oldEmail)) {
       setState({ ...state, wrongEmail: true });
     } else {
       setState({ ...state, wrongEmail: false });
@@ -80,10 +79,9 @@ export default function EditEmailModal(props) {
   }, [state.oldEmail]);
 
   useEffect(() => {
-    if(state.newEmail.length == 0){
+    if (state.newEmail.length == 0) {
       setState({ ...state, wrongNewEmail: false });
-    }
-    else if  (!validateEmail(state.newEmail)) {
+    } else if (!validateEmail(state.newEmail)) {
       setState({ ...state, wrongNewEmail: true });
     } else {
       setState({ ...state, wrongNewEmail: false });
@@ -126,7 +124,11 @@ export default function EditEmailModal(props) {
                   }
                   onChange={(event) => handleEmailChange(event)}
                 />
-                <Alert show={state.wrongEmail} className="dangerAllert mt-1" variant="danger">
+                <Alert
+                  show={state.wrongEmail}
+                  className="dangerAllert mt-1"
+                  variant="danger"
+                >
                   {props.t("enterValidEmail")}
                 </Alert>
               </Form.Group>
@@ -144,9 +146,13 @@ export default function EditEmailModal(props) {
                   onChange={(event) => handleEmailNewChange(event)}
                 />
               </Form.Group>
-              <Alert show={state.wrongNewEmail} className="dangerAllert mt-1" variant="danger">
-                  {props.t("enterValidEmail")}
-                </Alert>
+              <Alert
+                show={state.wrongNewEmail}
+                className="dangerAllert mt-1"
+                variant="danger"
+              >
+                {props.t("enterValidEmail")}
+              </Alert>
             </Form>
           )}
 
@@ -166,7 +172,12 @@ export default function EditEmailModal(props) {
                 <Button
                   name="en"
                   size="sm"
-                  disabled={state.wrongNewEmail || state.wrongEmail || state.oldEmail.length == 0 || state.newEmail.length == 0}
+                  disabled={
+                    state.wrongNewEmail ||
+                    state.wrongEmail ||
+                    state.oldEmail.length == 0 ||
+                    state.newEmail.length == 0
+                  }
                   className="btn button success_button settings-button fs-5"
                   onClick={(e) => changeEmail(e)}
                 >
