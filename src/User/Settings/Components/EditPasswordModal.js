@@ -26,25 +26,32 @@ export default function EditPasswordModal(props) {
   const changePassword = (element) => {
     element.target.classList.add("disabled");
 
-    HandleFetch(
-      "http://127.0.0.1:8000/api/user/settings/password",
-      "PATCH",
-      {
-        oldPassword: md5(state.oldPassword),
-        newPassword: md5(state.newPassword),
-      },
-      props.token
-    )
-      .then(() => {
-        element.target.classList.remove("disabled");
-        setState({ ...state, checkPassword: !state.checkPassword });
-      })
-      .catch((e) => {
-        props.setState({
-          ...props.state,
-          error: e,
+    if (
+      state.oldPassword != state.newPassword &&
+      state.newPassword == state.newConfirmPassword
+    ) {
+      HandleFetch(
+        "http://127.0.0.1:8000/api/user/settings/password",
+        "PATCH",
+        {
+          oldPassword: md5(state.oldPassword),
+          newPassword: md5(state.newPassword),
+        },
+        props.token
+      )
+        .then(() => {
+          element.target.classList.remove("disabled");
+          setState({ ...state, checkPassword: !state.checkPassword });
+        })
+        .catch((e) => {
+          props.setState({
+            ...props.state,
+            error: e,
+          });
         });
-      });
+    }else{
+      setState({ ...state, wrongNewConfirmPassword: true });
+    }
   };
 
   function validatePassword(pass) {
@@ -87,10 +94,6 @@ export default function EditPasswordModal(props) {
   useEffect(() => {
     if (state.newPassword.length == 0) {
       setState({ ...state, wrongNewPassword: false });
-    } else if (state.newConfirmPassword == state.newPassword) {
-      setState({ ...state, wrongNewConfirmPassword: false });
-    } else if (state.newConfirmPassword != state.newPassword) {
-      setState({ ...state, wrongNewConfirmPassword: true });
     } else if (!validatePassword(state.newPassword)) {
       setState({ ...state, wrongNewPassword: true });
     } else {
@@ -101,11 +104,7 @@ export default function EditPasswordModal(props) {
   useEffect(() => {
     if (state.newConfirmPassword.length == 0) {
       setState({ ...state, wrongNewConfirmPassword: false });
-    } else if (state.newConfirmPassword == state.newPassword) {
-      setState({ ...state, wrongNewConfirmPassword: false });
-    } else if (state.newConfirmPassword != state.newPassword) {
-      setState({ ...state, wrongNewConfirmPassword: true });
-    } else if (!validatePassword(state.newConfirmPassword)) {
+    } else if (!validatePassword(state.newConfirmPassword) || state.newConfirmPassword != state.newPassword) {
       setState({ ...state, wrongNewConfirmPassword: true });
     } else {
       setState({ ...state, wrongNewConfirmPassword: false });
