@@ -203,5 +203,7 @@
     "checkPassword": "Password changed",
     "checkUserData": "User data has been changed",
     "deleteMessage": "Your request to delete your account will be considered. Access to your account will be blocked and data deleted after the end of the GDPR.",
-    "areYouSure": "Are you sure you wanna do this ?"
+    "areYouSure": "Are you sure you wanna do this ?",
+    "edited": "Edited",
+    "yourUserData": "Your user data"
 }

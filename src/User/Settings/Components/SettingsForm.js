@@ -7,7 +7,7 @@ export default function SettingsForm(props) {
         <Button
           name="en"
           size="sm"
-          className="btn button success_button settings-button fs-4"
+          className="btn button success_button settings_button fs-5"
           onClick={() =>
             props.setState({
               ...props.state,
@@ -22,7 +22,7 @@ export default function SettingsForm(props) {
         <Button
           name="en"
           size="sm"
-          className="btn button success_button settings-button fs-4"
+          className="btn button success_button settings_button fs-5"
           onClick={() =>
             props.setState({
               ...props.state,
@@ -37,7 +37,7 @@ export default function SettingsForm(props) {
         <Button
           name="en"
           size="sm"
-          className="btn button success_button settings-button fs-4"
+          className="btn button success_button settings_button fs-5"
           onClick={() =>
             props.setState({
               ...props.state,
@@ -52,7 +52,7 @@ export default function SettingsForm(props) {
         <Button
           name="en"
           size="sm"
-          className="btn button danger_button settings-button fs-4"
+          className="btn button danger_button settings_button fs-5"
           onClick={() =>
             props.setState({
               ...props.state,

@@ -42,15 +42,8 @@ export default function SettingsContainer(props) {
   );
 
   return (
-    <div className="row">
-      <div className="col">
-        <SettingUserInfo
-          state={props.state}
-          setState={props.setState}
-          t={props.t}
-        />
-      </div>
-      <div className="col">
+    <div className="row my-5 min_container_height">
+      <div className="col-3 vertivcal_border">
         <SettingsForm
           state={props.state}
           setState={props.setState}
@@ -58,7 +51,13 @@ export default function SettingsContainer(props) {
           token={props.token}
         />
       </div>
-
+      <div className="col-4">
+        <SettingUserInfo
+          state={props.state}
+          setState={props.setState}
+          t={props.t}
+        />
+      </div>
       {props.state.buttonEmail ? (
         <EditEmailModal
           state={props.state}

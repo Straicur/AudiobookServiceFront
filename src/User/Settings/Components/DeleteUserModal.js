@@ -63,7 +63,7 @@ export default function DeleteUserModal(props) {
               <Button
                 name="en"
                 size="sm"
-                className="btn button success_button settings-button fs-5"
+                className="btn button success_button settings-button fs-5 sure_button"
                 onClick={() => deleteAccount()}
               >
                 {props.t("yes")}
@@ -73,7 +73,7 @@ export default function DeleteUserModal(props) {
               <Button
                 name="en"
                 size="sm"
-                className="btn button danger_button settings-button fs-5"
+                className="btn button danger_button settings-button fs-5 sure_button"
                 onClick={(e) => handleClose(e)}
               >
                 {props.t("no")}

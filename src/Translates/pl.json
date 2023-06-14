@@ -204,5 +204,7 @@
     "checkPassword": "Hasło zmienione",
     "checkUserData": "Dane użytkownika zostały zmienione",
     "deleteMessage": "Prośba o usunięcie konta zostanie rozpatrzona. Dostęp do twojego konta zostanie zablokowany a dane usunięte po upływie RODO.",
-    "areYouSure": "Napewno chcesz to zrobić ?"
+    "areYouSure": "Napewno chcesz to zrobić ?",
+    "edited": "Edytowany",
+    "yourUserData": "Twoje dane"
 }

@@ -139,3 +139,7 @@ li {
     font-size: 0.8rem !important;
     padding: 0.2rem !important;
 }
+
+.min_container_height {
+    min-height: 41rem !important;
+}
