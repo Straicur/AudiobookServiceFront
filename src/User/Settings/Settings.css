@@ -1,0 +1,10 @@
+.settings-button {
+    margin: 1rem !important;
+    max-width: 55rem !important;
+    max-height: 3rem !important;
+    min-height: 3rem !important;
+}
+
+.dangerAllert {
+    --bs-alert-padding-y: 0.4rem !important;
+}

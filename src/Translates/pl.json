@@ -187,5 +187,22 @@
     "rate": "Oceń",
     "proposed": "Proponowane",
     "userPanel": "Panel użytkownika",
-    "showMore": "Pokaż więcej..."
+    "showMore": "Pokaż więcej...",
+    "helpText": "Wybierz dogodną formę komunikacji. W razie braku odzewu wybierz inną formę.",
+    "helpTitle": "Jak możemy pomóc ?",
+    "helpAdress": "Nasza Siedziba",
+    "helpPhone": "Numer Telefonu",
+    "editEmail": "Edytuj Email",
+    "editPassword": "Edytuj Hasło",
+    "deleteAccount": "Usuń konto",
+    "changeAccountData": "Edytuj Dane Konta",
+    "oldEmail": "Aktualny email",
+    "newEmail": "Nowy email",
+    "checkEmail": "Sprawdź swoją pocztę emial",
+    "oldPassword": "Stare hasło",
+    "newPassword": "Nowe hasło",
+    "checkPassword": "Hasło zmienione",
+    "checkUserData": "Dane użytkownika zostały zmienione",
+    "deleteMessage": "Prośba o usunięcie konta zostanie rozpatrzona. Dostęp do twojego konta zostanie zablokowany a dane usunięte po upływie RODO.",
+    "areYouSure": "Napewno chcesz to zrobić ?"
 }

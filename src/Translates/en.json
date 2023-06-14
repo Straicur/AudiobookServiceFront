@@ -186,5 +186,22 @@
     "rate": "Rate",
     "proposed": "Proposed",
     "userPanel": "User panel",
-    "showMore": "Show more..."
+    "showMore": "Show more...",
+    "helpText": "Choose a convenient form of communication. If no response, choose another form.",
+    "helpTitle": "How can we help?",
+    "helpAdress": "Our Headquarters",
+    "helpPhone": "Phone Number",
+    "editEmail": "Edit Email",
+    "editPassword": "Edit Password",
+    "deleteAccount": "Delete Account",
+    "changeAccountData": "Edit Account Data",
+    "oldEmail": "Old email",
+    "newEmail": "New email",
+    "checkEmail": "Check your email",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "checkPassword": "Password changed",
+    "checkUserData": "User data has been changed",
+    "deleteMessage": "Your request to delete your account will be considered. Access to your account will be blocked and data deleted after the end of the GDPR.",
+    "areYouSure": "Are you sure you wanna do this ?"
 }

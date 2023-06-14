@@ -1,0 +1,13 @@
+.help-square {
+    min-height: 20rem !important;
+    background-color: rgb(255, 255, 255) !important;
+    min-width: 34.8rem !important;
+    opacity: 0.88;
+    padding-top: 6rem;
+    border: 0.25rem;
+    border-radius: 3.5rem;
+}
+
+.icon-collor {
+    color: #0500a5;
+}
