@@ -19,41 +19,13 @@ export default function EditUserDataModal(props) {
   });
 
   const handleClose = () => {
+    props.refetch();
+    
     props.setState({
       ...props.state,
       buttonUserData: !props.state.buttonUserData,
     });
   };
-
-  const { isLoading, error, data, isFetching, refetch } = useQuery(
-    "data",
-    () =>
-      HandleFetch(
-        "http://127.0.0.1:8000/api/user/settings",
-        "GET",
-        null,
-        props.token
-      ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        props.setState({
-          ...props.state,
-          error: e,
-        });
-      },
-      onSuccess: (data) => {
-        setState({
-          ...state,
-          phoneNumber: data.phoneNumber,
-          firstname: data.firstname,
-          lastname: data.lastname,
-        });
-      },
-    }
-  );
 
   const changeUserData = (element) => {
     element.target.classList.add("disabled");
@@ -154,6 +126,15 @@ export default function EditUserDataModal(props) {
       throw props.state.error;
     }
   }, [props.state.error]);
+
+  useEffect(() => {
+    setState({
+      ...state,
+      phoneNumber: props.state.phoneNumber,
+      firstname: props.state.firstname,
+      lastname: props.state.lastname,
+    });
+  }, [props]);
 
   return (
     <Modal
