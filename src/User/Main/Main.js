@@ -9,6 +9,7 @@ import GetAudiobooksProviders from "./Components/GetAudiobooksProviders";
 import AudiobookDetailProviders from "./Components/AudiobookDetailProviders";
 import SearchAudiobooks from "./Components/SearchAudiobooks";
 import RenderAudiobookSearch from "./Components/RenderAudiobookSearch";
+import { Footer } from "../../Components/Footers/Footer";
 import "./Main.css";
 
 export default function Main() {
@@ -46,7 +47,7 @@ export default function Main() {
         </Helmet>
 
         <div className="container-fluid main-container mt-3">
-          <div className="card position-relative p-3 mb-5  bg-dark shadow">
+          <div className="card position-relative p-3 bg-dark shadow">
             <UserNavBar />
             <SearchAudiobooks
               audiobooksState={audiobooksState}
@@ -87,6 +88,7 @@ export default function Main() {
             </div>
           </div>
         </div>
+        <Footer/>
       </HelmetProvider>
     </ErrorBoundary>
   );

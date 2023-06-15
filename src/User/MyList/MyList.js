@@ -6,6 +6,7 @@ import { UserNavBar } from "../../Components/NavBars/UserNavBar";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import GetMyList from "./Components/GetMyList";
+import { Footer } from "../../Components/Footers/Footer";
 import "./MyList.css";
 
 export default function MyList() {
@@ -36,7 +37,7 @@ export default function MyList() {
           <style>{"body { background-color: black; }"}</style>
         </Helmet>
         <div className="container-fluid main-container mt-3">
-          <div className="card position-relative p-3 mb-5  bg-dark shadow">
+          <div className="card position-relative p-3 bg-dark shadow">
             <UserNavBar />
             <GetMyList
               myListState={myListState}
@@ -49,6 +50,7 @@ export default function MyList() {
             </div>
           </div>
         </div>
+        <Footer/>
       </HelmetProvider>
     </ErrorBoundary>
   );
