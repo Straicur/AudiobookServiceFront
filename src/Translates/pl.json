@@ -206,5 +206,9 @@
     "deleteMessage": "Prośba o usunięcie konta zostanie rozpatrzona. Dostęp do twojego konta zostanie zablokowany a dane usunięte po upływie RODO.",
     "areYouSure": "Napewno chcesz to zrobić ?",
     "edited": "Edytowany",
-    "yourUserData": "Twoje dane"
+    "yourUserData": "Twoje dane",
+    "home": "Strona Główna",
+    "about": "O Nas",
+    "documentation": "Dokumentacja",
+    "privacyPolicy": "Polityka Prywatności"
 }

@@ -15,6 +15,8 @@ import Users from "./Admin/Users/Users";
 
 import Forgot from "./User/Forgot/Forgot";
 import Help from "./User/Help/Help";
+import About from "./User/About/About";
+import Policy from "./User/Policy/Policy";
 import UserLogin from "./User/Login/UserLogin";
 import Main from "./User/Main/Main";
 import MyList from "./User/MyList/MyList";
@@ -133,6 +135,18 @@ function App() {
             exact
             path="/help"
             element={<Help />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/about"
+            element={<About />}
+            errorElement={<Page404 />}
+          />
+          <Route
+            exact
+            path="/policy"
+            element={<Policy />}
             errorElement={<Page404 />}
           />
           <Route

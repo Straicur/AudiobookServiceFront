@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../HandleFetch";
 import { useTokenStore } from "../../store";
@@ -84,27 +85,32 @@ export const AdminNavBar = () => {
         </Button>
       </div>
       <div className="col-4 d-flex justify-content-end  align-items-center">
-        <div className="ps-4 mx-2">
+        <ButtonGroup className="ps-3 me-3">
           <Button
             name="pl"
-            variant={i18n.language == "pl" ? "dark" : "light"}
             size="sm"
-            className="btn button"
-            value="dsa"
+            className={
+              i18n.language == "pl"
+                ? "btn  m-1 button_light"
+                : "btn  m-1 button_dark"
+            }
             onClick={() => i18n.changeLanguage("pl")}
           >
             PL
           </Button>
           <Button
             name="en"
-            variant={i18n.language == "en" ? "dark" : "light"}
             size="sm"
-            className="btn button"
+            className={
+              i18n.language == "en"
+                ? "btn  m-1 button_light"
+                : "btn  m-1 button_dark"
+            }
             onClick={() => i18n.changeLanguage("en")}
           >
             EN
           </Button>
-        </div>
+        </ButtonGroup>
         <Button
           name="logout"
           variant="dark"
