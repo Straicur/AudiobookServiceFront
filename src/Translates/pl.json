@@ -210,5 +210,7 @@
     "home": "Strona Główna",
     "about": "O Nas",
     "documentation": "Dokumentacja",
-    "privacyPolicy": "Polityka Prywatności"
+    "privacyPolicy": "Polityka Prywatności",
+    "privacyPolicyDesc": "Polityka Prywatności",
+    "aboutDesc": "Polityka Prywatności"
 }

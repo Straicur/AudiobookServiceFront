@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 
 export const Footer = () => {
   const { t } = useTranslation();
-  //todo dok i dodaj About i PrivacyPolicy
+
   return (
     <div className="footer-basic">
       <footer>

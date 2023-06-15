@@ -209,5 +209,7 @@
     "home": "Home Page",
     "about": "About",
     "documentation": "Documentation",
-    "privacyPolicy": "Private Policy"
+    "privacyPolicy": "Private Policy",
+    "privacyPolicyDesc": "Polityka Prywatności",
+    "aboutDesc": "Polityka Prywatności"
 }
