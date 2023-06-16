@@ -1,0 +1,16 @@
+.about_page {
+    min-height: 40rem;
+}
+
+.about_page_container {
+    padding: 6rem !important;
+    max-width: 90rem;
+}
+
+.small_img_stack {
+    width: 7rem;
+    height: 2rem;
+    margin-bottom: 0.3rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+}

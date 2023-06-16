@@ -1,0 +1,8 @@
+.policy_page {
+    min-height: 40rem;
+}
+
+.policy_page_container {
+    padding: 6rem !important;
+    max-width: 90rem;
+}
