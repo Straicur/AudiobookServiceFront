@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef } from "react";
 import RenderCarousel from "./RenderCarousel";
 import { v4 as uuidv4 } from "uuid";
 
@@ -6,29 +6,22 @@ export default function RenderAudiobooksList(props) {
   const lastItemRef = useRef(null);
   const lastItemOffsetTopRef = useRef(null);
 
-  const observer = useRef();
-  const lastBookElementRef = useCallback(
-    (node) => {
-      if (props.loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && props.hasMore) {
-          observer.height = entries[0].target.offsetTop;
-
-          props.setState({
-            ...props.state,
-            page: props.state.page + 1,
-            wasSearch: false
-          });
-        }
+  const renderNewPage = () => {
+    if (props.hasMore) {
+      props.setState({
+        ...props.state,
+        page: props.state.page + 1,
+        wasSearch: false,
       });
-      if (node) observer.current.observe(node);
-    },
-    [props.loading, props.hasMore]
-  );
+    }
+  };
 
   useEffect(() => {
-    if (lastItemRef.current && lastItemOffsetTopRef.current !== null && !props.state.wasSearch) {
+    if (
+      lastItemRef.current &&
+      lastItemOffsetTopRef.current !== null &&
+      !props.state.wasSearch
+    ) {
       setTimeout(function () {
         window.scrollTo({
           top: lastItemOffsetTopRef.current,
@@ -64,20 +57,22 @@ export default function RenderAudiobooksList(props) {
                 }
               }}
             >
-              <div className="fw-bold fs-1 ms-2 mb-2  text-light">
+              <div className="fw-bold fs-1 ms-2 mb-2 text-light">
                 {category.name}
               </div>
               {renderAudiobooks}
               <hr className=" text-light"></hr>
               {props.hasMore ? (
-                <div className="row mb-4 p-5 justify-content-center  text-light">
-                  <div className="col-2 fs-2">{props.t("loadMore")}</div>
-                  <div className="col-1 align-self-center">
+                <div className="row justify-content-center text-light">
+                  <div
+                    className="col-2 fs-3 align-self-center load_more"
+                    onClick={() => renderNewPage()}
+                  >
+                    {props.t("loadMore")}{" "}
                     <i className="bi bi-chevron-double-down"></i>
                   </div>
                 </div>
               ) : null}
-              <div className="mt-4" ref={lastBookElementRef}></div>
             </div>
           );
         } else {

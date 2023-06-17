@@ -143,3 +143,12 @@ li {
 .min_container_height {
     min-height: 41rem !important;
 }
+
+.load_more:hover {
+    color: #439600;
+    cursor: pointer;
+}
+
+.load_more {
+    padding: 1rem !important;
+}

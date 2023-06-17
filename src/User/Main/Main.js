@@ -14,7 +14,7 @@ import "./Main.css";
 
 export default function Main() {
   const { t } = useTranslation();
-  //todo tu jest do poprawy te przesuwanie które czasami występuje od razu po odświerzeniu 
+  //todo tu jest do poprawy te przesuwanie które czasami występuje od razu po odświerzeniu
   const token = useTokenStore((state) => state.token);
 
   const [audiobooksState, setAudiobooksState] = useState({
@@ -82,13 +82,9 @@ export default function Main() {
                 t={t}
               />
             ) : null}
-
-            <div className="p-5">
-              <div className="p-3"></div>
-            </div>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </HelmetProvider>
     </ErrorBoundary>
   );
