@@ -15,6 +15,20 @@ export default function RenderAudiobooksList(props) {
       });
     }
   };
+  
+  const mouseOver = (element) => {
+    let children = element.currentTarget.children[0];
+
+    children.classList.remove("bi-chevron-double-right");
+    children.classList.add("bi-chevron-double-down");
+  };
+
+  const mouseLeave = (element) => {
+    let children = element.currentTarget.children[0];
+
+    children.classList.remove("bi-chevron-double-down");
+    children.classList.add("bi-chevron-double-right");
+  };
 
   useEffect(() => {
     if (
@@ -67,6 +81,8 @@ export default function RenderAudiobooksList(props) {
                   <div
                     className="col-2 fs-3 align-self-center load_more"
                     onClick={() => renderNewPage()}
+                    onMouseOver={(e) => mouseOver(e)}
+                    onMouseLeave={(e) => mouseLeave(e)}
                   >
                     {props.t("loadMore")}{" "}
                     <i className="bi bi-chevron-double-down"></i>
