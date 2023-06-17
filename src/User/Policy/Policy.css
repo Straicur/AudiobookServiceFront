@@ -3,6 +3,12 @@
 }
 
 .policy_page_container {
-    padding: 6rem !important;
+    padding-right: 6rem !important;
+    padding-left: 6rem !important;
+    padding-top: 6rem !important;
     max-width: 90rem;
+}
+
+.styled_list {
+    list-style-type: decimal;
 }

@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Footer } from "../../Components/Footers/Footer";
 import "./About.css";
 
 export default function About() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <HelmetProvider>
@@ -13,7 +15,37 @@ export default function About() {
       </Helmet>
       <div className="container-fluid main-container about_page_container mt-3">
         <div className="card position-relative p-3 bg-dark shadow about_page text-center text-white">
-          <div className="fs-1 port_text">
+          <div className="row justify-content-end  align-items-center mt-5">
+            <div className="col-2">
+              <ButtonGroup className="ps-5 ms-5">
+                <Button
+                  name="pl"
+                  size="sm"
+                  className={
+                    i18n.language == "pl"
+                      ? "btn  m-1 button_light"
+                      : "btn  m-1 button_dark"
+                  }
+                  onClick={() => i18n.changeLanguage("pl")}
+                >
+                  PL
+                </Button>
+                <Button
+                  name="en"
+                  size="sm"
+                  className={
+                    i18n.language == "en"
+                      ? "btn  m-1 button_light"
+                      : "btn  m-1 button_dark"
+                  }
+                  onClick={() => i18n.changeLanguage("en")}
+                >
+                  EN
+                </Button>
+              </ButtonGroup>
+            </div>
+          </div>
+          <div className="fs-2 fw-bold">
             <p>{t("aboutDesc1")}</p>
           </div>
           <div className="fs-4 text-break">

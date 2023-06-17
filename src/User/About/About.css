@@ -3,7 +3,10 @@
 }
 
 .about_page_container {
-    padding: 6rem !important;
+    padding-right: 6rem !important;
+    padding-left: 6rem !important;
+    padding-top: 6rem !important;
+    padding-bottom: 1rem !important;
     max-width: 90rem;
 }
 
@@ -13,8 +16,4 @@
     margin-bottom: 0.3rem;
     padding-left: 0.3rem;
     padding-right: 0.3rem;
-}
-
-.port_text {
-    margin-top: 4.5rem !important;
 }
