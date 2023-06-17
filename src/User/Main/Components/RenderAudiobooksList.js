@@ -3,11 +3,14 @@ import RenderCarousel from "./RenderCarousel";
 import { v4 as uuidv4 } from "uuid";
 
 export default function RenderAudiobooksList(props) {
+  const lastPageChangeRef = useRef(false);
   const lastItemRef = useRef(null);
   const lastItemOffsetTopRef = useRef(null);
 
   const renderNewPage = () => {
     if (props.hasMore) {
+      lastPageChangeRef.current = true;
+
       props.setState({
         ...props.state,
         page: props.state.page + 1,
@@ -15,7 +18,7 @@ export default function RenderAudiobooksList(props) {
       });
     }
   };
-  
+
   const mouseOver = (element) => {
     let children = element.currentTarget.children[0];
 
@@ -32,15 +35,18 @@ export default function RenderAudiobooksList(props) {
 
   useEffect(() => {
     if (
-      lastItemRef.current &&
+      lastItemRef.current !== null &&
       lastItemOffsetTopRef.current !== null &&
-      !props.state.wasSearch
+      lastPageChangeRef.current
     ) {
       setTimeout(function () {
         window.scrollTo({
           top: lastItemOffsetTopRef.current,
           behavior: "smooth",
         });
+        lastPageChangeRef.current = false;
+        lastItemOffsetTopRef.current = null;
+        lastItemRef.current = null;
       }, 1000);
     }
   }, [props.audiobooks]);
@@ -65,7 +71,7 @@ export default function RenderAudiobooksList(props) {
               onLoad={() => {
                 if (
                   lastItemRef.current &&
-                  lastItemOffsetTopRef.current === null
+                  lastItemOffsetTopRef.current == null && props.hasMore 
                 ) {
                   lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
                 }

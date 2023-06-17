@@ -14,7 +14,7 @@ import "./Main.css";
 
 export default function Main() {
   const { t } = useTranslation();
-  //todo tu jest do poprawy te przesuwanie które czasami występuje od razu po odświerzeniu
+
   const token = useTokenStore((state) => state.token);
 
   const [audiobooksState, setAudiobooksState] = useState({
