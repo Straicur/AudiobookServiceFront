@@ -1,6 +1,7 @@
 import { UserNavBar } from "../../Components/NavBars/UserNavBar";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
+import { Footer } from "../../Components/Footers/Footer";
 import "./Help.css";
 
 export default function Help() {
@@ -13,7 +14,7 @@ export default function Help() {
       </Helmet>
 
       <div className="container-fluid main-container mt-3">
-        <div className="card position-relative p-3 mb-5  bg-dark shadow">
+        <div className="card position-relative p-3 bg-dark shadow">
           <UserNavBar />
           <div className="row justify-content-center fs-2 fw-bold text-white mt-4">
             {t("helpTitle")}
@@ -104,6 +105,7 @@ export default function Help() {
           </div>
         </div>
       </div>
+      <Footer/>
     </HelmetProvider>
   );
 }

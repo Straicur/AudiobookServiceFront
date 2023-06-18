@@ -1,39 +1,52 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef } from "react";
 import RenderCarousel from "./RenderCarousel";
 import { v4 as uuidv4 } from "uuid";
 
 export default function RenderAudiobooksList(props) {
+  const lastPageChangeRef = useRef(false);
   const lastItemRef = useRef(null);
   const lastItemOffsetTopRef = useRef(null);
 
-  const observer = useRef();
-  const lastBookElementRef = useCallback(
-    (node) => {
-      if (props.loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && props.hasMore) {
-          observer.height = entries[0].target.offsetTop;
+  const renderNewPage = () => {
+    if (props.hasMore) {
+      lastPageChangeRef.current = true;
 
-          props.setState({
-            ...props.state,
-            page: props.state.page + 1,
-            wasSearch: false
-          });
-        }
+      props.setState({
+        ...props.state,
+        page: props.state.page + 1,
+        wasSearch: false,
       });
-      if (node) observer.current.observe(node);
-    },
-    [props.loading, props.hasMore]
-  );
+    }
+  };
+
+  const mouseOver = (element) => {
+    let children = element.currentTarget.children[0];
+
+    children.classList.remove("bi-chevron-double-right");
+    children.classList.add("bi-chevron-double-down");
+  };
+
+  const mouseLeave = (element) => {
+    let children = element.currentTarget.children[0];
+
+    children.classList.remove("bi-chevron-double-down");
+    children.classList.add("bi-chevron-double-right");
+  };
 
   useEffect(() => {
-    if (lastItemRef.current && lastItemOffsetTopRef.current !== null && !props.state.wasSearch) {
+    if (
+      lastItemRef.current !== null &&
+      lastItemOffsetTopRef.current !== null &&
+      lastPageChangeRef.current
+    ) {
       setTimeout(function () {
         window.scrollTo({
           top: lastItemOffsetTopRef.current,
           behavior: "smooth",
         });
+        lastPageChangeRef.current = false;
+        lastItemOffsetTopRef.current = null;
+        lastItemRef.current = null;
       }, 1000);
     }
   }, [props.audiobooks]);
@@ -58,26 +71,30 @@ export default function RenderAudiobooksList(props) {
               onLoad={() => {
                 if (
                   lastItemRef.current &&
-                  lastItemOffsetTopRef.current === null
+                  lastItemOffsetTopRef.current == null && props.hasMore 
                 ) {
                   lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
                 }
               }}
             >
-              <div className="fw-bold fs-1 ms-2 mb-2  text-light">
+              <div className="fw-bold fs-1 ms-2 mb-2 text-light">
                 {category.name}
               </div>
               {renderAudiobooks}
               <hr className=" text-light"></hr>
               {props.hasMore ? (
-                <div className="row mb-4 p-5 justify-content-center  text-light">
-                  <div className="col-2 fs-2">{props.t("loadMore")}</div>
-                  <div className="col-1 align-self-center">
+                <div className="row justify-content-center text-light">
+                  <div
+                    className="col-2 fs-3 align-self-center load_more"
+                    onClick={() => renderNewPage()}
+                    onMouseOver={(e) => mouseOver(e)}
+                    onMouseLeave={(e) => mouseLeave(e)}
+                  >
+                    {props.t("loadMore")}{" "}
                     <i className="bi bi-chevron-double-down"></i>
                   </div>
                 </div>
               ) : null}
-              <div className="mt-4" ref={lastBookElementRef}></div>
             </div>
           );
         } else {

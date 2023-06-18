@@ -1,8 +1,10 @@
 import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../HandleFetch";
 import { useTokenStore } from "../../store";
+import "./UserNavBar.css";
 
 export const UserNavBar = () => {
   const { t, i18n } = useTranslation();
@@ -69,26 +71,32 @@ export const UserNavBar = () => {
           ) : null}
         </div>
         <div className="col d-flex justify-content-end  align-items-center">
-          <div className="ps-3 me-3">
+          <ButtonGroup className="ps-3 me-3">
             <Button
               name="pl"
-              variant={i18n.language == "pl" ? "dark" : "light"}
               size="sm"
-              className="btn button m-1"
+              className={
+                i18n.language == "pl"
+                  ? "btn  m-1 button_light"
+                  : "btn  m-1 button_dark"
+              }
               onClick={() => i18n.changeLanguage("pl")}
             >
               PL
             </Button>
             <Button
               name="en"
-              variant={i18n.language == "en" ? "dark" : "light"}
               size="sm"
-              className="btn button m-1"
+              className={
+                i18n.language == "en"
+                  ? "btn  m-1 button_light"
+                  : "btn  m-1 button_dark"
+              }
               onClick={() => i18n.changeLanguage("en")}
             >
               EN
             </Button>
-          </div>
+          </ButtonGroup>
           <div>
             <div className="row ">
               <div className="col-2 d-flex align-items-center">

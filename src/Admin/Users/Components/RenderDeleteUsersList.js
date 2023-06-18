@@ -1,7 +1,6 @@
 import { HandleFetch } from "../../../Components/HandleFetch";
 import Button from "react-bootstrap/Button";
 import { v4 as uuidv4 } from "uuid";
-import { CreateDate } from "../../../Components/CrateDate";
 
 export default function RenderDeleteUsersList(props) {
   const createTable = () => {

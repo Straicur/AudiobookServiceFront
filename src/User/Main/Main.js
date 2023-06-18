@@ -9,11 +9,12 @@ import GetAudiobooksProviders from "./Components/GetAudiobooksProviders";
 import AudiobookDetailProviders from "./Components/AudiobookDetailProviders";
 import SearchAudiobooks from "./Components/SearchAudiobooks";
 import RenderAudiobookSearch from "./Components/RenderAudiobookSearch";
+import { Footer } from "../../Components/Footers/Footer";
 import "./Main.css";
 
 export default function Main() {
   const { t } = useTranslation();
-  //todo tu jest do poprawy te przesuwanie które czasami występuje od razu po odświerzeniu 
+
   const token = useTokenStore((state) => state.token);
 
   const [audiobooksState, setAudiobooksState] = useState({
@@ -46,7 +47,7 @@ export default function Main() {
         </Helmet>
 
         <div className="container-fluid main-container mt-3">
-          <div className="card position-relative p-3 mb-5  bg-dark shadow">
+          <div className="card position-relative p-3 bg-dark shadow">
             <UserNavBar />
             <SearchAudiobooks
               audiobooksState={audiobooksState}
@@ -81,12 +82,9 @@ export default function Main() {
                 t={t}
               />
             ) : null}
-
-            <div className="p-5">
-              <div className="p-3"></div>
-            </div>
           </div>
         </div>
+        <Footer />
       </HelmetProvider>
     </ErrorBoundary>
   );

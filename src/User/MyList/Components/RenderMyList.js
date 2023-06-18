@@ -58,7 +58,7 @@ export default function GetCovers(props) {
   };
 
   return (
-    <div key={uuidv4()} className="row">
+    <div key={uuidv4()} className="row min_container_height">
       {props.coversState != undefined && props.coversState.length > 0
         ? returnAudioboks()
         : null}

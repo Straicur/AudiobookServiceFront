@@ -20,7 +20,7 @@ export default function EditUserDataModal(props) {
 
   const handleClose = () => {
     props.refetch();
-    
+
     props.setState({
       ...props.state,
       buttonUserData: !props.state.buttonUserData,
@@ -230,7 +230,7 @@ export default function EditUserDataModal(props) {
                 <Button
                   name="en"
                   size="sm"
-                  className="btn button danger_button settings-button fs-5"
+                  className="btn button danger_button settings-button fs-5 sure_button"
                   onClick={() => handleClose()}
                 >
                   {props.t("close")}
@@ -239,7 +239,7 @@ export default function EditUserDataModal(props) {
             ) : null}
             {!state.checkChanges ? (
               state.sure ? (
-                <div className="col-3">
+                <div className="col-4">
                   <div className="row justify-content-center">
                     <div className="col-6">
                       <Button
@@ -251,7 +251,7 @@ export default function EditUserDataModal(props) {
                           state.lastname.length == 0 ||
                           state.phoneNumber.length == 0
                         }
-                        className="btn button success_button settings-button fs-5"
+                        className="btn button success_button settings-button fs-5 sure_button"
                         onClick={(e) => changeUserData(e)}
                       >
                         {props.t("yes")}
@@ -260,7 +260,7 @@ export default function EditUserDataModal(props) {
                     <div className="col-6">
                       <Button
                         // onClick={() => doubleClickRating()}
-                        className="btn button danger_button settings-button fs-5"
+                        className="btn button danger_button settings-button fs-5 sure_button"
                         size="sm"
                         onClick={() =>
                           setState({

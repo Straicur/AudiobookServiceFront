@@ -5,7 +5,6 @@ import { AudiobookPartProvider } from "../../../Components/Providers/AudiobookPr
 import { AudiobookRatingProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookRatingProvider";
 import { AudiobookUserCommentsProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookUserCommentsProvider";
 import DataNotFoundError from "../../../Errors/Errors/DataNotFoundError";
-
 import AudiobookDetailModal from "./AudiobookDetailModal";
 
 export default function AudiobookDetailProviders(props) {

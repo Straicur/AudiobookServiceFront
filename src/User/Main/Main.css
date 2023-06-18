@@ -139,3 +139,16 @@ li {
     font-size: 0.8rem !important;
     padding: 0.2rem !important;
 }
+
+.min_container_height {
+    min-height: 41rem !important;
+}
+
+.load_more:hover {
+    color: #005331;
+    cursor: pointer;
+}
+
+.load_more {
+    padding: 1rem !important;
+}

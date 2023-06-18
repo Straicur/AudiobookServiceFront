@@ -89,8 +89,6 @@ export default function EditPasswordModal(props) {
     }
   }, [state.oldPassword]);
 
-  //todo to jest do poprawy bo nie łapie wszystkich wystąpień
-
   useEffect(() => {
     if (state.newPassword.length == 0) {
       setState({ ...state, wrongNewPassword: false });
