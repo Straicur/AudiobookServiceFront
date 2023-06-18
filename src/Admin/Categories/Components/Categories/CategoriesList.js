@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { AdminNavBar } from "../../../../Components/NavBars/AdminNavBar";
-import { useQuery } from "react-query";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
@@ -29,45 +28,44 @@ export default function CategoriesList(props) {
   const categories = useCategoryTreeListStore((state) => state.categories);
   const dateUpdate = useCategoryTreeListStore((state) => state.dateUpdate);
 
-  const { isLoading, error, data, isFetching, refetch } = useQuery(
-    "data",
-    () =>
-      HandleFetch(
-        "http://127.0.0.1:8000/api/admin/categories/tree",
-        "GET",
-        null,
-        props.token
-      ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
+  const fetchCategories = () => {
+    HandleFetch(
+      "http://127.0.0.1:8000/api/admin/categories/tree",
+      "GET",
+      null,
+      props.token
+    )
+      .then((data) => {
+        setState({ ...state, json: data.categories });
+
+        categoriesStore.removeCategories();
+
+        for (const category of data.categories) {
+          categoriesStore.addCategory(category);
+        }
+        if (state.refresh) {
+          setState({ ...state, refresh: !state.refresh });
+        }
+      })
+      .catch((e) => {
         props.setCategoiesState({
           ...props.categoiesState,
           error: e,
         });
-      },
-      onSuccess: (data) => {
-        setState({ ...state, json: data.categories });
-        //todo czy na pewno tak chciałem ? Bo tu może być problem że pobieram to a nie potrzebuje tak naprawdę jeśli trzymam to w storage
-        if (dateUpdate < Date.now() || state.refresh) {
-          categoriesStore.removeCategories();
+      });
+  };
 
-          for (const category of data.categories) {
-            categoriesStore.addCategory(category);
-          }
-          if (state.refresh) {
-            setState({ ...state, refresh: !state.refresh });
-          }
-        }
-      },
+  useEffect(() => {
+    setState({ ...state, json: categories });
+
+    if (dateUpdate < Date.now() || state.refresh) {
+      fetchCategories();
     }
-  );
+  }, []);
 
   useEffect(() => {
     if (state.refresh) {
-      refetch();
+      fetchCategories();
     }
   }, [state.refresh]);
 
