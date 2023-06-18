@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../../Components/HandleFetch";
@@ -16,11 +16,8 @@ export default function AddAudiobookModal(props) {
     uploadEnded: true,
   });
 
-  const [stateProgress, setStateProgress] = useState({
-    maxParts: 0,
-    currentPart: 0,
-    error: false,
-  });
+  const maxParts = useRef(0);
+  const currentPart = useRef(0);
 
   const handleSetAuthorChange = (event) => {
     setStateModal({ ...stateModal, author: event.target.value });
@@ -90,16 +87,13 @@ export default function AddAudiobookModal(props) {
             },
           };
 
-          setStateProgress({
-            ...stateProgress,
-            maxParts: part,
-            currentPart: part,
-          });
+          maxParts.current = part;
+          currentPart.current = part;
 
           HandleFetch(url, method, jsonData, props.token)
             .then((data) => {
               if (
-                stateProgress.currentPart == stateProgress.maxParts ||
+                currentPart.current == maxParts.current ||
                 Object.keys(data).length !== 0
               ) {
                 setStateModal({
@@ -111,10 +105,9 @@ export default function AddAudiobookModal(props) {
                   uploadEnded: false,
                 });
               }
-              setStateProgress({
-                ...stateProgress,
-                currentPart: stateProgress.currentPart + 1,
-              });
+
+              maxParts.current = part;
+              currentPart.current = currentPart.current + 1;
             })
             .catch((e) => {
               props.setAudiobooksState({
@@ -130,12 +123,9 @@ export default function AddAudiobookModal(props) {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
             const arr = new Uint8Array(buf).subarray(i, i + CHUNK_SIZE);
 
-            setStateProgress({
-              ...stateProgress,
-              maxParts: allparts,
-              currentPart: part,
-            });
-
+            maxParts.current = allparts;
+            currentPart.current = part;
+            
             let b64 = Buffer.from(arr).toString("base64");
 
             const jsonData = {
@@ -154,7 +144,7 @@ export default function AddAudiobookModal(props) {
             HandleFetch(url, method, jsonData, props.token)
               .then((data) => {
                 if (
-                  stateProgress.currentPart == stateProgress.maxParts ||
+                  currentPart.current == maxParts.current ||
                   Object.keys(data).length !== 0
                 ) {
                   setStateModal({
@@ -166,10 +156,7 @@ export default function AddAudiobookModal(props) {
                     uploadEnded: false,
                   });
                 }
-                setStateProgress({
-                  ...stateProgress,
-                  currentPart: stateProgress.currentPart + 1,
-                });
+                currentPart.current = currentPart.current + 1;
               })
               .catch((e) => {
                 props.setCategoiesState({
@@ -236,12 +223,8 @@ export default function AddAudiobookModal(props) {
             <ProgressBar
               animated
               variant="info"
-              max={stateProgress.maxParts}
-              now={
-                stateProgress.maxParts == 1
-                  ? undefined
-                  : stateProgress.currentPart
-              }
+              max={maxParts.current}
+              now={maxParts.current == 1 ? undefined : currentPart.current}
             />
           ) : (
             <input

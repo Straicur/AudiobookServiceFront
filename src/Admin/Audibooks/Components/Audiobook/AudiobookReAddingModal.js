@@ -56,7 +56,7 @@ export default function AudiobookReAddingModal(props) {
   const handleCloseAndUpdate = () => {
     props.resetStates();
     props.setAudiobookState({
-      ...props.state,
+      ...props.audiobookState,
       reAddingModal: !props.audiobookState.reAddingModal,
       reAdding: !props.audiobookState.reAdding,
     });
