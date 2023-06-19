@@ -18,7 +18,6 @@ export default function GetUsersList(props) {
     return (
       <tr key={uuidv4()}>
         <th scope="row">{element.email}</th>
-        <td>{element.firstname}</td>
         <td>{element.lastname}</td>
         <td>
           {element.active ? (
@@ -90,12 +89,11 @@ export default function GetUsersList(props) {
       <thead className="">
         <tr>
           <th scope="col">{props.t("email")}</th>
-          <th scope="col">{props.t("firstname")}</th>
           <th scope="col">{props.t("lastname")}</th>
           <th scope="col">{props.t("active")}</th>
           <th scope="col">{props.t("banned")}</th>
           <th scope="col"></th>
-        </tr>
+        </tr> 
       </thead>
       <tbody>{createTable()}</tbody>
     </table>

@@ -1,36 +1,9 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
+import React from "react";
 import GetUsersList from "./GetUsersList";
 import GetAudiobooksList from "./GetAudiobooksList";
 import GetCategoriesList from "./GetCategoriesList";
 
 export default function PickActionIdAddList(props) {
-  const getUsersList = () => {
-    if (!props.usersState.fetched) {
-      props.setUsersState({
-        ...props.usersState,
-        fetch: !props.usersState.fetch,
-      });
-    }
-  };
-
-  const getAudiobooksList = () => {
-    if (!props.audiobooksState.fetched) {
-      props.setAudiobooksState({
-        ...props.audiobooksState,
-        fetch: !props.audiobooksState.fetch,
-      });
-    }
-  };
-
-  const getCategriesList = () => {
-    if (!props.categoriesState.fetched) {
-      props.setCategoriesState({
-        ...props.categoriesState,
-        fetch: !props.categoriesState.fetch,
-      });
-    }
-  };
 
   const goBack = () => {
     props.setActionState({

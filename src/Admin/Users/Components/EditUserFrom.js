@@ -286,7 +286,7 @@ export default function EditUserFrom(props) {
             <Button
               variant="success"
               size="sm"
-              className=" btn button text-light col-8 px-4 my-1 button_save"
+              className=" btn button text-light my-1 button_save"
               disabled={passwordState.buttonDisabled}
               onClick={() => {
                 setPasswordState({
@@ -348,7 +348,7 @@ export default function EditUserFrom(props) {
             <Button
               variant="success"
               size="sm"
-              className=" btn button text-light col-8 px-4 my-1 button_save"
+              className=" btn button text-light my-1 button_save"
               disabled={phoneNumberState.buttonDisabled}
               onClick={() => {
                 setPhoneNumberState({

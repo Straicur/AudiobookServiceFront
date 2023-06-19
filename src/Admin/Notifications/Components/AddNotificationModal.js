@@ -197,29 +197,35 @@ export default function AddNotificationModal(props) {
               </InputGroup>
             </div>
             {actionState.actionIdChanged || state.notificationType == 1 ? (
-              <div className="row mx-5 mt-3">
-                <Button
-                  name="en"
-                  variant="success"
-                  size="sm"
-                  className="btn button"
-                  onClick={(e) => addNotification(e)}
-                >
-                  {props.t("save")}
-                </Button>
+              <div className="row justify-content-center mx-5 mt-3">
+                <div className="col-7">
+                  <Button
+                    name="en"
+                    variant="success"
+                    size="sm"
+                    className="btn button button_notification"
+                    onClick={(e) => addNotification(e)}
+                  >
+                    {props.t("save")}
+                  </Button>
+                </div>
               </div>
             ) : (
-              <div className="row mx-5 mt-3">
-                <Button
-                  name="en"
-                  variant="dark"
-                  disabled={state.notificationType == 0 || state.userType == 0}
-                  size="sm"
-                  className="btn button"
-                  onClick={(e) => selectActionId(e)}
-                >
-                  {props.t("select")}
-                </Button>
+              <div className="row justify-content-center mx-5 mt-3">
+                <div className="col-7">
+                  <Button
+                    name="en"
+                    variant="dark"
+                    disabled={
+                      state.notificationType == 0 || state.userType == 0
+                    }
+                    size="sm"
+                    className="btn button button_notification"
+                    onClick={(e) => selectActionId(e)}
+                  >
+                    {props.t("select")}
+                  </Button>
+                </div>
               </div>
             )}
           </div>

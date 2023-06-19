@@ -54,14 +54,14 @@ export default function InfoContainer(props) {
         <div className="p-5">
           <div className="p-3">
             <div className="p-3 text-light">
-              <p className="text-center fs-4">
-                <h1>{t("administrationPage")} </h1>
-                <h2>{t("chooseNabOptions")}</h2>
-              </p>
+              <div className="text-center fs-4">
+                <p className="fs-1 fw-bold">{t("administrationPage")} </p>
+                <p className="fs-1 fw-bold">{t("chooseNabOptions")}</p>
+              </div>
             </div>
-            <p className="text-center fs-4">
-              <div className="p-3 text-light">{t("currentApp")}</div>
-            </p>
+            <div className="text-center fs-4">
+              <p className="p-3 text-light">{t("currentApp")}</p>
+            </div>
             <div className="row justify-content-center">
               <div className="col-6">
                 <Card className="info_card">
@@ -100,9 +100,9 @@ export default function InfoContainer(props) {
                 </Card>
               </div>
             </div>
-            <p className="text-center fs-4">
-              <div className="p-3 text-light">{t("lastWeek")}</div>
-            </p>
+            <div className="text-center fs-4">
+              <p className="p-3 text-light">{t("lastWeek")}</p>
+            </div>
             <div className="row justify-content-center">
               <div className="col-6">
                 <Card className="info_card">

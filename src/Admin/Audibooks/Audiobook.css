@@ -1,3 +1,11 @@
 .audiobook_detail_modal_button {
     width: 32.4rem !important;
 }
+
+.rounded_left_button {
+    border-radius: 2rem 0.5rem 0.5rem 2rem !important;
+}
+
+.rounded_right_button {
+    border-radius: 0.5rem 2rem 2rem 0.5rem !important;
+}

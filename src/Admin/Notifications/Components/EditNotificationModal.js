@@ -288,16 +288,18 @@ export default function EditNotificationModal(props) {
                 ) : null}
               </InputGroup>
             </div>
-            <div className="row mx-5 mt-2">
-              <Button
-                name="en"
-                variant="success"
-                size="sm"
-                className="btn button"
-                onClick={(e) => saveChanges(e)}
-              >
-                {props.t("save")}
-              </Button>
+            <div className="row justify-content-center mx-5 mt-2">
+              <div className="col-7">
+                <Button
+                  name="en"
+                  variant="success"
+                  size="sm"
+                  className="btn button button_notification"
+                  onClick={(e) => saveChanges(e)}
+                >
+                  {props.t("save")}
+                </Button>
+              </div>
             </div>
           </div>
         )}
