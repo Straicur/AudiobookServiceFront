@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 
 export default function RenderCategoriesList(props) {
-
   const navigate = useNavigate();
 
   const createTree = () => {
@@ -16,12 +15,12 @@ export default function RenderCategoriesList(props) {
   };
 
   const oparateParentList = (element) => {
-      element.stopPropagation()
-      if (element.currentTarget.attributes["data-clicable"].value == "true") {
-        openParentList(element);
-      } else {
-        closeParentList(element);
-      }
+    element.stopPropagation();
+    if (element.currentTarget.attributes["data-clicable"].value == "true") {
+      openParentList(element);
+    } else {
+      closeParentList(element);
+    }
   };
 
   function openParentList(element) {
@@ -89,7 +88,10 @@ export default function RenderCategoriesList(props) {
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryName")}:</h5>
           </div>
-          <div className="p-2 bd-highlight"> {element.name}</div>
+          <div className="p-1 bd-highlight name_color fs-5">
+            {" "}
+            {element.name}
+          </div>
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryActive")}:</h5>
           </div>
@@ -178,7 +180,10 @@ export default function RenderCategoriesList(props) {
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryName")}:</h5>
           </div>
-          <div className="p-2 bd-highlight"> {element.name}</div>
+          <div className="p-1 bd-highlight name_color fs-5">
+            {" "}
+            {element.name}
+          </div>
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryActive")}:</h5>
           </div>

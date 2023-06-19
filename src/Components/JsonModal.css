@@ -3,6 +3,7 @@
     padding: 10px 30px;
     margin: 0;
     overflow: scroll;
+    height: 40rem;
 }
 .background_json{
     background-color: #c2ffe6;

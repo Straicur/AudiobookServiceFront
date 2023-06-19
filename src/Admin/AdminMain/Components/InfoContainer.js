@@ -67,7 +67,7 @@ export default function InfoContainer(props) {
                 <Card className="info_card">
                   <Card.Body className="info_card_body">
                     <div className="row align-items-center justify-content-center">
-                      <div className="col align-self-center">
+                      <div className="col align-self-center border-end border-dark">
                         <div className="row info_card_body_el">
                           <p className="text-center">{t("categories")}</p>
                         </div>
@@ -77,7 +77,7 @@ export default function InfoContainer(props) {
                           </p>
                         </div>
                       </div>
-                      <div className="col align-self-center">
+                      <div className="col align-self-center border-end border-dark">
                         <div className="row info_card_body_el">
                           <p className="text-center">{t("audiobooks")}</p>
                         </div>
@@ -108,7 +108,7 @@ export default function InfoContainer(props) {
                 <Card className="info_card">
                   <Card.Body className="info_card_body">
                     <div className="row align-items-center justify-content-center">
-                      <div className="col align-self-center">
+                      <div className="col align-self-center border-end border-dark">
                         <div className="row info_card_body_el">
                           <p className="text-center">{t("registered")}</p>
                         </div>
@@ -118,7 +118,7 @@ export default function InfoContainer(props) {
                           </p>
                         </div>
                       </div>
-                      <div className="col align-self-center">
+                      <div className="col align-self-center border-end border-dark">
                         <div className="row info_card_body_el">
                           <p className="text-center">{t("loggedIn")}</p>
                         </div>

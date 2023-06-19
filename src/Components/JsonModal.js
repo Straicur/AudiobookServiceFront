@@ -13,7 +13,7 @@ export default function JsonModal(props) {
   const format = () => {
     return (
       <div>
-        <pre className="preStyle">{JSON.stringify(props.state.json, null, 2)}</pre>
+        <pre className="preStyle overflow-auto ">{JSON.stringify(props.state.json, null, 2)}</pre>
       </div>
     );
   };
