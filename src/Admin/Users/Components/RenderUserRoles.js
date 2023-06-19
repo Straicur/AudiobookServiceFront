@@ -93,14 +93,14 @@ export default function RenderUserRoles(props) {
         );
 
         roles.push(
-          <div className="row" key={uuidv4()}>
-            <div className="col-8">{element.name}</div>
-            <div className="col-4">
+          <div className="row align-items-center mt-2" key={uuidv4()}>
+            <div className="col-4 align-self-center">{element.name}</div>
+            <div className="col-8 align-self-center">
               <Button
                 variant={hasRole.length > 0 ? "danger" : "success"}
                 size="sm"
                 color="dark"
-                className=" btn button mt-2 text-light"
+                className=" btn button text-light edit_user_btn"
                 onClick={(e) => {
                   hasRole.length > 0
                     ? deleteRole(e, element)
