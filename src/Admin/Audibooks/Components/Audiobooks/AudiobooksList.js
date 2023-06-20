@@ -8,7 +8,7 @@ import JsonModal from "../../../../Components/JsonModal";
 import AudiobookCommentsModal from "../../../Categories/Components/Category/AudiobookCommentsModal";
 import AddAudiobookModal from "./AddAudiobookModal";
 import RenderAudiobooksList from "./RenderAudiobooksList";
-import RenderPageSwitches from "./RenderPageSwitches";
+import RenderPageSwitches from "../../../AdminComponents/RenderPageSwitches";
 import SearchAudiobooksOffCanvas from "./SearchAudiobooksOffCanvas";
 import { useCategoryListStore } from "../../../../store";
 

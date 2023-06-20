@@ -9,7 +9,7 @@ import AddAudiobookModal from "../Category/AddAudiobookModal";
 import RenderAudiobooksList from "../Category/RenderAudiobooksList";
 import CategoryDetailProviders from "../Category/CategoryDetailProviders";
 import AudiobookCommentsModal from "./AudiobookCommentsModal";
-import RenderPageSwitches from "./RenderPageSwitches";
+import RenderPageSwitches from "../../../AdminComponents/RenderPageSwitches";
 
 export default function AudiobooksList(props) {
   const { t } = useTranslation();

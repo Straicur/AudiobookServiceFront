@@ -9,7 +9,7 @@ import AddNotificationModal from "./AddNotificationModal";
 import EditNotificationModal from "./EditNotificationModal";
 import SearchNotificationsOffCanvas from "./SearchNotificationsOffCanvas";
 import RenderNotificationsList from "./RenderNotificationsList";
-import RenderPageSwitches from "./RenderPageSwitches";
+import RenderPageSwitches from "../../AdminComponents/RenderPageSwitches";
 import { useLastUserRolesStore } from "../../../store";
 
 export default function NotificationsList(props) {

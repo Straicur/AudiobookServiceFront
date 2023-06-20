@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import JsonModal from "../../../Components/JsonModal";
 import RenderUsersList from "./RenderUsersList";
-import RenderPageSwitches from "./RenderPageSwitches";
+import RenderPageSwitches from "../../AdminComponents/RenderPageSwitches";
 import DeleteUsersModal from "./DeleteUsersModal";
 import EditUserModal from "./EditUserModal";
 import DeletedUsersModal from "./DeletedUsersModal";

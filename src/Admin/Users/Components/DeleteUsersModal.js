@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import RenderDeleteUsersList from "./RenderDeleteUsersList";
-import RenderPageSwitches from "./RenderPageSwitches";
+import RenderPageSwitches from "../../AdminComponents/RenderPageSwitches";
 
 export default function DeleteUsersModal(props) {
   const [state, setState] = useState({
