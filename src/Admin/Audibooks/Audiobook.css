@@ -9,3 +9,6 @@
 .rounded_right_button {
     border-radius: 0.5rem 2rem 2rem 0.5rem !important;
 }
+.comment_detail_height{
+    height: 2.8rem !important;
+}

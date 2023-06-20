@@ -99,25 +99,21 @@ export default function RenderCommentsList(props) {
     return (
       <li
         key={uuidv4()}
-        className={
-      
-             "border border-4 border-secondary list-group-item"
-        }
+        className={"border border-4 border-secondary list-group-item"}
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
       >
-        <div className="row p-1 bd-highlight">
-          <div className="col-1">
-            {child.length > 0 ? (
+        <div className="row p-1 bd-highlight comment_list_height">
+          {child.length > 0 ? (
+            <div className="col-1">
               <i className="p-2 bi bi-arrow-right-square "></i>
-            ) : (
-              <div className="p-2 bd-highlight"></div>
-            )}
-          </div>
-          <div className="col-1">{props.t("comment")}:</div>
-          <div className="col-4">{element.comment}</div>
-          <div className="col-1">{props.t("owner")}:</div>
-          <div className="col-3">{element.userModel.email}</div>
+            </div>
+          ) : (
+            <div className="p-2 bd-highlight"></div>
+          )}
+
+          <div className="col-2 fw-bold">{props.t("owner")}:</div>
+          <div className="col-5">{element.userModel.email}</div>
           <div className="col-1">
             {element.deleted ? (
               <i className="bi bi-bookmark-dash"></i>
@@ -135,9 +131,11 @@ export default function RenderCommentsList(props) {
                 deleteCommnet(element);
               }}
             >
-              {props.t("delete")}
+              {element.deleted ? props.t("restore") : props.t("delete")}
             </Button>
           </div>
+          <div className="col-4 fw-bold">{props.t("comment")}:</div>
+          <div className="col-8 overflow-auto">{element.comment}</div>
         </div>
         <ul className="list-group" data-name={element.id}>
           {child}
@@ -153,11 +151,9 @@ export default function RenderCommentsList(props) {
         className="d-none p-2 border list-group-item"
         id={element.id}
       >
-        <div className="row p-1 bd-highlight">
-          <div className="col-1">{props.t("comment")}:</div>
-          <div className="col-5">{element.comment}</div>
-          <div className="col-1">{props.t("owner")}:</div>
-          <div className="col-3">{element.userModel.email}</div>
+        <div className="row p-1 bd-highlight comment_list_height">
+          <div className="col-2 fw-bold">{props.t("owner")}:</div>
+          <div className="col-5">{element.userModel.email}</div>
           <div className="col-1">
             {element.deleted ? (
               <i className="bi bi-bookmark-dash"></i>
@@ -178,6 +174,8 @@ export default function RenderCommentsList(props) {
               {props.t("delete")}
             </Button>
           </div>
+          <div className="col-4 fw-bold">{props.t("comment")}:</div>
+          <div className="col-8 overflow-auto">{element.comment}</div>
         </div>
       </li>
     );
@@ -185,12 +183,11 @@ export default function RenderCommentsList(props) {
 
   function createTree(array, renderArray) {
     for (const element of array) {
-    
       let children = [];
 
       if (element["children"].length != 0) {
         for (const child of element["children"]) {
-          children.push(createListElement(child))
+          children.push(createListElement(child));
         }
       }
       renderArray.push(listParent(element, children));
