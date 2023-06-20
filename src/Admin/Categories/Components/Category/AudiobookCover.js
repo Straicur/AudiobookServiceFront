@@ -64,7 +64,7 @@ export default function AudiobookCover(props) {
   };
 
   return (
-    <div className="row ">
+    <div className="row ms-1">
       <div className="row ">
         <img
           src={

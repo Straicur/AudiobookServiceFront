@@ -73,47 +73,56 @@ export default function RenderCategoriesList(props) {
         key={uuidv4()}
         className={
           parent == null
-            ? "visible border border-4 border-secondary list-group-item"
+            ? "visible border border-1 border-dark list-group-item"
             : "d-none border list-group-item"
         }
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
       >
-        <div className="d-flex align-items-center flex-row bd-highlight mb-2">
+        <div className="d-flex align-items-center flex-row bd-highlight">
           {child.length > 0 ? (
             <i className="p-2 bi bi-arrow-right-square "></i>
           ) : (
-            <div className="p-2 bd-highlight"></div>
+            null
           )}
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryName")}:</h5>
           </div>
           <div className="p-1 bd-highlight name_color fs-5">
-            {" "}
-            {element.name}
+            <h5>{element.name}</h5>
           </div>
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryActive")}:</h5>
           </div>
           <div className="p-2 bd-highlight">
             {element.active ? (
-              <i className="bi bi-bookmark-check-fill"></i>
+              <h5>
+                <i className="bi bi-bookmark-check-fill"></i>
+              </h5>
             ) : (
-              <i className="bi bi-bookmark-dash"></i>
+              <h5>
+                <i className="bi bi-bookmark-dash"></i>
+              </h5>
             )}
           </div>
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryKey")}:</h5>
           </div>
-          <div className="p-2 bd-highlight"> {element.categoryKey}</div>
+          <div className="p-2 bd-highlight fs-5">
+            <h5 className="fw-normal">{element.categoryKey}</h5>
+          </div>
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryChilds")}:</h5>
           </div>
-          <div className="p-2 bd-highlight"> {element.children.length}</div>
+          <div className="p-2 bd-highlight">
+            <h5 className="fw-normal">{element.children.length}</h5>
+          </div>
           <div className="p-2 bd-highlight">
             <h5>{props.t("audiobooksAmount")}:</h5>
           </div>
-          <div className="p-2 bd-highlight"> {element.audiobooks}</div>
+          <div className="p-2 bd-highlight">
+            <h5 className="fw-normal">{element.audiobooks}</h5>
+          </div>
           <div className="p-2 bd-highlight ms-3">
             <Button
               name="en"
@@ -169,43 +178,58 @@ export default function RenderCategoriesList(props) {
     );
   }
 
-  function createListElement(element) {
+  function createListElement(index, element, arrayLength) {
     return (
       <li
         key={uuidv4()}
-        className="d-none p-2 border list-group-item"
+        className={
+          arrayLength == 1
+            ? "d-none p-2 border border-1 border-secondary list-group-item"
+            : index + 1 == arrayLength
+            ? "d-none p-2 border border-1 border-secondary list-group-item"
+            : "d-none p-2 border border-1 border-bottom-0 border-secondary list-group-item"
+        }
         id={element.id}
       >
-        <div className="d-flex flex-row align-items-center bd-highlight mb-2">
+        <div className="d-flex flex-row align-items-center bd-highlight">
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryName")}:</h5>
           </div>
           <div className="p-1 bd-highlight name_color fs-5">
-            {" "}
-            {element.name}
+            <h5>{element.name}</h5>
           </div>
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryActive")}:</h5>
           </div>
           <div className="p-2 bd-highlight">
             {element.active ? (
-              <i className="bi bi-bookmark-check-fill"></i>
+              <h5>
+                <i className="bi bi-bookmark-check-fill"></i>
+              </h5>
             ) : (
-              <i className="bi bi-bookmark-dash"></i>
+              <h5>
+                <i className="bi bi-bookmark-dash"></i>
+              </h5>
             )}
           </div>
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryKey")}:</h5>
           </div>
-          <div className="p-2 bd-highlight"> {element.categoryKey}</div>
+          <div className="p-2 bd-highlight">
+            <h5 className="fw-normal">{element.categoryKey}</h5>
+          </div>
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryChilds")}:</h5>
           </div>
-          <div className="p-2 bd-highlight"> {element.children.length}</div>
+          <div className="p-2 bd-highlight">
+            <h5 className="fw-normal">{element.children.length}</h5>
+          </div>
           <div className="p-2 bd-highlight">
             <h5>{props.t("audiobooksAmount")}:</h5>
           </div>
-          <div className="p-2 bd-highlight"> {element.audiobooks}</div>
+          <div className="p-2 bd-highlight">
+            <h5 className="fw-normal">{element.audiobooks}</h5>
+          </div>
           <div className="p-2 bd-highlight ms-2">
             <Button
               name="en"
@@ -275,8 +299,10 @@ export default function RenderCategoriesList(props) {
           element
         );
 
-        for (const value of returnedChildren) {
-          let childElement = [createListElement(value.push)];
+        for (const [index, value] of returnedChildren.entries()) {
+          let childElement = [
+            createListElement(index, value.push, returnedChildren.length),
+          ];
 
           if (kids[element.id] != undefined) {
             let ul = kids[element.id].filter((x) => x.type == "li");

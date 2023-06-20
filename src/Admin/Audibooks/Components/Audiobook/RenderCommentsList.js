@@ -108,7 +108,7 @@ export default function RenderCommentsList(props) {
             {child.length > 0 ? (
               <i className="p-2 bi bi-arrow-right-square "></i>
             ) : (
-              <div className="p-2 bd-highlight"></div>
+              null
             )}
           </div>
           <div className="col-1 fw-bold">{props.t("comment")}:</div>

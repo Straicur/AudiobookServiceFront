@@ -125,7 +125,7 @@ export default function CategoryAudiobookDetailModal(props) {
         />
       </Modal.Header>
       <Modal.Body className="bg-dark">
-        <div className="row ">
+        <div className="row">
           <div className="col">
             <AudiobookCover
               audiobookCover={audiobookCover}

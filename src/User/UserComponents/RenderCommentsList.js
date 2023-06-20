@@ -414,7 +414,7 @@ export default function RenderCommentsList(props) {
                     <i className="p-2 bi bi-arrow-right-square "></i>
                   )
                 ) : (
-                  <div className="p-2 bd-highlight"></div>
+                  null
                 )}
               </div>
               <div className="col-1">
