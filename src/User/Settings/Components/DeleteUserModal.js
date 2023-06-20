@@ -48,6 +48,7 @@ export default function DeleteUserModal(props) {
       size="lg"
       show={props.state.buttonDelete}
       onHide={handleClose}
+      backdrop="static"
       centered
     >
       <Modal.Body

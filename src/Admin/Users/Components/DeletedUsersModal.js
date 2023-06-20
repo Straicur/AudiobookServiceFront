@@ -68,7 +68,12 @@ export default function DeletedUsersModal(props) {
   }, [state.refresh]);
 
   return (
-    <Modal size="lg" show={props.state.deletedUsersModal} onHide={handleClose}>
+    <Modal
+      size="lg"
+      show={props.state.deletedUsersModal}
+      onHide={handleClose}
+      backdrop="static"
+    >
       <Modal.Header>
         <Modal.Title>{props.t("deletedUsers")}</Modal.Title>
       </Modal.Header>

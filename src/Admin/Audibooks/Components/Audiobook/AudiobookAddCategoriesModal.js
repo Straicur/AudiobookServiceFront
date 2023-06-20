@@ -77,6 +77,7 @@ export default function AudiobookAddCategoriesModal(props) {
       size="lg"
       show={props.audiobookState.addCategoriesModal}
       onHide={handleClose}
+      backdrop="static"
     >
       <Modal.Header closeButton>
         <Modal.Title>{props.t("addCategory")}</Modal.Title>

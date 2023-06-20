@@ -120,6 +120,7 @@ export default function EditPasswordModal(props) {
       size="lg"
       show={props.state.buttonPassword}
       onHide={handleClose}
+      backdrop="static"
       centered
     >
       <Modal.Body

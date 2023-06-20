@@ -141,6 +141,7 @@ export default function EditUserDataModal(props) {
       size="lg"
       show={props.state.buttonUserData}
       onHide={handleClose}
+      backdrop="static"
       centered
     >
       <Modal.Body

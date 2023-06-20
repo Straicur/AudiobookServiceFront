@@ -64,7 +64,7 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
   }, [error]);
 
   return (
-    <Modal show={state.show} onHide={handleClose}>
+    <Modal show={state.show} onHide={handleClose} backdrop="static">
       <Modal.Header className="">
         <Modal.Title> {t("errorOccurred")}</Modal.Title>
       </Modal.Header>

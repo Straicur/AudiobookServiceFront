@@ -113,6 +113,7 @@ export default function AddNotificationModal(props) {
       size="lg"
       show={props.state.addNotificationModal}
       onHide={handleClose}
+      backdrop="static"
     >
       <Modal.Header>
         <Modal.Title>{props.t("addNotification")}</Modal.Title>

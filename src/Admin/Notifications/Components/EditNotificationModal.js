@@ -143,6 +143,7 @@ export default function EditNotificationModal(props) {
       size="lg"
       show={props.state.editNotificationkModal}
       onHide={handleClose}
+      backdrop="static"
     >
       <Modal.Header>
         <Modal.Title>{props.t("notificationDetail")}</Modal.Title>

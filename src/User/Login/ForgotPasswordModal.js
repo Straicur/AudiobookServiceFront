@@ -58,7 +58,7 @@ export const ForgotPasswordModal = ({ formState, setFormState }) => {
   }, [state.email]);
 
   return (
-    <Modal show={formState.modal} onHide={handleClose}>
+    <Modal show={formState.modal} onHide={handleClose} backdrop="static">
       <Modal.Header className="">
         <Modal.Title> {t("changePassword")}</Modal.Title>
       </Modal.Header>

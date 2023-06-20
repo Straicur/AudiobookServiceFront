@@ -99,7 +99,7 @@ export default function RenderCommentsList(props) {
     return (
       <li
         key={uuidv4()}
-        className={"border border-4 border-secondary list-group-item"}
+        className="border border-1 border-dark list-group-item"
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
       >
@@ -108,9 +108,7 @@ export default function RenderCommentsList(props) {
             <div className="col-1">
               <i className="p-2 bi bi-arrow-right-square "></i>
             </div>
-          ) : (
-            <div className="p-2 bd-highlight"></div>
-          )}
+          ) : null}
 
           <div className="col-2 fw-bold">{props.t("owner")}:</div>
           <div className="col-5">{element.userModel.email}</div>
@@ -135,7 +133,9 @@ export default function RenderCommentsList(props) {
             </Button>
           </div>
           <div className="col-4 fw-bold">{props.t("comment")}:</div>
-          <div className="col-8 overflow-auto">{element.comment}</div>
+          <div className="col-8 overflow-auto text-break comment_height">
+            {element.comment}
+          </div>
         </div>
         <ul className="list-group" data-name={element.id}>
           {child}
@@ -144,11 +144,17 @@ export default function RenderCommentsList(props) {
     );
   }
 
-  function createListElement(element) {
+  function createListElement(index, element, arrayLength) {
     return (
       <li
         key={uuidv4()}
-        className="d-none p-2 border list-group-item"
+        className={
+          arrayLength == 1
+            ? "d-none p-2 border border-1 border-secondary list-group-item"
+            : index + 1 == arrayLength
+            ? "d-none p-2 border border-1 border-secondary list-group-item"
+            : "d-none p-2 border border-1 border-bottom-0 border-secondary list-group-item"
+        }
         id={element.id}
       >
         <div className="row p-1 bd-highlight comment_list_height">
@@ -175,7 +181,9 @@ export default function RenderCommentsList(props) {
             </Button>
           </div>
           <div className="col-4 fw-bold">{props.t("comment")}:</div>
-          <div className="col-8 overflow-auto">{element.comment}</div>
+          <div className="col-8 overflow-auto text-break comment_height">
+            {element.comment}
+          </div>
         </div>
       </li>
     );
@@ -186,8 +194,10 @@ export default function RenderCommentsList(props) {
       let children = [];
 
       if (element["children"].length != 0) {
-        for (const child of element["children"]) {
-          children.push(createListElement(child));
+        for (const [index, child] of element["children"].entries()) {
+          children.push(
+            createListElement(index, child, element["children"].length)
+          );
         }
       }
       renderArray.push(listParent(element, children));

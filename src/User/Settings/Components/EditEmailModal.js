@@ -99,6 +99,7 @@ export default function EditEmailModal(props) {
       size="lg"
       show={props.state.buttonEmail}
       onHide={handleClose}
+      backdrop="static"
       centered
     >
       <Modal.Body

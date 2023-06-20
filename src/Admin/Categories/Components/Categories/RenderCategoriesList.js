@@ -79,7 +79,7 @@ export default function RenderCategoriesList(props) {
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
       >
-        <div className="d-flex flex-row bd-highlight mb-2">
+        <div className="d-flex align-items-center flex-row bd-highlight mb-2">
           {child.length > 0 ? (
             <i className="p-2 bi bi-arrow-right-square "></i>
           ) : (
@@ -114,7 +114,7 @@ export default function RenderCategoriesList(props) {
             <h5>{props.t("audiobooksAmount")}:</h5>
           </div>
           <div className="p-2 bd-highlight"> {element.audiobooks}</div>
-          <div className="p-2 bd-highlight">
+          <div className="p-2 bd-highlight ms-3">
             <Button
               name="en"
               variant="dark"
@@ -131,7 +131,7 @@ export default function RenderCategoriesList(props) {
               {props.t("edit")}
             </Button>
           </div>
-          <div className="p-2 bd-highlight">
+          <div className="p-2 bd-highlight ms-3">
             <Button
               name="en"
               variant="dark"
@@ -144,7 +144,7 @@ export default function RenderCategoriesList(props) {
               {props.t("audiobooks")}
             </Button>
           </div>
-          <div className="p-2 bd-highlight">
+          <div className="p-2 bd-highlight ms-3">
             <Button
               name="en"
               variant="dark"
@@ -176,7 +176,7 @@ export default function RenderCategoriesList(props) {
         className="d-none p-2 border list-group-item"
         id={element.id}
       >
-        <div className="d-flex flex-row bd-highlight mb-2">
+        <div className="d-flex flex-row align-items-center bd-highlight mb-2">
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryName")}:</h5>
           </div>
@@ -206,7 +206,7 @@ export default function RenderCategoriesList(props) {
             <h5>{props.t("audiobooksAmount")}:</h5>
           </div>
           <div className="p-2 bd-highlight"> {element.audiobooks}</div>
-          <div className="p-2 bd-highlight">
+          <div className="p-2 bd-highlight ms-2">
             <Button
               name="en"
               variant="dark"
@@ -223,7 +223,7 @@ export default function RenderCategoriesList(props) {
               {props.t("edit")}
             </Button>
           </div>
-          <div className="p-2 bd-highlight">
+          <div className="p-2 bd-highlight ms-2">
             <Button
               name="en"
               variant="dark"
@@ -236,7 +236,7 @@ export default function RenderCategoriesList(props) {
               {props.t("audiobooks")}
             </Button>
           </div>
-          <div className="p-2 bd-highlight">
+          <div className="p-2 bd-highlight ms-2">
             <Button
               name="en"
               variant="dark"
