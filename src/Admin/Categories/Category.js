@@ -3,11 +3,10 @@ import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import AudiobooksList from "./Components/Category/AudiobooksList";
-import {useParams} from 'react-router-dom'
-import "./Category.css"
+import { useParams } from "react-router-dom";
+import "./Category.css";
 
 export default function Category() {
-  
   const token = useTokenStore((state) => state.token);
 
   const { categoryKey } = useParams();

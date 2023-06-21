@@ -8,9 +8,9 @@ export const RegisterNotificationModal = () => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
-  
+
   const handleClose = () => {
-    navigate("/login")
+    navigate("/login");
   };
 
   return (

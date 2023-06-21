@@ -125,7 +125,7 @@ export default function AudiobookEditForm(props) {
 
   const validateFields = () => {
     setWrongState(0);
-    
+
     if (props.audiobookDetail.title.length < 1) {
       setWrongState(1);
     }

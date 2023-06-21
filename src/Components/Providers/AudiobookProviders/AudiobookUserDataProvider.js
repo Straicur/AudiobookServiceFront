@@ -28,7 +28,6 @@ export const AudiobookUserDataProvider = ({
       token
     )
       .then((data) => {
-
         setHasMore(data.maxPage > page + 1);
         setLoading(false);
 

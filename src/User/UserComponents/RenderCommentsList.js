@@ -413,9 +413,7 @@ export default function RenderCommentsList(props) {
                   ) : (
                     <i className="p-2 bi bi-arrow-right-square "></i>
                   )
-                ) : (
-                  null
-                )}
+                ) : null}
               </div>
               <div className="col-1">
                 <span className="badge bg-dark comment-pill">

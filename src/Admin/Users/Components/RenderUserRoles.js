@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import { v4 as uuidv4 } from "uuid";
 
 export default function RenderUserRoles(props) {
-
   const deleteRole = (e, element) => {
     e.target.classList.add("disabled");
     HandleFetch(

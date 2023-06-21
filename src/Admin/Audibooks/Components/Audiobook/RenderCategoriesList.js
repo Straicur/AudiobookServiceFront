@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 
 export default function RenderCategoriesList(props) {
-  
   const addCategory = (element, category) => {
     element.stopPropagation();
     HandleFetch(

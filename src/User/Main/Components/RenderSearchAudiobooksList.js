@@ -34,10 +34,7 @@ export default function RenderSearchAudiobooksList(props) {
       props.audiobooks.map((audiobook) => {
         let imgUrl = getImgUrl(audiobook);
         return (
-          <div
-            className="col-2"
-            key={uuidv4()}
-          >
+          <div className="col-2" key={uuidv4()}>
             <div
               className="card m-3 carousel-search-card"
               onClick={() => {

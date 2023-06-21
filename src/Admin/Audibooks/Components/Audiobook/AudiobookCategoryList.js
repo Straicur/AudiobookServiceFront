@@ -78,7 +78,10 @@ export default function AudiobookCategoryList(props) {
       props.audiobookDetail.categories == 0
     ) {
       categories.push(
-        <div key={uuidv4()} className="row d-flex justify-content-center text-center">
+        <div
+          key={uuidv4()}
+          className="row d-flex justify-content-center text-center"
+        >
           <h5>{props.t("empty")}</h5>
         </div>
       );

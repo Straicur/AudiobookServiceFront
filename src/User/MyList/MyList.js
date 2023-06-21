@@ -50,7 +50,7 @@ export default function MyList() {
             </div>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </HelmetProvider>
     </ErrorBoundary>
   );

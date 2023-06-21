@@ -53,12 +53,7 @@ export const AudiobookSearchProvider = ({
     }
   }, [refetchState]);
 
-  const value = [
-    audiobookSearch,
-    loading,
-    setAudiobookSearch,
-    setRefetchState,
-  ];
+  const value = [audiobookSearch, loading, setAudiobookSearch, setRefetchState];
 
   return (
     <AudiobookSearchContext.Provider value={value}>

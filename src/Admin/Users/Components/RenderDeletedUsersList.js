@@ -11,7 +11,6 @@ export default function RenderDeletedUsersList(props) {
     return renderArray;
   };
 
-
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>

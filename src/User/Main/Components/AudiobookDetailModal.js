@@ -109,7 +109,12 @@ export default function AudiobookDetailModal(props) {
   };
 
   return (
-    <Modal size="lg" show={props.state.detailModal} onHide={handleClose} backdrop="static">
+    <Modal
+      size="lg"
+      show={props.state.detailModal}
+      onHide={handleClose}
+      backdrop="static"
+    >
       <Modal.Body
         className="text-white"
         style={{

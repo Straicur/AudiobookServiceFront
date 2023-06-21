@@ -104,8 +104,8 @@ export const AdminNavBar = () => {
             size="sm"
             className={
               i18n.language == "en"
-              ? "btn  m-1 admin_button_dark"
-              : "btn  m-1 admin_button_light"
+                ? "btn  m-1 admin_button_dark"
+                : "btn  m-1 admin_button_light"
             }
             onClick={() => i18n.changeLanguage("en")}
           >

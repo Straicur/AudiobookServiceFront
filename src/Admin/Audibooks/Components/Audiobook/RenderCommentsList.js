@@ -107,12 +107,12 @@ export default function RenderCommentsList(props) {
           <div className="col-1">
             {child.length > 0 ? (
               <i className="p-2 bi bi-arrow-right-square "></i>
-            ) : (
-              null
-            )}
+            ) : null}
           </div>
           <div className="col-1 fw-bold">{props.t("comment")}:</div>
-          <div className="col-4 overflow-auto text-break comment_detail_height_comment">{element.comment}</div>
+          <div className="col-4 overflow-auto text-break comment_detail_height_comment">
+            {element.comment}
+          </div>
           <div className="col-1 fw-bold">{props.t("owner")}:</div>
           <div className="col-3">{element.userModel.email}</div>
           <div className="col-1">
@@ -147,12 +147,20 @@ export default function RenderCommentsList(props) {
     return (
       <li
         key={uuidv4()}
-        className= {arrayLength == 1 ? "d-none p-2 border border-1 border-secondary list-group-item": index+1 == arrayLength ?"d-none p-2 border border-1 border-secondary list-group-item":"d-none p-2 border border-1 border-bottom-0 border-secondary list-group-item"}
+        className={
+          arrayLength == 1
+            ? "d-none p-2 border border-1 border-secondary list-group-item"
+            : index + 1 == arrayLength
+            ? "d-none p-2 border border-1 border-secondary list-group-item"
+            : "d-none p-2 border border-1 border-bottom-0 border-secondary list-group-item"
+        }
         id={element.id}
       >
         <div className="row p-1 bd-highlight comment_detail_height">
           <div className="col-1 fw-bold">{props.t("comment")}:</div>
-          <div className="col-5 overflow-auto text-break comment_detail_height_comment">{element.comment}</div>
+          <div className="col-5 overflow-auto text-break comment_detail_height_comment">
+            {element.comment}
+          </div>
           <div className="col-1 fw-bold">{props.t("owner")}:</div>
           <div className="col-3">{element.userModel.email}</div>
           <div className="col-1">
@@ -186,7 +194,9 @@ export default function RenderCommentsList(props) {
 
       if (element["children"].length != 0) {
         for (const [index, child] of element["children"].entries()) {
-          children.push(createListElement(index, child,element["children"].length));
+          children.push(
+            createListElement(index, child, element["children"].length)
+          );
         }
       }
       renderArray.push(listParent(element, children));

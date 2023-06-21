@@ -105,7 +105,7 @@ export default function Help() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </HelmetProvider>
   );
 }

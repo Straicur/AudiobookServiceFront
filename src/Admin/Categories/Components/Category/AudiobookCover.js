@@ -24,12 +24,10 @@ export default function AudiobookCover(props) {
       const reader = new FileReader();
       reader.onload = function (e) {
         if (e.target.result instanceof ArrayBuffer) {
-
           let pattern = "jpeg|png|jpg/i";
           let result = props.stateModal.file.type.match(pattern);
 
           if (result != null) {
-
             let buf = new Uint8Array(e.target.result);
             let b64 = Buffer.from(buf).toString("base64");
 

@@ -93,7 +93,7 @@ export default function GetUsersList(props) {
           <th scope="col">{props.t("active")}</th>
           <th scope="col">{props.t("banned")}</th>
           <th scope="col"></th>
-        </tr> 
+        </tr>
       </thead>
       <tbody>{createTable()}</tbody>
     </table>

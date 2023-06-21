@@ -71,7 +71,8 @@ export default function RenderAudiobooksList(props) {
               onLoad={() => {
                 if (
                   lastItemRef.current &&
-                  lastItemOffsetTopRef.current == null && props.hasMore 
+                  lastItemOffsetTopRef.current == null &&
+                  props.hasMore
                 ) {
                   lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
                 }

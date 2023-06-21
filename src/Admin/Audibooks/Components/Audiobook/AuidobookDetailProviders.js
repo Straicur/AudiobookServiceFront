@@ -12,7 +12,7 @@ export default function AuidobookDetailProviders(props) {
       throw props.audiobookState.error;
     }
   }, [props.audiobookState.error]);
-  
+
   return (
     <AudiobookDataProvider
       state={props.audiobookState}

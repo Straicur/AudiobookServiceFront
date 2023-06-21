@@ -49,7 +49,7 @@ export default function EditPasswordModal(props) {
             error: e,
           });
         });
-    }else{
+    } else {
       setState({ ...state, wrongNewConfirmPassword: true });
     }
   };
@@ -102,7 +102,10 @@ export default function EditPasswordModal(props) {
   useEffect(() => {
     if (state.newConfirmPassword.length == 0) {
       setState({ ...state, wrongNewConfirmPassword: false });
-    } else if (!validatePassword(state.newConfirmPassword) || state.newConfirmPassword != state.newPassword) {
+    } else if (
+      !validatePassword(state.newConfirmPassword) ||
+      state.newConfirmPassword != state.newPassword
+    ) {
       setState({ ...state, wrongNewConfirmPassword: true });
     } else {
       setState({ ...state, wrongNewConfirmPassword: false });

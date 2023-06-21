@@ -23,7 +23,9 @@ export const Footer = () => {
             <a href="http://127.0.0.1:8000/api/doc">API</a>
           </li>
           <li className="list-inline-item">
-            <a href="https://github.com/Straicur/AudiobookServiceFront">{t("documentation")}</a>
+            <a href="https://github.com/Straicur/AudiobookServiceFront">
+              {t("documentation")}
+            </a>
           </li>
           <li className="list-inline-item">
             <a href="/policy">{t("privacyPolicy")}</a>

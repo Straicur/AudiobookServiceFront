@@ -82,9 +82,7 @@ export default function RenderCategoriesList(props) {
         <div className="d-flex align-items-center flex-row bd-highlight">
           {child.length > 0 ? (
             <i className="p-2 bi bi-arrow-right-square "></i>
-          ) : (
-            null
-          )}
+          ) : null}
           <div className="p-2 bd-highlight">
             <h5>{props.t("categoryName")}:</h5>
           </div>

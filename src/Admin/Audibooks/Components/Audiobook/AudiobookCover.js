@@ -62,7 +62,7 @@ export default function AudiobookCover(props) {
       }
     }
   };
-  
+
   return (
     <div className="row ">
       <div className="row ">

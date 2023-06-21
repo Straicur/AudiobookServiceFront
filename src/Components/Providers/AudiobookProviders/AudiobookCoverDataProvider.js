@@ -9,7 +9,7 @@ export const AudiobookCoverDataProvider = ({
   token,
   audiobookId,
   state,
-  setState
+  setState,
 }) => {
   const [audiobookCover, setAudiobookCover] = useState(null);
   const [refetchState, setRefetchState] = useState(false);

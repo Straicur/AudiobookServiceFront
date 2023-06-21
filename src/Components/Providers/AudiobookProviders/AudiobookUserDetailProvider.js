@@ -58,7 +58,7 @@ export const AudiobookUserDetailProvider = ({
           version: data.version,
           year: CreateDate(data.year),
           canRate: data.canRate,
-          canComment: data.canComment
+          canComment: data.canComment,
         });
       },
     }

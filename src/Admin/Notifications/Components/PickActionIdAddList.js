@@ -4,7 +4,6 @@ import GetAudiobooksList from "./GetAudiobooksList";
 import GetCategoriesList from "./GetCategoriesList";
 
 export default function PickActionIdAddList(props) {
-
   const goBack = () => {
     props.setActionState({
       ...props.actionState,
