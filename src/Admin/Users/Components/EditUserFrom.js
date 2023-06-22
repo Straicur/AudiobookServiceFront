@@ -26,7 +26,8 @@ export default function EditUserFrom(props) {
         userId: props.state.editUserElement.id,
         banned: !props.state.editUserElement.banned,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         const newSelcetedUser = {
@@ -58,7 +59,8 @@ export default function EditUserFrom(props) {
       {
         userId: props.state.editUserElement.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");
@@ -124,7 +126,8 @@ export default function EditUserFrom(props) {
           userId: props.state.editUserElement.id,
           newPassword: passwordState.password,
         },
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then(() => {
           setPasswordState({
@@ -162,7 +165,8 @@ export default function EditUserFrom(props) {
           userId: props.state.editUserElement.id,
           newPhone: phoneNumberState.phoneNumber,
         },
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then(() => {
           setPhoneNumberState({

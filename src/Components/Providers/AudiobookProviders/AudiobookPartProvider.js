@@ -11,6 +11,7 @@ export const AudiobookPartProvider = ({
   part,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookPart, setAudiobookPart] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -41,7 +42,8 @@ export const AudiobookPartProvider = ({
         "http://127.0.0.1:8000/api/audiobook/part",
         "POST",
         createContext(),
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,

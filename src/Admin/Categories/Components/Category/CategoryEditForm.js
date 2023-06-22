@@ -33,7 +33,8 @@ export default function CategoryEditForm(props) {
         age: props.audiobookDetail.age,
         encoded: props.audiobookDetail.encoded,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setAudiobookDetailRefetch(true);

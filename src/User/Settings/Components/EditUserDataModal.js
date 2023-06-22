@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { HandleFetch } from "../../../Components/HandleFetch";
-import { useQuery } from "react-query";
 import Alert from "react-bootstrap/Alert";
 
 export default function EditUserDataModal(props) {
@@ -38,7 +37,8 @@ export default function EditUserDataModal(props) {
         firstName: state.firstname,
         lastName: state.lastname,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");

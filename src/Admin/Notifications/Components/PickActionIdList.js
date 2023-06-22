@@ -58,6 +58,7 @@ export default function PickActionIdList(props) {
             setNotificationsState={props.setNotificationsState}
             goBack={goBack}
             token={props.token}
+            i18n={props.i18n}
             t={props.t}
           />
         ) : null}
@@ -71,6 +72,7 @@ export default function PickActionIdList(props) {
             setNotificationsState={props.setNotificationsState}
             goBack={goBack}
             token={props.token}
+            i18n={props.i18n}
             t={props.t}
           />
         ) : null}
@@ -85,6 +87,7 @@ export default function PickActionIdList(props) {
             goBack={goBack}
             token={props.token}
             t={props.t}
+            i18n={props.i18n}
           />
         ) : null}
       </div>

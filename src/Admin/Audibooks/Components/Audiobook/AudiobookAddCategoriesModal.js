@@ -28,7 +28,8 @@ export default function AudiobookAddCategoriesModal(props) {
       "http://127.0.0.1:8000/api/admin/categories/tree",
       "GET",
       null,
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then((data) => {
         let categoriesIds = [];
@@ -88,6 +89,7 @@ export default function AudiobookAddCategoriesModal(props) {
           audiobookDetail={props.audiobookDetail}
           categoriesState={categoriesState}
           t={props.t}
+          i18n={props.i18n}
           token={props.token}
         />
       </Modal.Body>

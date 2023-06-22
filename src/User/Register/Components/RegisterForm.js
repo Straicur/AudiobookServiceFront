@@ -47,7 +47,7 @@ export default function RegisterForm(props) {
       };
       const method = "PUT";
 
-      HandleFetch(url, method, jsonData)
+      HandleFetch(url, method, jsonData, i18n.language)
         .then((data) => {
           if (data) {
             setFormState({

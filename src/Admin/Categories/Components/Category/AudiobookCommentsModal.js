@@ -34,7 +34,8 @@ export default function AudiobookCommentsModal(props) {
         {
           audiobookId: props.state.detailAudiobookElement.id,
         },
-        props.token
+        props.token,
+        props.i18n.language
       ),
     {
       retry: 1,

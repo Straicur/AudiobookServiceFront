@@ -11,7 +11,8 @@ export default function AudiobookCategoryList(props) {
         categoryId: category.id,
         audiobookId: props.audiobookDetail.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setAudiobookDetailRefetch(true);

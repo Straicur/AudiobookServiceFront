@@ -13,7 +13,7 @@ import { Footer } from "../../Components/Footers/Footer";
 import "./Main.css";
 
 export default function Main() {
-  const { t } = useTranslation();
+  const { t,i18n } = useTranslation();
 
   const token = useTokenStore((state) => state.token);
 
@@ -54,6 +54,7 @@ export default function Main() {
               setAudiobooksState={setAudiobooksState}
               token={token}
               t={t}
+              i18n={i18n}
             />
             {audiobooksState.search ? (
               <RenderAudiobookSearch
@@ -61,6 +62,7 @@ export default function Main() {
                 setAudiobooksState={setAudiobooksState}
                 token={token}
                 t={t}
+                i18n={i18n}
               />
             ) : (
               <GetAudiobooksProviders
@@ -68,6 +70,7 @@ export default function Main() {
                 setAudiobooksState={setAudiobooksState}
                 token={token}
                 t={t}
+                i18n={i18n}
               />
             )}
 
@@ -80,6 +83,7 @@ export default function Main() {
                 setState={setAudiobooksState}
                 token={token}
                 t={t}
+                i18n={i18n}
               />
             ) : null}
           </div>

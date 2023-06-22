@@ -156,7 +156,8 @@ export default function RenderCommentsList(props) {
 
     element.target.classList.add("disabled");
 
-    HandleFetch(url, method, jsonData, props.token)
+    HandleFetch(url, method, jsonData, props.token,
+      props.i18n.language)
       .then(() => {
         if (comment.parentId != null) {
           setChildComment(comment.parentId, comment, bool);
@@ -193,7 +194,8 @@ export default function RenderCommentsList(props) {
       "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
       "PATCH",
       jsonData,
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");
@@ -225,7 +227,8 @@ export default function RenderCommentsList(props) {
       "http://127.0.0.1:8000/api/user/audiobook/comment/add",
       "PUT",
       jsonData,
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");
@@ -249,7 +252,8 @@ export default function RenderCommentsList(props) {
         comment: comment.comment,
         deleted: true,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");

@@ -12,7 +12,8 @@ export default function RenderUserRoles(props) {
         userId: props.state.editUserElement.id,
         role: element.type,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         e.target.classList.remove("disabled");
@@ -53,7 +54,8 @@ export default function RenderUserRoles(props) {
         userId: props.state.editUserElement.id,
         role: element.type,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         e.target.classList.remove("disabled");

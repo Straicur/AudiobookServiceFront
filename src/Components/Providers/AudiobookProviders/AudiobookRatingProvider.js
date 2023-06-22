@@ -11,6 +11,7 @@ export const AudiobookRatingProvider = ({
   categoryKey,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookRating, setAudiobookRating] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -31,7 +32,8 @@ export const AudiobookRatingProvider = ({
           audiobookId: audiobookId,
           categoryKey: categoryKey,
         },
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,

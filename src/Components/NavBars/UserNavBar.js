@@ -22,7 +22,7 @@ export const UserNavBar = () => {
     const jsonData = {};
     const method = "POST";
 
-    await HandleFetch(url, method, jsonData, token)
+    HandleFetch(url, method, jsonData, token, i18n.language)
       .then((data) => {
         if (data) {
           tokenStore.removeToken();

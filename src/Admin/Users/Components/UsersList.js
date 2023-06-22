@@ -14,7 +14,7 @@ import SearchUsersOffCanvas from "./SearchUsersOffCanvas";
 import { useLastUserRolesStore } from "../../../store";
 
 export default function UsersList(props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const userRolesStore = useLastUserRolesStore();
 
@@ -98,7 +98,8 @@ export default function UsersList(props) {
           limit: pageState.limit,
           searchData: createSearchData(),
         },
-        props.token
+        props.token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -164,6 +165,7 @@ export default function UsersList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             roles={roles}
             dateUpdate={dateUpdate}
@@ -242,6 +244,7 @@ export default function UsersList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             roles={roles.roles}
           />
@@ -251,6 +254,7 @@ export default function UsersList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             pageState={pageState}
             setPageState={setPageState}
@@ -261,6 +265,7 @@ export default function UsersList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             pageState={pageState}
             setPageState={setPageState}

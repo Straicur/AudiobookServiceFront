@@ -19,12 +19,16 @@ export default function AuidobookDetailProviders(props) {
       setState={props.setAudiobookState}
       token={props.token}
       audiobookId={props.audiobookId}
+      t={props.t}
+      i18n={props.i18n}
     >
       <AudiobookCoverDataProvider
         state={props.audiobookState}
         setState={props.setAudiobookState}
         token={props.token}
         audiobookId={props.audiobookId}
+        t={props.t}
+        i18n={props.i18n}
       >
         <AudiobookPartProvider
           state={props.audiobookState}
@@ -32,18 +36,23 @@ export default function AuidobookDetailProviders(props) {
           token={props.token}
           audiobookId={props.audiobookId}
           part={props.audiobookState.part}
+          t={props.t}
+          i18n={props.i18n}
         >
           <AudiobookCommentsProvider
             state={props.audiobookState}
             setState={props.setAudiobookState}
             token={props.token}
             audiobookId={props.audiobookId}
+            t={props.t}
+            i18n={props.i18n}
           >
             <AudiobookDetail
               audiobookState={props.audiobookState}
               setAudiobookState={props.setAudiobookState}
               t={props.t}
               token={props.token}
+              i18n={props.i18n}
             />
           </AudiobookCommentsProvider>
         </AudiobookPartProvider>

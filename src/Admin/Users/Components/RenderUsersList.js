@@ -24,7 +24,8 @@ export default function RenderUsersList(props) {
       {
         userId: selectedUser.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setState({
@@ -48,7 +49,8 @@ export default function RenderUsersList(props) {
         "http://127.0.0.1:8000/api/admin/user/system/roles",
         "GET",
         null,
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then((data) => {
           props.userRolesStore.setRoles(data);

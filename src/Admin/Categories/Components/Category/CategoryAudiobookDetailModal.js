@@ -43,7 +43,8 @@ export default function CategoryAudiobookDetailModal(props) {
       {
         audiobookId: audiobookDetail.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();
@@ -65,7 +66,8 @@ export default function CategoryAudiobookDetailModal(props) {
         categoryId: props.state.category.id,
         audiobookId: audiobookDetail.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();
@@ -120,6 +122,7 @@ export default function CategoryAudiobookDetailModal(props) {
           state={props.state}
           handleClose={handleClose}
           t={props.t}
+          i18n={props.i18n}
           token={props.token}
         />
       </Modal.Header>
@@ -131,6 +134,7 @@ export default function CategoryAudiobookDetailModal(props) {
               setState={props.setState}
               state={props.state}
               t={props.t}
+              i18n={props.i18n}
               setAudiobookCoverRefetch={setAudiobookCoverRefetch}
               stateModal={stateModal}
               setStateModal={setStateModal}
@@ -161,6 +165,7 @@ export default function CategoryAudiobookDetailModal(props) {
               setState={props.setState}
               state={props.state}
               t={props.t}
+              i18n={props.i18n}
               token={props.token}
             />
             {stateModal.deleteFromCategory ? (

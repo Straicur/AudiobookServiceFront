@@ -5,8 +5,13 @@ import { HandleFetch } from "./Components/HandleFetch";
 let tokenStore = (set) => ({
   token: "",
   roles: [],
-  setToken: (jsonData, state, setState) => {
-    HandleFetch("http://127.0.0.1:8000/api/authorize", "POST", jsonData)
+  setToken: (jsonData, state, setState, language) => {
+    HandleFetch(
+      "http://127.0.0.1:8000/api/authorize",
+      "POST",
+      jsonData,
+      language
+    )
       .then((data) => {
         set(() => ({
           token: data.token,

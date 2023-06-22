@@ -10,7 +10,7 @@ import { Footer } from "../../Components/Footers/Footer";
 import "./MyList.css";
 
 export default function MyList() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const token = useTokenStore((state) => state.token);
 
@@ -44,6 +44,7 @@ export default function MyList() {
               setMyListState={setMyListState}
               token={token}
               t={t}
+              i18n={i18n}
             />
             <div className="p-5">
               <div className="p-3"></div>

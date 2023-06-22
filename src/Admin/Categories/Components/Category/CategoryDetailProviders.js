@@ -11,12 +11,14 @@ export default function CategoryDetailProviders(props) {
       setState={props.setAudiobooksState}
       token={props.token}
       audiobookId={props.state.detailAudiobookElement.id}
+      i18n={props.i18n}
     >
       <AudiobookCoverDataProvider
         state={props.audiobooksState}
         setState={props.setAudiobooksState}
         token={props.token}
         audiobookId={props.state.detailAudiobookElement.id}
+        i18n={props.i18n}
       >
         <AudiobookPartProvider
           state={props.audiobooksState}
@@ -24,6 +26,7 @@ export default function CategoryDetailProviders(props) {
           token={props.token}
           audiobookId={props.state.detailAudiobookElement.id}
           part={props.state.detailAudiobookElementPart}
+          i18n={props.i18n}
         >
           <CategoryAudiobookDetailModal
             state={props.state}
@@ -33,6 +36,7 @@ export default function CategoryDetailProviders(props) {
             categoryKey={props.categoryKey}
             audiobooksState={props.audiobooksState}
             setAudiobooksState={props.setAudiobooksState}
+            i18n={props.i18n}
           />
         </AudiobookPartProvider>
       </AudiobookCoverDataProvider>

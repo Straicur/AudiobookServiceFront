@@ -15,7 +15,8 @@ export default function SettingsContainer(props) {
         "http://127.0.0.1:8000/api/user/settings",
         "GET",
         null,
-        props.token
+        props.token,
+        props.i18n.language
       ),
     {
       retry: 1,
@@ -49,6 +50,7 @@ export default function SettingsContainer(props) {
           setState={props.setState}
           t={props.t}
           token={props.token}
+          i18n={props.i18n}
         />
       </div>
       <div className="col-4">
@@ -56,6 +58,7 @@ export default function SettingsContainer(props) {
           state={props.state}
           setState={props.setState}
           t={props.t}
+          i18n={props.i18n}
         />
       </div>
       {props.state.buttonEmail ? (
@@ -64,6 +67,7 @@ export default function SettingsContainer(props) {
           setState={props.setState}
           t={props.t}
           token={props.token}
+          i18n={props.i18n}
         />
       ) : null}
       {props.state.buttonPassword ? (
@@ -72,6 +76,7 @@ export default function SettingsContainer(props) {
           setState={props.setState}
           t={props.t}
           token={props.token}
+          i18n={props.i18n}
         />
       ) : null}
       {props.state.buttonUserData ? (
@@ -79,6 +84,7 @@ export default function SettingsContainer(props) {
           state={props.state}
           setState={props.setState}
           t={props.t}
+          i18n={props.i18n}
           token={props.token}
           refetch={refetch}
         />
@@ -88,6 +94,7 @@ export default function SettingsContainer(props) {
           state={props.state}
           setState={props.setState}
           t={props.t}
+          i18n={props.i18n}
           navigate={props.navigate}
           token={props.token}
         />

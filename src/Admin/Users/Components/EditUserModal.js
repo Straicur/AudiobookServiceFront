@@ -31,6 +31,7 @@ export default function EditUserModal(props) {
             state={props.state}
             setState={props.setState}
             t={props.t}
+            i18n={props.i18n}
             roles={props.roles}
             token={props.token}
           />
@@ -40,6 +41,7 @@ export default function EditUserModal(props) {
             state={props.state}
             setState={props.setState}
             t={props.t}
+            i18n={props.i18n}
             token={props.token}
           />
         </div>

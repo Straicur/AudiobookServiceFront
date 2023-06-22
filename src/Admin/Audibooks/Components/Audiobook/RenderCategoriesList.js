@@ -12,7 +12,8 @@ export default function RenderCategoriesList(props) {
         categoryId: category.id,
         audiobookId: props.audiobookDetail.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.disabled = true;

@@ -39,7 +39,8 @@ export default function AudiobookCover(props) {
                 base64: b64,
                 audiobookId: props.audiobookDetail.id,
               },
-              props.token
+              props.token,
+              props.i18n.language
             )
               .then(() => {
                 props.setAudiobookCoverRefetch(true);

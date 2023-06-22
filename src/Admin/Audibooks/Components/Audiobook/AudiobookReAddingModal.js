@@ -144,7 +144,7 @@ export default function AudiobookReAddingModal(props) {
             currentPart: part,
           });
 
-          HandleFetch(url, method, jsonData, props.token)
+          HandleFetch(url, method, jsonData, props.token, props.i18n.language)
             .then((data) => {
               if (
                 stateProgress.currentPart == stateProgress.maxParts ||
@@ -200,7 +200,7 @@ export default function AudiobookReAddingModal(props) {
               },
             };
 
-            HandleFetch(url, method, jsonData, props.token)
+            HandleFetch(url, method, jsonData, props.token, props.i18n.language)
               .then((data) => {
                 if (
                   stateProgress.currentPart == stateProgress.maxParts ||

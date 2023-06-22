@@ -41,7 +41,8 @@ export default function DeletedUsersModal(props) {
           page: pageState.page,
           limit: pageState.limit,
         },
-        props.token
+        props.token,
+        props.i18n.language
       ),
     {
       retry: 1,

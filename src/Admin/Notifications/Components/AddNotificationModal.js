@@ -91,7 +91,8 @@ export default function AddNotificationModal(props) {
         actionId: state.actionId,
         additionalData: createAdditionalData(),
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setState({

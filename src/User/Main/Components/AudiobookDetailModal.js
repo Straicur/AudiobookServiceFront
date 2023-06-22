@@ -45,7 +45,8 @@ export default function AudiobookDetailModal(props) {
         audiobookId: props.state.detailModalAudiobook.id,
         categoryKey: props.state.detailModalCategory.categoryKey,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         setAudiobookDetail({
@@ -90,7 +91,8 @@ export default function AudiobookDetailModal(props) {
               endedTime: timeAudio.current,
               watched: watched,
             },
-            props.token
+            props.token,
+            props.i18n.language
           )
             .then(() => {})
             .catch((e) => {
@@ -210,6 +212,7 @@ export default function AudiobookDetailModal(props) {
                     token={props.token}
                     categoryKey={props.state.detailModalCategory.categoryKey}
                     t={props.t}
+                    i18n={props.i18n}
                   />
                 </div>
               </div>
@@ -225,6 +228,7 @@ export default function AudiobookDetailModal(props) {
                   state={props.state}
                   setState={props.setState}
                   t={props.t}
+                  i18n={props.i18n}
                   token={props.token}
                   refetch={setAudiobookCommnetsRefetchState}
                 />

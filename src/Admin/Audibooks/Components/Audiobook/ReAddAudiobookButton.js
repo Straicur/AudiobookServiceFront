@@ -11,7 +11,8 @@ export default function ReAddAudiobookButton(props) {
         "http://127.0.0.1:8000/api/admin/categories",
         "GET",
         null,
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then((data) => {
           props.categoriesStore.removeCategories();

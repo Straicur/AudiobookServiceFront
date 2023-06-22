@@ -24,7 +24,8 @@ export default function AudiobookDetailProviders(props) {
         audiobookId: props.state.detailModalAudiobook.id,
         categoryKey: props.state.detailModalCategory.categoryKey,
       },
-      props.token
+      props.token,
+      props.i18n
     )
       .then((data) => {
         setAudiobookState({
@@ -69,6 +70,7 @@ export default function AudiobookDetailProviders(props) {
           token={props.token}
           audiobookId={props.state.detailModalAudiobook.id}
           categoryKey={props.state.detailModalCategory.categoryKey}
+          i18n={props.i18n}
         >
           <AudiobookPartProvider
             state={props.state}
@@ -76,6 +78,7 @@ export default function AudiobookDetailProviders(props) {
             token={props.token}
             audiobookId={props.state.detailModalAudiobook.id}
             part={audiobookState.part}
+            i18n={props.i18n}
           >
             <AudiobookRatingProvider
               state={props.state}
@@ -83,6 +86,7 @@ export default function AudiobookDetailProviders(props) {
               token={props.token}
               audiobookId={props.state.detailModalAudiobook.id}
               categoryKey={props.state.detailModalCategory.categoryKey}
+              i18n={props.i18n}
             >
               <AudiobookUserCommentsProvider
                 state={props.state}
@@ -90,6 +94,7 @@ export default function AudiobookDetailProviders(props) {
                 token={props.token}
                 audiobookId={props.state.detailModalAudiobook.id}
                 categoryKey={props.state.detailModalCategory.categoryKey}
+                i18n={props.i18n}
               >
                 <AudiobookDetailModal
                   state={props.state}
@@ -98,6 +103,7 @@ export default function AudiobookDetailProviders(props) {
                   setAudiobookState={setAudiobookState}
                   t={props.t}
                   token={props.token}
+                  i18n={props.i18n}
                 />
               </AudiobookUserCommentsProvider>
             </AudiobookRatingProvider>

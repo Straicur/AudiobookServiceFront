@@ -37,7 +37,8 @@ export default function EditPasswordModal(props) {
           oldPassword: md5(state.oldPassword),
           newPassword: md5(state.newPassword),
         },
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then(() => {
           element.target.classList.remove("disabled");

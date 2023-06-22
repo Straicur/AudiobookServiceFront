@@ -4,10 +4,13 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import AuidobookDetailProviders from "./Components/Audiobook/AuidobookDetailProviders";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Audiobook.css";
 
 export default function Audiobook() {
+
   const token = useTokenStore((state) => state.token);
+  const { t, i18n } = useTranslation();
 
   const { audiobookId } = useParams();
 
@@ -39,6 +42,8 @@ export default function Audiobook() {
         setAudiobookState={setAudiobookState}
         audiobookId={audiobookId}
         token={token}
+        t={t}
+        i18n={i18n}
       />
     </ErrorBoundary>
   );

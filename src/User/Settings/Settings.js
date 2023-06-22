@@ -14,7 +14,7 @@ export default function Settings() {
   const navigate = useNavigate();
   const token = useTokenStore((state) => state.token);
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [state, setState] = useState({
     phoneNumber: "",
@@ -54,6 +54,7 @@ export default function Settings() {
               state={state}
               setState={setState}
               t={t}
+              i18n={i18n}
               token={token}
               navigate={navigate}
             />

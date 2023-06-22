@@ -13,7 +13,7 @@ import SearchAudiobooksOffCanvas from "./SearchAudiobooksOffCanvas";
 import { useCategoryListStore } from "../../../../store";
 
 export default function AudiobooksList(props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const categoriesStore = useCategoryListStore();
 
@@ -114,7 +114,8 @@ export default function AudiobooksList(props) {
           limit: pageState.limit,
           searchData: createSearchData(),
         },
-        props.token
+        props.token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -141,7 +142,8 @@ export default function AudiobooksList(props) {
         "http://127.0.0.1:8000/api/admin/categories",
         "GET",
         null,
-        props.token
+        props.token,
+        i18n.language
       )
         .then((data) => {
           categoriesStore.removeCategories();
@@ -227,6 +229,7 @@ export default function AudiobooksList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             pageState={pageState}
             setPageState={setPageState}
@@ -274,6 +277,7 @@ export default function AudiobooksList(props) {
             audiobooksState={props.audiobooksState}
             setAudiobooksState={props.setAudiobooksState}
             t={t}
+            i18n={i18n}
             token={props.token}
             categoriesState={categoriesState}
             setCategories={setCategories}
@@ -290,6 +294,7 @@ export default function AudiobooksList(props) {
             searchState={searchState}
             setSearchState={setSearchState}
             t={t}
+            i18n={i18n}
             token={props.token}
             categoriesState={categoriesState}
             setCategories={setCategories}
@@ -304,6 +309,7 @@ export default function AudiobooksList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             audiobooksState={props.audiobooksState}
             setAudiobooksState={props.setAudiobooksState}

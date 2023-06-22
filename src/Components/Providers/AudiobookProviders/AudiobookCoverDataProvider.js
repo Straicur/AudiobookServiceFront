@@ -10,6 +10,7 @@ export const AudiobookCoverDataProvider = ({
   audiobookId,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookCover, setAudiobookCover] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -27,7 +28,8 @@ export const AudiobookCoverDataProvider = ({
         "http://127.0.0.1:8000/api/audiobook/cover/" + audiobookId,
         "GET",
         null,
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,

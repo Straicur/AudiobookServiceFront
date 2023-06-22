@@ -10,7 +10,8 @@ export default function RenderCommentsList(props) {
       {
         audiobookCommentId: element.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setState({

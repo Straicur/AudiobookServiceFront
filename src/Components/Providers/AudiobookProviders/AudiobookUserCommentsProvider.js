@@ -11,6 +11,7 @@ export const AudiobookUserCommentsProvider = ({
   categoryKey,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookUserComments, setAudiobookUserComments] = useState(null);
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
@@ -31,7 +32,8 @@ export const AudiobookUserCommentsProvider = ({
           audiobookId: audiobookId,
           categoryKey: categoryKey,
         },
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,

@@ -68,7 +68,8 @@ export default function EditNotificationModal(props) {
         notificationId: state.id,
         delete: !state.delete,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");
@@ -117,7 +118,8 @@ export default function EditNotificationModal(props) {
           text: state.text,
         },
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setState({
@@ -164,6 +166,7 @@ export default function EditNotificationModal(props) {
             usersState={props.usersState}
             setUsersState={props.setUsersState}
             t={props.t}
+            i18n={props.i18n}
             token={props.token}
           />
         ) : (

@@ -33,7 +33,8 @@ export default function EditCategoryModal(props) {
         name: editModal.new_name,
         categoryId: props.state.editCategoryElement.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();
@@ -53,7 +54,8 @@ export default function EditCategoryModal(props) {
       {
         categoryId: props.state.editCategoryElement.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();
@@ -73,7 +75,8 @@ export default function EditCategoryModal(props) {
         categoryId: props.state.editCategoryElement.id,
         active: !props.state.editCategoryElement.active,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();

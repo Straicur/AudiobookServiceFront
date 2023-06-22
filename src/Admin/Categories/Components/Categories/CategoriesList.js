@@ -10,7 +10,7 @@ import AddCategoryModal from "./AddCategoryModal";
 import EditCategoryModal from "./EditCategoryModal";
 
 export default function CategoriesList(props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [state, setState] = useState({
     jsonModal: false,
@@ -33,7 +33,8 @@ export default function CategoriesList(props) {
       "http://127.0.0.1:8000/api/admin/categories/tree",
       "GET",
       null,
-      props.token
+      props.token,
+      i18n.language
     )
       .then((data) => {
         setState({ ...state, json: data.categories });
@@ -127,6 +128,7 @@ export default function CategoriesList(props) {
               state={state}
               setState={setState}
               t={t}
+              i18n={i18n}
               token={props.token}
             />
           ) : null}
@@ -135,6 +137,7 @@ export default function CategoriesList(props) {
               state={state}
               setState={setState}
               t={t}
+              i18n={i18n}
               token={props.token}
             />
           ) : null}

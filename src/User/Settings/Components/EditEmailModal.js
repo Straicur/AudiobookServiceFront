@@ -32,7 +32,8 @@ export default function EditEmailModal(props) {
           newEmail: state.newEmail,
           oldEmail: state.oldEmail,
         },
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then(() => {
           element.target.classList.remove("disabled");

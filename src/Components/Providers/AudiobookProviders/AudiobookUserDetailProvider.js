@@ -13,6 +13,7 @@ export const AudiobookUserDetailProvider = ({
   categoryKey,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookDetail, setAudiobookDetail] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -33,7 +34,8 @@ export const AudiobookUserDetailProvider = ({
           audiobookId: audiobookId,
           categoryKey: categoryKey,
         },
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,

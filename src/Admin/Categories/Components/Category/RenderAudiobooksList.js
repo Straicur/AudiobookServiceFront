@@ -25,7 +25,8 @@ export default function RenderAudiobooksList(props) {
         audiobookId: selectedAudiobook.id,
         active: !selectedAudiobook.active,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");

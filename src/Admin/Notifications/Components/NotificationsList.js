@@ -13,7 +13,7 @@ import RenderPageSwitches from "../../AdminComponents/RenderPageSwitches";
 import { useLastUserRolesStore } from "../../../store";
 
 export default function NotificationsList(props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [state, setState] = useState({
     jsonModal: false,
@@ -98,7 +98,8 @@ export default function NotificationsList(props) {
           limit: pageState.limit,
           searchData: formatData(),
         },
-        props.token
+        props.token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -131,7 +132,8 @@ export default function NotificationsList(props) {
         "http://127.0.0.1:8000/api/admin/user/system/roles",
         "GET",
         null,
-        props.token
+        props.token,
+        i18n.language
       )
         .then((data) => {
           userRolesStore.setRoles(data);
@@ -237,6 +239,7 @@ export default function NotificationsList(props) {
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
             t={t}
+            i18n={i18n}
             token={props.token}
             resetSearchStates={resetSearchStates}
             roles={roles}
@@ -269,6 +272,7 @@ export default function NotificationsList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}

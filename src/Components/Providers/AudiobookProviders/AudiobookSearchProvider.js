@@ -10,6 +10,7 @@ export const AudiobookSearchProvider = ({
   title,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookSearch, setAudiobookSearch] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -30,7 +31,8 @@ export const AudiobookSearchProvider = ({
         {
           title: title,
         },
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,

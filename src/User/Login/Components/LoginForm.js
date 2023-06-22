@@ -42,7 +42,8 @@ export default function LoginForm(props) {
           password: md5(props.state.password),
         },
         props.state,
-        props.setState
+        props.setState,
+        i18n.language
       );
     } else {
       props.setState({
@@ -201,6 +202,8 @@ export default function LoginForm(props) {
                   <ForgotPasswordModal
                     formState={formState}
                     setFormState={setFormState}
+                    i18n={i18n}
+                    t={t}
                   />
                 ) : null}
               </div>

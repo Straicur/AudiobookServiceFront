@@ -21,10 +21,12 @@ export const AdminNavBar = () => {
     const jsonData = {};
     const method = "POST";
 
-    await HandleFetch(url, method, jsonData, token).finally(() => {
-      tokenStore.removeToken();
-      navigate("/login");
-    });
+    HandleFetch(url, method, jsonData, token, i18n.language).finally(
+      () => {
+        tokenStore.removeToken();
+        navigate("/login");
+      }
+    );
   };
 
   return (

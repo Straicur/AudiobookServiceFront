@@ -36,7 +36,8 @@ export default function AddCategoryModal(props) {
         name: modalState.name,
         additionalData: additionalData,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();

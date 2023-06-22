@@ -90,7 +90,8 @@ export default function AddAudiobookModal(props) {
           maxParts.current = part;
           currentPart.current = part;
 
-          HandleFetch(url, method, jsonData, props.token)
+          HandleFetch(url, method, jsonData, props.token,
+            props.i18n.language)
             .then((data) => {
               if (
                 currentPart.current == maxParts.current ||
@@ -141,7 +142,8 @@ export default function AddAudiobookModal(props) {
               },
             };
 
-            HandleFetch(url, method, jsonData, props.token)
+            HandleFetch(url, method, jsonData, props.token,
+              props.i18n.language)
               .then((data) => {
                 if (
                   currentPart.current == maxParts.current ||

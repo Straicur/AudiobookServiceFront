@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 
 export default function InfoContainer(props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     "data",
@@ -15,7 +15,8 @@ export default function InfoContainer(props) {
         "http://127.0.0.1:8000/api/admin/statistic/main",
         "GET",
         null,
-        props.token
+        props.token,
+        i18n.language
       ),
     {
       retry: 1,

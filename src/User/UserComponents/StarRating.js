@@ -30,7 +30,8 @@ export default function StarRating(props) {
         categoryKey: props.categoryKey,
         rating: rating,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         setUserRate(false);

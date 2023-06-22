@@ -12,7 +12,7 @@ import AudiobookCommentsModal from "./AudiobookCommentsModal";
 import RenderPageSwitches from "../../../AdminComponents/RenderPageSwitches";
 
 export default function AudiobooksList(props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [state, setState] = useState({
     jsonModal: false,
@@ -52,7 +52,8 @@ export default function AudiobooksList(props) {
           page: pageState.page,
           limit: pageState.limit,
         },
-        props.token
+        props.token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -86,7 +87,8 @@ export default function AudiobooksList(props) {
         {
           categoryKey: props.categoryKey,
         },
-        props.token
+        props.token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -144,6 +146,7 @@ export default function AudiobooksList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
           />
           {state.json != null && pageState.maxPage > 1 ? (
@@ -191,6 +194,7 @@ export default function AudiobooksList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             categoryID={state.category.id}
             setAudiobooksState={props.setAudiobooksState}
@@ -202,6 +206,7 @@ export default function AudiobooksList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             categoryKey={props.categoryKey}
             setAudiobooksState={props.setAudiobooksState}
@@ -214,6 +219,7 @@ export default function AudiobooksList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}

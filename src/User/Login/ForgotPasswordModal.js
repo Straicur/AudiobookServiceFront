@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../../Components/HandleFetch";
 
-export const ForgotPasswordModal = ({ formState, setFormState }) => {
-  const { t } = useTranslation();
-
+export const ForgotPasswordModal = ({ formState, setFormState, i18n,t }) => {
   const [state, setState] = useState({
     email: "",
     isButtonDisabled: false,
@@ -28,7 +25,7 @@ export const ForgotPasswordModal = ({ formState, setFormState }) => {
       const jsonData = { email: state.email };
       const method = "POST";
 
-      await HandleFetch(url, method, jsonData)
+      HandleFetch(url, method, jsonData, i18n.language)
         .then((data) => {
           if (data) {
             setState({ ...state, error: 200 });
@@ -38,7 +35,7 @@ export const ForgotPasswordModal = ({ formState, setFormState }) => {
         .catch((e) => {
           if (e) {
             handleClose();
-            setState({ ...state, error: parseInt(e.message) });
+            setState({ ...state, error: e });
           }
         });
     }
