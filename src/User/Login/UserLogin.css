@@ -1,3 +1,23 @@
 .link-info {
     cursor: pointer;
 }
+
+.button_dark {
+    color: white !important;
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.button_dark:hover {
+    opacity: 0.6;
+}
+
+.button_light {
+    color: black !important;
+    background-color: white !important;
+    border-color: white !important;
+}
+
+.button_light:hover {
+    opacity: 0.6;
+}

@@ -67,31 +67,37 @@ export default function LoginForm(props) {
           <div className="col-12 col-md-8 col-lg-6 col-xl-5">
             <div className="card shadow rounded-auth">
               <div className="card-body p-5 text-center">
-                <div className="mb-md-1 mt-md-2 pb-2">
-                  <div>
-                    <Button
-                      name="pl"
-                      variant={i18n.language == "pl" ? "light" : "dark"}
-                      size="sm"
-                      className="btn button"
-                      value="dsa"
-                      onClick={() => i18n.changeLanguage("pl")}
-                    >
-                      PL
-                    </Button>
-                    <Button
-                      name="en"
-                      variant={i18n.language == "en" ? "light" : "dark"}
-                      size="sm"
-                      className="btn button"
-                      onClick={() => i18n.changeLanguage("en")}
-                    >
-                      EN
-                    </Button>
+                <div className="mb-md-1 mt-md-2 pb-1">
+                  <p className="mb-2 fs-2">{t("welcome")}</p>
+                  <div className="row mb-2 justify-content-center">
+                    <div className="col-3 align-self-center">
+                      <Button
+                        name="pl"
+                        size="sm"
+                        className={
+                          i18n.language == "pl"
+                            ? "btn  m-1 admin_button_dark"
+                            : "btn  m-1 admin_button_light"
+                        }
+                        onClick={() => i18n.changeLanguage("pl")}
+                      >
+                        PL
+                      </Button>
+                      <Button
+                        name="en"
+                        size="sm"
+                        className={
+                          i18n.language == "en"
+                            ? "btn  m-1 admin_button_dark"
+                            : "btn  m-1 admin_button_light"
+                        }
+                        onClick={() => i18n.changeLanguage("en")}
+                      >
+                        EN
+                      </Button>
+                    </div>
                   </div>
-                  <hr className="line" />
-                  <p className="mb-5">{t("welcome")}</p>
-                  <p>{t("audiobookService")}</p>
+                  <p className="fs-4">{t("audiobookService")}</p>
                   <Form
                     noValidate
                     validated={props.state.validated}
@@ -202,6 +208,8 @@ export default function LoginForm(props) {
                   <ForgotPasswordModal
                     formState={formState}
                     setFormState={setFormState}
+                    state={props.state}
+                    setState={props.setState}
                     i18n={i18n}
                     t={t}
                   />

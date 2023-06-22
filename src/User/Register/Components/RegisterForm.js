@@ -88,26 +88,31 @@ export default function RegisterForm(props) {
                   <div>
                     <Button
                       name="pl"
-                      variant={i18n.language == "pl" ? "light" : "dark"}
                       size="sm"
-                      className="btn button"
-                      value="dsa"
+                      className={
+                        i18n.language == "pl"
+                          ? "btn  m-1 admin_button_dark"
+                          : "btn  m-1 admin_button_light"
+                      }
                       onClick={() => i18n.changeLanguage("pl")}
                     >
                       PL
                     </Button>
                     <Button
                       name="en"
-                      variant={i18n.language == "en" ? "light" : "dark"}
                       size="sm"
-                      className="btn button"
+                      className={
+                        i18n.language == "en"
+                          ? "btn  m-1 admin_button_dark"
+                          : "btn  m-1 admin_button_light"
+                      }
                       onClick={() => i18n.changeLanguage("en")}
                     >
                       EN
                     </Button>
                   </div>
                   <hr className="line" />
-                  <p className="mb-5">{t("pleaseEmailAndPassword")}</p>
+                  <p className="mb-4 fs-5">{t("pleaseEmailAndPassword")}</p>
                   <Form
                     noValidate
                     validated={props.state.validated}

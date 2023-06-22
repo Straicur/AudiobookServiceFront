@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import md5 from "md5";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
-export default function ForgotPage( props) {
+export default function ForgotPage(props) {
   function validatePassword(pass) {
     const re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     return re.test(pass);
@@ -16,7 +17,10 @@ export default function ForgotPage( props) {
       props.state.password == props.state.confirmPassword
     ) {
       const url = "http://127.0.0.1:8000/api/user/reset/password/confirm";
-      const jsonData = { userId: props.id, password: md5(props.state.password) };
+      const jsonData = {
+        userId: props.id,
+        password: md5(props.state.password),
+      };
       const method = "PATCH";
 
       HandleFetch(url, method, jsonData, props.i18n.language)
@@ -26,12 +30,10 @@ export default function ForgotPage( props) {
           }
         })
         .catch((e) => {
-          if (e) {
-            props.setState({
-              ...props.state,
-              error: e,
-            });
-          }
+          props.setState({
+            ...props.state,
+            error: e,
+          });
         });
     } else {
       props.setState({
@@ -59,7 +61,11 @@ export default function ForgotPage( props) {
       props.state.confirmPassword.trim() != "" &&
       props.state.password == props.state.confirmPassword
     ) {
-      props.setState({ ...props.state, isButtonDisabled: false });
+      props.setState({
+        ...props.state,
+        isButtonDisabled: false,
+        wrongPassword: false,
+      });
     } else {
       props.setState({ ...props.state, isButtonDisabled: true });
     }
@@ -67,7 +73,7 @@ export default function ForgotPage( props) {
 
   useEffect(() => {
     if (props.state.changeLang != null) {
-        props.i18n.changeLanguage(props.state.changeLang);
+      props.i18n.changeLanguage(props.state.changeLang);
     }
   }, [props.state.changeLang]);
 
@@ -99,10 +105,17 @@ export default function ForgotPage( props) {
             onChange={handleConfirmPasswordChange}
           />
           <hr className="mt-4"></hr>
+          <Alert
+            show={props.state.wrongPassword}
+            className="dangerAllert mt-1"
+            variant="danger"
+          >
+            {props.t("enterStrongerPassword")}
+          </Alert>
           <Button
             variant="dark"
             onClick={handleNewPassword}
-            disabled={props.state.isButtonDisabled}
+            disabled={props.state.isButtonDisabled || props.state.wrongPassword}
             className="mt-2 mb-3 form-control"
           >
             {props.t("changePassword")}

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import ForgotPage from "./Components/ForgotPage";
+import DataNotFoundError from "../../Errors/Errors/DataNotFoundError";
 
 export default function Forgot() {
   const { t, i18n } = useTranslation();
@@ -26,6 +27,10 @@ export default function Forgot() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
+        if (state.error instanceof DataNotFoundError) {
+          navigate("/login");
+        }
+
         setState({
           ...state,
           error: null,

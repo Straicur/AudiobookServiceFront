@@ -3,11 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../Components/HandleFetch";
 
-export const ForgotPasswordModal = ({ formState, setFormState, i18n,t }) => {
+export const ForgotPasswordModal = (props) => {
   const [state, setState] = useState({
     email: "",
     isButtonDisabled: false,
-    error: 0,
   });
 
   function validateEmail(email) {
@@ -25,24 +24,22 @@ export const ForgotPasswordModal = ({ formState, setFormState, i18n,t }) => {
       const jsonData = { email: state.email };
       const method = "POST";
 
-      HandleFetch(url, method, jsonData, i18n.language)
+      HandleFetch(url, method, jsonData, props.i18n.language)
         .then((data) => {
           if (data) {
-            setState({ ...state, error: 200 });
+            setState({ ...state });
             handleClose();
           }
         })
         .catch((e) => {
-          if (e) {
-            handleClose();
-            setState({ ...state, error: e });
-          }
+          props.setState({ ...props.state, error: e });
+          handleClose();
         });
     }
   };
 
   const handleClose = () =>
-    setFormState({ ...formState, modal: !formState.modal });
+    props.setFormState({ ...props.formState, modal: !props.formState.modal });
 
   useEffect(() => {
     if (state.email.trim()) {
@@ -55,15 +52,15 @@ export const ForgotPasswordModal = ({ formState, setFormState, i18n,t }) => {
   }, [state.email]);
 
   return (
-    <Modal show={formState.modal} onHide={handleClose} backdrop="static">
-      <Modal.Header className="">
-        <Modal.Title> {t("changePassword")}</Modal.Title>
+    <Modal show={props.formState.modal} onHide={handleClose} backdrop="static">
+      <Modal.Header>
+        <Modal.Title> {props.t("changePassword")}</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="">
+      <Modal.Body>
         <input
           id="email"
           type="email"
-          placeholder={t("insertEmail")}
+          placeholder={props.t("insertEmail")}
           value={state.email}
           className="form-control mt-2 shadow"
           onChange={handleEmailChange}
@@ -76,10 +73,10 @@ export const ForgotPasswordModal = ({ formState, setFormState, i18n,t }) => {
           className="auth-btn"
           onClick={handleSend}
         >
-          {t("sendEmail")}
+          {props.t("sendEmail")}
         </Button>
         <Button variant="dark" onClick={handleClose}>
-          {t("cancel")}
+          {props.t("cancel")}
         </Button>
       </Modal.Footer>
     </Modal>
