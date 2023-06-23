@@ -282,7 +282,9 @@ export default function RenderCategoriesList(props) {
 
   return (
     <div>
-      <ul className="list-group">{createTree()}</ul>
+      <ul className="list-group categories_add_list overflow-auto">
+        {createTree()}
+      </ul>
     </div>
   );
 }

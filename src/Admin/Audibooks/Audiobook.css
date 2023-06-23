@@ -18,3 +18,9 @@
     min-height: 2rem;
     max-height: 4rem;
 }
+
+.categories_add_list {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    max-height: 45rem;
+}

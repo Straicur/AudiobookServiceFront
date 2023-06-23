@@ -22,18 +22,10 @@ export const UserNavBar = () => {
     const jsonData = {};
     const method = "POST";
 
-    HandleFetch(url, method, jsonData, token, i18n.language)
-      .then((data) => {
-        if (data) {
-          tokenStore.removeToken();
-          navigate("/login");
-        }
-      })
-      .catch((e) => {
-        if (e) {
-          console.log(e);
-        }
-      });
+    HandleFetch(url, method, jsonData, token, i18n.language).finally(() => {
+      tokenStore.removeToken();
+      navigate("/login");
+    });
   };
 
   return (

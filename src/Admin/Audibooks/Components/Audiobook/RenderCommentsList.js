@@ -206,7 +206,7 @@ export default function RenderCommentsList(props) {
 
   return (
     <div>
-      <ul className="list-group">{renderTree()}</ul>
+      <ul className="list-group bg-dark comment_delete_list overflow-auto">{renderTree()}</ul>
     </div>
   );
 }

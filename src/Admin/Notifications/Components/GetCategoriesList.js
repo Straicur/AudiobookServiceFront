@@ -64,7 +64,6 @@ export default function GetCategoriesList(props) {
           });
         })
         .catch((e) => {
-          console.log(e);
           props.setNotificationsState({
             ...props.notificationsState,
             error: e,

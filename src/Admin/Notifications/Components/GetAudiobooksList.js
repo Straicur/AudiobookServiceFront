@@ -93,7 +93,6 @@ export default function GetAudiobooksList(props) {
           });
         })
         .catch((e) => {
-          console.log(e);
           props.setNotificationsState({
             ...props.notificationsState,
             error: e,

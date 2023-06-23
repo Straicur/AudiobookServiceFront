@@ -169,8 +169,8 @@ export default function CategoryAudiobookDetailModal(props) {
               token={props.token}
             />
             {stateModal.deleteFromCategory ? (
-              <div className="row">
-                <div className="col">
+              <div className="row justify-content-start">
+                <div className="col-5 mx-1">
                   <Button
                     name="en"
                     size="sm"
@@ -180,7 +180,7 @@ export default function CategoryAudiobookDetailModal(props) {
                     {props.t("yes")}
                   </Button>
                 </div>
-                <div className="col">
+                <div className="col-5 mx-2">
                   <Button
                     name="en"
                     size="sm"
@@ -215,8 +215,8 @@ export default function CategoryAudiobookDetailModal(props) {
             )}
 
             {stateModal.deleteEntarly ? (
-              <div className="row">
-                <div className="col">
+              <div className="row justify-content-start">
+                <div className="col-5 mx-1">
                   <Button
                     name="en"
                     size="sm"
@@ -226,7 +226,7 @@ export default function CategoryAudiobookDetailModal(props) {
                     {props.t("yes")}
                   </Button>
                 </div>
-                <div className="col">
+                <div className="col-5 mx-2">
                   <Button
                     name="en"
                     size="sm"

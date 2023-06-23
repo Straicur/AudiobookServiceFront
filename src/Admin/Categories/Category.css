@@ -104,3 +104,9 @@
 .categories_detail_modal {
     max-height: 26rem;
 }
+
+.comment_delete_list {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    max-height: 45rem;
+}

@@ -68,7 +68,6 @@ export default function AddCategoryModal(props) {
       <Modal.Header>
         <Modal.Title>
           <h3>
-            {console.log()}
             <b>
               {props.state.addCategoryParent != null
                 ? props.t("addToCategory") +
