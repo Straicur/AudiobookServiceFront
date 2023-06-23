@@ -31,7 +31,7 @@ export default function EditPasswordModal(props) {
       state.newPassword == state.newConfirmPassword
     ) {
       HandleFetch(
-        "http://127.0.0.1:8000/api/user/settings/password",
+        "/user/settings/password",
         "PATCH",
         {
           oldPassword: md5(state.oldPassword),

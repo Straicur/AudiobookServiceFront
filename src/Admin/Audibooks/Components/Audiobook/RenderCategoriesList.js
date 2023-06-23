@@ -6,7 +6,7 @@ export default function RenderCategoriesList(props) {
   const addCategory = (element, category) => {
     element.stopPropagation();
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/add/audiobook",
+      "/admin/category/add/audiobook",
       "PATCH",
       {
         categoryId: category.id,

@@ -8,7 +8,7 @@ export default function DeleteAudiobookEntarlyButton(props) {
 
   const deleteAudiobookEntarly = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/delete",
+      "/admin/audiobook/delete",
       "DELETE",
       {
         audiobookId: props.audiobookDetail.id,

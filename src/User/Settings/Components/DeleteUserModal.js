@@ -20,7 +20,7 @@ export default function DeleteUserModal(props) {
     element.target.classList.add("disabled");
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/settings/delete",
+      "/user/settings/delete",
       "PATCH",
       null,
       props.token,

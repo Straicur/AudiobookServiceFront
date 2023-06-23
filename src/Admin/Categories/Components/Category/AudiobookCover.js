@@ -32,7 +32,7 @@ export default function AudiobookCover(props) {
             let b64 = Buffer.from(buf).toString("base64");
 
             HandleFetch(
-              "http://127.0.0.1:8000/api/admin/audiobook/change/cover",
+              "/admin/audiobook/change/cover",
               "PATCH",
               {
                 type: result[0],

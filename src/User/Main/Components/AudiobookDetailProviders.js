@@ -18,7 +18,7 @@ export default function AudiobookDetailProviders(props) {
 
   const fetchData = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobook/info",
+      "/user/audiobook/info",
       "POST",
       {
         audiobookId: props.state.detailModalAudiobook.id,

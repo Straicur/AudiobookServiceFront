@@ -12,7 +12,7 @@ export default function InfoContainer(props) {
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/statistic/main",
+        "/admin/statistic/main",
         "GET",
         null,
         props.token,

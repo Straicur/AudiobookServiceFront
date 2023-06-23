@@ -24,7 +24,7 @@ export default function GetCovers(props) {
             covers.current.push(audiobook.id);
 
             HandleFetch(
-              "http://127.0.0.1:8000/api/audiobook/cover/" + audiobook.id,
+              "/audiobook/cover/" + audiobook.id,
               "GET",
               null,
               props.token,

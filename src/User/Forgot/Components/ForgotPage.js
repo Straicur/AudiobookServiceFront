@@ -16,7 +16,7 @@ export default function ForgotPage(props) {
       validatePassword(props.state.confirmPassword) &&
       props.state.password == props.state.confirmPassword
     ) {
-      const url = "http://127.0.0.1:8000/api/user/reset/password/confirm";
+      const url = "/user/reset/password/confirm";
       const jsonData = {
         userId: props.id,
         password: md5(props.state.password),

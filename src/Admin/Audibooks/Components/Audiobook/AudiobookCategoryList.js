@@ -5,7 +5,7 @@ import { HandleFetch } from "../../../../Components/HandleFetch";
 export default function AudiobookCategoryList(props) {
   const deleteFromCategory = (category) => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/remove/audiobook",
+      "/admin/category/remove/audiobook",
       "DELETE",
       {
         categoryId: category.id,

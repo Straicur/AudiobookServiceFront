@@ -30,7 +30,7 @@ export default function EditUserDataModal(props) {
     element.target.classList.add("disabled");
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/settings/change",
+      "/user/settings/change",
       "PATCH",
       {
         phoneNumber: state.phoneNumber,

@@ -55,7 +55,7 @@ export default function GetUsersList(props) {
   useEffect(() => {
     if (!props.usersState.fetched) {
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/users",
+        "/admin/users",
         "POST",
         {
           page: 0,

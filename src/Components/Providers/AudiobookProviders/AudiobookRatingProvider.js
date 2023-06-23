@@ -26,7 +26,7 @@ export const AudiobookRatingProvider = ({
     "dataAudiobookRating",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/user/audiobook/rating/get",
+        "/user/audiobook/rating/get",
         "POST",
         {
           audiobookId: audiobookId,

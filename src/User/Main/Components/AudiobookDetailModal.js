@@ -39,7 +39,7 @@ export default function AudiobookDetailModal(props) {
   const addToMyList = (element) => {
     element.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobook/like",
+      "/user/audiobook/like",
       "PATCH",
       {
         audiobookId: props.state.detailModalAudiobook.id,
@@ -82,7 +82,7 @@ export default function AudiobookDetailModal(props) {
         }
         if (procent >= 20) {
           HandleFetch(
-            "http://127.0.0.1:8000/api/user/audiobook/info/add",
+            "/user/audiobook/info/add",
             "PUT",
             {
               audiobookId: props.state.detailModalAudiobook.id,

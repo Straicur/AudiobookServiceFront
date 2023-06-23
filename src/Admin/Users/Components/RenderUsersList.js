@@ -19,7 +19,7 @@ export default function RenderUsersList(props) {
   const deleteUser = (selectedUser, element) => {
     element.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/delete",
+      "/admin/user/delete",
       "DELETE",
       {
         userId: selectedUser.id,
@@ -46,7 +46,7 @@ export default function RenderUsersList(props) {
     if (props.dateUpdate < Date.now()) {
       props.userRolesStore.removeRoles();
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/user/system/roles",
+        "/admin/user/system/roles",
         "GET",
         null,
         props.token,

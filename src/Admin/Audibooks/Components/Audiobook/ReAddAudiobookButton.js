@@ -8,7 +8,7 @@ export default function ReAddAudiobookButton(props) {
       props.setCategories(props.categories);
     } else {
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/categories",
+        "/admin/categories",
         "GET",
         null,
         props.token,

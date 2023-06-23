@@ -107,7 +107,7 @@ export default function AudiobooksList(props) {
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobooks",
+        "/admin/audiobooks",
         "POST",
         {
           page: pageState.page,
@@ -139,7 +139,7 @@ export default function AudiobooksList(props) {
       setCategories(categories);
     } else {
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/categories",
+        "/admin/categories",
         "GET",
         null,
         props.token,

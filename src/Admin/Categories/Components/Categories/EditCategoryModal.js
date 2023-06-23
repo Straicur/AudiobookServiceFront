@@ -27,7 +27,7 @@ export default function EditCategoryModal(props) {
 
   const editCategoryName = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/edit",
+      "/admin/category/edit",
       "PATCH",
       {
         name: editModal.new_name,
@@ -49,7 +49,7 @@ export default function EditCategoryModal(props) {
 
   const deleteCategory = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/remove",
+      "/admin/category/remove",
       "DELETE",
       {
         categoryId: props.state.editCategoryElement.id,
@@ -69,7 +69,7 @@ export default function EditCategoryModal(props) {
   };
   const activateCategory = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/active",
+      "/admin/category/active",
       "PATCH",
       {
         categoryId: props.state.editCategoryElement.id,

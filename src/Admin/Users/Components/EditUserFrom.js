@@ -20,7 +20,7 @@ export default function EditUserFrom(props) {
 
   const banUser = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/ban",
+      "/admin/user/ban",
       "PATCH",
       {
         userId: props.state.editUserElement.id,
@@ -54,7 +54,7 @@ export default function EditUserFrom(props) {
   const activateUser = (element) => {
     element.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/activate",
+      "/admin/user/activate",
       "PATCH",
       {
         userId: props.state.editUserElement.id,
@@ -120,7 +120,7 @@ export default function EditUserFrom(props) {
       });
     } else {
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/user/change/password",
+        "/admin/user/change/password",
         "PATCH",
         {
           userId: props.state.editUserElement.id,
@@ -159,7 +159,7 @@ export default function EditUserFrom(props) {
       });
     } else {
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/user/change/phone",
+        "/admin/user/change/phone",
         "PATCH",
         {
           userId: props.state.editUserElement.id,

@@ -15,7 +15,7 @@ export default function RenderDeleteUsersList(props) {
 
   const deleteUser = (selectedUser) => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/delete/accept",
+      "/admin/user/delete/accept",
       "PATCH",
       {
         userId: selectedUser.id,
@@ -35,7 +35,7 @@ export default function RenderDeleteUsersList(props) {
   };
   const declineDeleteUser = (selectedUser) => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/delete/decline",
+      "/admin/user/delete/decline",
       "PATCH",
       {
         userId: selectedUser.id,

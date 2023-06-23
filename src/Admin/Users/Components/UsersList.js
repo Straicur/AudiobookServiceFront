@@ -91,7 +91,7 @@ export default function UsersList(props) {
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/users",
+        "/admin/users",
         "POST",
         {
           page: pageState.page,

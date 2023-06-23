@@ -5,7 +5,7 @@ import { HandleFetch } from "../../../../Components/HandleFetch";
 export default function GetAudiobookZipButton(props) {
   const getZip = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/zip",
+      "/admin/audiobook/zip",
       "POST",
       {
         audiobookId: props.audiobookDetail.id,

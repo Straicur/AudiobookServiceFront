@@ -38,7 +38,7 @@ export default function CategoryAudiobookDetailModal(props) {
 
   const deleteAudiobookEntarly = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/delete",
+      "/admin/audiobook/delete",
       "DELETE",
       {
         audiobookId: audiobookDetail.id,
@@ -60,7 +60,7 @@ export default function CategoryAudiobookDetailModal(props) {
 
   const deleteAudiobookFromCategory = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/remove/audiobook",
+      "/admin/category/remove/audiobook",
       "DELETE",
       {
         categoryId: props.state.category.id,

@@ -17,7 +17,7 @@ export default function AudiobookEditForm(props) {
     let seconds = parseInt(myDate[2]);
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/edit",
+      "/admin/audiobook/edit",
       "PATCH",
       {
         audiobookId: props.audiobookDetail.id,

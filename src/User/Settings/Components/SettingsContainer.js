@@ -12,7 +12,7 @@ export default function SettingsContainer(props) {
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/user/settings",
+        "/user/settings",
         "GET",
         null,
         props.token,

@@ -45,7 +45,7 @@ export default function AudiobooksList(props) {
     "dataFirst",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/category/audiobooks",
+        "/admin/category/audiobooks",
         "POST",
         {
           categoryKey: props.categoryKey,
@@ -82,7 +82,7 @@ export default function AudiobooksList(props) {
     "dataSecond",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/category/detail",
+        "/admin/category/detail",
         "POST",
         {
           categoryKey: props.categoryKey,

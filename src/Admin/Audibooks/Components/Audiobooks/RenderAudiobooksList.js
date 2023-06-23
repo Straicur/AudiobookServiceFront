@@ -23,7 +23,7 @@ export default function RenderAudiobooksList(props) {
     element.target.classList.add("disabled");
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/active",
+      "/admin/audiobook/active",
       "PATCH",
       {
         audiobookId: selectedAudiobook.id,

@@ -39,7 +39,7 @@ export const AudiobookPartProvider = ({
     "dataAudiobookPart",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/audiobook/part",
+        "/audiobook/part",
         "POST",
         createContext(),
         token,

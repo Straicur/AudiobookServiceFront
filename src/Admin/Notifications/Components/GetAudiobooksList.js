@@ -72,7 +72,7 @@ export default function GetAudiobooksList(props) {
   useEffect(() => {
     if (!props.audiobooksState.fetched) {
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobooks",
+        "/admin/audiobooks",
         "POST",
         {
           page: 0,

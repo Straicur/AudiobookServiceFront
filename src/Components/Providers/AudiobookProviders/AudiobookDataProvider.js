@@ -27,7 +27,7 @@ export const AudiobookDataProvider = ({
     "dataAudiobookData",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobook/details",
+        "/admin/audiobook/details",
         "POST",
         {
           audiobookId: audiobookId,

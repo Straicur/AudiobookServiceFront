@@ -32,12 +32,18 @@ export default function RegisterForm(props) {
     e.preventDefault();
     e.stopPropagation();
 
+    props.setState({
+      ...props.state,
+      isButtonDisabled: true,
+      validated: false,
+    });
+
     if (
       props.state.password == props.state.confirmPassword &&
       validateEmail(props.state.email) &&
       validatePassword(props.state.password)
     ) {
-      const url = "http://127.0.0.1:8000/api/register";
+      const url = "/register";
       const jsonData = {
         email: props.state.email,
         phoneNumber: props.state.phoneNumber,
@@ -47,14 +53,12 @@ export default function RegisterForm(props) {
       };
       const method = "PUT";
 
-      HandleFetch(url, method, jsonData, i18n.language)
-        .then((data) => {
-          if (data) {
-            setFormState({
-              ...formState,
-              modal: true,
-            });
-          }
+      HandleFetch(url, method, jsonData, null, i18n.language)
+        .then(() => {
+          setFormState({
+            ...formState,
+            modal: true,
+          });
         })
         .catch((e) => {
           props.setState({
@@ -62,12 +66,6 @@ export default function RegisterForm(props) {
             error: e,
           });
         });
-    } else {
-      props.setState({
-        ...props.state,
-        isButtonDisabled: true,
-        validated: false,
-      });
     }
   };
 

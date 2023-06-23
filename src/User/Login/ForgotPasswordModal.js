@@ -20,7 +20,7 @@ export const ForgotPasswordModal = (props) => {
 
   const handleSend = async () => {
     if (state.email) {
-      const url = "http://127.0.0.1:8000/api/user/reset/password";
+      const url = "/user/reset/password";
       const jsonData = { email: state.email };
       const method = "POST";
 

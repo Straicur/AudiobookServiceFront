@@ -140,13 +140,13 @@ export default function RenderCommentsList(props) {
     }
 
     if (comment.liked == bool) {
-      url = "http://127.0.0.1:8000/api/user/audiobook/comment/like/delete";
+      url = "/user/audiobook/comment/like/delete";
       method = "DELETE";
       jsonData = {
         commentId: comment.id,
       };
     } else {
-      url = "http://127.0.0.1:8000/api/user/audiobook/comment/like/add";
+      url = "/user/audiobook/comment/like/add";
       method = "PATCH";
       jsonData = {
         commentId: comment.id,
@@ -191,7 +191,7 @@ export default function RenderCommentsList(props) {
     }
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
+      "/user/audiobook/comment/edit",
       "PATCH",
       jsonData,
       props.token,
@@ -224,7 +224,7 @@ export default function RenderCommentsList(props) {
     }
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobook/comment/add",
+      "/user/audiobook/comment/add",
       "PUT",
       jsonData,
       props.token,
@@ -243,7 +243,7 @@ export default function RenderCommentsList(props) {
     element.target.classList.add("disabled");
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobook/comment/edit",
+      "/user/audiobook/comment/edit",
       "PATCH",
       {
         audiobookId: props.state.detailModalAudiobook.id,

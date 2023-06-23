@@ -36,7 +36,7 @@ export default function DeleteUsersModal(props) {
     "dataSecond",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/user/to/delete/list",
+        "/admin/user/to/delete/list",
         "POST",
         {
           page: pageState.page,

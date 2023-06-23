@@ -83,7 +83,7 @@ export default function AddNotificationModal(props) {
 
   const addNotification = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/notification",
+      "/admin/user/notification",
       "PUT",
       {
         notificationType: state.notificationType,

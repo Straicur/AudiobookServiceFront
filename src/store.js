@@ -7,7 +7,7 @@ let tokenStore = (set) => ({
   roles: [],
   setToken: (jsonData, state, setState, language) => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/authorize",
+      "/authorize",
       "POST",
       jsonData,
       language

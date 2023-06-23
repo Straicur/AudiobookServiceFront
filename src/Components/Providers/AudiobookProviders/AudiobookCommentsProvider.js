@@ -25,7 +25,7 @@ export const AudiobookCommentsProvider = ({
     "dataAudiobookComments",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobook/comment/get",
+        "/admin/audiobook/comment/get",
         "POST",
         {
           audiobookId: audiobookId,

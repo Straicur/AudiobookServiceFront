@@ -17,7 +17,7 @@ export const AdminNavBar = () => {
   const navigate = useNavigate();
 
   const logout = async () => {
-    const url = "http://127.0.0.1:8000/api/logout";
+    const url = "/logout";
     const jsonData = {};
     const method = "POST";
 

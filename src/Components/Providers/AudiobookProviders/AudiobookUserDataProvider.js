@@ -20,7 +20,7 @@ export const AudiobookUserDataProvider = ({
   const fetchData = () => {
     setLoading(true);
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobooks",
+      "/user/audiobooks",
       "POST",
       {
         page: page,

@@ -91,7 +91,7 @@ export default function NotificationsList(props) {
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/user/notifications",
+        "/admin/user/notifications",
         "POST",
         {
           page: pageState.page,
@@ -129,7 +129,7 @@ export default function NotificationsList(props) {
     if (dateUpdate < Date.now()) {
       userRolesStore.removeRoles();
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/user/system/roles",
+        "/admin/user/system/roles",
         "GET",
         null,
         props.token,

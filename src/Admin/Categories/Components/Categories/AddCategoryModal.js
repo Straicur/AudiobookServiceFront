@@ -30,7 +30,7 @@ export default function AddCategoryModal(props) {
     }
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/add",
+      "/admin/category/add",
       "PUT",
       {
         name: modalState.name,

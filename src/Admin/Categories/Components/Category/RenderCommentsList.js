@@ -5,7 +5,7 @@ import { HandleFetch } from "../../../../Components/HandleFetch";
 export default function RenderCommentsList(props) {
   function deleteCommnet(element) {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/comment/delete",
+      "/admin/audiobook/comment/delete",
       "DELETE",
       {
         audiobookCommentId: element.id,

@@ -6,7 +6,7 @@ export default function RenderUserRoles(props) {
   const deleteRole = (e, element) => {
     e.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/role/remove",
+      "/admin/user/role/remove",
       "PATCH",
       {
         userId: props.state.editUserElement.id,
@@ -48,7 +48,7 @@ export default function RenderUserRoles(props) {
   const addRole = (e, element) => {
     e.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/role/add",
+      "/admin/user/role/add",
       "PATCH",
       {
         userId: props.state.editUserElement.id,

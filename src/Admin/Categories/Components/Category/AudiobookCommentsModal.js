@@ -29,7 +29,7 @@ export default function AudiobookCommentsModal(props) {
     "dataAudiobookComments",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobook/comment/get",
+        "/admin/audiobook/comment/get",
         "POST",
         {
           audiobookId: props.state.detailAudiobookElement.id,

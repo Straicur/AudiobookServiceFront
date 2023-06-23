@@ -87,7 +87,7 @@ export default function AddAudiobookModal(props) {
   };
 
   const addAudiobook = () => {
-    const url = "http://127.0.0.1:8000/api/admin/audiobook/add";
+    const url = "/admin/audiobook/add";
     const method = "PUT";
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();

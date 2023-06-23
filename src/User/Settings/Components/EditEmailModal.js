@@ -26,7 +26,7 @@ export default function EditEmailModal(props) {
       element.target.classList.add("disabled");
 
       HandleFetch(
-        "http://127.0.0.1:8000/api/user/settings/email",
+        "/user/settings/email",
         "POST",
         {
           newEmail: state.newEmail,

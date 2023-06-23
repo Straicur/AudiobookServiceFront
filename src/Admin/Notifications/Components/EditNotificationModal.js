@@ -62,7 +62,7 @@ export default function EditNotificationModal(props) {
   const deleteNotification = (element) => {
     element.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/notification/delete",
+      "/admin/user/notification/delete",
       "PATCH",
       {
         notificationId: state.id,
@@ -107,7 +107,7 @@ export default function EditNotificationModal(props) {
 
   const saveChanges = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/notification",
+      "/admin/user/notification",
       "PATCH",
       {
         notificationId: state.id,
