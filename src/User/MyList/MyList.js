@@ -28,6 +28,9 @@ export default function MyList() {
       onReset={() => {
         setMyListState({
           ...myListState,
+          detailModal: false,
+          detailModalAudiobook: null,
+          detailModalCover: null,
           error: null,
         });
       }}

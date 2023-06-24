@@ -23,6 +23,8 @@ export default function Audiobook() {
     reAddingModal: false,
     reAdding: false,
     part: 0,
+    errorPart: "",
+    errorCover: "",
     error: null,
   });
   //todo ttu mi zostaje do poprawy img który się nie odświerza i pobierany jest z cache. Musze dodać chachowanie w serwerze i też czekanie przy img

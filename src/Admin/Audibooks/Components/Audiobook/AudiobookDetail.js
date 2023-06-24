@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAudiobookData } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
-import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
-import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
+import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookCoverDataProvider";
+import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookPartProvider";
 import { useAudiobookComments } from "../../../../Components/Providers/AudiobookProviders/AudiobookCommentsProvider";
 import { AdminNavBar } from "../../../../Components/NavBars/AdminNavBar";
 import CategoryEditForm from "./AudiobookEditForm";
@@ -16,6 +16,7 @@ import AudioPlayer from "./AudiobookPlayer";
 import ReAddAudiobookButton from "./ReAddAudiobookButton";
 import DeleteAudiobookEntarlyButton from "./DeleteAudiobookEntarlyButton";
 import { v4 as uuidv4 } from "uuid";
+import Alert from "react-bootstrap/Alert";
 import { useCategoryListStore } from "../../../../store";
 
 export default function AudiobookDetail(props) {
@@ -87,6 +88,13 @@ export default function AudiobookDetail(props) {
               token={props.token}
               i18n={props.i18n}
             />
+            <Alert
+              show={props.audiobookState.errorCover != ""}
+              className="dangerAllert mt-1"
+              variant="danger"
+            >
+              {props.audiobookState.errorCover}
+            </Alert>
           </div>
 
           <div className="col-5">
@@ -115,6 +123,13 @@ export default function AudiobookDetail(props) {
                   t={props.t}
                 />
               ) : null}
+              <Alert
+                show={props.audiobookState.errorPart != ""}
+                className="dangerAllert mt-1"
+                variant="danger"
+              >
+                {props.audiobookState.errorPart}
+              </Alert>
             </div>
           </div>
           <div className="col-3">

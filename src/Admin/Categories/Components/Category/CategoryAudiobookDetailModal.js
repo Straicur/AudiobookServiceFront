@@ -5,13 +5,14 @@ import AudioPlayer from "./AudiobookPlayer";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 import "react-h5-audio-player/lib/styles.css";
 import { useAudiobookData } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
-import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
-import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
+import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookCoverDataProvider";
+import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookPartProvider";
 import CategoryEditForm from "./CategoryEditForm";
 import AudiobookCategoryList from "./AudiobookCategoryList";
 import AudiobookCover from "./AudiobookCover";
 import GetAudiobookZipButton from "./GetAudiobookZipButton";
 import { v4 as uuidv4 } from "uuid";
+import Alert from "react-bootstrap/Alert";
 
 export default function CategoryAudiobookDetailModal(props) {
   const [stateModal, setStateModal] = useState({
@@ -28,11 +29,17 @@ export default function CategoryAudiobookDetailModal(props) {
   const [audiobookPart, setAudiobookPart] = useAudiobookPart();
 
   const handleClose = () => {
+    props.setAudiobooksState({
+      ...props.audiobooksState,
+      errorPart: "",
+      errorCover: ""
+    })
     props.setState({
       ...props.state,
       detailAudiobookModal: !props.state.detailAudiobookModal,
       detailAudiobookElement: null,
       refresh: !props.state.refresh,
+
     });
   };
 
@@ -142,6 +149,13 @@ export default function CategoryAudiobookDetailModal(props) {
               audiobookDetail={audiobookDetail}
               token={props.token}
             />
+            <Alert
+              show={props.audiobooksState.errorCover != ""}
+              className="dangerAllert mt-1"
+              variant="danger"
+            >
+              {props.audiobooksState.errorCover}
+            </Alert>
             <div className="row d-flex justify-content-center text-light text-center">
               {renderStars()}
             </div>
@@ -271,6 +285,13 @@ export default function CategoryAudiobookDetailModal(props) {
               t={props.t}
             />
           ) : null}
+          <Alert
+              show={props.audiobooksState.errorPart != ""}
+              className="dangerAllert mt-1"
+              variant="danger"
+            >
+              {props.audiobooksState.errorPart}
+            </Alert>
         </div>
       </Modal.Body>
     </Modal>

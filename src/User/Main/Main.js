@@ -13,7 +13,7 @@ import { Footer } from "../../Components/Footers/Footer";
 import "./Main.css";
 
 export default function Main() {
-  const { t,i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const token = useTokenStore((state) => state.token);
 
@@ -37,6 +37,9 @@ export default function Main() {
       onReset={() => {
         setAudiobooksState({
           ...audiobooksState,
+          detailModal: false,
+          detailModalAudiobook: null,
+          detailModalCover: null,
           error: null,
         });
       }}

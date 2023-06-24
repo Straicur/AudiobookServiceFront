@@ -26,7 +26,6 @@ export default function AudiobooksList(props) {
     detailAudiobookElementPart: 0,
     addAudiobook: false,
     refresh: false,
-    error: null,
   });
 
   const [pageState, setPageState] = useState({
