@@ -11,9 +11,11 @@ export default function RenderAudiobooksList(props) {
     let renderArray = [];
 
     if (props.state.json != null) {
-      props.state.json.audiobooks.forEach((element) => {
-        renderArray.push(createColumn(element));
-      });
+      if (props.state.json.audiobooks != null) {
+        props.state.json.audiobooks.forEach((element) => {
+          renderArray.push(createColumn(element));
+        });
+      }
     }
 
     return renderArray;

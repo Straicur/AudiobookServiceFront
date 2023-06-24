@@ -53,7 +53,6 @@ export default function RenderUsersList(props) {
         props.i18n.language
       )
         .then((data) => {
-          console.log(data)
           props.userRolesStore.setRoles(data);
         })
         .catch((e) => {

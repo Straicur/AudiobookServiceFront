@@ -112,12 +112,6 @@ export default function UsersList(props) {
         });
       },
       onSuccess: (data) => {
-        console.log({
-          page: pageState.page,
-          limit: pageState.limit,
-          searchData: createSearchData(),
-          token: props.token,
-        });
         setState({ ...state, json: data });
         setPageState({ ...pageState, maxPage: data.maxPage });
         resetSearchStates();

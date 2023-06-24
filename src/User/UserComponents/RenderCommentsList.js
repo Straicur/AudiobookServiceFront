@@ -788,7 +788,6 @@ export default function RenderCommentsList(props) {
             }
             onClick={decline}
           >
-            {console.log(commentState)}
             {props.t("cancel")}
           </Button>
         </div>
