@@ -156,8 +156,7 @@ export default function RenderCommentsList(props) {
 
     element.target.classList.add("disabled");
 
-    HandleFetch(url, method, jsonData, props.token,
-      props.i18n.language)
+    HandleFetch(url, method, jsonData, props.token, props.i18n.language)
       .then(() => {
         if (comment.parentId != null) {
           setChildComment(comment.parentId, comment, bool);
@@ -295,6 +294,7 @@ export default function RenderCommentsList(props) {
   }
 
   function decline() {
+    lastOpenComment.current = null;
     setCommentState({
       ...commentState,
       parentId: null,
@@ -396,11 +396,11 @@ export default function RenderCommentsList(props) {
         className={
           commentState.commentId == element.id
             ? element.id == lastOpenComment.current
-              ? "border border-6 border-warning border comment comments-pill px-2 py-1"
-              : "border border-6 border-warning border comment comment-pill ps-3 pb-1"
+              ? "border border-6 border-warning border comment comments-pill px-3 py-1"
+              : "border border-6 border-warning border comment comment-pill ps-3 py-1"
             : element.id == lastOpenComment.current
-            ? "border border-6 border-secondary border comment comments-pill px-2 py-1"
-            : "border border-6 border-secondary border comment comment-pill ps-3 pb-1"
+            ? "border border-6 border-secondary border comment comments-pill px-3 py-1"
+            : "border border-6 border-secondary border comment comment-pill ps-3 py-1"
         }
       >
         <div className="row p-1 bd-highlight">
@@ -780,11 +780,15 @@ export default function RenderCommentsList(props) {
             size="sm"
             className="btn button rounded-3 comment-button warning_button"
             disabled={
-              (!commentState.edit && commentState.comment.length == 0) ||
-              (commentState.add && commentState.comment.length == 0)
+              commentState.comment.length <= 0 &&
+              (commentState.add || commentState.edit) &&
+              commentState.commentId != null
+                ? false
+                : commentState.comment.length <= 0
             }
             onClick={decline}
           >
+            {console.log(commentState)}
             {props.t("cancel")}
           </Button>
         </div>
