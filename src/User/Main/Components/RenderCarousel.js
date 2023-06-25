@@ -42,7 +42,7 @@ export default function RenderCarousel(props, category) {
       ...props.state,
       detailModal: !props.detailModal,
       detailModalAudiobook: audiobook,
-      detailModalCover: imgUrl,
+      detailModalCover: imgUrl == null ? "/noImg.jpg" : imgUrl,
       detailModalCategory: category,
     });
   };
@@ -61,7 +61,10 @@ export default function RenderCarousel(props, category) {
             }}
           >
             <div className="card-img-sm">
-              <img src={imgUrl} className="card-img-top" alt="..." />
+              <img
+                src={imgUrl == null ? "/noImg.jpg" : imgUrl}
+                className="card-img-top"
+              />
             </div>
 
             <div className="card-body">
