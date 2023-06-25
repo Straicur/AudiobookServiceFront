@@ -144,6 +144,8 @@ export default function AudiobooksList(props) {
           <RenderAudiobooksList
             state={state}
             setState={setState}
+            setAudiobooksState={props.setAudiobooksState}
+            audiobooksState={props.audiobooksState}
             t={t}
             i18n={i18n}
             token={props.token}

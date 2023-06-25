@@ -38,8 +38,8 @@ export default function AddAudiobookModal(props) {
   const handleOnFileChange = (e) => {
     if (e.target.files) {
       let file = e.target.files[0];
-
-      if (file.type == "application/zip") {
+ 
+      if (file.type == "application/zip" || file.type == "application/vnd.rar") {
         setStateModal({ ...stateModal, file: file });
       }
     }

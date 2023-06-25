@@ -51,8 +51,8 @@ export default function RenderAudiobooksList(props) {
         props.setState({ ...props.state, json: newJson });
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setAudiobooksState({
+          ...props.audiobooksState,
           error: e,
         });
       });

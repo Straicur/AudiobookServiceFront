@@ -44,11 +44,17 @@ export default function AudiobookCover(props) {
             )
               .then(() => {
                 props.setAudiobookCoverRefetch(true);
+
                 props.setStateModal({ ...props.stateModal, file: null });
+
+                props.setAudiobooksState({
+                  ...props.setAudiobooksState,
+                  errorCover: "",
+                });
               })
               .catch((e) => {
-                props.setState({
-                  ...props.state,
+                props.setAudiobooksState({
+                  ...props.setAudiobooksState,
                   error: e,
                 });
                 props.handleClose();

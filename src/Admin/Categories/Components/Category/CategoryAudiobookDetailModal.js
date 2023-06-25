@@ -125,8 +125,8 @@ export default function CategoryAudiobookDetailModal(props) {
       <Modal.Header closeButton className="bg-dark">
         <GetAudiobookZipButton
           audiobookDetail={audiobookDetail}
-          setState={props.setState}
-          state={props.state}
+          audiobooksState={props.audiobooksState}
+          setAudiobooksState={props.setAudiobooksState}
           handleClose={handleClose}
           t={props.t}
           i18n={props.i18n}
@@ -138,8 +138,8 @@ export default function CategoryAudiobookDetailModal(props) {
           <div className="col">
             <AudiobookCover
               audiobookCover={audiobookCover}
-              setState={props.setState}
-              state={props.state}
+              audiobooksState={props.audiobooksState}
+              setAudiobooksState={props.setAudiobooksState}
               t={props.t}
               i18n={props.i18n}
               setAudiobookCoverRefetch={setAudiobookCoverRefetch}
