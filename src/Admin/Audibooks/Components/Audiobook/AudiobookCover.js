@@ -32,20 +32,22 @@ export default function AudiobookCover(props) {
             let b64 = Buffer.from(buf).toString("base64");
 
             HandleFetch(
-              "http://127.0.0.1:8000/api/admin/audiobook/change/cover",
+              "/admin/audiobook/change/cover",
               "PATCH",
               {
                 type: result[0],
                 base64: b64,
                 audiobookId: props.audiobookDetail.id,
               },
-              props.token
+              props.token,
+              props.i18n.language
             )
               .then(() => {
                 props.setAudiobookCoverRefetch(true);
                 props.setAudiobookState({
                   ...props.audiobookState,
                   file: null,
+                  errorCover: ""
                 });
               })
               .catch((e) => {
@@ -62,7 +64,7 @@ export default function AudiobookCover(props) {
       }
     }
   };
-  
+
   return (
     <div className="row ">
       <div className="row ">

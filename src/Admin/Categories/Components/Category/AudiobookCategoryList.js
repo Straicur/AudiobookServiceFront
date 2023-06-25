@@ -5,12 +5,12 @@ export default function AudiobookCategoryList(props) {
     return (
       <div
         key={uuidv4()}
-        className="row border border-secondary category_data mb-1"
+        className="row border border-secondary category_data mb-1 rounded"
       >
         <div className="row">
-          <div className="col">{props.t("name")}:</div>
-          <div className="col">{category.name}</div>
-          <div className="col">{props.t("active")}:</div>
+          <div className="col-3">{props.t("name")}:</div>
+          <div className="col-8">{category.name}</div>
+          <div className="col-3">{props.t("active")}:</div>
           <div className="col">
             {category.active ? (
               <i className="bi bi-bookmark-check-fill"></i>
@@ -21,7 +21,7 @@ export default function AudiobookCategoryList(props) {
         </div>
         <div className="row"></div>
         <div className="row">
-          <div className="col">{props.t("categoryKey")}:</div>
+          <div className="col-1">{props.t("categoryKey")}:</div>
           <div className="col">{category.categoryKey}</div>
         </div>
       </div>
@@ -40,7 +40,7 @@ export default function AudiobookCategoryList(props) {
     }
 
     return (
-      <div className="row text-light d-flex justify-content-center mx-1">
+      <div className="row text-light d-flex justify-content-center mx-1 categories_detail_modal overflow-auto">
         {categories}
       </div>
     );

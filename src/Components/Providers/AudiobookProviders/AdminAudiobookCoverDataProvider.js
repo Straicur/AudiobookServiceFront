@@ -4,7 +4,7 @@ import { HandleFetch } from "../../HandleFetch";
 
 const AudiobookCoverContext = createContext(null);
 
-export const AudiobookCoverDataProvider = ({
+export const AdminAudiobookCoverDataProvider = ({
   children,
   token,
   audiobookId,
@@ -36,7 +36,7 @@ export const AudiobookCoverDataProvider = ({
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        setState({ ...state, error: e });
+        setState({ ...state, errorCover: e.data });
       },
       onSuccess: (data) => {
         setAudiobookCover(data);

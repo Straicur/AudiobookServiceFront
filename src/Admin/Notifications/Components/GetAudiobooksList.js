@@ -72,7 +72,7 @@ export default function GetAudiobooksList(props) {
   useEffect(() => {
     if (!props.audiobooksState.fetched) {
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobooks",
+        "/admin/audiobooks",
         "POST",
         {
           page: 0,
@@ -81,7 +81,8 @@ export default function GetAudiobooksList(props) {
             order: 1,
           },
         },
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then((data) => {
           props.setAudiobooksState({
@@ -92,7 +93,6 @@ export default function GetAudiobooksList(props) {
           });
         })
         .catch((e) => {
-          console.log(e);
           props.setNotificationsState({
             ...props.notificationsState,
             error: e,

@@ -9,10 +9,10 @@ import AddAudiobookModal from "../Category/AddAudiobookModal";
 import RenderAudiobooksList from "../Category/RenderAudiobooksList";
 import CategoryDetailProviders from "../Category/CategoryDetailProviders";
 import AudiobookCommentsModal from "./AudiobookCommentsModal";
-import RenderPageSwitches from "./RenderPageSwitches";
+import RenderPageSwitches from "../../../AdminComponents/RenderPageSwitches";
 
 export default function AudiobooksList(props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [state, setState] = useState({
     jsonModal: false,
@@ -26,7 +26,6 @@ export default function AudiobooksList(props) {
     detailAudiobookElementPart: 0,
     addAudiobook: false,
     refresh: false,
-    error: null,
   });
 
   const [pageState, setPageState] = useState({
@@ -45,14 +44,15 @@ export default function AudiobooksList(props) {
     "dataFirst",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/category/audiobooks",
+        "/admin/category/audiobooks",
         "POST",
         {
           categoryKey: props.categoryKey,
           page: pageState.page,
           limit: pageState.limit,
         },
-        props.token
+        props.token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -81,12 +81,13 @@ export default function AudiobooksList(props) {
     "dataSecond",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/category/detail",
+        "/admin/category/detail",
         "POST",
         {
           categoryKey: props.categoryKey,
         },
-        props.token
+        props.token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -143,7 +144,10 @@ export default function AudiobooksList(props) {
           <RenderAudiobooksList
             state={state}
             setState={setState}
+            setAudiobooksState={props.setAudiobooksState}
+            audiobooksState={props.audiobooksState}
             t={t}
+            i18n={i18n}
             token={props.token}
           />
           {state.json != null && pageState.maxPage > 1 ? (
@@ -191,6 +195,7 @@ export default function AudiobooksList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             categoryID={state.category.id}
             setAudiobooksState={props.setAudiobooksState}
@@ -202,6 +207,7 @@ export default function AudiobooksList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             categoryKey={props.categoryKey}
             setAudiobooksState={props.setAudiobooksState}
@@ -214,6 +220,7 @@ export default function AudiobooksList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}

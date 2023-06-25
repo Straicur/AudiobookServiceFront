@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useTokenStore } from "../store";
+import { v4 as uuidv4 } from "uuid";
 
 export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
   const { t } = useTranslation();
@@ -64,14 +65,18 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
   }, [error]);
 
   return (
-    <Modal show={state.show} onHide={handleClose}>
-      <Modal.Header className="">
-        <Modal.Title> {t("errorOccurred")}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body className="">
-        <h3> {state.message}</h3>
+    <Modal show={state.show} onHide={handleClose} backdrop="static">
+      <Modal.Body>
+        <h3 className="text-center fw-bold py-3"> {t("errorOccurred")}</h3>
+        {state.data.map((element) => {
+          return (
+            <p key={uuidv4()} className="text-center pb-1 fs-5">
+              {element}
+            </p>
+          );
+        })}
       </Modal.Body>
-      <Modal.Footer className="">
+      <Modal.Footer>
         <Button
           variant="dark"
           onClick={

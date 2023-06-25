@@ -3,6 +3,15 @@
     background-color: #6c757d !important;
     border-color: #6c757d !important;
 }
+
 .input_modal {
     padding-left: 0 !important;
+}
+
+.button_notification {
+    width: 22.1rem !important;
+}
+
+.pick_height {
+    height: 30rem;
 }

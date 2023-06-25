@@ -22,7 +22,17 @@ export default function SettingUserInfo(props) {
       </div>
       <div className="row ms-1">
         <div className="col">{props.t("edited")}: </div>
-        <div className="col">{props.state.edited ? <div><i className="bi bi-calendar-check"></i> {CreateDate(props.state.editableDate)}</div>: <i className="bi bi-calendar-minus"></i>}  {/* {CreateDate(element.dateAdd)} */}</div>
+        <div className="col">
+          {props.state.edited ? (
+            <div>
+              <i className="bi bi-calendar-check"></i>{" "}
+              {CreateDate(props.state.editableDate)}
+            </div>
+          ) : (
+            <i className="bi bi-calendar-minus"></i>
+          )}{" "}
+          {/* {CreateDate(element.dateAdd)} */}
+        </div>
       </div>
     </div>
   );

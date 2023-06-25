@@ -38,8 +38,8 @@ export default function AddAudiobookModal(props) {
   const handleOnFileChange = (e) => {
     if (e.target.files) {
       let file = e.target.files[0];
-
-      if (file.type == "application/zip") {
+ 
+      if (file.type == "application/zip" || file.type == "application/vnd.rar") {
         setStateModal({ ...stateModal, file: file });
       }
     }
@@ -87,7 +87,7 @@ export default function AddAudiobookModal(props) {
   };
 
   const addAudiobook = () => {
-    const url = "http://127.0.0.1:8000/api/admin/audiobook/add";
+    const url = "/admin/audiobook/add";
     const method = "PUT";
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
@@ -125,7 +125,7 @@ export default function AddAudiobookModal(props) {
             currentPart: part,
           });
 
-          HandleFetch(url, method, jsonData, props.token)
+          HandleFetch(url, method, jsonData, props.token, props.i18n.language)
             .then((data) => {
               if (
                 stateProgress.currentPart == stateProgress.maxParts ||
@@ -180,7 +180,7 @@ export default function AddAudiobookModal(props) {
               },
             };
 
-            HandleFetch(url, method, jsonData, props.token)
+            HandleFetch(url, method, jsonData, props.token, props.i18n.language)
               .then((data) => {
                 if (
                   stateProgress.currentPart == stateProgress.maxParts ||

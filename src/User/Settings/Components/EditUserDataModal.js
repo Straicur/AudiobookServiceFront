@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { HandleFetch } from "../../../Components/HandleFetch";
-import { useQuery } from "react-query";
 import Alert from "react-bootstrap/Alert";
 
 export default function EditUserDataModal(props) {
@@ -31,14 +30,15 @@ export default function EditUserDataModal(props) {
     element.target.classList.add("disabled");
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/settings/change",
+      "/user/settings/change",
       "PATCH",
       {
         phoneNumber: state.phoneNumber,
         firstName: state.firstname,
         lastName: state.lastname,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");
@@ -141,6 +141,7 @@ export default function EditUserDataModal(props) {
       size="lg"
       show={props.state.buttonUserData}
       onHide={handleClose}
+      backdrop="static"
       centered
     >
       <Modal.Body

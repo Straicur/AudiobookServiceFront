@@ -20,10 +20,11 @@ export default function GetAllSearchAudiobooks(props) {
       if (audiobooks != undefined) {
         audiobooks.map((audiobook) => {
           HandleFetch(
-            "http://127.0.0.1:8000/api/audiobook/cover/" + audiobook.id,
+            "/audiobook/cover/" + audiobook.id,
             "GET",
             null,
-            props.token
+            props.token,
+            props.i18n.language
           )
             .then((data) => {
               if (!covers.some((el) => el.audiobook == audiobook.id)) {

@@ -20,13 +20,14 @@ export default function EditUserFrom(props) {
 
   const banUser = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/ban",
+      "/admin/user/ban",
       "PATCH",
       {
         userId: props.state.editUserElement.id,
         banned: !props.state.editUserElement.banned,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         const newSelcetedUser = {
@@ -53,12 +54,13 @@ export default function EditUserFrom(props) {
   const activateUser = (element) => {
     element.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/activate",
+      "/admin/user/activate",
       "PATCH",
       {
         userId: props.state.editUserElement.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");
@@ -101,7 +103,7 @@ export default function EditUserFrom(props) {
       wrong: false,
     });
   };
-  
+
   function validatePassword(pass) {
     const re =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -118,13 +120,14 @@ export default function EditUserFrom(props) {
       });
     } else {
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/user/change/password",
+        "/admin/user/change/password",
         "PATCH",
         {
           userId: props.state.editUserElement.id,
           newPassword: passwordState.password,
         },
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then(() => {
           setPasswordState({
@@ -156,13 +159,14 @@ export default function EditUserFrom(props) {
       });
     } else {
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/user/change/phone",
+        "/admin/user/change/phone",
         "PATCH",
         {
           userId: props.state.editUserElement.id,
           newPhone: phoneNumberState.phoneNumber,
         },
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then(() => {
           setPhoneNumberState({
@@ -180,12 +184,12 @@ export default function EditUserFrom(props) {
   };
 
   return (
-    <div className="row mt-3">
+    <div className="row mt-3 align-items-center">
       <hr></hr>
-      <div className="row">
+      <div className="row align-items-center">
         <h3>{props.t("active/ban")}</h3>
       </div>
-      <div className="row">
+      <div className="row align-items-center mt-2">
         <div className="col-2">{props.t("active")}:</div>
         <div className="col-2">
           {props.state.editUserElement.active ? (
@@ -194,12 +198,12 @@ export default function EditUserFrom(props) {
             <i className="bi bi-bookmark-dash"></i>
           )}
         </div>
-        <div className="col-4">
+        <div className="col-4 align-self-center">
           <Button
             variant="warning"
             size="sm"
             disabled={props.state.editUserElement.active}
-            className=" btn button mt-2 text-light"
+            className=" btn button text-light"
             onClick={(e) => {
               activateUser(e);
             }}
@@ -208,7 +212,7 @@ export default function EditUserFrom(props) {
           </Button>
         </div>
       </div>
-      <div className="row mb-3">
+      <div className="row mb-3 align-items-center mt-2">
         <div className="col-2">{props.t("banned")}:</div>
         <div className="col-2">
           {props.state.editUserElement.banned ? (
@@ -217,11 +221,11 @@ export default function EditUserFrom(props) {
             <i className="bi bi-shield-fill-check"></i>
           )}
         </div>
-        <div className="col-4">
+        <div className="col-4 align-self-center">
           <Button
             variant="warning"
             size="sm"
-            className=" btn button mt-2 text-light"
+            className=" btn button text-light"
             onClick={() => {
               banUser();
             }}
@@ -237,7 +241,7 @@ export default function EditUserFrom(props) {
         <h3>{props.t("changeData")}</h3>
       </div>
       <InputGroup className="mb-1 input_modal ms-3">
-        <InputGroup.Text className="input-group-text-new">
+        <InputGroup.Text className="input_group_text">
           {props.t("changePassword")}
         </InputGroup.Text>
         <Form.Control
@@ -248,7 +252,9 @@ export default function EditUserFrom(props) {
         />
       </InputGroup>
       {passwordState.wrong ? (
-        <p className="text-danger text-center">{props.t("enterValidPassword")}</p>
+        <p className="text-danger text-center">
+          {props.t("enterValidPassword")}
+        </p>
       ) : null}
       {passwordState.sure ? (
         <div className="row justify-content-center mt-2 mb-1">
@@ -280,27 +286,27 @@ export default function EditUserFrom(props) {
         </div>
       ) : (
         <div className="row justify-content-md-center mt-2 mb-1">
-          <Button
-            variant="success"
-            size="sm"
-            className=" btn button text-light col-8 px-4 my-1"
-            disabled={passwordState.buttonDisabled}
-            onClick={() => {
-              setPasswordState({
-                ...passwordState,
-                sure: !passwordState.sure,
-              });
-            }}
-          >
-            {props.t("save")}
-          </Button>
+          <div className="col-6">
+            <Button
+              variant="success"
+              size="sm"
+              className=" btn button text-light my-1 button_save"
+              disabled={passwordState.buttonDisabled}
+              onClick={() => {
+                setPasswordState({
+                  ...passwordState,
+                  sure: !passwordState.sure,
+                });
+              }}
+            >
+              {props.t("save")}
+            </Button>
+          </div>
         </div>
       )}
 
       <InputGroup className="mb-1 input_modal ms-3">
-        <InputGroup.Text className="input-group-text-new">
-          {props.t("changePhoneNumber")}
-        </InputGroup.Text>
+        <InputGroup.Text>{props.t("changePhoneNumber")}</InputGroup.Text>
         <Form.Control
           onChange={(event) => {
             handlePhoneNumberChange(event);
@@ -308,7 +314,9 @@ export default function EditUserFrom(props) {
         />
       </InputGroup>
       {phoneNumberState.wrong ? (
-        <p className="text-danger text-center">{props.t("enterValidPhoneNumber")}</p>
+        <p className="text-danger text-center">
+          {props.t("enterValidPhoneNumber")}
+        </p>
       ) : null}
       {phoneNumberState.sure ? (
         <div className="row justify-content-center mt-2 mb-1">
@@ -340,20 +348,22 @@ export default function EditUserFrom(props) {
         </div>
       ) : (
         <div className="row justify-content-md-center mt-2 mb-1">
-          <Button
-            variant="success"
-            size="sm"
-            className=" btn button text-light col-8  px-4 my-1"
-            disabled={phoneNumberState.buttonDisabled}
-            onClick={() => {
-              setPhoneNumberState({
-                ...phoneNumberState,
-                sure: !phoneNumberState.sure,
-              });
-            }}
-          >
-            {props.t("save")}
-          </Button>
+          <div className="col-6">
+            <Button
+              variant="success"
+              size="sm"
+              className=" btn button text-light my-1 button_save"
+              disabled={phoneNumberState.buttonDisabled}
+              onClick={() => {
+                setPhoneNumberState({
+                  ...phoneNumberState,
+                  sure: !phoneNumberState.sure,
+                });
+              }}
+            >
+              {props.t("save")}
+            </Button>
+          </div>
         </div>
       )}
     </div>

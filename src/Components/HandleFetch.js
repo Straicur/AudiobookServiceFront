@@ -8,11 +8,21 @@ export const HandleFetch = async (
   url,
   method,
   jsonData = null,
-  token = null
+  token = null,
+  language = null
 ) => {
-  let headers = {
-    "Content-Type": "application/json",
-  };
+  let headers = {};
+
+  if (language != null) {
+    headers = {
+      "Content-Type": "application/json",
+      "Accept-Language": language,
+    };
+  } else {
+    headers = {
+      "Content-Type": "application/json",
+    };
+  }
 
   if (token != null) {
     headers.authorization = token;
@@ -26,6 +36,8 @@ export const HandleFetch = async (
   if (jsonData != null) {
     content.body = JSON.stringify(jsonData);
   }
+  
+  url = process.env.REACT_APP_API_URL + url;
 
   const response = await fetch(url, content);
 

@@ -11,6 +11,7 @@ export const AudiobookRatingProvider = ({
   categoryKey,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookRating, setAudiobookRating] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -25,13 +26,14 @@ export const AudiobookRatingProvider = ({
     "dataAudiobookRating",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/user/audiobook/rating/get",
+        "/user/audiobook/rating/get",
         "POST",
         {
           audiobookId: audiobookId,
           categoryKey: categoryKey,
         },
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,

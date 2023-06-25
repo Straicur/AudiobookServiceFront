@@ -4,7 +4,7 @@ import { HandleFetch } from "../../HandleFetch";
 
 const AudiobookPartContext = createContext(null);
 
-export const AudiobookPartProvider = ({
+export const AdminAudiobookPartProvider = ({
   children,
   token,
   audiobookId,
@@ -50,7 +50,7 @@ export const AudiobookPartProvider = ({
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        setState({ ...state, error: e });
+        setState({ ...state, errorPart: e.data });
       },
       onSuccess: (data) => {
         setAudiobookPart(data);

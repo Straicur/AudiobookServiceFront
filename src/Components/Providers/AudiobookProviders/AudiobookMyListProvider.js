@@ -8,6 +8,7 @@ export const AudiobookMyListProvider = ({
   token,
   state,
   setState,
+  i18n
 }) => {
   const [audiobooks, setAudiobooks] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -16,10 +17,11 @@ export const AudiobookMyListProvider = ({
   const fetchData = () => {
     setLoading(true);
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/myList/audiobooks",
+      "/user/myList/audiobooks",
       "GET",
       null,
-      token
+      token,
+      i18n.language
     )
       .then((data) => {
         setLoading(false);

@@ -18,22 +18,14 @@ export const UserNavBar = () => {
   const navigate = useNavigate();
 
   const logout = async () => {
-    const url = "http://127.0.0.1:8000/api/logout";
+    const url = "/logout";
     const jsonData = {};
     const method = "POST";
 
-    await HandleFetch(url, method, jsonData, token)
-      .then((data) => {
-        if (data) {
-          tokenStore.removeToken();
-          navigate("/login");
-        }
-      })
-      .catch((e) => {
-        if (e) {
-          console.log(e);
-        }
-      });
+    HandleFetch(url, method, jsonData, token, i18n.language).finally(() => {
+      tokenStore.removeToken();
+      navigate("/login");
+    });
   };
 
   return (

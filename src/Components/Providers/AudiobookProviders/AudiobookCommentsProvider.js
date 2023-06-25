@@ -10,6 +10,7 @@ export const AudiobookCommentsProvider = ({
   audiobookId,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookComments, setAudiobookComments] = useState(null);
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
@@ -24,12 +25,13 @@ export const AudiobookCommentsProvider = ({
     "dataAudiobookComments",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobook/comment/get",
+        "/admin/audiobook/comment/get",
         "POST",
         {
           audiobookId: audiobookId,
         },
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,

@@ -31,13 +31,14 @@ export default function EditPasswordModal(props) {
       state.newPassword == state.newConfirmPassword
     ) {
       HandleFetch(
-        "http://127.0.0.1:8000/api/user/settings/password",
+        "/user/settings/password",
         "PATCH",
         {
           oldPassword: md5(state.oldPassword),
           newPassword: md5(state.newPassword),
         },
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then(() => {
           element.target.classList.remove("disabled");
@@ -49,7 +50,7 @@ export default function EditPasswordModal(props) {
             error: e,
           });
         });
-    }else{
+    } else {
       setState({ ...state, wrongNewConfirmPassword: true });
     }
   };
@@ -102,7 +103,10 @@ export default function EditPasswordModal(props) {
   useEffect(() => {
     if (state.newConfirmPassword.length == 0) {
       setState({ ...state, wrongNewConfirmPassword: false });
-    } else if (!validatePassword(state.newConfirmPassword) || state.newConfirmPassword != state.newPassword) {
+    } else if (
+      !validatePassword(state.newConfirmPassword) ||
+      state.newConfirmPassword != state.newPassword
+    ) {
       setState({ ...state, wrongNewConfirmPassword: true });
     } else {
       setState({ ...state, wrongNewConfirmPassword: false });
@@ -120,6 +124,7 @@ export default function EditPasswordModal(props) {
       size="lg"
       show={props.state.buttonPassword}
       onHide={handleClose}
+      backdrop="static"
       centered
     >
       <Modal.Body

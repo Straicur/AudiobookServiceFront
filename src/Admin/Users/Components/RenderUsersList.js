@@ -16,41 +16,24 @@ export default function RenderUsersList(props) {
     return renderArray;
   };
 
-  const deleteUser = (selectedUser) => {
+  const deleteUser = (selectedUser, element) => {
+    element.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/delete",
+      "/admin/user/delete",
       "DELETE",
       {
         userId: selectedUser.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
-        let newUserList = props.state.json.users.map((user) => {
-          if (user.id == selectedUser.id) {
-            return {
-              active: user.active,
-              banned: user.banned,
-              dateCreated: user.dateCreated,
-              email: user.email,
-              firstname: user.firstname,
-              id: user.id,
-              lastname: user.lastname,
-              deleted: !user.deleted,
-            };
-          } else {
-            return user;
-          }
+        props.setState({
+          ...props.state,
+          refresh: !props.state.refresh,
         });
 
-        const newJson = {
-          users: newUserList,
-          page: props.pageState.page,
-          limit: props.pageState.limit,
-          maxPage: props.pageState.maxPage,
-        };
-
-        props.setState({ ...props.state, json: newJson });
+        element.target.classList.remove("disabled");
       })
       .catch((e) => {
         props.setState({
@@ -63,10 +46,11 @@ export default function RenderUsersList(props) {
     if (props.dateUpdate < Date.now()) {
       props.userRolesStore.removeRoles();
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/user/system/roles",
+        "/admin/user/system/roles",
         "GET",
         null,
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then((data) => {
           props.userRolesStore.setRoles(data);
@@ -124,7 +108,7 @@ export default function RenderUsersList(props) {
               className="btn button mx-2"
               disabled={element.deleted}
               onClick={(e) => {
-                deleteUser(element);
+                deleteUser(element, e);
               }}
             >
               {element.deleted ? props.t("deleted") : props.t("toDelete")}

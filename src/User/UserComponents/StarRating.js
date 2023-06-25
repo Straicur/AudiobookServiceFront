@@ -23,14 +23,15 @@ export default function StarRating(props) {
 
   const fetchData = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobook/rating/add",
+      "/user/audiobook/rating/add",
       "PUT",
       {
         audiobookId: props.audiobookDetail.id,
         categoryKey: props.categoryKey,
         rating: rating,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         setUserRate(false);

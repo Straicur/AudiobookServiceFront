@@ -62,13 +62,14 @@ export default function EditNotificationModal(props) {
   const deleteNotification = (element) => {
     element.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/notification/delete",
+      "/admin/user/notification/delete",
       "PATCH",
       {
         notificationId: state.id,
         delete: !state.delete,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");
@@ -106,7 +107,7 @@ export default function EditNotificationModal(props) {
 
   const saveChanges = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/notification",
+      "/admin/user/notification",
       "PATCH",
       {
         notificationId: state.id,
@@ -117,7 +118,8 @@ export default function EditNotificationModal(props) {
           text: state.text,
         },
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setState({
@@ -143,6 +145,7 @@ export default function EditNotificationModal(props) {
       size="lg"
       show={props.state.editNotificationkModal}
       onHide={handleClose}
+      backdrop="static"
     >
       <Modal.Header>
         <Modal.Title>{props.t("notificationDetail")}</Modal.Title>
@@ -163,6 +166,7 @@ export default function EditNotificationModal(props) {
             usersState={props.usersState}
             setUsersState={props.setUsersState}
             t={props.t}
+            i18n={props.i18n}
             token={props.token}
           />
         ) : (
@@ -288,16 +292,18 @@ export default function EditNotificationModal(props) {
                 ) : null}
               </InputGroup>
             </div>
-            <div className="row mx-5 mt-2">
-              <Button
-                name="en"
-                variant="success"
-                size="sm"
-                className="btn button"
-                onClick={(e) => saveChanges(e)}
-              >
-                {props.t("save")}
-              </Button>
+            <div className="row justify-content-center mx-5 mt-2">
+              <div className="col-7">
+                <Button
+                  name="en"
+                  variant="success"
+                  size="sm"
+                  className="btn button button_notification"
+                  onClick={(e) => saveChanges(e)}
+                >
+                  {props.t("save")}
+                </Button>
+              </div>
             </div>
           </div>
         )}

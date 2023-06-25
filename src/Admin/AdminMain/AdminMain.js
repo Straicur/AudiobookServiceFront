@@ -3,6 +3,7 @@ import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import InfoContainer from "./Components/InfoContainer";
+import "./AdminMain.css";
 
 export default function AdminMain() {
   const token = useTokenStore((state) => state.token);

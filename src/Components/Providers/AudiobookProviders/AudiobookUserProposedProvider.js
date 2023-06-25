@@ -9,6 +9,7 @@ export const AudiobookUserProposedProvider = ({
   token,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookProposed, setAudiobookProposed] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -23,10 +24,11 @@ export const AudiobookUserProposedProvider = ({
     "dataAudiobookUserProposed",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/user/proposed/audiobooks",
+        "/user/proposed/audiobooks",
         "GET",
         null,
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -57,4 +59,5 @@ export const AudiobookUserProposedProvider = ({
   );
 };
 
-export const useAudiobookUserProposed = () => useContext(AudiobookUserProposedContext);
+export const useAudiobookUserProposed = () =>
+  useContext(AudiobookUserProposedContext);

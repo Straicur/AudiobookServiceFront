@@ -29,12 +29,13 @@ export default function AudiobookCommentsModal(props) {
     "dataAudiobookComments",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobook/comment/get",
+        "/admin/audiobook/comment/get",
         "POST",
         {
           audiobookId: props.state.detailAudiobookElement.id,
         },
-        props.token
+        props.token,
+        props.i18n.language
       ),
     {
       retry: 1,
@@ -68,12 +69,12 @@ export default function AudiobookCommentsModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton className="bg-dark"></Modal.Header>
-      <Modal.Body className="bg-dark">
-        <div className="row d-flex justify-content-center text-light text-center">
+      <Modal.Header closeButton></Modal.Header>
+      <Modal.Body>
+        <div className="row d-flex justify-content-center text-center">
           <h1>{props.t("comments")}</h1>
         </div>
-        <hr className="text-light"></hr>
+        <hr></hr>
         <RenderCommentsList
           state={state}
           setState={setState}

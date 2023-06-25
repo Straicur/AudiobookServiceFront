@@ -5,13 +5,14 @@ import AudioPlayer from "./AudiobookPlayer";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 import "react-h5-audio-player/lib/styles.css";
 import { useAudiobookData } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
-import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
-import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
+import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookCoverDataProvider";
+import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookPartProvider";
 import CategoryEditForm from "./CategoryEditForm";
 import AudiobookCategoryList from "./AudiobookCategoryList";
 import AudiobookCover from "./AudiobookCover";
 import GetAudiobookZipButton from "./GetAudiobookZipButton";
 import { v4 as uuidv4 } from "uuid";
+import Alert from "react-bootstrap/Alert";
 
 export default function CategoryAudiobookDetailModal(props) {
   const [stateModal, setStateModal] = useState({
@@ -28,22 +29,29 @@ export default function CategoryAudiobookDetailModal(props) {
   const [audiobookPart, setAudiobookPart] = useAudiobookPart();
 
   const handleClose = () => {
+    props.setAudiobooksState({
+      ...props.audiobooksState,
+      errorPart: "",
+      errorCover: ""
+    })
     props.setState({
       ...props.state,
       detailAudiobookModal: !props.state.detailAudiobookModal,
       detailAudiobookElement: null,
       refresh: !props.state.refresh,
+
     });
   };
 
   const deleteAudiobookEntarly = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/delete",
+      "/admin/audiobook/delete",
       "DELETE",
       {
         audiobookId: audiobookDetail.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();
@@ -59,13 +67,14 @@ export default function CategoryAudiobookDetailModal(props) {
 
   const deleteAudiobookFromCategory = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/remove/audiobook",
+      "/admin/category/remove/audiobook",
       "DELETE",
       {
         categoryId: props.state.category.id,
         audiobookId: audiobookDetail.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();
@@ -83,7 +92,6 @@ export default function CategoryAudiobookDetailModal(props) {
     let stars = [];
     let amountOfStars = 5;
     if (audiobookDetail != null) {
- 
       if (audiobookDetail.avgRating != 0) {
         for (let i = 0; i < audiobookDetail.avgRating; i++) {
           stars.push(
@@ -117,21 +125,23 @@ export default function CategoryAudiobookDetailModal(props) {
       <Modal.Header closeButton className="bg-dark">
         <GetAudiobookZipButton
           audiobookDetail={audiobookDetail}
-          setState={props.setState}
-          state={props.state}
+          audiobooksState={props.audiobooksState}
+          setAudiobooksState={props.setAudiobooksState}
           handleClose={handleClose}
           t={props.t}
+          i18n={props.i18n}
           token={props.token}
         />
       </Modal.Header>
       <Modal.Body className="bg-dark">
-        <div className="row ">
+        <div className="row">
           <div className="col">
             <AudiobookCover
               audiobookCover={audiobookCover}
-              setState={props.setState}
-              state={props.state}
+              audiobooksState={props.audiobooksState}
+              setAudiobooksState={props.setAudiobooksState}
               t={props.t}
+              i18n={props.i18n}
               setAudiobookCoverRefetch={setAudiobookCoverRefetch}
               stateModal={stateModal}
               setStateModal={setStateModal}
@@ -139,6 +149,13 @@ export default function CategoryAudiobookDetailModal(props) {
               audiobookDetail={audiobookDetail}
               token={props.token}
             />
+            <Alert
+              show={props.audiobooksState.errorCover != ""}
+              className="dangerAllert mt-1"
+              variant="danger"
+            >
+              {props.audiobooksState.errorCover}
+            </Alert>
             <div className="row d-flex justify-content-center text-light text-center">
               {renderStars()}
             </div>
@@ -162,11 +179,12 @@ export default function CategoryAudiobookDetailModal(props) {
               setState={props.setState}
               state={props.state}
               t={props.t}
+              i18n={props.i18n}
               token={props.token}
             />
             {stateModal.deleteFromCategory ? (
-              <div className="row">
-                <div className="col">
+              <div className="row justify-content-start">
+                <div className="col-5 mx-1">
                   <Button
                     name="en"
                     size="sm"
@@ -176,7 +194,7 @@ export default function CategoryAudiobookDetailModal(props) {
                     {props.t("yes")}
                   </Button>
                 </div>
-                <div className="col">
+                <div className="col-5 mx-2">
                   <Button
                     name="en"
                     size="sm"
@@ -211,8 +229,8 @@ export default function CategoryAudiobookDetailModal(props) {
             )}
 
             {stateModal.deleteEntarly ? (
-              <div className="row">
-                <div className="col">
+              <div className="row justify-content-start">
+                <div className="col-5 mx-1">
                   <Button
                     name="en"
                     size="sm"
@@ -222,7 +240,7 @@ export default function CategoryAudiobookDetailModal(props) {
                     {props.t("yes")}
                   </Button>
                 </div>
-                <div className="col">
+                <div className="col-5 mx-2">
                   <Button
                     name="en"
                     size="sm"
@@ -267,6 +285,13 @@ export default function CategoryAudiobookDetailModal(props) {
               t={props.t}
             />
           ) : null}
+          <Alert
+              show={props.audiobooksState.errorPart != ""}
+              className="dangerAllert mt-1"
+              variant="danger"
+            >
+              {props.audiobooksState.errorPart}
+            </Alert>
         </div>
       </Modal.Body>
     </Modal>

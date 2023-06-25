@@ -19,13 +19,14 @@ export default function RenderAudiobooksList(props) {
     element.target.classList.add("disabled");
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/active",
+      "/admin/audiobook/active",
       "PATCH",
       {
         audiobookId: selectedAudiobook.id,
         active: !selectedAudiobook.active,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");
@@ -50,8 +51,8 @@ export default function RenderAudiobooksList(props) {
         props.setState({ ...props.state, json: newJson });
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setAudiobooksState({
+          ...props.audiobooksState,
           error: e,
         });
       });
@@ -106,7 +107,7 @@ export default function RenderAudiobooksList(props) {
 
             <Button
               name="en"
-              variant={element.active ? "danger":"success"}
+              variant={element.active ? "danger" : "success"}
               size="sm"
               className="btn button mx-2"
               onClick={(e) => {

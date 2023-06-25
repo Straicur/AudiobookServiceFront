@@ -46,7 +46,7 @@
 }
 
 .modal_img_button {
-    width: 23.3rem !important;
+    width: 21.7rem !important;
 }
 
 .modal_button {
@@ -67,10 +67,12 @@
     background-color: #005331 !important;
     border-color: #005331 !important;
 }
-.warning_button{
+
+.warning_button {
     background-color: #928800 !important;
     border-color: #928800 !important;
 }
+
 .input_modal {
     padding-left: 0 !important;
 }
@@ -90,9 +92,21 @@
     background-color: #6c757d !important;
     border-color: #6c757d !important;
 }
-.question_button{
+
+.question_button {
     width: 9.5rem !important;
 }
-.table_buttons_with{
+
+.table_buttons_with {
     width: 30rem;
+}
+
+.categories_detail_modal {
+    max-height: 26rem;
+}
+
+.comment_delete_list {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    max-height: 45rem;
 }

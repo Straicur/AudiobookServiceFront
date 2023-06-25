@@ -3,17 +3,17 @@ import Button from "react-bootstrap/Button";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 
 export default function RenderCategoriesList(props) {
-  
   const addCategory = (element, category) => {
     element.stopPropagation();
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/add/audiobook",
+      "/admin/category/add/audiobook",
       "PATCH",
       {
         categoryId: category.id,
         audiobookId: props.audiobookDetail.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.disabled = true;
@@ -282,7 +282,9 @@ export default function RenderCategoriesList(props) {
 
   return (
     <div>
-      <ul className="list-group">{createTree()}</ul>
+      <ul className="list-group categories_add_list overflow-auto">
+        {createTree()}
+      </ul>
     </div>
   );
 }

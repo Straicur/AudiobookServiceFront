@@ -105,7 +105,7 @@ export default function AudiobookReAddingModal(props) {
   }, [props]);
 
   const reAddAudiobook = () => {
-    const url = "http://127.0.0.1:8000/api/admin/audiobook/reAdding";
+    const url = "/admin/audiobook/reAdding";
     const method = "PATCH";
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
@@ -144,7 +144,7 @@ export default function AudiobookReAddingModal(props) {
             currentPart: part,
           });
 
-          HandleFetch(url, method, jsonData, props.token)
+          HandleFetch(url, method, jsonData, props.token, props.i18n.language)
             .then((data) => {
               if (
                 stateProgress.currentPart == stateProgress.maxParts ||
@@ -200,7 +200,7 @@ export default function AudiobookReAddingModal(props) {
               },
             };
 
-            HandleFetch(url, method, jsonData, props.token)
+            HandleFetch(url, method, jsonData, props.token, props.i18n.language)
               .then((data) => {
                 if (
                   stateProgress.currentPart == stateProgress.maxParts ||

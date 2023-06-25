@@ -3,6 +3,7 @@ import RegisterForm from "./Components/RegisterForm";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import { validateEmail, validatePassword } from "./Components/Events";
+import "./Register.css";
 
 export default function Register() {
   const [state, setState] = useState({

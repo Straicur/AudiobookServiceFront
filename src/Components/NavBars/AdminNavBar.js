@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../HandleFetch";
 import { useTokenStore } from "../../store";
 import { useNavigate } from "react-router-dom";
+import "./AdminNavBar.css";
 
 export const AdminNavBar = () => {
   const { t, i18n } = useTranslation();
@@ -16,14 +17,16 @@ export const AdminNavBar = () => {
   const navigate = useNavigate();
 
   const logout = async () => {
-    const url = "http://127.0.0.1:8000/api/logout";
+    const url = "/logout";
     const jsonData = {};
     const method = "POST";
 
-    await HandleFetch(url, method, jsonData, token).finally(() => {
-      tokenStore.removeToken();
-      navigate("/login");
-    });
+    HandleFetch(url, method, jsonData, token, i18n.language).finally(
+      () => {
+        tokenStore.removeToken();
+        navigate("/login");
+      }
+    );
   };
 
   return (
@@ -91,8 +94,8 @@ export const AdminNavBar = () => {
             size="sm"
             className={
               i18n.language == "pl"
-                ? "btn  m-1 button_light"
-                : "btn  m-1 button_dark"
+                ? "btn  m-1 admin_button_dark"
+                : "btn  m-1 admin_button_light"
             }
             onClick={() => i18n.changeLanguage("pl")}
           >
@@ -103,8 +106,8 @@ export const AdminNavBar = () => {
             size="sm"
             className={
               i18n.language == "en"
-                ? "btn  m-1 button_light"
-                : "btn  m-1 button_dark"
+                ? "btn  m-1 admin_button_dark"
+                : "btn  m-1 admin_button_light"
             }
             onClick={() => i18n.changeLanguage("en")}
           >

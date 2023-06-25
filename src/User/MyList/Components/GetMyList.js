@@ -8,11 +8,13 @@ export default function GetMyList(props) {
       state={props.myListState}
       setState={props.setMyListState}
       token={props.token}
+      i18n={props.i18n}
     >
       <GetCovers
         state={props.myListState}
         setState={props.setMyListState}
         token={props.token}
+        i18n={props.i18n}
       />
       {props.myListState.detailModal &&
       props.myListState.detailModalAudiobook != null &&
@@ -23,6 +25,7 @@ export default function GetMyList(props) {
           setState={props.setMyListState}
           token={props.token}
           t={props.t}
+          i18n={props.i18n}
         />
       ) : null}
     </AudiobookMyListProvider>

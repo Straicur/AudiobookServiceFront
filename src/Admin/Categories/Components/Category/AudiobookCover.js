@@ -24,32 +24,37 @@ export default function AudiobookCover(props) {
       const reader = new FileReader();
       reader.onload = function (e) {
         if (e.target.result instanceof ArrayBuffer) {
-
           let pattern = "jpeg|png|jpg/i";
           let result = props.stateModal.file.type.match(pattern);
 
           if (result != null) {
-
             let buf = new Uint8Array(e.target.result);
             let b64 = Buffer.from(buf).toString("base64");
 
             HandleFetch(
-              "http://127.0.0.1:8000/api/admin/audiobook/change/cover",
+              "/admin/audiobook/change/cover",
               "PATCH",
               {
                 type: result[0],
                 base64: b64,
                 audiobookId: props.audiobookDetail.id,
               },
-              props.token
+              props.token,
+              props.i18n.language
             )
               .then(() => {
                 props.setAudiobookCoverRefetch(true);
+
                 props.setStateModal({ ...props.stateModal, file: null });
+
+                props.setAudiobooksState({
+                  ...props.setAudiobooksState,
+                  errorCover: "",
+                });
               })
               .catch((e) => {
-                props.setState({
-                  ...props.state,
+                props.setAudiobooksState({
+                  ...props.setAudiobooksState,
                   error: e,
                 });
                 props.handleClose();
@@ -64,7 +69,7 @@ export default function AudiobookCover(props) {
   };
 
   return (
-    <div className="row ">
+    <div className="row ms-1">
       <div className="row ">
         <img
           src={

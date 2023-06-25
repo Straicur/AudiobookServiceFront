@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import JsonModal from "../../../Components/JsonModal";
 import RenderUsersList from "./RenderUsersList";
-import RenderPageSwitches from "./RenderPageSwitches";
+import RenderPageSwitches from "../../AdminComponents/RenderPageSwitches";
 import DeleteUsersModal from "./DeleteUsersModal";
 import EditUserModal from "./EditUserModal";
 import DeletedUsersModal from "./DeletedUsersModal";
@@ -14,7 +14,7 @@ import SearchUsersOffCanvas from "./SearchUsersOffCanvas";
 import { useLastUserRolesStore } from "../../../store";
 
 export default function UsersList(props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const userRolesStore = useLastUserRolesStore();
 
@@ -91,14 +91,15 @@ export default function UsersList(props) {
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/users",
+        "/admin/users",
         "POST",
         {
           page: pageState.page,
           limit: pageState.limit,
           searchData: createSearchData(),
         },
-        props.token
+        props.token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -164,6 +165,7 @@ export default function UsersList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             roles={roles}
             dateUpdate={dateUpdate}
@@ -242,6 +244,7 @@ export default function UsersList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             roles={roles.roles}
           />
@@ -251,6 +254,7 @@ export default function UsersList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             pageState={pageState}
             setPageState={setPageState}
@@ -261,6 +265,7 @@ export default function UsersList(props) {
             state={state}
             setState={setState}
             t={t}
+            i18n={i18n}
             token={props.token}
             pageState={pageState}
             setPageState={setPageState}

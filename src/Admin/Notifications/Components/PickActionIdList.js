@@ -5,7 +5,7 @@ import GetAudiobooksList from "./GetAudiobooksList";
 import GetCategoriesList from "./GetCategoriesList";
 
 export default function PickActionIdList(props) {
-  const [listState, setListState] = useState(0);
+  const [listState, setListState] = useState(1);
 
   const getUsersList = () => {
     if (!props.usersState.fetched) {
@@ -47,7 +47,7 @@ export default function PickActionIdList(props) {
 
   return (
     <div className="row">
-      <div className="row">
+      <div className="row overflow-scroll pick_height">
         {listState == 1 ? (
           <GetUsersList
             usersState={props.usersState}
@@ -58,6 +58,7 @@ export default function PickActionIdList(props) {
             setNotificationsState={props.setNotificationsState}
             goBack={goBack}
             token={props.token}
+            i18n={props.i18n}
             t={props.t}
           />
         ) : null}
@@ -71,6 +72,7 @@ export default function PickActionIdList(props) {
             setNotificationsState={props.setNotificationsState}
             goBack={goBack}
             token={props.token}
+            i18n={props.i18n}
             t={props.t}
           />
         ) : null}
@@ -85,37 +87,41 @@ export default function PickActionIdList(props) {
             goBack={goBack}
             token={props.token}
             t={props.t}
+            i18n={props.i18n}
           />
         ) : null}
       </div>
-      <div className="row">
-        <div className="col">
+      <div className="row justify-content-center">
+        <div className="col-2 align-self-center mx-2">
           <Button
             name="en"
             variant="dark"
             size="sm"
+            disabled={listState == 1}
             className="btn button mx-2"
             onClick={getUsersList}
           >
             {props.t("users")}
           </Button>
         </div>
-        <div className="col">
+        <div className="col-2 align-self-center mx-2">
           <Button
             name="en"
             variant="dark"
             size="sm"
+            disabled={listState == 2}
             className="btn button mx-2"
             onClick={getAudiobooksList}
           >
             {props.t("audiobooks")}
           </Button>
         </div>
-        <div className="col">
+        <div className="col-2 align-self-center mx-2">
           <Button
             name="en"
             variant="dark"
             size="sm"
+            disabled={listState == 3}
             className="btn button mx-2"
             onClick={getCategriesList}
           >

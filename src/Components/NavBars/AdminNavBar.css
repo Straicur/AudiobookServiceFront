@@ -1,0 +1,19 @@
+.admin_button_dark {
+    color: rgb(255, 255, 255) !important;
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.admin_button_dark:hover {
+    opacity: 0.6;
+}
+
+.admin_button_light {
+    color: black !important;
+    background-color: rgb(136, 136, 136) !important;
+    border-color: rgb(138, 138, 138) !important;
+}
+
+.admin_button_light:hover {
+    opacity: 0.6;
+}

@@ -3,18 +3,20 @@ import { AdminNavBar } from "../../../Components/NavBars/AdminNavBar";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
+import Card from "react-bootstrap/Card";
 
 export default function InfoContainer(props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     "data",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/statistic/main",
+        "/admin/statistic/main",
         "GET",
         null,
-        props.token
+        props.token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -53,32 +55,96 @@ export default function InfoContainer(props) {
         <div className="p-5">
           <div className="p-3">
             <div className="p-3 text-light">
-              <h1>{t("administrationPage")} </h1>
-              <h2>{t("chooseNabOptions")}</h2>
+              <div className="text-center fs-4">
+                <p className="fs-1 fw-bold">{t("administrationPage")} </p>
+                <p className="fs-1 fw-bold">{t("chooseNabOptions")}</p>
+              </div>
             </div>
-
-            <div className="p-3 text-light">{t("currentApp")}</div>
-            <div className="p-3 text-light">
-              {t("categories")} :{props.infoState.categories}
+            <div className="text-center fs-4">
+              <p className="p-3 text-light">{t("currentApp")}</p>
             </div>
-            <div className="p-3 text-light">
-              {t("audiobooks")} :{props.infoState.audiobooks}
+            <div className="row justify-content-center">
+              <div className="col-6">
+                <Card className="info_card">
+                  <Card.Body className="info_card_body">
+                    <div className="row align-items-center justify-content-center">
+                      <div className="col align-self-center border-end border-dark">
+                        <div className="row info_card_body_el">
+                          <p className="text-center">{t("categories")}</p>
+                        </div>
+                        <div className="row info_card_body_el">
+                          <p className="text-center">
+                            {props.infoState.categories}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col align-self-center border-end border-dark">
+                        <div className="row info_card_body_el">
+                          <p className="text-center">{t("audiobooks")}</p>
+                        </div>
+                        <div className="row info_card_body_el">
+                          <p className="text-center">
+                            {props.infoState.audiobooks}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col align-self-center">
+                        <div className="row info_card_body_el">
+                          <p className="text-center">{t("users")}</p>
+                        </div>
+                        <div className="row info_card_body_el">
+                          <p className="text-center">{props.infoState.users}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
             </div>
-            <div className="p-3 text-light">
-              {t("users")} :{props.infoState.users}
+            <div className="text-center fs-4">
+              <p className="p-3 text-light">{t("lastWeek")}</p>
             </div>
-
-            <div className="p-3 text-light">{t("lastWeek")}</div>
-            <div className="p-3 text-light">
-              {t("registered")} {props.infoState.lastWeekRegistered}{" "}
-              {t("smallUsers")}
-            </div>
-            <div className="p-3 text-light">
-              {t("loggedIn")} {props.infoState.lastWeekLogins}
-            </div>
-            <div className="p-3 text-light">
-              {t("wasCreated")} {props.infoState.lastWeekNotifications}{" "}
-              {t("smallNotifications")}
+            <div className="row justify-content-center">
+              <div className="col-6">
+                <Card className="info_card">
+                  <Card.Body className="info_card_body">
+                    <div className="row align-items-center justify-content-center">
+                      <div className="col align-self-center border-end border-dark">
+                        <div className="row info_card_body_el">
+                          <p className="text-center">{t("registered")}</p>
+                        </div>
+                        <div className="row info_card_body_el">
+                          <p className="text-center">
+                            {props.infoState.lastWeekRegistered}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col align-self-center border-end border-dark">
+                        <div className="row info_card_body_el">
+                          <p className="text-center">{t("loggedIn")}</p>
+                        </div>
+                        <div className="row info_card_body_el">
+                          <p className="text-center">
+                            {props.infoState.lastWeekLogins}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col align-self-center">
+                        <div className="row info_card_body_el">
+                          <p className="text-center">
+                            {t("wasCreatedNotifications")}
+                          </p>
+                        </div>
+                        <div className="row info_card_body_el">
+                          <p className="text-center">
+                            {props.infoState.lastWeekNotifications}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </div>
             </div>
           </div>
         </div>

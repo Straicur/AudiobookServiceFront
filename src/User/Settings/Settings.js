@@ -14,7 +14,7 @@ export default function Settings() {
   const navigate = useNavigate();
   const token = useTokenStore((state) => state.token);
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [state, setState] = useState({
     phoneNumber: "",
@@ -50,10 +50,17 @@ export default function Settings() {
         <div className="container-fluid main-container mt-3">
           <div className="card position-relative p-3 bg-dark shadow">
             <UserNavBar />
-            <SettingsContainer state={state} setState={setState} t={t} token={token} navigate={navigate}/>
+            <SettingsContainer
+              state={state}
+              setState={setState}
+              t={t}
+              i18n={i18n}
+              token={token}
+              navigate={navigate}
+            />
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </HelmetProvider>
     </ErrorBoundary>
   );

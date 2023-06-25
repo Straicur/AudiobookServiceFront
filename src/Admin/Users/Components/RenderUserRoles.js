@@ -3,17 +3,17 @@ import Button from "react-bootstrap/Button";
 import { v4 as uuidv4 } from "uuid";
 
 export default function RenderUserRoles(props) {
-
   const deleteRole = (e, element) => {
     e.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/role/remove",
+      "/admin/user/role/remove",
       "PATCH",
       {
         userId: props.state.editUserElement.id,
         role: element.type,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         e.target.classList.remove("disabled");
@@ -48,13 +48,14 @@ export default function RenderUserRoles(props) {
   const addRole = (e, element) => {
     e.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/role/add",
+      "/admin/user/role/add",
       "PATCH",
       {
         userId: props.state.editUserElement.id,
         role: element.type,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         e.target.classList.remove("disabled");
@@ -93,14 +94,14 @@ export default function RenderUserRoles(props) {
         );
 
         roles.push(
-          <div className="row" key={uuidv4()}>
-            <div className="col-8">{element.name}</div>
-            <div className="col-4">
+          <div className="row align-items-center mt-2" key={uuidv4()}>
+            <div className="col-4 align-self-center">{element.name}</div>
+            <div className="col-8 align-self-center">
               <Button
                 variant={hasRole.length > 0 ? "danger" : "success"}
                 size="sm"
                 color="dark"
-                className=" btn button mt-2 text-light"
+                className=" btn button text-light edit_user_btn"
                 onClick={(e) => {
                   hasRole.length > 0
                     ? deleteRole(e, element)

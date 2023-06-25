@@ -55,7 +55,7 @@ export default function AddAudiobookModal(props) {
   };
 
   const addNewAudiobook = () => {
-    const url = "http://127.0.0.1:8000/api/admin/audiobook/add";
+    const url = "/admin/audiobook/add";
     const method = "PUT";
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
@@ -90,7 +90,8 @@ export default function AddAudiobookModal(props) {
           maxParts.current = part;
           currentPart.current = part;
 
-          HandleFetch(url, method, jsonData, props.token)
+          HandleFetch(url, method, jsonData, props.token,
+            props.i18n.language)
             .then((data) => {
               if (
                 currentPart.current == maxParts.current ||
@@ -125,7 +126,7 @@ export default function AddAudiobookModal(props) {
 
             maxParts.current = allparts;
             currentPart.current = part;
-            
+
             let b64 = Buffer.from(arr).toString("base64");
 
             const jsonData = {
@@ -141,7 +142,8 @@ export default function AddAudiobookModal(props) {
               },
             };
 
-            HandleFetch(url, method, jsonData, props.token)
+            HandleFetch(url, method, jsonData, props.token,
+              props.i18n.language)
               .then((data) => {
                 if (
                   currentPart.current == maxParts.current ||

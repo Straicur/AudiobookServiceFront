@@ -20,10 +20,11 @@ export default function DeleteUserModal(props) {
     element.target.classList.add("disabled");
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/settings/delete",
+      "/user/settings/delete",
       "PATCH",
       null,
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         tokenStore.removeToken();
@@ -48,6 +49,7 @@ export default function DeleteUserModal(props) {
       size="lg"
       show={props.state.buttonDelete}
       onHide={handleClose}
+      backdrop="static"
       centered
     >
       <Modal.Body

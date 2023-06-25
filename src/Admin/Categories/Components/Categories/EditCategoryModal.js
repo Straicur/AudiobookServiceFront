@@ -27,13 +27,14 @@ export default function EditCategoryModal(props) {
 
   const editCategoryName = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/edit",
+      "/admin/category/edit",
       "PATCH",
       {
         name: editModal.new_name,
         categoryId: props.state.editCategoryElement.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();
@@ -48,12 +49,13 @@ export default function EditCategoryModal(props) {
 
   const deleteCategory = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/remove",
+      "/admin/category/remove",
       "DELETE",
       {
         categoryId: props.state.editCategoryElement.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();
@@ -67,13 +69,14 @@ export default function EditCategoryModal(props) {
   };
   const activateCategory = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/active",
+      "/admin/category/active",
       "PATCH",
       {
         categoryId: props.state.editCategoryElement.id,
         active: !props.state.editCategoryElement.active,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();

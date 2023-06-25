@@ -3,6 +3,7 @@ import { useTokenStore } from "../../store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import UsersList from "./Components/UsersList";
+import "./Users.css";
 
 export default function Users() {
   const token = useTokenStore((state) => state.token);

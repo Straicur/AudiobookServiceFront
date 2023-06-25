@@ -8,12 +8,13 @@ export default function DeleteAudiobookEntarlyButton(props) {
 
   const deleteAudiobookEntarly = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/delete",
+      "/admin/audiobook/delete",
       "DELETE",
       {
         audiobookId: props.audiobookDetail.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         navigate(`/admin/audiobooks`);
@@ -28,7 +29,7 @@ export default function DeleteAudiobookEntarlyButton(props) {
 
   return props.audiobookState.deleteEntarly ? (
     <div className="row justify-content-center">
-      <div className="col-4">
+      <div className="col-4 mx-2">
         <Button
           name="en"
           size="sm"
@@ -38,7 +39,7 @@ export default function DeleteAudiobookEntarlyButton(props) {
           {props.t("yes")}
         </Button>
       </div>
-      <div className="col-4">
+      <div className="col-4 mx-2">
         <Button
           name="en"
           size="sm"

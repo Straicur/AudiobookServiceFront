@@ -13,6 +13,7 @@ export const AudiobookUserDetailProvider = ({
   categoryKey,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookDetail, setAudiobookDetail] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -27,13 +28,14 @@ export const AudiobookUserDetailProvider = ({
     "dataAudiobookDetail",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/user/audiobook/details",
+        "/user/audiobook/details",
         "POST",
         {
           audiobookId: audiobookId,
           categoryKey: categoryKey,
         },
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -58,7 +60,7 @@ export const AudiobookUserDetailProvider = ({
           version: data.version,
           year: CreateDate(data.year),
           canRate: data.canRate,
-          canComment: data.canComment
+          canComment: data.canComment,
         });
       },
     }

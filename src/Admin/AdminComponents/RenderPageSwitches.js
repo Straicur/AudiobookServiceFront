@@ -23,26 +23,26 @@ export default function RenderPageSwitches(props) {
 
   return (
     <div className="row justify-content-center">
-      <div className="col-1">
+      <div className="col-1 align-self-center">
         <Button
           variant="light"
           size="sm"
           color="dark"
-          className=" btn button mt-2"
+          className=" btn button mt-2 rounded_left_button"
           onClick={() => prevPage()}
         >
           <i className="bi bi-chevron-left"></i>
         </Button>
       </div>
-      <div className="col-1">
+      <div className="col-1 align-self-center mt-2 fw-bold">
         {props.pageState.page + 1}/{props.pageState.maxPage}
       </div>
-      <div className="col-1">
+      <div className="col-1 align-self-center">
         <Button
           variant="light"
           size="sm"
           color="dark"
-          className=" btn button mt-2"
+          className=" btn button mt-2 rounded_right_button"
           onClick={() => nextPage()}
         >
           <i className="bi bi-chevron-right"></i>

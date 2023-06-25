@@ -83,7 +83,7 @@ export default function AddNotificationModal(props) {
 
   const addNotification = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/user/notification",
+      "/admin/user/notification",
       "PUT",
       {
         notificationType: state.notificationType,
@@ -91,7 +91,8 @@ export default function AddNotificationModal(props) {
         actionId: state.actionId,
         additionalData: createAdditionalData(),
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setState({
@@ -113,6 +114,7 @@ export default function AddNotificationModal(props) {
       size="lg"
       show={props.state.addNotificationModal}
       onHide={handleClose}
+      backdrop="static"
     >
       <Modal.Header>
         <Modal.Title>{props.t("addNotification")}</Modal.Title>
@@ -197,29 +199,35 @@ export default function AddNotificationModal(props) {
               </InputGroup>
             </div>
             {actionState.actionIdChanged || state.notificationType == 1 ? (
-              <div className="row mx-5 mt-3">
-                <Button
-                  name="en"
-                  variant="success"
-                  size="sm"
-                  className="btn button"
-                  onClick={(e) => addNotification(e)}
-                >
-                  {props.t("save")}
-                </Button>
+              <div className="row justify-content-center mx-5 mt-3">
+                <div className="col-7">
+                  <Button
+                    name="en"
+                    variant="success"
+                    size="sm"
+                    className="btn button button_notification"
+                    onClick={(e) => addNotification(e)}
+                  >
+                    {props.t("save")}
+                  </Button>
+                </div>
               </div>
             ) : (
-              <div className="row mx-5 mt-3">
-                <Button
-                  name="en"
-                  variant="dark"
-                  disabled={state.notificationType == 0 || state.userType == 0}
-                  size="sm"
-                  className="btn button"
-                  onClick={(e) => selectActionId(e)}
-                >
-                  {props.t("select")}
-                </Button>
+              <div className="row justify-content-center mx-5 mt-3">
+                <div className="col-7">
+                  <Button
+                    name="en"
+                    variant="dark"
+                    disabled={
+                      state.notificationType == 0 || state.userType == 0
+                    }
+                    size="sm"
+                    className="btn button button_notification"
+                    onClick={(e) => selectActionId(e)}
+                  >
+                    {props.t("select")}
+                  </Button>
+                </div>
               </div>
             )}
           </div>

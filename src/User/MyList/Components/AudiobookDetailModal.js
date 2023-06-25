@@ -52,13 +52,14 @@ export default function AudiobookDetailModal(props) {
   const addToMyList = (element) => {
     element.target.classList.add("disabled");
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobook/like",
+      "/user/audiobook/like",
       "PATCH",
       {
         audiobookId: props.state.detailModalAudiobook.id,
         categoryKey: props.state.detailModalCategory.categoryKey,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         setAudiobookDetail({
@@ -97,7 +98,7 @@ export default function AudiobookDetailModal(props) {
         }
         if (procent >= 20) {
           HandleFetch(
-            "http://127.0.0.1:8000/api/user/audiobook/info/add",
+            "/user/audiobook/info/add",
             "PUT",
             {
               audiobookId: props.state.detailModalAudiobook.id,
@@ -106,7 +107,8 @@ export default function AudiobookDetailModal(props) {
               endedTime: timeAudio.current,
               watched: watched,
             },
-            props.token
+            props.token,
+            props.i18n.language
           )
             .then(() => {})
             .catch((e) => {
@@ -125,7 +127,12 @@ export default function AudiobookDetailModal(props) {
   };
 
   return (
-    <Modal size="lg" show={props.state.detailModal} onHide={handleClose}>
+    <Modal
+      size="lg"
+      show={props.state.detailModal}
+      onHide={handleClose}
+      backdrop="static"
+    >
       <Modal.Body
         className="text-white"
         style={{
@@ -221,6 +228,7 @@ export default function AudiobookDetailModal(props) {
                     token={props.token}
                     categoryKey={props.state.detailModalCategory.categoryKey}
                     t={props.t}
+                    i18n={props.i18n}
                   />
                 </div>
               </div>
@@ -236,6 +244,7 @@ export default function AudiobookDetailModal(props) {
                   state={props.state}
                   setState={props.setState}
                   t={props.t}
+                  i18n={props.i18n}
                   token={props.token}
                   refetch={setAudiobookCommnetsRefetchState}
                 />

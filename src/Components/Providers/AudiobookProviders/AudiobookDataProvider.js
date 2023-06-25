@@ -12,6 +12,7 @@ export const AudiobookDataProvider = ({
   audiobookId,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookDetail, setAudiobookDetail] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -26,12 +27,13 @@ export const AudiobookDataProvider = ({
     "dataAudiobookData",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/audiobook/details",
+        "/admin/audiobook/details",
         "POST",
         {
           audiobookId: audiobookId,
         },
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,

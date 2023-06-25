@@ -26,13 +26,14 @@ export default function EditEmailModal(props) {
       element.target.classList.add("disabled");
 
       HandleFetch(
-        "http://127.0.0.1:8000/api/user/settings/email",
+        "/user/settings/email",
         "POST",
         {
           newEmail: state.newEmail,
           oldEmail: state.oldEmail,
         },
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then(() => {
           element.target.classList.remove("disabled");
@@ -99,6 +100,7 @@ export default function EditEmailModal(props) {
       size="lg"
       show={props.state.buttonEmail}
       onHide={handleClose}
+      backdrop="static"
       centered
     >
       <Modal.Body

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import LoginForm from "./Components/LoginForm";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
+import "./UserLogin.css";
 
 export default function UserLogin() {
   const navigate = useNavigate();

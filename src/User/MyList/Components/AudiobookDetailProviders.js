@@ -17,13 +17,14 @@ export default function AudiobookDetailProviders(props) {
 
   const fetchData = () => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobook/info",
+      "/user/audiobook/info",
       "POST",
       {
         audiobookId: props.state.detailModalAudiobook.id,
         categoryKey: props.state.detailModalCategory.categoryKey,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then((data) => {
         setAudiobookState({
@@ -68,6 +69,7 @@ export default function AudiobookDetailProviders(props) {
           token={props.token}
           audiobookId={props.state.detailModalAudiobook.id}
           categoryKey={props.state.detailModalCategory.categoryKey}
+          i18n={props.i18n}
         >
           <AudiobookPartProvider
             state={props.state}
@@ -75,6 +77,7 @@ export default function AudiobookDetailProviders(props) {
             token={props.token}
             audiobookId={props.state.detailModalAudiobook.id}
             part={audiobookState.part}
+            i18n={props.i18n}
           >
             <AudiobookRatingProvider
               state={props.state}
@@ -82,6 +85,7 @@ export default function AudiobookDetailProviders(props) {
               token={props.token}
               audiobookId={props.state.detailModalAudiobook.id}
               categoryKey={props.state.detailModalCategory.categoryKey}
+              i18n={props.i18n}
             >
               <AudiobookUserCommentsProvider
                 state={props.state}
@@ -89,6 +93,7 @@ export default function AudiobookDetailProviders(props) {
                 token={props.token}
                 audiobookId={props.state.detailModalAudiobook.id}
                 categoryKey={props.state.detailModalCategory.categoryKey}
+                i18n={props.i18n}
               >
                 <AudiobookDetailModal
                   state={props.state}
@@ -96,6 +101,7 @@ export default function AudiobookDetailProviders(props) {
                   audiobookState={audiobookState}
                   setAudiobookState={setAudiobookState}
                   t={props.t}
+                  i18n={props.i18n}
                   token={props.token}
                 />
               </AudiobookUserCommentsProvider>

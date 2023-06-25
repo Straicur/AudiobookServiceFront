@@ -14,7 +14,12 @@ export default function EditUserModal(props) {
   };
 
   return (
-    <Modal size="lg" show={props.state.editUserModal} onHide={handleClose}>
+    <Modal
+      size="lg"
+      show={props.state.editUserModal}
+      onHide={handleClose}
+      backdrop="static"
+    >
       <Modal.Header>
         <Modal.Title>
           {props.t("editUser")}: {props.state.editUserElement.email}
@@ -26,6 +31,7 @@ export default function EditUserModal(props) {
             state={props.state}
             setState={props.setState}
             t={props.t}
+            i18n={props.i18n}
             roles={props.roles}
             token={props.token}
           />
@@ -35,6 +41,7 @@ export default function EditUserModal(props) {
             state={props.state}
             setState={props.setState}
             t={props.t}
+            i18n={props.i18n}
             token={props.token}
           />
         </div>

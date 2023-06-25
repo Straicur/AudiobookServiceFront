@@ -10,6 +10,7 @@ export const AudiobookUserDataProvider = ({
   limit,
   state,
   setState,
+  i18n
 }) => {
   const [audiobooks, setAudiobooks] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -19,16 +20,16 @@ export const AudiobookUserDataProvider = ({
   const fetchData = () => {
     setLoading(true);
     HandleFetch(
-      "http://127.0.0.1:8000/api/user/audiobooks",
+      "/user/audiobooks",
       "POST",
       {
         page: page,
         limit: limit,
       },
-      token
+      token,
+      i18n.language
     )
       .then((data) => {
-
         setHasMore(data.maxPage > page + 1);
         setLoading(false);
 

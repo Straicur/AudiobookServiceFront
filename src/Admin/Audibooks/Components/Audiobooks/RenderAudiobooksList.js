@@ -11,9 +11,11 @@ export default function RenderAudiobooksList(props) {
     let renderArray = [];
 
     if (props.state.json != null) {
-      props.state.json.audiobooks.forEach((element) => {
-        renderArray.push(createColumn(element));
-      });
+      if (props.state.json.audiobooks != null) {
+        props.state.json.audiobooks.forEach((element) => {
+          renderArray.push(createColumn(element));
+        });
+      }
     }
 
     return renderArray;
@@ -23,13 +25,14 @@ export default function RenderAudiobooksList(props) {
     element.target.classList.add("disabled");
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/active",
+      "/admin/audiobook/active",
       "PATCH",
       {
         audiobookId: selectedAudiobook.id,
         active: !selectedAudiobook.active,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         element.target.classList.remove("disabled");
@@ -135,7 +138,7 @@ export default function RenderAudiobooksList(props) {
 
             <Button
               name="en"
-              variant={element.active ? "danger":"success"}
+              variant={element.active ? "danger" : "success"}
               size="sm"
               className="btn button mx-2"
               onClick={(e) => {

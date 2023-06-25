@@ -18,7 +18,6 @@ export default function GetUsersList(props) {
     return (
       <tr key={uuidv4()}>
         <th scope="row">{element.email}</th>
-        <td>{element.firstname}</td>
         <td>{element.lastname}</td>
         <td>
           {element.active ? (
@@ -56,7 +55,7 @@ export default function GetUsersList(props) {
   useEffect(() => {
     if (!props.usersState.fetched) {
       HandleFetch(
-        "http://127.0.0.1:8000/api/admin/users",
+        "/admin/users",
         "POST",
         {
           page: 0,
@@ -65,7 +64,8 @@ export default function GetUsersList(props) {
             order: 1,
           },
         },
-        props.token
+        props.token,
+        props.i18n.language
       )
         .then((data) => {
           props.setUsersState({
@@ -76,7 +76,6 @@ export default function GetUsersList(props) {
           });
         })
         .catch((e) => {
-          console.log(e);
           props.setNotificationsState({
             ...props.notificationsState,
             error: e,
@@ -90,7 +89,6 @@ export default function GetUsersList(props) {
       <thead className="">
         <tr>
           <th scope="col">{props.t("email")}</th>
-          <th scope="col">{props.t("firstname")}</th>
           <th scope="col">{props.t("lastname")}</th>
           <th scope="col">{props.t("active")}</th>
           <th scope="col">{props.t("banned")}</th>

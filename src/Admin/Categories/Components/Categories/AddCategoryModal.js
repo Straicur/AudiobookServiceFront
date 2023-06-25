@@ -30,13 +30,14 @@ export default function AddCategoryModal(props) {
     }
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/add",
+      "/admin/category/add",
       "PUT",
       {
         name: modalState.name,
         additionalData: additionalData,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         handleClose();
@@ -67,7 +68,13 @@ export default function AddCategoryModal(props) {
       <Modal.Header>
         <Modal.Title>
           <h3>
-            <b>{props.t("addMainCategory")}</b>
+            <b>
+              {props.state.addCategoryParent != null
+                ? props.t("addToCategory") +
+                  " " +
+                  props.state.addCategoryParent.name
+                : props.t("addMainCategory")}
+            </b>
           </h3>
         </Modal.Title>
       </Modal.Header>

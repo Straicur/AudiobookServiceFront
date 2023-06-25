@@ -10,6 +10,7 @@ export const AudiobookSearchProvider = ({
   title,
   state,
   setState,
+  i18n
 }) => {
   const [audiobookSearch, setAudiobookSearch] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
@@ -25,12 +26,13 @@ export const AudiobookSearchProvider = ({
     "dataAudiobookSearch",
     () =>
       HandleFetch(
-        "http://127.0.0.1:8000/api/user/audiobooks/search",
+        "/user/audiobooks/search",
         "POST",
         {
           title: title,
         },
-        token
+        token,
+        i18n.language
       ),
     {
       retry: 1,
@@ -53,12 +55,7 @@ export const AudiobookSearchProvider = ({
     }
   }, [refetchState]);
 
-  const value = [
-    audiobookSearch,
-    loading,
-    setAudiobookSearch,
-    setRefetchState,
-  ];
+  const value = [audiobookSearch, loading, setAudiobookSearch, setRefetchState];
 
   return (
     <AudiobookSearchContext.Provider value={value}>

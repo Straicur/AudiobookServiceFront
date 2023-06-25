@@ -5,12 +5,13 @@ import { HandleFetch } from "../../../../Components/HandleFetch";
 export default function RenderCommentsList(props) {
   function deleteCommnet(element) {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/comment/delete",
+      "/admin/audiobook/comment/delete",
       "DELETE",
       {
         audiobookCommentId: element.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setAudiobookCommnetsRefetchState(true);
@@ -27,11 +28,13 @@ export default function RenderCommentsList(props) {
     let renderArray = [];
 
     if (props.audiobookCommnets != undefined) {
-   
       createTree(props.audiobookCommnets.comments, renderArray);
     }
 
-    if (props.audiobookCommnets != null && props.audiobookCommnets.comments.length == 0) {
+    if (
+      props.audiobookCommnets != null &&
+      props.audiobookCommnets.comments.length == 0
+    ) {
       renderArray.push(
         <div key={uuidv4()} className="row text-center">
           <div className="col-md-6 offset-md-3 ">
@@ -97,23 +100,21 @@ export default function RenderCommentsList(props) {
     return (
       <li
         key={uuidv4()}
-        className={
-            "border border-4 border-secondary list-group-item"
-        }
+        className="border border-1 border-dark list-group-item"
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
       >
-        <div className="row p-1 bd-highlight">
+        <div className="row p-1 bd-highlight comment_detail_height">
           <div className="col-1">
             {child.length > 0 ? (
               <i className="p-2 bi bi-arrow-right-square "></i>
-            ) : (
-              <div className="p-2 bd-highlight"></div>
-            )}
+            ) : null}
           </div>
-          <div className="col-1">{props.t("comment")}:</div>
-          <div className="col-4">{element.comment}</div>
-          <div className="col-1">{props.t("owner")}:</div>
+          <div className="col-1 fw-bold">{props.t("comment")}:</div>
+          <div className="col-4 overflow-auto text-break comment_detail_height_comment">
+            {element.comment}
+          </div>
+          <div className="col-1 fw-bold">{props.t("owner")}:</div>
           <div className="col-3">{element.userModel.email}</div>
           <div className="col-1">
             {element.deleted ? (
@@ -132,7 +133,7 @@ export default function RenderCommentsList(props) {
                 deleteCommnet(element);
               }}
             >
-              {props.t("delete")}
+              {element.deleted ? props.t("restore") : props.t("delete")}
             </Button>
           </div>
         </div>
@@ -143,17 +144,25 @@ export default function RenderCommentsList(props) {
     );
   }
 
-  function createListElement(element) {
+  function createListElement(index, element, arrayLength) {
     return (
       <li
         key={uuidv4()}
-        className="d-none p-2 border list-group-item"
+        className={
+          arrayLength == 1
+            ? "d-none p-2 border border-1 border-secondary list-group-item"
+            : index + 1 == arrayLength
+            ? "d-none p-2 border border-1 border-secondary list-group-item"
+            : "d-none p-2 border border-1 border-bottom-0 border-secondary list-group-item"
+        }
         id={element.id}
       >
-        <div className="row p-1 bd-highlight">
-          <div className="col-1">{props.t("comment")}:</div>
-          <div className="col-5">{element.comment}</div>
-          <div className="col-1">{props.t("owner")}:</div>
+        <div className="row p-1 bd-highlight comment_detail_height">
+          <div className="col-1 fw-bold">{props.t("comment")}:</div>
+          <div className="col-5 overflow-auto text-break comment_detail_height_comment">
+            {element.comment}
+          </div>
+          <div className="col-1 fw-bold">{props.t("owner")}:</div>
           <div className="col-3">{element.userModel.email}</div>
           <div className="col-1">
             {element.deleted ? (
@@ -172,7 +181,7 @@ export default function RenderCommentsList(props) {
                 deleteCommnet(element);
               }}
             >
-              {props.t("delete")}
+              {element.deleted ? props.t("restore") : props.t("delete")}
             </Button>
           </div>
         </div>
@@ -182,16 +191,16 @@ export default function RenderCommentsList(props) {
 
   function createTree(array, renderArray) {
     for (const element of array) {
-    
       let children = [];
 
       if (element["children"].length != 0) {
-        for (const child of element["children"]) {
-          children.push(createListElement(child))
+        for (const [index, child] of element["children"].entries()) {
+          children.push(
+            createListElement(index, child, element["children"].length)
+          );
         }
       }
       renderArray.push(listParent(element, children));
-     
     }
   }
 

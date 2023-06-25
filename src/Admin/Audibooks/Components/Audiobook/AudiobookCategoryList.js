@@ -5,13 +5,14 @@ import { HandleFetch } from "../../../../Components/HandleFetch";
 export default function AudiobookCategoryList(props) {
   const deleteFromCategory = (category) => {
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/category/remove/audiobook",
+      "/admin/category/remove/audiobook",
       "DELETE",
       {
         categoryId: category.id,
         audiobookId: props.audiobookDetail.id,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setAudiobookDetailRefetch(true);
@@ -78,7 +79,10 @@ export default function AudiobookCategoryList(props) {
       props.audiobookDetail.categories == 0
     ) {
       categories.push(
-        <div key={uuidv4()} className="row d-flex justify-content-center text-center">
+        <div
+          key={uuidv4()}
+          className="row d-flex justify-content-center text-center"
+        >
           <h5>{props.t("empty")}</h5>
         </div>
       );

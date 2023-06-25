@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { AudiobookDataProvider } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
-import { AudiobookCoverDataProvider } from "../../../../Components/Providers/AudiobookProviders/AudiobookCoverDataProvider";
-import { AudiobookPartProvider } from "../../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
+import { AdminAudiobookCoverDataProvider } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookCoverDataProvider";
+import { AdminAudiobookPartProvider } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookPartProvider";
 import { AudiobookCommentsProvider } from "../../../../Components/Providers/AudiobookProviders/AudiobookCommentsProvider";
 
 import AudiobookDetail from "./AudiobookDetail";
@@ -12,42 +12,51 @@ export default function AuidobookDetailProviders(props) {
       throw props.audiobookState.error;
     }
   }, [props.audiobookState.error]);
-  
+
   return (
     <AudiobookDataProvider
       state={props.audiobookState}
       setState={props.setAudiobookState}
       token={props.token}
       audiobookId={props.audiobookId}
+      t={props.t}
+      i18n={props.i18n}
     >
-      <AudiobookCoverDataProvider
+      <AdminAudiobookCoverDataProvider
         state={props.audiobookState}
         setState={props.setAudiobookState}
         token={props.token}
         audiobookId={props.audiobookId}
+        t={props.t}
+        i18n={props.i18n}
       >
-        <AudiobookPartProvider
+        <AdminAudiobookPartProvider
           state={props.audiobookState}
           setState={props.setAudiobookState}
           token={props.token}
           audiobookId={props.audiobookId}
           part={props.audiobookState.part}
+          t={props.t}
+          i18n={props.i18n}
         >
           <AudiobookCommentsProvider
             state={props.audiobookState}
             setState={props.setAudiobookState}
             token={props.token}
             audiobookId={props.audiobookId}
+            t={props.t}
+            i18n={props.i18n}
           >
             <AudiobookDetail
               audiobookState={props.audiobookState}
               setAudiobookState={props.setAudiobookState}
               t={props.t}
               token={props.token}
+              i18n={props.i18n}
             />
           </AudiobookCommentsProvider>
-        </AudiobookPartProvider>
-      </AudiobookCoverDataProvider>
+        </AdminAudiobookPartProvider>
+      </AdminAudiobookCoverDataProvider>
     </AudiobookDataProvider>
   );
 }

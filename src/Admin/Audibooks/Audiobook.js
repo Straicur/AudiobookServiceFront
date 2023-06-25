@@ -4,10 +4,13 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import AuidobookDetailProviders from "./Components/Audiobook/AuidobookDetailProviders";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Audiobook.css";
 
 export default function Audiobook() {
+
   const token = useTokenStore((state) => state.token);
+  const { t, i18n } = useTranslation();
 
   const { audiobookId } = useParams();
 
@@ -20,10 +23,12 @@ export default function Audiobook() {
     reAddingModal: false,
     reAdding: false,
     part: 0,
+    errorPart: "",
+    errorCover: "",
     error: null,
   });
   //todo ttu mi zostaje do poprawy img który się nie odświerza i pobierany jest z cache. Musze dodać chachowanie w serwerze i też czekanie przy img
-  // Żeby mi się za wcześnie nie odświerzał 
+  // Żeby mi się za wcześnie nie odświerzał
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
@@ -39,6 +44,8 @@ export default function Audiobook() {
         setAudiobookState={setAudiobookState}
         audiobookId={audiobookId}
         token={token}
+        t={t}
+        i18n={i18n}
       />
     </ErrorBoundary>
   );

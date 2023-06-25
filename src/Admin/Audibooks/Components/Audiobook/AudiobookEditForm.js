@@ -17,7 +17,7 @@ export default function AudiobookEditForm(props) {
     let seconds = parseInt(myDate[2]);
 
     HandleFetch(
-      "http://127.0.0.1:8000/api/admin/audiobook/edit",
+      "/admin/audiobook/edit",
       "PATCH",
       {
         audiobookId: props.audiobookDetail.id,
@@ -33,7 +33,8 @@ export default function AudiobookEditForm(props) {
         age: props.audiobookDetail.age,
         encoded: props.audiobookDetail.encoded,
       },
-      props.token
+      props.token,
+      props.i18n.language
     )
       .then(() => {
         props.setAudiobookDetailRefetch(true);
@@ -125,7 +126,7 @@ export default function AudiobookEditForm(props) {
 
   const validateFields = () => {
     setWrongState(0);
-    
+
     if (props.audiobookDetail.title.length < 1) {
       setWrongState(1);
     }
