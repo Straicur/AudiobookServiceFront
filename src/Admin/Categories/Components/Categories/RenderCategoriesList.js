@@ -74,7 +74,7 @@ export default function RenderCategoriesList(props) {
         className={
           parent == null
             ? "visible border border-1 border-dark list-group-item"
-            : "d-none border list-group-item"
+            : "d-none border border-1 border-dark list-group-item"
         }
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
