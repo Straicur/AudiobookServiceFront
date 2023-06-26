@@ -54,12 +54,14 @@ export default function AudiobookReAddingModal(props) {
   };
 
   const handleCloseAndUpdate = () => {
-    props.resetStates();
-    props.setAudiobookState({
-      ...props.audiobookState,
-      reAddingModal: !props.audiobookState.reAddingModal,
-      reAdding: !props.audiobookState.reAdding,
-    });
+    setTimeout(function () {
+      props.resetStates();
+      props.setAudiobookState({
+        ...props.audiobookState,
+        reAddingModal: !props.audiobookState.reAddingModal,
+        reAdding: !props.audiobookState.reAdding,
+      });
+    }, 3000);
   };
 
   const handleBack = () => {
