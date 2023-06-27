@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAudiobookData } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
 import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookCoverDataProvider";
 import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookPartProvider";
@@ -65,11 +65,16 @@ export default function AudiobookDetail(props) {
     return stars;
   };
 
-  const resetStates = () => {
-    setAudiobookDetailRefetch(true);
-    setAudiobookCoverRefetch(true);
-    setAudiobookPartRefetch(true);
-  };
+  useEffect(() => {
+
+    if (props.audiobookState.refresh) {
+      setTimeout(function () {
+        setAudiobookDetailRefetch(true);
+        setAudiobookCoverRefetch(true);
+        setAudiobookPartRefetch(true);
+      }, props.audiobookState.addAudiobookSeconds);
+    }
+  }, [props.audiobookState.refresh]);
 
   return (
     <div className="container-fluid main-container mt-3">
@@ -233,7 +238,6 @@ export default function AudiobookDetail(props) {
           categoriesState={categoriesState}
           t={props.t}
           token={props.token}
-          resetStates={resetStates}
           i18n={props.i18n}
         />
       ) : null}

@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import "./Audiobook.css";
 
 export default function Audiobook() {
-
   const token = useTokenStore((state) => state.token);
   const { t, i18n } = useTranslation();
 
@@ -22,6 +21,8 @@ export default function Audiobook() {
     addCategoriesModal: false,
     reAddingModal: false,
     reAdding: false,
+    refresh: false,
+    addAudiobookSeconds: 3000,
     part: 0,
     errorPart: "",
     errorCover: "",

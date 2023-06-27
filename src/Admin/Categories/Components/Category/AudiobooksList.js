@@ -25,6 +25,7 @@ export default function AudiobooksList(props) {
     detailCommentsAudiobookModal: false,
     detailAudiobookElementPart: 0,
     addAudiobook: false,
+    addAudiobookSeconds: 3000,
     refresh: false,
   });
 
@@ -117,7 +118,7 @@ export default function AudiobooksList(props) {
       setState({ ...state, addAudiobook: !state.addAudiobook });
       setTimeout(function () {
         refetchFirst();
-      }, 3000);
+      }, state.addAudiobookSeconds);
     }
   }, [state.addAudiobook]);
 

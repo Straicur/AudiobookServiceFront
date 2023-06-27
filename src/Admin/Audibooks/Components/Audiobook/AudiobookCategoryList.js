@@ -27,10 +27,7 @@ export default function AudiobookCategoryList(props) {
 
   const createCategory = (category) => {
     return (
-      <div
-        key={uuidv4()}
-        className="row border border-secondary category_data mb-1"
-      >
+      <div key={uuidv4()} className="row border border-secondary mb-1">
         <div className="col-10">
           <div className="row">
             <div className="col">{props.t("name")}:</div>
@@ -88,7 +85,9 @@ export default function AudiobookCategoryList(props) {
       );
     }
     return (
-      <div className="row d-flex justify-content-center me-1">{categories}</div>
+      <div className="row d-flex justify-content-center me-1 category_data overflow-auto">
+        {categories}
+      </div>
     );
   };
 

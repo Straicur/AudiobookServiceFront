@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { HandleFetch } from "../../../../Components/HandleFetch";
@@ -27,6 +27,8 @@ export default function AudiobookReAddingModal(props) {
     error: false,
   });
 
+  const seconds = useRef(3000);
+
   const handleSetAuthorChange = (event) => {
     setStateModal({ ...stateModal, author: event.target.value });
   };
@@ -54,14 +56,13 @@ export default function AudiobookReAddingModal(props) {
   };
 
   const handleCloseAndUpdate = () => {
-    setTimeout(function () {
-      props.resetStates();
-      props.setAudiobookState({
-        ...props.audiobookState,
-        reAddingModal: !props.audiobookState.reAddingModal,
-        reAdding: !props.audiobookState.reAdding,
-      });
-    }, 3000);
+    props.setAudiobookState({
+      ...props.audiobookState,
+      reAddingModal: !props.audiobookState.reAddingModal,
+      reAdding: !props.audiobookState.reAdding,
+      refresh: !props.audiobookState.refresh,
+      addAudiobookSeconds: seconds.current
+    });
   };
 
   const handleBack = () => {
@@ -122,6 +123,8 @@ export default function AudiobookReAddingModal(props) {
         let buf = new Uint8Array(e.target.result);
         let allparts = 0;
         let part = 1;
+
+        seconds.current = buf.length / 10000;
 
         if (buf.length < CHUNK_SIZE) {
           let b64 = Buffer.from(buf).toString("base64");
