@@ -135,6 +135,7 @@ export default function AddNotificationModal(props) {
             usersState={props.usersState}
             setUsersState={props.setUsersState}
             t={props.t}
+            i18n={props.i18n}
             token={props.token}
           />
         ) : (
@@ -206,6 +207,9 @@ export default function AddNotificationModal(props) {
                     variant="success"
                     size="sm"
                     className="btn button button_notification"
+                    disabled={
+                      state.notificationType == 0 || state.userType == 0
+                    }
                     onClick={(e) => addNotification(e)}
                   >
                     {props.t("save")}
