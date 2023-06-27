@@ -79,7 +79,6 @@ export default function Main() {
 
             {audiobooksState.detailModal &&
             audiobooksState.detailModalAudiobook != null &&
-            audiobooksState.detailModalCover != null &&
             audiobooksState.detailModalCategory != null ? (
               <AudiobookDetailProviders
                 state={audiobooksState}

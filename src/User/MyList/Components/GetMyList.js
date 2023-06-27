@@ -14,11 +14,11 @@ export default function GetMyList(props) {
         state={props.myListState}
         setState={props.setMyListState}
         token={props.token}
+        t={props.t}
         i18n={props.i18n}
       />
       {props.myListState.detailModal &&
       props.myListState.detailModalAudiobook != null &&
-      props.myListState.detailModalCover != null &&
       props.myListState.detailModalCategory != null ? (
         <AudiobookDetailProviders
           state={props.myListState}

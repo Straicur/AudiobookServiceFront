@@ -33,3 +33,8 @@
     color: #bebebe;
     margin-bottom: 0;
 }
+
+.center_text {
+    line-height: 40rem;
+    text-align: center;
+}
