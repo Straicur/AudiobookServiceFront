@@ -127,7 +127,11 @@ export default function AudiobookDetailModal(props) {
           <div
             className="row "
             style={{
-              backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.7) 47%, rgba(255,255,255,0.1) 82%), url(${props.state.detailModalCover})`,
+              backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.7) 47%, rgba(255,255,255,0.1) 82%), url(${
+                props.state.detailModalCover == null
+                  ? "/noImg.jpg"
+                  : props.state.detailModalCover
+              })`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "60%",
               backgroundPosition: "95% 15%",

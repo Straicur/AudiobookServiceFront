@@ -30,6 +30,7 @@ export default function AudiobooksList(props) {
     searchModal: false,
     refresh: false,
     addAudiobook: false,
+    addAudiobookSeconds: 3000,
     error: null,
   });
 
@@ -193,7 +194,7 @@ export default function AudiobooksList(props) {
 
       setTimeout(function () {
         refetch();
-      }, 3000);
+      }, state.addAudiobookSeconds);
     }
   }, [state.addAudiobook]);
 

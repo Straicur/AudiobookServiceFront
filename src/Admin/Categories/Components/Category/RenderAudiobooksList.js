@@ -1,8 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { HandleFetch } from "../../../../Components/HandleFetch";
+import { useNavigate } from "react-router-dom";
 
 export default function RenderAudiobooksList(props) {
+  const navigate = useNavigate();
+
   const createTable = () => {
     let renderArray = [];
 
@@ -72,6 +75,16 @@ export default function RenderAudiobooksList(props) {
         </td>
         <td className="table_buttons_with">
           <div className="d-grid gap-2 d-md-block">
+            <Button
+              name="en"
+              variant="dark"
+              size="sm"
+              className="btn button mx-2"
+              onClick={() => navigate("/admin/audiobook/" + element.id)}
+            >
+              {props.t("fullEdit")}
+            </Button>
+
             <Button
               name="en"
               variant="dark"

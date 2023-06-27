@@ -18,6 +18,7 @@ export default function AddAudiobookModal(props) {
 
   const maxParts = useRef(0);
   const currentPart = useRef(0);
+  const seconds = useRef(3000);
 
   const handleSetAuthorChange = (event) => {
     setStateModal({ ...stateModal, author: event.target.value });
@@ -42,6 +43,7 @@ export default function AddAudiobookModal(props) {
       ...props.state,
       addAudiobookModal: !props.state.addAudiobookModal,
       addAudiobook: !props.state.addAudiobook,
+      addAudiobookSeconds: seconds.current,
       modalAddShow: props.state.modalAddShow,
     });
   };
@@ -53,7 +55,7 @@ export default function AddAudiobookModal(props) {
   const nextPage = () => {
     setStateModal({ ...stateModal, modal: 2 });
   };
-
+ 
   const addNewAudiobook = () => {
     const url = "/admin/audiobook/add";
     const method = "PUT";
@@ -70,6 +72,8 @@ export default function AddAudiobookModal(props) {
         let buf = new Uint8Array(e.target.result);
         let allparts = 0;
         let part = 1;
+
+        seconds.current = buf.length / 10000;
 
         if (buf.length < CHUNK_SIZE) {
           let b64 = Buffer.from(buf).toString("base64");
@@ -90,8 +94,7 @@ export default function AddAudiobookModal(props) {
           maxParts.current = part;
           currentPart.current = part;
 
-          HandleFetch(url, method, jsonData, props.token,
-            props.i18n.language)
+          HandleFetch(url, method, jsonData, props.token, props.i18n.language)
             .then((data) => {
               if (
                 currentPart.current == maxParts.current ||
@@ -142,8 +145,7 @@ export default function AddAudiobookModal(props) {
               },
             };
 
-            HandleFetch(url, method, jsonData, props.token,
-              props.i18n.language)
+            HandleFetch(url, method, jsonData, props.token, props.i18n.language)
               .then((data) => {
                 if (
                   currentPart.current == maxParts.current ||

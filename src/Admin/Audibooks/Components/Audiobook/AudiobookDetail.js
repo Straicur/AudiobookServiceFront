@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAudiobookData } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
 import { useAudiobookCover } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookCoverDataProvider";
 import { useAudiobookPart } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookPartProvider";
@@ -65,11 +65,15 @@ export default function AudiobookDetail(props) {
     return stars;
   };
 
-  const resetStates = () => {
-    setAudiobookDetailRefetch(true);
-    setAudiobookCoverRefetch(true);
-    setAudiobookPartRefetch(true);
-  };
+  useEffect(() => {
+    if (props.audiobookState.refresh) {
+      setTimeout(function () {
+        setAudiobookDetailRefetch(true);
+        setAudiobookCoverRefetch(true);
+        setAudiobookPartRefetch(true);
+      }, props.audiobookState.addAudiobookSeconds);
+    }
+  }, [props.audiobookState.refresh]);
 
   return (
     <div className="container-fluid main-container mt-3">
@@ -90,7 +94,7 @@ export default function AudiobookDetail(props) {
             />
             <Alert
               show={props.audiobookState.errorCover != ""}
-              className="dangerAllert mt-1"
+              className="dangerAllert mt-1 text-center"
               variant="danger"
             >
               {props.audiobookState.errorCover}
@@ -125,7 +129,7 @@ export default function AudiobookDetail(props) {
               ) : null}
               <Alert
                 show={props.audiobookState.errorPart != ""}
-                className="dangerAllert mt-1"
+                className="dangerAllert mt-1 text-center"
                 variant="danger"
               >
                 {props.audiobookState.errorPart}
@@ -233,7 +237,6 @@ export default function AudiobookDetail(props) {
           categoriesState={categoriesState}
           t={props.t}
           token={props.token}
-          resetStates={resetStates}
           i18n={props.i18n}
         />
       ) : null}

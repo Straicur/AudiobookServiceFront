@@ -48,7 +48,7 @@ export default function AudiobookCover(props) {
                 props.setStateModal({ ...props.stateModal, file: null });
 
                 props.setAudiobooksState({
-                  ...props.setAudiobooksState,
+                  ...props.audiobooksState,
                   errorCover: "",
                 });
               })

@@ -68,13 +68,15 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
     <Modal show={state.show} onHide={handleClose} backdrop="static">
       <Modal.Body>
         <h3 className="text-center fw-bold py-3"> {t("errorOccurred")}</h3>
-        {state.data.map((element) => {
-          return (
-            <p key={uuidv4()} className="text-center pb-1 fs-5">
-              {element}
-            </p>
-          );
-        })}
+        {state.data != undefined
+          ? state.data.map((element) => {
+              return (
+                <p key={uuidv4()} className="text-center pb-1 fs-5">
+                  {element}
+                </p>
+              );
+            })
+          : null}
       </Modal.Body>
       <Modal.Footer>
         <Button

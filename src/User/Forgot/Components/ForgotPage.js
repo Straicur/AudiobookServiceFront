@@ -107,7 +107,7 @@ export default function ForgotPage(props) {
           <hr className="mt-4"></hr>
           <Alert
             show={props.state.wrongPassword}
-            className="dangerAllert mt-1"
+            className="dangerAllert mt-1 text-center"
             variant="danger"
           >
             {props.t("enterStrongerPassword")}

@@ -61,7 +61,11 @@ export default function RenderProposedCarousel(props, audiobooks) {
             }}
           >
             <div className="card-img-sm">
-              <img src={imgUrl} className="card-img-top" alt="..." />
+              <img
+                src={imgUrl == null ? "/noImg.jpg" : imgUrl}
+                className="card-img-top"
+                alt="..."
+              />
             </div>
 
             <div className="card-body">

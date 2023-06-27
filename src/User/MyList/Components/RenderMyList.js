@@ -42,7 +42,10 @@ export default function GetCovers(props) {
               }}
             >
               <div className="card-search-img-sm">
-                <img src={imgUrl} className="card-img-top" alt="..." />
+                <img
+                  src={imgUrl == null ? "/noImg.jpg" : imgUrl}
+                  className="card-img-top"
+                />
               </div>
 
               <div className="card-body">
@@ -59,9 +62,11 @@ export default function GetCovers(props) {
 
   return (
     <div key={uuidv4()} className="row min_container_height">
-      {props.coversState != undefined && props.coversState.length > 0
-        ? returnAudioboks()
-        : null}
+      {props.coversState != undefined && props.coversState.length > 0 ? (
+        returnAudioboks()
+      ) : (
+        <div className="text-white center_text fs-2"> {props.t("emptyMyList")}</div>
+      )}
     </div>
   );
 }

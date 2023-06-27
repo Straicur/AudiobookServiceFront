@@ -26,6 +26,7 @@ export default function PickActionIdAddList(props) {
             goBack={goBack}
             token={props.token}
             t={props.t}
+            i18n={props.i18n}
           />
         ) : null}
         {props.state.notificationType == 5 ? (
@@ -39,6 +40,7 @@ export default function PickActionIdAddList(props) {
             goBack={goBack}
             token={props.token}
             t={props.t}
+            i18n={props.i18n}
           />
         ) : null}
         {props.state.notificationType == 4 ? (
@@ -52,6 +54,7 @@ export default function PickActionIdAddList(props) {
             goBack={goBack}
             token={props.token}
             t={props.t}
+            i18n={props.i18n}
           />
         ) : null}
       </div>

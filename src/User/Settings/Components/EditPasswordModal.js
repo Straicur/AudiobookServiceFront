@@ -156,7 +156,7 @@ export default function EditPasswordModal(props) {
                 />
                 <Alert
                   show={state.wrongOldPassword}
-                  className="dangerAllert mt-1"
+                  className="dangerAllert mt-1 text-center"
                   variant="danger"
                 >
                   {props.t("enterValidPassword")}
@@ -181,7 +181,7 @@ export default function EditPasswordModal(props) {
                 />
                 <Alert
                   show={state.wrongNewPassword}
-                  className="dangerAllert mt-1"
+                  className="dangerAllert mt-1 text-center"
                   variant="danger"
                 >
                   {props.t("enterValidPassword")}
@@ -206,7 +206,7 @@ export default function EditPasswordModal(props) {
                 />
                 <Alert
                   show={state.wrongNewConfirmPassword}
-                  className="dangerAllert mt-1"
+                  className="dangerAllert mt-1 text-center"
                   variant="danger"
                 >
                   {props.t("enterValidPassword")}

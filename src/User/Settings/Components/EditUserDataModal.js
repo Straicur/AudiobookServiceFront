@@ -171,7 +171,7 @@ export default function EditUserDataModal(props) {
                 />
                 <Alert
                   show={state.wrongFirstname}
-                  className="dangerAllert mt-1"
+                  className="dangerAllert mt-1 text-center"
                   variant="danger"
                 >
                   {props.t("enterValidFirstName")}
@@ -194,7 +194,7 @@ export default function EditUserDataModal(props) {
                 />
                 <Alert
                   show={state.wrongLastname}
-                  className="dangerAllert mt-1"
+                  className="dangerAllert mt-1 text-center"
                   variant="danger"
                 >
                   {props.t("enterValidLastName")}
@@ -217,7 +217,7 @@ export default function EditUserDataModal(props) {
                 />
                 <Alert
                   show={state.wrongPhoneNumber}
-                  className="dangerAllert mt-1"
+                  className="dangerAllert mt-1 text-center"
                   variant="danger"
                 >
                   {props.t("enterValidPhoneNumber")}

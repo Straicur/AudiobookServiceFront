@@ -42,7 +42,10 @@ export default function RenderSearchAudiobooksList(props) {
               }}
             >
               <div className="card-search-img-sm">
-                <img src={imgUrl} className="card-img-top" alt="..." />
+                <img
+                  src={imgUrl == null ? "/noImg.jpg" : imgUrl}
+                  className="card-img-top"
+                />
               </div>
 
               <div className="card-body">
