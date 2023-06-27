@@ -128,7 +128,7 @@ export default function EditEmailModal(props) {
                 />
                 <Alert
                   show={state.wrongEmail}
-                  className="dangerAllert mt-1"
+                  className="dangerAllert mt-1 text-center"
                   variant="danger"
                 >
                   {props.t("enterValidEmail")}
@@ -150,7 +150,7 @@ export default function EditEmailModal(props) {
               </Form.Group>
               <Alert
                 show={state.wrongNewEmail}
-                className="dangerAllert mt-1"
+                className="dangerAllert mt-1 text-center"
                 variant="danger"
               >
                 {props.t("enterValidEmail")}

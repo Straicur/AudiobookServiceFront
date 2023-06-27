@@ -66,7 +66,6 @@ export default function AudiobookDetail(props) {
   };
 
   useEffect(() => {
-
     if (props.audiobookState.refresh) {
       setTimeout(function () {
         setAudiobookDetailRefetch(true);
@@ -95,7 +94,7 @@ export default function AudiobookDetail(props) {
             />
             <Alert
               show={props.audiobookState.errorCover != ""}
-              className="dangerAllert mt-1"
+              className="dangerAllert mt-1 text-center"
               variant="danger"
             >
               {props.audiobookState.errorCover}
@@ -130,7 +129,7 @@ export default function AudiobookDetail(props) {
               ) : null}
               <Alert
                 show={props.audiobookState.errorPart != ""}
-                className="dangerAllert mt-1"
+                className="dangerAllert mt-1 text-center"
                 variant="danger"
               >
                 {props.audiobookState.errorPart}

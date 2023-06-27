@@ -151,7 +151,7 @@ export default function CategoryAudiobookDetailModal(props) {
             />
             <Alert
               show={props.audiobooksState.errorCover != ""}
-              className="dangerAllert mt-1"
+              className="dangerAllert mt-1 text-center"
               variant="danger"
             >
               {props.audiobooksState.errorCover}
@@ -287,7 +287,7 @@ export default function CategoryAudiobookDetailModal(props) {
           ) : null}
           <Alert
               show={props.audiobooksState.errorPart != ""}
-              className="dangerAllert mt-1"
+              className="dangerAllert mt-1 text-center"
               variant="danger"
             >
               {props.audiobooksState.errorPart}
