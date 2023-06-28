@@ -9,7 +9,7 @@ export const AudiobookUserProposedProvider = ({
   token,
   state,
   setState,
-  i18n
+  i18n,
 }) => {
   const [audiobookProposed, setAudiobookProposed] = useState(null);
   const [refetchState, setRefetchState] = useState(false);

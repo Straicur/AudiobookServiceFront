@@ -10,7 +10,7 @@ export const AdminAudiobookCoverDataProvider = ({
   audiobookId,
   state,
   setState,
-  i18n
+  i18n,
 }) => {
   const [audiobookCover, setAudiobookCover] = useState(null);
   const [refetchState, setRefetchState] = useState(false);

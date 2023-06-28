@@ -13,7 +13,7 @@ export const AudiobookUserDetailProvider = ({
   categoryKey,
   state,
   setState,
-  i18n
+  i18n,
 }) => {
   const [audiobookDetail, setAudiobookDetail] = useState(null);
   const [refetchState, setRefetchState] = useState(false);

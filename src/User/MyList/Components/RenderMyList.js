@@ -65,7 +65,10 @@ export default function GetCovers(props) {
       {props.coversState != undefined && props.coversState.length > 0 ? (
         returnAudioboks()
       ) : (
-        <div className="text-white center_text fs-2"> {props.t("emptyMyList")}</div>
+        <div className="text-white center_text fs-2">
+          {" "}
+          {props.t("emptyMyList")}
+        </div>
       )}
     </div>
   );

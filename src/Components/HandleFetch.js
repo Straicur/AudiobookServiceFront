@@ -36,7 +36,7 @@ export const HandleFetch = async (
   if (jsonData != null) {
     content.body = JSON.stringify(jsonData);
   }
-  
+
   url = process.env.REACT_APP_API_URL + url;
 
   const response = await fetch(url, content);

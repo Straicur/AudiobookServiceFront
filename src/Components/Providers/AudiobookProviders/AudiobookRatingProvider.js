@@ -11,7 +11,7 @@ export const AudiobookRatingProvider = ({
   categoryKey,
   state,
   setState,
-  i18n
+  i18n,
 }) => {
   const [audiobookRating, setAudiobookRating] = useState(null);
   const [refetchState, setRefetchState] = useState(false);

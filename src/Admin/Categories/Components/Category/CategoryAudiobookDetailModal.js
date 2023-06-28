@@ -32,14 +32,13 @@ export default function CategoryAudiobookDetailModal(props) {
     props.setAudiobooksState({
       ...props.audiobooksState,
       errorPart: "",
-      errorCover: ""
-    })
+      errorCover: "",
+    });
     props.setState({
       ...props.state,
       detailAudiobookModal: !props.state.detailAudiobookModal,
       detailAudiobookElement: null,
       refresh: !props.state.refresh,
-
     });
   };
 
@@ -286,12 +285,12 @@ export default function CategoryAudiobookDetailModal(props) {
             />
           ) : null}
           <Alert
-              show={props.audiobooksState.errorPart != ""}
-              className="dangerAllert mt-1 text-center"
-              variant="danger"
-            >
-              {props.audiobooksState.errorPart}
-            </Alert>
+            show={props.audiobooksState.errorPart != ""}
+            className="dangerAllert mt-1 text-center"
+            variant="danger"
+          >
+            {props.audiobooksState.errorPart}
+          </Alert>
         </div>
       </Modal.Body>
     </Modal>

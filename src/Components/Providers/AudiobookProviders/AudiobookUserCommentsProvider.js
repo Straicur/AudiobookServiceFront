@@ -11,7 +11,7 @@ export const AudiobookUserCommentsProvider = ({
   categoryKey,
   state,
   setState,
-  i18n
+  i18n,
 }) => {
   const [audiobookUserComments, setAudiobookUserComments] = useState(null);
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);

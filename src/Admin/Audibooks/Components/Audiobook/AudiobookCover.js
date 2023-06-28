@@ -47,7 +47,7 @@ export default function AudiobookCover(props) {
                 props.setAudiobookState({
                   ...props.audiobookState,
                   file: null,
-                  errorCover: ""
+                  errorCover: "",
                 });
               })
               .catch((e) => {
