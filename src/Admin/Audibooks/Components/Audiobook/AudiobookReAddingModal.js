@@ -61,7 +61,7 @@ export default function AudiobookReAddingModal(props) {
       reAddingModal: !props.audiobookState.reAddingModal,
       reAdding: !props.audiobookState.reAdding,
       refresh: !props.audiobookState.refresh,
-      addAudiobookSeconds: seconds.current
+      addAudiobookSeconds: seconds.current,
     });
   };
 

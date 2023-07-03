@@ -11,7 +11,7 @@ export const AdminAudiobookPartProvider = ({
   part,
   state,
   setState,
-  i18n
+  i18n,
 }) => {
   const [audiobookPart, setAudiobookPart] = useState(null);
   const [refetchState, setRefetchState] = useState(false);

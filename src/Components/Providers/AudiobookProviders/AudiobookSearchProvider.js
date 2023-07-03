@@ -10,7 +10,7 @@ export const AudiobookSearchProvider = ({
   title,
   state,
   setState,
-  i18n
+  i18n,
 }) => {
   const [audiobookSearch, setAudiobookSearch] = useState(null);
   const [refetchState, setRefetchState] = useState(false);

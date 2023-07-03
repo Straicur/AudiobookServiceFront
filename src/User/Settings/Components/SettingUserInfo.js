@@ -30,8 +30,7 @@ export default function SettingUserInfo(props) {
             </div>
           ) : (
             <i className="bi bi-calendar-minus"></i>
-          )}{" "}
-          {/* {CreateDate(element.dateAdd)} */}
+          )}
         </div>
       </div>
     </div>

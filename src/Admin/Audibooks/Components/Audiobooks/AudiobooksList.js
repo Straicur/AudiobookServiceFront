@@ -139,13 +139,7 @@ export default function AudiobooksList(props) {
     if (dateUpdate > Date.now() && dateUpdate != 0) {
       setCategories(categories);
     } else {
-      HandleFetch(
-        "/admin/categories",
-        "GET",
-        null,
-        props.token,
-        i18n.language
-      )
+      HandleFetch("/admin/categories", "GET", null, props.token, i18n.language)
         .then((data) => {
           categoriesStore.removeCategories();
           for (const category of data.categories) {
