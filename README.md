@@ -1,5 +1,5 @@
 # AudiobookServiceFront
-Jest to frontend apliakcji do zarządzania audiobookami skierowany dla użytkowników. Aplikacja z założenia została stworzona jako koncept darmowej biblioteki ale jest przygotowana do implementacji płatności dzięki dodaniu ról w systemie. Ma ona Administratorowi ułatwić i zautomatyzować zażądzanie taką biblioteką a użytkownikowi swobodny odsłuch z dodatkowymi funkcjonalnościami.
+Jest to frontend apliakcji do zarządzania audiobookami skierowany dla użytkowników. Aplikacja z założenia została stworzona jako koncept darmowej biblioteki ale jest przygotowana do implementacji płatności dzięki dodaniu ról w systemie. Ma ona Administratorowi ułatwić i zautomatyzować zażądzanie taką biblioteką a użytkownikowi swobodny odsłuch z dodatkowymi funkcjonalnościami. Wykorzystany został tu react oraz host to vercel.
 <br>
 
 # Opis
