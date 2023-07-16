@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../HandleFetch";
 import { useTokenStore } from "../../store";
+import Badge from "react-bootstrap/Badge";
 import "./UserNavBar.css";
 
 export const UserNavBar = () => {
@@ -89,6 +90,16 @@ export const UserNavBar = () => {
               EN
             </Button>
           </ButtonGroup>
+          <div className="row text-white pt-2 me-1 h-100 align-items-center justify-content-center">
+            <div className="col justify-content-end  align-items-center">
+              <h6> {t("notifications")}</h6>
+            </div>
+            <div className="col justify-content-end  align-items-center">
+              <h6>
+                <Badge bg="secondary">New</Badge>
+              </h6>
+            </div>
+          </div>
           <div>
             <div className="row ">
               <div className="col-2 d-flex align-items-center">

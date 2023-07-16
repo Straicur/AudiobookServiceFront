@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { HandleFetch } from "../HandleFetch";
 import { useTokenStore } from "../../store";
 import { useNavigate } from "react-router-dom";
+import Badge from "react-bootstrap/Badge";
 import "./AdminNavBar.css";
 
 export const AdminNavBar = () => {
@@ -112,6 +113,16 @@ export const AdminNavBar = () => {
             EN
           </Button>
         </ButtonGroup>
+        <div className="row pt-2 me-1 h-100 align-items-center justify-content-center">
+          <div className="col justify-content-end  align-items-center">
+            <h6> {t("notifications")}</h6>
+          </div>
+          <div className="col justify-content-end  align-items-center">
+            <h6>
+              <Badge bg="secondary">New</Badge>
+            </h6>
+          </div>
+        </div>
         <Button
           name="logout"
           variant="dark"

@@ -50,18 +50,18 @@ export default function InfoContainer(props) {
 
   return (
     <div className="container-fluid main-container mt-3">
-      <div className="card position-relative p-3 mb-5  bg-dark shadow">
+      <div className="card position-relative p-3 mb-5 shadow">
         <AdminNavBar />
         <div className="p-5">
           <div className="p-3">
-            <div className="p-3 text-light">
+            <div className="p-3">
               <div className="text-center fs-4">
                 <p className="fs-1 fw-bold">{t("administrationPage")} </p>
                 <p className="fs-1 fw-bold">{t("chooseNabOptions")}</p>
               </div>
             </div>
             <div className="text-center fs-4">
-              <p className="p-3 text-light">{t("currentApp")}</p>
+              <p className="p-3">{t("currentApp")}</p>
             </div>
             <div className="row justify-content-center">
               <div className="col-6">
@@ -102,7 +102,7 @@ export default function InfoContainer(props) {
               </div>
             </div>
             <div className="text-center fs-4">
-              <p className="p-3 text-light">{t("lastWeek")}</p>
+              <p className="p-3">{t("lastWeek")}</p>
             </div>
             <div className="row justify-content-center">
               <div className="col-6">
