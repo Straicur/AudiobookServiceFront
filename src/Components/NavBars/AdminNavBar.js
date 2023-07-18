@@ -113,6 +113,15 @@ export const AdminNavBar = () => {
             EN
           </Button>
         </ButtonGroup>
+        {/* Cały ten element ma być clicable i dodaj mu hover na jaśniejszy
+            Pobieranie noramlnie Fetchem i zapisuje to do pamięci z odświerzaniem 4 minuty
+            Pobieram ilość z pamięci i po kliknięciu pobieram pierwszą stronę, na końcu listy napis "Pokaż więcej"
+            I po tym ładuję więcej i tyle, znikać ma po dojściu do max 
+            Pomyśl też nad przeczytaniem tego powiadomienia bo to będzie mi pokazywać ilość wszystkich a powinno tylko 
+            najnowsze raczej, czyli te które nie są przeczytanie. 
+
+            Po kliknięciu w powiadomienia pokazuje się modal który wyświetli detale i nie wyłącza mi się ta lista wogóle jak coś.
+        */}
         <div className="row pt-2 me-1 h-100 align-items-center justify-content-center">
           <div className="col justify-content-end  align-items-center">
             <h6> {t("notifications")}</h6>

@@ -6,12 +6,7 @@ let tokenStore = (set) => ({
   token: "",
   roles: [],
   setToken: (jsonData, state, setState, language) => {
-    HandleFetch(
-      "/authorize",
-      "POST",
-      jsonData,
-      language
-    )
+    HandleFetch("/authorize", "POST", jsonData, language)
       .then((data) => {
         set(() => ({
           token: data.token,
@@ -96,6 +91,28 @@ let lastUserRolesStore = (set) => ({
     })),
 });
 
+let notificationsListStore = (set) => ({
+  notifications: [],
+  newNotifications: 0,
+  dateUpdate: 0,
+  addNotifications: (notifications) => {
+    set((state) => ({
+      notifications: state.notifications.concat(notifications),
+      dateUpdate: Date.now() + 1800000,
+    }));
+  },
+  setNewNotification: (newNotifications) => {
+    set(() => ({
+      newNotifications: newNotifications,
+    }));
+  },
+  removeCategories: () =>
+    set(() => ({
+      notifications: [],
+      dateUpdate: 0,
+    })),
+});
+
 //todo tu jeszcze mogę trzymać te ustawienia języka i likalizację (jeśli nie pl to na eng ustawiam i tyle)
 
 tokenStore = devtools(tokenStore);
@@ -115,8 +132,14 @@ lastSearchStore = persist(lastSearchStore, { name: "searchAudiobooks" });
 lastUserRolesStore = devtools(lastUserRolesStore);
 lastUserRolesStore = persist(lastUserRolesStore, { name: "userRolesStore" });
 
+notificationsListStore = devtools(notificationsListStore);
+notificationsListStore = persist(notificationsListStore, {
+  name: "notificationsStore",
+});
+
 export const useTokenStore = create(tokenStore);
 export const useLastUserRolesStore = create(lastUserRolesStore);
 export const useLastSearchStore = create(lastSearchStore);
 export const useCategoryTreeListStore = create(categoryTreeListStore);
 export const useCategoryListStore = create(categoryListStore);
+export const useNotificationsListStore = create(notificationsListStore);
