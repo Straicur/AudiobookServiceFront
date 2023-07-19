@@ -17,3 +17,18 @@
 .admin_button_light:hover {
     opacity: 0.6;
 }
+
+.nav-col {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.notification-row {
+    padding: 0.4rem;
+    border-radius: 0.5rem;
+    cursor: pointer !important;
+}
+
+.notification-row:hover {
+    background-color: rgb(155, 155, 154) !important;
+}
