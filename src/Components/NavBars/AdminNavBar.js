@@ -14,8 +14,9 @@ export const AdminNavBar = () => {
 
   const [state, setState] = useState({
     json: null,
-    page:0,
-    limit:10,
+    page: 0,
+    limit: 10,
+    maxPage: 0,
     addCategoryModal: false,
     refresh: false,
     error: null,
@@ -39,44 +40,44 @@ export const AdminNavBar = () => {
   };
   const notificationsListStore = useNotificationsListStore();
 
-  const notifications = useNotificationsListStore((state) => state.notifications);
-  const newNotifications = useNotificationsListStore((state) => state.newNotifications);
+  const notifications = useNotificationsListStore(
+    (state) => state.notifications
+  );
+  const newNotifications = useNotificationsListStore(
+    (state) => state.newNotifications
+  );
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
-  const fetchCategories = () => {
+  const fetchNotifications = () => {
     HandleFetch(
       "/notifications",
       "POST",
       {
-        page:state.page,
-        limit:state.limit,
+        page: state.page,
+        limit: state.limit,
       },
       token,
       i18n.language
     )
       .then((data) => {
-        console.log(data)
-        // maxPage
-        // newNotifications
-        // page
-        // systemNotifications
+        notificationsListStore.addNotifications(data.newNotifications);
+        notificationsListStore.newNotifications(data.newNotifications);
       })
       .catch((e) => {
-        // props.setCategoiesState({
-        //   ...props.categoiesState,
-        //   error: e,
-        // });
+        notificationsListStore.addNotifications([]);
+        notificationsListStore.newNotifications(0);
       });
   };
   const openNitificationList = () => {
-    console.log("as")
-  }
+    //Wysuwanie listy Offcanvas i tam niech się mi wyświetla cała ta lista
+    //I na końcu te dopisz
+  };
 
   useEffect(() => {
     setState({ ...state, json: notifications });
 
-    if (dateUpdate < Date.now() || state.refresh) {
-      fetchCategories();
+    if (dateUpdate < Date.now()) {
+      fetchNotifications();
     }
   }, []);
 
@@ -180,7 +181,10 @@ export const AdminNavBar = () => {
 
             Po kliknięciu w powiadomienia pokazuje się modal który wyświetli detale i nie wyłącza mi się ta lista wogóle jak coś.
         */}
-        <div className="row mx-1 pt-3 ms-1 me-3 align-items-center justify-content-center notification-row" onClick={openNitificationList}>
+        <div
+          className="row mx-1 pt-3 ms-1 me-3 align-items-center justify-content-center notification-row"
+          onClick={openNitificationList}
+        >
           <div className="col nav-col justify-content-end  align-items-center pe-2">
             <h6> {t("notifications")}</h6>
           </div>
