@@ -6,6 +6,7 @@ import { HandleFetch } from "../HandleFetch";
 import { useTokenStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { useNotificationsListStore } from "../../store";
+import NotificationOffcanvas from "./NotificationOffcanvas";
 import Badge from "react-bootstrap/Badge";
 import "./AdminNavBar.css";
 
@@ -13,11 +14,10 @@ export const AdminNavBar = () => {
   const { t, i18n } = useTranslation();
 
   const [state, setState] = useState({
-    json: null,
     page: 0,
     limit: 10,
     maxPage: 0,
-    addCategoryModal: false,
+    notificationModal: false,
     refresh: false,
     error: null,
   });
@@ -60,25 +60,29 @@ export const AdminNavBar = () => {
       i18n.language
     )
       .then((data) => {
-        notificationsListStore.addNotifications(data.newNotifications);
-        notificationsListStore.newNotifications(data.newNotifications);
+        notificationsListStore.addNotifications(data.systemNotifications);
+        notificationsListStore.setNewNotification(data.newNotifications);
       })
       .catch((e) => {
         notificationsListStore.addNotifications([]);
-        notificationsListStore.newNotifications(0);
+        notificationsListStore.setNewNotification(0);
       });
   };
   const openNitificationList = () => {
     //Wysuwanie listy Offcanvas i tam niech się mi wyświetla cała ta lista
     //I na końcu te dopisz
+    setState({
+      ...state,
+      notificationModal: !state.notificationModal,
+    });
   };
 
   useEffect(() => {
     setState({ ...state, json: notifications });
 
-    if (dateUpdate < Date.now()) {
+    // if (dateUpdate < Date.now()) {
       fetchNotifications();
-    }
+    // }
   }, []);
 
   return (
@@ -183,7 +187,7 @@ export const AdminNavBar = () => {
         */}
         <div
           className="row mx-1 pt-3 ms-1 me-3 align-items-center justify-content-center notification-row"
-          onClick={openNitificationList}
+          onClick={() => openNitificationList()}
         >
           <div className="col nav-col justify-content-end  align-items-center pe-2">
             <h6> {t("notifications")}</h6>
@@ -203,6 +207,9 @@ export const AdminNavBar = () => {
         >
           {t("logout")}
         </Button>
+        {state.notificationModal ? (
+          <NotificationOffcanvas state={state} setState={setState} notifications={notifications} t={t} />
+        ) : null}
       </div>
     </div>
   );
