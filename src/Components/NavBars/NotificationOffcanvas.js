@@ -57,7 +57,6 @@ export default function NotificationOffcanvas(props) {
       refresh: true,
     });
   };
-  console.log(props.notifications);
   const renderNotifications = () => {
     let returnArray = [];
 
@@ -134,7 +133,6 @@ export default function NotificationOffcanvas(props) {
       </Offcanvas.Header>
       <Offcanvas.Body className="pt-0 notification-heigth overflow-auto">
         <hr></hr>
-        {console.log(props.state)}
         <div>{renderNotifications()}</div>
         {props.state.page + 1 < props.state.maxPage ? (
           <div className="text-white row align-items-center justify-content-center ">
@@ -142,7 +140,7 @@ export default function NotificationOffcanvas(props) {
               className="col-4 align-self-center text-center rounded-4 load-more-btn"
               onClick={() => loadMore()}
             >
-              {props.t("loadMore")} <i className="bi-arrow-down-square"></i>
+              <span className="pe-2">{props.t("loadMore")} </span><i className="bi-arrow-down-square"></i>
             </div>
           </div>
         ) : null}

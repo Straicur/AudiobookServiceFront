@@ -63,18 +63,23 @@ export const AdminNavBar = () => {
       i18n.language
     )
       .then((data) => {
-        data.systemNotifications.forEach((element) => {
-          //todo tu pomyśl nad updatem tych przy pobraniu !
-          let url = notifications.filter((obj) => obj.id == element.id);
-          if (url.length == 0) {
-            notificationsListStore.addNotification(element);
-          }
-        });
         setState({
           ...state,
           page: data.page,
           maxPage: data.maxPage,
+          refresh: false 
         });
+        console.log(notifications)
+        data.systemNotifications.forEach((element) => {
+          //todo tu pomyśl nad updatem tych przy pobraniu !
+          let url = notifications.filter((obj) => obj.id == element.id);
+          
+          console.log(element)
+          if (url.length == 0) {
+            notificationsListStore.addNotification(element);
+          }
+        });
+   
         notificationsListStore.setNewNotification(data.newNotifications);
       })
       .catch((e) => {
@@ -90,8 +95,6 @@ export const AdminNavBar = () => {
 
   useEffect(() => {
     if (state.refresh) {
-      setState({ ...state, refresh: false });
-      console.log("DSa");
       fetchNotifications();
     }
   }, [state.refresh]);

@@ -16,10 +16,16 @@ export default function NotificationDetailModal(props) {
       onHide={handleClose}
       backdrop="static"
     >
-      <Modal.Header closeButton>
-        <Modal.Title>{props.t("datails")}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body className=""></Modal.Body>
+      <Modal.Body
+        style={{
+          backgroundColor: "#000000",
+        }}
+      >
+        <div className="row text-white">{props.t("datails")}</div>
+        <Button variant="dark" onClick={handleClose}>
+          {props.t("close")}
+        </Button>
+      </Modal.Body>
     </Modal>
   );
 }
