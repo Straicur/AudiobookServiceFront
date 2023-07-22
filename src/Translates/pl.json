@@ -203,6 +203,8 @@
     "checkEmail": "Sprawdź swoją pocztę emial",
     "oldPassword": "Stare hasło",
     "newPassword": "Nowe hasło",
+    "new": "Nowy",
+    "displayed": "Wyświetlony",
     "checkPassword": "Hasło zmienione",
     "checkUserData": "Dane użytkownika zostały zmienione",
     "deleteMessage": "Prośba o usunięcie konta zostanie rozpatrzona. Dostęp do twojego konta zostanie zablokowany a dane usunięte po upływie RODO.",

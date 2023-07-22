@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useNotificationsListStore } from "../../store";
 import NotificationOffcanvas from "./NotificationOffcanvas";
 import Badge from "react-bootstrap/Badge";
+import NotificationDetailModal from "./NotificationDetailModal";
 import "./AdminNavBar.css";
 
 export const AdminNavBar = () => {
@@ -17,7 +18,9 @@ export const AdminNavBar = () => {
     page: 0,
     limit: 10,
     maxPage: 0,
+    notificationsOffCanvas: false,
     notificationModal: false,
+    notification: null,
     refresh: false,
     error: null,
   });
@@ -61,28 +64,39 @@ export const AdminNavBar = () => {
     )
       .then((data) => {
         data.systemNotifications.forEach((element) => {
+          //todo tu pomyśl nad updatem tych przy pobraniu !
           let url = notifications.filter((obj) => obj.id == element.id);
           if (url.length == 0) {
             notificationsListStore.addNotification(element);
           }
         });
-
+        setState({
+          ...state,
+          page: data.page,
+          maxPage: data.maxPage,
+        });
         notificationsListStore.setNewNotification(data.newNotifications);
       })
       .catch((e) => {
         notificationsListStore.setNewNotification(0);
       });
   };
-  const openNitificationList = () => {
+  const openNotificationsList = () => {
     setState({
       ...state,
-      notificationModal: !state.notificationModal,
+      notificationsOffCanvas: !state.notificationsOffCanvas,
     });
   };
 
   useEffect(() => {
-    setState({ ...state, json: notifications });
+    if (state.refresh) {
+      setState({ ...state, refresh: false });
+      console.log("DSa");
+      fetchNotifications();
+    }
+  }, [state.refresh]);
 
+  useEffect(() => {
     // if (dateUpdate < Date.now()) {
     fetchNotifications();
     // }
@@ -190,7 +204,7 @@ export const AdminNavBar = () => {
         */}
         <div
           className="row mx-1 pt-3 ms-1 me-3 align-items-center justify-content-center notification-row"
-          onClick={() => openNitificationList()}
+          onClick={() => openNotificationsList()}
         >
           <div className="col nav-col justify-content-end  align-items-center pe-2">
             <h6> {t("notifications")}</h6>
@@ -210,13 +224,16 @@ export const AdminNavBar = () => {
         >
           {t("logout")}
         </Button>
-        {state.notificationModal ? (
+        {state.notificationsOffCanvas ? (
           <NotificationOffcanvas
             state={state}
             setState={setState}
             notifications={notifications}
             t={t}
           />
+        ) : null}
+        {state.notificationModal && state.notification != null ? (
+          <NotificationDetailModal state={state} setState={setState} t={t} />
         ) : null}
       </div>
     </div>
