@@ -60,17 +60,20 @@ export const AdminNavBar = () => {
       i18n.language
     )
       .then((data) => {
-        notificationsListStore.addNotifications(data.systemNotifications);
+        data.systemNotifications.forEach((element) => {
+          let url = notifications.filter((obj) => obj.id == element.id);
+          if (url.length == 0) {
+            notificationsListStore.addNotification(element);
+          }
+        });
+
         notificationsListStore.setNewNotification(data.newNotifications);
       })
       .catch((e) => {
-        notificationsListStore.addNotifications([]);
         notificationsListStore.setNewNotification(0);
       });
   };
   const openNitificationList = () => {
-    //Wysuwanie listy Offcanvas i tam niech się mi wyświetla cała ta lista
-    //I na końcu te dopisz
     setState({
       ...state,
       notificationModal: !state.notificationModal,
@@ -81,7 +84,7 @@ export const AdminNavBar = () => {
     setState({ ...state, json: notifications });
 
     // if (dateUpdate < Date.now()) {
-      fetchNotifications();
+    fetchNotifications();
     // }
   }, []);
 
@@ -208,7 +211,12 @@ export const AdminNavBar = () => {
           {t("logout")}
         </Button>
         {state.notificationModal ? (
-          <NotificationOffcanvas state={state} setState={setState} notifications={notifications} t={t} />
+          <NotificationOffcanvas
+            state={state}
+            setState={setState}
+            notifications={notifications}
+            t={t}
+          />
         ) : null}
       </div>
     </div>

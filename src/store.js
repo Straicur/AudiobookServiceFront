@@ -95,9 +95,9 @@ let notificationsListStore = (set) => ({
   notifications: [],
   newNotifications: 0,
   dateUpdate: 0,
-  addNotifications: (notifications) => {
+  addNotification: (notification) => {
     set((state) => ({
-      notifications: state.notifications.concat(notifications),
+      notifications: [...state.notifications, notification],
       dateUpdate: Date.now() + 300000,
     }));
   },

@@ -29,6 +29,7 @@ export default function RenderPageSwitches(props) {
           size="sm"
           color="dark"
           className=" btn button mt-2 rounded_left_button"
+          disabled={props.pageState.page == 0}
           onClick={() => prevPage()}
         >
           <i className="bi bi-chevron-left"></i>
@@ -43,6 +44,7 @@ export default function RenderPageSwitches(props) {
           size="sm"
           color="dark"
           className=" btn button mt-2 rounded_right_button"
+          disabled={props.pageState.page + 1 == props.pageState.maxPage}
           onClick={() => nextPage()}
         >
           <i className="bi bi-chevron-right"></i>
