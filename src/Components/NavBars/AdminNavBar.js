@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { useNotificationsListStore } from "../../store";
 import NotificationOffcanvas from "./NotificationOffcanvas";
 import Badge from "react-bootstrap/Badge";
-import NotificationDetailModal from "./NotificationDetailModal";
 import "./AdminNavBar.css";
 
 export const AdminNavBar = () => {
@@ -19,8 +18,6 @@ export const AdminNavBar = () => {
     limit: 10,
     maxPage: 0,
     notificationsOffCanvas: false,
-    notificationModal: false,
-    notification: null,
     refresh: false,
     error: null,
   });
@@ -234,9 +231,6 @@ export const AdminNavBar = () => {
             notifications={notifications}
             t={t}
           />
-        ) : null}
-        {state.notificationModal && state.notification != null ? (
-          <NotificationDetailModal state={state} setState={setState} t={t} />
         ) : null}
       </div>
     </div>

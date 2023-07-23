@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import InputGroup from "react-bootstrap/InputGroup";
-import Form from "react-bootstrap/Form";
-import { useLastSearchStore } from "../../store";
 import "./NotificationOffcanvas.css";
 import { v4 as uuidv4 } from "uuid";
 import { CreateDate } from "../../Components/CrateDate";
 import Badge from "react-bootstrap/Badge";
+import { useNavigate } from "react-router-dom";
+import { HandleFetch } from "../HandleFetch";
 
 export default function NotificationOffcanvas(props) {
   const [show, setShow] = useState(true);
+
+  const navigate = useNavigate();
 
   const handleClose = () => {
     props.setState({
@@ -42,14 +43,16 @@ export default function NotificationOffcanvas(props) {
       }
     }
   };
-  const notificationDetails= (notification)=>{
-    props.setState({
-      ...props.state,
-      notificationModal: !props.notificationModal,
-      notification: notification,
-    });
-  }
+  //Tu robię strikte dla admina 
+  const navigateUser = () => {
+    // navigate(`/admin/audiobooks`);
 
+  }
+  const activateNotification = () => {
+    // navigate(`/admin/audiobooks`);
+
+  }
+  
   const loadMore = () => {
     props.setState({
       ...props.state,
@@ -67,6 +70,7 @@ export default function NotificationOffcanvas(props) {
             <div
               key={uuidv4()}
               className="border border-light border-1 rounded-4 text-white p-3 my-3"
+              onMouseEnter={()=>activateNotification(notification)}
             >
               <div className="row mb-1">
                 <div className="col">
@@ -88,7 +92,7 @@ export default function NotificationOffcanvas(props) {
                   {createNotificationType(notification.notificationType)}
                 </div>
 
-                <div className="col">
+                {/* <div className="col">
                   <Button
                     name="logout"
                     variant="light"
@@ -98,7 +102,7 @@ export default function NotificationOffcanvas(props) {
                   >
                     {props.t("details")}
                   </Button>
-                </div>
+                </div> */}
               </div>
 
               {notification.text != undefined ? (
