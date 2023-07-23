@@ -43,27 +43,28 @@ export default function NotificationOffcanvas(props) {
       }
     }
   };
-  //Tu robię strikte dla admina 
+  // to Dla admina ma przekierować do odpowiednich 
+  // User ma mieć w większości do main odwołania 
+  //sprawdź powiadomienia bo coś chyba źle dodaje
   const navigateUser = (notification) => {
-    // navigate(`/admin/audiobooks`);
     switch (notification.notificationType) {
       case 1: {
-        // navigate(`/admin/audiobooks`);
+        break;
       }
       case 2: {
-      // navigate(`/admin/audiobooks`);
+      navigate(`/main`);
       }
       case 3: {
-      // navigate(`/admin/audiobooks`);
+      navigate(`/main`);
       }
       case 4: {
-      // navigate(`/admin/audiobooks`);
+      navigate(`/admin/category/${notification.actionId}`);
       }
       case 5: {
-       // navigate(`/admin/audiobooks`);
+       navigate(`/admin/audiobook/${notification.actionId}`);
       }
       case 6: {
-        // navigate(`/admin/audiobooks`);
+        navigate(`/admin/users`);
       }
     }
   }
@@ -82,7 +83,7 @@ export default function NotificationOffcanvas(props) {
           console.log("DIzła")
           //todo tu zmieniam ten status 
           // Wykmiń bo tu będzie problem z tym że kilka może się odświerzyć !!! 
-          // Lepiej będzie pobrać całą listę od nowa 
+          // Lepiej będzie pobrać całą listę od nowa (ale to po jakimś odstępie czsowym może )
           // I dorobić w Adminie że jak znajdzie to podmienia 
         })
         .catch((e) => {
