@@ -64,19 +64,19 @@ export const AdminNavBar = () => {
           ...state,
           page: data.page,
           maxPage: data.maxPage,
-          refresh: false 
+          refresh: false,
         });
-        console.log(notifications)
+        console.log(notifications);
         data.systemNotifications.forEach((element) => {
           //todo tu pomyśl nad updatem tych przy pobraniu !
           let url = notifications.filter((obj) => obj.id == element.id);
-          
-          console.log(element)
+
+          console.log(element);
           if (url.length == 0) {
             notificationsListStore.addNotification(element);
           }
         });
-   
+
         notificationsListStore.setNewNotification(data.newNotifications);
       })
       .catch((e) => {
@@ -187,21 +187,6 @@ export const AdminNavBar = () => {
             EN
           </Button>
         </ButtonGroup>
-        {/* Cały ten element ma być clicable i dodaj mu hover na jaśniejszy
-            Pobieranie noramlnie Fetchem i zapisuje to do pamięci z odświerzaniem co 5 minut
-            Najpierw sprawdzam czy coś tam jest i jeśli nie to pobieram 
-            Jeśli tak to sprawdzam czas czy jest mniejszy i jak tak to pobieram
-            Ogólnie ten czas update robie przy pracy z powiadomieniami żeby mi to za bardzo się nie wydłużało i żeby nie było za kótkie
-            I Zmieniam przy okazji tą ilośc odczytanych w zależności od tamtych detali
-
-
-            Pobieram ilość z pamięci i po kliknięciu pobieram pierwszą stronę, na końcu listy napis "Pokaż więcej"
-            I po tym ładuję więcej i tyle, znikać ma po dojściu do max 
-            Pomyśl też nad przeczytaniem tego powiadomienia bo to będzie mi pokazywać ilość wszystkich a powinno tylko 
-            najnowsze raczej, czyli te które nie są przeczytanie. 
-
-            Po kliknięciu w powiadomienia pokazuje się modal który wyświetli detale i nie wyłącza mi się ta lista wogóle jak coś.
-        */}
         <div
           className="row mx-1 pt-3 ms-1 me-3 align-items-center justify-content-center notification-row"
           onClick={() => openNotificationsList()}
