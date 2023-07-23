@@ -44,13 +44,51 @@ export default function NotificationOffcanvas(props) {
     }
   };
   //Tu robię strikte dla admina 
-  const navigateUser = () => {
+  const navigateUser = (notification) => {
     // navigate(`/admin/audiobooks`);
-
+    switch (notification.notificationType) {
+      case 1: {
+        // navigate(`/admin/audiobooks`);
+      }
+      case 2: {
+      // navigate(`/admin/audiobooks`);
+      }
+      case 3: {
+      // navigate(`/admin/audiobooks`);
+      }
+      case 4: {
+      // navigate(`/admin/audiobooks`);
+      }
+      case 5: {
+       // navigate(`/admin/audiobooks`);
+      }
+      case 6: {
+        // navigate(`/admin/audiobooks`);
+      }
+    }
   }
-  const activateNotification = () => {
-    // navigate(`/admin/audiobooks`);
-
+  const activateNotification = (notification) => {
+    if(notification.active == undefined ){
+      HandleFetch(
+        "/notification/activate",
+        "PUT",
+        {
+          notificationId: notification.id,
+        },
+        props.token,
+        props.i18n.language
+      )
+        .then((data) => {
+          console.log("DIzła")
+          //todo tu zmieniam ten status 
+          // Wykmiń bo tu będzie problem z tym że kilka może się odświerzyć !!! 
+          // Lepiej będzie pobrać całą listę od nowa 
+          // I dorobić w Adminie że jak znajdzie to podmienia 
+        })
+        .catch((e) => {
+          
+        });
+    }
   }
   
   const loadMore = () => {
@@ -92,17 +130,17 @@ export default function NotificationOffcanvas(props) {
                   {createNotificationType(notification.notificationType)}
                 </div>
 
-                {/* <div className="col">
+                <div className="col">
                   <Button
                     name="logout"
                     variant="light"
                     size="sm"
                     className="btn button rounded detail-notification-btn"
-                    onClick={()=>notificationDetails(notification)}
+                    onClick={()=>navigateUser(notification)}
                   >
                     {props.t("details")}
                   </Button>
-                </div> */}
+                </div>
               </div>
 
               {notification.text != undefined ? (

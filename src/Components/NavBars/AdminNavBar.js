@@ -230,6 +230,8 @@ export const AdminNavBar = () => {
             setState={setState}
             notifications={notifications}
             t={t}
+            token={token}
+            i18n={i18n}
           />
         ) : null}
       </div>
