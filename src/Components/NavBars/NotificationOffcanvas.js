@@ -47,7 +47,6 @@ export default function NotificationOffcanvas(props) {
   // User ma mieć w większości do main odwołania
   //sprawdź powiadomienia bo coś chyba źle dodaje
   const navigateUser = (notification) => {
-    console.log(notification)
     switch (notification.notificationType) {
       case 1: {
       }

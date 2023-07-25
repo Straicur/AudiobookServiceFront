@@ -85,11 +85,6 @@ export default function AddNotificationModal(props) {
   };
 
   const addNotification = () => {
-    console.log(
-      {     notificationType: state.notificationType,
-        notificationUserType: state.userType,
-        additionalData: createAdditionalData(),}
-    )
     HandleFetch(
       "/admin/user/notification",
       "PUT",
