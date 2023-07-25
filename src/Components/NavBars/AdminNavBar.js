@@ -66,12 +66,10 @@ export const AdminNavBar = () => {
           maxPage: data.maxPage,
           refresh: false,
         });
-        console.log(notifications);
         data.systemNotifications.forEach((element) => {
           //todo tu pomyśl nad updatem tych przy pobraniu !
           let url = notifications.filter((obj) => obj.id == element.id);
 
-          console.log(element);
           if (url.length == 0) {
             notificationsListStore.addNotification(element);
           }

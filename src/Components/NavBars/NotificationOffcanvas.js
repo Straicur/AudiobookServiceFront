@@ -43,33 +43,37 @@ export default function NotificationOffcanvas(props) {
       }
     }
   };
-  // to Dla admina ma przekierować do odpowiednich 
-  // User ma mieć w większości do main odwołania 
+  // to Dla admina ma przekierować do odpowiednich
+  // User ma mieć w większości do main odwołania
   //sprawdź powiadomienia bo coś chyba źle dodaje
   const navigateUser = (notification) => {
+    console.log(notification)
     switch (notification.notificationType) {
       case 1: {
-        break;
       }
       case 2: {
-      navigate(`/main`);
+        break;
       }
       case 3: {
-      navigate(`/main`);
+        navigate(`/main`);
+        break;
       }
       case 4: {
-      navigate(`/admin/category/${notification.actionId}`);
+        navigate(`/admin/category/${notification.categoryKey}`);
+        break;
       }
       case 5: {
-       navigate(`/admin/audiobook/${notification.actionId}`);
+        navigate(`/admin/audiobook/${notification.actionId}`);
+        break;
       }
       case 6: {
         navigate(`/admin/users`);
+        break;
       }
     }
-  }
+  };
   const activateNotification = (notification) => {
-    if(notification.active == undefined ){
+    if (notification.active == undefined) {
       HandleFetch(
         "/notification/activate",
         "PUT",
@@ -80,18 +84,15 @@ export default function NotificationOffcanvas(props) {
         props.i18n.language
       )
         .then((data) => {
-          console.log("DIzła")
-          //todo tu zmieniam ten status 
-          // Wykmiń bo tu będzie problem z tym że kilka może się odświerzyć !!! 
+          //todo tu zmieniam ten status
+          // Wykmiń bo tu będzie problem z tym że kilka może się odświerzyć !!!
           // Lepiej będzie pobrać całą listę od nowa (ale to po jakimś odstępie czsowym może )
-          // I dorobić w Adminie że jak znajdzie to podmienia 
+          // I dorobić w Adminie że jak znajdzie to podmienia
         })
-        .catch((e) => {
-          
-        });
+        .catch((e) => {});
     }
-  }
-  
+  };
+
   const loadMore = () => {
     props.setState({
       ...props.state,
@@ -109,7 +110,7 @@ export default function NotificationOffcanvas(props) {
             <div
               key={uuidv4()}
               className="border border-light border-1 rounded-4 text-white p-3 my-3"
-              onMouseEnter={()=>activateNotification(notification)}
+              onMouseEnter={() => activateNotification(notification)}
             >
               <div className="row mb-1">
                 <div className="col">
@@ -130,18 +131,20 @@ export default function NotificationOffcanvas(props) {
                   {": "}
                   {createNotificationType(notification.notificationType)}
                 </div>
-
-                <div className="col">
-                  <Button
-                    name="logout"
-                    variant="light"
-                    size="sm"
-                    className="btn button rounded detail-notification-btn"
-                    onClick={()=>navigateUser(notification)}
-                  >
-                    {props.t("details")}
-                  </Button>
-                </div>
+                {notification.notificationType == 1 ||
+                notification.notificationType == 2 ? null : (
+                  <div className="col">
+                    <Button
+                      name="logout"
+                      variant="light"
+                      size="sm"
+                      className="btn button rounded detail-notification-btn"
+                      onClick={() => navigateUser(notification)}
+                    >
+                      {props.t("details")}
+                    </Button>
+                  </div>
+                )}
               </div>
 
               {notification.text != undefined ? (
@@ -183,7 +186,8 @@ export default function NotificationOffcanvas(props) {
               className="col-4 align-self-center text-center rounded-4 load-more-btn"
               onClick={() => loadMore()}
             >
-              <span className="pe-2">{props.t("loadMore")} </span><i className="bi-arrow-down-square"></i>
+              <span className="pe-2">{props.t("loadMore")} </span>
+              <i className="bi-arrow-down-square"></i>
             </div>
           </div>
         ) : null}
