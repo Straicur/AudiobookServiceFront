@@ -66,15 +66,19 @@ export const AdminNavBar = () => {
           maxPage: data.maxPage,
           refresh: false,
         });
-        data.systemNotifications.forEach((element) => {
+
+        data.systemNotifications.forEach((element, index) => {
           //todo tu pomyśl nad updatem tych przy pobraniu !
           let url = notifications.filter((obj) => obj.id == element.id);
 
           if (url.length == 0) {
             notificationsListStore.addNotification(element);
           }
+          else{
+            notifications[index] = element;
+          }
         });
-
+        console.log(notifications)
         notificationsListStore.setNewNotification(data.newNotifications);
       })
       .catch((e) => {
@@ -95,9 +99,9 @@ export const AdminNavBar = () => {
   }, [state.refresh]);
 
   useEffect(() => {
-    // if (dateUpdate < Date.now()) {
-    fetchNotifications();
-    // }
+    if (dateUpdate < Date.now()) {
+      fetchNotifications();
+    }
   }, []);
 
   return (
@@ -211,6 +215,7 @@ export const AdminNavBar = () => {
           <NotificationOffcanvas
             state={state}
             setState={setState}
+            dateUpdate={dateUpdate}
             notifications={notifications}
             t={t}
             token={token}

@@ -43,9 +43,7 @@ export default function NotificationOffcanvas(props) {
       }
     }
   };
-  // to Dla admina ma przekierować do odpowiednich
-  // User ma mieć w większości do main odwołania
-  //sprawdź powiadomienia bo coś chyba źle dodaje
+
   const navigateUser = (notification) => {
     switch (notification.notificationType) {
       case 1: {
@@ -163,6 +161,15 @@ export default function NotificationOffcanvas(props) {
 
     return returnArray;
   };
+  useEffect(() => {
+    if (props.dateUpdate < Date.now()) {
+      props.setState({
+        ...props.state,
+        refresh: true,
+      });
+    }
+  }, []);
+
   return (
     <Offcanvas
       show={show}
