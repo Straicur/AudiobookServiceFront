@@ -106,7 +106,7 @@ let notificationsListStore = (set) => ({
       newNotifications: newNotifications,
     }));
   },
-  removeCategories: () =>
+  removeNotifications: () =>
     set(() => ({
       notifications: [],
       dateUpdate: 0,

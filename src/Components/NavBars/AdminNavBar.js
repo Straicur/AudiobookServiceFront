@@ -17,6 +17,7 @@ export const AdminNavBar = () => {
     page: 0,
     limit: 10,
     maxPage: 0,
+    notifications:[],
     notificationsOffCanvas: false,
     refresh: false,
     error: null,
@@ -64,21 +65,16 @@ export const AdminNavBar = () => {
           ...state,
           page: data.page,
           maxPage: data.maxPage,
+          notifications: data.systemNotifications,
           refresh: false,
         });
+        //todo do rozkminy teraz dopisywanie żeby 
+        notificationsListStore.removeNotifications();
 
-        data.systemNotifications.forEach((element, index) => {
-          //todo tu pomyśl nad updatem tych przy pobraniu !
-          let url = notifications.filter((obj) => obj.id == element.id);
+        for (const notification of data.systemNotifications) {
+          notificationsListStore.addNotification(notification);
+        }
 
-          if (url.length == 0) {
-            notificationsListStore.addNotification(element);
-          }
-          else{
-            notifications[index] = element;
-          }
-        });
-        console.log(notifications)
         notificationsListStore.setNewNotification(data.newNotifications);
       })
       .catch((e) => {
@@ -100,6 +96,12 @@ export const AdminNavBar = () => {
 
   useEffect(() => {
     if (dateUpdate < Date.now()) {
+      setState({
+        ...state,
+        notifications: notifications,
+      });
+    }
+    else{
       fetchNotifications();
     }
   }, []);

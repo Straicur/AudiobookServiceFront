@@ -10,6 +10,7 @@ import { HandleFetch } from "../HandleFetch";
 
 export default function NotificationOffcanvas(props) {
   const [show, setShow] = useState(true);
+  const [trigerTable, setTrigerTable] = useState([]);
 
   const navigate = useNavigate();
 
@@ -71,22 +72,28 @@ export default function NotificationOffcanvas(props) {
   };
   const activateNotification = (notification) => {
     if (notification.active == undefined) {
-      HandleFetch(
-        "/notification/activate",
-        "PUT",
-        {
-          notificationId: notification.id,
-        },
-        props.token,
-        props.i18n.language
-      )
-        .then((data) => {
-          //todo tu zmieniam ten status
-          // Wykmiń bo tu będzie problem z tym że kilka może się odświerzyć !!!
-          // Lepiej będzie pobrać całą listę od nowa (ale to po jakimś odstępie czsowym może )
-          // I dorobić w Adminie że jak znajdzie to podmienia
-        })
-        .catch((e) => {});
+      let hasRole = trigerTable.filter((x) => x == notification.id);
+
+      if (hasRole.length == 0) {
+        let newArray = trigerTable.concat(notification.id);
+        setTrigerTable(newArray);
+
+        HandleFetch(
+          "/notification/activate",
+          "PUT",
+          {
+            notificationId: notification.id,
+          },
+          props.token,
+          props.i18n.language
+        )
+          .then(() => {})
+          .catch((e) => {});
+        props.setState({
+          ...props.state,
+          refresh: true,
+        });
+      }
     }
   };
 
@@ -97,12 +104,13 @@ export default function NotificationOffcanvas(props) {
       refresh: true,
     });
   };
+
   const renderNotifications = () => {
     let returnArray = [];
 
-    if (props.notifications != undefined) {
+    if (props.state.notifications != undefined) {
       returnArray.push(
-        props.notifications.map((notification) => {
+        props.state.notifications.map((notification) => {
           return (
             <div
               key={uuidv4()}
@@ -143,7 +151,6 @@ export default function NotificationOffcanvas(props) {
                   </div>
                 )}
               </div>
-
               {notification.text != undefined ? (
                 <div className="row">
                   <div className="col">
@@ -158,7 +165,6 @@ export default function NotificationOffcanvas(props) {
         })
       );
     }
-
     return returnArray;
   };
   useEffect(() => {
