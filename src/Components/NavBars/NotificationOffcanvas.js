@@ -146,7 +146,7 @@ export default function NotificationOffcanvas(props) {
                       className="btn button rounded detail-notification-btn"
                       onClick={() => navigateUser(notification)}
                     >
-                      {props.t("details")}
+                      {props.t("look")}
                     </Button>
                   </div>
                 )}
@@ -167,6 +167,7 @@ export default function NotificationOffcanvas(props) {
     }
     return returnArray;
   };
+
   useEffect(() => {
     if (props.dateUpdate < Date.now()) {
       props.setState({

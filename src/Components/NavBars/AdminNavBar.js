@@ -15,9 +15,9 @@ export const AdminNavBar = () => {
 
   const [state, setState] = useState({
     page: 0,
-    limit: 10,
+    limit: 6,
     maxPage: 0,
-    notifications:[],
+    notifications: [],
     notificationsOffCanvas: false,
     refresh: false,
     error: null,
@@ -50,36 +50,37 @@ export const AdminNavBar = () => {
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
   const fetchNotifications = () => {
-    HandleFetch(
-      "/notifications",
-      "POST",
-      {
-        page: state.page,
-        limit: state.limit,
-      },
-      token,
-      i18n.language
-    )
-      .then((data) => {
-        setState({
-          ...state,
-          page: data.page,
-          maxPage: data.maxPage,
-          notifications: data.systemNotifications,
-          refresh: false,
+    notificationsListStore.removeNotifications();
+    for (let index = 0; index < state.page + 1; index++) {
+      HandleFetch(
+        "/notifications",
+        "POST",
+        {
+          page: index,
+          limit: state.limit,
+        },
+        token,
+        i18n.language
+      )
+        .then((data) => {
+          setState({
+            ...state,
+            page: data.page,
+            maxPage: data.maxPage,
+            notifications: state.notifications.concat(data.systemNotifications),
+            refresh: false,
+          });
+
+          for (const notification of data.systemNotifications) {
+            notificationsListStore.addNotification(notification);
+          }
+
+          notificationsListStore.setNewNotification(data.newNotifications);
+        })
+        .catch((e) => {
+          notificationsListStore.setNewNotification(0);
         });
-        //todo do rozkminy teraz dopisywanie żeby 
-        notificationsListStore.removeNotifications();
-
-        for (const notification of data.systemNotifications) {
-          notificationsListStore.addNotification(notification);
-        }
-
-        notificationsListStore.setNewNotification(data.newNotifications);
-      })
-      .catch((e) => {
-        notificationsListStore.setNewNotification(0);
-      });
+    }
   };
   const openNotificationsList = () => {
     setState({
@@ -100,8 +101,7 @@ export const AdminNavBar = () => {
         ...state,
         notifications: notifications,
       });
-    }
-    else{
+    } else {
       fetchNotifications();
     }
   }, []);
