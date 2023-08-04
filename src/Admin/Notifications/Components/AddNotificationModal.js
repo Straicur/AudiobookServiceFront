@@ -68,7 +68,10 @@ export default function AddNotificationModal(props) {
   const createAdditionalData = () => {
     let additionalData = {};
 
-    if (state.notificationType == 4 || state.notificationType == 5) {
+    if (state.notificationType == 4) {
+      additionalData.categoryKey = state.actionId;
+    }
+    if(state.notificationType == 5){
       additionalData.actionId = state.actionId;
     }
     if (state.notificationType == 2) {
@@ -88,7 +91,6 @@ export default function AddNotificationModal(props) {
       {
         notificationType: state.notificationType,
         notificationUserType: state.userType,
-        actionId: state.actionId,
         additionalData: createAdditionalData(),
       },
       props.token,

@@ -1,19 +1,34 @@
-.button_dark {
-    color: white !important;
+.admin_button_dark {
+    color: rgb(255, 255, 255) !important;
     background-color: black !important;
     border-color: black !important;
 }
 
-.button_dark:hover {
+.admin_button_dark:hover {
     opacity: 0.6;
 }
 
-.button_light {
+.admin_button_light {
     color: black !important;
-    background-color: white !important;
-    border-color: white !important;
+    background-color: rgb(136, 136, 136) !important;
+    border-color: rgb(138, 138, 138) !important;
 }
 
-.button_light:hover {
+.admin_button_light:hover {
     opacity: 0.6;
+}
+
+.nav-col {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.notification-row {
+    padding: 0.4rem;
+    border-radius: 0.5rem;
+    cursor: pointer !important;
+}
+
+.notification-row:hover {
+    background-color: rgb(53, 53, 53) !important;
 }
