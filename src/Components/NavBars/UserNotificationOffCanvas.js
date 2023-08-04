@@ -45,31 +45,6 @@ export default function NotificationOffcanvas(props) {
     }
   };
 
-  const navigateUser = (notification) => {
-    switch (notification.notificationType) {
-      case 1: {
-      }
-      case 2: {
-        break;
-      }
-      case 3: {
-        navigate(`/main`);
-        break;
-      }
-      case 4: {
-        navigate(`/admin/category/${notification.categoryKey}`);
-        break;
-      }
-      case 5: {
-        navigate(`/admin/audiobook/${notification.actionId}`);
-        break;
-      }
-      case 6: {
-        navigate(`/admin/users`);
-        break;
-      }
-    }
-  };
   const activateNotification = (notification) => {
     if (notification.active == undefined) {
       let hasRole = trigerTable.filter((x) => x == notification.id);
@@ -144,7 +119,7 @@ export default function NotificationOffcanvas(props) {
                       variant="light"
                       size="sm"
                       className="btn button rounded detail-notification-btn"
-                      onClick={() => navigateUser(notification)}
+                      onClick={() =>   navigate(`/main`)}
                     >
                       {props.t("look")}
                     </Button>

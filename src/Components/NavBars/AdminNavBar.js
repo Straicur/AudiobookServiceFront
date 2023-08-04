@@ -11,8 +11,6 @@ import Badge from "react-bootstrap/Badge";
 import "./AdminNavBar.css";
 
 export const AdminNavBar = () => {
-  const { t, i18n } = useTranslation();
-
   const [state, setState] = useState({
     page: 0,
     limit: 6,
@@ -22,6 +20,8 @@ export const AdminNavBar = () => {
     refresh: false,
     error: null,
   });
+
+  const { t, i18n } = useTranslation();
 
   const tokenStore = useTokenStore();
 
