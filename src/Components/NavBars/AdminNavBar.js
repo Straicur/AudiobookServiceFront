@@ -6,7 +6,7 @@ import { HandleFetch } from "../HandleFetch";
 import { useTokenStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { useNotificationsListStore } from "../../store";
-import NotificationOffcanvas from "./NotificationOffcanvas";
+import NotificationOffcanvas from "./AdminNotificationOffcanvas";
 import Badge from "react-bootstrap/Badge";
 import "./AdminNavBar.css";
 
@@ -51,6 +51,7 @@ export const AdminNavBar = () => {
 
   const fetchNotifications = () => {
     notificationsListStore.removeNotifications();
+    //todo wyłap błąd wczytywania za dużej ilości powiadomień
     for (let index = 0; index < state.page + 1; index++) {
       HandleFetch(
         "/notifications",

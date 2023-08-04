@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import "./NotificationOffcanvas.css";
+import "./UserNotificationOffCanvas.css";
 import { v4 as uuidv4 } from "uuid";
-import { CreateDate } from "../../Components/CrateDate";
+import { CreateDate } from "../CrateDate";
 import Badge from "react-bootstrap/Badge";
 import { useNavigate } from "react-router-dom";
 import { HandleFetch } from "../HandleFetch";
