@@ -23,12 +23,12 @@
     padding-left: 0 !important;
 }
 
-.notification-row {
+.admin-notification-row {
     padding: 0.4rem;
     border-radius: 0.5rem;
     cursor: pointer !important;
 }
 
-.notification-row:hover {
-    background-color: rgb(155, 155, 154) !important;
+.admin-notification-row:hover {
+    background-color: rgb(150, 150, 150) !important;
 }

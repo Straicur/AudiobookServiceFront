@@ -62,12 +62,13 @@ export default function NotificationOffcanvas(props) {
           props.token,
           props.i18n.language
         )
-          .then(() => {})
+          .then(() => {
+            props.setState({
+              ...props.state,
+              refresh: true,
+            });
+          })
           .catch((e) => {});
-        props.setState({
-          ...props.state,
-          refresh: true,
-        });
       }
     }
   };
@@ -119,7 +120,7 @@ export default function NotificationOffcanvas(props) {
                       variant="light"
                       size="sm"
                       className="btn button rounded detail-notification-btn"
-                      onClick={() =>   navigate(`/main`)}
+                      onClick={() => navigate(`/main`)}
                     >
                       {props.t("look")}
                     </Button>

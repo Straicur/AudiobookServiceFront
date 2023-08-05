@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import "./AdminNotificationOffcanvas.css";
 import { v4 as uuidv4 } from "uuid";
 import { CreateDate } from "../CrateDate";
 import Badge from "react-bootstrap/Badge";
 import { useNavigate } from "react-router-dom";
 import { HandleFetch } from "../HandleFetch";
+import "./AdminNotificationOffcanvas.css";
+import { t } from "i18next";
 
 export default function NotificationOffcanvas(props) {
   const [show, setShow] = useState(true);
@@ -93,6 +94,7 @@ export default function NotificationOffcanvas(props) {
           ...props.state,
           refresh: true,
         });
+        props.update.current = true;
       }
     }
   };
@@ -108,9 +110,9 @@ export default function NotificationOffcanvas(props) {
   const renderNotifications = () => {
     let returnArray = [];
 
-    if (props.state.notifications != undefined) {
+    if (props.notificationsList.current != undefined) {
       returnArray.push(
-        props.state.notifications.map((notification) => {
+        props.notificationsList.current.map((notification) => {
           return (
             <div
               key={uuidv4()}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { useTranslation } from "react-i18next";
@@ -15,11 +15,14 @@ export const AdminNavBar = () => {
     page: 0,
     limit: 6,
     maxPage: 0,
-    notifications: [],
     notificationsOffCanvas: false,
     refresh: false,
     error: null,
   });
+
+  const notificationsList = useRef([]);
+
+  const update = useRef(false);
 
   const { t, i18n } = useTranslation();
 
@@ -47,12 +50,11 @@ export const AdminNavBar = () => {
   const newNotifications = useNotificationsListStore(
     (state) => state.newNotifications
   );
+  const maxPage = useNotificationsListStore((state) => state.maxPage);
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
-
+  console.log(state.page);
   const fetchNotifications = () => {
-    notificationsListStore.removeNotifications();
-    //todo wyłap błąd wczytywania za dużej ilości powiadomień
-    for (let index = 0; index < state.page + 1; index++) {
+    for (let index = 0; index <= state.page; index++) {
       HandleFetch(
         "/notifications",
         "POST",
@@ -68,14 +70,25 @@ export const AdminNavBar = () => {
             ...state,
             page: data.page,
             maxPage: data.maxPage,
-            notifications: state.notifications.concat(data.systemNotifications),
             refresh: false,
           });
+          data.systemNotifications.forEach((element) => {
+            let found =
+              notificationsList.current.filter((x) => x.id == element.id)
+                .length > 0;
+            if (!found) {
+              notificationsList.current = [
+                ...notificationsList.current,
+                element,
+              ];
+            }
+          });
 
-          for (const notification of data.systemNotifications) {
-            notificationsListStore.addNotification(notification);
+          if (index == 0) {
+            notificationsListStore.addNotifications(data.systemNotifications);
           }
 
+          notificationsListStore.setNewNotification(data.maxPage);
           notificationsListStore.setNewNotification(data.newNotifications);
         })
         .catch((e) => {
@@ -83,6 +96,7 @@ export const AdminNavBar = () => {
         });
     }
   };
+
   const openNotificationsList = () => {
     setState({
       ...state,
@@ -93,14 +107,16 @@ export const AdminNavBar = () => {
   useEffect(() => {
     if (state.refresh) {
       fetchNotifications();
+      update.current = false;
     }
   }, [state.refresh]);
 
   useEffect(() => {
-    if (dateUpdate < Date.now()) {
+    if (dateUpdate > Date.now()) {
+      notificationsList.current = notifications;
       setState({
         ...state,
-        notifications: notifications,
+        maxPage: maxPage,
       });
     } else {
       fetchNotifications();
@@ -193,7 +209,7 @@ export const AdminNavBar = () => {
           </Button>
         </ButtonGroup>
         <div
-          className="row mx-1 pt-3 ms-1 me-3 align-items-center justify-content-center notification-row"
+          className="row mx-1 pt-3 ms-1 me-3 align-items-center justify-content-center admin-notification-row"
           onClick={() => openNotificationsList()}
         >
           <div className="col nav-col justify-content-end  align-items-center pe-2">
@@ -219,7 +235,8 @@ export const AdminNavBar = () => {
             state={state}
             setState={setState}
             dateUpdate={dateUpdate}
-            notifications={notifications}
+            notificationsList={notificationsList}
+            update={update}
             t={t}
             token={token}
             i18n={i18n}
