@@ -62,12 +62,13 @@ export default function NotificationOffcanvas(props) {
           props.token,
           props.i18n.language
         )
-          .then(() => {})
+          .then(() => {
+            props.setState({
+              ...props.state,
+              refresh: true,
+            });
+          })
           .catch((e) => {});
-        props.setState({
-          ...props.state,
-          refresh: true,
-        });
       }
     }
   };
@@ -83,9 +84,9 @@ export default function NotificationOffcanvas(props) {
   const renderNotifications = () => {
     let returnArray = [];
 
-    if (props.state.notifications != undefined) {
+    if (props.notificationsList.current != undefined) {
       returnArray.push(
-        props.state.notifications.map((notification) => {
+        props.notificationsList.current.map((notification) => {
           return (
             <div
               key={uuidv4()}
@@ -119,7 +120,7 @@ export default function NotificationOffcanvas(props) {
                       variant="light"
                       size="sm"
                       className="btn button rounded detail-notification-btn"
-                      onClick={() =>   navigate(`/main`)}
+                      onClick={() => navigate(`/main`)}
                     >
                       {props.t("look")}
                     </Button>

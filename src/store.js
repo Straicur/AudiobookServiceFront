@@ -93,12 +93,18 @@ let lastUserRolesStore = (set) => ({
 
 let notificationsListStore = (set) => ({
   notifications: [],
+  maxPage: 0,
   newNotifications: 0,
   dateUpdate: 0,
-  addNotification: (notification) => {
+  addNotifications: (notifications) => {
     set((state) => ({
-      notifications: [...state.notifications, notification],
+      notifications: notifications,
       dateUpdate: Date.now() + 300000,
+    }));
+  },
+  setMaxPage: (maxPage) => {
+    set(() => ({
+      maxPage: maxPage,
     }));
   },
   setNewNotification: (newNotifications) => {
@@ -106,11 +112,6 @@ let notificationsListStore = (set) => ({
       newNotifications: newNotifications,
     }));
   },
-  removeNotifications: () =>
-    set(() => ({
-      notifications: [],
-      dateUpdate: 0,
-    })),
 });
 
 //todo tu jeszcze mogę trzymać te ustawienia języka i likalizację (jeśli nie pl to na eng ustawiam i tyle)

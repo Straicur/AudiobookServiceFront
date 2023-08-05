@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { useTranslation } from "react-i18next";
@@ -15,11 +15,12 @@ export const UserNavBar = () => {
     page: 0,
     limit: 6,
     maxPage: 0,
-    notifications: [],
     notificationsOffCanvas: false,
     refresh: false,
     error: null,
   });
+
+  const notificationsList = useRef([]);
 
   const { t, i18n } = useTranslation();
 
@@ -49,12 +50,11 @@ export const UserNavBar = () => {
   const newNotifications = useNotificationsListStore(
     (state) => state.newNotifications
   );
+  const maxPage = useNotificationsListStore((state) => state.maxPage);
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
   const fetchNotifications = () => {
-    notificationsListStore.removeNotifications();
-    //todo wyłap błąd wczytywania za dużej ilości powiadomień
-    for (let index = 0; index < state.page + 1; index++) {
+    for (let index = 0; index <= state.page; index++) {
       HandleFetch(
         "/notifications",
         "POST",
@@ -70,14 +70,25 @@ export const UserNavBar = () => {
             ...state,
             page: data.page,
             maxPage: data.maxPage,
-            notifications: state.notifications.concat(data.systemNotifications),
             refresh: false,
           });
+          data.systemNotifications.forEach((element) => {
+            let found =
+              notificationsList.current.filter((x) => x.id == element.id)
+                .length > 0;
+            if (!found) {
+              notificationsList.current = [
+                ...notificationsList.current,
+                element,
+              ];
+            }
+          });
 
-          for (const notification of data.systemNotifications) {
-            notificationsListStore.addNotification(notification);
+          if (index == 0) {
+            notificationsListStore.addNotifications(data.systemNotifications);
           }
 
+          notificationsListStore.setNewNotification(data.maxPage);
           notificationsListStore.setNewNotification(data.newNotifications);
         })
         .catch((e) => {
@@ -85,6 +96,7 @@ export const UserNavBar = () => {
         });
     }
   };
+
   const openNotificationsList = () => {
     setState({
       ...state,
@@ -99,10 +111,11 @@ export const UserNavBar = () => {
   }, [state.refresh]);
 
   useEffect(() => {
-    if (dateUpdate < Date.now()) {
+    if (dateUpdate > Date.now()) {
+      notificationsList.current = notifications;
       setState({
         ...state,
-        notifications: notifications,
+        maxPage: maxPage,
       });
     } else {
       fetchNotifications();
@@ -212,7 +225,7 @@ export const UserNavBar = () => {
                   state={state}
                   setState={setState}
                   dateUpdate={dateUpdate}
-                  notifications={notifications}
+                  notificationsList={notificationsList}
                   t={t}
                   token={token}
                   i18n={i18n}
