@@ -7,7 +7,6 @@ import Badge from "react-bootstrap/Badge";
 import { useNavigate } from "react-router-dom";
 import { HandleFetch } from "../HandleFetch";
 import "./AdminNotificationOffcanvas.css";
-import { t } from "i18next";
 
 export default function NotificationOffcanvas(props) {
   const [show, setShow] = useState(true);
@@ -94,7 +93,6 @@ export default function NotificationOffcanvas(props) {
           ...props.state,
           refresh: true,
         });
-        props.update.current = true;
       }
     }
   };

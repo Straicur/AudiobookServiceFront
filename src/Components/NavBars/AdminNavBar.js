@@ -52,7 +52,7 @@ export const AdminNavBar = () => {
   );
   const maxPage = useNotificationsListStore((state) => state.maxPage);
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
-  console.log(state.page);
+  
   const fetchNotifications = () => {
     for (let index = 0; index <= state.page; index++) {
       HandleFetch(
@@ -107,7 +107,6 @@ export const AdminNavBar = () => {
   useEffect(() => {
     if (state.refresh) {
       fetchNotifications();
-      update.current = false;
     }
   }, [state.refresh]);
 
@@ -236,7 +235,6 @@ export const AdminNavBar = () => {
             setState={setState}
             dateUpdate={dateUpdate}
             notificationsList={notificationsList}
-            update={update}
             t={t}
             token={token}
             i18n={i18n}
