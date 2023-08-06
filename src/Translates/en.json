@@ -74,6 +74,7 @@
     "categoryKey": "Key",
     "categoryChilds": "Childs",
     "categoryActive": "Active",
+    "categoryParentSelect": "Should I also add to the parent category?",
     "edit": "Edit",
     "addCategory": "Add category",
     "addMainCategory": "Add main category",

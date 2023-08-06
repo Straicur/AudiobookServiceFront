@@ -74,6 +74,7 @@
     "categoryKey": "Klucz",
     "categoryChilds": "Dzieci",
     "categoryActive": "Aktywny",
+    "categoryParentSelect": "Czy dodać również do kategori rodzica ?",
     "edit": "Edytuj",
     "addCategory": "Dodaj kategorię",
     "addMainCategory": "Dodaj główną kategorię",

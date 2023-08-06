@@ -108,6 +108,7 @@ export default function AudiobooksList(props) {
             name: dataSecond.name,
             active: dataSecond.active,
             parentCategoryName: dataSecond.parentCategoryName,
+            parentCategoryId: dataSecond.parentCategoryId,
           },
         });
       },
@@ -199,6 +200,11 @@ export default function AudiobooksList(props) {
             i18n={i18n}
             token={props.token}
             categoryID={state.category.id}
+            parentCategoryId={
+              state.category.parentCategoryId != null
+                ? state.category.parentCategoryId
+                : null
+            }
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}
           />
