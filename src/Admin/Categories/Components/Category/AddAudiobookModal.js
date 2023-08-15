@@ -5,6 +5,7 @@ import { HandleFetch } from "../../../../Components/HandleFetch";
 import sha256 from "crypto-js/sha256";
 import { Buffer } from "buffer";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import Form from "react-bootstrap/Form";
 
 export default function AddAudiobookModal(props) {
   const [stateModal, setStateModal] = useState({
@@ -12,6 +13,7 @@ export default function AddAudiobookModal(props) {
     title: "",
     modal: 1,
     fileAdded: false,
+    categoryParent: false,
     upload: false,
     uploadEnded: true,
   });
@@ -73,6 +75,12 @@ export default function AddAudiobookModal(props) {
         let allparts = 0;
         let part = 1;
 
+        let categoriesArray = [props.categoryID];
+
+        if (stateModal.categoryParent) {
+          categoriesArray.push(props.parentCategoryId);
+        }
+
         seconds.current = buf.length / 10000;
 
         if (buf.length < CHUNK_SIZE) {
@@ -85,7 +93,7 @@ export default function AddAudiobookModal(props) {
             parts: part,
             base64: b64,
             additionalData: {
-              categories: [props.categoryID],
+              categories: categoriesArray,
               title: stateModal.title,
               author: stateModal.author,
             },
@@ -139,7 +147,7 @@ export default function AddAudiobookModal(props) {
               parts: allparts,
               base64: b64,
               additionalData: {
-                categories: [props.categoryID],
+                categories: categoriesArray,
                 title: stateModal.title,
                 author: stateModal.author,
               },
@@ -220,6 +228,22 @@ export default function AddAudiobookModal(props) {
             className="form-control mt-2"
             onChange={handleSetAuthorChange}
           />
+          {props.parentCategoryId != null ? (
+            <div className="mt-3">
+              <Form.Check
+                type="switch"
+                id="custom-switch"
+                label={props.t("categoryParentSelect")}
+                checked={stateModal.categoryParent}
+                onChange={(e) =>
+                  setStateModal({
+                    ...stateModal,
+                    categoryParent: !stateModal.categoryParent,
+                  })
+                }
+              />
+            </div>
+          ) : null}
         </Modal.Body>
       ) : (
         <Modal.Body>
