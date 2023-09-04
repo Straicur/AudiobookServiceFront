@@ -13,6 +13,8 @@ export default function AddAudiobookModal(props) {
     title: "",
     modal: 1,
     fileAdded: false,
+    file: null,
+    fileType: "",
     categoryParent: false,
     upload: false,
     uploadEnded: true,
@@ -34,8 +36,11 @@ export default function AddAudiobookModal(props) {
     if (e.target.files) {
       let file = e.target.files[0];
 
-      if (file.type == "application/zip") {
-        setStateModal({ ...stateModal, fileAdded: true, file: file });
+      if (
+        file.type == "application/zip" ||
+        file.type == "application/vnd.rar"
+      ) {
+        setStateModal({ ...stateModal, fileAdded: true, file: file, fileType: file.name.split(".").pop()});
       }
     }
   };
@@ -92,6 +97,7 @@ export default function AddAudiobookModal(props) {
             part: part,
             parts: part,
             base64: b64,
+            archiveType: stateModal.fileType,
             additionalData: {
               categories: categoriesArray,
               title: stateModal.title,
@@ -146,6 +152,7 @@ export default function AddAudiobookModal(props) {
               part: part,
               parts: allparts,
               base64: b64,
+              archiveType: stateModal.fileType,
               additionalData: {
                 categories: categoriesArray,
                 title: stateModal.title,
