@@ -171,8 +171,8 @@ export default function AddAudiobookModal(props) {
                 currentPart.current = currentPart.current + 1;
               })
               .catch((e) => {
-                props.setCategoiesState({
-                  ...props.categoiesState,
+                props.setAudiobooksState({
+                  ...props.audiobooksState,
                   error: e,
                 });
               });

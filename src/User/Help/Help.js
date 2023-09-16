@@ -23,7 +23,7 @@ export default function Help() {
             {t("helpText")}
           </div>
           <div className="row align-items-center justify-content-center text-center mt-4">
-            <div className="col-3 align-self-center help-square mx-4 my-4">
+            <div className="col-3 align-self-center help-square ms-5 me-4 my-4">
               <div className="row">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ export default function Help() {
               </div>
               <div className="row justify-content-center fs-3">Adress</div>
             </div>
-            <div className="col-3 align-self-center help-square mx-4 my-4">
+            <div className="col-3 align-self-center help-square ms-5 me-4 my-4">
               <div className="row">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@ export default function Help() {
                 +48 213-123-312
               </div>
             </div>
-            <div className="col-3 align-self-center help-square mx-4 my-4">
+            <div className="col-3 align-self-center help-square ms-5 me-4 my-4">
               <div className="row">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@ export default function Help() {
               </div>
               <div className="row justify-content-center fs-3">Link</div>
             </div>
-            <div className="col-3 align-self-center help-square mx-4 my-4">
+            <div className="col-3 align-self-center help-square ms-5 me-4 my-4">
               <div className="row">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
