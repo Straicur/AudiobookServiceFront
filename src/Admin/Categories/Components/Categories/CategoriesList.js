@@ -88,6 +88,8 @@ export default function CategoriesList(props) {
           state={state}
           setState={setState}
           categories={categories}
+          categoriesState={props.categoriesState}
+          setCategoriesState={props.setCategoiesState}
           t={t}
         />
         <div className="row justify-content-md-center">
