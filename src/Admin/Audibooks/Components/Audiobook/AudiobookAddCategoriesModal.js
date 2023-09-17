@@ -88,6 +88,7 @@ export default function AudiobookAddCategoriesModal(props) {
           categories={categories}
           audiobookDetail={props.audiobookDetail}
           categoriesState={categoriesState}
+          setCategoriesState={setCategoriesState}
           t={props.t}
           i18n={props.i18n}
           token={props.token}
