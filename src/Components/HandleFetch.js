@@ -44,15 +44,15 @@ export const HandleFetch = async (
 
   if (response.ok) {
     console.log(response.headers)
-    // if (response.headers.has('content-length') && response.headers.get("content-length") != 0) {
+    if (response.headers.has('content-length') && parseInt(response.headers.get("content-length") != 0)) {
       if (response.headers.get("content-type") != "application/json") {
         return response.blob();
       }
       console.log(response)
       return response.json();
-    // } else {
-    //   return {};
-    // }
+    } else {
+      return {};
+    }
   } else {
     const errJson = await response.json();
 
