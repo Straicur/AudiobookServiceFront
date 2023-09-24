@@ -43,7 +43,7 @@ export const HandleFetch = async (
   const response = await fetch(url, content);
 
   if (response.ok) {
-    if (response.headers.get("content-length") != 0) {
+    if (response.headers.has('content-length') && response.headers.get("content-length") != 0) {
       if (response.headers.get("content-type") != "application/json") {
         return response.blob();
       }
