@@ -37,7 +37,6 @@ export default function CategoriesList(props) {
       i18n.language
     )
       .then((data) => {
-        console.log(data)
         setState({ ...state, json: data.categories });
 
         categoriesStore.removeCategories();
