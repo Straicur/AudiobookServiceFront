@@ -8,6 +8,7 @@ let tokenStore = (set) => ({
   setToken: (jsonData, state, setState, language) => {
     HandleFetch("/authorize", "POST", jsonData, language)
       .then((data) => {
+        console.log(data)
         set(() => ({
           token: data.token,
           roles: data.roles.authorizationRoleModels.map((role) => role.name),
