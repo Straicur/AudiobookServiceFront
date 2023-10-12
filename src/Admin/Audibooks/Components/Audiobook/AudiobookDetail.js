@@ -26,14 +26,14 @@ export default function AudiobookDetail(props) {
     useAudiobookData();
   const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] =
     useAudiobookCover();
-  const [audiobookPart, setAudiobookPart, setAudiobookPartRefetch] =
+  const [audiobookPart, setAudiobookPartRefetch] =
     useAudiobookPart();
   const [
     audiobookCommnets,
     setAudiobookCommnets,
     setAudiobookCommnetsRefetchState,
   ] = useAudiobookComments();
-
+  
   const categoriesStore = useCategoryListStore();
 
   const categories = useCategoryListStore((state) => state.categories);

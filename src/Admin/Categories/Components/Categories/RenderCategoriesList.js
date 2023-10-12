@@ -124,7 +124,7 @@ export default function RenderCategoriesList(props) {
           <div className="p-2 bd-highlight ms-3">
             <Button
               name="en"
-              variant="dark"
+              variant="warning"
               size="lg"
               className="btn button"
               onClick={() => {
@@ -154,7 +154,7 @@ export default function RenderCategoriesList(props) {
           <div className="p-2 bd-highlight ms-3">
             <Button
               name="en"
-              variant="dark"
+              variant="success"
               size="lg"
               className="btn button"
               onClick={() =>
@@ -231,7 +231,7 @@ export default function RenderCategoriesList(props) {
           <div className="p-2 bd-highlight ms-2">
             <Button
               name="en"
-              variant="dark"
+              variant="warning"
               size="lg"
               className="btn button"
               onClick={() => {
@@ -261,7 +261,7 @@ export default function RenderCategoriesList(props) {
           <div className="p-2 bd-highlight ms-2">
             <Button
               name="en"
-              variant="dark"
+              variant="success"
               size="lg"
               className="btn button"
               onClick={() => {

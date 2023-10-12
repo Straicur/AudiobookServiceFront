@@ -21,7 +21,7 @@ export default function SearchUsersOffCanvas(props) {
     if (element.target.value != NaN && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
-        sort: element.target.value,
+        order: parseInt(element.target.value),
       });
     }
   };
