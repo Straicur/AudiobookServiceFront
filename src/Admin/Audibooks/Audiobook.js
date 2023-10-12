@@ -28,8 +28,7 @@ export default function Audiobook() {
     errorCover: "",
     error: null,
   });
-  //todo ttu mi zostaje do poprawy img który się nie odświerza i pobierany jest z cache. Musze dodać chachowanie w serwerze i też czekanie przy img
-  // Żeby mi się za wcześnie nie odświerzał
+
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}

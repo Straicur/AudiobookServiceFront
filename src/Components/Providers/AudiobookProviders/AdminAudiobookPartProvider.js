@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useContext } from "react";
+import React, { createContext, useEffect, useState, useContext, useMemo } from "react";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../HandleFetch";
 
@@ -13,7 +13,6 @@ export const AdminAudiobookPartProvider = ({
   setState,
   i18n,
 }) => {
-  const [audiobookPart, setAudiobookPart] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
   const createContext = () => {
@@ -49,11 +48,9 @@ export const AdminAudiobookPartProvider = ({
       retry: 1,
       retryDelay: 500,
       refetchOnWindowFocus: false,
+      enabled: false,
       onError: (e) => {
         setState({ ...state, errorPart: e.data });
-      },
-      onSuccess: (data) => {
-        setAudiobookPart(data);
       },
     }
   );
@@ -69,7 +66,9 @@ export const AdminAudiobookPartProvider = ({
     }
   }, [refetchState]);
 
-  const value = [audiobookPart, setAudiobookPart, setRefetchState];
+  const memoizedAudiobookPart = useMemo(() => dataAudiobookPart, [dataAudiobookPart]);
+
+  const value = [memoizedAudiobookPart, setRefetchState];
 
   return (
     <AudiobookPartContext.Provider value={value}>

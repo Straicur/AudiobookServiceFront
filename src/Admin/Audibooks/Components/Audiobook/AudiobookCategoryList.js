@@ -24,7 +24,6 @@ export default function AudiobookCategoryList(props) {
         });
       });
   };
-  console.log(props.categoriesState)
   const createCategory = (category) => {
     return (
       <div key={uuidv4()} className="row border border-secondary mb-1">

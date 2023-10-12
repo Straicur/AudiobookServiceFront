@@ -34,7 +34,6 @@ export const HandleFetch = async (
   };
 
   if (jsonData != null) {
-    console.log(jsonData)
     content.body = JSON.stringify(jsonData);
   }
 
