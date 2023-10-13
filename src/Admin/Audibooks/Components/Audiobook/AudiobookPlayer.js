@@ -17,7 +17,9 @@ export default function AudiobookPlayer(props) {
       props.setAudiobookState({ ...props.audiobookState, part: prevPart });
     }
   };
-
+  //todo tu musze ustawiać state ale to w jakiejś stałej i jeśli mi odświerzy to ustawiać go i autoPlay na true 
+  // Przy zmianie parta powinno się zerować (W tych metodach w ifach na 0 to ustawić)
+  // To będzie trzymać tylko przy rerenderze więc to może zostać 
   return (
     <AudioPlayer
       header={
