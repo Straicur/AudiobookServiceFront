@@ -1,23 +1,39 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
 export default function AudiobookPlayer(props) {
+  const player = useRef(null);
+  const timeAudio = useRef(0);
+
   const nextPart = () => {
     let nextPart = props.audiobookState.part + 1;
 
     if (nextPart < props.audiobookDetail.parts) {
+      timeAudio.current = 0;
       props.setAudiobookState({ ...props.audiobookState, part: nextPart });
     }
   };
+
+  const timeCur = (audio) => {
+    timeAudio.current = parseInt(audio.target.currentTime);
+  };
+
   const prevPart = () => {
     let prevPart = props.audiobookState.part - 1;
 
     if (prevPart >= 0) {
+      timeAudio.current = 0;
       props.setAudiobookState({ ...props.audiobookState, part: prevPart });
     }
   };
-
+ 
+  useEffect(() => {
+    if (player.current && timeAudio.current) {
+      player.current.audio.current.currentTime = timeAudio.current;
+    }
+  }, [props]);
+ 
   return (
     <AudioPlayer
       header={
@@ -29,10 +45,12 @@ export default function AudiobookPlayer(props) {
       }
       autoPlay={false}
       src={window.URL.createObjectURL(new Blob([props.audiobookPart]))}
+      onListen={(e) => timeCur(e)}
       autoPlayAfterSrcChange={false}
       showSkipControls={true}
       onClickPrevious={prevPart}
       onClickNext={nextPart}
+      ref={player}
     />
   );
 }
