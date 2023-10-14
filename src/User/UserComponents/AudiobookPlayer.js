@@ -10,6 +10,7 @@ export default function AudiobookPlayer(props) {
 
     if (nextPart < props.state.detailModalAudiobook.parts) {
       props.addInfo();
+      props.timeAudio.current = 0;
       props.setAudiobookState({ ...props.audiobookState, part: nextPart });
     }
   };
@@ -32,6 +33,12 @@ export default function AudiobookPlayer(props) {
         props.audiobookState.datailEndedTime;
     }
   }, []);
+ 
+  useEffect(() => {
+    if (player.current && props.timeAudio.current && props.audiobookState.datailEndedTime == null) {
+      player.current.audio.current.currentTime = props.timeAudio.current;
+    }
+  }, [props]);
 
   return (
     <AudioPlayer

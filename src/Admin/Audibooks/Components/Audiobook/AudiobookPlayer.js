@@ -11,7 +11,6 @@ export default function AudiobookPlayer(props) {
 
     if (nextPart < props.audiobookDetail.parts) {
       timeAudio.current = 0;
-      player.current = null;
       props.setAudiobookState({ ...props.audiobookState, part: nextPart });
     }
   };
@@ -25,7 +24,6 @@ export default function AudiobookPlayer(props) {
 
     if (prevPart >= 0) {
       timeAudio.current = 0;
-      player.current = null;
       props.setAudiobookState({ ...props.audiobookState, part: prevPart });
     }
   };
