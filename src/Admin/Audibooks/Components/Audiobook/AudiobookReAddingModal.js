@@ -91,22 +91,6 @@ export default function AudiobookReAddingModal(props) {
     setStateModal({ ...stateModal, modal: 2 });
   };
 
-  useEffect(() => {
-    if (stateModal.author.trim() && stateModal.title.trim()) {
-      setStateModal({ ...stateModal, isNextButtonDisabled: false });
-    } else {
-      setStateModal({ ...stateModal, isNextButtonDisabled: true });
-    }
-  }, [stateModal.author, stateModal.title]);
-
-  useEffect(() => {
-    setStateModal({
-      ...stateModal,
-      author: props.audiobookDetail.author,
-      title: props.audiobookDetail.title,
-    });
-  }, [props]);
-
   const reAddAudiobook = () => {
     const url = "/admin/audiobook/reAdding";
     const method = "PATCH";
@@ -241,6 +225,22 @@ export default function AudiobookReAddingModal(props) {
       reader.readAsArrayBuffer(stateModal.file);
     }
   };
+
+  useEffect(() => {
+    if (stateModal.author.trim() && stateModal.title.trim()) {
+      setStateModal({ ...stateModal, isNextButtonDisabled: false });
+    } else {
+      setStateModal({ ...stateModal, isNextButtonDisabled: true });
+    }
+  }, [stateModal.author, stateModal.title]);
+
+  useEffect(() => {
+    setStateModal({
+      ...stateModal,
+      author: props.audiobookDetail.author,
+      title: props.audiobookDetail.title,
+    });
+  }, [props]);
 
   return (
     <Modal
