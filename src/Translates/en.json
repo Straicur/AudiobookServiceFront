@@ -83,6 +83,7 @@
     "save": "Save",
     "name": "Name",
     "to": "to",
+    "rated": "Rated: ",
     "addChildCategory": "Add child category",
     "jsonData": "Json Data",
     "delete": "Delete",
