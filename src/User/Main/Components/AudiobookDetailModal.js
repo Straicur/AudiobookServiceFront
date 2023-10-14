@@ -229,6 +229,7 @@ export default function AudiobookDetailModal(props) {
                 <RenderCommentsList
                   comments={audiobookUserComments}
                   setAudiobookUserComments={setAudiobookUserComments}
+                  audiobookDetail={audiobookDetail}
                   state={props.state}
                   setState={props.setState}
                   t={props.t}

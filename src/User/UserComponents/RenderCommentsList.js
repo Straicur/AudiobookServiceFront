@@ -744,6 +744,7 @@ export default function RenderCommentsList(props) {
 
     return renderArray;
   };
+  console.log(props.audiobookDetail.canComment)
   return (
     <div className="row">
       <ul className="comments-heigth overflow-auto ">{renderTree()}</ul>
@@ -780,11 +781,13 @@ export default function RenderCommentsList(props) {
             size="sm"
             className="btn button rounded-3 comment-button warning_button"
             disabled={
-              commentState.comment.length <= 0 &&
+              props.audiobookDetail &&
+              !props.audiobookDetail.canComment ||
+              (commentState.comment.length <= 0 &&
               (commentState.add || commentState.edit) &&
               commentState.commentId != null
                 ? false
-                : commentState.comment.length <= 0
+                : commentState.comment.length <= 0)
             }
             onClick={decline}
           >
@@ -797,7 +800,8 @@ export default function RenderCommentsList(props) {
             variant="secondary"
             size="sm"
             className="btn button rounded-3 comment-button primary_button"
-            disabled={commentState.comment.length == 0}
+            disabled={props.audiobookDetail &&
+              !props.audiobookDetail.canComment || commentState.comment.length == 0}
             onClick={
               commentState.add
                 ? (e) => {
