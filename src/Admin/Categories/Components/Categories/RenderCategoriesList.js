@@ -74,7 +74,7 @@ export default function RenderCategoriesList(props) {
         className={
           parent == null
             ? "visible border border-1 border-dark list-group-item"
-            : "d-none border border-1 border-dark list-group-item"
+            : "d-none border border-1 border-info list-group-item"
         }
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
@@ -182,10 +182,10 @@ export default function RenderCategoriesList(props) {
         key={uuidv4()}
         className={
           arrayLength == 1
-            ? "d-none p-2 border border-1 border-secondary list-group-item"
+            ? "d-none p-2 border border-1 border-warning list-group-item"
             : index + 1 == arrayLength
-            ? "d-none p-2 border border-1 border-secondary list-group-item"
-            : "d-none p-2 border border-1 border-bottom-0 border-secondary list-group-item"
+            ? "d-none p-2 border border-1 border-info list-group-item"
+            : "d-none p-2 border border-1 border-bottom-0 border-info list-group-item"
         }
         id={element.id}
       >
