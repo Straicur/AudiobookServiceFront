@@ -744,7 +744,7 @@ export default function RenderCommentsList(props) {
 
     return renderArray;
   };
-  console.log(props.audiobookDetail.canComment)
+
   return (
     <div className="row">
       <ul className="comments-heigth overflow-auto ">{renderTree()}</ul>

@@ -79,15 +79,26 @@ export default function StarRating(props) {
 
   return (
     <div className="star-rating">
-      <div className="row">
-        <div className="col-5">{starRating}</div>
-        <div className="col-4">
-          {props.audiobookDetail.canRate ? (
-            !sure ? (
-              <Button onClick={() => clearBoard()} variant="success" size="sm">
+      <div className="row justify-content-start m-0 p-0">
+        <div className="col-4">{starRating}</div>
+        <div className="col-2 p-0 m-0">{props.t("rated")}</div>
+        <div className="col-1 p-0 m-0">
+          {props.audiobookDetail.ratingAmount}
+        </div>
+        {props.audiobookDetail.canRate ? (
+          !sure ? (
+            <div className="col-3 align-self-center">
+              <Button
+                onClick={() => clearBoard()}
+                variant="success"
+                size="sm"
+                className="p-1"
+              >
                 {props.t("rate")}
               </Button>
-            ) : (
+            </div>
+          ) : (
+            <div className="col-3 ">
               <div className="row justify-content-center">
                 <div className="col-6">
                   <Button
@@ -108,9 +119,9 @@ export default function StarRating(props) {
                   </Button>
                 </div>
               </div>
-            )
-          ) : null}
-        </div>
+            </div>
+          )
+        ) : null}
       </div>
     </div>
   );

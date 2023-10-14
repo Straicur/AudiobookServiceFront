@@ -28,14 +28,14 @@ export default function AudiobookPlayer(props) {
   };
 
   useEffect(() => {
-    if (player.current && props.audiobookState.datailEndedTime != null) {
+    if (player.current && props.audiobookState.datailEndedTime != null && !props.timeAudio.current) {
       player.current.audio.current.currentTime =
         props.audiobookState.datailEndedTime;
     }
   }, []);
  
   useEffect(() => {
-    if (player.current && props.timeAudio.current && props.audiobookState.datailEndedTime == null) {
+    if (player.current && props.timeAudio.current) {
       player.current.audio.current.currentTime = props.timeAudio.current;
     }
   }, [props]);

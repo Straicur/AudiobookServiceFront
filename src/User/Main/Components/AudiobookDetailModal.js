@@ -207,8 +207,8 @@ export default function AudiobookDetailModal(props) {
                 </div>
               </div>
               <div className="row">
-                <div className="col-4">{props.t("rating")}:</div>
-                <div className="col-8">
+                <div className="col-3">{props.t("rating")}:</div>
+                <div className="col-9">
                   <StarRating
                     count={5}
                     audiobookDetail={audiobookDetail}

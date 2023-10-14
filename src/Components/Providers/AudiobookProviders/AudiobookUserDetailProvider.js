@@ -45,6 +45,7 @@ export const AudiobookUserDetailProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
+        console.log(data)
         setAudiobookDetail({
           age: data.age,
           album: data.album,
@@ -61,6 +62,7 @@ export const AudiobookUserDetailProvider = ({
           year: CreateDate(data.year),
           canRate: data.canRate,
           canComment: data.canComment,
+          ratingAmount: data.ratingAmount
         });
       },
     }
