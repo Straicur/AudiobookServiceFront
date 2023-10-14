@@ -33,24 +33,6 @@ export default function RenderAudiobooksList(props) {
     children.classList.add("bi-chevron-double-right");
   };
 
-  useEffect(() => {
-    if (
-      lastItemRef.current !== null &&
-      lastItemOffsetTopRef.current !== null &&
-      lastPageChangeRef.current
-    ) {
-      setTimeout(function () {
-        window.scrollTo({
-          top: lastItemOffsetTopRef.current,
-          behavior: "smooth",
-        });
-        lastPageChangeRef.current = false;
-        lastItemOffsetTopRef.current = null;
-        lastItemRef.current = null;
-      }, 1000);
-    }
-  }, [props.audiobooks]);
-
   const renderColumns = () => {
     let renderCategories = [];
 
@@ -114,5 +96,23 @@ export default function RenderAudiobooksList(props) {
     return renderCategories;
   };
 
+  useEffect(() => {
+    if (
+      lastItemRef.current !== null &&
+      lastItemOffsetTopRef.current !== null &&
+      lastPageChangeRef.current
+    ) {
+      setTimeout(function () {
+        window.scrollTo({
+          top: lastItemOffsetTopRef.current,
+          behavior: "smooth",
+        });
+        lastPageChangeRef.current = false;
+        lastItemOffsetTopRef.current = null;
+        lastItemRef.current = null;
+      }, 1000);
+    }
+  }, [props.audiobooks]);
+  
   return renderColumns();
 }

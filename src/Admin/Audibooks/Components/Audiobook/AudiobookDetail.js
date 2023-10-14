@@ -26,14 +26,13 @@ export default function AudiobookDetail(props) {
     useAudiobookData();
   const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] =
     useAudiobookCover();
-  const [audiobookPart, setAudiobookPartRefetch] =
-    useAudiobookPart();
+  const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
   const [
     audiobookCommnets,
     setAudiobookCommnets,
     setAudiobookCommnetsRefetchState,
   ] = useAudiobookComments();
-  
+
   const categoriesStore = useCategoryListStore();
 
   const categories = useCategoryListStore((state) => state.categories);
@@ -137,10 +136,20 @@ export default function AudiobookDetail(props) {
             </div>
           </div>
           <div className="col-3">
-            <div className="row d-flex justify-content-center text-center mb-3">
+            <div className="row d-flex justify-content-center text-center mb-2">
               <h4>{props.t("rating")}</h4>
               {renderStars()}
             </div>
+            {audiobookDetail != undefined ? (
+              <div className="row d-flex justify-content-center text-center mb-2">
+                <div className="col-3 mx-0 p-0">
+                  <h4>{props.t("rated")}</h4>
+                </div>
+                <div className="col-1 mx-0 p-0">
+                  <h4>{audiobookDetail.ratingAmount}</h4>
+                </div>
+              </div>
+            ) : null}
             <div className="row d-flex justify-content-center text-center">
               <h4>{props.t("categories")}</h4>
             </div>

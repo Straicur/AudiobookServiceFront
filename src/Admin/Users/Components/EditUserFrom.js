@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import { HandleFetch } from "../../../Components/HandleFetch";
+import Alert from "react-bootstrap/Alert";
 
 export default function EditUserFrom(props) {
   const [passwordState, setPasswordState] = useState({
@@ -251,11 +252,17 @@ export default function EditUserFrom(props) {
           }}
         />
       </InputGroup>
-      {passwordState.wrong ? (
-        <p className="text-danger text-center">
-          {props.t("enterValidPassword")}
-        </p>
-      ) : null}
+      <div className="row input_modal ms-3">
+        <div>
+          <Alert
+            show={passwordState.wrongState}
+            className="dangerAllert mt-1 text-center"
+            variant="danger"
+          >
+            {props.t("enterValidPassword")}
+          </Alert>
+        </div>
+      </div>
       {passwordState.sure ? (
         <div className="row justify-content-center mt-2 mb-1">
           <div className="col-3">
@@ -313,11 +320,17 @@ export default function EditUserFrom(props) {
           }}
         />
       </InputGroup>
-      {phoneNumberState.wrong ? (
-        <p className="text-danger text-center">
-          {props.t("enterValidPhoneNumber")}
-        </p>
-      ) : null}
+      <div className="row input_modal ms-3">
+        <div>
+          <Alert
+            show={phoneNumberState.wrongState}
+            className="dangerAllert mt-1 text-center"
+            variant="danger"
+          >
+            {props.t("enterValidPhoneNumber")}
+          </Alert>
+        </div>
+      </div>
       {phoneNumberState.sure ? (
         <div className="row justify-content-center mt-2 mb-1">
           <div className="col-3">

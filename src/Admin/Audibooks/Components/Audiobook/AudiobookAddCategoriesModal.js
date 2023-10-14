@@ -32,14 +32,6 @@ export default function AudiobookAddCategoriesModal(props) {
       props.i18n.language
     )
       .then((data) => {
-        let categoriesIds = [];
-
-        for (const category of props.audiobookDetail.categories) {
-          categoriesIds.push(category.id);
-        }
-
-        setCategoriesState({ ...categoriesState, categoriesId: categoriesIds });
-
         categoriesStore.removeCategories();
 
         for (const category of data.categories) {
@@ -68,6 +60,14 @@ export default function AudiobookAddCategoriesModal(props) {
   }, []);
 
   useEffect(() => {
+    let categoriesIds = [];
+
+    for (const category of props.audiobookDetail.categories) {
+      categoriesIds.push(category.id);
+    }
+
+    setCategoriesState({ ...categoriesState, categoriesId: categoriesIds });
+
     if (categoriesState.refresh) {
       fetchCategories();
     }

@@ -90,26 +90,26 @@ export default function CategoryAudiobookDetailModal(props) {
   const renderStars = () => {
     let stars = [];
     let amountOfStars = 5;
-    if (audiobookDetail != null) {
-      if (audiobookDetail.avgRating != 0) {
-        for (let i = 0; i < audiobookDetail.avgRating; i++) {
-          stars.push(
-            <div key={uuidv4()} className="col-1">
-              <i className="bi bi-star-fill"></i>
-            </div>
-          );
-          amountOfStars = amountOfStars - 1;
-        }
-      }
 
-      for (let i = 0; i < amountOfStars; i++) {
+    if (audiobookDetail.avgRating != 0) {
+      for (let i = 0; i < audiobookDetail.avgRating; i++) {
         stars.push(
           <div key={uuidv4()} className="col-1">
-            <i className="bi bi-star"></i>
+            <i className="bi bi-star-fill"></i>
           </div>
         );
+        amountOfStars = amountOfStars - 1;
       }
     }
+
+    for (let i = 0; i < amountOfStars; i++) {
+      stars.push(
+        <div key={uuidv4()} className="col-1">
+          <i className="bi bi-star"></i>
+        </div>
+      );
+    }
+
     return stars;
   };
 
@@ -155,9 +155,20 @@ export default function CategoryAudiobookDetailModal(props) {
             >
               {props.audiobooksState.errorCover}
             </Alert>
-            <div className="row d-flex justify-content-center text-light text-center">
-              {renderStars()}
-            </div>
+            {audiobookDetail != undefined ? (
+              <div className="row d-flex justify-content-center text-light text-center">
+                <div className="col-3 mx-0 p-0">
+                  <h5>{props.t("rated")}</h5>
+                </div>
+                <div className="col-1 me-2 pe-5">
+                  <h5>{audiobookDetail.ratingAmount}</h5>
+                </div>
+                <div className="col-4 mx-0 p-0">
+                  <div className="row">{renderStars()}</div>
+                </div>
+              </div>
+            ) : null}
+
             <div className="row d-flex justify-content-center text-light text-center">
               <h4>{props.t("categories")}</h4>
             </div>

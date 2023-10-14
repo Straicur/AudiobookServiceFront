@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import { HandleFetch } from "./../../../../Components/HandleFetch";
 import { CreateJsonFormatDate } from "./../../../../Components/CreateJsonFormatDate";
+import Alert from "react-bootstrap/Alert";
 
 export default function CategoryEditForm(props) {
   const [wrongState, setWrongState] = useState(0);
@@ -163,62 +164,23 @@ export default function CategoryEditForm(props) {
   const returnFormError = () => {
     switch (wrongState) {
       case 1:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidTitle")}
-          </p>
-        );
-        break;
+        return props.t("enterValidTitle");
       case 2:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidAuthor")}
-          </p>
-        );
-        break;
+        return props.t("enterValidAuthor");
       case 3:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidAlbum")}
-          </p>
-        );
-        break;
+        return props.t("enterValidAlbum");
       case 4:
-        return (
-          <p className="text-danger text-center">{props.t("enterValidYear")}</p>
-        );
-        break;
+        return props.t("enterValidYear");
       case 5:
-        return (
-          <p className="text-danger text-center">{props.t("enterValidPart")}</p>
-        );
-        break;
+        return props.t("enterValidPart");
       case 6:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidDuration")}
-          </p>
-        );
-        break;
+        return props.t("enterValidDuration");
       case 7:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidEncoded")}
-          </p>
-        );
-        break;
+        return props.t("enterValidEncoded");
       case 8:
-        return (
-          <p className="text-danger text-center">{props.t("enterValidSize")}</p>
-        );
-        break;
+        return props.t("enterValidSize");
       case 9:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidVersion")}
-          </p>
-        );
-        break;
+        return props.t("enterValidVersion");
     }
   };
 
@@ -229,7 +191,7 @@ export default function CategoryEditForm(props) {
   }, [props.audiobookDetail]);
 
   return (
-    <div className="row ">
+    <div className="row">
       <div className="row text-light">
         <InputGroup className="mb-1 input_modal">
           <InputGroup.Text className="input-group-text-new text-light">
@@ -466,7 +428,18 @@ export default function CategoryEditForm(props) {
           </Dropdown>
         </InputGroup>
       </div>
-      {returnFormError()}
+
+      <div className="row text-light me-2 input_modal">
+        <div> 
+          <Alert
+            show={wrongState != 0}
+            className="dangerAllert mt-1 text-center"
+            variant="danger"
+          >
+            {returnFormError()}
+          </Alert>
+        </div>
+      </div>
       {props.stateModal.edit ? (
         <div className="row">
           <div className="col">

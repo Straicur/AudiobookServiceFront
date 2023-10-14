@@ -33,21 +33,6 @@ function App() {
       <Router>
         <Routes>
           {/*Admin*/}
-          {/* <Route
-          exact
-          path="/admin/"
-          element={
-            token == "" || token == undefined ? (
-              <Navigate to="/login" 
-               replace={true} 
-               />
-            ) : (
-              <Navigate to="/admin"  
-              replace={true} 
-              />
-            )
-          }
-        /> */}
           <Route
             exact
             path="/admin"

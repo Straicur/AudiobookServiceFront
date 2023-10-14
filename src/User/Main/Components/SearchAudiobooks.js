@@ -4,12 +4,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 
 export default function SearchAudiobooks(props) {
-  useEffect(() => {
-    if (props.audiobooksState.error != null) {
-      throw props.audiobooksState.error;
-    }
-  }, [props.audiobooksState.error]);
-
   const searchAudiobooks = () => {
     if (props.audiobooksState.searchText.length > 0) {
       props.setAudiobooksState({
@@ -38,6 +32,12 @@ export default function SearchAudiobooks(props) {
     }
   };
 
+  useEffect(() => {
+    if (props.audiobooksState.error != null) {
+      throw props.audiobooksState.error;
+    }
+  }, [props.audiobooksState.error]);
+  
   return (
     <div className="row ms-1 mt-3 justify-content-start">
       <div className="col-2">

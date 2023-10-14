@@ -59,6 +59,7 @@ export const AudiobookDataProvider = ({
           title: data.title,
           version: data.version,
           year: CreateDate(data.year),
+          ratingAmount: data.ratingAmount
         });
       },
     }

@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 import { CreateJsonFormatDate } from "../../../../Components/CreateJsonFormatDate";
+import Alert from "react-bootstrap/Alert";
 
 export default function AudiobookEditForm(props) {
   const [wrongState, setWrongState] = useState(0);
@@ -162,62 +163,23 @@ export default function AudiobookEditForm(props) {
   const returnFormError = () => {
     switch (wrongState) {
       case 1:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidTitle")}
-          </p>
-        );
-        break;
+        return props.t("enterValidTitle");
       case 2:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidAuthor")}
-          </p>
-        );
-        break;
+        return props.t("enterValidAuthor");
       case 3:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidAlbum")}
-          </p>
-        );
-        break;
+        return props.t("enterValidAlbum");
       case 4:
-        return (
-          <p className="text-danger text-center">{props.t("enterValidYear")}</p>
-        );
-        break;
+        return props.t("enterValidYear");
       case 5:
-        return (
-          <p className="text-danger text-center">{props.t("enterValidPart")}</p>
-        );
-        break;
+        return props.t("enterValidPart");
       case 6:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidDuration")}
-          </p>
-        );
-        break;
+        return props.t("enterValidDuration");
       case 7:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidEncoded")}
-          </p>
-        );
-        break;
+        return props.t("enterValidEncoded");
       case 8:
-        return (
-          <p className="text-danger text-center">{props.t("enterValidSize")}</p>
-        );
-        break;
+        return props.t("enterValidSize");
       case 9:
-        return (
-          <p className="text-danger text-center">
-            {props.t("enterValidVersion")}
-          </p>
-        );
-        break;
+        return props.t("enterValidVersion");
     }
   };
 
@@ -396,7 +358,7 @@ export default function AudiobookEditForm(props) {
         </div>
         <div className="col-auto input_modal">
           <InputGroup className="mb-1">
-            <Dropdown v onSelect={(event) => handleAgeChange(event)}>
+            <Dropdown onSelect={(event) => handleAgeChange(event)}>
               <Dropdown.Toggle
                 className=" text-start"
                 variant="success"
@@ -469,7 +431,17 @@ export default function AudiobookEditForm(props) {
           </InputGroup>
         </div>
       </div>
-      {returnFormError()}
+      <div className="row me-0 input_modal">
+        <div>
+          <Alert
+            show={wrongState != 0}
+            className="dangerAllert mt-1 text-center"
+            variant="danger"
+          >
+            {returnFormError()}
+          </Alert>
+        </div>
+      </div>
       {props.audiobookState.edit ? (
         <div className="row justify-content-center mt-2 mb-1">
           <div className="col-3">
