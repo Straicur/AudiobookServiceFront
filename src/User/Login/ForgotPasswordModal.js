@@ -7,6 +7,7 @@ export const ForgotPasswordModal = (props) => {
   const [state, setState] = useState({
     email: "",
     isButtonDisabled: false,
+    send: false,
   });
 
   function validateEmail(email) {
@@ -27,8 +28,11 @@ export const ForgotPasswordModal = (props) => {
       HandleFetch(url, method, jsonData, props.i18n.language)
         .then((data) => {
           if (data) {
-            setState({ ...state });
-            handleClose();
+            setState({ ...state, send: !state.send });
+
+            setTimeout(function () {
+              handleClose();
+            }, 3000);
           }
         })
         .catch((e) => {
@@ -57,27 +61,39 @@ export const ForgotPasswordModal = (props) => {
         <Modal.Title> {props.t("changePassword")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <input
-          id="email"
-          type="email"
-          placeholder={props.t("insertEmail")}
-          value={state.email}
-          className="form-control mt-2 shadow"
-          onChange={handleEmailChange}
-        />
+        {state.send ? (
+          <h4 className="text-center">{props.t("checkEmail")}</h4>
+        ) : (
+          <input
+            id="email"
+            type="email"
+            placeholder={props.t("insertEmail")}
+            value={state.email}
+            className="form-control mt-2 shadow"
+            onChange={handleEmailChange}
+          />
+        )}
       </Modal.Body>
       <Modal.Footer className="">
-        <Button
-          variant="dark"
-          disabled={state.isButtonDisabled}
-          className="auth-btn"
-          onClick={handleSend}
-        >
-          {props.t("sendEmail")}
-        </Button>
-        <Button variant="dark" onClick={handleClose}>
-          {props.t("cancel")}
-        </Button>
+        {state.send ? (
+          <Button variant="dark" onClick={handleClose}>
+            {props.t("close")}
+          </Button>
+        ) : (
+          <div>
+            <Button
+              variant="dark"
+              disabled={state.isButtonDisabled}
+              className="auth-btn me-2"
+              onClick={handleSend}
+            >
+              {props.t("sendEmail")}
+            </Button>
+            <Button className="ms-2" variant="dark" onClick={handleClose}>
+              {props.t("cancel")}
+            </Button>
+          </div>
+        )}
       </Modal.Footer>
     </Modal>
   );
