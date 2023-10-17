@@ -152,3 +152,8 @@ li {
 .load_more {
     padding: 1rem !important;
 }
+
+.spinner {
+    width: 4rem !important;
+    height: 4rem !important;
+}

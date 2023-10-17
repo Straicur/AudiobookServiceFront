@@ -20,13 +20,11 @@ export default function GetAllAudiobooks(props) {
       setCoversState([]);
 
       let copy = audiobooks;
-
       copy.categories.forEach((category) => {
         if (category.audiobooks != undefined) {
           category.audiobooks.map((audiobook) => {
             if (!covers.current.some((el) => el == audiobook.id)) {
               covers.current.push(audiobook.id);
-
               HandleFetch(
                 "/audiobook/cover/" + audiobook.id,
                 "GET",
@@ -63,6 +61,16 @@ export default function GetAllAudiobooks(props) {
   };
 
   useEffect(() => {
+    // console.log(coversState)
+    // if (audiobooks != null) {
+    //   props.setState({
+    //     ...props.state,
+    //     isLoading: false,
+    //   });
+    // }
+  }, [coversState]);
+
+  useEffect(() => {
     if (audiobooks != null) {
       covers.current = [];
       getAudiobooksImages();
@@ -71,25 +79,36 @@ export default function GetAllAudiobooks(props) {
 
   return (
     <div>
-      <ChildSecondMemo
-        state={props.state}
-        setState={props.setState}
-        token={props.token}
-        t={props.t}
-        coversState={coversState}
-        loading={loading}
-        hasMore={hasMore}
-      />
-      <ChildFirstMemo
-        state={props.state}
-        setState={props.setState}
-        token={props.token}
-        t={props.t}
-        coversState={coversState}
-        audiobooks={audiobooks}
-        loading={loading}
-        hasMore={hasMore}
-      />
+      {loading? (
+        <div className="text-center">
+          <div
+            className="spinner-border text-info spinner my-5"
+            role="status"
+          ></div>
+        </div>
+      ) : (
+        <div>
+          <ChildSecondMemo
+            state={props.state}
+            setState={props.setState}
+            token={props.token}
+            t={props.t}
+            coversState={coversState}
+            loading={loading}
+            hasMore={hasMore}
+          />
+          <ChildFirstMemo
+            state={props.state}
+            setState={props.setState}
+            token={props.token}
+            t={props.t}
+            coversState={coversState}
+            audiobooks={audiobooks}
+            loading={loading}
+            hasMore={hasMore}
+          />
+        </div>
+      )}
     </div>
   );
 }
