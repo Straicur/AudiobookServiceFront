@@ -24,6 +24,7 @@ export default function GetAllAudiobooks(props) {
         if (category.audiobooks != undefined) {
           category.audiobooks.map((audiobook) => {
             if (!covers.current.some((el) => el == audiobook.id)) {
+           
               covers.current.push(audiobook.id);
               HandleFetch(
                 "/audiobook/cover/" + audiobook.id,
