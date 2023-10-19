@@ -37,8 +37,6 @@ export default function GetAllAudiobooks(props) {
           });
         }
       });
-      console.log(audiobooksIds)
-      console.log(props.token)
       HandleFetch(
         "/audiobook/covers",
         "POST",
