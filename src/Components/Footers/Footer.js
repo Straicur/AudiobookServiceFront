@@ -20,7 +20,7 @@ export const Footer = () => {
             <a href="/about">{t("about")}</a>
           </li>
           <li className="list-inline-item">
-            <a href={process.env.REACT_APP_API_URL + "/doc"}>API</a>
+            <a href={process.env.REACT_APP_API_URL + "/api/doc"}>API</a>
           </li>
           <li className="list-inline-item">
             <a href="https://github.com/Straicur/AudiobookServiceFront">
