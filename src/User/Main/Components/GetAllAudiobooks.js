@@ -37,7 +37,7 @@ export default function GetAllAudiobooks(props) {
           });
         }
       });
-      console.log(audiobooksIds)
+      console.log(audiobooks)
       HandleFetch(
         "/audiobook/covers",
         "POST",
@@ -48,7 +48,7 @@ export default function GetAllAudiobooks(props) {
         props.i18n.language
       )
         .then((data) => {
-          console.log(data)
+          // console.log(data)
           if (data.audiobookCoversModels != undefined) {
             data.audiobookCoversModels.forEach((cover) => {
               if (!covers.some((x) => x.id == cover.id)) {
