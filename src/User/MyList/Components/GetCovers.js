@@ -11,70 +11,80 @@ export default function GetCovers(props) {
 
   const [coversState, setCoversState] = useState([]);
 
-  const covers = useRef([]);
+  const [loadstate, setLoadState] = useState(true);
 
   const getAudiobooksImages = () => {
     if (audiobooks != null) {
       setCoversState([]);
 
+      let audiobooksIds = [];
       let copy = audiobooks;
+
       if (copy != undefined) {
         copy.map((audiobook) => {
-          if (!covers.current.some((el) => el == audiobook.id)) {
-            covers.current.push(audiobook.id);
-
-            HandleFetch(
-              "/audiobook/cover/" + audiobook.id,
-              "GET",
-              null,
-              props.token,
-              props.i18n.language
-            )
-              .then((data) => {
-                setCoversState((coversState) => [
-                  ...coversState,
-                  {
-                    audiobook: audiobook.id,
-                    url:
-                      data != null
-                        ? window.URL.createObjectURL(new Blob([data]))
-                        : null,
-                  },
-                ]);
-              })
-              .catch(() => {
-                setCoversState((coversState) => [
-                  ...coversState,
-                  {
-                    audiobook: audiobook.id,
-                    url: null,
-                  },
-                ]);
-              });
-          }
+          audiobooksIds.push(audiobook.id);
         });
+
+        HandleFetch(
+          "/audiobook/covers",
+          "POST",
+          {
+            audiobooks: audiobooksIds,
+          },
+          props.token,
+          props.i18n.language
+        )
+          .then((data) => {
+            if (data.audiobookCoversModels != undefined) {
+              setCoversState(data.audiobookCoversModels);
+            }
+            else{
+              setLoadState(false);
+            }
+          })
+          .catch((e) => {
+            props.setState({
+              ...props.state,
+              error: e,
+            });
+          });
       }
     }
   };
 
   useEffect(() => {
+    if (coversState.length != 0) {
+      setLoadState(false);
+    }
+  }, [coversState]);
+
+  useEffect(() => {
     if (audiobooks != null) {
-      covers.current = [];
       getAudiobooksImages();
     }
   }, [audiobooks]);
 
   return (
     <div>
-      <ChildMemo
-        state={props.state}
-        setState={props.setState}
-        token={props.token}
-        t={props.t}
-        coversState={coversState}
-        loading={loading}
-        audiobooks={audiobooks}
-      />
+      {
+        loadstate ? (
+          <div className="text-center">
+            <div
+              className="spinner-border text-info spinner my-5"
+              role="status"
+            ></div>
+          </div>
+        ) : 
+        <ChildMemo
+          state={props.state}
+          setState={props.setState}
+          token={props.token}
+          t={props.t}
+          coversState={coversState}
+          loading={loading}
+          audiobooks={audiobooks}
+        />
+      }
     </div>
   );
 }

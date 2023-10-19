@@ -4,7 +4,7 @@ export default function GetCovers(props) {
   const getImgUrl = (audiobook) => {
     if (props.coversState != undefined && props.coversState.length > 0) {
       let url = props.coversState.filter(
-        (obj) => obj.audiobook == audiobook.id
+        (obj) => obj.id == audiobook.id
       );
 
       if (url.length > 0) {

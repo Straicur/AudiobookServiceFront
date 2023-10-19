@@ -10,56 +10,51 @@ export default function GetAllSearchAudiobooks(props) {
     useAudiobookSearch();
 
   const [coversState, setCoversState] = useState([]);
-  const getAudiobooksImages = () => {
-    let covers = [];
 
+  const [loadstate, setLoadState] = useState(true);
+
+  const getAudiobooksImages = () => {
     if (audiobooks != null) {
       setCoversState([]);
 
-      let copy = audiobooks;
       if (audiobooks != undefined) {
+        let audiobooksIds = [];
+
         audiobooks.map((audiobook) => {
-          HandleFetch(
-            "/audiobook/cover/" + audiobook.id,
-            "GET",
-            null,
-            props.token,
-            props.i18n.language
-          )
-            .then((data) => {
-              if (!covers.some((el) => el.audiobook == audiobook.id)) {
-                covers.push({
-                  audiobook: audiobook.id,
-                  url:
-                    data != null
-                      ? window.URL.createObjectURL(new Blob([data]))
-                      : null,
-                });
-                setCoversState((coversState) => [
-                  ...coversState,
-                  {
-                    audiobook: audiobook.id,
-                    url:
-                      data != null
-                        ? window.URL.createObjectURL(new Blob([data]))
-                        : null,
-                  },
-                ]);
-              }
-            })
-            .catch(() => {
-              setCoversState((coversState) => [
-                ...coversState,
-                {
-                  audiobook: audiobook.id,
-                  url: null,
-                },
-              ]);
-            });
+          audiobooksIds.push(audiobook.id);
         });
+
+        HandleFetch(
+          "/audiobook/covers",
+          "POST",
+          {
+            audiobooks: audiobooksIds,
+          },
+          props.token,
+          props.i18n.language
+        )
+          .then((data) => {
+            if (data.audiobookCoversModels != undefined) {
+              setCoversState(data.audiobookCoversModels);
+            } else {
+              setLoadState(false);
+            }
+          })
+          .catch((e) => {
+            props.setState({
+              ...props.state,
+              error: e,
+            });
+          });
       }
     }
   };
+
+  useEffect(() => {
+    if (coversState.length != 0) {
+      setLoadState(false);
+    }
+  }, [coversState]);
 
   useEffect(() => {
     if (audiobooks != null) {
@@ -75,15 +70,24 @@ export default function GetAllSearchAudiobooks(props) {
 
   return (
     <div>
-      <ChildMemo
-        state={props.state}
-        setState={props.setState}
-        token={props.token}
-        t={props.t}
-        coversState={coversState}
-        audiobooks={audiobooks}
-        loading={loading}
-      />
+      {loadstate ? (
+        <div className="text-center">
+          <div
+            className="spinner-border text-info spinner my-5"
+            role="status"
+          ></div>
+        </div>
+      ) : (
+        <ChildMemo
+          state={props.state}
+          setState={props.setState}
+          token={props.token}
+          t={props.t}
+          coversState={coversState}
+          audiobooks={audiobooks}
+          loading={loading}
+        />
+      )}
     </div>
   );
 }

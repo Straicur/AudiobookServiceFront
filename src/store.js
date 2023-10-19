@@ -114,6 +114,22 @@ let notificationsListStore = (set) => ({
   },
 });
 
+let coverListStore = (set) => ({
+  covers: [],
+  dateUpdate: 0,
+  addCover: (cover) => {
+    set((state) => ({
+      covers: [...state.covers, cover],
+      dateUpdate: Date.now() + 500000,
+    }));
+  },
+  removeCovers: () =>
+    set(() => ({
+      covers: [],
+      dateUpdate: 0,
+    })),
+});
+
 //todo tu jeszcze mogę trzymać te ustawienia języka i likalizację (jeśli nie pl to na eng ustawiam i tyle)
 
 tokenStore = devtools(tokenStore);
@@ -138,9 +154,15 @@ notificationsListStore = persist(notificationsListStore, {
   name: "notificationsStore",
 });
 
+coverListStore = devtools(coverListStore);
+coverListStore = persist(coverListStore, {
+  name: "coverListStore",
+});
+
 export const useTokenStore = create(tokenStore);
 export const useLastUserRolesStore = create(lastUserRolesStore);
 export const useLastSearchStore = create(lastSearchStore);
 export const useCategoryTreeListStore = create(categoryTreeListStore);
 export const useCategoryListStore = create(categoryListStore);
 export const useNotificationsListStore = create(notificationsListStore);
+export const useCoverListStore = create(coverListStore);
