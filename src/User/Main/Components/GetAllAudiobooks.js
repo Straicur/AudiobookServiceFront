@@ -29,7 +29,7 @@ export default function GetAllAudiobooks(props) {
       if (dateUpdate < Date.now() && dateUpdate != 0) {
         coversStore.removeCovers();
       }
-    
+
       copy.categories.forEach((category) => {
         if (category.audiobooks != undefined) {
           category.audiobooks.map((audiobook) => {
@@ -47,15 +47,15 @@ export default function GetAllAudiobooks(props) {
         props.i18n.language
       )
         .then((data) => {
-          console.log(data.audiobookCoversModels)
-          data.audiobookCoversModels.forEach((cover) => {
-            if( !covers.some((x) => x.id == cover.id)){
-              coversStore.addCover(cover)
-            }
-          });
+          if (data.audiobookCoversModels != undefined) {
+            data.audiobookCoversModels.forEach((cover) => {
+              if (!covers.some((x) => x.id == cover.id)) {
+                coversStore.addCover(cover);
+              }
+            });
+          }
 
           setCoversState(covers);
-    
         })
         .catch((e) => {
           props.setState({

@@ -41,7 +41,9 @@ export const AudiobookCoverDataProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
-        setAudiobookCover(data.audiobookCoversModels[0]);
+        if (data.audiobookCoversModels != undefined) {
+          setAudiobookCover(data.audiobookCoversModels[0]);
+        }
       },
     }
   );
