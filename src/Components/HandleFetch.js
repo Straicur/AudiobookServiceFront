@@ -37,12 +37,15 @@ export const HandleFetch = async (
     content.body = JSON.stringify(jsonData);
   }
 
-  url = process.env.REACT_APP_API_URL + url;
+  url = process.env.REACT_APP_API_URL + "/api" + url;
 
   const response = await fetch(url, content);
 
   if (response.ok) {
-    if (response.headers.has('content-length') && parseInt(response.headers.get("content-length")) != 0) {
+    if (
+      response.headers.has("content-length") &&
+      parseInt(response.headers.get("content-length")) != 0
+    ) {
       if (response.headers.get("content-type") != "application/json") {
         return response.blob();
       }
