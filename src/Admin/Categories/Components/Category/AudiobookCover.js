@@ -75,7 +75,7 @@ export default function AudiobookCover(props) {
           src={
             props.audiobookCover == null || props.audiobookCover.url == ""
               ? "/noImg.jpg"
-              : props.audiobookCover.url
+              : process.env.REACT_APP_API_URL + props.audiobookCover.url
           }
           className="card-img-top"
           alt="..."
