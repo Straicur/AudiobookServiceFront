@@ -3,12 +3,10 @@ import { v4 as uuidv4 } from "uuid";
 export default function GetCovers(props) {
   const getImgUrl = (audiobook) => {
     if (props.coversState != undefined && props.coversState.length > 0) {
-      let url = props.coversState.filter(
-        (obj) => obj.id == audiobook.id
-      );
+      let url = props.coversState.filter((obj) => obj.id == audiobook.id);
 
       if (url.length > 0) {
-        return url[0].url;
+        return process.env.REACT_APP_API_URL + url[0].url;
       } else {
         return "/noImg.jpg";
       }

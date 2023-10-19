@@ -47,6 +47,7 @@ export default function GetAllAudiobooks(props) {
         props.i18n.language
       )
         .then((data) => {
+          console.log(data.audiobookCoversModels)
           data.audiobookCoversModels.forEach((cover) => {
             if( !covers.some((x) => x.id == cover.id)){
               coversStore.addCover(cover)
