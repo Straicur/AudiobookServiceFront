@@ -25,9 +25,11 @@ export const AudiobookCoverDataProvider = ({
     "dataAudiobookCover",
     () =>
       HandleFetch(
-        "/audiobook/cover/" + audiobookId,
-        "GET",
-        null,
+        "/audiobook/covers",
+        "POST",
+        {
+          audiobooks: [audiobookId],
+        },
         token,
         i18n.language
       ),
@@ -39,7 +41,7 @@ export const AudiobookCoverDataProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
-        setAudiobookCover(data);
+        setAudiobookCover(data.audiobookCoversModels[0]);
       },
     }
   );

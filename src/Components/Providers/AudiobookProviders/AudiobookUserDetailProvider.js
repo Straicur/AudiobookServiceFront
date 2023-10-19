@@ -45,7 +45,6 @@ export const AudiobookUserDetailProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
-        console.log(data)
         setAudiobookDetail({
           age: data.age,
           album: data.album,

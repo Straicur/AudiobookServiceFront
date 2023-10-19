@@ -70,9 +70,9 @@ export default function AudiobookCover(props) {
       <div className="row ">
         <img
           src={
-            props.audiobookCover == null
+            props.audiobookCover == null || props.audiobookCover.url == ""
               ? "/noImg.jpg"
-              : window.URL.createObjectURL(new Blob([props.audiobookCover]))
+              : props.audiobookCover.url
           }
           className="card-img-top"
           alt="..."

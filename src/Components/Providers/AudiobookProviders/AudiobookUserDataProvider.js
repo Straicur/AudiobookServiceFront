@@ -56,7 +56,7 @@ export const AudiobookUserDataProvider = ({
 
   useEffect(() => {
     fetchData();
-  }, [page]);
+  }, [page, refetchState]);
 
   useEffect(() => {
     fetchData();
