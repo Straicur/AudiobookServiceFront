@@ -26,9 +26,9 @@ export default function GetAllAudiobooks(props) {
       let audiobooksIds = [];
       let copy = audiobooks;
 
-      if (dateUpdate < Date.now() && dateUpdate != 0) {
-        coversStore.removeCovers();
-      }
+      // if (dateUpdate < Date.now() && dateUpdate != 0) {
+      //   coversStore.removeCovers();
+      // }
 
       copy.categories.forEach((category) => {
         if (category.audiobooks != undefined) {
@@ -37,7 +37,6 @@ export default function GetAllAudiobooks(props) {
           });
         }
       });
-      console.log(audiobooks)
       HandleFetch(
         "/audiobook/covers",
         "POST",
@@ -48,16 +47,14 @@ export default function GetAllAudiobooks(props) {
         props.i18n.language
       )
         .then((data) => {
-          // console.log(data)
           if (data.audiobookCoversModels != undefined) {
-            data.audiobookCoversModels.forEach((cover) => {
-              if (!covers.some((x) => x.id == cover.id)) {
-                coversStore.addCover(cover);
-              }
-            });
+            setCoversState(data.audiobookCoversModels);
+            // data.audiobookCoversModels.forEach((cover) => {
+            //   if (!covers.some((x) => x.id == cover.id)) {
+            //     coversStore.addCover(cover);
+            //   }
+            // });
           }
-
-          setCoversState(covers);
         })
         .catch((e) => {
           props.setState({
