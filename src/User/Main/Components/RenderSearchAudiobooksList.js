@@ -8,7 +8,7 @@ export default function RenderSearchAudiobooksList(props) {
       );
 
       if (url.length > 0) {
-        return url[0].url;
+        return process.env.REACT_APP_API_URL + url[0].url;
       } else {
         return "/noImg.jpg";
       }
