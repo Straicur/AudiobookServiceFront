@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useAudiobookMy } from "../../../Components/Providers/AudiobookProviders/AudiobookMyListProvider";
 import RenderMyList from "./RenderMyList";
 import { HandleFetch } from "../../../Components/HandleFetch";
+import { useCoverListStore } from "../../../store";
 
 const ChildMemo = React.memo(RenderMyList);
 
@@ -9,14 +10,15 @@ export default function GetCovers(props) {
   const [audiobooks, loading, setAudiobooks, setRefetchState] =
     useAudiobookMy();
 
-  const [coversState, setCoversState] = useState([]);
-
   const [loadstate, setLoadState] = useState(true);
+
+  const coversStore = useCoverListStore();
+
+  const covers = useCoverListStore((state) => state.covers);
+  const dateUpdate = useCoverListStore((state) => state.dateUpdate);
 
   const getAudiobooksImages = () => {
     if (audiobooks != null) {
-      setCoversState([]);
-
       let audiobooksIds = [];
       let copy = audiobooks;
 
@@ -36,9 +38,21 @@ export default function GetCovers(props) {
         )
           .then((data) => {
             if (data.audiobookCoversModels != undefined) {
-              setCoversState(data.audiobookCoversModels);
-            }
-            else{
+              let updatedCovers = covers;
+
+              data.audiobookCoversModels.forEach((cover) => {
+                if (!covers.some((x) => x.id == cover.id)) {
+                  updatedCovers.push(cover);
+                } else {
+                  if (dateUpdate < Date.now() && dateUpdate != 0) {
+                    coversStore.updateCover(cover.id, cover.url);
+                  }
+                }
+              });
+
+              coversStore.addCovers(updatedCovers);
+              setLoadState(false);
+            } else {
               setLoadState(false);
             }
           })
@@ -53,12 +67,6 @@ export default function GetCovers(props) {
   };
 
   useEffect(() => {
-    if (coversState.length != 0) {
-      setLoadState(false);
-    }
-  }, [coversState]);
-
-  useEffect(() => {
     if (audiobooks != null) {
       getAudiobooksImages();
     }
@@ -66,25 +74,24 @@ export default function GetCovers(props) {
 
   return (
     <div>
-      {
-        loadstate ? (
-          <div className="text-center">
-            <div
-              className="spinner-border text-info spinner my-5"
-              role="status"
-            ></div>
-          </div>
-        ) : 
+      {loadstate ? (
+        <div className="text-center">
+          <div
+            className="spinner-border text-info spinner my-5"
+            role="status"
+          ></div>
+        </div>
+      ) : (
         <ChildMemo
           state={props.state}
           setState={props.setState}
           token={props.token}
           t={props.t}
-          coversState={coversState}
+          coversState={covers}
           loading={loading}
           audiobooks={audiobooks}
         />
-      }
+      )}
     </div>
   );
 }

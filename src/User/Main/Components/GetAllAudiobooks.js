@@ -12,8 +12,6 @@ export default function GetAllAudiobooks(props) {
   const [audiobooks, loading, hasMore, setAudiobooks, setRefetchState] =
     useAudiobookUserData();
 
-  const [coversState, setCoversState] = useState([]);
-
   const [loadstate, setLoadState] = useState(true);
 
   const coversStore = useCoverListStore();
@@ -25,10 +23,6 @@ export default function GetAllAudiobooks(props) {
     if (audiobooks != null) {
       let audiobooksIds = [];
       let copy = audiobooks;
-
-      // if (dateUpdate < Date.now() && dateUpdate != 0) {
-      //   coversStore.removeCovers();
-      // }
 
       copy.categories.forEach((category) => {
         if (category.audiobooks != undefined) {
@@ -48,12 +42,19 @@ export default function GetAllAudiobooks(props) {
       )
         .then((data) => {
           if (data.audiobookCoversModels != undefined) {
-            setCoversState(data.audiobookCoversModels);
-            // data.audiobookCoversModels.forEach((cover) => {
-            //   if (!covers.some((x) => x.id == cover.id)) {
-            //     coversStore.addCover(cover);
-            //   }
-            // });
+            let updatedCovers = covers;
+
+            data.audiobookCoversModels.forEach((cover) => {
+              if (!covers.some((x) => x.id == cover.id)) {
+                updatedCovers.push(cover);
+              } else {
+                if (dateUpdate < Date.now() && dateUpdate != 0) {
+                  coversStore.updateCover(cover.id, cover.url);
+                }
+              }
+            });
+
+            coversStore.addCovers(updatedCovers);
           }
         })
         .catch((e) => {
@@ -66,10 +67,10 @@ export default function GetAllAudiobooks(props) {
   };
 
   useEffect(() => {
-    if (coversState.length != 0) {
+    if (covers.length != 0) {
       setLoadState(false);
     }
-  }, [coversState]);
+  }, [covers]);
 
   useEffect(() => {
     if (audiobooks != null) {
@@ -93,7 +94,7 @@ export default function GetAllAudiobooks(props) {
             setState={props.setState}
             token={props.token}
             t={props.t}
-            coversState={coversState}
+            coversState={covers}
             loading={loading}
             hasMore={hasMore}
           />
@@ -102,7 +103,7 @@ export default function GetAllAudiobooks(props) {
             setState={props.setState}
             token={props.token}
             t={props.t}
-            coversState={coversState}
+            coversState={covers}
             audiobooks={audiobooks}
             loading={loading}
             hasMore={hasMore}
