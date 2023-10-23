@@ -25,7 +25,7 @@ export default function RenderCarousel(props, category) {
     if (props.coversState != undefined && props.coversState.length > 0) {
       let url = props.coversState.filter((obj) => obj.id == audiobook.id);
 
-      if (url.length > 0) {
+      if (url.length > 0 && url[0].url != "") {
         return process.env.REACT_APP_API_URL + url[0].url;
       } else {
         return "/noImg.jpg";

@@ -12,8 +12,6 @@ export default function GetAllAudiobooks(props) {
   const [audiobooks, loading, hasMore, setAudiobooks, setRefetchState] =
     useAudiobookUserData();
 
-  const [coversState, setCoversState] = useState([]);
-
   const [loadstate, setLoadState] = useState(true);
 
   const coversStore = useCoverListStore();
@@ -46,19 +44,17 @@ export default function GetAllAudiobooks(props) {
           if (data.audiobookCoversModels != undefined) {
             let updatedCovers = covers;
 
-            if (dateUpdate < Date.now() && dateUpdate != 0) {
-              data.audiobookCoversModels.forEach((cover) => {
-
-                if (!covers.some((x) => x.id == cover.id)) {
-                  updatedCovers.push(cover)
+            data.audiobookCoversModels.forEach((cover) => {
+              if (!covers.some((x) => x.id == cover.id)) {
+                updatedCovers.push(cover);
+              } else {
+                if (dateUpdate < Date.now() && dateUpdate != 0) {
+                  coversStore.updateCover(cover.id, cover.url);
                 }
-                else{
-                  coversStore.updateCover(cover.id,cover.url);
-                }
-              });
+              }
+            });
 
-              coversStore.addCovers(updatedCovers);
-            }
+            coversStore.addCovers(updatedCovers);
           }
         })
         .catch((e) => {
