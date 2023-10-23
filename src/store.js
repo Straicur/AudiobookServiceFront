@@ -63,7 +63,7 @@ let lastSearchStore = (set) => ({
   search: null,
   dateUpdate: 0,
   setSearch: (search) => {
-    set((state) => ({
+    set(() => ({
       search: search,
       dateUpdate: Date.now() + 1800000,
     }));
@@ -79,7 +79,7 @@ let lastUserRolesStore = (set) => ({
   roles: null,
   dateUpdate: 0,
   setRoles: (roles) => {
-    set((state) => ({
+    set(() => ({
       roles: roles,
       dateUpdate: Date.now() + 1800000,
     }));
@@ -97,7 +97,7 @@ let notificationsListStore = (set) => ({
   newNotifications: 0,
   dateUpdate: 0,
   addNotifications: (notifications) => {
-    set((state) => ({
+    set(() => ({
       notifications: notifications,
       dateUpdate: Date.now() + 300000,
     }));
@@ -116,16 +116,21 @@ let notificationsListStore = (set) => ({
 
 let coverListStore = (set) => ({
   covers: [],
-  dateUpdate: 0,
-  addCover: (cover) => {
-    set((state) => ({
-      covers: [...state.covers, cover],
-      dateUpdate: Date.now() + 500000,
+  dateUpdate: 1,
+  addCovers: (covers) => {
+    set(() => ({
+      covers: covers,
+      dateUpdate: Date.now() + 200000,
     }));
   },
-  removeCovers: () =>
-    set(() => ({
-      covers: [],
+  updateCover: (id, url) =>
+    set((state) => ({
+      covers: state.covers.map((cover) => {
+        if (cover.id === id) {
+          return { ...cover, url: url };
+        }
+        return cover;
+      }),
       dateUpdate: 0,
     })),
 });
