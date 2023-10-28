@@ -239,7 +239,15 @@ export default function AudiobookDetailModal(props) {
                 />
               </div>
             </div>
-            <div className="col-4"></div>
+            <div className="col-3 d-flex justify-content-end align-items-start pe-3">
+              <Button
+                variant="danger"
+                onClick={handleClose}
+                className="text-center danger_button opacity-75 exit_audiobook fw-bold"
+              >
+                X
+              </Button>
+            </div>
           </div>
         ) : null}
 

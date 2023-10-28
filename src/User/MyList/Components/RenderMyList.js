@@ -60,11 +60,12 @@ export default function GetCovers(props) {
 
   return (
     <div key={uuidv4()} className="row min_container_height">
-      {props.coversState != undefined && props.coversState.length > 0 ? (
+      {props.coversState != undefined &&
+      props.coversState.length > 0 &&
+      props.audiobooks.length > 0 ? (
         returnAudioboks()
       ) : (
         <div className="text-white center_text fs-2">
-          {" "}
           {props.t("emptyMyList")}
         </div>
       )}

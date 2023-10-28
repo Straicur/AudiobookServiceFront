@@ -16,6 +16,7 @@ export default function Forgot() {
   const [state, setState] = useState({
     password: "",
     confirmPassword: "",
+    passwordStrength: 10,
     error: null,
     wrongPassword: false,
     changeLang: i18n.language,
