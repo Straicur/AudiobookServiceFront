@@ -156,7 +156,15 @@ export default function AudiobookDetailModal(props) {
           >
             <div className="col-9">
               <div className="row">
-                <h1>{audiobookDetail.title}</h1>
+                {audiobookDetail.title.length > 17 ? (
+                  audiobookDetail.title.length > 34 ? (
+                    <h3>{audiobookDetail.title}</h3>
+                  ) : (
+                    <h2>{audiobookDetail.title}</h2>
+                  )
+                ) : (
+                  <h1>{audiobookDetail.title}</h1>
+                )}
               </div>
               <div className="row mb-3">
                 <h2>
