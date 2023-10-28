@@ -21,9 +21,19 @@
     max-height: 27rem;
 }
 
-.card-img-sm {
+.card-img-sm-sm-title {
     min-height: 21rem;
     max-height: 21rem;
+}
+
+.card-img-sm-lg-title {
+    min-height: 20rem;
+    max-height: 20rem;
+}
+
+.card-img-sm-ext-lg-title {
+    min-height: 19rem;
+    max-height: 19rem;
 }
 
 .carousel-search-card {
@@ -31,10 +41,6 @@
     max-height: 29rem;
 }
 
-.card-search-img-sm {
-    min-height: 23.35rem;
-    max-height: 23.35rem;
-}
 
 .button-star {
     background-color: transparent;
