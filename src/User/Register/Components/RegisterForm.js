@@ -7,6 +7,7 @@ import md5 from "md5";
 import { RegisterNotificationModal } from "./RegisterNotificationModal";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import ProgressBar from "react-bootstrap/ProgressBar";
 import {
   validateEmail,
   validatePassword,
@@ -17,6 +18,8 @@ import {
   handlePhoneNumber,
   handleFirstname,
   handleLastname,
+  getPasswordStrenghtText,
+  getPasswordStrenghtProgressColor,
 } from "./Events";
 
 export default function RegisterForm(props) {
@@ -150,7 +153,7 @@ export default function RegisterForm(props) {
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
-                    <Row className="mb-3">
+                    <Row className="mb-1">
                       <Form.Group
                         controlId="validationCustom02"
                         className="form-outline form-white mb-4"
@@ -169,7 +172,7 @@ export default function RegisterForm(props) {
                               props.state.confirmPassword.trim()
                           }
                           isInvalid={
-                            props.state.password.length > 1 &&
+                            props.state.password.length >= 1 &&
                             !validatePassword(props.state.password) &&
                             props.state.password.trim() !=
                               props.state.confirmPassword.trim()
@@ -183,8 +186,24 @@ export default function RegisterForm(props) {
                           }
                         />
                         <Form.Control.Feedback type="invalid">
-                          {t("enterValidPassword")}
+                          <div>{t("enterValidPassword")}</div>
+                          <div>{t("validPasswordSchema")}</div>
                         </Form.Control.Feedback>
+                        {props.state.password.length >= 1 ? (
+                          <div>
+                            <ProgressBar
+                              className="mt-3"
+                              variant={getPasswordStrenghtProgressColor(
+                                props.state.passwordStrength
+                              )}
+                              now={props.state.passwordStrength}
+                            />
+                            {getPasswordStrenghtText(
+                              t,
+                              props.state.passwordStrength
+                            )}
+                          </div>
+                        ) : null}
                       </Form.Group>
                     </Row>
                     <Row className="mb-3">

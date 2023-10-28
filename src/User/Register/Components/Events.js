@@ -6,8 +6,56 @@ function validateEmail(email) {
 
 function validatePassword(pass) {
   const re =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    /(?=.*[A-Z])(?=.*[a-z])(?=.*[\d]).{7,}|(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=.*[\d]).{7,}/g;
   return re.test(pass);
+}
+
+function getPasswordStrenghtText(t, passStr) {
+  switch (passStr) {
+    case 10:
+      return <p class="text-center text-danger">{t("weakPassword")}</p>;
+    case 25:
+      return <p class="text-center text-warning">{t("moderatePassword")}</p>;
+    case 50:
+      return <p class="text-center text-success">{t("strongPassword")}</p>;
+    case 100:
+      return <p class="text-center text-info">{t("extraStrongPassword")}</p>;
+  }
+}
+
+function getPasswordStrenghtProgressColor(passStr) {
+  switch (passStr) {
+    case 10:
+      return "danger";
+    case 25:
+      return "warning";
+    case 50:
+      return "success";
+    case 100:
+      return "info";
+  }
+}
+
+function validatePasswordStrength(pass) {
+  const moderate =
+    /(?=.*[A-Z])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[A-Z])(?=.*[a-z]).{5,}/;
+  const strong =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
+  const extraStrong =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
+
+  let strength = 10;
+
+  if (extraStrong.test(pass)) {
+    strength = 100;
+  } else if (strong.test(pass)) {
+    strength = 50;
+  } else if (moderate.test(pass)) {
+    strength = 25;
+  } else if (pass.length > 0) {
+    strength = 10;
+  }
+  return strength;
 }
 
 function validatePhoneNumber(pass) {
@@ -26,6 +74,7 @@ const handlePasswordChange = (event, state, setState) => {
   setState({
     ...state,
     password: event.target.value,
+    passwordStrength: validatePasswordStrength(event.target.value),
   });
 };
 
@@ -67,4 +116,6 @@ export {
   handlePhoneNumber,
   handleFirstname,
   handleLastname,
+  getPasswordStrenghtText,
+  getPasswordStrenghtProgressColor,
 };
