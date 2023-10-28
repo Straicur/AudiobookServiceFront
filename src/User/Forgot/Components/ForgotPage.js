@@ -3,11 +3,61 @@ import { HandleFetch } from "../../../Components/HandleFetch";
 import md5 from "md5";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 export default function ForgotPage(props) {
   function validatePassword(pass) {
-    const re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    const re =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return re.test(pass);
+  }
+
+  function getPasswordStrenghtText(t, passStr) {
+    switch (passStr) {
+      case 10:
+        return <p class="text-center text-danger">{t("weakPassword")}</p>;
+      case 25:
+        return <p class="text-center text-warning">{t("moderatePassword")}</p>;
+      case 50:
+        return <p class="text-center text-success">{t("strongPassword")}</p>;
+      case 100:
+        return <p class="text-center text-info">{t("extraStrongPassword")}</p>;
+    }
+  }
+
+  function getPasswordStrenghtProgressColor(passStr) {
+    switch (passStr) {
+      case 10:
+        return "danger";
+      case 25:
+        return "warning";
+      case 50:
+        return "success";
+      case 100:
+        return "info";
+    }
+  }
+
+  function validatePasswordStrength(pass) {
+    const moderate =
+      /(?=.*[A-Z])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[A-Z])(?=.*[a-z]).{5,}/;
+    const strong =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const extraStrong =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
+
+    let strength = 10;
+
+    if (extraStrong.test(pass)) {
+      strength = 100;
+    } else if (strong.test(pass)) {
+      strength = 50;
+    } else if (moderate.test(pass)) {
+      strength = 25;
+    } else if (pass.length > 0) {
+      strength = 10;
+    }
+    return strength;
   }
 
   const handleNewPassword = async () => {
@@ -47,6 +97,7 @@ export default function ForgotPage(props) {
     props.setState({
       ...props.state,
       password: event.target.value,
+      passwordStrength: validatePasswordStrength(event.target.value),
     });
   };
   const handleConfirmPasswordChange = (event) => {
@@ -105,12 +156,31 @@ export default function ForgotPage(props) {
             onChange={handleConfirmPasswordChange}
           />
           <hr className="mt-4"></hr>
+          {props.state.password.length >= 1 ? (
+            <div>
+              <ProgressBar
+                className="mt-3"
+                variant={getPasswordStrenghtProgressColor(
+                  props.state.passwordStrength
+                )}
+                now={props.state.passwordStrength}
+              />
+              {getPasswordStrenghtText(props.t, props.state.passwordStrength)}
+            </div>
+          ) : null}
           <Alert
             show={props.state.wrongPassword}
             className="dangerAllert mt-1 text-center"
             variant="danger"
           >
             {props.t("enterStrongerPassword")}
+          </Alert>
+          <Alert
+            show={props.state.isButtonDisabled}
+            className="dangerAllert mt-1 text-center"
+            variant="danger"
+          >
+            {props.t("enterValidConfirmPassword")}
           </Alert>
           <Button
             variant="dark"

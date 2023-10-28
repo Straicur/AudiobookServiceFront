@@ -62,7 +62,7 @@
     "strongPassword":"Silne hasło",
     "extraStrongPassword":"Bardzo silne hasło",
     "enterStrongerPassword": "Podaj mocniejsze hasło",
-    "enterValidConfirmPassword": "Zweryfikuj hasło",
+    "enterValidConfirmPassword": "Hasła muszą być takie same",
     "enterValidPhoneNumber": "Podaj poprawny numer telefonu",
     "enterValidFirstName": "Podaj poprawne imię",
     "enterValidLastName": "Podaj poprawne nazwisko",
