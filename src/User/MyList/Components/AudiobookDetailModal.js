@@ -139,17 +139,6 @@ export default function AudiobookDetailModal(props) {
           backgroundColor: "#000000",
         }}
       >
-        {console.log({
-          backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.7) 47%, rgba(255,255,255,0.1) 82%), url(${
-            props.state.detailModalCover == null
-              ? "/noImg.jpg"
-              : props.state.detailModalCover
-          })`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "60%",
-          backgroundPosition: "95% 15%",
-          paddingBottom: "3rem",
-        })}
         {audiobookDetail != null ? (
           <div
             className="row "
