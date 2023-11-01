@@ -4,6 +4,7 @@ import "react-h5-audio-player/lib/styles.css";
 
 export default function AudiobookPlayer(props) {
   const player = useRef(null);
+  const duration = useRef(0);
 
   const nextPart = () => {
     let nextPart = props.audiobookState.part + 1;
@@ -25,17 +26,32 @@ export default function AudiobookPlayer(props) {
 
   const timeCur = (audio) => {
     props.timeAudio.current = parseInt(audio.target.currentTime);
+    if (duration.current == 0) {
+      duration.current = audio.target.duration;
+    }
   };
 
   useEffect(() => {
-    if (player.current && props.audiobookState.datailEndedTime != null && !props.timeAudio.current) {
+    if (
+      player.current &&
+      props.audiobookState.datailEndedTime != null &&
+      !props.timeAudio.current
+    ) {
       player.current.audio.current.currentTime =
         props.audiobookState.datailEndedTime;
     }
   }, []);
- 
+
   useEffect(() => {
     if (player.current && props.timeAudio.current) {
+      console.log(duration.current)
+      if(player.current.progressBar.current.attributes && duration.current != 0){
+        let procent = (((props.timeAudio.current/ duration.current) * 100).toFixed(2)+"%");
+        player.current.progressBar.current.setAttribute('aria-valuenow', procent);
+        player.current.progressBar.current.childNodes[0].childNodes[0].style.left = procent;
+        player.current.progressBar.current.childNodes[0].childNodes[1].style.width = procent;
+      }
+
       player.current.audio.current.currentTime = props.timeAudio.current;
     }
   }, [props]);
