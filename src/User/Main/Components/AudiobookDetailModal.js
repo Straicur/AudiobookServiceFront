@@ -54,6 +54,11 @@ export default function AudiobookDetailModal(props) {
           inList: !audiobookDetail.inList,
         });
 
+        props.setAudiobookState({
+          ...props.audiobookState,
+          renderAudiobookPlayer: true,
+        });
+
         element.target.classList.remove("disabled");
       })
       .catch((e) => {

@@ -35,26 +35,59 @@ export default function AudiobookPlayer(props) {
     if (
       player.current &&
       props.audiobookState.datailEndedTime != null &&
-      !props.timeAudio.current
+      !props.timeAudio.current &&
+      !props.audiobookState.newPart
     ) {
       player.current.audio.current.currentTime =
         props.audiobookState.datailEndedTime;
     }
   }, []);
 
+  //TODO to jest do przetestowania i znalezienia błędu jeszcze 
+
   useEffect(() => {
-    if (player.current && props.timeAudio.current) {
-      console.log(duration.current)
-      if(player.current.progressBar.current.attributes && duration.current != 0){
-        let procent = (((props.timeAudio.current/ duration.current) * 100).toFixed(2)+"%");
-        player.current.progressBar.current.setAttribute('aria-valuenow', procent);
-        player.current.progressBar.current.childNodes[0].childNodes[0].style.left = procent;
-        player.current.progressBar.current.childNodes[0].childNodes[1].style.width = procent;
-      }
+    if (
+      player.current &&
+      props.timeAudio.current &&
+      !props.audiobookState.newPart &&
+      props.audiobookState.renderAudiobookPlayer
+    ) {
+      let procent =
+        ((props.timeAudio.current / duration.current) * 100).toFixed(2) + "%";
+      console.log(procent);
+      player.current.progressBar.current.setAttribute("aria-valuenow", procent);
+      player.current.progressBar.current.childNodes[0].childNodes[0].style.left =
+        procent;
+      player.current.progressBar.current.childNodes[0].childNodes[1].style.width =
+        procent;
 
       player.current.audio.current.currentTime = props.timeAudio.current;
+
+      props.setAudiobookState({
+        ...props.audiobookState,
+        renderAudiobookPlayer: false,
+      });
     }
-  }, [props]);
+  }, [props.audiobookState.renderAudiobookPlayer]);
+
+  useEffect(() => {
+    if (
+      props.audiobookState.newPart &&
+      player.current &&
+      props.audiobookState.datailEndedTime == null
+    ) {
+      player.current.progressBar.current.setAttribute("aria-valuenow", "0%");
+      player.current.progressBar.current.childNodes[0].childNodes[0].style.left =
+        "0%";
+      player.current.progressBar.current.childNodes[0].childNodes[1].style.width =
+        "0%";
+
+      props.setAudiobookState({
+        ...props.audiobookState,
+        newPart: false,
+      });
+    }
+  }, [props.audiobookState.newPart]);
 
   return (
     <AudioPlayer

@@ -11,6 +11,8 @@ export const AudiobookPartProvider = ({
   part,
   state,
   setState,
+  audiobookState,
+  setAudiobookState,
   i18n,
 }) => {
   const [audiobookPart, setAudiobookPart] = useState(null);
@@ -43,7 +45,7 @@ export const AudiobookPartProvider = ({
         "POST",
         createContext(),
         token,
-        i18n.language,
+        i18n.language
         // { "Content-Length": 200 }
       ),
     {
@@ -60,6 +62,13 @@ export const AudiobookPartProvider = ({
   );
 
   useEffect(() => {
+    setAudiobookState({
+      ...audiobookState,
+      newPart: true,
+      detailWatchingDate: null,
+      datailEndedTime: null,
+    });
+    
     refetchAudiobookPart();
   }, [part]);
 
