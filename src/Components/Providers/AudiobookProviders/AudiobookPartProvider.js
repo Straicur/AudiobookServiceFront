@@ -11,6 +11,8 @@ export const AudiobookPartProvider = ({
   part,
   state,
   setState,
+  audiobookState,
+  setAudiobookState,
   i18n,
 }) => {
   const [audiobookPart, setAudiobookPart] = useState(null);
@@ -59,6 +61,13 @@ export const AudiobookPartProvider = ({
   );
 
   useEffect(() => {
+    setAudiobookState({
+      ...audiobookState,
+      newPart: true,
+      detailWatchingDate: null,
+      datailEndedTime: null,
+    });
+    
     refetchAudiobookPart();
   }, [part]);
 

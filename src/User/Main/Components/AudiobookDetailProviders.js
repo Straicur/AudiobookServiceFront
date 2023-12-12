@@ -13,6 +13,8 @@ export default function AudiobookDetailProviders(props) {
     part: 0,
     detailWatchingDate: null,
     datailEndedTime: null,
+    renderAudiobookPlayer: false,
+    newPart: false,
     info: false,
   });
 
@@ -77,6 +79,8 @@ export default function AudiobookDetailProviders(props) {
             setState={props.setState}
             token={props.token}
             audiobookId={props.state.detailModalAudiobook.id}
+            audiobookState={audiobookState}
+            setAudiobookState={setAudiobookState}
             part={audiobookState.part}
             i18n={props.i18n}
           >
