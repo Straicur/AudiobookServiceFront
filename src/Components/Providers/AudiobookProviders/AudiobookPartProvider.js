@@ -55,7 +55,7 @@ export const AudiobookPartProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
-        setAudiobookPart(data.url);
+        setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
       },
     }
   );
