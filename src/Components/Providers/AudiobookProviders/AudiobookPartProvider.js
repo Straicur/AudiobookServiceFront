@@ -44,7 +44,6 @@ export const AudiobookPartProvider = ({
         createContext(),
         token,
         i18n.language,
-        // { "Content-Length": 200 }
       ),
     {
       retry: 1,
@@ -54,7 +53,7 @@ export const AudiobookPartProvider = ({
         setState({ ...state, error: e });
       },
       onSuccess: (data) => {
-        setAudiobookPart(data);
+        setAudiobookPart(data.url);
       },
     }
   );

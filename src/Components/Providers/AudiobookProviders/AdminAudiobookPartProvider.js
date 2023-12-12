@@ -13,6 +13,7 @@ export const AdminAudiobookPartProvider = ({
   setState,
   i18n,
 }) => {
+  const [audiobookPart, setAudiobookPart] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
   const createContext = () => {
@@ -49,6 +50,9 @@ export const AdminAudiobookPartProvider = ({
       retryDelay: 500,
       refetchOnWindowFocus: false,
       enabled: false,
+      onSuccess: (data) => {
+        setAudiobookPart(data.url);
+      },
       onError: (e) => {
         setState({ ...state, errorPart: e.data });
       },
@@ -66,9 +70,9 @@ export const AdminAudiobookPartProvider = ({
     }
   }, [refetchState]);
 
-  const memoizedAudiobookPart = useMemo(() => dataAudiobookPart, [dataAudiobookPart]);
+ 
 
-  const value = [memoizedAudiobookPart, setRefetchState];
+  const value = [audiobookPart, setAudiobookPart, setRefetchState];
 
   return (
     <AudiobookPartContext.Provider value={value}>
