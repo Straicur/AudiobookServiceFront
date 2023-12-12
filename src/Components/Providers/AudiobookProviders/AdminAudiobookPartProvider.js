@@ -51,7 +51,7 @@ export const AdminAudiobookPartProvider = ({
       refetchOnWindowFocus: false,
       enabled: false,
       onSuccess: (data) => {
-        setAudiobookPart(data.url);
+        setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
       },
       onError: (e) => {
         setState({ ...state, errorPart: e.data });
