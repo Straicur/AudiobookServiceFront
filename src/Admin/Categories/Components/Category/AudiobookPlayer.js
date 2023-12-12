@@ -44,7 +44,7 @@ export default function AudiobookPlayer(props) {
         </div>
       }
       autoPlay={false}
-      src={window.URL.createObjectURL(new Blob([props.audiobookPart]))}
+      src={props.audiobookPart}
       onListen={(e) => timeCur(e)}
       autoPlayAfterSrcChange={false}
       showSkipControls={true}
