@@ -13,6 +13,7 @@ import { useAudiobookMy } from "../../../Components/Providers/AudiobookProviders
 
 export default function AudiobookDetailModal(props) {
   const timeAudio = useRef(0);
+  const audioDuration = useRef(0);
 
   const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] =
     useAudiobookDetail();
@@ -81,49 +82,37 @@ export default function AudiobookDetailModal(props) {
   };
 
   const addInfo = () => {
-    let audioContext = new window.AudioContext();
-    let arrayBuffer;
+    let procent = (timeAudio.current / audioDuration.current) * 100;
+    let watched = false;
 
-    let fileReader = new FileReader();
+    if (procent >= 70) {
+      watched = true;
+    }
+    if (procent >= 20) {
+      HandleFetch(
+        "/user/audiobook/info/add",
+        "PUT",
+        {
+          audiobookId: props.state.detailModalAudiobook.id,
+          categoryKey: props.state.detailModalCategory.categoryKey,
+          part: props.audiobookState.part,
+          endedTime: timeAudio.current,
+          watched: watched,
+        },
+        props.token,
+        props.i18n.language
+      )
+        .then(() => { })
+        .catch((e) => {
+          props.setState({
+            ...props.state,
+            error: e,
+          });
+        });
+    }
 
-    fileReader.onload = function (event) {
-      arrayBuffer = event.target.result;
-      audioContext.decodeAudioData(arrayBuffer, function (buffer) {
-        let duration = buffer.duration;
-        let procent = (timeAudio.current / duration) * 100;
-        let watched = false;
-
-        if (procent >= 70) {
-          watched = true;
-        }
-        if (procent >= 20) {
-          HandleFetch(
-            "/user/audiobook/info/add",
-            "PUT",
-            {
-              audiobookId: props.state.detailModalAudiobook.id,
-              categoryKey: props.state.detailModalCategory.categoryKey,
-              part: props.audiobookState.part,
-              endedTime: timeAudio.current,
-              watched: watched,
-            },
-            props.token,
-            props.i18n.language
-          )
-            .then(() => {})
-            .catch((e) => {
-              props.setState({
-                ...props.state,
-                error: e,
-              });
-            });
-        }
-
-        timeAudio.current = 0;
-      });
-    };
-
-    fileReader.readAsArrayBuffer(new Blob([audiobookPart]));
+    timeAudio.current = 0;
+    audioDuration.current = 0;
   };
 
   return (
@@ -143,11 +132,10 @@ export default function AudiobookDetailModal(props) {
           <div
             className="row "
             style={{
-              backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.7) 47%, rgba(255,255,255,0.1) 82%), url(${
-                props.state.detailModalCover == null
-                  ? "/noImg.jpg"
-                  : props.state.detailModalCover
-              })`,
+              backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.7) 47%, rgba(255,255,255,0.1) 82%), url(${props.state.detailModalCover == null
+                ? "/noImg.jpg"
+                : props.state.detailModalCover
+                })`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "60%",
               backgroundPosition: "95% 15%",
@@ -274,6 +262,7 @@ export default function AudiobookDetailModal(props) {
               audiobookState={props.audiobookState}
               state={props.state}
               timeAudio={timeAudio}
+              audioDuration={audioDuration}
               addInfo={addInfo}
               t={props.t}
             />

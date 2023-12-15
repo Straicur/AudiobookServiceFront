@@ -31,6 +31,10 @@ export default function AudiobookPlayer(props) {
     }
   };
 
+  const setDuration = (event)=>{
+    props.audioDuration.current = parseInt(event.target.duration);
+  }
+
   useEffect(() => {
     if (
       player.current &&
@@ -101,6 +105,7 @@ export default function AudiobookPlayer(props) {
       autoPlay={false}
       src={props.audiobookPart}
       onListen={(e) => timeCur(e)}
+      onLoadedMetaData={e=> setDuration(e)}
       autoPlayAfterSrcChange={false}
       showSkipControls={true}
       onClickPrevious={prevPart}
