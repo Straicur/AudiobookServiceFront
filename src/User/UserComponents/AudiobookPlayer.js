@@ -103,7 +103,7 @@ export default function AudiobookPlayer(props) {
         </div>
       }
       autoPlay={false}
-      src= "https://audiobookback.info/files/ffd_fd0/diaryofasuicide_01_baker_64kb.mp3"//{props.audiobookPart}
+      src={props.audiobookPart}
       onListen={(e) => timeCur(e)}
       onLoadedMetaData={e=> setDuration(e)}
       autoPlayAfterSrcChange={false}
