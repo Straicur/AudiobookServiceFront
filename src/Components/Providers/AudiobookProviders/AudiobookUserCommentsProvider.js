@@ -26,7 +26,7 @@ export const AudiobookUserCommentsProvider = ({
     "dataAudiobookUserComments",
     () =>
       HandleFetch(
-        "/audiobook/comment/get",
+        "/user/audiobook/comment/get",
         "POST",
         {
           audiobookId: audiobookId,

@@ -7,7 +7,7 @@ export default function RenderCategoriesList(props) {
     element.stopPropagation();
     HandleFetch(
       "/admin/category/add/audiobook",
-      "PATCH",
+      "PUT",
       {
         categoryId: category.id,
         audiobookId: props.audiobookDetail.id,
