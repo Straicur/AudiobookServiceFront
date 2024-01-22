@@ -15,6 +15,7 @@ export default function Register() {
     firstname: "",
     lastname: "",
     validated: false,
+    parentalControl: false,
     isButtonDisabled: true,
     error: null,
   });

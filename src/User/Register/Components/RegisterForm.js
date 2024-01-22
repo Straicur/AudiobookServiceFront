@@ -169,13 +169,13 @@ export default function RegisterForm(props) {
                             props.state.password.length > 1 &&
                             validatePassword(props.state.password) &&
                             props.state.password.trim() ==
-                              props.state.confirmPassword.trim()
+                            props.state.confirmPassword.trim()
                           }
                           isInvalid={
                             props.state.password.length >= 1 &&
                             !validatePassword(props.state.password) &&
                             props.state.password.trim() !=
-                              props.state.confirmPassword.trim()
+                            props.state.confirmPassword.trim()
                           }
                           onChange={(event) =>
                             handlePasswordChange(
@@ -222,13 +222,13 @@ export default function RegisterForm(props) {
                             props.state.confirmPassword.length > 1 &&
                             validatePassword(props.state.confirmPassword) &&
                             props.state.password.trim() ==
-                              props.state.confirmPassword.trim()
+                            props.state.confirmPassword.trim()
                           }
                           isInvalid={
                             props.state.confirmPassword.length > 1 &&
                             !validatePassword(props.state.confirmPassword) &&
                             props.state.password.trim() !=
-                              props.state.confirmPassword.trim()
+                            props.state.confirmPassword.trim()
                           }
                           onChange={(event) =>
                             handleConfirmPasswordChange(
@@ -327,13 +327,43 @@ export default function RegisterForm(props) {
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
+                    <Row className="mb-3">
+                      <Form.Group
+                        controlId="validationCustom06"
+                        className="form-outline form-white mb-4"
+                      >
+                        <Form.Check
+                          type="switch"
+                          className="text-start"
+                          checked={props.stateparentalControl}
+                          label={t("addparentalControlYear")}
+                          onChange={() => props.setState({
+                            ...props.state,
+                            parentalControl: !props.state.parentalControl,
+                          })}
+                        />
+                        {props.state.parentalControl ? (
+                          <div>
+                            <Form.Control
+                              // type="date"
+                              // value={props.searchState.year}
+                              // onChange={(e) => {
+                              //   changeYear(e);
+                              // }}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {t("enterValidLastName")}
+                            </Form.Control.Feedback>
+                          </div>
+                        ) : null}
+                      </Form.Group>
+                    </Row>
                     <hr></hr>
                     <Button
                       variant="dark"
                       size="lg"
                       className="btn auth-btn px-5 form-control"
                       type="submit"
-                      // onClick={() => handleRegister()}
                       disabled={props.state.isButtonDisabled}
                     >
                       {t("register")}
