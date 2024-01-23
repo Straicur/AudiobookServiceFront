@@ -10,6 +10,10 @@ function validatePassword(pass) {
   return re.test(pass);
 }
 
+function validateBirthday(state){
+  return (state.parentalControl && state.birthdayDate)
+}
+
 function getPasswordStrenghtText(t, passStr) {
   switch (passStr) {
     case 10:
@@ -106,6 +110,20 @@ const handleLastname = (event, state, setState) => {
   });
 };
 
+const handleParentalControl = (state, setState) => {
+  setState({
+    ...state,
+    parentalControl: !state.parentalControl,
+  });
+};
+
+const handleBirthdayDate = (event, state, setState) => {
+  setState({
+    ...state,
+    birthdayDate: event.target.value,
+  });
+};
+
 export {
   validateEmail,
   validatePassword,
@@ -118,4 +136,7 @@ export {
   handleLastname,
   getPasswordStrenghtText,
   getPasswordStrenghtProgressColor,
+  handleParentalControl,
+  handleBirthdayDate,
+  validateBirthday
 };

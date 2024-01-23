@@ -8,6 +8,7 @@ import { RegisterNotificationModal } from "./RegisterNotificationModal";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import { CreateJsonFormatDate } from "../../../Components/CreateJsonFormatDate";
 import {
   validateEmail,
   validatePassword,
@@ -20,6 +21,8 @@ import {
   handleLastname,
   getPasswordStrenghtText,
   getPasswordStrenghtProgressColor,
+  handleParentalControl,
+  handleBirthdayDate
 } from "./Events";
 
 export default function RegisterForm(props) {
@@ -54,6 +57,11 @@ export default function RegisterForm(props) {
         lastname: props.state.lastname,
         password: md5(props.state.password),
       };
+
+      if (props.state.parentalControl) {
+        jsonData.additionalData = { "birthday": CreateJsonFormatDate(props.state.birthdayDate) }
+      }
+
       const method = "PUT";
 
       HandleFetch(url, method, jsonData, null, i18n.language)
@@ -302,7 +310,7 @@ export default function RegisterForm(props) {
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
-                    <Row className="mb-3">
+                    <Row className="mb-1">
                       <Form.Group
                         controlId="validationCustom06"
                         className="form-outline form-white mb-4"
@@ -330,26 +338,26 @@ export default function RegisterForm(props) {
                     <Row className="mb-3">
                       <Form.Group
                         controlId="validationCustom06"
-                        className="form-outline form-white mb-4"
+                        className="form-outline form-white mb-3"
                       >
                         <Form.Check
                           type="switch"
                           className="text-start"
-                          checked={props.stateparentalControl}
+                          checked={props.state.parentalControl}
                           label={t("addparentalControlYear")}
-                          onChange={() => props.setState({
-                            ...props.state,
-                            parentalControl: !props.state.parentalControl,
-                          })}
+                          onChange={() =>
+                            handleParentalControl(props.state, props.setState)
+                          }
                         />
                         {props.state.parentalControl ? (
                           <div>
+                            <p className="fs-5 mt-1">{t("enterBirthday")}</p>
                             <Form.Control
-                              // type="date"
-                              // value={props.searchState.year}
-                              // onChange={(e) => {
-                              //   changeYear(e);
-                              // }}
+                              type="date"
+                              value={props.state.birthdayDate}
+                              onChange={(event) =>
+                                handleBirthdayDate(event, props.state, props.setState)
+                              }
                             />
                             <Form.Control.Feedback type="invalid">
                               {t("enterValidLastName")}
