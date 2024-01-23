@@ -45,7 +45,9 @@ export default function Register() {
     state.confirmPassword,
     state.lastname,
     state.phoneNumber,
-    state.password,
+    state.firstname,
+    state.parentalControl,
+    state.birthdayDate,
   ]);
 
   return (

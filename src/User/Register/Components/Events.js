@@ -11,7 +11,11 @@ function validatePassword(pass) {
 }
 
 function validateBirthday(state){
-  return (state.parentalControl && state.birthdayDate)
+  if(!state.parentalControl){
+    return true;
+  }
+  
+  return (state.parentalControl && state.birthdayDate != "")
 }
 
 function getPasswordStrenghtText(t, passStr) {
