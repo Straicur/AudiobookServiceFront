@@ -394,7 +394,6 @@ export default function RegisterForm(props) {
           </div>
         </div>
       </div>
-      {console.log(formState.modal)}
       {formState.modal ? <RegisterNotificationModal /> : null}
     </section>
   );
