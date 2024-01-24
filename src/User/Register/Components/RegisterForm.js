@@ -65,7 +65,8 @@ export default function RegisterForm(props) {
       const method = "PUT";
 
       HandleFetch(url, method, jsonData, null, i18n.language)
-        .then(() => {
+        .then((data) => {
+          console.log("data")
           setFormState({
             ...formState,
             modal: true,
@@ -393,6 +394,7 @@ export default function RegisterForm(props) {
           </div>
         </div>
       </div>
+      {console.log(formState.modal)}
       {formState.modal ? <RegisterNotificationModal /> : null}
     </section>
   );

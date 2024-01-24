@@ -15,13 +15,13 @@ export default function ForgotPage(props) {
   function getPasswordStrenghtText(t, passStr) {
     switch (passStr) {
       case 10:
-        return <p class="text-center text-danger">{t("weakPassword")}</p>;
+        return <p className="text-center text-danger">{t("weakPassword")}</p>;
       case 25:
-        return <p class="text-center text-warning">{t("moderatePassword")}</p>;
+        return <p className="text-center text-warning">{t("moderatePassword")}</p>;
       case 50:
-        return <p class="text-center text-success">{t("strongPassword")}</p>;
+        return <p className="text-center text-success">{t("strongPassword")}</p>;
       case 100:
-        return <p class="text-center text-info">{t("extraStrongPassword")}</p>;
+        return <p className="text-center text-info">{t("extraStrongPassword")}</p>;
     }
   }
 
