@@ -11,7 +11,7 @@ export const Footer = () => {
             <i className="bi bi-door-closed"></i>
           </li>
           <li className="list-inline-item">
-            <p className="copyright"> © 2023 Audiobooks</p>
+            <p className="copyright"> © 2024 Audiobooks</p>
           </li>
           <li className="list-inline-item">
             <a href="/main">{t("home")}</a>

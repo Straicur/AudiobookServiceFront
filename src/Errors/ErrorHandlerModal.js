@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useTokenStore } from "../store";
+import { useTokenStore } from "store";
 import { v4 as uuidv4 } from "uuid";
 
 export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
