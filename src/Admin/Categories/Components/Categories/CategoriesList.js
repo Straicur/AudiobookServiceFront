@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import { useCategoryTreeListStore } from "../../../../store";
 import RenderCategoriesList from "./RenderCategoriesList";
-import JsonModal from "../../../../Components/JsonModal";
+import JsonModal from "../../../../View/JsonModal/JsonModal";
 import AddCategoryModal from "./AddCategoryModal";
 import EditCategoryModal from "./EditCategoryModal";
 

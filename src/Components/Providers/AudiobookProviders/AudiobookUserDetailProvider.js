@@ -1,8 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useQuery } from "react-query";
 import { HandleFetch } from "../../HandleFetch";
-import { CreateDate } from "../../../Components/CrateDate";
-import { CreateTime } from "../../../Components/CreateTime";
+import CreateUtil from "Util/CreateUtil";
 
 const AudiobookUserDetailContext = createContext(null);
 
@@ -52,13 +51,13 @@ export const AudiobookUserDetailProvider = ({
           categories: data.categories,
           comments: data.comments,
           description: data.description,
-          duration: CreateTime(data.duration),
+          duration: CreateUtil.createTime(data.duration),
           id: data.id,
           inList: data.inList,
           parts: data.parts,
           title: data.title,
           version: data.version,
-          year: CreateDate(data.year),
+          year: CreateUtil.createDate(data.year),
           canRate: data.canRate,
           canComment: data.canComment,
           ratingAmount: data.ratingAmount

@@ -1,7 +1,7 @@
+import CreateUtil from "Util/CreateUtil";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import Button from "react-bootstrap/Button";
 import { v4 as uuidv4 } from "uuid";
-import { CreateDate } from "../../../Components/CrateDate";
 
 export default function RenderUsersList(props) {
   const createTable = () => {
@@ -75,7 +75,7 @@ export default function RenderUsersList(props) {
         <th scope="row">{element.email}</th>
         <td>{element.firstname}</td>
         <td>{element.lastname}</td>
-        <td>{CreateDate(element.dateCreated)}</td>
+        <td>{CreateUtil.createDate(element.dateCreated)}</td>
         <td>
           {element.active ? (
             <i className="bi bi-bookmark-check-fill"></i>

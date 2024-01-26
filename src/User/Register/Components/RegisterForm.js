@@ -8,7 +8,6 @@ import { RegisterNotificationModal } from "./RegisterNotificationModal";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import { CreateJsonFormatDate } from "../../../Components/CreateJsonFormatDate";
 import {
   validateEmail,
   validatePassword,

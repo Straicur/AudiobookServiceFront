@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useTokenStore } from "./store";
 import { QueryClientProvider, QueryClient } from "react-query";
-import Page404 from "./Components/Page404";
+import Page404 from "./Page/Page404/Page404";
 import Audiobooks from "./Admin/Audibooks/Audiobooks";
 import Audiobook from "./Admin/Audibooks/Audiobook";
 import AdminMain from "./Admin/AdminMain/AdminMain";

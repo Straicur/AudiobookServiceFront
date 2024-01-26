@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { v4 as uuidv4 } from "uuid";
-import { CreateDate } from "../CrateDate";
 import Badge from "react-bootstrap/Badge";
 import { useNavigate } from "react-router-dom";
 import { HandleFetch } from "../HandleFetch";
 import "./AdminNotificationOffcanvas.css";
+import CreateUtil from "Util/CreateUtil";
 
 export default function NotificationOffcanvas(props) {
   const [show, setShow] = useState(true);
@@ -127,7 +127,7 @@ export default function NotificationOffcanvas(props) {
                 </div>
                 <div className="col">
                   {props.t("dateAdd")} {": "}
-                  {CreateDate(notification.dateAdd)}
+                  {CreateUtil.createDate(notification.dateAdd)}
                 </div>
               </div>
               <div className="row mb-1">

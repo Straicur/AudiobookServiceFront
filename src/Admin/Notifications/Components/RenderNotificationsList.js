@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
-import { CreateDate } from "../../../Components/CrateDate";
+import CreateUtil from "Util/CreateUtil";
 
 export default function RenderAudiobooksList(props) {
   const openDetailNotificationModal = (element) => {
@@ -62,7 +62,7 @@ export default function RenderAudiobooksList(props) {
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>
-        <th scope="row">{CreateDate(element.dateAdd)}</th>
+        <th scope="row">{CreateUtil.createDate(element.dateAdd)}</th>
         <td>{createNotificationType(element.notificationType)}</td>
         <td>{createUserType(element.userType)}</td>
         <td>{element.actionId}</td>

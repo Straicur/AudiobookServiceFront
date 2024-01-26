@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { HandleFetch } from "../../../Components/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
-import JsonModal from "../../../Components/JsonModal";
+import JsonModal from "../../../View/JsonModal/JsonModal";
 import RenderUsersList from "./RenderUsersList";
 import RenderPageSwitches from "../../AdminComponents/RenderPageSwitches";
 import DeleteUsersModal from "./DeleteUsersModal";

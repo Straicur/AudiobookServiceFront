@@ -4,8 +4,8 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import { HandleFetch } from "../../../../Components/HandleFetch";
-import { CreateJsonFormatDate } from "../../../../Components/CreateJsonFormatDate";
 import Alert from "react-bootstrap/Alert";
+import CreateUtil from "Util/CreateUtil";
 
 export default function AudiobookEditForm(props) {
   const [wrongState, setWrongState] = useState(0);
@@ -26,7 +26,7 @@ export default function AudiobookEditForm(props) {
         author: props.audiobookDetail.author,
         version: props.audiobookDetail.version,
         album: props.audiobookDetail.album,
-        year: CreateJsonFormatDate(props.audiobookDetail.year),
+        year: CreateUtil.createJsonFormatDate(props.audiobookDetail.year),
         duration: hours + minutes + seconds,
         size: props.audiobookDetail.size,
         parts: props.audiobookDetail.parts,

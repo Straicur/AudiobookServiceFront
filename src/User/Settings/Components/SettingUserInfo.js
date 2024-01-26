@@ -1,4 +1,5 @@
-import { CreateDate } from "../../../Components/CrateDate";
+import CreateUtil from "Util/CreateUtil";
+
 
 export default function SettingUserInfo(props) {
   return (
@@ -26,7 +27,7 @@ export default function SettingUserInfo(props) {
           {props.state.edited ? (
             <div>
               <i className="bi bi-calendar-check"></i>{" "}
-              {CreateDate(props.state.editableDate)}
+              {CreateUtil.createDate(props.state.editableDate)}
             </div>
           ) : (
             <i className="bi bi-calendar-minus"></i>

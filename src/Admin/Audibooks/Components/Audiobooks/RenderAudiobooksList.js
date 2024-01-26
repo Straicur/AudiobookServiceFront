@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
 import { HandleFetch } from "../../../../Components/HandleFetch";
 import { useNavigate } from "react-router-dom";
-import { CreateDate } from "../../../../Components/CrateDate";
+import CreateUtil from "Util/CreateUtil";
 
 export default function RenderAudiobooksList(props) {
   const navigate = useNavigate();
@@ -97,7 +97,7 @@ export default function RenderAudiobooksList(props) {
       <tr key={uuidv4()}>
         <th scope="row">{element.title}</th>
         <td>{element.author}</td>
-        <td>{CreateDate(element.year)}</td>
+        <td>{CreateUtil.createDate(element.year)}</td>
         <td>{element.parts}</td>
         <td>{getAge(element)}</td>
         <td>
