@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { HandleFetch } from "../../../../Util/HandleFetch";
 import Modal from "react-bootstrap/Modal";
 import "react-h5-audio-player/lib/styles.css";
 import RenderCommentsList from "../Category/RenderCommentsList";

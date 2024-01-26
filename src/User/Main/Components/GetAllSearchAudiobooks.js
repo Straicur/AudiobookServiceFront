@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useAudiobookSearch } from "../../../Components/Providers/AudiobookProviders/AudiobookSearchProvider";
+import { useAudiobookSearch } from "../../../Providers/AudiobookSearchProvider";
 import RenderSearchAudiobooksList from "./RenderSearchAudiobooksList";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Util/HandleFetch";
 
 const ChildMemo = React.memo(RenderSearchAudiobooksList);
 

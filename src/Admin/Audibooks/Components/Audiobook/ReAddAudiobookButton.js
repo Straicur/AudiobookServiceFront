@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { HandleFetch } from "../../../../Util/HandleFetch";
 
 export default function ReAddAudiobookButton(props) {
   const fetchCategoriesList = () => {

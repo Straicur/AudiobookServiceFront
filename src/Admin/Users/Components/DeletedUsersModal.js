@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useQuery } from "react-query";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Util/HandleFetch";
 import RenderDeletedUsersList from "./RenderDeletedUsersList";
-import RenderPageSwitches from "../../AdminComponents/RenderPageSwitches";
+import RenderPageSwitches from "../../../View/Admin/Common/RenderPageSwitches";
 
 export default function DeletedUsersModal(props) {
   const [state, setState] = useState({

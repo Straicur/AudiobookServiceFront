@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Util/HandleFetch";
 import Alert from "react-bootstrap/Alert";
 import md5 from "md5";
 

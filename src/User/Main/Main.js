@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { UserNavBar } from "../../Components/NavBars/UserNavBar";
-import { useTokenStore } from "../../store";
+import { UserNavBar } from "../../View/User/UserNavBar/UserNavBar";
+import { useTokenStore } from "../../Store/store";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ import GetAudiobooksProviders from "./Components/GetAudiobooksProviders";
 import AudiobookDetailProviders from "./Components/AudiobookDetailProviders";
 import SearchAudiobooks from "./Components/SearchAudiobooks";
 import RenderAudiobookSearch from "./Components/RenderAudiobookSearch";
-import { Footer } from "../../Components/Footers/Footer";
+import { Footer } from "../../View/User/Common/Footer";
 import "./Main.css";
 
 export default function Main() {

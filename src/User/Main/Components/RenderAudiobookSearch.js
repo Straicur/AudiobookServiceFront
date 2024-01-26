@@ -1,5 +1,5 @@
 import GetAllSearchAudiobooks from "./GetAllSearchAudiobooks";
-import { AudiobookSearchProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookSearchProvider";
+import { AudiobookSearchProvider } from "../../../Providers/AudiobookSearchProvider";
 
 export default function RenderAudiobookSearch(props) {
   return (

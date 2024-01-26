@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Util/HandleFetch";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import PickActionIdList from "./PickActionIdList";

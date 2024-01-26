@@ -1,15 +1,15 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import React, { useRef } from "react";
-import { useAudiobookRating } from "../../../Components/Providers/AudiobookProviders/AudiobookRatingProvider";
-import { useAudiobookDetail } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDetailProvider";
-import { useAudiobookPart } from "../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
-import { useAudiobookUserComments } from "../../../Components/Providers/AudiobookProviders/AudiobookUserCommentsProvider";
+import { useAudiobookRating } from "../../../Providers/AudiobookRatingProvider";
+import { useAudiobookDetail } from "../../../Providers/AudiobookUserDetailProvider";
+import { useAudiobookPart } from "../../../Providers/AudiobookPartProvider";
+import { useAudiobookUserComments } from "../../../Providers/AudiobookUserCommentsProvider";
 import AudiobookPlayer from "../../UserComponents/AudiobookPlayer";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { HandleFetch } from "../../../Util/HandleFetch";
 import StarRating from "../../UserComponents/StarRating";
 import RenderCommentsList from "../../UserComponents/RenderCommentsList";
-import { useAudiobookMy } from "../../../Components/Providers/AudiobookProviders/AudiobookMyListProvider";
+import { useAudiobookMy } from "../../../Providers/AudiobookMyListProvider";
 
 export default function AudiobookDetailModal(props) {
   const timeAudio = useRef(0);

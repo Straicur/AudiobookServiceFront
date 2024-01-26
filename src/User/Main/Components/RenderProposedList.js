@@ -1,6 +1,6 @@
 import RenderProposedCarousel from "./RenderProposedCarousel";
 import { v4 as uuidv4 } from "uuid";
-import { useAudiobookUserProposed } from "../../../Components/Providers/AudiobookProviders/AudiobookUserProposedProvider";
+import { useAudiobookUserProposed } from "../../../Providers/AudiobookUserProposedProvider";
 
 export default function RenderProposedList(props) {
   const [audiobookProposed, setAudiobookProposed, setRefetchState] =

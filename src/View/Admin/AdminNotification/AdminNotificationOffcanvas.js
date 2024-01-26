@@ -4,7 +4,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { v4 as uuidv4 } from "uuid";
 import Badge from "react-bootstrap/Badge";
 import { useNavigate } from "react-router-dom";
-import { HandleFetch } from "../HandleFetch";
+import { HandleFetch } from "../../../Util/HandleFetch";
 import "./AdminNotificationOffcanvas.css";
 import CreateUtil from "Util/CreateUtil";
 

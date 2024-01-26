@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { v4 as uuidv4 } from "uuid";
-import { HandleFetch } from "../../Components/HandleFetch";
+import { HandleFetch } from "../../Util/HandleFetch";
 
 export default function StarRating(props) {
   const [rating, setRating] = useState(0);

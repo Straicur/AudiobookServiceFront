@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { HandleFetch } from "../../../Components/HandleFetch";
-import { AudiobookUserDetailProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDetailProvider";
-import { AudiobookPartProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookPartProvider";
-import { AudiobookRatingProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookRatingProvider";
-import { AudiobookUserCommentsProvider } from "../../../Components/Providers/AudiobookProviders/AudiobookUserCommentsProvider";
+import { HandleFetch } from "../../../Util/HandleFetch";
+import { AudiobookUserDetailProvider } from "../../../Providers/AudiobookUserDetailProvider";
+import { AudiobookPartProvider } from "../../../Providers/AudiobookPartProvider";
+import { AudiobookRatingProvider } from "../../../Providers/AudiobookRatingProvider";
+import { AudiobookUserCommentsProvider } from "../../../Providers/AudiobookUserCommentsProvider";
 import DataNotFoundError from "../../../Errors/Errors/DataNotFoundError";
 import AudiobookDetailModal from "./AudiobookDetailModal";
 

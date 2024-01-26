@@ -1,6 +1,6 @@
-import { AudiobookDataProvider } from "../../../../Components/Providers/AudiobookProviders/AudiobookDataProvider";
-import { AdminAudiobookCoverDataProvider } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookCoverDataProvider";
-import { AdminAudiobookPartProvider } from "../../../../Components/Providers/AudiobookProviders/AdminAudiobookPartProvider";
+import { AudiobookDataProvider } from "../../../../Providers/AudiobookDataProvider";
+import { AdminAudiobookCoverDataProvider } from "../../../../Providers/AdminAudiobookCoverDataProvider";
+import { AdminAudiobookPartProvider } from "../../../../Providers/AdminAudiobookPartProvider";
 
 import CategoryAudiobookDetailModal from "../Category/CategoryAudiobookDetailModal";
 

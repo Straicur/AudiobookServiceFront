@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useAudiobookMy } from "../../../Components/Providers/AudiobookProviders/AudiobookMyListProvider";
+import { useAudiobookMy } from "../../../Providers/AudiobookMyListProvider";
 import RenderMyList from "./RenderMyList";
-import { HandleFetch } from "../../../Components/HandleFetch";
-import { useCoverListStore } from "../../../store";
+import { HandleFetch } from "../../../Util/HandleFetch";
+import { useCoverListStore } from "../../../Store/store";
 
 const ChildMemo = React.memo(RenderMyList);
 

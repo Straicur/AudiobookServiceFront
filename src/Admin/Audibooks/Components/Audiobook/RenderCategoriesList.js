@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import Button from "react-bootstrap/Button";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { HandleFetch } from "../../../../Util/HandleFetch";
 
 export default function RenderCategoriesList(props) {
   const addCategory = (element, category) => {

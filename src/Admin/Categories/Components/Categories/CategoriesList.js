@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../../../../Components/NavBars/AdminNavBar";
-import { HandleFetch } from "../../../../Components/HandleFetch";
+import { AdminNavBar } from "../../../../View/Admin/AdminNavBar/AdminNavBar";
+import { HandleFetch } from "../../../../Util/HandleFetch";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
-import { useCategoryTreeListStore } from "../../../../store";
+import { useCategoryTreeListStore } from "../../../../Store/store";
 import RenderCategoriesList from "./RenderCategoriesList";
-import JsonModal from "../../../../View/JsonModal/JsonModal";
+import JsonModal from "../../../../View/Admin/JsonModal/JsonModal";
 import AddCategoryModal from "./AddCategoryModal";
 import EditCategoryModal from "./EditCategoryModal";
 

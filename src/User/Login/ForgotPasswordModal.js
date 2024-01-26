@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../Components/HandleFetch";
+import { HandleFetch } from "../../Util/HandleFetch";
 
 export const ForgotPasswordModal = (props) => {
   const [state, setState] = useState({

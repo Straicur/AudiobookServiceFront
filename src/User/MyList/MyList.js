@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useTokenStore } from "../../store";
+import { useTokenStore } from "../../Store/store";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { UserNavBar } from "../../Components/NavBars/UserNavBar";
+import { UserNavBar } from "../../View/User/UserNavBar/UserNavBar";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
 import GetMyList from "./Components/GetMyList";
-import { Footer } from "../../Components/Footers/Footer";
+import { Footer } from "../../View/User/Common/Footer";
 import "./MyList.css";
 
 export default function MyList() {

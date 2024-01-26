@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import RenderAudiobooksList from "./RenderAudiobooksList";
-import { useAudiobookUserData } from "../../../Components/Providers/AudiobookProviders/AudiobookUserDataProvider";
-import { HandleFetch } from "../../../Components/HandleFetch";
+import { useAudiobookUserData } from "../../../Providers/AudiobookUserDataProvider";
+import { HandleFetch } from "../../../Util/HandleFetch";
 import RenderProposedList from "./RenderProposedList";
-import { useCoverListStore } from "../../../store";
+import { useCoverListStore } from "../../../Store/store";
 
 const ChildFirstMemo = React.memo(RenderAudiobooksList);
 const ChildSecondMemo = React.memo(RenderProposedList);

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Components/HandleFetch";
-import { useTokenStore } from "../../../store";
+import { HandleFetch } from "../../../Util/HandleFetch";
+import { useTokenStore } from "../../../Store/store";
 import { useNavigate } from "react-router-dom";
 
 export default function DeleteUserModal(props) {

@@ -1,18 +1,16 @@
-import React, { createContext, useEffect, useState, useContext } from "react";
+import React, { createContext, useEffect, useState, useContext, useMemo } from "react";
 import { useQuery } from "react-query";
-import { HandleFetch } from "../../HandleFetch";
+import { HandleFetch } from "../Util/HandleFetch";
 
 const AudiobookPartContext = createContext(null);
 
-export const AudiobookPartProvider = ({
+export const AdminAudiobookPartProvider = ({
   children,
   token,
   audiobookId,
   part,
   state,
   setState,
-  audiobookState,
-  setAudiobookState,
   i18n,
 }) => {
   const [audiobookPart, setAudiobookPart] = useState(null);
@@ -45,29 +43,23 @@ export const AudiobookPartProvider = ({
         "POST",
         createContext(),
         token,
-        i18n.language,
+        i18n.language
       ),
     {
       retry: 1,
       retryDelay: 500,
       refetchOnWindowFocus: false,
-      onError: (e) => {
-        setState({ ...state, error: e });
-      },
+      enabled: false,
       onSuccess: (data) => {
         setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
+      },
+      onError: (e) => {
+        setState({ ...state, errorPart: e.data });
       },
     }
   );
 
   useEffect(() => {
-    setAudiobookState({
-      ...audiobookState,
-      newPart: true,
-      detailWatchingDate: null,
-      datailEndedTime: null,
-    });
-    
     refetchAudiobookPart();
   }, [part]);
 
@@ -77,6 +69,8 @@ export const AudiobookPartProvider = ({
       setRefetchState(!refetchState);
     }
   }, [refetchState]);
+
+ 
 
   const value = [audiobookPart, setAudiobookPart, setRefetchState];
 
