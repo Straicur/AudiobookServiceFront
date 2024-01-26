@@ -6,7 +6,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../../Errors/ErrorHandlerModal";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import SettingsContainer from "../../../User/Settings/Components/SettingsContainer";
+import SettingsContainer from "../../../View/User/UserSettings/SettingsContainer";
 import { Footer } from "../../../View/User/Common/Footer";
 import "./Settings.css";
 

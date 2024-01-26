@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorHandlerModal } from "../../../Errors/ErrorHandlerModal";
-import ForgotPage from "../../../User/Forgot/Components/ForgotPage";
+import ForgotPage from "../../../View/User/UserForgot/ForgotPage";
 import DataNotFoundError from "../../../Errors/Errors/DataNotFoundError";
 
 export default function Forgot() {
