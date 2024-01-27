@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
-import { HandleFetch } from "../Util/HandleFetch";
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { HandleFetch } from '../Util/HandleFetch';
 
 const AudiobookMyContext = createContext(null);
 
@@ -16,7 +16,7 @@ export const AudiobookMyListProvider = ({
 
   const fetchData = () => {
     setLoading(true);
-    HandleFetch("/user/myList/audiobooks", "GET", null, token, i18n.language)
+    HandleFetch('/user/myList/audiobooks', 'GET', null, token, i18n.language)
       .then((data) => {
         setLoading(false);
         setAudiobooks(data.audiobooks);

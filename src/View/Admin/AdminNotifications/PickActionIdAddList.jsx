@@ -1,7 +1,7 @@
-import React from "react";
-import GetUsersList from "./GetUsersList";
-import GetAudiobooksList from "./GetAudiobooksList";
-import GetCategoriesList from "./GetCategoriesList";
+import React from 'react';
+import GetUsersList from './GetUsersList';
+import GetAudiobooksList from './GetAudiobooksList';
+import GetCategoriesList from './GetCategoriesList';
 
 export default function PickActionIdAddList(props) {
   const goBack = () => {
@@ -13,8 +13,8 @@ export default function PickActionIdAddList(props) {
   };
 
   return (
-    <div className="row">
-      <div className="row">
+    <div className='row'>
+      <div className='row'>
         {props.state.notificationType == 2 ? (
           <GetUsersList
             usersState={props.usersState}

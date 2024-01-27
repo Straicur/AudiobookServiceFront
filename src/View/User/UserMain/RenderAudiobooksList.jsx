@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import RenderCarousel from "./RenderCarousel";
-import { v4 as uuidv4 } from "uuid";
+import React, { useEffect, useRef } from 'react';
+import RenderCarousel from './RenderCarousel';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function RenderAudiobooksList(props) {
   const lastPageChangeRef = useRef(false);
@@ -22,15 +22,15 @@ export default function RenderAudiobooksList(props) {
   const mouseOver = (element) => {
     let children = element.currentTarget.children[0];
 
-    children.classList.remove("bi-chevron-double-right");
-    children.classList.add("bi-chevron-double-down");
+    children.classList.remove('bi-chevron-double-right');
+    children.classList.add('bi-chevron-double-down');
   };
 
   const mouseLeave = (element) => {
     let children = element.currentTarget.children[0];
 
-    children.classList.remove("bi-chevron-double-down");
-    children.classList.add("bi-chevron-double-right");
+    children.classList.remove('bi-chevron-double-down');
+    children.classList.add('bi-chevron-double-right');
   };
 
   const renderColumns = () => {
@@ -60,21 +60,21 @@ export default function RenderAudiobooksList(props) {
                 }
               }}
             >
-              <div className="fw-bold fs-1 ms-2 mb-2 text-light">
+              <div className='fw-bold fs-1 ms-2 mb-2 text-light'>
                 {category.name}
               </div>
               {renderAudiobooks}
-              <hr className=" text-light"></hr>
+              <hr className=' text-light'></hr>
               {props.hasMore ? (
-                <div className="row justify-content-center text-light">
+                <div className='row justify-content-center text-light'>
                   <div
-                    className="col-2 fs-3 align-self-center load_more"
+                    className='col-2 fs-3 align-self-center load_more'
                     onClick={() => renderNewPage()}
                     onMouseOver={(e) => mouseOver(e)}
                     onMouseLeave={(e) => mouseLeave(e)}
                   >
-                    {props.t("loadMore")}{" "}
-                    <i className="bi bi-chevron-double-down"></i>
+                    {props.t('loadMore')}{' '}
+                    <i className='bi bi-chevron-double-down'></i>
                   </div>
                 </div>
               ) : null}
@@ -83,11 +83,11 @@ export default function RenderAudiobooksList(props) {
         } else {
           renderCategories.push(
             <div key={uuidv4()}>
-              <div className="fw-bold fs-1 ms-2 mb-2 text-light">
+              <div className='fw-bold fs-1 ms-2 mb-2 text-light'>
                 {category.name}
               </div>
               {renderAudiobooks}
-              <hr className=" text-light"></hr>
+              <hr className=' text-light'></hr>
             </div>
           );
         }
@@ -105,7 +105,7 @@ export default function RenderAudiobooksList(props) {
       setTimeout(function () {
         window.scrollTo({
           top: lastItemOffsetTopRef.current,
-          behavior: "smooth",
+          behavior: 'smooth',
         });
         lastPageChangeRef.current = false;
         lastItemOffsetTopRef.current = null;

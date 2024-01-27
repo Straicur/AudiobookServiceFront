@@ -1,8 +1,8 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { Buffer } from "buffer";
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { Buffer } from 'buffer';
 
 export default function AudiobookCover(props) {
   const handleOnFileChange = (e) => {
@@ -10,9 +10,9 @@ export default function AudiobookCover(props) {
       let file = e.target.files[0];
 
       if (
-        file.type == "image/png" ||
-        file.type == "image/jpeg" ||
-        file.type == "image/jpg"
+        file.type == 'image/png' ||
+        file.type == 'image/jpeg' ||
+        file.type == 'image/jpg'
       ) {
         props.setAudiobookState({ ...props.audiobookState, file: file });
       }
@@ -24,16 +24,16 @@ export default function AudiobookCover(props) {
       const reader = new FileReader();
       reader.onload = function (e) {
         if (e.target.result instanceof ArrayBuffer) {
-          let pattern = "jpeg|png|jpg/i";
+          let pattern = 'jpeg|png|jpg/i';
           let result = props.audiobookState.file.type.match(pattern);
 
           if (result != null) {
             let buf = new Uint8Array(e.target.result);
-            let b64 = Buffer.from(buf).toString("base64");
+            let b64 = Buffer.from(buf).toString('base64');
 
             HandleFetch(
-              "/admin/audiobook/change/cover",
-              "PATCH",
+              '/admin/audiobook/change/cover',
+              'PATCH',
               {
                 type: result[0],
                 base64: b64,
@@ -47,7 +47,7 @@ export default function AudiobookCover(props) {
                 props.setAudiobookState({
                   ...props.audiobookState,
                   file: null,
-                  errorCover: "",
+                  errorCover: '',
                 });
               })
               .catch((e) => {
@@ -66,31 +66,31 @@ export default function AudiobookCover(props) {
   };
 
   return (
-    <div className="row ">
-      <div className="row ">
+    <div className='row '>
+      <div className='row '>
         <img
           src={
-            props.audiobookCover == null || props.audiobookCover.url == ""
-              ? "/noImg.jpg"
+            props.audiobookCover == null || props.audiobookCover.url == ''
+              ? '/noImg.jpg'
               : process.env.REACT_APP_API_URL + props.audiobookCover.url
           }
-          className="card-img-top"
-          alt="..."
+          className='card-img-top'
+          alt='...'
         />
       </div>
-      <div className="row d-flex justify-content-center">
-        <Form.Group controlId="formFileSm" className="mt-2">
-          <Form.Control onChange={handleOnFileChange} type="file" size="sm" />
+      <div className='row d-flex justify-content-center'>
+        <Form.Group controlId='formFileSm' className='mt-2'>
+          <Form.Control onChange={handleOnFileChange} type='file' size='sm' />
         </Form.Group>
         <Button
-          name="en"
-          variant="secondary"
-          size="sm"
-          className="btn button px-4 my-2 audiobook_detail_modal_button"
+          name='en'
+          variant='secondary'
+          size='sm'
+          className='btn button px-4 my-2 audiobook_detail_modal_button'
           disabled={props.audiobookState.file == null}
           onClick={editCover}
         >
-          {props.t("editCover")}
+          {props.t('editCover')}
         </Button>
       </div>
     </div>

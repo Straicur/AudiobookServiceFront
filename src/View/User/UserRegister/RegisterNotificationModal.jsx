@@ -1,8 +1,8 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 export const RegisterNotificationModal = () => {
   const { t } = useTranslation();
@@ -10,7 +10,7 @@ export const RegisterNotificationModal = () => {
   const navigate = useNavigate();
 
   const handleClose = () => {
-    navigate("/login");
+    navigate('/login');
   };
 
   return (
@@ -18,15 +18,15 @@ export const RegisterNotificationModal = () => {
       <Modal
         show={true}
         onHide={handleClose}
-        backdrop="static"
+        backdrop='static'
         keyboard={false}
       >
-        <Modal.Body className="">
-          <h3>{t("mailSended")}</h3>
+        <Modal.Body className=''>
+          <h3>{t('mailSended')}</h3>
         </Modal.Body>
-        <Modal.Footer className="">
-          <Button variant="dark" className="btn" onClick={handleClose}>
-            {t("close")}
+        <Modal.Footer className=''>
+          <Button variant='dark' className='btn' onClick={handleClose}>
+            {t('close')}
           </Button>
         </Modal.Footer>
       </Modal>

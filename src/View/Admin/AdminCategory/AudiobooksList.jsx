@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../AdminNavBar/AdminNavBar";
-import { useQuery } from "react-query";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { useTranslation } from "react-i18next";
-import Button from "react-bootstrap/Button";
-import JsonModal from "../AdminJsonModal/JsonModal";
-import AddAudiobookModal from "../Category/AddAudiobookModal";
-import RenderAudiobooksList from "../Category/RenderAudiobooksList";
-import CategoryDetailProviders from "../Category/CategoryDetailProviders";
-import AudiobookCommentsModal from "./AudiobookCommentsModal";
-import RenderPageSwitches from "../Common/RenderPageSwitches";
+import React, { useEffect, useState } from 'react';
+import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import { useQuery } from 'react-query';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { useTranslation } from 'react-i18next';
+import Button from 'react-bootstrap/Button';
+import JsonModal from '../AdminJsonModal/JsonModal';
+import AddAudiobookModal from '../Category/AddAudiobookModal';
+import RenderAudiobooksList from '../Category/RenderAudiobooksList';
+import CategoryDetailProviders from '../Category/CategoryDetailProviders';
+import AudiobookCommentsModal from './AudiobookCommentsModal';
+import RenderPageSwitches from '../Common/RenderPageSwitches';
 
 export default function AudiobooksList(props) {
   const { t, i18n } = useTranslation();
@@ -42,11 +42,11 @@ export default function AudiobooksList(props) {
     isFetching: isFetchingFirst,
     refetch: refetchFirst,
   } = useQuery(
-    "dataFirst",
+    'dataFirst',
     () =>
       HandleFetch(
-        "/admin/category/audiobooks",
-        "POST",
+        '/admin/category/audiobooks',
+        'POST',
         {
           categoryKey: props.categoryKey,
           page: pageState.page,
@@ -79,11 +79,11 @@ export default function AudiobooksList(props) {
     isFetching: isFetchingSecond,
     refetch: refetchSecond,
   } = useQuery(
-    "dataSecond",
+    'dataSecond',
     () =>
       HandleFetch(
-        "/admin/category/detail",
-        "POST",
+        '/admin/category/detail',
+        'POST',
         {
           categoryKey: props.categoryKey,
         },
@@ -138,11 +138,11 @@ export default function AudiobooksList(props) {
   }, [props.audiobooksState.error]);
 
   return (
-    <div className="container-fluid main-container mt-3">
-      <div className="card position-relative p-3 mb-5  shadow">
+    <div className='container-fluid main-container mt-3'>
+      <div className='card position-relative p-3 mb-5  shadow'>
         <AdminNavBar />
-        <hr className="line" />
-        <div className="table-title my-2">
+        <hr className='line' />
+        <div className='table-title my-2'>
           <h1>{state.category == null ? null : state.category.name}</h1>
           <RenderAudiobooksList
             state={state}
@@ -162,13 +162,13 @@ export default function AudiobooksList(props) {
             />
           ) : null}
         </div>
-        <div className="row justify-content-md-center">
-          <div className="col-3 d-flex justify-content-center">
+        <div className='row justify-content-md-center'>
+          <div className='col-3 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() =>
                 setState({
                   ...state,
@@ -176,20 +176,20 @@ export default function AudiobooksList(props) {
                 })
               }
             >
-              {t("addAudiobook")}
+              {t('addAudiobook')}
             </Button>
           </div>
-          <div className="col-3 d-flex justify-content-center">
+          <div className='col-3 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() =>
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("jsonData")}
+              {t('jsonData')}
             </Button>
           </div>
         </div>

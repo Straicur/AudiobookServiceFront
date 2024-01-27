@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Button from "react-bootstrap/Button";
+import React, { useEffect } from 'react';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
 
 export default function SearchAudiobooks(props) {
   const searchAudiobooks = () => {
@@ -39,19 +39,19 @@ export default function SearchAudiobooks(props) {
   }, [props.audiobooksState.error]);
   
   return (
-    <div className="row ms-1 mt-3 justify-content-start">
-      <div className="col-2">
-        <InputGroup className="mb-3 ">
-          <InputGroup.Text id="basic-addon1">
-            <i className="bi bi-search"></i>
+    <div className='row ms-1 mt-3 justify-content-start'>
+      <div className='col-2'>
+        <InputGroup className='mb-3 '>
+          <InputGroup.Text id='basic-addon1'>
+            <i className='bi bi-search'></i>
           </InputGroup.Text>
           <Form.Control
-            placeholder={props.t("title")}
+            placeholder={props.t('title')}
             onChange={(e) => changeSearchText(e)}
             value={props.audiobooksState.searchText}
           />
-          <Button className={"success_button"} onClick={searchAudiobooks}>
-            {props.t("search")}
+          <Button className={'success_button'} onClick={searchAudiobooks}>
+            {props.t('search')}
           </Button>
         </InputGroup>
       </div>

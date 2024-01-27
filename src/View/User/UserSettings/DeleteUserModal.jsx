@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { useTokenStore } from "../../../Store/store";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { useTokenStore } from '../../../Store/store';
+import { useNavigate } from 'react-router-dom';
 
 export default function DeleteUserModal(props) {
   const tokenStore = useTokenStore();
@@ -17,18 +17,18 @@ export default function DeleteUserModal(props) {
   };
 
   const deleteAccount = (element) => {
-    element.target.classList.add("disabled");
+    element.target.classList.add('disabled');
 
     HandleFetch(
-      "/user/settings/delete",
-      "PATCH",
+      '/user/settings/delete',
+      'PATCH',
       null,
       props.token,
       props.i18n.language
     )
       .then(() => {
         tokenStore.removeToken();
-        navigate("/login");
+        navigate('/login');
       })
       .catch((e) => {
         props.setState({
@@ -46,39 +46,39 @@ export default function DeleteUserModal(props) {
 
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.state.buttonDelete}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
       centered
     >
       <Modal.Body
         style={{
-          backgroundColor: "#262626",
+          backgroundColor: '#262626',
         }}
       >
-        <div className="text-white my-5">
-          <p className="fs-3 text-center">{props.t("deleteMessage")}</p>
-          <p className="fs-4 text-center">{props.t("areYouSure")}</p>
-          <div className="row align-items-center row justify-content-center">
-            <div className="col-2">
+        <div className='text-white my-5'>
+          <p className='fs-3 text-center'>{props.t('deleteMessage')}</p>
+          <p className='fs-4 text-center'>{props.t('areYouSure')}</p>
+          <div className='row align-items-center row justify-content-center'>
+            <div className='col-2'>
               <Button
-                name="en"
-                size="sm"
-                className="btn button success_button settings-button fs-5 sure_button"
+                name='en'
+                size='sm'
+                className='btn button success_button settings-button fs-5 sure_button'
                 onClick={() => deleteAccount()}
               >
-                {props.t("yes")}
+                {props.t('yes')}
               </Button>
             </div>
-            <div className="col-2">
+            <div className='col-2'>
               <Button
-                name="en"
-                size="sm"
-                className="btn button danger_button settings-button fs-5 sure_button"
+                name='en'
+                size='sm'
+                className='btn button danger_button settings-button fs-5 sure_button'
                 onClick={(e) => handleClose(e)}
               >
-                {props.t("no")}
+                {props.t('no')}
               </Button>
             </div>
           </div>

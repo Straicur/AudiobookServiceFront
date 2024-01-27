@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useAudiobookData } from "../../../Providers/AudiobookDataProvider";
-import { useAudiobookCover } from "../../../Providers/AdminAudiobookCoverDataProvider";
-import { useAudiobookPart } from "../../../Providers/AdminAudiobookPartProvider";
-import { useAudiobookComments } from "../../../Providers/AudiobookCommentsProvider";
-import { AdminNavBar } from "../AdminNavBar/AdminNavBar";
-import CategoryEditForm from "./AudiobookEditForm";
-import AudiobookCategoryList from "./AudiobookCategoryList";
-import AudiobookCover from "./AudiobookCover";
-import GetAudiobookZipButton from "./GetAudiobookZipButton";
-import RenderCommentsList from "./RenderCommentsList";
-import AudiobookAddCategoriesModal from "./AudiobookAddCategoriesModal";
-import AudiobookReAddingModal from "./AudiobookReAddingModal";
-import Button from "react-bootstrap/Button";
-import AudioPlayer from "./AudiobookPlayer";
-import ReAddAudiobookButton from "./ReAddAudiobookButton";
-import DeleteAudiobookEntarlyButton from "./DeleteAudiobookEntarlyButton";
-import { v4 as uuidv4 } from "uuid";
-import Alert from "react-bootstrap/Alert";
-import { useCategoryListStore } from "../../../Store/store";
+import React, { useEffect, useState } from 'react';
+import { useAudiobookData } from '../../../Providers/AudiobookDataProvider';
+import { useAudiobookCover } from '../../../Providers/AdminAudiobookCoverDataProvider';
+import { useAudiobookPart } from '../../../Providers/AdminAudiobookPartProvider';
+import { useAudiobookComments } from '../../../Providers/AudiobookCommentsProvider';
+import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import CategoryEditForm from './AudiobookEditForm';
+import AudiobookCategoryList from './AudiobookCategoryList';
+import AudiobookCover from './AudiobookCover';
+import GetAudiobookZipButton from './GetAudiobookZipButton';
+import RenderCommentsList from './RenderCommentsList';
+import AudiobookAddCategoriesModal from './AudiobookAddCategoriesModal';
+import AudiobookReAddingModal from './AudiobookReAddingModal';
+import Button from 'react-bootstrap/Button';
+import AudioPlayer from './AudiobookPlayer';
+import ReAddAudiobookButton from './ReAddAudiobookButton';
+import DeleteAudiobookEntarlyButton from './DeleteAudiobookEntarlyButton';
+import { v4 as uuidv4 } from 'uuid';
+import Alert from 'react-bootstrap/Alert';
+import { useCategoryListStore } from '../../../Store/store';
 
 export default function AudiobookDetail(props) {
   const [categoriesState, setCategories] = useState([]);
@@ -45,8 +45,8 @@ export default function AudiobookDetail(props) {
       if (audiobookDetail.avgRating != 0) {
         for (let i = 0; i < audiobookDetail.avgRating; i++) {
           stars.push(
-            <div key={uuidv4()} className="col-1">
-              <i className="bi bi-star-fill"></i>
+            <div key={uuidv4()} className='col-1'>
+              <i className='bi bi-star-fill'></i>
             </div>
           );
           amountOfStars = amountOfStars - 1;
@@ -55,8 +55,8 @@ export default function AudiobookDetail(props) {
 
       for (let i = 0; i < amountOfStars; i++) {
         stars.push(
-          <div key={uuidv4()} className="col-1">
-            <i className="bi bi-star"></i>
+          <div key={uuidv4()} className='col-1'>
+            <i className='bi bi-star'></i>
           </div>
         );
       }
@@ -75,12 +75,12 @@ export default function AudiobookDetail(props) {
   }, [props.audiobookState.refresh]);
 
   return (
-    <div className="container-fluid main-container mt-3">
-      <div className="card position-relative p-3 mb-5  shadow">
+    <div className='container-fluid main-container mt-3'>
+      <div className='card position-relative p-3 mb-5  shadow'>
         <AdminNavBar />
-        <hr className="line" />
-        <div className="row ">
-          <div className="col-4">
+        <hr className='line' />
+        <div className='row '>
+          <div className='col-4'>
             <AudiobookCover
               audiobookCover={audiobookCover}
               setAudiobookState={props.setAudiobookState}
@@ -92,15 +92,15 @@ export default function AudiobookDetail(props) {
               i18n={props.i18n}
             />
             <Alert
-              show={props.audiobookState.errorCover != ""}
-              className="dangerAllert mt-1 text-center"
-              variant="danger"
+              show={props.audiobookState.errorCover != ''}
+              className='dangerAllert mt-1 text-center'
+              variant='danger'
             >
               {props.audiobookState.errorCover}
             </Alert>
           </div>
 
-          <div className="col-5">
+          <div className='col-5'>
             <CategoryEditForm
               audiobookDetail={audiobookDetail}
               setAudiobookDetail={setAudiobookDetail}
@@ -112,10 +112,10 @@ export default function AudiobookDetail(props) {
               token={props.token}
             />
 
-            <div className="row me-4 mt-2">
+            <div className='row me-4 mt-2'>
               <hr></hr>
             </div>
-            <div className="row d-flex justify-content-center me-1">
+            <div className='row d-flex justify-content-center me-1'>
               {audiobookPart != null ? (
                 <AudioPlayer
                   audiobookDetail={audiobookDetail}
@@ -127,33 +127,33 @@ export default function AudiobookDetail(props) {
                 />
               ) : null}
               <Alert
-                show={props.audiobookState.errorPart != ""}
-                className="dangerAllert mt-1 text-center"
-                variant="danger"
+                show={props.audiobookState.errorPart != ''}
+                className='dangerAllert mt-1 text-center'
+                variant='danger'
               >
                 {props.audiobookState.errorPart}
               </Alert>
             </div>
           </div>
-          <div className="col-3">
-            <div className="row d-flex justify-content-center text-center mb-2">
-              <h4>{props.t("rating")}</h4>
+          <div className='col-3'>
+            <div className='row d-flex justify-content-center text-center mb-2'>
+              <h4>{props.t('rating')}</h4>
               {renderStars()}
             </div>
             {audiobookDetail != undefined ? (
-              <div className="row d-flex justify-content-center text-center mb-2">
-                <div className="col-3 mx-0 p-0">
-                  <h4>{props.t("rated")}</h4>
+              <div className='row d-flex justify-content-center text-center mb-2'>
+                <div className='col-3 mx-0 p-0'>
+                  <h4>{props.t('rated')}</h4>
                 </div>
-                <div className="col-1 mx-0 p-0">
+                <div className='col-1 mx-0 p-0'>
                   <h4>{audiobookDetail.ratingAmount}</h4>
                 </div>
               </div>
             ) : null}
-            <div className="row d-flex justify-content-center text-center">
-              <h4>{props.t("categories")}</h4>
+            <div className='row d-flex justify-content-center text-center'>
+              <h4>{props.t('categories')}</h4>
             </div>
-            <div className="row d-flex justify-content-center text-center"></div>
+            <div className='row d-flex justify-content-center text-center'></div>
             <AudiobookCategoryList
               audiobookDetail={audiobookDetail}
               t={props.t}
@@ -164,11 +164,11 @@ export default function AudiobookDetail(props) {
               setAudiobookDetailRefetch={setAudiobookDetailRefetch}
             />
 
-            <div className="row">
+            <div className='row'>
               <Button
-                name="en"
-                size="sm"
-                className="btn button px-4 my-1 audiobook_detail_modal_button success_button"
+                name='en'
+                size='sm'
+                className='btn button px-4 my-1 audiobook_detail_modal_button success_button'
                 onClick={() =>
                   props.setAudiobookState({
                     ...props.audiobookState,
@@ -177,7 +177,7 @@ export default function AudiobookDetail(props) {
                   })
                 }
               >
-                {props.t("addCategory")}
+                {props.t('addCategory')}
               </Button>
             </div>
 
@@ -202,7 +202,7 @@ export default function AudiobookDetail(props) {
               t={props.t}
             />
 
-            <div className="row my-1 ">
+            <div className='row my-1 '>
               <GetAudiobookZipButton
                 audiobookDetail={audiobookDetail}
                 audiobookState={props.audiobookState}
@@ -214,7 +214,7 @@ export default function AudiobookDetail(props) {
             </div>
           </div>
         </div>
-        <p className="text-center fs-1"> {props.t("comments")}</p>
+        <p className='text-center fs-1'> {props.t('comments')}</p>
         <hr></hr>
         <RenderCommentsList
           audiobookDetail={audiobookDetail}

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { useTokenStore } from "store";
-import { v4 as uuidv4 } from "uuid";
+import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useTokenStore } from 'store';
+import { v4 as uuidv4 } from 'uuid';
 
 export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
   const navigate = useNavigate();
 
   const [state, setState] = useState({
-    message: "",
+    message: '',
     data: [],
     show: true,
     notAuthenticated: false,
@@ -24,7 +24,7 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
   function logout() {
     tokenStore.removeToken();
 
-    navigate("/login");
+    navigate('/login');
   }
 
   function reloadFunction() {
@@ -33,45 +33,45 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
 
   useEffect(() => {
     switch (error.name) {
-      case "InvalidJsonDataError":
+      case 'InvalidJsonDataError':
         setState({ ...state, data: error.data, message: error.message });
         break;
-      case "ValidationError":
+      case 'ValidationError':
         setState({ ...state, data: error.data, message: error.message });
         break;
-      case "SystemError":
+      case 'SystemError':
         setState({ ...state, message: error.message });
         break;
-      case "ServiceUnaviableError":
+      case 'ServiceUnaviableError':
         setState({ ...state, message: error.message });
         break;
-      case "PermissionError":
+      case 'PermissionError':
         setState({ ...state, message: error.message });
         break;
-      case "DataNotFoundError":
+      case 'DataNotFoundError':
         setState({ ...state, data: error.data, message: error.message });
         break;
-      case "InvalidDataError":
+      case 'InvalidDataError':
         setState({ ...state, data: error.data, message: error.message });
         break;
-      case "AuthenticationError":
+      case 'AuthenticationError':
         setState({ ...state, message: error.message, notAuthenticated: true });
         break;
       default: {
-        setState({ ...state, message: t("systemError") });
+        setState({ ...state, message: t('systemError') });
         break;
       }
     }
   }, [error]);
 
   return (
-    <Modal show={state.show} onHide={handleClose} backdrop="static">
+    <Modal show={state.show} onHide={handleClose} backdrop='static'>
       <Modal.Body>
-        <h3 className="text-center fw-bold py-3"> {t("errorOccurred")}</h3>
+        <h3 className='text-center fw-bold py-3'> {t('errorOccurred')}</h3>
         {state.data != undefined
           ? state.data.map((element) => {
               return (
-                <p key={uuidv4()} className="text-center pb-1 fs-5">
+                <p key={uuidv4()} className='text-center pb-1 fs-5'>
                   {element}
                 </p>
               );
@@ -80,7 +80,7 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button
-          variant="dark"
+          variant='dark'
           onClick={
             state.notAuthenticated
               ? logout()
@@ -89,7 +89,7 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
               : reloadFunction()
           }
         >
-          {t("accept")}
+          {t('accept')}
         </Button>
       </Modal.Footer>
     </Modal>

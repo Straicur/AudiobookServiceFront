@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import Alert from "react-bootstrap/Alert";
-import md5 from "md5";
+import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import Alert from 'react-bootstrap/Alert';
+import md5 from 'md5';
 
 export default function EditPasswordModal(props) {
   const [state, setState] = useState({
-    oldPassword: "",
-    newPassword: "",
-    newConfirmPassword: "",
+    oldPassword: '',
+    newPassword: '',
+    newConfirmPassword: '',
     checkPassword: false,
     wrongOldPassword: false,
     wrongNewPassword: false,
@@ -24,15 +24,15 @@ export default function EditPasswordModal(props) {
     });
   };
   const changePassword = (element) => {
-    element.target.classList.add("disabled");
+    element.target.classList.add('disabled');
 
     if (
       state.oldPassword != state.newPassword &&
       state.newPassword == state.newConfirmPassword
     ) {
       HandleFetch(
-        "/user/settings/password",
-        "PATCH",
+        '/user/settings/password',
+        'PATCH',
         {
           oldPassword: md5(state.oldPassword),
           newPassword: md5(state.newPassword),
@@ -41,7 +41,7 @@ export default function EditPasswordModal(props) {
         props.i18n.language
       )
         .then(() => {
-          element.target.classList.remove("disabled");
+          element.target.classList.remove('disabled');
           setState({ ...state, checkPassword: !state.checkPassword });
         })
         .catch((e) => {
@@ -121,29 +121,29 @@ export default function EditPasswordModal(props) {
 
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.state.buttonPassword}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
       centered
     >
       <Modal.Body
         style={{
-          backgroundColor: "#262626",
+          backgroundColor: '#262626',
         }}
       >
-        <div className="text-white">
+        <div className='text-white'>
           {state.checkPassword ? (
-            <div className="fs-3 text-center my-3">
-              {props.t("checkPassword")}
+            <div className='fs-3 text-center my-3'>
+              {props.t('checkPassword')}
             </div>
           ) : (
             <Form>
-              <Form.Group className="mb-3">
-                <Form.Label>{props.t("oldPassword")}</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label>{props.t('oldPassword')}</Form.Label>
                 <Form.Control
-                  type="password"
-                  placeholder={props.t("insertPassword")}
+                  type='password'
+                  placeholder={props.t('insertPassword')}
                   isValid={
                     state.oldPassword.length > 1 &&
                     state.oldPassword.trim() != state.newPassword.trim()
@@ -156,17 +156,17 @@ export default function EditPasswordModal(props) {
                 />
                 <Alert
                   show={state.wrongOldPassword}
-                  className="dangerAllert mt-1 text-center"
-                  variant="danger"
+                  className='dangerAllert mt-1 text-center'
+                  variant='danger'
                 >
-                  {props.t("enterValidPassword")}
+                  {props.t('enterValidPassword')}
                 </Alert>
               </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>{props.t("newPassword")}</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label>{props.t('newPassword')}</Form.Label>
                 <Form.Control
-                  type="password"
-                  placeholder={props.t("insertPassword")}
+                  type='password'
+                  placeholder={props.t('insertPassword')}
                   isValid={
                     state.newPassword.length > 1 &&
                     validatePassword(state.newPassword) &&
@@ -181,17 +181,17 @@ export default function EditPasswordModal(props) {
                 />
                 <Alert
                   show={state.wrongNewPassword}
-                  className="dangerAllert mt-1 text-center"
-                  variant="danger"
+                  className='dangerAllert mt-1 text-center'
+                  variant='danger'
                 >
-                  {props.t("enterValidPassword")}
+                  {props.t('enterValidPassword')}
                 </Alert>
               </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>{props.t("newPassword")}</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label>{props.t('newPassword')}</Form.Label>
                 <Form.Control
-                  type="password"
-                  placeholder={props.t("insertPasswordConfirm")}
+                  type='password'
+                  placeholder={props.t('insertPasswordConfirm')}
                   isValid={
                     state.newConfirmPassword.length > 1 &&
                     validatePassword(state.newConfirmPassword) &&
@@ -206,31 +206,31 @@ export default function EditPasswordModal(props) {
                 />
                 <Alert
                   show={state.wrongNewConfirmPassword}
-                  className="dangerAllert mt-1 text-center"
-                  variant="danger"
+                  className='dangerAllert mt-1 text-center'
+                  variant='danger'
                 >
-                  {props.t("enterValidPassword")}
+                  {props.t('enterValidPassword')}
                 </Alert>
               </Form.Group>
             </Form>
           )}
-          <div className="row align-items-center row justify-content-end">
-            <div className="col-2">
+          <div className='row align-items-center row justify-content-end'>
+            <div className='col-2'>
               <Button
-                name="en"
-                size="sm"
-                className="btn button danger_button settings-button fs-5"
+                name='en'
+                size='sm'
+                className='btn button danger_button settings-button fs-5'
                 onClick={() => handleClose()}
               >
-                {props.t("close")}
+                {props.t('close')}
               </Button>
             </div>
             {!state.checkPassword ? (
-              <div className="col-2">
+              <div className='col-2'>
                 <Button
-                  name="en"
-                  size="sm"
-                  className="btn button success_button settings-button fs-5"
+                  name='en'
+                  size='sm'
+                  className='btn button success_button settings-button fs-5'
                   disabled={
                     state.wrongOldPassword ||
                     state.wrongNewPassword ||
@@ -241,7 +241,7 @@ export default function EditPasswordModal(props) {
                   }
                   onClick={(e) => changePassword(e)}
                 >
-                  {props.t("save")}
+                  {props.t('save')}
                 </Button>
               </div>
             ) : null}

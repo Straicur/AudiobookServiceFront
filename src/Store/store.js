@@ -1,12 +1,12 @@
-import create from "zustand";
-import { devtools, persist } from "zustand/middleware";
-import { HandleFetch } from "../Util/HandleFetch";
+import create from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+import { HandleFetch } from '../Util/HandleFetch';
 
 let tokenStore = (set) => ({
-  token: "",
+  token: '',
   roles: [],
   setToken: (jsonData, state, setState, language) => {
-    HandleFetch("/authorize", "POST", jsonData, language)
+    HandleFetch('/authorize', 'POST', jsonData, language)
       .then((data) => {
         set(() => ({
           token: data.token,
@@ -22,7 +22,7 @@ let tokenStore = (set) => ({
   },
   removeToken: () =>
     set(() => ({
-      token: "",
+      token: '',
       roles: [],
     })),
 });
@@ -135,33 +135,33 @@ let coverListStore = (set) => ({
     })),
 });
 
-//todo tu jeszcze mogę trzymać te ustawienia języka i likalizację (jeśli nie pl to na eng ustawiam i tyle)
+//todo tu jeszcze moge trzymać te ustawienia języka i likalizację (jeśli nie pl to na eng ustawiam i tyle)
 
 tokenStore = devtools(tokenStore);
-tokenStore = persist(tokenStore, { name: "auth_token" });
+tokenStore = persist(tokenStore, { name: 'auth_token' });
 
 categoryTreeListStore = devtools(categoryTreeListStore);
 categoryTreeListStore = persist(categoryTreeListStore, {
-  name: "categoriesTree",
+  name: 'categoriesTree',
 });
 
 categoryListStore = devtools(categoryListStore);
-categoryListStore = persist(categoryListStore, { name: "categories" });
+categoryListStore = persist(categoryListStore, { name: 'categories' });
 
 lastSearchStore = devtools(lastSearchStore);
-lastSearchStore = persist(lastSearchStore, { name: "searchAudiobooks" });
+lastSearchStore = persist(lastSearchStore, { name: 'searchAudiobooks' });
 
 lastUserRolesStore = devtools(lastUserRolesStore);
-lastUserRolesStore = persist(lastUserRolesStore, { name: "userRolesStore" });
+lastUserRolesStore = persist(lastUserRolesStore, { name: 'userRolesStore' });
 
 notificationsListStore = devtools(notificationsListStore);
 notificationsListStore = persist(notificationsListStore, {
-  name: "notificationsStore",
+  name: 'notificationsStore',
 });
 
 coverListStore = devtools(coverListStore);
 coverListStore = persist(coverListStore, {
-  name: "coverListStore",
+  name: 'coverListStore',
 });
 
 export const useTokenStore = create(tokenStore);

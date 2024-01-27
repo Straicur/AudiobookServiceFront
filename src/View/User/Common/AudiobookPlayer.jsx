@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
+import React, { useEffect, useRef } from 'react';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 export default function AudiobookPlayer(props) {
   const player = useRef(null);
@@ -57,9 +57,9 @@ export default function AudiobookPlayer(props) {
       props.audiobookState.renderAudiobookPlayer
     ) {
       let procent =
-        ((props.timeAudio.current / duration.current) * 100).toFixed(2) + "%";
+        ((props.timeAudio.current / duration.current) * 100).toFixed(2) + '%';
       console.log(procent);
-      player.current.progressBar.current.setAttribute("aria-valuenow", procent);
+      player.current.progressBar.current.setAttribute('aria-valuenow', procent);
       player.current.progressBar.current.childNodes[0].childNodes[0].style.left =
         procent;
       player.current.progressBar.current.childNodes[0].childNodes[1].style.width =
@@ -80,11 +80,11 @@ export default function AudiobookPlayer(props) {
       player.current &&
       props.audiobookState.datailEndedTime == null
     ) {
-      player.current.progressBar.current.setAttribute("aria-valuenow", "0%");
+      player.current.progressBar.current.setAttribute('aria-valuenow', '0%');
       player.current.progressBar.current.childNodes[0].childNodes[0].style.left =
-        "0%";
+        '0%';
       player.current.progressBar.current.childNodes[0].childNodes[1].style.width =
-        "0%";
+        '0%';
 
       props.setAudiobookState({
         ...props.audiobookState,
@@ -96,9 +96,9 @@ export default function AudiobookPlayer(props) {
   return (
     <AudioPlayer
       header={
-        <div className="row  justify-content-center">
-          <div className="col-2 fs-5 text-center">
-            {props.t("part")}: {props.audiobookState.part + 1}
+        <div className='row  justify-content-center'>
+          <div className='col-2 fs-5 text-center'>
+            {props.t('part')}: {props.audiobookState.part + 1}
           </div>
         </div>
       }

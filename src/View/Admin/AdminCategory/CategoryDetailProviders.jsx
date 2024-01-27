@@ -1,8 +1,8 @@
-import { AudiobookDataProvider } from "../../../Providers/AudiobookDataProvider";
-import { AdminAudiobookCoverDataProvider } from "../../../Providers/AdminAudiobookCoverDataProvider";
-import { AdminAudiobookPartProvider } from "../../../Providers/AdminAudiobookPartProvider";
+import { AudiobookDataProvider } from '../../../Providers/AudiobookDataProvider';
+import { AdminAudiobookCoverDataProvider } from '../../../Providers/AdminAudiobookCoverDataProvider';
+import { AdminAudiobookPartProvider } from '../../../Providers/AdminAudiobookPartProvider';
 
-import CategoryAudiobookDetailModal from "../Category/CategoryAudiobookDetailModal";
+import CategoryAudiobookDetailModal from '../Category/CategoryAudiobookDetailModal';
 
 export default function CategoryDetailProviders(props) {
   return (

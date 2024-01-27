@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { UserNavBar } from "../../../View/User/UserNavBar/UserNavBar";
-import { useTokenStore } from "../../../Store/store";
-import { Helmet, HelmetProvider } from "react-helmet-async";
-import { ErrorBoundary } from "react-error-boundary";
-import { ErrorHandlerModal } from "../../../Errors/ErrorHandlerModal";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import SettingsContainer from "../../../View/User/UserSettings/SettingsContainer";
-import { Footer } from "../../../View/User/Common/Footer";
-import "./Settings.css";
+import React, { useState } from 'react';
+import { UserNavBar } from '../../../View/User/UserNavBar/UserNavBar';
+import { useTokenStore } from '../../../Store/store';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import SettingsContainer from '../../../View/User/UserSettings/SettingsContainer';
+import { Footer } from '../../../View/User/Common/Footer';
+import './Settings.css';
 
 export default function Settings() {
   const navigate = useNavigate();
@@ -17,10 +17,10 @@ export default function Settings() {
   const { t, i18n } = useTranslation();
 
   const [state, setState] = useState({
-    phoneNumber: "",
-    firstname: "",
-    lastname: "",
-    email: "",
+    phoneNumber: '',
+    firstname: '',
+    lastname: '',
+    email: '',
     edited: false,
     editableDate: 0,
     buttonEmail: false,
@@ -44,11 +44,11 @@ export default function Settings() {
     >
       <HelmetProvider>
         <Helmet>
-          <style>{"body { background-color: black; }"}</style>
+          <style>{'body { background-color: black; }'}</style>
         </Helmet>
 
-        <div className="container-fluid main-container mt-3">
-          <div className="card position-relative p-3 bg-dark shadow">
+        <div className='container-fluid main-container mt-3'>
+          <div className='card position-relative p-3 bg-dark shadow'>
             <UserNavBar />
             <SettingsContainer
               state={state}

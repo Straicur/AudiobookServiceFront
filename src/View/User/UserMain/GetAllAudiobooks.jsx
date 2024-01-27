@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import RenderAudiobooksList from "./RenderAudiobooksList";
-import { useAudiobookUserData } from "../../../Providers/AudiobookUserDataProvider";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import RenderProposedList from "./RenderProposedList";
-import { useCoverListStore } from "../../../Store/store";
+import React, { useState, useEffect, useRef } from 'react';
+import RenderAudiobooksList from './RenderAudiobooksList';
+import { useAudiobookUserData } from '../../../Providers/AudiobookUserDataProvider';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import RenderProposedList from './RenderProposedList';
+import { useCoverListStore } from '../../../Store/store';
 
 const ChildFirstMemo = React.memo(RenderAudiobooksList);
 const ChildSecondMemo = React.memo(RenderProposedList);
@@ -32,8 +32,8 @@ export default function GetAllAudiobooks(props) {
         }
       });
       HandleFetch(
-        "/audiobook/covers",
-        "POST",
+        '/audiobook/covers',
+        'POST',
         {
           audiobooks: audiobooksIds,
         },
@@ -81,10 +81,10 @@ export default function GetAllAudiobooks(props) {
   return (
     <div>
       {loadstate ? (
-        <div className="text-center">
+        <div className='text-center'>
           <div
-            className="spinner-border text-info spinner my-5"
-            role="status"
+            className='spinner-border text-info spinner my-5'
+            role='status'
           ></div>
         </div>
       ) : (

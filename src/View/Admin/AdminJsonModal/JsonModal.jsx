@@ -1,6 +1,6 @@
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import "./JsonModal.css";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import './JsonModal.css';
 
 export default function JsonModal(props) {
   const handleClose = () => {
@@ -13,7 +13,7 @@ export default function JsonModal(props) {
   const format = () => {
     return (
       <div>
-        <pre className="preStyle overflow-auto ">
+        <pre className='preStyle overflow-auto '>
           {JSON.stringify(props.state.json, null, 2)}
         </pre>
       </div>
@@ -21,18 +21,18 @@ export default function JsonModal(props) {
   };
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.state.jsonModal}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
     >
       <Modal.Header closeButton>
-        <Modal.Title>{props.t("jsonData")}</Modal.Title>
+        <Modal.Title>{props.t('jsonData')}</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="background_json">{format()}</Modal.Body>
+      <Modal.Body className='background_json'>{format()}</Modal.Body>
       <Modal.Footer>
-        <Button variant="dark" onClick={handleClose}>
-          {props.t("close")}
+        <Button variant='dark' onClick={handleClose}>
+          {props.t('close')}
         </Button>
       </Modal.Footer>
     </Modal>

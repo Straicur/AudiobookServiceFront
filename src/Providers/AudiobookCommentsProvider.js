@@ -1,6 +1,6 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
-import { useQuery } from "react-query";
-import { HandleFetch } from "../Util/HandleFetch";
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { HandleFetch } from '../Util/HandleFetch';
 
 const AudiobookCommentsContext = createContext(null);
 
@@ -22,11 +22,11 @@ export const AudiobookCommentsProvider = ({
     isFetching: isFetchingAudiobookComments,
     refetch: refetchAudiobookComments,
   } = useQuery(
-    "dataAudiobookComments",
+    'dataAudiobookComments',
     () =>
       HandleFetch(
-        "/admin/audiobook/comment/get",
-        "POST",
+        '/admin/audiobook/comment/get',
+        'POST',
         {
           audiobookId: audiobookId,
         },

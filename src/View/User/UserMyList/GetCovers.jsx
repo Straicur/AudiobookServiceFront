@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useAudiobookMy } from "../../../Providers/AudiobookMyListProvider";
-import RenderMyList from "./RenderMyList";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { useCoverListStore } from "../../../Store/store";
+import React, { useState, useEffect, useRef } from 'react';
+import { useAudiobookMy } from '../../../Providers/AudiobookMyListProvider';
+import RenderMyList from './RenderMyList';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { useCoverListStore } from '../../../Store/store';
 
 const ChildMemo = React.memo(RenderMyList);
 
@@ -28,8 +28,8 @@ export default function GetCovers(props) {
         });
 
         HandleFetch(
-          "/audiobook/covers",
-          "POST",
+          '/audiobook/covers',
+          'POST',
           {
             audiobooks: audiobooksIds,
           },
@@ -75,10 +75,10 @@ export default function GetCovers(props) {
   return (
     <div>
       {loadstate ? (
-        <div className="text-center">
+        <div className='text-center'>
           <div
-            className="spinner-border text-info spinner my-5"
-            role="status"
+            className='spinner-border text-info spinner my-5'
+            role='status'
           ></div>
         </div>
       ) : (

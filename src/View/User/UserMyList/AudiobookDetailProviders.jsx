@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { AudiobookUserDetailProvider } from "../../../Providers/AudiobookUserDetailProvider";
-import { AudiobookPartProvider } from "../../../Providers/AudiobookPartProvider";
-import { AudiobookRatingProvider } from "../../../Providers/AudiobookRatingProvider";
-import { AudiobookUserCommentsProvider } from "../../../Providers/AudiobookUserCommentsProvider";
-import DataNotFoundError from "../../../Errors/Errors/DataNotFoundError";
-import AudiobookDetailModal from "./AudiobookDetailModal";
+import React, { useState, useEffect } from 'react';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { AudiobookUserDetailProvider } from '../../../Providers/AudiobookUserDetailProvider';
+import { AudiobookPartProvider } from '../../../Providers/AudiobookPartProvider';
+import { AudiobookRatingProvider } from '../../../Providers/AudiobookRatingProvider';
+import { AudiobookUserCommentsProvider } from '../../../Providers/AudiobookUserCommentsProvider';
+import DataNotFoundError from '../../../Errors/Errors/DataNotFoundError';
+import AudiobookDetailModal from './AudiobookDetailModal';
 
 export default function AudiobookDetailProviders(props) {
   const [audiobookState, setAudiobookState] = useState({
@@ -19,8 +19,8 @@ export default function AudiobookDetailProviders(props) {
 
   const fetchData = () => {
     HandleFetch(
-      "/user/audiobook/info",
-      "POST",
+      '/user/audiobook/info',
+      'POST',
       {
         audiobookId: props.state.detailModalAudiobook.id,
         categoryKey: props.state.detailModalCategory.categoryKey,

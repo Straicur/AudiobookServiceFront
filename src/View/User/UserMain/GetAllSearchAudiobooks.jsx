@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useAudiobookSearch } from "../../../Providers/AudiobookSearchProvider";
-import RenderSearchAudiobooksList from "./RenderSearchAudiobooksList";
-import { HandleFetch } from "../../../Util/HandleFetch";
+import React, { useState, useEffect } from 'react';
+import { useAudiobookSearch } from '../../../Providers/AudiobookSearchProvider';
+import RenderSearchAudiobooksList from './RenderSearchAudiobooksList';
+import { HandleFetch } from '../../../Util/HandleFetch';
 
 const ChildMemo = React.memo(RenderSearchAudiobooksList);
 
@@ -25,8 +25,8 @@ export default function GetAllSearchAudiobooks(props) {
         });
 
         HandleFetch(
-          "/audiobook/covers",
-          "POST",
+          '/audiobook/covers',
+          'POST',
           {
             audiobooks: audiobooksIds,
           },
@@ -71,10 +71,10 @@ export default function GetAllSearchAudiobooks(props) {
   return (
     <div>
       {loadstate ? (
-        <div className="text-center">
+        <div className='text-center'>
           <div
-            className="spinner-border text-info spinner my-5"
-            role="status"
+            className='spinner-border text-info spinner my-5'
+            role='status'
           ></div>
         </div>
       ) : (

@@ -1,6 +1,6 @@
-import { HandleFetch } from "../../../Util/HandleFetch";
-import Button from "react-bootstrap/Button";
-import { v4 as uuidv4 } from "uuid";
+import { HandleFetch } from '../../../Util/HandleFetch';
+import Button from 'react-bootstrap/Button';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function RenderDeleteUsersList(props) {
   const createTable = () => {
@@ -15,8 +15,8 @@ export default function RenderDeleteUsersList(props) {
 
   const deleteUser = (selectedUser) => {
     HandleFetch(
-      "/admin/user/delete/accept",
-      "PATCH",
+      '/admin/user/delete/accept',
+      'PATCH',
       {
         userId: selectedUser.id,
       },
@@ -35,8 +35,8 @@ export default function RenderDeleteUsersList(props) {
   };
   const declineDeleteUser = (selectedUser) => {
     HandleFetch(
-      "/admin/user/delete/decline",
-      "PATCH",
+      '/admin/user/delete/decline',
+      'PATCH',
       {
         userId: selectedUser.id,
       },
@@ -56,44 +56,44 @@ export default function RenderDeleteUsersList(props) {
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>
-        <th scope="row">{element.email}</th>
+        <th scope='row'>{element.email}</th>
         <td>{element.firstname}</td>
         <td>
           {element.active ? (
-            <i className="bi bi-bookmark-check-fill"></i>
+            <i className='bi bi-bookmark-check-fill'></i>
           ) : (
-            <i className="bi bi-bookmark-dash"></i>
+            <i className='bi bi-bookmark-dash'></i>
           )}
         </td>
         <td>
           {element.banned ? (
-            <i className="bi bi-shield-fill-exclamation"></i>
+            <i className='bi bi-shield-fill-exclamation'></i>
           ) : (
-            <i className="bi bi-shield-fill-check"></i>
+            <i className='bi bi-shield-fill-check'></i>
           )}
         </td>
-        <td className="table_buttons_with">
-          <div className="d-grid gap-2 d-md-block">
+        <td className='table_buttons_with'>
+          <div className='d-grid gap-2 d-md-block'>
             <Button
-              name="en"
-              variant="success"
-              size="sm"
-              className="btn button mx-2"
+              name='en'
+              variant='success'
+              size='sm'
+              className='btn button mx-2'
               onClick={() => declineDeleteUser(element)}
             >
-              {props.t("cancel")}
+              {props.t('cancel')}
             </Button>
             <Button
-              name="en"
-              variant="danger"
-              size="sm"
-              className="btn button mx-2"
+              name='en'
+              variant='danger'
+              size='sm'
+              className='btn button mx-2'
               disabled={element.deleted}
               onClick={() => {
                 deleteUser(element);
               }}
             >
-              {element.deleted ? props.t("deleted") : props.t("accept")}
+              {element.deleted ? props.t('deleted') : props.t('accept')}
             </Button>
           </div>
         </td>
@@ -102,14 +102,14 @@ export default function RenderDeleteUsersList(props) {
   };
 
   return (
-    <table className="table">
-      <thead className="">
+    <table className='table'>
+      <thead className=''>
         <tr>
-          <th scope="col">{props.t("email")}</th>
-          <th scope="col">{props.t("firstname")}</th>
-          <th scope="col">{props.t("active")}</th>
-          <th scope="col">{props.t("banned")}</th>
-          <th scope="col"></th>
+          <th scope='col'>{props.t('email')}</th>
+          <th scope='col'>{props.t('firstname')}</th>
+          <th scope='col'>{props.t('active')}</th>
+          <th scope='col'>{props.t('banned')}</th>
+          <th scope='col'></th>
         </tr>
       </thead>
       <tbody>{createTable()}</tbody>

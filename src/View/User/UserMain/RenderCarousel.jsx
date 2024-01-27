@@ -1,6 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import { v4 as uuidv4 } from 'uuid';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 export default function RenderCarousel(props, category) {
   const responsive = {
@@ -25,13 +25,13 @@ export default function RenderCarousel(props, category) {
     if (props.coversState != undefined && props.coversState.length > 0) {
       let url = props.coversState.filter((obj) => obj.id == audiobook.id);
 
-      if (url.length > 0 && url[0].url != "") {
+      if (url.length > 0 && url[0].url != '') {
         return process.env.REACT_APP_API_URL + url[0].url;
       } else {
-        return "/noImg.jpg";
+        return '/noImg.jpg';
       }
     } else {
-      return "/noImg.jpg";
+      return '/noImg.jpg';
     }
   };
 
@@ -40,7 +40,7 @@ export default function RenderCarousel(props, category) {
       ...props.state,
       detailModal: !props.detailModal,
       detailModalAudiobook: audiobook,
-      detailModalCover: imgUrl == null ? "/noImg.jpg" : imgUrl,
+      detailModalCover: imgUrl == null ? '/noImg.jpg' : imgUrl,
       detailModalCategory: category,
     });
   };
@@ -53,7 +53,7 @@ export default function RenderCarousel(props, category) {
         let imgUrl = getImgUrl(audiobook);
         return (
           <div
-            className="card mx-3 carousel-card"
+            className='card mx-3 carousel-card'
             onClick={() => {
               showAudiobookModal(audiobook, imgUrl);
             }}
@@ -62,24 +62,24 @@ export default function RenderCarousel(props, category) {
               className={
                 audiobook.title.length > 17
                   ? audiobook.title.length > 46
-                    ? "card-img-sm-ext-lg-title "
-                    : "card-img-sm-lg-title"
-                  : "card-img-sm-sm-title"
+                    ? 'card-img-sm-ext-lg-title '
+                    : 'card-img-sm-lg-title'
+                  : 'card-img-sm-sm-title'
               }
             >
               <img
-                src={imgUrl == null ? "/noImg.jpg" : imgUrl}
-                className="card-img-top"
+                src={imgUrl == null ? '/noImg.jpg' : imgUrl}
+                className='card-img-top'
               />
             </div>
 
-            <div className="card-body">
+            <div className='card-body'>
               {audiobook.title.length > 17 ? (
-                <h6 className="card-title">{audiobook.title}</h6>
+                <h6 className='card-title'>{audiobook.title}</h6>
               ) : (
-                <h5 className="card-title">{audiobook.title}</h5>
+                <h5 className='card-title'>{audiobook.title}</h5>
               )}
-              <p className="card-text">{audiobook.author}</p>
+              <p className='card-text'>{audiobook.author}</p>
             </div>
           </div>
         );

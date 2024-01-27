@@ -1,6 +1,6 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
-import { useQuery } from "react-query";
-import { HandleFetch } from "../Util/HandleFetch";
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { HandleFetch } from '../Util/HandleFetch';
 
 const AudiobookUserProposedContext = createContext(null);
 
@@ -21,11 +21,11 @@ export const AudiobookUserProposedProvider = ({
     isFetching: isFetchingAudiobookUserProposed,
     refetch: refetchAudiobookUserProposed,
   } = useQuery(
-    "dataAudiobookUserProposed",
+    'dataAudiobookUserProposed',
     () =>
       HandleFetch(
-        "/user/proposed/audiobooks",
-        "GET",
+        '/user/proposed/audiobooks',
+        'GET',
         null,
         token,
         i18n.language

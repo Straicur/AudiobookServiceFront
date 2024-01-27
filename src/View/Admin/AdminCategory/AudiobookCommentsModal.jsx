@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useQuery } from "react-query";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import Modal from "react-bootstrap/Modal";
-import "react-h5-audio-player/lib/styles.css";
-import RenderCommentsList from "../Category/RenderCommentsList";
+import React, { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import Modal from 'react-bootstrap/Modal';
+import 'react-h5-audio-player/lib/styles.css';
+import RenderCommentsList from '../Category/RenderCommentsList';
 
 export default function AudiobookCommentsModal(props) {
   const [state, setState] = useState({
@@ -26,11 +26,11 @@ export default function AudiobookCommentsModal(props) {
     isFetching: isFetchingAudiobookComments,
     refetch: refetchAudiobookComments,
   } = useQuery(
-    "dataAudiobookComments",
+    'dataAudiobookComments',
     () =>
       HandleFetch(
-        "/admin/audiobook/comment/get",
-        "POST",
+        '/admin/audiobook/comment/get',
+        'POST',
         {
           audiobookId: props.state.detailAudiobookElement.id,
         },
@@ -64,15 +64,15 @@ export default function AudiobookCommentsModal(props) {
     <Modal
       show={props.state.detailCommentsAudiobookModal}
       onHide={handleClose}
-      size="lg"
-      backdrop="static"
-      aria-labelledby="contained-modal-title-vcenter"
+      size='lg'
+      backdrop='static'
+      aria-labelledby='contained-modal-title-vcenter'
       centered
     >
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
-        <div className="row d-flex justify-content-center text-center">
-          <h1>{props.t("comments")}</h1>
+        <div className='row d-flex justify-content-center text-center'>
+          <h1>{props.t('comments')}</h1>
         </div>
         <hr></hr>
         <RenderCommentsList

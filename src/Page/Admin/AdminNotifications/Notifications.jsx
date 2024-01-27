@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useTokenStore } from "../../Store/store";
-import { ErrorBoundary } from "react-error-boundary";
-import { ErrorHandlerModal } from "../../Errors/ErrorHandlerModal";
-import NotificationsList from "../../../View/Admin/AdminNotifications/NotificationsList";
-import "./Notifications.css";
+import React, { useState } from 'react';
+import { useTokenStore } from '../../Store/store';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorHandlerModal } from '../../Errors/ErrorHandlerModal';
+import NotificationsList from '../../../View/Admin/AdminNotifications/NotificationsList';
+import './Notifications.css';
 
 export default function Notifications() {
   const token = useTokenStore((state) => state.token);

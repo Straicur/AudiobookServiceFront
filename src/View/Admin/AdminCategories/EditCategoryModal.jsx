@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Util/HandleFetch";
+import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { HandleFetch } from '../../../Util/HandleFetch';
 
 export default function EditCategoryModal(props) {
   const [stateEditButton, setStateEditButton] = useState(true);
 
   const [editModal, setEditModal] = useState({
     edit: 1,
-    new_name: "",
+    new_name: '',
     error: 0,
   });
 
@@ -27,8 +27,8 @@ export default function EditCategoryModal(props) {
 
   const editCategoryName = () => {
     HandleFetch(
-      "/admin/category/edit",
-      "PATCH",
+      '/admin/category/edit',
+      'PATCH',
       {
         name: editModal.new_name,
         categoryId: props.state.editCategoryElement.id,
@@ -49,8 +49,8 @@ export default function EditCategoryModal(props) {
 
   const deleteCategory = () => {
     HandleFetch(
-      "/admin/category/remove",
-      "DELETE",
+      '/admin/category/remove',
+      'DELETE',
       {
         categoryId: props.state.editCategoryElement.id,
       },
@@ -69,8 +69,8 @@ export default function EditCategoryModal(props) {
   };
   const activateCategory = () => {
     HandleFetch(
-      "/admin/category/active",
-      "PATCH",
+      '/admin/category/active',
+      'PATCH',
       {
         categoryId: props.state.editCategoryElement.id,
         active: !props.state.editCategoryElement.active,
@@ -90,7 +90,7 @@ export default function EditCategoryModal(props) {
   };
 
   useEffect(() => {
-    if (editModal.new_name != "") {
+    if (editModal.new_name != '') {
       setStateEditButton(false);
     } else {
       setStateEditButton(true);
@@ -100,91 +100,91 @@ export default function EditCategoryModal(props) {
   return (
     <Modal
       show={props.state.editCategoryModal}
-      backdrop="static"
+      backdrop='static'
       keyboard={false}
     >
       <Modal.Header>
         <Modal.Title>
           <h3>
-            <b>{props.t("editCategory")}</b>
+            <b>{props.t('editCategory')}</b>
           </h3>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {editModal.edit == 1 ? (
-          <div className="row">
-            <h3>{props.t("youChangeName")}</h3>
-            <div className="col">
+          <div className='row'>
+            <h3>{props.t('youChangeName')}</h3>
+            <div className='col'>
               <input
-                id="name"
-                type="text"
-                name="name"
+                id='name'
+                type='text'
+                name='name'
                 value={editModal.new_name}
-                className="form-control mt-2"
+                className='form-control mt-2'
                 onChange={handleNewNameChange}
               />
             </div>
-            <div className="col">
+            <div className='col'>
               <Button
                 disabled={stateEditButton}
-                variant="dark"
-                className="form-control mt-2"
+                variant='dark'
+                className='form-control mt-2'
                 onClick={editCategoryName}
               >
-                {props.t("edit")}
+                {props.t('edit')}
               </Button>
             </div>
           </div>
         ) : null}
         {editModal.edit == 2 ? (
-          <div className="row">
+          <div className='row'>
             <h3>
               {props.state.editCategoryElement.active
-                ? props.t("youDeactivate")
-                : props.t("youActivete")}
+                ? props.t('youDeactivate')
+                : props.t('youActivete')}
             </h3>
 
-            <div className="col">
+            <div className='col'>
               <Button
-                variant="danger"
+                variant='danger'
                 onClick={activateCategory}
-                className="form-control mt-2"
+                className='form-control mt-2'
               >
-                {props.t("yes")}
+                {props.t('yes')}
               </Button>
             </div>
 
-            <div className="col">
+            <div className='col'>
               <Button
-                variant="success"
+                variant='success'
                 onClick={handleClose}
-                className="form-control mt-2"
+                className='form-control mt-2'
               >
-                {props.t("no")}
+                {props.t('no')}
               </Button>
             </div>
           </div>
         ) : null}
         {editModal.edit == 3 ? (
-          <div className="row">
-            <h3>{props.t("youDelete")}</h3>
-            <div className="col">
+          <div className='row'>
+            <h3>{props.t('youDelete')}</h3>
+            <div className='col'>
               <Button
-                variant="danger"
+                variant='danger'
                 onClick={deleteCategory}
-                className="form-control mt-2"
+                className='form-control mt-2'
               >
-                {props.t("yes")}
+                {props.t('yes')}
               </Button>
             </div>
 
-            <div className="col">
+            <div className='col'>
               <Button
-                variant="success"
+                variant='success'
                 onClick={handleClose}
-                className="form-control mt-2"
+                className='form-control mt-2'
               >
-                {props.t("no")}
+                {props.t('no')}
               </Button>
             </div>
           </div>
@@ -192,29 +192,29 @@ export default function EditCategoryModal(props) {
       </Modal.Body>
       <Modal.Footer>
         <Button
-          variant="dark"
+          variant='dark'
           onClick={() => setEditModal({ ...editModal, edit: 1 })}
         >
-          {props.t("editName")}
+          {props.t('editName')}
         </Button>
         <Button
           variant={
-            props.state.editCategoryElement.active ? "danger" : "success"
+            props.state.editCategoryElement.active ? 'danger' : 'success'
           }
           onClick={() => setEditModal({ ...editModal, edit: 2 })}
         >
           {props.state.editCategoryElement.active
-            ? props.t("deActivate")
-            : props.t("activate")}
+            ? props.t('deActivate')
+            : props.t('activate')}
         </Button>
         <Button
-          variant="dark"
+          variant='dark'
           onClick={() => setEditModal({ ...editModal, edit: 3 })}
         >
-          {props.t("delete")}
+          {props.t('delete')}
         </Button>
-        <Button variant="dark" onClick={handleClose}>
-          {props.t("close")}
+        <Button variant='dark' onClick={handleClose}>
+          {props.t('close')}
         </Button>
       </Modal.Footer>
     </Modal>

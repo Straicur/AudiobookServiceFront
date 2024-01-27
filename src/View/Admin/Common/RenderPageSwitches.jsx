@@ -1,4 +1,4 @@
-import Button from "react-bootstrap/Button";
+import Button from 'react-bootstrap/Button';
 
 export default function RenderPageSwitches(props) {
   const nextPage = () => {
@@ -22,32 +22,32 @@ export default function RenderPageSwitches(props) {
   };
 
   return (
-    <div className="row justify-content-center">
-      <div className="col-1 align-self-center">
+    <div className='row justify-content-center'>
+      <div className='col-1 align-self-center'>
         <Button
-          variant="light"
-          size="sm"
-          color="dark"
-          className=" btn button mt-2 rounded_left_button"
+          variant='light'
+          size='sm'
+          color='dark'
+          className=' btn button mt-2 rounded_left_button'
           disabled={props.pageState.page == 0}
           onClick={() => prevPage()}
         >
-          <i className="bi bi-chevron-left"></i>
+          <i className='bi bi-chevron-left'></i>
         </Button>
       </div>
-      <div className="col-1 align-self-center mt-2 fw-bold">
+      <div className='col-1 align-self-center mt-2 fw-bold'>
         {props.pageState.page + 1}/{props.pageState.maxPage}
       </div>
-      <div className="col-1 align-self-center">
+      <div className='col-1 align-self-center'>
         <Button
-          variant="light"
-          size="sm"
-          color="dark"
-          className=" btn button mt-2 rounded_right_button"
+          variant='light'
+          size='sm'
+          color='dark'
+          className=' btn button mt-2 rounded_right_button'
           disabled={props.pageState.page + 1 == props.pageState.maxPage}
           onClick={() => nextPage()}
         >
-          <i className="bi bi-chevron-right"></i>
+          <i className='bi bi-chevron-right'></i>
         </Button>
       </div>
     </div>

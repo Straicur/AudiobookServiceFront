@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../AdminNavBar/AdminNavBar";
-import { useQuery } from "react-query";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { useTranslation } from "react-i18next";
-import Button from "react-bootstrap/Button";
-import JsonModal from "../AdminJsonModal/JsonModal";
-import RenderUsersList from "./RenderUsersList";
-import RenderPageSwitches from "../Common/RenderPageSwitches";
-import DeleteUsersModal from "./DeleteUsersModal";
-import EditUserModal from "./EditUserModal";
-import DeletedUsersModal from "./DeletedUsersModal";
-import SearchUsersOffCanvas from "./SearchUsersOffCanvas";
-import { useLastUserRolesStore } from "../../../Store/store";
+import React, { useEffect, useState } from 'react';
+import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import { useQuery } from 'react-query';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { useTranslation } from 'react-i18next';
+import Button from 'react-bootstrap/Button';
+import JsonModal from '../AdminJsonModal/JsonModal';
+import RenderUsersList from './RenderUsersList';
+import RenderPageSwitches from '../Common/RenderPageSwitches';
+import DeleteUsersModal from './DeleteUsersModal';
+import EditUserModal from './EditUserModal';
+import DeletedUsersModal from './DeletedUsersModal';
+import SearchUsersOffCanvas from './SearchUsersOffCanvas';
+import { useLastUserRolesStore } from '../../../Store/store';
 
 export default function UsersList(props) {
   const { t, i18n } = useTranslation();
@@ -33,10 +33,10 @@ export default function UsersList(props) {
     error: null,
   });
   const [searchState, setSearchState] = useState({
-    email: "",
-    phoneNumber: "",
-    firstname: "",
-    lastname: "",
+    email: '',
+    phoneNumber: '',
+    firstname: '',
+    lastname: '',
     active: null,
     banned: null,
     order: 0,
@@ -50,10 +50,10 @@ export default function UsersList(props) {
 
   const resetSearchStates = () => {
     setSearchState({
-      email: "",
-      phoneNumber: "",
-      firstname: "",
-      lastname: "",
+      email: '',
+      phoneNumber: '',
+      firstname: '',
+      lastname: '',
       active: null,
       banned: null,
       order: 0,
@@ -63,16 +63,16 @@ export default function UsersList(props) {
   const createSearchData = () => {
     let searchJson = {};
 
-    if (searchState.email != "") {
+    if (searchState.email != '') {
       searchJson.email = searchState.email;
     }
-    if (searchState.phoneNumber != "") {
+    if (searchState.phoneNumber != '') {
       searchJson.phoneNumber = searchState.phoneNumber;
     }
-    if (searchState.firstname != "") {
+    if (searchState.firstname != '') {
       searchJson.firstname = searchState.firstname;
     }
-    if (searchState.lastname != "") {
+    if (searchState.lastname != '') {
       searchJson.lastname = searchState.lastname;
     }
     if (searchState.active != null) {
@@ -88,11 +88,11 @@ export default function UsersList(props) {
   };
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
-    "data",
+    'data',
     () =>
       HandleFetch(
-        "/admin/users",
-        "POST",
+        '/admin/users',
+        'POST',
         {
           page: pageState.page,
           limit: pageState.limit,
@@ -140,24 +140,24 @@ export default function UsersList(props) {
   }, [props.usersState.error]);
 
   return (
-    <div className="container-fluid main-container mt-3">
-      <div className="card position-relative p-3 mb-5  shadow">
+    <div className='container-fluid main-container mt-3'>
+      <div className='card position-relative p-3 mb-5  shadow'>
         <AdminNavBar />
-        <hr className="line" />
-        <div className="table-title my-2">
-          <div className="d-flex justify-content-end ">
-            <div className="p-2 bd-highlight">
-              <h2>{t("filters")}</h2>
+        <hr className='line' />
+        <div className='table-title my-2'>
+          <div className='d-flex justify-content-end '>
+            <div className='p-2 bd-highlight'>
+              <h2>{t('filters')}</h2>
             </div>
-            <div className="p-2 bd-highlight">
+            <div className='p-2 bd-highlight'>
               <Button
-                variant="dark"
-                size="sm"
-                color="dark"
-                className=" btn button mt-2"
+                variant='dark'
+                size='sm'
+                color='dark'
+                className=' btn button mt-2'
                 onClick={() => openSearchModal()}
               >
-                {t("search")}
+                {t('search')}
               </Button>
             </div>
           </div>
@@ -182,13 +182,13 @@ export default function UsersList(props) {
             />
           ) : null}
         </div>
-        <div className="row justify-content-md-center">
-          <div className="col-2 d-flex justify-content-center">
+        <div className='row justify-content-md-center'>
+          <div className='col-2 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() =>
                 setState({
                   ...state,
@@ -196,15 +196,15 @@ export default function UsersList(props) {
                 })
               }
             >
-              {t("deleteUserList")}
+              {t('deleteUserList')}
             </Button>
           </div>
-          <div className="col-2 d-flex justify-content-center">
+          <div className='col-2 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() =>
                 setState({
                   ...state,
@@ -212,20 +212,20 @@ export default function UsersList(props) {
                 })
               }
             >
-              {t("deletedUsers")}
+              {t('deletedUsers')}
             </Button>
           </div>
-          <div className="col-2 d-flex justify-content-center">
+          <div className='col-2 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() =>
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("jsonData")}
+              {t('jsonData')}
             </Button>
           </div>
         </div>

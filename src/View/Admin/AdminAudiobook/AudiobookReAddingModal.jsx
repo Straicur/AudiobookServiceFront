@@ -1,18 +1,18 @@
-import React, { useEffect, useState, useRef } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import sha256 from "crypto-js/sha256";
-import { Buffer } from "buffer";
-import ProgressBar from "react-bootstrap/ProgressBar";
-import InputGroup from "react-bootstrap/InputGroup";
-import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
-import Form from "react-bootstrap/Form";
+import React, { useEffect, useState, useRef } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import sha256 from 'crypto-js/sha256';
+import { Buffer } from 'buffer';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import InputGroup from 'react-bootstrap/InputGroup';
+import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
+import Form from 'react-bootstrap/Form';
 
 export default function AudiobookReAddingModal(props) {
   const [stateModal, setStateModal] = useState({
-    author: "",
-    title: "",
+    author: '',
+    title: '',
     modal: 1,
     categories: [],
     file: null,
@@ -41,7 +41,7 @@ export default function AudiobookReAddingModal(props) {
     if (e.target.files) {
       let file = e.target.files[0];
 
-      if (file.type == "application/zip") {
+      if (file.type == 'application/zip') {
         setStateModal({ ...stateModal, file: file });
       }
     }
@@ -92,11 +92,11 @@ export default function AudiobookReAddingModal(props) {
   };
 
   const reAddAudiobook = () => {
-    const url = "/admin/audiobook/reAdding";
-    const method = "PATCH";
+    const url = '/admin/audiobook/reAdding';
+    const method = 'PATCH';
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
-    const fileName = stateModal.title + "_" + stateModal.author;
+    const fileName = stateModal.title + '_' + stateModal.author;
     const hashName = sha256(fileName).toString();
     //todo to jest do rozkminy bo przeszkadza
     // Nie wykonuje się po i nie mogę zmienić stanu
@@ -111,7 +111,7 @@ export default function AudiobookReAddingModal(props) {
         seconds.current = buf.length / 10000;
 
         if (buf.length < CHUNK_SIZE) {
-          let b64 = Buffer.from(buf).toString("base64");
+          let b64 = Buffer.from(buf).toString('base64');
 
           const jsonData = {
             audiobookId: props.audiobookDetail.id,
@@ -140,8 +140,8 @@ export default function AudiobookReAddingModal(props) {
                 Object.keys(data).length !== 0
               ) {
                 setStateModal({
-                  author: "",
-                  title: "",
+                  author: '',
+                  title: '',
                   modal: 3,
                   fileAdded: true,
                   isNextButtonDisabled: false,
@@ -173,7 +173,7 @@ export default function AudiobookReAddingModal(props) {
               currentPart: part,
             });
 
-            let b64 = Buffer.from(arr).toString("base64");
+            let b64 = Buffer.from(arr).toString('base64');
 
             const jsonData = {
               audiobookId: props.audiobookDetail.id,
@@ -196,8 +196,8 @@ export default function AudiobookReAddingModal(props) {
                   Object.keys(data).length !== 0
                 ) {
                   setStateModal({
-                    author: "",
-                    title: "",
+                    author: '',
+                    title: '',
                     modal: 3,
                     fileAdded: true,
                     isNextButtonDisabled: false,
@@ -245,22 +245,22 @@ export default function AudiobookReAddingModal(props) {
   return (
     <Modal
       show={props.audiobookState.reAddingModal}
-      backdrop="static"
+      backdrop='static'
       keyboard={false}
       centered
     >
       <Modal.Header>
         <Modal.Title>
           <h3>
-            <b>{props.t("reAdding")}</b>
+            <b>{props.t('reAdding')}</b>
           </h3>
         </Modal.Title>
       </Modal.Header>
       {stateModal.modal == 1 ? (
         <Modal.Body>
-          <InputGroup className="mb-1 input_modal py-1 ">
-            <InputGroup.Text className="input-group-text-new text-light">
-              {props.t("title")}
+          <InputGroup className='mb-1 input_modal py-1 '>
+            <InputGroup.Text className='input-group-text-new text-light'>
+              {props.t('title')}
             </InputGroup.Text>
             <Form.Control
               value={stateModal.title}
@@ -269,9 +269,9 @@ export default function AudiobookReAddingModal(props) {
               }}
             />
           </InputGroup>
-          <InputGroup className="mb-1 input_modal py-1 ">
-            <InputGroup.Text className="input-group-text-new text-light">
-              {props.t("author")}
+          <InputGroup className='mb-1 input_modal py-1 '>
+            <InputGroup.Text className='input-group-text-new text-light'>
+              {props.t('author')}
             </InputGroup.Text>
             <Form.Control
               value={stateModal.author}
@@ -280,21 +280,21 @@ export default function AudiobookReAddingModal(props) {
               }}
             />
           </InputGroup>
-          <InputGroup className="mb-1 input_modal py-1 ">
-            <InputGroup.Text className="input-group-text-new text-light">
-              {props.t("categories")}
+          <InputGroup className='mb-1 input_modal py-1 '>
+            <InputGroup.Text className='input-group-text-new text-light'>
+              {props.t('categories')}
             </InputGroup.Text>
             <DropdownMultiselect
-              placeholder={props.t("selectCategories")}
-              placeholderMultipleChecked={props.t("slectedMultiCategories")}
-              selectDeselectLabel={props.t("slectedAll")}
+              placeholder={props.t('selectCategories')}
+              placeholderMultipleChecked={props.t('slectedMultiCategories')}
+              selectDeselectLabel={props.t('slectedAll')}
               options={generateCategoriesList()}
-              name="countries"
+              name='countries'
               handleOnChange={(e) => {
                 changeCategories(e);
               }}
               selected={stateModal.categories}
-              className={"dropdown_multiselect"}
+              className={'dropdown_multiselect'}
             />
           </InputGroup>
         </Modal.Body>
@@ -303,7 +303,7 @@ export default function AudiobookReAddingModal(props) {
           {stateModal.modal == 3 ? (
             <ProgressBar
               animated
-              variant="info"
+              variant='info'
               max={stateProgress.maxParts}
               now={
                 stateProgress.maxParts == 1
@@ -313,10 +313,10 @@ export default function AudiobookReAddingModal(props) {
             />
           ) : (
             <input
-              id="name"
-              type="file"
-              name="name"
-              className="form-control mt-2"
+              id='name'
+              type='file'
+              name='name'
+              className='form-control mt-2'
               onChange={handleOnFileChange}
             />
           )}
@@ -324,44 +324,44 @@ export default function AudiobookReAddingModal(props) {
       )}
       {stateModal.modal == 1 ? (
         <Modal.Footer>
-          <Button variant="dark" onClick={handleClose}>
-            {props.t("close")}
+          <Button variant='dark' onClick={handleClose}>
+            {props.t('close')}
           </Button>
           <Button
             disabled={stateModal.isNextButtonDisabled}
-            variant="dark"
+            variant='dark'
             onClick={nextPage}
           >
-            {props.t("save")}
+            {props.t('save')}
           </Button>
         </Modal.Footer>
       ) : (
         <Modal.Footer>
           {stateModal.upload == false ? (
             <div>
-              <Button variant="dark" onClick={handleBack}>
-                {props.t("back")}
+              <Button variant='dark' onClick={handleBack}>
+                {props.t('back')}
               </Button>
               <Button
                 disabled={!stateModal.file}
-                variant="dark"
+                variant='dark'
                 onClick={() => {
                   reAddAudiobook();
                 }}
               >
-                {props.t("upload")}
+                {props.t('upload')}
               </Button>
             </div>
           ) : (
             <div>
               <Button
                 disabled={stateModal.uploadEnded}
-                variant="dark"
+                variant='dark'
                 onClick={() => {
                   handleCloseAndUpdate();
                 }}
               >
-                {props.t("close")}
+                {props.t('close')}
               </Button>
             </div>
           )}

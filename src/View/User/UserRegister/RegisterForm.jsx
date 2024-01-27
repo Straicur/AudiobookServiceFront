@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import md5 from "md5";
-import { RegisterNotificationModal } from "./RegisterNotificationModal";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import ProgressBar from "react-bootstrap/ProgressBar";
+import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import md5 from 'md5';
+import { RegisterNotificationModal } from './RegisterNotificationModal';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import {
   validateEmail,
   validatePassword,
@@ -22,7 +22,7 @@ import {
   getPasswordStrenghtProgressColor,
   handleParentalControl,
   handleBirthdayDate
-} from "./Events";
+} from './Events';
 
 export default function RegisterForm(props) {
   const { t, i18n } = useTranslation();
@@ -48,7 +48,7 @@ export default function RegisterForm(props) {
       validateEmail(props.state.email) &&
       validatePassword(props.state.password)
     ) {
-      const url = "/register";
+      const url = '/register';
       const jsonData = {
         email: props.state.email,
         phoneNumber: props.state.phoneNumber,
@@ -58,14 +58,14 @@ export default function RegisterForm(props) {
       };
 
       if (props.state.parentalControl) {
-        jsonData.additionalData = { "birthday": CreateJsonFormatDate(props.state.birthdayDate) }
+        jsonData.additionalData = { 'birthday': CreateJsonFormatDate(props.state.birthdayDate) }
       }
 
-      const method = "PUT";
+      const method = 'PUT';
 
       HandleFetch(url, method, jsonData, null, i18n.language)
         .then((data) => {
-          console.log("data")
+          console.log('data')
           setFormState({
             ...formState,
             modal: true,
@@ -87,59 +87,59 @@ export default function RegisterForm(props) {
   }, [props.state.error]);
 
   return (
-    <section className="vh-100">
-      <div className="container py-5 h-100">
-        <div className="row d-flex justify-content-center align-items-center h-100">
-          <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div className="card rounded-auth">
-              <div className="card-body p-5 text-center">
-                <div className="mt-md-1 pb-2">
+    <section className='vh-100'>
+      <div className='container py-5 h-100'>
+        <div className='row d-flex justify-content-center align-items-center h-100'>
+          <div className='col-12 col-md-8 col-lg-6 col-xl-5'>
+            <div className='card rounded-auth'>
+              <div className='card-body p-5 text-center'>
+                <div className='mt-md-1 pb-2'>
                   <div>
                     <Button
-                      name="pl"
-                      size="sm"
+                      name='pl'
+                      size='sm'
                       className={
-                        i18n.language == "pl"
-                          ? "btn  m-1 admin_button_dark"
-                          : "btn  m-1 admin_button_light"
+                        i18n.language == 'pl'
+                          ? 'btn  m-1 admin_button_dark'
+                          : 'btn  m-1 admin_button_light'
                       }
-                      onClick={() => i18n.changeLanguage("pl")}
+                      onClick={() => i18n.changeLanguage('pl')}
                     >
                       PL
                     </Button>
                     <Button
-                      name="en"
-                      size="sm"
+                      name='en'
+                      size='sm'
                       className={
-                        i18n.language == "en"
-                          ? "btn  m-1 admin_button_dark"
-                          : "btn  m-1 admin_button_light"
+                        i18n.language == 'en'
+                          ? 'btn  m-1 admin_button_dark'
+                          : 'btn  m-1 admin_button_light'
                       }
-                      onClick={() => i18n.changeLanguage("en")}
+                      onClick={() => i18n.changeLanguage('en')}
                     >
                       EN
                     </Button>
                   </div>
-                  <hr className="line" />
-                  <p className="mb-4 fs-5">{t("pleaseEmailAndPassword")}</p>
+                  <hr className='line' />
+                  <p className='mb-4 fs-5'>{t('pleaseEmailAndPassword')}</p>
                   <Form
                     noValidate
                     validated={props.state.validated}
                     onSubmit={handleRegister}
-                    autoComplete="off"
+                    autoComplete='off'
                   >
-                    <Row className="mb-3">
+                    <Row className='mb-3'>
                       <Form.Group
-                        controlId="validationCustom01"
-                        className="form-outline form-white mb-4"
+                        controlId='validationCustom01'
+                        className='form-outline form-white mb-4'
                       >
                         <Form.Control
                           required
-                          type="email"
-                          name="email"
-                          placeholder={t("insertEmail")}
+                          type='email'
+                          name='email'
+                          placeholder={t('insertEmail')}
                           value={props.state.email}
-                          className="form-control form-control-lg"
+                          className='form-control form-control-lg'
                           isValid={
                             props.state.email.length > 1 &&
                             validateEmail(props.state.email)
@@ -156,23 +156,23 @@ export default function RegisterForm(props) {
                             )
                           }
                         />
-                        <Form.Control.Feedback type="invalid">
-                          {t("enterValidEmail")}
+                        <Form.Control.Feedback type='invalid'>
+                          {t('enterValidEmail')}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
-                    <Row className="mb-1">
+                    <Row className='mb-1'>
                       <Form.Group
-                        controlId="validationCustom02"
-                        className="form-outline form-white mb-4"
+                        controlId='validationCustom02'
+                        className='form-outline form-white mb-4'
                       >
                         <Form.Control
                           required
-                          type="password"
-                          name="Password"
-                          placeholder={t("insertPassword")}
+                          type='password'
+                          name='Password'
+                          placeholder={t('insertPassword')}
                           value={props.state.password}
-                          className="form-control form-control-lg "
+                          className='form-control form-control-lg '
                           isValid={
                             props.state.password.length > 1 &&
                             validatePassword(props.state.password) &&
@@ -193,14 +193,14 @@ export default function RegisterForm(props) {
                             )
                           }
                         />
-                        <Form.Control.Feedback type="invalid">
-                          <div>{t("enterValidPassword")}</div>
-                          <div>{t("validPasswordSchema")}</div>
+                        <Form.Control.Feedback type='invalid'>
+                          <div>{t('enterValidPassword')}</div>
+                          <div>{t('validPasswordSchema')}</div>
                         </Form.Control.Feedback>
                         {props.state.password.length >= 1 ? (
                           <div>
                             <ProgressBar
-                              className="mt-3"
+                              className='mt-3'
                               variant={getPasswordStrenghtProgressColor(
                                 props.state.passwordStrength
                               )}
@@ -214,18 +214,18 @@ export default function RegisterForm(props) {
                         ) : null}
                       </Form.Group>
                     </Row>
-                    <Row className="mb-3">
+                    <Row className='mb-3'>
                       <Form.Group
-                        controlId="validationCustom03"
-                        className="form-outline form-white mb-4"
+                        controlId='validationCustom03'
+                        className='form-outline form-white mb-4'
                       >
                         <Form.Control
                           required
-                          type="password"
-                          name="passwordConfirm"
-                          placeholder={t("insertPasswordConfirm")}
+                          type='password'
+                          name='passwordConfirm'
+                          placeholder={t('insertPasswordConfirm')}
                           value={props.state.confirmPassword}
-                          className="form-control form-control-lg "
+                          className='form-control form-control-lg '
                           isValid={
                             props.state.confirmPassword.length > 1 &&
                             validatePassword(props.state.confirmPassword) &&
@@ -246,23 +246,23 @@ export default function RegisterForm(props) {
                             )
                           }
                         />
-                        <Form.Control.Feedback type="invalid">
-                          {t("enterValidConfirmPassword")}
+                        <Form.Control.Feedback type='invalid'>
+                          {t('enterValidConfirmPassword')}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
-                    <Row className="mb-3">
+                    <Row className='mb-3'>
                       <Form.Group
-                        controlId="validationCustom04"
-                        className="form-outline form-white mb-4"
+                        controlId='validationCustom04'
+                        className='form-outline form-white mb-4'
                       >
                         <Form.Control
                           required
-                          type="phoneNumber"
-                          name="phoneNumber"
-                          placeholder={t("insertPhone")}
+                          type='phoneNumber'
+                          name='phoneNumber'
+                          placeholder={t('insertPhone')}
                           value={props.state.phoneNumber}
-                          className="form-control form-control-lg "
+                          className='form-control form-control-lg '
                           isValid={
                             props.state.phoneNumber.length > 1 &&
                             validatePhoneNumber(props.state.phoneNumber)
@@ -279,23 +279,23 @@ export default function RegisterForm(props) {
                             )
                           }
                         />
-                        <Form.Control.Feedback type="invalid">
-                          {t("enterValidPhoneNumber")}
+                        <Form.Control.Feedback type='invalid'>
+                          {t('enterValidPhoneNumber')}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
-                    <Row className="mb-3">
+                    <Row className='mb-3'>
                       <Form.Group
-                        controlId="validationCustom05"
-                        className="form-outline form-white mb-4"
+                        controlId='validationCustom05'
+                        className='form-outline form-white mb-4'
                       >
                         <Form.Control
                           required
-                          type="firstname"
-                          name="firstname"
-                          placeholder={t("insertFirstname")}
+                          type='firstname'
+                          name='firstname'
+                          placeholder={t('insertFirstname')}
                           value={props.state.firstname}
-                          className="form-control form-control-lg "
+                          className='form-control form-control-lg '
                           isValid={props.state.firstname.length > 3}
                           isInvalid={
                             props.state.firstname.length > 1 &&
@@ -305,22 +305,22 @@ export default function RegisterForm(props) {
                             handleFirstname(event, props.state, props.setState)
                           }
                         />
-                        <Form.Control.Feedback type="invalid">
-                          {t("enterValidFirstName")}
+                        <Form.Control.Feedback type='invalid'>
+                          {t('enterValidFirstName')}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
-                    <Row className="mb-1">
+                    <Row className='mb-1'>
                       <Form.Group
-                        controlId="validationCustom06"
-                        className="form-outline form-white mb-4"
+                        controlId='validationCustom06'
+                        className='form-outline form-white mb-4'
                       >
                         <Form.Control
-                          type="lastname"
-                          name="lastname"
-                          placeholder={t("insertLastname")}
+                          type='lastname'
+                          name='lastname'
+                          placeholder={t('insertLastname')}
                           value={props.state.lastname}
-                          className="form-control form-control-lg "
+                          className='form-control form-control-lg '
                           isValid={props.state.lastname.length > 3}
                           isInvalid={
                             props.state.lastname.length > 1 &&
@@ -330,37 +330,37 @@ export default function RegisterForm(props) {
                             handleLastname(event, props.state, props.setState)
                           }
                         />
-                        <Form.Control.Feedback type="invalid">
-                          {t("enterValidLastName")}
+                        <Form.Control.Feedback type='invalid'>
+                          {t('enterValidLastName')}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
-                    <Row className="mb-3">
+                    <Row className='mb-3'>
                       <Form.Group
-                        controlId="validationCustom06"
-                        className="form-outline form-white mb-3"
+                        controlId='validationCustom06'
+                        className='form-outline form-white mb-3'
                       >
                         <Form.Check
-                          type="switch"
-                          className="text-start"
+                          type='switch'
+                          className='text-start'
                           checked={props.state.parentalControl}
-                          label={t("addparentalControlYear")}
+                          label={t('addparentalControlYear')}
                           onChange={() =>
                             handleParentalControl(props.state, props.setState)
                           }
                         />
                         {props.state.parentalControl ? (
                           <div>
-                            <p className="fs-5 mt-1">{t("enterBirthday")}</p>
+                            <p className='fs-5 mt-1'>{t('enterBirthday')}</p>
                             <Form.Control
-                              type="date"
+                              type='date'
                               value={props.state.birthdayDate}
                               onChange={(event) =>
                                 handleBirthdayDate(event, props.state, props.setState)
                               }
                             />
-                            <Form.Control.Feedback type="invalid">
-                              {t("enterValidLastName")}
+                            <Form.Control.Feedback type='invalid'>
+                              {t('enterValidLastName')}
                             </Form.Control.Feedback>
                           </div>
                         ) : null}
@@ -368,22 +368,22 @@ export default function RegisterForm(props) {
                     </Row>
                     <hr></hr>
                     <Button
-                      variant="dark"
-                      size="lg"
-                      className="btn auth-btn px-5 form-control"
-                      type="submit"
+                      variant='dark'
+                      size='lg'
+                      className='btn auth-btn px-5 form-control'
+                      type='submit'
                       disabled={props.state.isButtonDisabled}
                     >
-                      {t("register")}
+                      {t('register')}
                     </Button>
 
-                    <p className="mt-4 small pb-lg-2 fw-bold mb-0">
-                      {t("haveAccount")}{" "}
+                    <p className='mt-4 small pb-lg-2 fw-bold mb-0'>
+                      {t('haveAccount')}{' '}
                       <a
-                        onClick={() => navigate("/login")}
-                        className="link-info"
+                        onClick={() => navigate('/login')}
+                        className='link-info'
                       >
-                        {t("loginToAccount")}
+                        {t('loginToAccount')}
                       </a>
                     </p>
                   </Form>

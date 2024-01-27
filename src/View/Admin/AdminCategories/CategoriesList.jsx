@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../AdminNavBar/AdminNavBar";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { useTranslation } from "react-i18next";
-import Button from "react-bootstrap/Button";
-import { useCategoryTreeListStore } from "../../../Store/store";
-import RenderCategoriesList from "./RenderCategoriesList";
-import JsonModal from "../AdminJsonModal/JsonModal";
-import AddCategoryModal from "./AddCategoryModal";
-import EditCategoryModal from "./EditCategoryModal";
+import React, { useEffect, useState } from 'react';
+import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { useTranslation } from 'react-i18next';
+import Button from 'react-bootstrap/Button';
+import { useCategoryTreeListStore } from '../../../Store/store';
+import RenderCategoriesList from './RenderCategoriesList';
+import JsonModal from '../AdminJsonModal/JsonModal';
+import AddCategoryModal from './AddCategoryModal';
+import EditCategoryModal from './EditCategoryModal';
 
 export default function CategoriesList(props) {
   const { t, i18n } = useTranslation();
@@ -30,8 +30,8 @@ export default function CategoriesList(props) {
 
   const fetchCategories = () => {
     HandleFetch(
-      "/admin/categories/tree",
-      "GET",
+      '/admin/categories/tree',
+      'GET',
       null,
       props.token,
       i18n.language
@@ -77,12 +77,12 @@ export default function CategoriesList(props) {
   }, [props.categoiesState.error]);
 
   return (
-    <div className="container-fluid main-container mt-3">
-      <div className="card position-relative p-3 mb-5  shadow">
+    <div className='container-fluid main-container mt-3'>
+      <div className='card position-relative p-3 mb-5  shadow'>
         <AdminNavBar />
-        <hr className="line" />
-        <div className="table-title my-2">
-          <h1>{t("categories")}</h1>
+        <hr className='line' />
+        <div className='table-title my-2'>
+          <h1>{t('categories')}</h1>
         </div>
         <RenderCategoriesList
           state={state}
@@ -92,13 +92,13 @@ export default function CategoriesList(props) {
           setCategoriesState={props.setCategoiesState}
           t={t}
         />
-        <div className="row justify-content-md-center">
-          <div className="col-3 d-flex justify-content-center">
+        <div className='row justify-content-md-center'>
+          <div className='col-3 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() =>
                 setState({
                   ...state,
@@ -106,20 +106,20 @@ export default function CategoriesList(props) {
                 })
               }
             >
-              {t("addMainCategory")}
+              {t('addMainCategory')}
             </Button>
           </div>
-          <div className="col-3 d-flex justify-content-center">
+          <div className='col-3 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() =>
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("jsonData")}
+              {t('jsonData')}
             </Button>
           </div>
           {state.jsonModal ? (

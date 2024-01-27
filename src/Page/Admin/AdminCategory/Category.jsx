@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useTokenStore } from "../../../Store/store";
-import { ErrorBoundary } from "react-error-boundary";
-import { ErrorHandlerModal } from "../../../Errors/ErrorHandlerModal";
-import AudiobooksList from "../../../View/Admin/AdminCategory/AudiobooksList";
-import { useParams } from "react-router-dom";
-import "./Category.css";
+import React, { useState } from 'react';
+import { useTokenStore } from '../../../Store/store';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
+import AudiobooksList from '../../../View/Admin/AdminCategory/AudiobooksList';
+import { useParams } from 'react-router-dom';
+import './Category.css';
 
 export default function Category() {
   const token = useTokenStore((state) => state.token);
@@ -12,8 +12,8 @@ export default function Category() {
   const { categoryKey } = useParams();
 
   const [audiobooksState, setAudiobooksState] = useState({
-    errorPart: "",
-    errorCover: "",
+    errorPart: '',
+    errorCover: '',
     error: null,
   });
 

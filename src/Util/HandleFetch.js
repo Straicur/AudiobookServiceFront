@@ -1,8 +1,8 @@
-import DataNotFoundError from "../Errors/Errors/DataNotFoundError";
-import AuthenticationError from "../Errors/Errors/AuthenticationError";
-import InvalidJsonDataError from "../Errors/Errors/InvalidJsonDataError";
-import ServiceUnaviableError from "../Errors/Errors/ServiceUnaviableError";
-import PermissionError from "../Errors/Errors/PermissionError";
+import DataNotFoundError from '../Errors/Errors/DataNotFoundError';
+import AuthenticationError from '../Errors/Errors/AuthenticationError';
+import InvalidJsonDataError from '../Errors/Errors/InvalidJsonDataError';
+import ServiceUnaviableError from '../Errors/Errors/ServiceUnaviableError';
+import PermissionError from '../Errors/Errors/PermissionError';
 
 export const HandleFetch = async (
   url,
@@ -12,10 +12,10 @@ export const HandleFetch = async (
   language = null,
   headers = {}
 ) => {
-  headers["Content-Type"] = "application/json";
+  headers['Content-Type'] = 'application/json';
   
   if (language != null) {
-    headers["Accept-Language"] = language;
+    headers['Accept-Language'] = language;
   } 
 
   if (token != null) {
@@ -31,16 +31,16 @@ export const HandleFetch = async (
     content.body = JSON.stringify(jsonData);
   }
 
-  url = process.env.REACT_APP_API_URL + "/api" + url;
+  url = process.env.REACT_APP_API_URL + '/api' + url;
 
   const response = await fetch(url, content);
 
   if (response.ok) {
     if (
-      response.headers.has("content-length") &&
-      parseInt(response.headers.get("content-length")) != 0
+      response.headers.has('content-length') &&
+      parseInt(response.headers.get('content-length')) != 0
     ) {
-      if (response.headers.get("content-type") != "application/json") {
+      if (response.headers.get('content-type') != 'application/json') {
         return response.blob();
       }
       return response.json();

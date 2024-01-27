@@ -1,12 +1,12 @@
 function validateEmail(email) {
   const re =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    /^(([^<>()[\]\\.,;:\s@\']+(\.[^<>()[\]\\.,;:\s@\']+)*)|(\'.+\'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 }
 
 function validatePassword(pass) {
   const re =
-    /(?=.*[A-Z])(?=.*[a-z])(?=.*[\d]).{7,}|(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=.*[\d]).{7,}/g;
+    /(?=.*[A-Z])(?=.*[a-z])(?=.*[\d]).{7,}|(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;''<>,./?])(?=.*[a-z])(?=.*[\d]).{7,}/g;
   return re.test(pass);
 }
 
@@ -15,32 +15,32 @@ function validateBirthday(state){
     return true;
   }
   
-  return (state.parentalControl && state.birthdayDate != "")
+  return (state.parentalControl && state.birthdayDate != '')
 }
 
 function getPasswordStrenghtText(t, passStr) {
   switch (passStr) {
     case 10:
-      return <p className="text-center text-danger">{t("weakPassword")}</p>;
+      return <p className='text-center text-danger'>{t('weakPassword')}</p>;
     case 25:
-      return <p className="text-center text-warning">{t("moderatePassword")}</p>;
+      return <p className='text-center text-warning'>{t('moderatePassword')}</p>;
     case 50:
-      return <p className="text-center text-success">{t("strongPassword")}</p>;
+      return <p className='text-center text-success'>{t('strongPassword')}</p>;
     case 100:
-      return <p className="text-center text-info">{t("extraStrongPassword")}</p>;
+      return <p className='text-center text-info'>{t('extraStrongPassword')}</p>;
   }
 }
 
 function getPasswordStrenghtProgressColor(passStr) {
   switch (passStr) {
     case 10:
-      return "danger";
+      return 'danger';
     case 25:
-      return "warning";
+      return 'warning';
     case 50:
-      return "success";
+      return 'success';
     case 100:
-      return "info";
+      return 'info';
   }
 }
 

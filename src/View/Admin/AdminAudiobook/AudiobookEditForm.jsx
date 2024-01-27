@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import InputGroup from "react-bootstrap/InputGroup";
-import Form from "react-bootstrap/Form";
-import Dropdown from "react-bootstrap/Dropdown";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import Alert from "react-bootstrap/Alert";
-import CreateUtil from "Util/CreateUtil";
+import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import Alert from 'react-bootstrap/Alert';
+import CreateUtil from 'Util/CreateUtil';
 
 export default function AudiobookEditForm(props) {
   const [wrongState, setWrongState] = useState(0);
 
   const editAudiobookData = () => {
-    let myDate = props.audiobookDetail.duration.split(":");
+    let myDate = props.audiobookDetail.duration.split(':');
 
     let hours = parseInt(myDate[0] * 60 * 60);
     let minutes = parseInt(myDate[1] * 60);
     let seconds = parseInt(myDate[2]);
 
     HandleFetch(
-      "/admin/audiobook/edit",
-      "PATCH",
+      '/admin/audiobook/edit',
+      'PATCH',
       {
         audiobookId: props.audiobookDetail.id,
         title: props.audiobookDetail.title,
@@ -60,7 +60,7 @@ export default function AudiobookEditForm(props) {
   };
   const handlePartsChange = (event) => {
     let value = event.target.value;
-    if (value == "") {
+    if (value == '') {
       value = 0;
     }
 
@@ -163,23 +163,23 @@ export default function AudiobookEditForm(props) {
   const returnFormError = () => {
     switch (wrongState) {
       case 1:
-        return props.t("enterValidTitle");
+        return props.t('enterValidTitle');
       case 2:
-        return props.t("enterValidAuthor");
+        return props.t('enterValidAuthor');
       case 3:
-        return props.t("enterValidAlbum");
+        return props.t('enterValidAlbum');
       case 4:
-        return props.t("enterValidYear");
+        return props.t('enterValidYear');
       case 5:
-        return props.t("enterValidPart");
+        return props.t('enterValidPart');
       case 6:
-        return props.t("enterValidDuration");
+        return props.t('enterValidDuration');
       case 7:
-        return props.t("enterValidEncoded");
+        return props.t('enterValidEncoded');
       case 8:
-        return props.t("enterValidSize");
+        return props.t('enterValidSize');
       case 9:
-        return props.t("enterValidVersion");
+        return props.t('enterValidVersion');
     }
   };
 
@@ -190,15 +190,15 @@ export default function AudiobookEditForm(props) {
   }, [props.audiobookDetail]);
 
   return (
-    <div className="row ">
-      <div className="row text-light">
-        <InputGroup className="mb-1 input_modal">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("title")}
+    <div className='row '>
+      <div className='row text-light'>
+        <InputGroup className='mb-1 input_modal'>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('title')}
           </InputGroup.Text>
           <Form.Control
             value={
-              props.audiobookDetail != null ? props.audiobookDetail.title : ""
+              props.audiobookDetail != null ? props.audiobookDetail.title : ''
             }
             onChange={(event) => {
               handleTitleChange(event);
@@ -206,14 +206,14 @@ export default function AudiobookEditForm(props) {
           />
         </InputGroup>
       </div>
-      <div className="row text-light">
-        <InputGroup className="mb-1 input_modal">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("author")}
+      <div className='row text-light'>
+        <InputGroup className='mb-1 input_modal'>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('author')}
           </InputGroup.Text>
           <Form.Control
             value={
-              props.audiobookDetail != null ? props.audiobookDetail.author : ""
+              props.audiobookDetail != null ? props.audiobookDetail.author : ''
             }
             onChange={(event) => {
               handleAuthorChange(event);
@@ -221,14 +221,14 @@ export default function AudiobookEditForm(props) {
           />
         </InputGroup>
       </div>
-      <div className="row text-light">
-        <InputGroup className="mb-1 input_modal">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("album")}
+      <div className='row text-light'>
+        <InputGroup className='mb-1 input_modal'>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('album')}
           </InputGroup.Text>
           <Form.Control
             value={
-              props.audiobookDetail != null ? props.audiobookDetail.album : ""
+              props.audiobookDetail != null ? props.audiobookDetail.album : ''
             }
             onChange={(event) => {
               handleAlbumChange(event);
@@ -236,15 +236,15 @@ export default function AudiobookEditForm(props) {
           />
         </InputGroup>
       </div>
-      <div className="row text-light">
-        <InputGroup className="mb-1 input_modal">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("year")}
+      <div className='row text-light'>
+        <InputGroup className='mb-1 input_modal'>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('year')}
           </InputGroup.Text>
           <Form.Control
-            type="date"
+            type='date'
             value={
-              props.audiobookDetail != null ? props.audiobookDetail.year : ""
+              props.audiobookDetail != null ? props.audiobookDetail.year : ''
             }
             onChange={(event) => {
               handleYearChange(event);
@@ -252,15 +252,15 @@ export default function AudiobookEditForm(props) {
           />
         </InputGroup>
       </div>
-      <div className="row text-light">
-        <InputGroup className="mb-1 input_modal">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("parts")}
+      <div className='row text-light'>
+        <InputGroup className='mb-1 input_modal'>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('parts')}
           </InputGroup.Text>
           <Form.Control
-            type="number"
+            type='number'
             value={
-              props.audiobookDetail != null ? props.audiobookDetail.parts : ""
+              props.audiobookDetail != null ? props.audiobookDetail.parts : ''
             }
             onChange={(event) => {
               handlePartsChange(event);
@@ -268,16 +268,16 @@ export default function AudiobookEditForm(props) {
           />
         </InputGroup>
       </div>
-      <div className="row text-light">
-        <InputGroup className="mb-1 input_modal">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("duration")}
+      <div className='row text-light'>
+        <InputGroup className='mb-1 input_modal'>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('duration')}
           </InputGroup.Text>
           <Form.Control
             value={
               props.audiobookDetail != null
                 ? props.audiobookDetail.duration
-                : ""
+                : ''
             }
             onChange={(event) => {
               handleDurationChange(event);
@@ -285,18 +285,18 @@ export default function AudiobookEditForm(props) {
           />
         </InputGroup>
       </div>
-      <div className="row text-light">
-        <InputGroup className="mb-1 input_modal">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("description")}
+      <div className='row text-light'>
+        <InputGroup className='mb-1 input_modal'>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('description')}
           </InputGroup.Text>
           <Form.Control
-            as="textarea"
+            as='textarea'
             rows={4}
             value={
               props.audiobookDetail != null
                 ? props.audiobookDetail.description
-                : ""
+                : ''
             }
             onChange={(event) => {
               handleDescriptionChange(event);
@@ -304,18 +304,18 @@ export default function AudiobookEditForm(props) {
           />
         </InputGroup>
       </div>
-      <div className="row text-light">
-        <InputGroup className="mb-1 input_modal">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("encoded")}
+      <div className='row text-light'>
+        <InputGroup className='mb-1 input_modal'>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('encoded')}
           </InputGroup.Text>
           <Form.Control
             value={
               props.audiobookDetail != null
                 ? props.audiobookDetail.encoded != undefined
                   ? props.audiobookDetail.encoded
-                  : ""
-                : ""
+                  : ''
+                : ''
             }
             onChange={(event) => {
               handleEncodedChange(event);
@@ -323,14 +323,14 @@ export default function AudiobookEditForm(props) {
           />
         </InputGroup>
       </div>
-      <div className="row text-light">
-        <InputGroup className="mb-1 input_modal">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("size")}
+      <div className='row text-light'>
+        <InputGroup className='mb-1 input_modal'>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('size')}
           </InputGroup.Text>
           <Form.Control
             value={
-              props.audiobookDetail != null ? props.audiobookDetail.size : ""
+              props.audiobookDetail != null ? props.audiobookDetail.size : ''
             }
             onChange={(event) => {
               handleSizeChange(event);
@@ -338,17 +338,17 @@ export default function AudiobookEditForm(props) {
           />
         </InputGroup>
       </div>
-      <div className="row text-light  justify-content-between">
-        <div className="col-8 input_modal me-auto">
-          <InputGroup className="mb-1">
-            <InputGroup.Text className="input-group-text-new text-light">
-              {props.t("version")}
+      <div className='row text-light  justify-content-between'>
+        <div className='col-8 input_modal me-auto'>
+          <InputGroup className='mb-1'>
+            <InputGroup.Text className='input-group-text-new text-light'>
+              {props.t('version')}
             </InputGroup.Text>
             <Form.Control
               value={
                 props.audiobookDetail != null
                   ? props.audiobookDetail.version
-                  : ""
+                  : ''
               }
               onChange={(event) => {
                 handleVersionChange(event);
@@ -356,15 +356,15 @@ export default function AudiobookEditForm(props) {
             />
           </InputGroup>
         </div>
-        <div className="col-auto input_modal">
-          <InputGroup className="mb-1">
+        <div className='col-auto input_modal'>
+          <InputGroup className='mb-1'>
             <Dropdown onSelect={(event) => handleAgeChange(event)}>
               <Dropdown.Toggle
-                className=" text-start"
-                variant="success"
-                id="dropdown-basic"
+                className=' text-start'
+                variant='success'
+                id='dropdown-basic'
               >
-                {props.t("age")}
+                {props.t('age')}
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
@@ -412,18 +412,18 @@ export default function AudiobookEditForm(props) {
                   </Dropdown.Item>
                 ) : null}
               </Dropdown.Menu>
-              <InputGroup.Text id="inputGroup-sizing-default">
+              <InputGroup.Text id='inputGroup-sizing-default'>
                 {props.audiobookDetail != null
                   ? props.audiobookDetail.age == 1
-                    ? "3-7"
+                    ? '3-7'
                     : props.audiobookDetail.age == 2
-                    ? "7-12"
+                    ? '7-12'
                     : props.audiobookDetail.age == 3
-                    ? "12-16"
+                    ? '12-16'
                     : props.audiobookDetail.age == 4
-                    ? "16-18"
+                    ? '16-18'
                     : props.audiobookDetail.age == 5
-                    ? "18+"
+                    ? '18+'
                     : null
                   : null}
               </InputGroup.Text>
@@ -431,35 +431,35 @@ export default function AudiobookEditForm(props) {
           </InputGroup>
         </div>
       </div>
-      <div className="row me-0 input_modal">
+      <div className='row me-0 input_modal'>
         <div>
           <Alert
             show={wrongState != 0}
-            className="dangerAllert mt-1 text-center"
-            variant="danger"
+            className='dangerAllert mt-1 text-center'
+            variant='danger'
           >
             {returnFormError()}
           </Alert>
         </div>
       </div>
       {props.audiobookState.edit ? (
-        <div className="row justify-content-center mt-2 mb-1">
-          <div className="col-3">
+        <div className='row justify-content-center mt-2 mb-1'>
+          <div className='col-3'>
             <Button
-              name="en"
-              size="sm"
+              name='en'
+              size='sm'
               disabled={wrongState != 0}
-              className="btn button px-4 mt-3  mb-1 question_button success_button"
+              className='btn button px-4 mt-3  mb-1 question_button success_button'
               onClick={editAudiobookData}
             >
-              {props.t("yes")}
+              {props.t('yes')}
             </Button>
           </div>
-          <div className="col-3">
+          <div className='col-3'>
             <Button
-              name="en"
-              size="sm"
-              className="btn button px-4 mt-3  mb-1 question_button danger_button me-2"
+              name='en'
+              size='sm'
+              className='btn button px-4 mt-3  mb-1 question_button danger_button me-2'
               onClick={() =>
                 props.setAudiobookState({
                   ...props.audiobookState,
@@ -467,17 +467,17 @@ export default function AudiobookEditForm(props) {
                 })
               }
             >
-              {props.t("no")}
+              {props.t('no')}
             </Button>
           </div>
         </div>
       ) : (
-        <div className="row justify-content-md-center mt-2 mb-1">
+        <div className='row justify-content-md-center mt-2 mb-1'>
           <Button
-            name="en"
-            size="sm"
+            name='en'
+            size='sm'
             disabled={wrongState != 0}
-            className="btn button px-4 mt-3 mb-1 audiobook_detail_modal_button success_button "
+            className='btn button px-4 mt-3 mb-1 audiobook_detail_modal_button success_button '
             onClick={() =>
               props.setAudiobookState({
                 ...props.audiobookState,
@@ -485,7 +485,7 @@ export default function AudiobookEditForm(props) {
               })
             }
           >
-            {props.t("edit")}
+            {props.t('edit')}
           </Button>
         </div>
       )}

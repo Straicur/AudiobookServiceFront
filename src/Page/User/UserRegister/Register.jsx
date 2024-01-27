@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from "react";
-import RegisterForm from "../../../View/User/UserRegister/RegisterForm";
-import { ErrorBoundary } from "react-error-boundary";
-import { ErrorHandlerModal } from "../../../Errors/ErrorHandlerModal";
-import { validateEmail, validatePassword, validateBirthday } from "../../../View/User/UserRegister/Events";
-import "./Register.css";
+import React, { useEffect, useState } from 'react';
+import RegisterForm from '../../../View/User/UserRegister/RegisterForm';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
+import { validateEmail, validatePassword, validateBirthday } from '../../../View/User/UserRegister/Events';
+import './Register.css';
 
 export default function Register() {
   const [state, setState] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
     passwordStrength: 10,
-    phoneNumber: "",
-    firstname: "",
-    lastname: "",
+    phoneNumber: '',
+    firstname: '',
+    lastname: '',
     validated: false,
     parentalControl: false,
-    birthdayDate: "",
+    birthdayDate: '',
     isButtonDisabled: true,
     error: null,
   });
 
   useEffect(() => {
     if (
-      state.email.trim() != "" &&
-      state.password.trim() != "" &&
-      state.confirmPassword.trim() != "" &&
-      state.firstname.trim() != "" &&
-      state.lastname.trim() != "" &&
-      state.phoneNumber.trim() != "" &&
+      state.email.trim() != '' &&
+      state.password.trim() != '' &&
+      state.confirmPassword.trim() != '' &&
+      state.firstname.trim() != '' &&
+      state.lastname.trim() != '' &&
+      state.phoneNumber.trim() != '' &&
       state.password.trim() == state.confirmPassword.trim() &&
       state.password == state.confirmPassword &&
       validateEmail(state.email) &&

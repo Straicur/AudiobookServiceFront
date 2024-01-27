@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { v4 as uuidv4 } from "uuid";
-import Button from "react-bootstrap/Button";
+import React, { useEffect } from 'react';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { v4 as uuidv4 } from 'uuid';
+import Button from 'react-bootstrap/Button';
 
 export default function GetAudiobooksList(props) {
   const createTable = () => {
@@ -17,22 +17,22 @@ export default function GetAudiobooksList(props) {
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>
-        <th scope="row">{element.title}</th>
+        <th scope='row'>{element.title}</th>
         <td>{element.author}</td>
         <td>{element.parts}</td>
         <td>{getAge(element)}</td>
         <td>
           {element.active ? (
-            <i className="bi bi-bookmark-check-fill"></i>
+            <i className='bi bi-bookmark-check-fill'></i>
           ) : (
-            <i className="bi bi-bookmark-dash"></i>
+            <i className='bi bi-bookmark-dash'></i>
           )}
         </td>
         <td>
           <Button
-            name="en"
-            size="sm"
-            className="btn button question_button success_button"
+            name='en'
+            size='sm'
+            className='btn button question_button success_button'
             onClick={() => {
               props.setState({
                 ...props.state,
@@ -42,7 +42,7 @@ export default function GetAudiobooksList(props) {
               props.goBack();
             }}
           >
-            {props.t("select")}
+            {props.t('select')}
           </Button>
         </td>
       </tr>
@@ -52,19 +52,19 @@ export default function GetAudiobooksList(props) {
   const getAge = (element) => {
     switch (element.age) {
       case 1:
-        return "3-7";
+        return '3-7';
         break;
       case 2:
-        return "7-12";
+        return '7-12';
         break;
       case 3:
-        return "12-16";
+        return '12-16';
         break;
       case 4:
-        return "16-18";
+        return '16-18';
         break;
       case 5:
-        return "18+";
+        return '18+';
         break;
     }
   };
@@ -72,8 +72,8 @@ export default function GetAudiobooksList(props) {
   useEffect(() => {
     if (!props.audiobooksState.fetched) {
       HandleFetch(
-        "/admin/audiobooks",
-        "POST",
+        '/admin/audiobooks',
+        'POST',
         {
           page: 0,
           limit: 30,
@@ -102,15 +102,15 @@ export default function GetAudiobooksList(props) {
   }, [props]);
 
   return (
-    <table className="table">
-      <thead className="">
+    <table className='table'>
+      <thead className=''>
         <tr>
-          <th scope="col">{props.t("title")}</th>
-          <th scope="col">{props.t("author")}</th>
-          <th scope="col">{props.t("parts")}</th>
-          <th scope="col">{props.t("age")}</th>
-          <th scope="col">{props.t("active")}</th>
-          <th scope="col"></th>
+          <th scope='col'>{props.t('title')}</th>
+          <th scope='col'>{props.t('author')}</th>
+          <th scope='col'>{props.t('parts')}</th>
+          <th scope='col'>{props.t('age')}</th>
+          <th scope='col'>{props.t('active')}</th>
+          <th scope='col'></th>
         </tr>
       </thead>
       <tbody>{createTable()}</tbody>

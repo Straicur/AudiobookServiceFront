@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { useTokenStore } from "../../../Store/store";
-import { useNavigate } from "react-router-dom";
-import LoginForm from "../../../View/User/UserLogin/LoginForm";
-import { ErrorBoundary } from "react-error-boundary";
-import { ErrorHandlerModal } from "../../../Errors/ErrorHandlerModal";
-import "./UserLogin.css";
+import React, { useState, useEffect } from 'react';
+import { useTokenStore } from '../../../Store/store';
+import { useNavigate } from 'react-router-dom';
+import LoginForm from '../../../View/User/UserLogin/LoginForm';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
+import './UserLogin.css';
 
 export default function UserLogin() {
   const navigate = useNavigate();
   const token = useTokenStore((state) => state.token);
 
   const [state, setState] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     validated: false,
     isButtonDisabled: true,
     error: null,
   });
 
   useEffect(() => {
-    if (token != "") {
-      navigate("/main");
+    if (token != '') {
+      navigate('/main');
     }
   }, [token]);
 

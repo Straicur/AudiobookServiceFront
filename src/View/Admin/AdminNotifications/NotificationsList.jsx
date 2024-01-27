@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../AdminNavBar/AdminNavBar";
-import { useQuery } from "react-query";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { useTranslation } from "react-i18next";
-import Button from "react-bootstrap/Button";
-import JsonModal from "../AdminJsonModal/JsonModal";
-import AddNotificationModal from "./AddNotificationModal";
-import EditNotificationModal from "./EditNotificationModal";
-import SearchNotificationsOffCanvas from "./SearchNotificationsOffCanvas";
-import RenderNotificationsList from "./RenderNotificationsList";
-import RenderPageSwitches from "../Common/RenderPageSwitches";
-import { useLastUserRolesStore } from "../../../Store/store";
+import React, { useEffect, useState } from 'react';
+import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import { useQuery } from 'react-query';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { useTranslation } from 'react-i18next';
+import Button from 'react-bootstrap/Button';
+import JsonModal from '../AdminJsonModal/JsonModal';
+import AddNotificationModal from './AddNotificationModal';
+import EditNotificationModal from './EditNotificationModal';
+import SearchNotificationsOffCanvas from './SearchNotificationsOffCanvas';
+import RenderNotificationsList from './RenderNotificationsList';
+import RenderPageSwitches from '../Common/RenderPageSwitches';
+import { useLastUserRolesStore } from '../../../Store/store';
 
 export default function NotificationsList(props) {
   const { t, i18n } = useTranslation();
@@ -27,7 +27,7 @@ export default function NotificationsList(props) {
   });
 
   const [searchState, setSearchState] = useState({
-    text: "",
+    text: '',
     type: 0,
     deleted: null,
     order: 0,
@@ -61,7 +61,7 @@ export default function NotificationsList(props) {
 
   const resetSearchStates = () => {
     setSearchState({
-      text: "",
+      text: '',
       type: 0,
       deleted: null,
       order: 0,
@@ -71,7 +71,7 @@ export default function NotificationsList(props) {
   const formatData = () => {
     let searchJson = {};
 
-    if (searchState.text != "") {
+    if (searchState.text != '') {
       searchJson.text = searchState.text;
     }
     if (searchState.deleted != null) {
@@ -88,11 +88,11 @@ export default function NotificationsList(props) {
   };
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
-    "data",
+    'data',
     () =>
       HandleFetch(
-        "/admin/user/notifications",
-        "POST",
+        '/admin/user/notifications',
+        'POST',
         {
           page: pageState.page,
           limit: pageState.limit,
@@ -129,8 +129,8 @@ export default function NotificationsList(props) {
     if (dateUpdate < Date.now()) {
       userRolesStore.removeRoles();
       HandleFetch(
-        "/admin/user/system/roles",
-        "GET",
+        '/admin/user/system/roles',
+        'GET',
         null,
         props.token,
         i18n.language
@@ -166,24 +166,24 @@ export default function NotificationsList(props) {
   }, [props.notificationsState.error]);
 
   return (
-    <div className="container-fluid main-container mt-3">
-      <div className="card position-relative p-3 mb-5  shadow">
+    <div className='container-fluid main-container mt-3'>
+      <div className='card position-relative p-3 mb-5  shadow'>
         <AdminNavBar />
-        <hr className="line" />
-        <div className="table-title my-2">
-          <div className="d-flex justify-content-end ">
-            <div className="p-2 bd-highlight">
-              <h2>{t("filters")}</h2>
+        <hr className='line' />
+        <div className='table-title my-2'>
+          <div className='d-flex justify-content-end '>
+            <div className='p-2 bd-highlight'>
+              <h2>{t('filters')}</h2>
             </div>
-            <div className="p-2 bd-highlight">
+            <div className='p-2 bd-highlight'>
               <Button
-                variant="dark"
-                size="sm"
-                color="dark"
-                className=" btn button mt-2"
+                variant='dark'
+                size='sm'
+                color='dark'
+                className=' btn button mt-2'
                 onClick={() => openSearchModal()}
               >
-                {t("search")}
+                {t('search')}
               </Button>
             </div>
           </div>
@@ -205,29 +205,29 @@ export default function NotificationsList(props) {
             />
           ) : null}
         </div>
-        <div className="row justify-content-md-center">
-          <div className="col-3 d-flex justify-content-center">
+        <div className='row justify-content-md-center'>
+          <div className='col-3 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() => openAddModal()}
             >
-              {t("addNotification")}
+              {t('addNotification')}
             </Button>
           </div>
-          <div className="col-3 d-flex justify-content-center">
+          <div className='col-3 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() =>
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("jsonData")}
+              {t('jsonData')}
             </Button>
           </div>
         </div>

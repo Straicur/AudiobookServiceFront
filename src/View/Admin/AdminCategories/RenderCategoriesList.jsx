@@ -1,6 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
-import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function RenderCategoriesList(props) {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function RenderCategoriesList(props) {
 
   const oparateParentList = (element) => {
     element.stopPropagation();
-    if (element.currentTarget.attributes["data-clicable"].value == "true") {
+    if (element.currentTarget.attributes['data-clicable'].value == 'true') {
       openParentList(element);
     } else {
       closeParentList(element);
@@ -26,19 +26,19 @@ export default function RenderCategoriesList(props) {
   function openParentList(element) {
     let children = element.currentTarget.children;
 
-    element.currentTarget.attributes["data-clicable"].value = "false";
+    element.currentTarget.attributes['data-clicable'].value = 'false';
 
     for (const element of children) {
-      if (element.nodeName == "UL") {
+      if (element.nodeName == 'UL') {
         for (const el of element.children) {
-          el.classList.remove("d-none");
+          el.classList.remove('d-none');
         }
       }
-      if (element.nodeName == "DIV") {
+      if (element.nodeName == 'DIV') {
         for (const el of element.children) {
-          if (el.nodeName == "I") {
-            el.classList.remove("bi-arrow-right-square");
-            el.classList.add("bi-arrow-down-square");
+          if (el.nodeName == 'I') {
+            el.classList.remove('bi-arrow-right-square');
+            el.classList.add('bi-arrow-down-square');
           }
         }
       }
@@ -48,19 +48,19 @@ export default function RenderCategoriesList(props) {
   function closeParentList(element) {
     let children = element.currentTarget.children;
 
-    element.currentTarget.attributes["data-clicable"].value = "true";
+    element.currentTarget.attributes['data-clicable'].value = 'true';
 
     for (const element of children) {
-      if (element.nodeName == "UL") {
+      if (element.nodeName == 'UL') {
         for (const el of element.children) {
-          el.classList.add("d-none");
+          el.classList.add('d-none');
         }
       }
-      if (element.nodeName == "DIV") {
+      if (element.nodeName == 'DIV') {
         for (const el of element.children) {
-          if (el.nodeName == "I") {
-            el.classList.remove("bi-arrow-down-square");
-            el.classList.add("bi-arrow-right-square");
+          if (el.nodeName == 'I') {
+            el.classList.remove('bi-arrow-down-square');
+            el.classList.add('bi-arrow-right-square');
           }
         }
       }
@@ -73,60 +73,60 @@ export default function RenderCategoriesList(props) {
         key={uuidv4()}
         className={
           parent == null
-            ? "visible border border-1 border-dark list-group-item"
-            : "d-none border border-1 border-info list-group-item"
+            ? 'visible border border-1 border-dark list-group-item'
+            : 'd-none border border-1 border-info list-group-item'
         }
         onClick={child.length > 0 ? oparateParentList : undefined}
         data-clicable={true}
       >
-        <div className="d-flex align-items-center flex-row bd-highlight">
+        <div className='d-flex align-items-center flex-row bd-highlight'>
           {child.length > 0 ? (
-            <i className="p-2 bi bi-arrow-right-square "></i>
+            <i className='p-2 bi bi-arrow-right-square '></i>
           ) : null}
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryName")}:</h5>
+          <div className='p-2 bd-highlight'>
+            <h5>{props.t('categoryName')}:</h5>
           </div>
-          <div className="p-1 bd-highlight name_color fs-5">
+          <div className='p-1 bd-highlight name_color fs-5'>
             <h5>{element.name}</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryActive")}:</h5>
+          <div className='p-2 bd-highlight'>
+            <h5>{props.t('categoryActive')}:</h5>
           </div>
-          <div className="p-2 bd-highlight">
+          <div className='p-2 bd-highlight'>
             {element.active ? (
               <h5>
-                <i className="bi bi-bookmark-check-fill"></i>
+                <i className='bi bi-bookmark-check-fill'></i>
               </h5>
             ) : (
               <h5>
-                <i className="bi bi-bookmark-dash"></i>
+                <i className='bi bi-bookmark-dash'></i>
               </h5>
             )}
           </div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryKey")}:</h5>
+          <div className='p-2 bd-highlight'>
+            <h5>{props.t('categoryKey')}:</h5>
           </div>
-          <div className="p-2 bd-highlight fs-5">
-            <h5 className="fw-normal">{element.categoryKey}</h5>
+          <div className='p-2 bd-highlight fs-5'>
+            <h5 className='fw-normal'>{element.categoryKey}</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryChilds")}:</h5>
+          <div className='p-2 bd-highlight'>
+            <h5>{props.t('categoryChilds')}:</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5 className="fw-normal">{element.children.length}</h5>
+          <div className='p-2 bd-highlight'>
+            <h5 className='fw-normal'>{element.children.length}</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("audiobooksAmount")}:</h5>
+          <div className='p-2 bd-highlight'>
+            <h5>{props.t('audiobooksAmount')}:</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5 className="fw-normal">{element.audiobooks}</h5>
+          <div className='p-2 bd-highlight'>
+            <h5 className='fw-normal'>{element.audiobooks}</h5>
           </div>
-          <div className="p-2 bd-highlight ms-3">
+          <div className='p-2 bd-highlight ms-3'>
             <Button
-              name="en"
-              variant="warning"
-              size="lg"
-              className="btn button"
+              name='en'
+              variant='warning'
+              size='lg'
+              className='btn button'
               onClick={() => {
                 props.setState({
                   ...props.state,
@@ -135,28 +135,28 @@ export default function RenderCategoriesList(props) {
                 });
               }}
             >
-              {props.t("edit")}
+              {props.t('edit')}
             </Button>
           </div>
-          <div className="p-2 bd-highlight ms-3">
+          <div className='p-2 bd-highlight ms-3'>
             <Button
-              name="en"
-              variant="dark"
-              size="lg"
-              className="btn button"
+              name='en'
+              variant='dark'
+              size='lg'
+              className='btn button'
               onClick={() => {
                 navigate(`/admin/category/${element.categoryKey}`);
               }}
             >
-              {props.t("audiobooks")}
+              {props.t('audiobooks')}
             </Button>
           </div>
-          <div className="p-2 bd-highlight ms-3">
+          <div className='p-2 bd-highlight ms-3'>
             <Button
-              name="en"
-              variant="success"
-              size="lg"
-              className="btn button"
+              name='en'
+              variant='success'
+              size='lg'
+              className='btn button'
               onClick={() =>
                 props.setState({
                   ...props.state,
@@ -165,11 +165,11 @@ export default function RenderCategoriesList(props) {
                 })
               }
             >
-              {props.t("addChildCategory")}
+              {props.t('addChildCategory')}
             </Button>
           </div>
         </div>
-        <ul className="list-group" data-name={element.name}>
+        <ul className='list-group' data-name={element.name}>
           {child}
         </ul>
       </li>
@@ -182,58 +182,58 @@ export default function RenderCategoriesList(props) {
         key={uuidv4()}
         className={
           arrayLength == 1
-            ? "d-none p-2 border border-1 border-warning list-group-item"
+            ? 'd-none p-2 border border-1 border-warning list-group-item'
             : index + 1 == arrayLength
-            ? "d-none p-2 border border-1 border-info list-group-item"
-            : "d-none p-2 border border-1 border-bottom-0 border-info list-group-item"
+            ? 'd-none p-2 border border-1 border-info list-group-item'
+            : 'd-none p-2 border border-1 border-bottom-0 border-info list-group-item'
         }
         id={element.id}
       >
-        <div className="d-flex flex-row align-items-center bd-highlight">
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryName")}:</h5>
+        <div className='d-flex flex-row align-items-center bd-highlight'>
+          <div className='p-2 bd-highlight'>
+            <h5>{props.t('categoryName')}:</h5>
           </div>
-          <div className="p-1 bd-highlight name_color fs-5">
+          <div className='p-1 bd-highlight name_color fs-5'>
             <h5>{element.name}</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryActive")}:</h5>
+          <div className='p-2 bd-highlight'>
+            <h5>{props.t('categoryActive')}:</h5>
           </div>
-          <div className="p-2 bd-highlight">
+          <div className='p-2 bd-highlight'>
             {element.active ? (
               <h5>
-                <i className="bi bi-bookmark-check-fill"></i>
+                <i className='bi bi-bookmark-check-fill'></i>
               </h5>
             ) : (
               <h5>
-                <i className="bi bi-bookmark-dash"></i>
+                <i className='bi bi-bookmark-dash'></i>
               </h5>
             )}
           </div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryKey")}:</h5>
+          <div className='p-2 bd-highlight'>
+            <h5>{props.t('categoryKey')}:</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5 className="fw-normal">{element.categoryKey}</h5>
+          <div className='p-2 bd-highlight'>
+            <h5 className='fw-normal'>{element.categoryKey}</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("categoryChilds")}:</h5>
+          <div className='p-2 bd-highlight'>
+            <h5>{props.t('categoryChilds')}:</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5 className="fw-normal">{element.children.length}</h5>
+          <div className='p-2 bd-highlight'>
+            <h5 className='fw-normal'>{element.children.length}</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5>{props.t("audiobooksAmount")}:</h5>
+          <div className='p-2 bd-highlight'>
+            <h5>{props.t('audiobooksAmount')}:</h5>
           </div>
-          <div className="p-2 bd-highlight">
-            <h5 className="fw-normal">{element.audiobooks}</h5>
+          <div className='p-2 bd-highlight'>
+            <h5 className='fw-normal'>{element.audiobooks}</h5>
           </div>
-          <div className="p-2 bd-highlight ms-2">
+          <div className='p-2 bd-highlight ms-2'>
             <Button
-              name="en"
-              variant="warning"
-              size="lg"
-              className="btn button"
+              name='en'
+              variant='warning'
+              size='lg'
+              className='btn button'
               onClick={() => {
                 props.setState({
                   ...props.state,
@@ -242,28 +242,28 @@ export default function RenderCategoriesList(props) {
                 });
               }}
             >
-              {props.t("edit")}
+              {props.t('edit')}
             </Button>
           </div>
-          <div className="p-2 bd-highlight ms-2">
+          <div className='p-2 bd-highlight ms-2'>
             <Button
-              name="en"
-              variant="dark"
-              size="lg"
-              className="btn button"
+              name='en'
+              variant='dark'
+              size='lg'
+              className='btn button'
               onClick={() => {
                 navigate(`/admin/category/${element.categoryKey}`);
               }}
             >
-              {props.t("audiobooks")}
+              {props.t('audiobooks')}
             </Button>
           </div>
-          <div className="p-2 bd-highlight ms-2">
+          <div className='p-2 bd-highlight ms-2'>
             <Button
-              name="en"
-              variant="success"
-              size="lg"
-              className="btn button"
+              name='en'
+              variant='success'
+              size='lg'
+              className='btn button'
               onClick={() => {
                 props.setState({
                   ...props.state,
@@ -272,7 +272,7 @@ export default function RenderCategoriesList(props) {
                 });
               }}
             >
-              {props.t("addChildCategory")}
+              {props.t('addChildCategory')}
             </Button>
           </div>
         </div>
@@ -289,9 +289,9 @@ export default function RenderCategoriesList(props) {
 
       elementArray.push = element;
 
-      if (element["children"].length != 0) {
+      if (element['children'].length != 0) {
         let returnedChildren = recursiveTree(
-          element["children"],
+          element['children'],
           renderArray,
           kids,
           element
@@ -303,12 +303,12 @@ export default function RenderCategoriesList(props) {
           ];
 
           if (kids[element.id] != undefined) {
-            let ul = kids[element.id].filter((x) => x.type == "li");
+            let ul = kids[element.id].filter((x) => x.type == 'li');
 
             if (
               !ul.some((cat) =>
                 cat.props.children[1] != undefined
-                  ? cat.props.children[1].props["data-name"] == value.push.name
+                  ? cat.props.children[1].props['data-name'] == value.push.name
                   : false
               )
             ) {
@@ -318,7 +318,7 @@ export default function RenderCategoriesList(props) {
             kids[element.id] = childElement;
           }
 
-          elementArray["child"] = value;
+          elementArray['child'] = value;
         }
 
         if (Object.keys(kids).some((key) => key == element.id)) {
@@ -350,7 +350,7 @@ export default function RenderCategoriesList(props) {
 
   return (
     <div>
-      <ul className="list-group">{createTree()}</ul>
+      <ul className='list-group'>{createTree()}</ul>
     </div>
   );
 }

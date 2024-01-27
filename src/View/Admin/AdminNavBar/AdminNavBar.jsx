@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
-import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import { useTranslation } from "react-i18next";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { useTokenStore } from "../../../Store/store";
-import { useNavigate } from "react-router-dom";
-import { useNotificationsListStore } from "../../../Store/store";
-import NotificationOffcanvas from "../AdminNotificationBar/AdminNotificationOffcanvas";
-import Badge from "react-bootstrap/Badge";
-import "./AdminNavBar.css";
+import React, { useEffect, useState, useRef } from 'react';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { useTranslation } from 'react-i18next';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { useTokenStore } from '../../../Store/store';
+import { useNavigate } from 'react-router-dom';
+import { useNotificationsListStore } from '../../../Store/store';
+import NotificationOffcanvas from '../AdminNotificationBar/AdminNotificationOffcanvas';
+import Badge from 'react-bootstrap/Badge';
+import './AdminNavBar.css';
 
 export const AdminNavBar = () => {
   const [state, setState] = useState({
@@ -33,13 +33,13 @@ export const AdminNavBar = () => {
   const navigate = useNavigate();
 
   const logout = async () => {
-    const url = "/logout";
+    const url = '/logout';
     const jsonData = {};
-    const method = "POST";
+    const method = 'POST';
 
     HandleFetch(url, method, jsonData, token, i18n.language).finally(() => {
       tokenStore.removeToken();
-      navigate("/login");
+      navigate('/login');
     });
   };
   const notificationsListStore = useNotificationsListStore();
@@ -56,8 +56,8 @@ export const AdminNavBar = () => {
   const fetchNotifications = () => {
     for (let index = 0; index <= state.page; index++) {
       HandleFetch(
-        "/notifications",
-        "POST",
+        '/notifications',
+        'POST',
         {
           page: index,
           limit: state.limit,
@@ -123,111 +123,111 @@ export const AdminNavBar = () => {
   }, []);
 
   return (
-    <div className="row navbar">
-      <div className="col-8">
+    <div className='row navbar'>
+      <div className='col-8'>
         <Button
-          variant="dark"
-          size="lg"
-          color="dark"
-          className=" btn button mt-2 mx-2"
-          onClick={() => navigate("/admin")}
+          variant='dark'
+          size='lg'
+          color='dark'
+          className=' btn button mt-2 mx-2'
+          onClick={() => navigate('/admin')}
         >
-          {t("mainPage")}
+          {t('mainPage')}
         </Button>
         <Button
-          variant="dark"
-          size="lg"
-          color="dark"
-          className=" btn button mt-2 mx-2"
-          onClick={() => navigate("/admin/categories")}
+          variant='dark'
+          size='lg'
+          color='dark'
+          className=' btn button mt-2 mx-2'
+          onClick={() => navigate('/admin/categories')}
         >
-          {t("categories")}
+          {t('categories')}
         </Button>
         <Button
-          variant="dark"
-          size="lg"
-          color="dark"
-          className=" btn button mt-2 mx-2"
-          onClick={() => navigate("/admin/audiobooks")}
+          variant='dark'
+          size='lg'
+          color='dark'
+          className=' btn button mt-2 mx-2'
+          onClick={() => navigate('/admin/audiobooks')}
         >
-          {t("audiobooks")}
+          {t('audiobooks')}
         </Button>
         <Button
-          variant="dark"
-          size="lg"
-          color="dark"
-          className=" btn button mt-2 mx-2"
-          onClick={() => navigate("/admin/users")}
+          variant='dark'
+          size='lg'
+          color='dark'
+          className=' btn button mt-2 mx-2'
+          onClick={() => navigate('/admin/users')}
         >
-          {t("users")}
+          {t('users')}
         </Button>
         <Button
-          variant="dark"
-          size="lg"
-          color="dark"
-          className=" btn button mt-2 mx-2"
-          onClick={() => navigate("/admin/notifications")}
+          variant='dark'
+          size='lg'
+          color='dark'
+          className=' btn button mt-2 mx-2'
+          onClick={() => navigate('/admin/notifications')}
         >
-          {t("notifications")}
+          {t('notifications')}
         </Button>
         <Button
-          variant="dark"
-          size="lg"
-          color="dark"
-          className=" btn button mt-2 mx-2"
-          onClick={() => navigate("/main")}
+          variant='dark'
+          size='lg'
+          color='dark'
+          className=' btn button mt-2 mx-2'
+          onClick={() => navigate('/main')}
         >
-          {t("userPanel")}
+          {t('userPanel')}
         </Button>
       </div>
-      <div className="col-4 d-flex justify-content-end  align-items-center">
-        <ButtonGroup className="ps-3 me-3">
+      <div className='col-4 d-flex justify-content-end  align-items-center'>
+        <ButtonGroup className='ps-3 me-3'>
           <Button
-            name="pl"
-            size="sm"
+            name='pl'
+            size='sm'
             className={
-              i18n.language == "pl"
-                ? "btn  m-1 admin_button_dark"
-                : "btn  m-1 admin_button_light"
+              i18n.language == 'pl'
+                ? 'btn  m-1 admin_button_dark'
+                : 'btn  m-1 admin_button_light'
             }
-            onClick={() => i18n.changeLanguage("pl")}
+            onClick={() => i18n.changeLanguage('pl')}
           >
             PL
           </Button>
           <Button
-            name="en"
-            size="sm"
+            name='en'
+            size='sm'
             className={
-              i18n.language == "en"
-                ? "btn  m-1 admin_button_dark"
-                : "btn  m-1 admin_button_light"
+              i18n.language == 'en'
+                ? 'btn  m-1 admin_button_dark'
+                : 'btn  m-1 admin_button_light'
             }
-            onClick={() => i18n.changeLanguage("en")}
+            onClick={() => i18n.changeLanguage('en')}
           >
             EN
           </Button>
         </ButtonGroup>
         <div
-          className="row mx-1 pt-3 ms-1 me-3 align-items-center justify-content-center admin-notification-row"
+          className='row mx-1 pt-3 ms-1 me-3 align-items-center justify-content-center admin-notification-row'
           onClick={() => openNotificationsList()}
         >
-          <div className="col nav-col justify-content-end  align-items-center pe-2">
-            <h6> {t("notifications")}</h6>
+          <div className='col nav-col justify-content-end  align-items-center pe-2'>
+            <h6> {t('notifications')}</h6>
           </div>
-          <div className="col nav-col justify-content-end  align-items-center">
+          <div className='col nav-col justify-content-end  align-items-center'>
             <h6>
-              <Badge bg="secondary">{newNotifications}</Badge>
+              <Badge bg='secondary'>{newNotifications}</Badge>
             </h6>
           </div>
         </div>
         <Button
-          name="logout"
-          variant="dark"
-          size="sm"
-          className="btn button"
+          name='logout'
+          variant='dark'
+          size='sm'
+          className='btn button'
           onClick={logout}
         >
-          {t("logout")}
+          {t('logout')}
         </Button>
         {state.notificationsOffCanvas ? (
           <NotificationOffcanvas

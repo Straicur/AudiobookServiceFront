@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useTokenStore } from "../../../Store/store";
-import { ErrorBoundary } from "react-error-boundary";
-import { ErrorHandlerModal } from "../../../Errors/ErrorHandlerModal";
-import AuidobookDetailProviders from "../../../View/Admin/AdminAudiobook/AuidobookDetailProviders";
-import { useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import "./Audiobook.css";
+import React, { useState } from 'react';
+import { useTokenStore } from '../../../Store/store';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
+import AuidobookDetailProviders from '../../../View/Admin/AdminAudiobook/AuidobookDetailProviders';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import './Audiobook.css';
 
 export default function Audiobook() {
   const token = useTokenStore((state) => state.token);
@@ -24,8 +24,8 @@ export default function Audiobook() {
     refresh: false,
     addAudiobookSeconds: 3000,
     part: 0,
-    errorPart: "",
-    errorCover: "",
+    errorPart: '',
+    errorCover: '',
     error: null,
   });
 

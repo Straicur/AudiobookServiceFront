@@ -1,8 +1,8 @@
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import React from "react";
-import RenderUserRoles from "./RenderUserRoles";
-import EditUserFrom from "./EditUserFrom";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import React from 'react';
+import RenderUserRoles from './RenderUserRoles';
+import EditUserFrom from './EditUserFrom';
 
 export default function EditUserModal(props) {
   const handleClose = () => {
@@ -15,18 +15,18 @@ export default function EditUserModal(props) {
 
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.state.editUserModal}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
     >
       <Modal.Header>
         <Modal.Title>
-          {props.t("editUser")}: {props.state.editUserElement.email}
+          {props.t('editUser')}: {props.state.editUserElement.email}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="row my-1">
+        <div className='row my-1'>
           <RenderUserRoles
             state={props.state}
             setState={props.setState}
@@ -36,7 +36,7 @@ export default function EditUserModal(props) {
             token={props.token}
           />
         </div>
-        <div className="row">
+        <div className='row'>
           <EditUserFrom
             state={props.state}
             setState={props.setState}
@@ -47,8 +47,8 @@ export default function EditUserModal(props) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="dark" onClick={handleClose}>
-          {props.t("close")}
+        <Button variant='dark' onClick={handleClose}>
+          {props.t('close')}
         </Button>
       </Modal.Footer>
     </Modal>

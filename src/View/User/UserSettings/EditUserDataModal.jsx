@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import Alert from "react-bootstrap/Alert";
+import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import Alert from 'react-bootstrap/Alert';
 
 export default function EditUserDataModal(props) {
   const [state, setState] = useState({
-    phoneNumber: "",
-    firstname: "",
-    lastname: "",
+    phoneNumber: '',
+    firstname: '',
+    lastname: '',
     sure: false,
     checkChanges: false,
     wrongPhoneNumber: false,
@@ -27,11 +27,11 @@ export default function EditUserDataModal(props) {
   };
 
   const changeUserData = (element) => {
-    element.target.classList.add("disabled");
+    element.target.classList.add('disabled');
 
     HandleFetch(
-      "/user/settings/change",
-      "PATCH",
+      '/user/settings/change',
+      'PATCH',
       {
         phoneNumber: state.phoneNumber,
         firstName: state.firstname,
@@ -41,7 +41,7 @@ export default function EditUserDataModal(props) {
       props.i18n.language
     )
       .then(() => {
-        element.target.classList.remove("disabled");
+        element.target.classList.remove('disabled');
         setState({
           ...state,
           checkChanges: !state.checkChanges,
@@ -138,28 +138,28 @@ export default function EditUserDataModal(props) {
 
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.state.buttonUserData}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
       centered
     >
       <Modal.Body
         style={{
-          backgroundColor: "#262626",
+          backgroundColor: '#262626',
         }}
       >
-        <div className="text-white">
+        <div className='text-white'>
           {state.checkChanges ? (
-            <div className="fs-3 text-center my-3">
-              {props.t("checkUserData")}
+            <div className='fs-3 text-center my-3'>
+              {props.t('checkUserData')}
             </div>
           ) : (
             <Form>
-              <Form.Group className="mb-3">
-                <Form.Label>{props.t("firstname")}</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label>{props.t('firstname')}</Form.Label>
                 <Form.Control
-                  type="text"
+                  type='text'
                   isValid={
                     state.firstname.length > 1 && validateName(state.firstname)
                   }
@@ -171,16 +171,16 @@ export default function EditUserDataModal(props) {
                 />
                 <Alert
                   show={state.wrongFirstname}
-                  className="dangerAllert mt-1 text-center"
-                  variant="danger"
+                  className='dangerAllert mt-1 text-center'
+                  variant='danger'
                 >
-                  {props.t("enterValidFirstName")}
+                  {props.t('enterValidFirstName')}
                 </Alert>
               </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>{props.t("lastname")}</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label>{props.t('lastname')}</Form.Label>
                 <Form.Control
-                  type="text"
+                  type='text'
                   isValid={
                     state.lastname.length > 1 &&
                     validateLastName(state.lastname)
@@ -194,16 +194,16 @@ export default function EditUserDataModal(props) {
                 />
                 <Alert
                   show={state.wrongLastname}
-                  className="dangerAllert mt-1 text-center"
-                  variant="danger"
+                  className='dangerAllert mt-1 text-center'
+                  variant='danger'
                 >
-                  {props.t("enterValidLastName")}
+                  {props.t('enterValidLastName')}
                 </Alert>
               </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>{props.t("phoneNumber")}</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label>{props.t('phoneNumber')}</Form.Label>
                 <Form.Control
-                  type="tel"
+                  type='tel'
                   isValid={
                     state.phoneNumber.length > 1 &&
                     validatePhone(state.phoneNumber)
@@ -217,32 +217,32 @@ export default function EditUserDataModal(props) {
                 />
                 <Alert
                   show={state.wrongPhoneNumber}
-                  className="dangerAllert mt-1 text-center"
-                  variant="danger"
+                  className='dangerAllert mt-1 text-center'
+                  variant='danger'
                 >
-                  {props.t("enterValidPhoneNumber")}
+                  {props.t('enterValidPhoneNumber')}
                 </Alert>
               </Form.Group>
             </Form>
           )}
-          <div className="row align-items-center row justify-content-end">
+          <div className='row align-items-center row justify-content-end'>
             {!state.sure ? (
-              <div className="col-2">
+              <div className='col-2'>
                 <Button
-                  name="en"
-                  size="sm"
-                  className="btn button danger_button settings-button fs-5 sure_button"
+                  name='en'
+                  size='sm'
+                  className='btn button danger_button settings-button fs-5 sure_button'
                   onClick={() => handleClose()}
                 >
-                  {props.t("close")}
+                  {props.t('close')}
                 </Button>
               </div>
             ) : null}
             {!state.checkChanges ? (
               state.sure ? (
-                <div className="col-4">
-                  <div className="row justify-content-center">
-                    <div className="col-6">
+                <div className='col-4'>
+                  <div className='row justify-content-center'>
+                    <div className='col-6'>
                       <Button
                         disabled={
                           state.wrongFirstname ||
@@ -252,17 +252,17 @@ export default function EditUserDataModal(props) {
                           state.lastname.length == 0 ||
                           state.phoneNumber.length == 0
                         }
-                        className="btn button success_button settings-button fs-5 sure_button"
+                        className='btn button success_button settings-button fs-5 sure_button'
                         onClick={(e) => changeUserData(e)}
                       >
-                        {props.t("yes")}
+                        {props.t('yes')}
                       </Button>
                     </div>
-                    <div className="col-6">
+                    <div className='col-6'>
                       <Button
                         // onClick={() => doubleClickRating()}
-                        className="btn button danger_button settings-button fs-5 sure_button"
-                        size="sm"
+                        className='btn button danger_button settings-button fs-5 sure_button'
+                        size='sm'
                         onClick={() =>
                           setState({
                             ...state,
@@ -270,16 +270,16 @@ export default function EditUserDataModal(props) {
                           })
                         }
                       >
-                        {props.t("no")}
+                        {props.t('no')}
                       </Button>
                     </div>
                   </div>
                 </div>
               ) : (
-                <div className="col-2">
+                <div className='col-2'>
                   <Button
-                    name="en"
-                    size="sm"
+                    name='en'
+                    size='sm'
                     disabled={
                       state.wrongFirstname ||
                       state.wrongLastname ||
@@ -288,7 +288,7 @@ export default function EditUserDataModal(props) {
                       state.lastname.length == 0 ||
                       state.phoneNumber.length == 0
                     }
-                    className="btn button success_button settings-button fs-5"
+                    className='btn button success_button settings-button fs-5'
                     onClick={() =>
                       setState({
                         ...state,
@@ -296,7 +296,7 @@ export default function EditUserDataModal(props) {
                       })
                     }
                   >
-                    {props.t("save")}
+                    {props.t('save')}
                   </Button>
                 </div>
               )

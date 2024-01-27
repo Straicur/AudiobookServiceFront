@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { useQuery } from "react-query";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import RenderDeletedUsersList from "./RenderDeletedUsersList";
-import RenderPageSwitches from "../Common/RenderPageSwitches";
+import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useQuery } from 'react-query';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import RenderDeletedUsersList from './RenderDeletedUsersList';
+import RenderPageSwitches from '../Common/RenderPageSwitches';
 
 export default function DeletedUsersModal(props) {
   const [state, setState] = useState({
@@ -32,11 +32,11 @@ export default function DeletedUsersModal(props) {
     isFetching: isFetchingSecond,
     refetch: refetchSecond,
   } = useQuery(
-    "dataSecond",
+    'dataSecond',
     () =>
       HandleFetch(
-        "/admin/user/delete/list",
-        "POST",
+        '/admin/user/delete/list',
+        'POST',
         {
           page: pageState.page,
           limit: pageState.limit,
@@ -70,13 +70,13 @@ export default function DeletedUsersModal(props) {
 
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.state.deletedUsersModal}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
     >
       <Modal.Header>
-        <Modal.Title>{props.t("deletedUsers")}</Modal.Title>
+        <Modal.Title>{props.t('deletedUsers')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <RenderDeletedUsersList
@@ -95,8 +95,8 @@ export default function DeletedUsersModal(props) {
         ) : null}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="dark" onClick={handleClose}>
-          {props.t("close")}
+        <Button variant='dark' onClick={handleClose}>
+          {props.t('close')}
         </Button>
       </Modal.Footer>
     </Modal>

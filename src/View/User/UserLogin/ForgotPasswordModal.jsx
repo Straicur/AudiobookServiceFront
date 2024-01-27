@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Util/HandleFetch";
+import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { HandleFetch } from '../../../Util/HandleFetch';
 
 export const ForgotPasswordModal = (props) => {
   const [state, setState] = useState({
-    email: "",
+    email: '',
     isButtonDisabled: false,
     send: false,
   });
 
   function validateEmail(email) {
     const re =
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      /^(([^<>()[\]\\.,;:\s@\']+(\.[^<>()[\]\\.,;:\s@\']+)*)|(\'.+\'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
   const handleEmailChange = (event) => {
@@ -21,9 +21,9 @@ export const ForgotPasswordModal = (props) => {
 
   const handleSend = async () => {
     if (state.email) {
-      const url = "/user/reset/password";
+      const url = '/user/reset/password';
       const jsonData = { email: state.email };
-      const method = "POST";
+      const method = 'POST';
 
       HandleFetch(url, method, jsonData, props.i18n.language)
         .then((data) => {
@@ -56,41 +56,41 @@ export const ForgotPasswordModal = (props) => {
   }, [state.email]);
 
   return (
-    <Modal show={props.formState.modal} onHide={handleClose} backdrop="static">
+    <Modal show={props.formState.modal} onHide={handleClose} backdrop='static'>
       <Modal.Header>
-        <Modal.Title> {props.t("changePassword")}</Modal.Title>
+        <Modal.Title> {props.t('changePassword')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {state.send ? (
-          <h4 className="text-center">{props.t("checkEmail")}</h4>
+          <h4 className='text-center'>{props.t('checkEmail')}</h4>
         ) : (
           <input
-            id="email"
-            type="email"
-            placeholder={props.t("insertEmail")}
+            id='email'
+            type='email'
+            placeholder={props.t('insertEmail')}
             value={state.email}
-            className="form-control mt-2 shadow"
+            className='form-control mt-2 shadow'
             onChange={handleEmailChange}
           />
         )}
       </Modal.Body>
-      <Modal.Footer className="">
+      <Modal.Footer className=''>
         {state.send ? (
-          <Button variant="dark" onClick={handleClose}>
-            {props.t("close")}
+          <Button variant='dark' onClick={handleClose}>
+            {props.t('close')}
           </Button>
         ) : (
           <div>
             <Button
-              variant="dark"
+              variant='dark'
               disabled={state.isButtonDisabled}
-              className="auth-btn me-2"
+              className='auth-btn me-2'
               onClick={handleSend}
             >
-              {props.t("sendEmail")}
+              {props.t('sendEmail')}
             </Button>
-            <Button className="ms-2" variant="dark" onClick={handleClose}>
-              {props.t("cancel")}
+            <Button className='ms-2' variant='dark' onClick={handleClose}>
+              {props.t('cancel')}
             </Button>
           </div>
         )}

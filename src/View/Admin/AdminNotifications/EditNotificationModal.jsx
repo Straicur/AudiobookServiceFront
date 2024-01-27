@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import PickActionIdList from "./PickActionIdList";
+import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import PickActionIdList from './PickActionIdList';
 
 export default function EditNotificationModal(props) {
   const [state, setState] = useState({
-    actionId: "",
+    actionId: '',
     dateAdd: 0,
     delete: false,
-    id: "",
+    id: '',
     notificationType: 0,
-    text: "",
+    text: '',
     userType: 0,
   });
 
@@ -60,10 +60,10 @@ export default function EditNotificationModal(props) {
   };
 
   const deleteNotification = (element) => {
-    element.target.classList.add("disabled");
+    element.target.classList.add('disabled');
     HandleFetch(
-      "/admin/user/notification/delete",
-      "PATCH",
+      '/admin/user/notification/delete',
+      'PATCH',
       {
         notificationId: state.id,
         delete: !state.delete,
@@ -72,7 +72,7 @@ export default function EditNotificationModal(props) {
       props.i18n.language
     )
       .then(() => {
-        element.target.classList.remove("disabled");
+        element.target.classList.remove('disabled');
 
         setDelteteState({
           ...deleteState,
@@ -107,8 +107,8 @@ export default function EditNotificationModal(props) {
 
   const saveChanges = () => {
     HandleFetch(
-      "/admin/user/notification",
-      "PATCH",
+      '/admin/user/notification',
+      'PATCH',
       {
         notificationId: state.id,
         notificationType: state.notificationType,
@@ -142,13 +142,13 @@ export default function EditNotificationModal(props) {
 
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.state.editNotificationkModal}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
     >
       <Modal.Header>
-        <Modal.Title>{props.t("notificationDetail")}</Modal.Title>
+        <Modal.Title>{props.t('notificationDetail')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {actionState.list ? (
@@ -170,11 +170,11 @@ export default function EditNotificationModal(props) {
             token={props.token}
           />
         ) : (
-          <div className="container">
-            <div className="row">
-              <InputGroup className="mb-1 input_modal py-1">
-                <InputGroup.Text className="input-notification-text-new text-light">
-                  {props.t("userType")}
+          <div className='container'>
+            <div className='row'>
+              <InputGroup className='mb-1 input_modal py-1'>
+                <InputGroup.Text className='input-notification-text-new text-light'>
+                  {props.t('userType')}
                 </InputGroup.Text>
                 <Form.Select
                   onChange={(e) => {
@@ -182,14 +182,14 @@ export default function EditNotificationModal(props) {
                   }}
                   value={state.userType}
                 >
-                  <option value={0}>{props.t("selectNotificationType")}</option>
-                  <option value={1}>{props.t("administration")}</option>
-                  <option value={2}>{props.t("system")}</option>
+                  <option value={0}>{props.t('selectNotificationType')}</option>
+                  <option value={1}>{props.t('administration')}</option>
+                  <option value={2}>{props.t('system')}</option>
                 </Form.Select>
               </InputGroup>
-              <InputGroup className="mb-1 input_modal py-1">
-                <InputGroup.Text className="input-notification-text-new text-light">
-                  {props.t("notificationType")}
+              <InputGroup className='mb-1 input_modal py-1'>
+                <InputGroup.Text className='input-notification-text-new text-light'>
+                  {props.t('notificationType')}
                 </InputGroup.Text>
                 <Form.Select
                   onChange={(e) => {
@@ -197,27 +197,27 @@ export default function EditNotificationModal(props) {
                   }}
                   value={state.notificationType}
                 >
-                  <option value={0}>{props.t("selectType")}</option>
-                  <option value={1}>{props.t("notificationTypeNormal")}</option>
-                  <option value={2}>{props.t("notificationTypeAdmin")}</option>
+                  <option value={0}>{props.t('selectType')}</option>
+                  <option value={1}>{props.t('notificationTypeNormal')}</option>
+                  <option value={2}>{props.t('notificationTypeAdmin')}</option>
                   <option value={3}>
-                    {props.t("notificationTypeProposed")}
+                    {props.t('notificationTypeProposed')}
                   </option>
                   <option value={4}>
-                    {props.t("notificationTypeNewCategory")}
+                    {props.t('notificationTypeNewCategory')}
                   </option>
                   <option value={5}>
-                    {props.t("notificationTypeNewAudiobook")}
+                    {props.t('notificationTypeNewAudiobook')}
                   </option>
                 </Form.Select>
               </InputGroup>
-              <InputGroup className="mt-2 input_modal">
+              <InputGroup className='mt-2 input_modal'>
                 <InputGroup.Text>
-                  {props.t("description")} ({props.t("optional")})
+                  {props.t('description')} ({props.t('optional')})
                 </InputGroup.Text>
                 <Form.Control
-                  as="textarea"
-                  aria-label="With textarea"
+                  as='textarea'
+                  aria-label='With textarea'
                   value={state.text}
                   onChange={(e) => {
                     changeText(e);
@@ -225,43 +225,43 @@ export default function EditNotificationModal(props) {
                 />
               </InputGroup>
 
-              <InputGroup className="mb-2 mt-3 input_modal">
-                <InputGroup.Text>{props.t("actionId")}</InputGroup.Text>
+              <InputGroup className='mb-2 mt-3 input_modal'>
+                <InputGroup.Text>{props.t('actionId')}</InputGroup.Text>
                 <Form.Control disabled value={state.actionId} />
                 <Button
-                  name="en"
-                  variant="outline-secondary"
-                  size="sm"
-                  className="btn button mx-2"
+                  name='en'
+                  variant='outline-secondary'
+                  size='sm'
+                  className='btn button mx-2'
                   onClick={(e) => selectActionId(e)}
                 >
-                  {props.t("select")}
+                  {props.t('select')}
                 </Button>
               </InputGroup>
 
-              <InputGroup className="my-2 input_modal">
-                <InputGroup.Text>{props.t("deleted")}</InputGroup.Text>
+              <InputGroup className='my-2 input_modal'>
+                <InputGroup.Text>{props.t('deleted')}</InputGroup.Text>
                 <Form.Control
                   disabled
-                  value={state.delete ? props.t("yes") : props.t("no")}
+                  value={state.delete ? props.t('yes') : props.t('no')}
                 />
                 {deleteState.sure ? (
                   <Button
-                    name="en"
-                    size="sm"
-                    className="btn button"
-                    variant="outline-danger"
+                    name='en'
+                    size='sm'
+                    className='btn button'
+                    variant='outline-danger'
                     onClick={(e) => deleteNotification(e)}
                   >
-                    {props.t("yes")}
+                    {props.t('yes')}
                   </Button>
                 ) : null}
                 {deleteState.sure ? (
                   <Button
-                    name="en"
-                    size="sm"
-                    className="btn button"
-                    variant="outline-success"
+                    name='en'
+                    size='sm'
+                    className='btn button'
+                    variant='outline-success'
                     onClick={() =>
                       setDelteteState({
                         ...deleteState,
@@ -269,17 +269,17 @@ export default function EditNotificationModal(props) {
                       })
                     }
                   >
-                    {props.t("no")}
+                    {props.t('no')}
                   </Button>
                 ) : null}
                 {!deleteState.sure ? (
                   <Button
-                    name="en"
+                    name='en'
                     variant={
-                      state.delete ? "outline-success" : "outline-danger"
+                      state.delete ? 'outline-success' : 'outline-danger'
                     }
-                    size="sm"
-                    className="btn button mx-2"
+                    size='sm'
+                    className='btn button mx-2'
                     onClick={() =>
                       setDelteteState({
                         ...deleteState,
@@ -287,21 +287,21 @@ export default function EditNotificationModal(props) {
                       })
                     }
                   >
-                    {state.delete ? props.t("activate") : props.t("delete")}
+                    {state.delete ? props.t('activate') : props.t('delete')}
                   </Button>
                 ) : null}
               </InputGroup>
             </div>
-            <div className="row justify-content-center mx-5 mt-2">
-              <div className="col-7">
+            <div className='row justify-content-center mx-5 mt-2'>
+              <div className='col-7'>
                 <Button
-                  name="en"
-                  variant="success"
-                  size="sm"
-                  className="btn button button_notification"
+                  name='en'
+                  variant='success'
+                  size='sm'
+                  className='btn button button_notification'
                   onClick={(e) => saveChanges(e)}
                 >
-                  {props.t("save")}
+                  {props.t('save')}
                 </Button>
               </div>
             </div>
@@ -310,12 +310,12 @@ export default function EditNotificationModal(props) {
       </Modal.Body>
       <Modal.Footer>
         {actionState.list != 0 ? (
-          <Button variant="dark" onClick={goBack}>
-            {props.t("back")}
+          <Button variant='dark' onClick={goBack}>
+            {props.t('back')}
           </Button>
         ) : null}
-        <Button variant="dark" onClick={handleClose}>
-          {props.t("close")}
+        <Button variant='dark' onClick={handleClose}>
+          {props.t('close')}
         </Button>
       </Modal.Footer>
     </Modal>

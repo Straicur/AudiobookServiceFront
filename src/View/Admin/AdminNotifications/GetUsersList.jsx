@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { v4 as uuidv4 } from "uuid";
-import Button from "react-bootstrap/Button";
+import React, { useEffect } from 'react';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { v4 as uuidv4 } from 'uuid';
+import Button from 'react-bootstrap/Button';
 
 export default function GetUsersList(props) {
   const createTable = () => {
@@ -17,27 +17,27 @@ export default function GetUsersList(props) {
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>
-        <th scope="row">{element.email}</th>
+        <th scope='row'>{element.email}</th>
         <td>{element.lastname}</td>
         <td>
           {element.active ? (
-            <i className="bi bi-bookmark-check-fill"></i>
+            <i className='bi bi-bookmark-check-fill'></i>
           ) : (
-            <i className="bi bi-bookmark-dash"></i>
+            <i className='bi bi-bookmark-dash'></i>
           )}
         </td>
         <td>
           {element.banned ? (
-            <i className="bi bi-shield-fill-exclamation"></i>
+            <i className='bi bi-shield-fill-exclamation'></i>
           ) : (
-            <i className="bi bi-shield-fill-check"></i>
+            <i className='bi bi-shield-fill-check'></i>
           )}
         </td>
         <td>
           <Button
-            name="en"
-            size="sm"
-            className="btn button question_button success_button"
+            name='en'
+            size='sm'
+            className='btn button question_button success_button'
             onClick={() => {
               props.setState({
                 ...props.state,
@@ -46,7 +46,7 @@ export default function GetUsersList(props) {
               props.goBack();
             }}
           >
-            {props.t("select")}
+            {props.t('select')}
           </Button>
         </td>
       </tr>
@@ -55,8 +55,8 @@ export default function GetUsersList(props) {
   useEffect(() => {
     if (!props.usersState.fetched) {
       HandleFetch(
-        "/admin/users",
-        "POST",
+        '/admin/users',
+        'POST',
         {
           page: 0,
           limit: 30,
@@ -85,14 +85,14 @@ export default function GetUsersList(props) {
   }, [props]);
 
   return (
-    <table className="table">
-      <thead className="">
+    <table className='table'>
+      <thead className=''>
         <tr>
-          <th scope="col">{props.t("email")}</th>
-          <th scope="col">{props.t("lastname")}</th>
-          <th scope="col">{props.t("active")}</th>
-          <th scope="col">{props.t("banned")}</th>
-          <th scope="col"></th>
+          <th scope='col'>{props.t('email')}</th>
+          <th scope='col'>{props.t('lastname')}</th>
+          <th scope='col'>{props.t('active')}</th>
+          <th scope='col'>{props.t('banned')}</th>
+          <th scope='col'></th>
         </tr>
       </thead>
       <tbody>{createTable()}</tbody>

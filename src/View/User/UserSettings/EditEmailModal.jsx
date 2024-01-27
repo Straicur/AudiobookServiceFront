@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import Alert from "react-bootstrap/Alert";
+import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import Alert from 'react-bootstrap/Alert';
 
 export default function EditEmailModal(props) {
   const [state, setState] = useState({
-    oldEmail: "",
-    newEmail: "",
+    oldEmail: '',
+    newEmail: '',
     checkEmail: false,
     wrongEmail: false,
     wrongNewEmail: false,
@@ -23,11 +23,11 @@ export default function EditEmailModal(props) {
 
   const changeEmail = (element) => {
     if (state.newEmail != state.oldEmail) {
-      element.target.classList.add("disabled");
+      element.target.classList.add('disabled');
 
       HandleFetch(
-        "/user/settings/email",
-        "POST",
+        '/user/settings/email',
+        'POST',
         {
           newEmail: state.newEmail,
           oldEmail: state.oldEmail,
@@ -36,7 +36,7 @@ export default function EditEmailModal(props) {
         props.i18n.language
       )
         .then(() => {
-          element.target.classList.remove("disabled");
+          element.target.classList.remove('disabled');
           setState({ ...state, checkEmail: !state.checkEmail });
         })
         .catch((e) => {
@@ -65,7 +65,7 @@ export default function EditEmailModal(props) {
 
   function validateEmail(email) {
     const re =
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      /^(([^<>()[\]\\.,;:\s@\']+(\.[^<>()[\]\\.,;:\s@\']+)*)|(\'.+\'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
 
@@ -97,27 +97,27 @@ export default function EditEmailModal(props) {
 
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.state.buttonEmail}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
       centered
     >
       <Modal.Body
         style={{
-          backgroundColor: "#262626",
+          backgroundColor: '#262626',
         }}
       >
-        <div className="text-white">
+        <div className='text-white'>
           {state.checkEmail ? (
-            <div className="fs-3 text-center my-3">{props.t("checkEmail")}</div>
+            <div className='fs-3 text-center my-3'>{props.t('checkEmail')}</div>
           ) : (
             <Form>
-              <Form.Group className="mb-3">
-                <Form.Label>{props.t("oldEmail")}</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label>{props.t('oldEmail')}</Form.Label>
                 <Form.Control
-                  type="email"
-                  placeholder="name@example.com"
+                  type='email'
+                  placeholder='name@example.com'
                   isValid={
                     state.oldEmail.length > 1 && validateEmail(state.oldEmail)
                   }
@@ -128,17 +128,17 @@ export default function EditEmailModal(props) {
                 />
                 <Alert
                   show={state.wrongEmail}
-                  className="dangerAllert mt-1 text-center"
-                  variant="danger"
+                  className='dangerAllert mt-1 text-center'
+                  variant='danger'
                 >
-                  {props.t("enterValidEmail")}
+                  {props.t('enterValidEmail')}
                 </Alert>
               </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>{props.t("newEmail")}</Form.Label>
+              <Form.Group className='mb-3'>
+                <Form.Label>{props.t('newEmail')}</Form.Label>
                 <Form.Control
-                  type="email"
-                  placeholder="name@example.com"
+                  type='email'
+                  placeholder='name@example.com'
                   isValid={
                     state.newEmail.length > 1 && validateEmail(state.newEmail)
                   }
@@ -150,40 +150,40 @@ export default function EditEmailModal(props) {
               </Form.Group>
               <Alert
                 show={state.wrongNewEmail}
-                className="dangerAllert mt-1 text-center"
-                variant="danger"
+                className='dangerAllert mt-1 text-center'
+                variant='danger'
               >
-                {props.t("enterValidEmail")}
+                {props.t('enterValidEmail')}
               </Alert>
             </Form>
           )}
 
-          <div className="row align-items-center justify-content-end">
-            <div className="col-2">
+          <div className='row align-items-center justify-content-end'>
+            <div className='col-2'>
               <Button
-                name="en"
-                size="sm"
-                className="btn button danger_button settings-button fs-5"
+                name='en'
+                size='sm'
+                className='btn button danger_button settings-button fs-5'
                 onClick={() => handleClose()}
               >
-                {props.t("close")}
+                {props.t('close')}
               </Button>
             </div>
             {!state.checkEmail ? (
-              <div className="col-2">
+              <div className='col-2'>
                 <Button
-                  name="en"
-                  size="sm"
+                  name='en'
+                  size='sm'
                   disabled={
                     state.wrongNewEmail ||
                     state.wrongEmail ||
                     state.oldEmail.length == 0 ||
                     state.newEmail.length == 0
                   }
-                  className="btn button success_button settings-button fs-5"
+                  className='btn button success_button settings-button fs-5'
                   onClick={(e) => changeEmail(e)}
                 >
-                  {props.t("save")}
+                  {props.t('save')}
                 </Button>
               </div>
             ) : null}

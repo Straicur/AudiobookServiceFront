@@ -1,14 +1,14 @@
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import React, { useRef } from "react";
-import { useAudiobookRating } from "../../../Providers/AudiobookRatingProvider";
-import { useAudiobookDetail } from "../../../Providers/AudiobookUserDetailProvider";
-import { useAudiobookPart } from "../../../Providers/AudiobookPartProvider";
-import { useAudiobookUserComments } from "../../../Providers/AudiobookUserCommentsProvider";
-import AudiobookPlayer from "../Common/AudiobookPlayer";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import StarRating from "../Common/StarRating";
-import RenderCommentsList from "../Common/RenderCommentsList";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import React, { useRef } from 'react';
+import { useAudiobookRating } from '../../../Providers/AudiobookRatingProvider';
+import { useAudiobookDetail } from '../../../Providers/AudiobookUserDetailProvider';
+import { useAudiobookPart } from '../../../Providers/AudiobookPartProvider';
+import { useAudiobookUserComments } from '../../../Providers/AudiobookUserCommentsProvider';
+import AudiobookPlayer from '../Common/AudiobookPlayer';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import StarRating from '../Common/StarRating';
+import RenderCommentsList from '../Common/RenderCommentsList';
 
 export default function AudiobookDetailModal(props) {
   const timeAudio = useRef(0);
@@ -38,10 +38,10 @@ export default function AudiobookDetailModal(props) {
   };
 
   const addToMyList = (element) => {
-    element.target.classList.add("disabled");
+    element.target.classList.add('disabled');
     HandleFetch(
-      "/user/audiobook/like",
-      "PATCH",
+      '/user/audiobook/like',
+      'PATCH',
       {
         audiobookId: props.state.detailModalAudiobook.id,
         categoryKey: props.state.detailModalCategory.categoryKey,
@@ -60,7 +60,7 @@ export default function AudiobookDetailModal(props) {
           renderAudiobookPlayer: true,
         });
 
-        element.target.classList.remove("disabled");
+        element.target.classList.remove('disabled');
       })
       .catch((e) => {
         props.setState({
@@ -79,8 +79,8 @@ export default function AudiobookDetailModal(props) {
     }
     if (procent >= 20) {
       HandleFetch(
-        "/user/audiobook/info/add",
-        "PUT",
+        '/user/audiobook/info/add',
+        'PUT',
         {
           audiobookId: props.state.detailModalAudiobook.id,
           categoryKey: props.state.detailModalCategory.categoryKey,
@@ -106,102 +106,102 @@ export default function AudiobookDetailModal(props) {
 
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.state.detailModal}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
     >
       <Modal.Body
-        className="text-white"
+        className='text-white'
         style={{
-          backgroundColor: "#000000",
+          backgroundColor: '#000000',
         }}
       >
         {audiobookDetail != null ? (
           <div
-            className="row "
+            className='row '
             style={{
               backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.7) 47%, rgba(255,255,255,0.1) 82%), url(${props.state.detailModalCover == null
-                  ? "/noImg.jpg"
+                  ? '/noImg.jpg'
                   : props.state.detailModalCover
                 })`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "60%",
-              backgroundPosition: "95% 15%",
-              paddingBottom: "3rem",
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '60%',
+              backgroundPosition: '95% 15%',
+              paddingBottom: '3rem',
             }}
           >
-            <div className="col-9">
-              <div className="row">
+            <div className='col-9'>
+              <div className='row'>
                 <h1>{audiobookDetail.title}</h1>
               </div>
-              <div className="row mb-3">
+              <div className='row mb-3'>
                 <h2>
-                  {props.t("author")}: {audiobookDetail.author}
+                  {props.t('author')}: {audiobookDetail.author}
                 </h2>
               </div>
-              <div className="row mb-3 text-wrap">
-                <div className="col-10">
-                  {props.t("description")}: {audiobookDetail.description}
+              <div className='row mb-3 text-wrap'>
+                <div className='col-10'>
+                  {props.t('description')}: {audiobookDetail.description}
                 </div>
               </div>
-              <div className="row mb-2">
-                <div className="col-5">
-                  {props.t("year")}: {audiobookDetail.year}
+              <div className='row mb-2'>
+                <div className='col-5'>
+                  {props.t('year')}: {audiobookDetail.year}
                 </div>
-                <div className="col-4">
-                  {props.t("version")}: {audiobookDetail.version}
-                </div>
-              </div>
-              <div className="row mb-2">
-                <div className="col-5">
-                  {props.t("parts")}: {audiobookDetail.parts}
-                </div>
-                <div className="col-5">
-                  {props.t("duration")}: {audiobookDetail.duration}
+                <div className='col-4'>
+                  {props.t('version')}: {audiobookDetail.version}
                 </div>
               </div>
-              <div className="row mb-2">
-                <div className="col">
-                  {props.t("album")}: {audiobookDetail.album}
+              <div className='row mb-2'>
+                <div className='col-5'>
+                  {props.t('parts')}: {audiobookDetail.parts}
+                </div>
+                <div className='col-5'>
+                  {props.t('duration')}: {audiobookDetail.duration}
                 </div>
               </div>
-              <div className="row justify-content-center mb-2">
-                <div className="col-6">
+              <div className='row mb-2'>
+                <div className='col'>
+                  {props.t('album')}: {audiobookDetail.album}
+                </div>
+              </div>
+              <div className='row justify-content-center mb-2'>
+                <div className='col-6'>
                   <Button
                     onClick={(e) => addToMyList(e)}
                     className={
                       audiobookDetail.inList
-                        ? "danger_button"
-                        : "success_button"
+                        ? 'danger_button'
+                        : 'success_button'
                     }
                   >
-                    {props.t("myList")}{" "}
+                    {props.t('myList')}{' '}
                     {audiobookDetail.inList ? (
-                      <i className="bi bi-x-lg"></i>
+                      <i className='bi bi-x-lg'></i>
                     ) : (
-                      <i className="bi bi-check-lg"></i>
+                      <i className='bi bi-check-lg'></i>
                     )}
                   </Button>
                 </div>
               </div>
-              <div className="row mb-5">
-                <div className="col">
-                  {props.t("categories")}:{" "}
+              <div className='row mb-5'>
+                <div className='col'>
+                  {props.t('categories')}:{' '}
                   {audiobookDetail.categories.map((category, index) => {
                     let name = category.name;
 
                     if (index != audiobookDetail.categories.length - 1) {
-                      name = name + ", ";
+                      name = name + ', ';
                     }
 
                     return name;
                   })}
                 </div>
               </div>
-              <div className="row">
-                <div className="col-3">{props.t("rating")}:</div>
-                <div className="col-9">
+              <div className='row'>
+                <div className='col-3'>{props.t('rating')}:</div>
+                <div className='col-9'>
                   <StarRating
                     count={5}
                     audiobookDetail={audiobookDetail}
@@ -213,12 +213,12 @@ export default function AudiobookDetailModal(props) {
                   />
                 </div>
               </div>
-              <div className="row my-1">
-                <div className="col-5 fs-5">
-                  {props.t("comments")}: {audiobookDetail.comments}
+              <div className='row my-1'>
+                <div className='col-5 fs-5'>
+                  {props.t('comments')}: {audiobookDetail.comments}
                 </div>
               </div>
-              <div className="row my-1">
+              <div className='row my-1'>
                 <RenderCommentsList
                   comments={audiobookUserComments}
                   setAudiobookUserComments={setAudiobookUserComments}
@@ -232,11 +232,11 @@ export default function AudiobookDetailModal(props) {
                 />
               </div>
             </div>
-            <div className="col-3 d-flex justify-content-end align-items-start pe-3">
+            <div className='col-3 d-flex justify-content-end align-items-start pe-3'>
               <Button
-                variant="danger"
+                variant='danger'
                 onClick={handleClose}
-                className="text-center danger_button opacity-75 exit_audiobook fw-bold"
+                className='text-center danger_button opacity-75 exit_audiobook fw-bold'
               >
                 X
               </Button>
@@ -244,8 +244,8 @@ export default function AudiobookDetailModal(props) {
           </div>
         ) : null}
 
-        <div className="row mt-4 justify-content-center">
-          <div className="col">
+        <div className='row mt-4 justify-content-center'>
+          <div className='col'>
             <AudiobookPlayer
               audiobookPart={audiobookPart}
               setAudiobookState={props.setAudiobookState}
@@ -258,14 +258,14 @@ export default function AudiobookDetailModal(props) {
             />
           </div>
         </div>
-        <div className="row mt-3 justify-content-center">
-          <div className="col-7  align-self-center">
+        <div className='row mt-3 justify-content-center'>
+          <div className='col-7  align-self-center'>
             <Button
-              variant="dark"
+              variant='dark'
               onClick={handleClose}
-              className="detail-button text-center"
+              className='detail-button text-center'
             >
-              {props.t("close")}
+              {props.t('close')}
             </Button>
           </div>
         </div>

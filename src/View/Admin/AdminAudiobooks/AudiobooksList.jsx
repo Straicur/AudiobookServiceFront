@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { AdminNavBar } from "../AdminNavBar/AdminNavBar";
-import { useQuery } from "react-query";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { useTranslation } from "react-i18next";
-import Button from "react-bootstrap/Button";
-import JsonModal from "../AdminJsonModal/JsonModal";
-import AudiobookCommentsModal from "../AdminCategory/AudiobookCommentsModal";
-import AddAudiobookModal from "./AddAudiobookModal";
-import RenderAudiobooksList from "./RenderAudiobooksList";
-import RenderPageSwitches from "../Common/RenderPageSwitches";
-import SearchAudiobooksOffCanvas from "./SearchAudiobooksOffCanvas";
-import { useCategoryListStore } from "../../../Store/store";
+import React, { useEffect, useState } from 'react';
+import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import { useQuery } from 'react-query';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { useTranslation } from 'react-i18next';
+import Button from 'react-bootstrap/Button';
+import JsonModal from '../AdminJsonModal/JsonModal';
+import AudiobookCommentsModal from '../AdminCategory/AudiobookCommentsModal';
+import AddAudiobookModal from './AddAudiobookModal';
+import RenderAudiobooksList from './RenderAudiobooksList';
+import RenderPageSwitches from '../Common/RenderPageSwitches';
+import SearchAudiobooksOffCanvas from './SearchAudiobooksOffCanvas';
+import { useCategoryListStore } from '../../../Store/store';
 
 export default function AudiobooksList(props) {
   const { t, i18n } = useTranslation();
@@ -37,9 +37,9 @@ export default function AudiobooksList(props) {
   const [searchState, setSearchState] = useState({
     sort: 0,
     categories: [],
-    title: "",
-    author: "",
-    album: "",
+    title: '',
+    author: '',
+    album: '',
     parts: 0,
     age: 0,
     year: 0,
@@ -58,9 +58,9 @@ export default function AudiobooksList(props) {
     setSearchState({
       sort: 0,
       categories: [],
-      title: "",
-      author: "",
-      album: "",
+      title: '',
+      author: '',
+      album: '',
       parts: 0,
       age: 0,
       year: 0,
@@ -77,13 +77,13 @@ export default function AudiobooksList(props) {
     if (searchState.categories.length != 0) {
       searchJson.categories = searchState.categories;
     }
-    if (searchState.title != "") {
+    if (searchState.title != '') {
       searchJson.title = searchState.title;
     }
-    if (searchState.author != "") {
+    if (searchState.author != '') {
       searchJson.author = searchState.author;
     }
-    if (searchState.album != "") {
+    if (searchState.album != '') {
       searchJson.album = searchState.album;
     }
     if (searchState.parts != 0) {
@@ -95,7 +95,7 @@ export default function AudiobooksList(props) {
     if (searchState.year != 0) {
       let date = new Date(searchState.year);
       searchJson.year =
-        date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
+        date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
     }
     if (searchState.duration != 0) {
       searchJson.duration = parseInt(searchState.duration);
@@ -105,11 +105,11 @@ export default function AudiobooksList(props) {
   };
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
-    "data",
+    'data',
     () =>
       HandleFetch(
-        "/admin/audiobooks",
-        "POST",
+        '/admin/audiobooks',
+        'POST',
         {
           page: pageState.page,
           limit: pageState.limit,
@@ -139,7 +139,7 @@ export default function AudiobooksList(props) {
     if (dateUpdate > Date.now() && dateUpdate != 0) {
       setCategories(categories);
     } else {
-      HandleFetch("/admin/categories", "GET", null, props.token, i18n.language)
+      HandleFetch('/admin/categories', 'GET', null, props.token, i18n.language)
         .then((data) => {
           categoriesStore.removeCategories();
           for (const category of data.categories) {
@@ -199,24 +199,24 @@ export default function AudiobooksList(props) {
   }, [props.audiobooksState.error]);
 
   return (
-    <div className="container-fluid main-container mt-3">
-      <div className="card position-relative p-3 mb-5  shadow">
+    <div className='container-fluid main-container mt-3'>
+      <div className='card position-relative p-3 mb-5  shadow'>
         <AdminNavBar />
-        <hr className="line" />
-        <div className="table-title my-2">
-          <div className="d-flex justify-content-end ">
-            <div className="p-2 bd-highlight">
-              <h2>{t("filters")}</h2>
+        <hr className='line' />
+        <div className='table-title my-2'>
+          <div className='d-flex justify-content-end '>
+            <div className='p-2 bd-highlight'>
+              <h2>{t('filters')}</h2>
             </div>
-            <div className="p-2 bd-highlight">
+            <div className='p-2 bd-highlight'>
               <Button
-                variant="dark"
-                size="sm"
-                color="dark"
-                className=" btn button mt-2"
+                variant='dark'
+                size='sm'
+                color='dark'
+                className=' btn button mt-2'
                 onClick={() => openSearchModal()}
               >
-                {t("search")}
+                {t('search')}
               </Button>
             </div>
           </div>
@@ -238,29 +238,29 @@ export default function AudiobooksList(props) {
             />
           ) : null}
         </div>
-        <div className="row justify-content-md-center">
-          <div className="col-3 d-flex justify-content-center">
+        <div className='row justify-content-md-center'>
+          <div className='col-3 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() => openAddModal()}
             >
-              {t("addAudiobook")}
+              {t('addAudiobook')}
             </Button>
           </div>
-          <div className="col-3 d-flex justify-content-center">
+          <div className='col-3 d-flex justify-content-center'>
             <Button
-              variant="dark"
-              size="lg"
-              color="dark"
-              className=" btn button mt-2"
+              variant='dark'
+              size='lg'
+              color='dark'
+              className=' btn button mt-2'
               onClick={() =>
                 setState({ ...state, jsonModal: !state.jsonModal })
               }
             >
-              {t("jsonData")}
+              {t('jsonData')}
             </Button>
           </div>
         </div>

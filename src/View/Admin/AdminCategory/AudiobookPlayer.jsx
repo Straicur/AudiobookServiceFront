@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
+import React, { useEffect, useRef } from 'react';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 export default function AudiobookPlayer(props) {
   const player = useRef(null);
@@ -37,9 +37,9 @@ export default function AudiobookPlayer(props) {
   return (
     <AudioPlayer
       header={
-        <div className="row  justify-content-center">
-          <div className="col-2 fs-5 text-center">
-            {props.t("part")}: {props.state.detailAudiobookElementPart + 1}
+        <div className='row  justify-content-center'>
+          <div className='col-2 fs-5 text-center'>
+            {props.t('part')}: {props.state.detailAudiobookElementPart + 1}
           </div>
         </div>
       }

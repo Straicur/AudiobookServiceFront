@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { useCategoryTreeListStore } from "../../../Store/store";
-import RenderCategoriesList from "./RenderCategoriesList";
-import Modal from "react-bootstrap/Modal";
+import React, { useEffect, useState } from 'react';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { useCategoryTreeListStore } from '../../../Store/store';
+import RenderCategoriesList from './RenderCategoriesList';
+import Modal from 'react-bootstrap/Modal';
 
 export default function AudiobookAddCategoriesModal(props) {
   const [categoriesState, setCategoriesState] = useState({
@@ -25,8 +25,8 @@ export default function AudiobookAddCategoriesModal(props) {
 
   const fetchCategories = () => {
     HandleFetch(
-      "/admin/categories/tree",
-      "GET",
+      '/admin/categories/tree',
+      'GET',
       null,
       props.token,
       props.i18n.language
@@ -75,13 +75,13 @@ export default function AudiobookAddCategoriesModal(props) {
 
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.audiobookState.addCategoriesModal}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
     >
       <Modal.Header closeButton>
-        <Modal.Title>{props.t("addCategory")}</Modal.Title>
+        <Modal.Title>{props.t('addCategory')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <RenderCategoriesList

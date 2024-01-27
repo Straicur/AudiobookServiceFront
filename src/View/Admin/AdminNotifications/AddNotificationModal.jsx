@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import PickActionIdAddList from "./PickActionIdAddList";
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import PickActionIdAddList from './PickActionIdAddList';
 
 export default function AddNotificationModal(props) {
   const [state, setState] = useState({
-    actionId: "",
+    actionId: '',
     notificationType: 0,
-    text: "",
+    text: '',
     userType: 0,
   });
 
@@ -77,7 +77,7 @@ export default function AddNotificationModal(props) {
     if (state.notificationType == 2) {
       additionalData.userId = state.actionId;
     }
-    if (state.text != "") {
+    if (state.text != '') {
       additionalData.text = state.text;
     }
 
@@ -86,8 +86,8 @@ export default function AddNotificationModal(props) {
 
   const addNotification = () => {
     HandleFetch(
-      "/admin/user/notification",
-      "PUT",
+      '/admin/user/notification',
+      'PUT',
       {
         notificationType: state.notificationType,
         notificationUserType: state.userType,
@@ -113,13 +113,13 @@ export default function AddNotificationModal(props) {
 
   return (
     <Modal
-      size="lg"
+      size='lg'
       show={props.state.addNotificationModal}
       onHide={handleClose}
-      backdrop="static"
+      backdrop='static'
     >
       <Modal.Header>
-        <Modal.Title>{props.t("addNotification")}</Modal.Title>
+        <Modal.Title>{props.t('addNotification')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {actionState.list ? (
@@ -141,11 +141,11 @@ export default function AddNotificationModal(props) {
             token={props.token}
           />
         ) : (
-          <div className="container">
-            <div className="row">
-              <InputGroup className="mb-1 input_modal py-1">
-                <InputGroup.Text className="input-notification-text-new text-light">
-                  {props.t("userType")}
+          <div className='container'>
+            <div className='row'>
+              <InputGroup className='mb-1 input_modal py-1'>
+                <InputGroup.Text className='input-notification-text-new text-light'>
+                  {props.t('userType')}
                 </InputGroup.Text>
                 <Form.Select
                   onChange={(e) => {
@@ -153,14 +153,14 @@ export default function AddNotificationModal(props) {
                   }}
                   value={state.userType}
                 >
-                  <option value={0}>{props.t("selectNotificationType")}</option>
-                  <option value={1}>{props.t("administration")}</option>
-                  <option value={2}>{props.t("system")}</option>
+                  <option value={0}>{props.t('selectNotificationType')}</option>
+                  <option value={1}>{props.t('administration')}</option>
+                  <option value={2}>{props.t('system')}</option>
                 </Form.Select>
               </InputGroup>
-              <InputGroup className="mb-1 input_modal py-1">
-                <InputGroup.Text className="input-notification-text-new text-light">
-                  {props.t("notificationType")}
+              <InputGroup className='mb-1 input_modal py-1'>
+                <InputGroup.Text className='input-notification-text-new text-light'>
+                  {props.t('notificationType')}
                 </InputGroup.Text>
                 <Form.Select
                   onChange={(e) => {
@@ -168,70 +168,70 @@ export default function AddNotificationModal(props) {
                   }}
                   value={state.notificationType}
                 >
-                  <option value={0}>{props.t("selectType")}</option>
-                  <option value={1}>{props.t("notificationTypeNormal")}</option>
-                  <option value={2}>{props.t("notificationTypeAdmin")}</option>
+                  <option value={0}>{props.t('selectType')}</option>
+                  <option value={1}>{props.t('notificationTypeNormal')}</option>
+                  <option value={2}>{props.t('notificationTypeAdmin')}</option>
                   <option value={4}>
-                    {props.t("notificationTypeNewCategory")}
+                    {props.t('notificationTypeNewCategory')}
                   </option>
                   <option value={5}>
-                    {props.t("notificationTypeNewAudiobook")}
+                    {props.t('notificationTypeNewAudiobook')}
                   </option>
                 </Form.Select>
               </InputGroup>
-              <InputGroup className="mb-1 input_modal py-1">
+              <InputGroup className='mb-1 input_modal py-1'>
                 <InputGroup.Text>
-                  {props.t("description")} ({props.t("optional")})
+                  {props.t('description')} ({props.t('optional')})
                 </InputGroup.Text>
                 <Form.Control
-                  as="textarea"
-                  aria-label="With textarea"
+                  as='textarea'
+                  aria-label='With textarea'
                   value={state.text}
                   onChange={(e) => {
                     changeText(e);
                   }}
                 />
               </InputGroup>
-              <InputGroup className="mt-2 mb-1 input_modal py-1">
-                <InputGroup.Text>{props.t("actionId")}</InputGroup.Text>
+              <InputGroup className='mt-2 mb-1 input_modal py-1'>
+                <InputGroup.Text>{props.t('actionId')}</InputGroup.Text>
                 <Form.Control
                   disabled
-                  className="text-success"
+                  className='text-success'
                   value={state.actionId}
                 />
               </InputGroup>
             </div>
             {actionState.actionIdChanged || state.notificationType == 1 ? (
-              <div className="row justify-content-center mx-5 mt-3">
-                <div className="col-7">
+              <div className='row justify-content-center mx-5 mt-3'>
+                <div className='col-7'>
                   <Button
-                    name="en"
-                    variant="success"
-                    size="sm"
-                    className="btn button button_notification"
+                    name='en'
+                    variant='success'
+                    size='sm'
+                    className='btn button button_notification'
                     disabled={
                       state.notificationType == 0 || state.userType == 0
                     }
                     onClick={(e) => addNotification(e)}
                   >
-                    {props.t("save")}
+                    {props.t('save')}
                   </Button>
                 </div>
               </div>
             ) : (
-              <div className="row justify-content-center mx-5 mt-3">
-                <div className="col-7">
+              <div className='row justify-content-center mx-5 mt-3'>
+                <div className='col-7'>
                   <Button
-                    name="en"
-                    variant="dark"
+                    name='en'
+                    variant='dark'
                     disabled={
                       state.notificationType == 0 || state.userType == 0
                     }
-                    size="sm"
-                    className="btn button button_notification"
+                    size='sm'
+                    className='btn button button_notification'
                     onClick={(e) => selectActionId(e)}
                   >
-                    {props.t("select")}
+                    {props.t('select')}
                   </Button>
                 </div>
               </div>
@@ -241,12 +241,12 @@ export default function AddNotificationModal(props) {
       </Modal.Body>
       <Modal.Footer>
         {actionState.list != 0 ? (
-          <Button variant="dark" onClick={goBack}>
-            {props.t("back")}
+          <Button variant='dark' onClick={goBack}>
+            {props.t('back')}
           </Button>
         ) : null}
-        <Button variant="dark" onClick={handleClose}>
-          {props.t("close")}
+        <Button variant='dark' onClick={handleClose}>
+          {props.t('close')}
         </Button>
       </Modal.Footer>
     </Modal>

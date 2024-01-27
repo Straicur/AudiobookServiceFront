@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import md5 from "md5";
-import Button from "react-bootstrap/Button";
-import Alert from "react-bootstrap/Alert";
-import ProgressBar from "react-bootstrap/ProgressBar";
+import React, { useEffect } from 'react';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import md5 from 'md5';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export default function ForgotPage(props) {
   function validatePassword(pass) {
@@ -15,26 +15,26 @@ export default function ForgotPage(props) {
   function getPasswordStrenghtText(t, passStr) {
     switch (passStr) {
       case 10:
-        return <p className="text-center text-danger">{t("weakPassword")}</p>;
+        return <p className='text-center text-danger'>{t('weakPassword')}</p>;
       case 25:
-        return <p className="text-center text-warning">{t("moderatePassword")}</p>;
+        return <p className='text-center text-warning'>{t('moderatePassword')}</p>;
       case 50:
-        return <p className="text-center text-success">{t("strongPassword")}</p>;
+        return <p className='text-center text-success'>{t('strongPassword')}</p>;
       case 100:
-        return <p className="text-center text-info">{t("extraStrongPassword")}</p>;
+        return <p className='text-center text-info'>{t('extraStrongPassword')}</p>;
     }
   }
 
   function getPasswordStrenghtProgressColor(passStr) {
     switch (passStr) {
       case 10:
-        return "danger";
+        return 'danger';
       case 25:
-        return "warning";
+        return 'warning';
       case 50:
-        return "success";
+        return 'success';
       case 100:
-        return "info";
+        return 'info';
     }
   }
 
@@ -66,17 +66,17 @@ export default function ForgotPage(props) {
       validatePassword(props.state.confirmPassword) &&
       props.state.password == props.state.confirmPassword
     ) {
-      const url = "/user/reset/password/confirm";
+      const url = '/user/reset/password/confirm';
       const jsonData = {
         userId: props.id,
         password: md5(props.state.password),
       };
-      const method = "PATCH";
+      const method = 'PATCH';
 
       HandleFetch(url, method, jsonData, props.i18n.language)
         .then((data) => {
           if (data) {
-            props.navigate("/login");
+            props.navigate('/login');
           }
         })
         .catch((e) => {
@@ -108,8 +108,8 @@ export default function ForgotPage(props) {
   };
   useEffect(() => {
     if (
-      props.state.password.trim() != "" &&
-      props.state.confirmPassword.trim() != "" &&
+      props.state.password.trim() != '' &&
+      props.state.confirmPassword.trim() != '' &&
       props.state.password == props.state.confirmPassword
     ) {
       props.setState({
@@ -135,31 +135,31 @@ export default function ForgotPage(props) {
   }, [props.state.error]);
 
   return (
-    <div className="container d-flex align-items-center justify-content-center mt-3 ">
-      <div className="card position-relative shadow p-3 mb-5">
+    <div className='container d-flex align-items-center justify-content-center mt-3 '>
+      <div className='card position-relative shadow p-3 mb-5'>
         <div>
-          <h1 className="py-1">{props.t("insertNewPassword")}</h1>
+          <h1 className='py-1'>{props.t('insertNewPassword')}</h1>
           <input
-            type="password"
-            name="password"
-            placeholder={props.t("insertPassword")}
+            type='password'
+            name='password'
+            placeholder={props.t('insertPassword')}
             value={props.state.password}
-            className="form-control mt-4"
+            className='form-control mt-4'
             onChange={handlePasswordChange}
           />
           <input
-            type="password"
-            name="passwordConfirm"
-            placeholder={props.t("insertPasswordConfirm")}
+            type='password'
+            name='passwordConfirm'
+            placeholder={props.t('insertPasswordConfirm')}
             value={props.state.confirmPassword}
-            className="form-control mt-4"
+            className='form-control mt-4'
             onChange={handleConfirmPasswordChange}
           />
-          <hr className="mt-4"></hr>
+          <hr className='mt-4'></hr>
           {props.state.password.length >= 1 ? (
             <div>
               <ProgressBar
-                className="mt-3"
+                className='mt-3'
                 variant={getPasswordStrenghtProgressColor(
                   props.state.passwordStrength
                 )}
@@ -170,25 +170,25 @@ export default function ForgotPage(props) {
           ) : null}
           <Alert
             show={props.state.wrongPassword}
-            className="dangerAllert mt-1 text-center"
-            variant="danger"
+            className='dangerAllert mt-1 text-center'
+            variant='danger'
           >
-            {props.t("enterStrongerPassword")}
+            {props.t('enterStrongerPassword')}
           </Alert>
           <Alert
             show={props.state.isButtonDisabled}
-            className="dangerAllert mt-1 text-center"
-            variant="danger"
+            className='dangerAllert mt-1 text-center'
+            variant='danger'
           >
-            {props.t("enterValidConfirmPassword")}
+            {props.t('enterValidConfirmPassword')}
           </Alert>
           <Button
-            variant="dark"
+            variant='dark'
             onClick={handleNewPassword}
             disabled={props.state.isButtonDisabled || props.state.wrongPassword}
-            className="mt-2 mb-3 form-control"
+            className='mt-2 mb-3 form-control'
           >
-            {props.t("changePassword")}
+            {props.t('changePassword')}
           </Button>
         </div>
       </div>

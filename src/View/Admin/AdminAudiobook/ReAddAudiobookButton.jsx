@@ -1,6 +1,6 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
-import { HandleFetch } from "../../../Util/HandleFetch";
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import { HandleFetch } from '../../../Util/HandleFetch';
 
 export default function ReAddAudiobookButton(props) {
   const fetchCategoriesList = () => {
@@ -8,8 +8,8 @@ export default function ReAddAudiobookButton(props) {
       props.setCategories(props.categories);
     } else {
       HandleFetch(
-        "/admin/categories",
-        "GET",
+        '/admin/categories',
+        'GET',
         null,
         props.token,
         props.i18n.language
@@ -41,22 +41,22 @@ export default function ReAddAudiobookButton(props) {
   };
 
   return props.audiobookState.reAdding ? (
-    <div className="row justify-content-center">
-      <div className="col-4 mx-2">
+    <div className='row justify-content-center'>
+      <div className='col-4 mx-2'>
         <Button
-          name="en"
-          size="sm"
-          className="btn button px-4 my-1 question_button success_button"
+          name='en'
+          size='sm'
+          className='btn button px-4 my-1 question_button success_button'
           onClick={openReAddingModal}
         >
-          {props.t("yes")}
+          {props.t('yes')}
         </Button>
       </div>
-      <div className="col-4 mx-2">
+      <div className='col-4 mx-2'>
         <Button
-          name="en"
-          size="sm"
-          className="btn button px-4 my-1 question_button danger_button me-2"
+          name='en'
+          size='sm'
+          className='btn button px-4 my-1 question_button danger_button me-2'
           onClick={() =>
             props.setAudiobookState({
               ...props.audiobookState,
@@ -64,16 +64,16 @@ export default function ReAddAudiobookButton(props) {
             })
           }
         >
-          {props.t("no")}
+          {props.t('no')}
         </Button>
       </div>
     </div>
   ) : (
-    <div className="row">
+    <div className='row'>
       <Button
-        name="en"
-        size="sm"
-        className="btn button px-4 my-1 audiobook_detail_modal_button warning_button"
+        name='en'
+        size='sm'
+        className='btn button px-4 my-1 audiobook_detail_modal_button warning_button'
         onClick={() =>
           props.setAudiobookState({
             ...props.audiobookState,
@@ -81,7 +81,7 @@ export default function ReAddAudiobookButton(props) {
           })
         }
       >
-        {props.t("reAdding")}
+        {props.t('reAdding')}
       </Button>
     </div>
   );

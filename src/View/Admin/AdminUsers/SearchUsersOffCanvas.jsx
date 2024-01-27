@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import InputGroup from "react-bootstrap/InputGroup";
-import Form from "react-bootstrap/Form";
+import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 
 export default function SearchUsersOffCanvas(props) {
   const [show, setShow] = useState(true);
@@ -99,34 +99,34 @@ export default function SearchUsersOffCanvas(props) {
     <Offcanvas
       show={show}
       onHide={handleClose}
-      className="bg-dark text-light off_canvas_with"
-      backdrop="static"
-      placement="end"
+      className='bg-dark text-light off_canvas_with'
+      backdrop='static'
+      placement='end'
     >
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>
-          <div className="row">
-            <div className="col">
-              <h2>{props.t("filters")}</h2>
+          <div className='row'>
+            <div className='col'>
+              <h2>{props.t('filters')}</h2>
             </div>
-            <div className="col">
+            <div className='col'>
               <Button
-                variant="success"
-                size="sm"
-                color="success"
-                className=" btn button mt-2"
+                variant='success'
+                size='sm'
+                color='success'
+                className=' btn button mt-2'
                 onClick={props.resetSearchStates}
               >
-                {props.t("reset")}
+                {props.t('reset')}
               </Button>
             </div>
           </div>
         </Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <InputGroup className="mb-1 input_modal py-1">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("sort")}
+        <InputGroup className='mb-1 input_modal py-1'>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('sort')}
           </InputGroup.Text>
           <Form.Select
             onChange={(e) => {
@@ -134,16 +134,16 @@ export default function SearchUsersOffCanvas(props) {
             }}
             value={props.searchState.sort}
           >
-            <option value={0}>{props.t("selectSort")}</option>
-            <option value={1}>{props.t("latest")}</option>
-            <option value={2}>{props.t("oldest")}</option>
-            <option value={3}>{props.t("aplhabeticalAsc")}</option>
-            <option value={4}>{props.t("aplhabeticalDesc")}</option>
+            <option value={0}>{props.t('selectSort')}</option>
+            <option value={1}>{props.t('latest')}</option>
+            <option value={2}>{props.t('oldest')}</option>
+            <option value={3}>{props.t('aplhabeticalAsc')}</option>
+            <option value={4}>{props.t('aplhabeticalDesc')}</option>
           </Form.Select>
         </InputGroup>
-        <InputGroup className="mb-1 input_modal py-1 ">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("email")}
+        <InputGroup className='mb-1 input_modal py-1 '>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('email')}
           </InputGroup.Text>
           <Form.Control
             value={props.searchState.title}
@@ -153,9 +153,9 @@ export default function SearchUsersOffCanvas(props) {
           />
         </InputGroup>
 
-        <InputGroup className="mb-1 input_modal py-1 ">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("phoneNumber")}
+        <InputGroup className='mb-1 input_modal py-1 '>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('phoneNumber')}
           </InputGroup.Text>
           <Form.Control
             value={props.searchState.author}
@@ -164,9 +164,9 @@ export default function SearchUsersOffCanvas(props) {
             }}
           />
         </InputGroup>
-        <InputGroup className="mb-1 input_modal py-1 ">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("firstname")}
+        <InputGroup className='mb-1 input_modal py-1 '>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('firstname')}
           </InputGroup.Text>
           <Form.Control
             value={props.searchState.album}
@@ -176,9 +176,9 @@ export default function SearchUsersOffCanvas(props) {
           />
         </InputGroup>
 
-        <InputGroup className="mb-1 input_modal py-1 ">
-          <InputGroup.Text className="input-group-text-new text-light">
-            {props.t("lastname")}
+        <InputGroup className='mb-1 input_modal py-1 '>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('lastname')}
           </InputGroup.Text>
           <Form.Control
             onChange={(e) => {
@@ -187,14 +187,14 @@ export default function SearchUsersOffCanvas(props) {
             value={props.searchState.parts}
           />
         </InputGroup>
-        <InputGroup className="mb-1 input_modal py-1 ">
+        <InputGroup className='mb-1 input_modal py-1 '>
           <Form.Check
-            type="switch"
-            id="custom-switch"
+            type='switch'
+            id='custom-switch'
             label={
               props.searchState.active != null && props.searchState.active
-                ? props.t("active")
-                : props.t("notActive")
+                ? props.t('active')
+                : props.t('notActive')
             }
             checked={
               props.searchState.active != null && props.searchState.active
@@ -202,14 +202,14 @@ export default function SearchUsersOffCanvas(props) {
             onChange={(e) => changeActive(e)}
           />
         </InputGroup>
-        <InputGroup className="mb-1 input_modal py-1 ">
+        <InputGroup className='mb-1 input_modal py-1 '>
           <Form.Check
-            type="switch"
-            id="custom-switch"
+            type='switch'
+            id='custom-switch'
             label={
               props.searchState.banned != null && props.searchState.banned
-                ? props.t("banned")
-                : props.t("notBanned")
+                ? props.t('banned')
+                : props.t('notBanned')
             }
             checked={
               props.searchState.banned != null && props.searchState.banned
@@ -217,15 +217,15 @@ export default function SearchUsersOffCanvas(props) {
             onChange={(e) => changeBanned(e)}
           />
         </InputGroup>
-        <div className="row mx-1">
+        <div className='row mx-1'>
           <Button
-            variant="success"
-            size="lg"
-            color="success"
-            className=" btn button mt-2"
+            variant='success'
+            size='lg'
+            color='success'
+            className=' btn button mt-2'
             onClick={() => searchAgain()}
           >
-            {props.t("search")}
+            {props.t('search')}
           </Button>
         </div>
       </Offcanvas.Body>

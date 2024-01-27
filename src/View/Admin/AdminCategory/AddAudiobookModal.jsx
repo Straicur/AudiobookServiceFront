@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Util/HandleFetch";
-import sha256 from "crypto-js/sha256";
-import { Buffer } from "buffer";
-import ProgressBar from "react-bootstrap/ProgressBar";
-import Form from "react-bootstrap/Form";
+import React, { useEffect, useState, useRef } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { HandleFetch } from '../../../Util/HandleFetch';
+import sha256 from 'crypto-js/sha256';
+import { Buffer } from 'buffer';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import Form from 'react-bootstrap/Form';
 
 export default function AddAudiobookModal(props) {
   const [stateModal, setStateModal] = useState({
-    author: "",
-    title: "",
+    author: '',
+    title: '',
     modal: 1,
     fileAdded: false,
     categoryParent: false,
@@ -34,7 +34,7 @@ export default function AddAudiobookModal(props) {
     if (e.target.files) {
       let file = e.target.files[0];
 
-      if (file.type == "application/zip") {
+      if (file.type == 'application/zip') {
         setStateModal({ ...stateModal, fileAdded: true, file: file });
       }
     }
@@ -59,11 +59,11 @@ export default function AddAudiobookModal(props) {
   };
 
   const addNewAudiobook = () => {
-    const url = "/admin/audiobook/add";
-    const method = "PUT";
+    const url = '/admin/audiobook/add';
+    const method = 'PUT';
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
-    const fileName = stateModal.title + "_" + stateModal.author;
+    const fileName = stateModal.title + '_' + stateModal.author;
     const hashName = sha256(fileName).toString();
     //todo to jest do rozkminy bo przeszkadza
     // Nie wykonuje się po i nie mogę zmienić stanu
@@ -84,7 +84,7 @@ export default function AddAudiobookModal(props) {
         seconds.current = buf.length / 10000;
 
         if (buf.length < CHUNK_SIZE) {
-          let b64 = Buffer.from(buf).toString("base64");
+          let b64 = Buffer.from(buf).toString('base64');
 
           const jsonData = {
             hashName: hashName,
@@ -109,8 +109,8 @@ export default function AddAudiobookModal(props) {
                 Object.keys(data).length !== 0
               ) {
                 setStateModal({
-                  author: "",
-                  title: "",
+                  author: '',
+                  title: '',
                   modal: 3,
                   fileAdded: true,
                   isNextButtonDisabled: false,
@@ -138,7 +138,7 @@ export default function AddAudiobookModal(props) {
             maxParts.current = allparts;
             currentPart.current = part;
 
-            let b64 = Buffer.from(arr).toString("base64");
+            let b64 = Buffer.from(arr).toString('base64');
 
             const jsonData = {
               hashName: hashName,
@@ -160,8 +160,8 @@ export default function AddAudiobookModal(props) {
                   Object.keys(data).length !== 0
                 ) {
                   setStateModal({
-                    author: "",
-                    title: "",
+                    author: '',
+                    title: '',
                     modal: 3,
                     fileAdded: true,
                     isNextButtonDisabled: false,
@@ -198,42 +198,42 @@ export default function AddAudiobookModal(props) {
   return (
     <Modal
       show={props.state.addAudiobookModal}
-      backdrop="static"
+      backdrop='static'
       keyboard={false}
     >
       <Modal.Header>
         <Modal.Title>
           <h3>
-            <b>{props.t("addAudiobook")}</b>
+            <b>{props.t('addAudiobook')}</b>
           </h3>
         </Modal.Title>
       </Modal.Header>
       {stateModal.modal == 1 ? (
         <Modal.Body>
-          <h5>{props.t("title")}</h5>
+          <h5>{props.t('title')}</h5>
           <input
-            id="title"
-            type="text"
-            name="title"
+            id='title'
+            type='text'
+            name='title'
             value={stateModal.title}
-            className="form-control mt-2"
+            className='form-control mt-2'
             onChange={handleSetTitleChange}
           />
-          <h5>{props.t("author")}</h5>
+          <h5>{props.t('author')}</h5>
           <input
-            id="author"
-            type="text"
-            name="author"
+            id='author'
+            type='text'
+            name='author'
             value={stateModal.author}
-            className="form-control mt-2"
+            className='form-control mt-2'
             onChange={handleSetAuthorChange}
           />
           {props.parentCategoryId != null ? (
-            <div className="mt-3">
+            <div className='mt-3'>
               <Form.Check
-                type="switch"
-                id="custom-switch"
-                label={props.t("categoryParentSelect")}
+                type='switch'
+                id='custom-switch'
+                label={props.t('categoryParentSelect')}
                 checked={stateModal.categoryParent}
                 onChange={(e) =>
                   setStateModal({
@@ -250,16 +250,16 @@ export default function AddAudiobookModal(props) {
           {stateModal.modal == 3 ? (
             <ProgressBar
               animated
-              variant="info"
+              variant='info'
               max={maxParts.current}
               now={maxParts.current == 1 ? undefined : currentPart.current}
             />
           ) : (
             <input
-              id="name"
-              type="file"
-              name="name"
-              className="form-control mt-2"
+              id='name'
+              type='file'
+              name='name'
+              className='form-control mt-2'
               onChange={handleOnFileChange}
             />
           )}
@@ -267,44 +267,44 @@ export default function AddAudiobookModal(props) {
       )}
       {stateModal.modal == 1 ? (
         <Modal.Footer>
-          <Button variant="dark" onClick={handleClose}>
-            {props.t("close")}
+          <Button variant='dark' onClick={handleClose}>
+            {props.t('close')}
           </Button>
           <Button
             disabled={stateModal.isNextButtonDisabled}
-            variant="dark"
+            variant='dark'
             onClick={nextPage}
           >
-            {props.t("save")}
+            {props.t('save')}
           </Button>
         </Modal.Footer>
       ) : (
         <Modal.Footer>
           {stateModal.upload == false ? (
             <div>
-              <Button variant="dark" onClick={handleBack}>
-                {props.t("back")}
+              <Button variant='dark' onClick={handleBack}>
+                {props.t('back')}
               </Button>
               <Button
                 disabled={!stateModal.fileAdded}
-                variant="dark"
+                variant='dark'
                 onClick={() => {
                   addNewAudiobook();
                 }}
               >
-                {props.t("upload")}
+                {props.t('upload')}
               </Button>
             </div>
           ) : (
             <div>
               <Button
                 disabled={stateModal.uploadEnded}
-                variant="dark"
+                variant='dark'
                 onClick={() => {
                   handleClose();
                 }}
               >
-                {props.t("close")}
+                {props.t('close')}
               </Button>
             </div>
           )}

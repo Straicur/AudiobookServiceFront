@@ -4,15 +4,15 @@ export default class CreateUtil {
 
         const day =
             dateFormat.getDate() < 9
-                ? "0" + dateFormat.getDate()
+                ? '0' + dateFormat.getDate()
                 : dateFormat.getDate();
         const month =
             dateFormat.getMonth() < 9
-                ? "0" + (dateFormat.getMonth() + 1)
+                ? '0' + (dateFormat.getMonth() + 1)
                 : dateFormat.getMonth() + 1;
         const year = dateFormat.getFullYear();
 
-        return year + "-" + month + "-" + day;
+        return year + '-' + month + '-' + day;
     };
 
     static createJsonFormatDate = (date) => {
@@ -21,11 +21,11 @@ export default class CreateUtil {
         const day = dateFormat.getDate();
         const month =
             dateFormat.getMonth() < 10
-                ? "0" + (dateFormat.getMonth() + 1)
+                ? '0' + (dateFormat.getMonth() + 1)
                 : dateFormat.getMonth() + 1;
         const year = dateFormat.getFullYear();
 
-        const data = day + "." + month + "." + year;
+        const data = day + '.' + month + '.' + year;
 
         return data;
     };

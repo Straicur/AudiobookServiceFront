@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { HandleFetch } from "../../../Util/HandleFetch";
+import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { HandleFetch } from '../../../Util/HandleFetch';
 
 export default function AddCategoryModal(props) {
   const [modalState, setModalState] = useState({
-    name: "",
+    name: '',
     isButtonDisabled: true,
   });
 
@@ -30,8 +30,8 @@ export default function AddCategoryModal(props) {
     }
 
     HandleFetch(
-      "/admin/category/add",
-      "PUT",
+      '/admin/category/add',
+      'PUT',
       {
         name: modalState.name,
         additionalData: additionalData,
@@ -62,7 +62,7 @@ export default function AddCategoryModal(props) {
   return (
     <Modal
       show={props.state.addCategoryModal}
-      backdrop="static"
+      backdrop='static'
       keyboard={false}
     >
       <Modal.Header>
@@ -70,35 +70,35 @@ export default function AddCategoryModal(props) {
           <h3>
             <b>
               {props.state.addCategoryParent != null
-                ? props.t("addToCategory") +
-                  " " +
+                ? props.t('addToCategory') +
+                  ' ' +
                   props.state.addCategoryParent.name
-                : props.t("addMainCategory")}
+                : props.t('addMainCategory')}
             </b>
           </h3>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h5>{props.t("name")}</h5>
+        <h5>{props.t('name')}</h5>
         <input
-          id="name"
-          type="text"
-          name="name"
+          id='name'
+          type='text'
+          name='name'
           value={modalState.name}
-          className="form-control mt-2"
+          className='form-control mt-2'
           onChange={handleSetNameChange}
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="dark" onClick={handleClose}>
-          {props.t("close")}
+        <Button variant='dark' onClick={handleClose}>
+          {props.t('close')}
         </Button>
         <Button
           disabled={modalState.isButtonDisabled}
-          variant="dark"
+          variant='dark'
           onClick={addNewSet}
         >
-          {props.t("add")}
+          {props.t('add')}
         </Button>
       </Modal.Footer>
     </Modal>

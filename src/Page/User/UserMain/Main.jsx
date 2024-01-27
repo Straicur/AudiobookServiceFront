@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Helmet, HelmetProvider } from "react-helmet-async";
-import { UserNavBar } from "../../../View/User/UserNavBar/UserNavBar";
-import { useTokenStore } from "../../../Store/store";
-import { ErrorBoundary } from "react-error-boundary";
-import { ErrorHandlerModal } from "../../../Errors/ErrorHandlerModal";
-import { useTranslation } from "react-i18next";
-import GetAudiobooksProviders from "../../../View/User/UserMain/GetAudiobooksProviders";
-import AudiobookDetailProviders from "../../../View/User/UserMain/AudiobookDetailProviders";
-import SearchAudiobooks from "../../../View/User/UserMain/SearchAudiobooks";
-import RenderAudiobookSearch from "../../../View/User/UserMain/RenderAudiobookSearch";
-import { Footer } from "../../../View/User/Common/Footer";
-import "./Main.css";
+import React, { useState } from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { UserNavBar } from '../../../View/User/UserNavBar/UserNavBar';
+import { useTokenStore } from '../../../Store/store';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
+import { useTranslation } from 'react-i18next';
+import GetAudiobooksProviders from '../../../View/User/UserMain/GetAudiobooksProviders';
+import AudiobookDetailProviders from '../../../View/User/UserMain/AudiobookDetailProviders';
+import SearchAudiobooks from '../../../View/User/UserMain/SearchAudiobooks';
+import RenderAudiobookSearch from '../../../View/User/UserMain/RenderAudiobookSearch';
+import { Footer } from '../../../View/User/Common/Footer';
+import './Main.css';
 
 export default function Main() {
   const { t, i18n } = useTranslation();
@@ -27,7 +27,7 @@ export default function Main() {
     search: false,
     searching: false,
     wasSearch: false,
-    searchText: "",
+    searchText: '',
     error: null,
   });
 
@@ -46,11 +46,11 @@ export default function Main() {
     >
       <HelmetProvider>
         <Helmet>
-          <style>{"body { background-color: black; }"}</style>
+          <style>{'body { background-color: black; }'}</style>
         </Helmet>
 
-        <div className="container-fluid main-container mt-3">
-          <div className="card position-relative p-3 bg-dark shadow">
+        <div className='container-fluid main-container mt-3'>
+          <div className='card position-relative p-3 bg-dark shadow'>
             <UserNavBar />
             <SearchAudiobooks
               audiobooksState={audiobooksState}

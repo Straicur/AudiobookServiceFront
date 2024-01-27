@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { AudiobookDataProvider } from "../../../Providers/AudiobookDataProvider";
-import { AdminAudiobookCoverDataProvider } from "../../../Providers/AdminAudiobookCoverDataProvider";
-import { AdminAudiobookPartProvider } from "../../../Providers/AdminAudiobookPartProvider";
-import { AudiobookCommentsProvider } from "../../../Providers/AudiobookCommentsProvider";
+import React, { useEffect } from 'react';
+import { AudiobookDataProvider } from '../../../Providers/AudiobookDataProvider';
+import { AdminAudiobookCoverDataProvider } from '../../../Providers/AdminAudiobookCoverDataProvider';
+import { AdminAudiobookPartProvider } from '../../../Providers/AdminAudiobookPartProvider';
+import { AudiobookCommentsProvider } from '../../../Providers/AudiobookCommentsProvider';
 
-import AudiobookDetail from "./AudiobookDetail";
+import AudiobookDetail from './AudiobookDetail';
 
 export default function AuidobookDetailProviders(props) {
   useEffect(() => {

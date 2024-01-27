@@ -1,19 +1,19 @@
-import { HandleFetch } from "../../../Util/HandleFetch";
-import { useQuery } from "react-query";
-import EditEmailModal from "./EditEmailModal";
-import EditPasswordModal from "./EditPasswordModal";
-import EditUserDataModal from "./EditUserDataModal";
-import DeleteUserModal from "./DeleteUserModal";
-import SettingsForm from ".//SettingsForm";
-import SettingUserInfo from "./SettingUserInfo";
+import { HandleFetch } from '../../../Util/HandleFetch';
+import { useQuery } from 'react-query';
+import EditEmailModal from './EditEmailModal';
+import EditPasswordModal from './EditPasswordModal';
+import EditUserDataModal from './EditUserDataModal';
+import DeleteUserModal from './DeleteUserModal';
+import SettingsForm from './SettingsForm';
+import SettingUserInfo from './SettingUserInfo';
 
 export default function SettingsContainer(props) {
   const { isLoading, error, data, isFetching, refetch } = useQuery(
-    "data",
+    'data',
     () =>
       HandleFetch(
-        "/user/settings",
-        "GET",
+        '/user/settings',
+        'GET',
         null,
         props.token,
         props.i18n.language
@@ -43,8 +43,8 @@ export default function SettingsContainer(props) {
   );
 
   return (
-    <div className="row my-5 min_container_height">
-      <div className="col-3 vertivcal_border">
+    <div className='row my-5 min_container_height'>
+      <div className='col-3 vertivcal_border'>
         <SettingsForm
           state={props.state}
           setState={props.setState}
@@ -53,7 +53,7 @@ export default function SettingsContainer(props) {
           i18n={props.i18n}
         />
       </div>
-      <div className="col-4">
+      <div className='col-4'>
         <SettingUserInfo
           state={props.state}
           setState={props.setState}
