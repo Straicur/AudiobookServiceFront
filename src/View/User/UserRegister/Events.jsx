@@ -10,12 +10,12 @@ function validatePassword(pass) {
   return re.test(pass);
 }
 
-function validateBirthday(state){
-  if(!state.parentalControl){
+function validateBirthday(state) {
+  if (!state.parentalControl) {
     return true;
   }
-  
-  return (state.parentalControl && state.birthdayDate != '')
+
+  return state.parentalControl && state.birthdayDate != '';
 }
 
 function getPasswordStrenghtText(t, passStr) {
@@ -47,10 +47,8 @@ function getPasswordStrenghtProgressColor(passStr) {
 function validatePasswordStrength(pass) {
   const moderate =
     /(?=.*[A-Z])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[A-Z])(?=.*[a-z]).{5,}/;
-  const strong =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  const extraStrong =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
+  const strong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const extraStrong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
 
   let strength = 10;
 
@@ -142,5 +140,5 @@ export {
   getPasswordStrenghtProgressColor,
   handleParentalControl,
   handleBirthdayDate,
-  validateBirthday
+  validateBirthday,
 };

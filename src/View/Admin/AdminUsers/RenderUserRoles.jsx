@@ -13,16 +13,14 @@ export default function RenderUserRoles(props) {
         role: element.type,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         e.target.classList.remove('disabled');
 
         let newUserSelectedRoles = props.state.editUserElement.roles;
 
-        newUserSelectedRoles = newUserSelectedRoles.filter(
-          (item) => item !== element.type
-        );
+        newUserSelectedRoles = newUserSelectedRoles.filter((item) => item !== element.type);
 
         const newSelcetedUser = {
           active: props.state.editUserElement.active,
@@ -55,7 +53,7 @@ export default function RenderUserRoles(props) {
         role: element.type,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         e.target.classList.remove('disabled');
@@ -89,9 +87,7 @@ export default function RenderUserRoles(props) {
     let roles = [];
     if (props.roles != null) {
       props.roles.forEach((element) => {
-        let hasRole = props.state.editUserElement.roles.filter(
-          (x) => x == element.type
-        );
+        let hasRole = props.state.editUserElement.roles.filter((x) => x == element.type);
 
         roles.push(
           <div className='row align-items-center mt-2' key={uuidv4()}>
@@ -103,17 +99,13 @@ export default function RenderUserRoles(props) {
                 color='dark'
                 className=' btn button text-light edit_user_btn'
                 onClick={(e) => {
-                  hasRole.length > 0
-                    ? deleteRole(e, element)
-                    : addRole(e, element);
+                  hasRole.length > 0 ? deleteRole(e, element) : addRole(e, element);
                 }}
               >
-                {hasRole.length > 0
-                  ? props.t('deleteRole')
-                  : props.t('addRole')}
+                {hasRole.length > 0 ? props.t('deleteRole') : props.t('addRole')}
               </Button>
             </div>
-          </div>
+          </div>,
         );
       });
     }

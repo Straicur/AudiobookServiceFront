@@ -6,8 +6,7 @@ import { HandleFetch } from '../../../Util/HandleFetch';
 const ChildMemo = React.memo(RenderSearchAudiobooksList);
 
 export default function GetAllSearchAudiobooks(props) {
-  const [audiobooks, loading, setAudiobooks, setRefetchState] =
-    useAudiobookSearch();
+  const [audiobooks, loading, setAudiobooks, setRefetchState] = useAudiobookSearch();
 
   const [coversState, setCoversState] = useState([]);
 
@@ -31,7 +30,7 @@ export default function GetAllSearchAudiobooks(props) {
             audiobooks: audiobooksIds,
           },
           props.token,
-          props.i18n.language
+          props.i18n.language,
         )
           .then((data) => {
             if (data.audiobookCoversModels != undefined) {
@@ -72,10 +71,7 @@ export default function GetAllSearchAudiobooks(props) {
     <div>
       {loadstate ? (
         <div className='text-center'>
-          <div
-            className='spinner-border text-info spinner my-5'
-            role='status'
-          ></div>
+          <div className='spinner-border text-info spinner my-5' role='status'></div>
         </div>
       ) : (
         <ChildMemo

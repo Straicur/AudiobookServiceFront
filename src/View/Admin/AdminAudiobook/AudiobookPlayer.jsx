@@ -27,13 +27,13 @@ export default function AudiobookPlayer(props) {
       props.setAudiobookState({ ...props.audiobookState, part: prevPart });
     }
   };
- 
+
   useEffect(() => {
     if (player.current && timeAudio.current) {
       player.current.audio.current.currentTime = timeAudio.current;
     }
   }, [props]);
- 
+
   return (
     <AudioPlayer
       header={

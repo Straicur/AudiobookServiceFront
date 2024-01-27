@@ -7,11 +7,7 @@ import { ForgotPasswordModal } from './ForgotPasswordModal';
 import { useTokenStore } from '../../../Store/store';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import {
-  handleEmailChange,
-  handlePasswordChange,
-  validateEmail,
-} from './Events';
+import { handleEmailChange, handlePasswordChange, validateEmail } from './Events';
 
 export default function LoginForm(props) {
   const [formState, setFormState] = useState({
@@ -43,7 +39,7 @@ export default function LoginForm(props) {
         },
         props.state,
         props.setState,
-        i18n.language
+        i18n.language,
       );
     } else {
       props.setState({
@@ -116,20 +112,12 @@ export default function LoginForm(props) {
                           placeholder={t('insertEmail')}
                           value={props.state.email}
                           className='form-control form-control-lg'
-                          isValid={
-                            props.state.email.length > 0 &&
-                            validateEmail(props.state.email)
-                          }
+                          isValid={props.state.email.length > 0 && validateEmail(props.state.email)}
                           isInvalid={
-                            props.state.email.length > 0 &&
-                            !validateEmail(props.state.email)
+                            props.state.email.length > 0 && !validateEmail(props.state.email)
                           }
                           onChange={(event) =>
-                            handleEmailChange(
-                              event,
-                              props.state,
-                              props.setState
-                            )
+                            handleEmailChange(event, props.state, props.setState)
                           }
                         />
                         <Form.Control.Feedback type='invalid'>
@@ -150,16 +138,11 @@ export default function LoginForm(props) {
                           value={props.state.password}
                           isValid={props.state.password.length > 1}
                           isInvalid={
-                            props.state.password.length < 3 &&
-                            props.state.password.length > 0
+                            props.state.password.length < 3 && props.state.password.length > 0
                           }
                           className='form-control form-control-lg'
                           onChange={(event) =>
-                            handlePasswordChange(
-                              event,
-                              props.state,
-                              props.setState
-                            )
+                            handlePasswordChange(event, props.state, props.setState)
                           }
                         />
                         <Form.Control.Feedback type='invalid'>
@@ -194,10 +177,7 @@ export default function LoginForm(props) {
                     </p>
                     <p className='small pb-lg-2 fw-bold mb-0'>
                       {t('dontHaveAccount')}{' '}
-                      <a
-                        className='link-info'
-                        onClick={() => navigate('/register')}
-                      >
+                      <a className='link-info' onClick={() => navigate('/register')}>
                         {t('registerAccount')}
                       </a>
                     </p>

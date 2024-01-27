@@ -69,7 +69,7 @@ export default function EditNotificationModal(props) {
         delete: !state.delete,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         element.target.classList.remove('disabled');
@@ -119,7 +119,7 @@ export default function EditNotificationModal(props) {
         },
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         props.setState({
@@ -200,15 +200,9 @@ export default function EditNotificationModal(props) {
                   <option value={0}>{props.t('selectType')}</option>
                   <option value={1}>{props.t('notificationTypeNormal')}</option>
                   <option value={2}>{props.t('notificationTypeAdmin')}</option>
-                  <option value={3}>
-                    {props.t('notificationTypeProposed')}
-                  </option>
-                  <option value={4}>
-                    {props.t('notificationTypeNewCategory')}
-                  </option>
-                  <option value={5}>
-                    {props.t('notificationTypeNewAudiobook')}
-                  </option>
+                  <option value={3}>{props.t('notificationTypeProposed')}</option>
+                  <option value={4}>{props.t('notificationTypeNewCategory')}</option>
+                  <option value={5}>{props.t('notificationTypeNewAudiobook')}</option>
                 </Form.Select>
               </InputGroup>
               <InputGroup className='mt-2 input_modal'>
@@ -241,10 +235,7 @@ export default function EditNotificationModal(props) {
 
               <InputGroup className='my-2 input_modal'>
                 <InputGroup.Text>{props.t('deleted')}</InputGroup.Text>
-                <Form.Control
-                  disabled
-                  value={state.delete ? props.t('yes') : props.t('no')}
-                />
+                <Form.Control disabled value={state.delete ? props.t('yes') : props.t('no')} />
                 {deleteState.sure ? (
                   <Button
                     name='en'
@@ -275,9 +266,7 @@ export default function EditNotificationModal(props) {
                 {!deleteState.sure ? (
                   <Button
                     name='en'
-                    variant={
-                      state.delete ? 'outline-success' : 'outline-danger'
-                    }
+                    variant={state.delete ? 'outline-success' : 'outline-danger'}
                     size='sm'
                     className='btn button mx-2'
                     onClick={() =>

@@ -53,7 +53,7 @@ export default function AudiobooksList(props) {
           limit: pageState.limit,
         },
         props.token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -69,7 +69,7 @@ export default function AudiobooksList(props) {
         setState({ ...state, json: data.audiobooks });
         setPageState({ ...pageState, maxPage: data.maxPage });
       },
-    }
+    },
   );
 
   const {
@@ -88,7 +88,7 @@ export default function AudiobooksList(props) {
           categoryKey: props.categoryKey,
         },
         props.token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -112,9 +112,9 @@ export default function AudiobooksList(props) {
           },
         });
       },
-    }
+    },
   );
-  
+
   useEffect(() => {
     if (state.addAudiobook) {
       setState({ ...state, addAudiobook: !state.addAudiobook });
@@ -185,9 +185,7 @@ export default function AudiobooksList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() =>
-                setState({ ...state, jsonModal: !state.jsonModal })
-              }
+              onClick={() => setState({ ...state, jsonModal: !state.jsonModal })}
             >
               {t('jsonData')}
             </Button>
@@ -202,9 +200,7 @@ export default function AudiobooksList(props) {
             token={props.token}
             categoryID={state.category.id}
             parentCategoryId={
-              state.category.parentCategoryId != null
-                ? state.category.parentCategoryId
-                : null
+              state.category.parentCategoryId != null ? state.category.parentCategoryId : null
             }
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}
@@ -222,8 +218,7 @@ export default function AudiobooksList(props) {
             audiobooksState={props.audiobooksState}
           />
         ) : null}
-        {state.detailCommentsAudiobookModal &&
-        state.detailAudiobookElement != null ? (
+        {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (
           <AudiobookCommentsModal
             state={state}
             setState={setState}
@@ -234,9 +229,7 @@ export default function AudiobooksList(props) {
             audiobooksState={props.audiobooksState}
           />
         ) : null}
-        {state.jsonModal ? (
-          <JsonModal state={state} setState={setState} t={t} />
-        ) : null}
+        {state.jsonModal ? <JsonModal state={state} setState={setState} t={t} /> : null}
       </div>
     </div>
   );

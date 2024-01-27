@@ -33,7 +33,7 @@ export default function EditEmailModal(props) {
           oldEmail: state.oldEmail,
         },
         props.token,
-        props.i18n.language
+        props.i18n.language,
       )
         .then(() => {
           element.target.classList.remove('disabled');
@@ -96,13 +96,7 @@ export default function EditEmailModal(props) {
   }, [props.state.error]);
 
   return (
-    <Modal
-      size='lg'
-      show={props.state.buttonEmail}
-      onHide={handleClose}
-      backdrop='static'
-      centered
-    >
+    <Modal size='lg' show={props.state.buttonEmail} onHide={handleClose} backdrop='static' centered>
       <Modal.Body
         style={{
           backgroundColor: '#262626',
@@ -118,12 +112,8 @@ export default function EditEmailModal(props) {
                 <Form.Control
                   type='email'
                   placeholder='name@example.com'
-                  isValid={
-                    state.oldEmail.length > 1 && validateEmail(state.oldEmail)
-                  }
-                  isInvalid={
-                    state.oldEmail.length > 1 && !validateEmail(state.oldEmail)
-                  }
+                  isValid={state.oldEmail.length > 1 && validateEmail(state.oldEmail)}
+                  isInvalid={state.oldEmail.length > 1 && !validateEmail(state.oldEmail)}
                   onChange={(event) => handleEmailChange(event)}
                 />
                 <Alert
@@ -139,12 +129,8 @@ export default function EditEmailModal(props) {
                 <Form.Control
                   type='email'
                   placeholder='name@example.com'
-                  isValid={
-                    state.newEmail.length > 1 && validateEmail(state.newEmail)
-                  }
-                  isInvalid={
-                    state.newEmail.length > 1 && !validateEmail(state.newEmail)
-                  }
+                  isValid={state.newEmail.length > 1 && validateEmail(state.newEmail)}
+                  isInvalid={state.newEmail.length > 1 && !validateEmail(state.newEmail)}
                   onChange={(event) => handleEmailNewChange(event)}
                 />
               </Form.Group>

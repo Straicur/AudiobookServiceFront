@@ -11,7 +11,7 @@ export default function RenderCommentsList(props) {
         audiobookCommentId: element.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         props.setAudiobookCommnetsRefetchState(true);
@@ -31,16 +31,13 @@ export default function RenderCommentsList(props) {
       createTree(props.audiobookCommnets.comments, renderArray);
     }
 
-    if (
-      props.audiobookCommnets != null &&
-      props.audiobookCommnets.comments.length == 0
-    ) {
+    if (props.audiobookCommnets != null && props.audiobookCommnets.comments.length == 0) {
       renderArray.push(
         <div key={uuidv4()} className='row text-center'>
           <div className='col-md-6 offset-md-3 '>
             <h3>{props.t('empty')}</h3>
           </div>
-        </div>
+        </div>,
       );
     }
 
@@ -68,9 +65,7 @@ export default function RenderCommentsList(props) {
         }
       }
       if (element.nodeName == 'DIV') {
-        element.children[0].children[0].classList.remove(
-          'bi-arrow-right-square'
-        );
+        element.children[0].children[0].classList.remove('bi-arrow-right-square');
         element.children[0].children[0].classList.add('bi-arrow-down-square');
       }
     }
@@ -88,9 +83,7 @@ export default function RenderCommentsList(props) {
         }
       }
       if (element.nodeName == 'DIV') {
-        element.children[0].children[0].classList.remove(
-          'bi-arrow-down-square'
-        );
+        element.children[0].children[0].classList.remove('bi-arrow-down-square');
         element.children[0].children[0].classList.add('bi-arrow-right-square');
       }
     }
@@ -106,9 +99,7 @@ export default function RenderCommentsList(props) {
       >
         <div className='row p-1 bd-highlight comment_detail_height'>
           <div className='col-1'>
-            {child.length > 0 ? (
-              <i className='p-2 bi bi-arrow-right-square '></i>
-            ) : null}
+            {child.length > 0 ? <i className='p-2 bi bi-arrow-right-square '></i> : null}
           </div>
           <div className='col-1 fw-bold'>{props.t('comment')}:</div>
           <div className='col-4 overflow-auto text-break comment_detail_height_comment'>
@@ -195,9 +186,7 @@ export default function RenderCommentsList(props) {
 
       if (element['children'].length != 0) {
         for (const [index, child] of element['children'].entries()) {
-          children.push(
-            createListElement(index, child, element['children'].length)
-          );
+          children.push(createListElement(index, child, element['children'].length));
         }
       }
       renderArray.push(listParent(element, children));

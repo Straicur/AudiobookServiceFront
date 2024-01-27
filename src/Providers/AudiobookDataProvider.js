@@ -5,14 +5,7 @@ import CreateUtil from 'Util/CreateUtil';
 
 const AudiobookDataContext = createContext(null);
 
-export const AudiobookDataProvider = ({
-  children,
-  token,
-  audiobookId,
-  state,
-  setState,
-  i18n,
-}) => {
+export const AudiobookDataProvider = ({ children, token, audiobookId, state, setState, i18n }) => {
   const [audiobookDetail, setAudiobookDetail] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
@@ -32,7 +25,7 @@ export const AudiobookDataProvider = ({
           audiobookId: audiobookId,
         },
         token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -58,10 +51,10 @@ export const AudiobookDataProvider = ({
           title: data.title,
           version: data.version,
           year: CreateUtil.createDate(data.year),
-          ratingAmount: data.ratingAmount
+          ratingAmount: data.ratingAmount,
         });
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -73,11 +66,7 @@ export const AudiobookDataProvider = ({
 
   const value = [audiobookDetail, setAudiobookDetail, setRefetchState];
 
-  return (
-    <AudiobookDataContext.Provider value={value}>
-      {children}
-    </AudiobookDataContext.Provider>
-  );
+  return <AudiobookDataContext.Provider value={value}>{children}</AudiobookDataContext.Provider>;
 };
 
 export const useAudiobookData = () => useContext(AudiobookDataContext);

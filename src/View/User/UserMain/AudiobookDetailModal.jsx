@@ -14,18 +14,12 @@ export default function AudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
 
-  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] =
-    useAudiobookDetail();
-  const [audiobookRating, setAudiobookRating, setRefetchRatingState] =
-    useAudiobookRating();
-  const [audiobookPart, setAudiobookPart, setRefetchPartState] =
-    useAudiobookPart();
+  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAudiobookDetail();
+  const [audiobookRating, setAudiobookRating, setRefetchRatingState] = useAudiobookRating();
+  const [audiobookPart, setAudiobookPart, setRefetchPartState] = useAudiobookPart();
 
-  const [
-    audiobookUserComments,
-    setAudiobookUserComments,
-    setAudiobookCommnetsRefetchState,
-  ] = useAudiobookUserComments();
+  const [audiobookUserComments, setAudiobookUserComments, setAudiobookCommnetsRefetchState] =
+    useAudiobookUserComments();
 
   const handleClose = () => {
     addInfo();
@@ -47,7 +41,7 @@ export default function AudiobookDetailModal(props) {
         categoryKey: props.state.detailModalCategory.categoryKey,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         setAudiobookDetail({
@@ -73,7 +67,7 @@ export default function AudiobookDetailModal(props) {
   const addInfo = () => {
     let procent = (timeAudio.current / audioDuration.current) * 100;
     let watched = false;
-    
+
     if (procent >= 70) {
       watched = true;
     }
@@ -89,9 +83,9 @@ export default function AudiobookDetailModal(props) {
           watched: watched,
         },
         props.token,
-        props.i18n.language
+        props.i18n.language,
       )
-        .then(() => { })
+        .then(() => {})
         .catch((e) => {
           props.setState({
             ...props.state,
@@ -105,12 +99,7 @@ export default function AudiobookDetailModal(props) {
   };
 
   return (
-    <Modal
-      size='lg'
-      show={props.state.detailModal}
-      onHide={handleClose}
-      backdrop='static'
-    >
+    <Modal size='lg' show={props.state.detailModal} onHide={handleClose} backdrop='static'>
       <Modal.Body
         className='text-white'
         style={{
@@ -121,10 +110,9 @@ export default function AudiobookDetailModal(props) {
           <div
             className='row '
             style={{
-              backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.7) 47%, rgba(255,255,255,0.1) 82%), url(${props.state.detailModalCover == null
-                  ? '/noImg.jpg'
-                  : props.state.detailModalCover
-                })`,
+              backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.7) 47%, rgba(255,255,255,0.1) 82%), url(${
+                props.state.detailModalCover == null ? '/noImg.jpg' : props.state.detailModalCover
+              })`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: '60%',
               backgroundPosition: '95% 15%',
@@ -170,11 +158,7 @@ export default function AudiobookDetailModal(props) {
                 <div className='col-6'>
                   <Button
                     onClick={(e) => addToMyList(e)}
-                    className={
-                      audiobookDetail.inList
-                        ? 'danger_button'
-                        : 'success_button'
-                    }
+                    className={audiobookDetail.inList ? 'danger_button' : 'success_button'}
                   >
                     {props.t('myList')}{' '}
                     {audiobookDetail.inList ? (
@@ -260,11 +244,7 @@ export default function AudiobookDetailModal(props) {
         </div>
         <div className='row mt-3 justify-content-center'>
           <div className='col-7  align-self-center'>
-            <Button
-              variant='dark'
-              onClick={handleClose}
-              className='detail-button text-center'
-            >
+            <Button variant='dark' onClick={handleClose} className='detail-button text-center'>
               {props.t('close')}
             </Button>
           </div>

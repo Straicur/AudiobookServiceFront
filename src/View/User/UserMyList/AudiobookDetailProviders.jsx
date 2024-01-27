@@ -26,7 +26,7 @@ export default function AudiobookDetailProviders(props) {
         categoryKey: props.state.detailModalCategory.categoryKey,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then((data) => {
         setAudiobookState({

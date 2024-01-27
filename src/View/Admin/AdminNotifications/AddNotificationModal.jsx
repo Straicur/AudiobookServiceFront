@@ -71,7 +71,7 @@ export default function AddNotificationModal(props) {
     if (state.notificationType == 4) {
       additionalData.categoryKey = state.actionId;
     }
-    if(state.notificationType == 5){
+    if (state.notificationType == 5) {
       additionalData.actionId = state.actionId;
     }
     if (state.notificationType == 2) {
@@ -94,7 +94,7 @@ export default function AddNotificationModal(props) {
         additionalData: createAdditionalData(),
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         props.setState({
@@ -112,12 +112,7 @@ export default function AddNotificationModal(props) {
   };
 
   return (
-    <Modal
-      size='lg'
-      show={props.state.addNotificationModal}
-      onHide={handleClose}
-      backdrop='static'
-    >
+    <Modal size='lg' show={props.state.addNotificationModal} onHide={handleClose} backdrop='static'>
       <Modal.Header>
         <Modal.Title>{props.t('addNotification')}</Modal.Title>
       </Modal.Header>
@@ -171,12 +166,8 @@ export default function AddNotificationModal(props) {
                   <option value={0}>{props.t('selectType')}</option>
                   <option value={1}>{props.t('notificationTypeNormal')}</option>
                   <option value={2}>{props.t('notificationTypeAdmin')}</option>
-                  <option value={4}>
-                    {props.t('notificationTypeNewCategory')}
-                  </option>
-                  <option value={5}>
-                    {props.t('notificationTypeNewAudiobook')}
-                  </option>
+                  <option value={4}>{props.t('notificationTypeNewCategory')}</option>
+                  <option value={5}>{props.t('notificationTypeNewAudiobook')}</option>
                 </Form.Select>
               </InputGroup>
               <InputGroup className='mb-1 input_modal py-1'>
@@ -194,11 +185,7 @@ export default function AddNotificationModal(props) {
               </InputGroup>
               <InputGroup className='mt-2 mb-1 input_modal py-1'>
                 <InputGroup.Text>{props.t('actionId')}</InputGroup.Text>
-                <Form.Control
-                  disabled
-                  className='text-success'
-                  value={state.actionId}
-                />
+                <Form.Control disabled className='text-success' value={state.actionId} />
               </InputGroup>
             </div>
             {actionState.actionIdChanged || state.notificationType == 1 ? (
@@ -209,9 +196,7 @@ export default function AddNotificationModal(props) {
                     variant='success'
                     size='sm'
                     className='btn button button_notification'
-                    disabled={
-                      state.notificationType == 0 || state.userType == 0
-                    }
+                    disabled={state.notificationType == 0 || state.userType == 0}
                     onClick={(e) => addNotification(e)}
                   >
                     {props.t('save')}
@@ -224,9 +209,7 @@ export default function AddNotificationModal(props) {
                   <Button
                     name='en'
                     variant='dark'
-                    disabled={
-                      state.notificationType == 0 || state.userType == 0
-                    }
+                    disabled={state.notificationType == 0 || state.userType == 0}
                     size='sm'
                     className='btn button button_notification'
                     onClick={(e) => selectActionId(e)}

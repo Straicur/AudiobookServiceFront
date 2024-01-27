@@ -19,13 +19,7 @@ export default function DeleteUserModal(props) {
   const deleteAccount = (element) => {
     element.target.classList.add('disabled');
 
-    HandleFetch(
-      '/user/settings/delete',
-      'PATCH',
-      null,
-      props.token,
-      props.i18n.language
-    )
+    HandleFetch('/user/settings/delete', 'PATCH', null, props.token, props.i18n.language)
       .then(() => {
         tokenStore.removeToken();
         navigate('/login');

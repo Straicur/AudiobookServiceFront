@@ -9,11 +9,7 @@ export default function AudiobookCover(props) {
     if (e.target.files) {
       let file = e.target.files[0];
 
-      if (
-        file.type == 'image/png' ||
-        file.type == 'image/jpeg' ||
-        file.type == 'image/jpg'
-      ) {
+      if (file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg') {
         props.setStateModal({ ...props.stateModal, file: file });
       }
     }
@@ -40,7 +36,7 @@ export default function AudiobookCover(props) {
                 audiobookId: props.audiobookDetail.id,
               },
               props.token,
-              props.i18n.language
+              props.i18n.language,
             )
               .then(() => {
                 props.setAudiobookCoverRefetch(true);

@@ -243,12 +243,7 @@ export default function AudiobookReAddingModal(props) {
   }, [props]);
 
   return (
-    <Modal
-      show={props.audiobookState.reAddingModal}
-      backdrop='static'
-      keyboard={false}
-      centered
-    >
+    <Modal show={props.audiobookState.reAddingModal} backdrop='static' keyboard={false} centered>
       <Modal.Header>
         <Modal.Title>
           <h3>
@@ -305,11 +300,7 @@ export default function AudiobookReAddingModal(props) {
               animated
               variant='info'
               max={stateProgress.maxParts}
-              now={
-                stateProgress.maxParts == 1
-                  ? undefined
-                  : stateProgress.currentPart
-              }
+              now={stateProgress.maxParts == 1 ? undefined : stateProgress.currentPart}
             />
           ) : (
             <input
@@ -327,11 +318,7 @@ export default function AudiobookReAddingModal(props) {
           <Button variant='dark' onClick={handleClose}>
             {props.t('close')}
           </Button>
-          <Button
-            disabled={stateModal.isNextButtonDisabled}
-            variant='dark'
-            onClick={nextPage}
-          >
+          <Button disabled={stateModal.isNextButtonDisabled} variant='dark' onClick={nextPage}>
             {props.t('save')}
           </Button>
         </Modal.Footer>

@@ -3,10 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 export default function AudiobookCategoryList(props) {
   const createCategory = (category) => {
     return (
-      <div
-        key={uuidv4()}
-        className='row border border-secondary category_data mb-1 rounded'
-      >
+      <div key={uuidv4()} className='row border border-secondary category_data mb-1 rounded'>
         <div className='row'>
           <div className='col-3'>{props.t('name')}:</div>
           <div className='col-8'>{category.name}</div>
@@ -30,10 +27,7 @@ export default function AudiobookCategoryList(props) {
 
   const getCategoryList = () => {
     let categories = [];
-    if (
-      props.audiobookDetail != null &&
-      props.audiobookDetail.categories != undefined
-    ) {
+    if (props.audiobookDetail != null && props.audiobookDetail.categories != undefined) {
       props.audiobookDetail.categories.forEach((category) => {
         categories.push(createCategory(category));
       });

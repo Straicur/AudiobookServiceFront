@@ -10,14 +10,7 @@ export default function InfoContainer(props) {
 
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     'data',
-    () =>
-      HandleFetch(
-        '/admin/statistic/main',
-        'GET',
-        null,
-        props.token,
-        i18n.language
-      ),
+    () => HandleFetch('/admin/statistic/main', 'GET', null, props.token, i18n.language),
     {
       retry: 1,
       retryDelay: 500,
@@ -39,7 +32,7 @@ export default function InfoContainer(props) {
           lastWeekNotifications: data.lastWeekNotifications,
         });
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -73,9 +66,7 @@ export default function InfoContainer(props) {
                           <p className='text-center'>{t('categories')}</p>
                         </div>
                         <div className='row info_card_body_el'>
-                          <p className='text-center'>
-                            {props.infoState.categories}
-                          </p>
+                          <p className='text-center'>{props.infoState.categories}</p>
                         </div>
                       </div>
                       <div className='col align-self-center border-end border-dark'>
@@ -83,9 +74,7 @@ export default function InfoContainer(props) {
                           <p className='text-center'>{t('audiobooks')}</p>
                         </div>
                         <div className='row info_card_body_el'>
-                          <p className='text-center'>
-                            {props.infoState.audiobooks}
-                          </p>
+                          <p className='text-center'>{props.infoState.audiobooks}</p>
                         </div>
                       </div>
                       <div className='col align-self-center'>
@@ -114,9 +103,7 @@ export default function InfoContainer(props) {
                           <p className='text-center'>{t('registered')}</p>
                         </div>
                         <div className='row info_card_body_el'>
-                          <p className='text-center'>
-                            {props.infoState.lastWeekRegistered}
-                          </p>
+                          <p className='text-center'>{props.infoState.lastWeekRegistered}</p>
                         </div>
                       </div>
                       <div className='col align-self-center border-end border-dark'>
@@ -124,21 +111,15 @@ export default function InfoContainer(props) {
                           <p className='text-center'>{t('loggedIn')}</p>
                         </div>
                         <div className='row info_card_body_el'>
-                          <p className='text-center'>
-                            {props.infoState.lastWeekLogins}
-                          </p>
+                          <p className='text-center'>{props.infoState.lastWeekLogins}</p>
                         </div>
                       </div>
                       <div className='col align-self-center'>
                         <div className='row info_card_body_el'>
-                          <p className='text-center'>
-                            {t('wasCreatedNotifications')}
-                          </p>
+                          <p className='text-center'>{t('wasCreatedNotifications')}</p>
                         </div>
                         <div className='row info_card_body_el'>
-                          <p className='text-center'>
-                            {props.infoState.lastWeekNotifications}
-                          </p>
+                          <p className='text-center'>{props.infoState.lastWeekNotifications}</p>
                         </div>
                       </div>
                     </div>

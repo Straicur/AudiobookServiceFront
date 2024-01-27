@@ -13,19 +13,12 @@ export default function JsonModal(props) {
   const format = () => {
     return (
       <div>
-        <pre className='preStyle overflow-auto '>
-          {JSON.stringify(props.state.json, null, 2)}
-        </pre>
+        <pre className='preStyle overflow-auto '>{JSON.stringify(props.state.json, null, 2)}</pre>
       </div>
     );
   };
   return (
-    <Modal
-      size='lg'
-      show={props.state.jsonModal}
-      onHide={handleClose}
-      backdrop='static'
-    >
+    <Modal size='lg' show={props.state.jsonModal} onHide={handleClose} backdrop='static'>
       <Modal.Header closeButton>
         <Modal.Title>{props.t('jsonData')}</Modal.Title>
       </Modal.Header>

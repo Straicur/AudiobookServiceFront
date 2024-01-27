@@ -65,7 +65,7 @@ export default function GetUsersList(props) {
           },
         },
         props.token,
-        props.i18n.language
+        props.i18n.language,
       )
         .then((data) => {
           props.setUsersState({

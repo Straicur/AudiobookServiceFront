@@ -21,7 +21,7 @@ export default function RenderDeleteUsersList(props) {
         userId: selectedUser.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         props.setState({ ...props.state, refresh: !props.state.refresh });
@@ -41,7 +41,7 @@ export default function RenderDeleteUsersList(props) {
         userId: selectedUser.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         props.setState({ ...props.state, refresh: !props.state.refresh });

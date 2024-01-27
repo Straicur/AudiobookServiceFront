@@ -7,8 +7,7 @@ import { useCoverListStore } from '../../../Store/store';
 const ChildMemo = React.memo(RenderMyList);
 
 export default function GetCovers(props) {
-  const [audiobooks, loading, setAudiobooks, setRefetchState] =
-    useAudiobookMy();
+  const [audiobooks, loading, setAudiobooks, setRefetchState] = useAudiobookMy();
 
   const [loadstate, setLoadState] = useState(true);
 
@@ -34,7 +33,7 @@ export default function GetCovers(props) {
             audiobooks: audiobooksIds,
           },
           props.token,
-          props.i18n.language
+          props.i18n.language,
         )
           .then((data) => {
             if (data.audiobookCoversModels != undefined) {
@@ -76,10 +75,7 @@ export default function GetCovers(props) {
     <div>
       {loadstate ? (
         <div className='text-center'>
-          <div
-            className='spinner-border text-info spinner my-5'
-            role='status'
-          ></div>
+          <div className='spinner-border text-info spinner my-5' role='status'></div>
         </div>
       ) : (
         <ChildMemo

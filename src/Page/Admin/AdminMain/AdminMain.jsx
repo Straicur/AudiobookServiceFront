@@ -28,11 +28,7 @@ export default function AdminMain() {
         });
       }}
     >
-      <InfoContainer
-        infoState={infoState}
-        setInfoState={setInfoState}
-        token={token}
-      />
+      <InfoContainer infoState={infoState} setInfoState={setInfoState} token={token} />
     </ErrorBoundary>
   );
 }

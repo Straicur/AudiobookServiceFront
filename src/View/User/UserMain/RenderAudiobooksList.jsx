@@ -51,18 +51,12 @@ export default function RenderAudiobooksList(props) {
               key={uuidv4()}
               ref={lastItemRef}
               onLoad={() => {
-                if (
-                  lastItemRef.current &&
-                  lastItemOffsetTopRef.current == null &&
-                  props.hasMore
-                ) {
+                if (lastItemRef.current && lastItemOffsetTopRef.current == null && props.hasMore) {
                   lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
                 }
               }}
             >
-              <div className='fw-bold fs-1 ms-2 mb-2 text-light'>
-                {category.name}
-              </div>
+              <div className='fw-bold fs-1 ms-2 mb-2 text-light'>{category.name}</div>
               {renderAudiobooks}
               <hr className=' text-light'></hr>
               {props.hasMore ? (
@@ -73,22 +67,19 @@ export default function RenderAudiobooksList(props) {
                     onMouseOver={(e) => mouseOver(e)}
                     onMouseLeave={(e) => mouseLeave(e)}
                   >
-                    {props.t('loadMore')}{' '}
-                    <i className='bi bi-chevron-double-down'></i>
+                    {props.t('loadMore')} <i className='bi bi-chevron-double-down'></i>
                   </div>
                 </div>
               ) : null}
-            </div>
+            </div>,
           );
         } else {
           renderCategories.push(
             <div key={uuidv4()}>
-              <div className='fw-bold fs-1 ms-2 mb-2 text-light'>
-                {category.name}
-              </div>
+              <div className='fw-bold fs-1 ms-2 mb-2 text-light'>{category.name}</div>
               {renderAudiobooks}
               <hr className=' text-light'></hr>
-            </div>
+            </div>,
           );
         }
       });
@@ -113,6 +104,6 @@ export default function RenderAudiobooksList(props) {
       }, 1000);
     }
   }, [props.audiobooks]);
-  
+
   return renderColumns();
 }

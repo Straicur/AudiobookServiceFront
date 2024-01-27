@@ -7,13 +7,7 @@ export default function ReAddAudiobookButton(props) {
     if (props.dateUpdate > Date.now() && props.dateUpdate != 0) {
       props.setCategories(props.categories);
     } else {
-      HandleFetch(
-        '/admin/categories',
-        'GET',
-        null,
-        props.token,
-        props.i18n.language
-      )
+      HandleFetch('/admin/categories', 'GET', null, props.token, props.i18n.language)
         .then((data) => {
           props.categoriesStore.removeCategories();
           for (const category of data.categories) {

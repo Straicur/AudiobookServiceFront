@@ -99,7 +99,7 @@ export default function UsersList(props) {
           searchData: createSearchData(),
         },
         props.token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -116,7 +116,7 @@ export default function UsersList(props) {
         setPageState({ ...pageState, maxPage: data.maxPage });
         resetSearchStates();
       },
-    }
+    },
   );
 
   const openSearchModal = () => {
@@ -221,9 +221,7 @@ export default function UsersList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() =>
-                setState({ ...state, jsonModal: !state.jsonModal })
-              }
+              onClick={() => setState({ ...state, jsonModal: !state.jsonModal })}
             >
               {t('jsonData')}
             </Button>
@@ -271,9 +269,7 @@ export default function UsersList(props) {
             setPageState={setPageState}
           />
         ) : null}
-        {state.jsonModal ? (
-          <JsonModal state={state} setState={setState} t={t} />
-        ) : null}
+        {state.jsonModal ? <JsonModal state={state} setState={setState} t={t} /> : null}
       </div>
     </div>
   );

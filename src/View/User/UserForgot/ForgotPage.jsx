@@ -7,8 +7,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export default function ForgotPage(props) {
   function validatePassword(pass) {
-    const re =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return re.test(pass);
   }
 
@@ -41,10 +40,8 @@ export default function ForgotPage(props) {
   function validatePasswordStrength(pass) {
     const moderate =
       /(?=.*[A-Z])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[A-Z])(?=.*[a-z]).{5,}/;
-    const strong =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const extraStrong =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
+    const strong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const extraStrong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
 
     let strength = 10;
 
@@ -160,9 +157,7 @@ export default function ForgotPage(props) {
             <div>
               <ProgressBar
                 className='mt-3'
-                variant={getPasswordStrenghtProgressColor(
-                  props.state.passwordStrength
-                )}
+                variant={getPasswordStrenghtProgressColor(props.state.passwordStrength)}
                 now={props.state.passwordStrength}
               />
               {getPasswordStrenghtText(props.t, props.state.passwordStrength)}

@@ -22,16 +22,11 @@ import { useCategoryListStore } from '../../../Store/store';
 export default function AudiobookDetail(props) {
   const [categoriesState, setCategories] = useState([]);
 
-  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] =
-    useAudiobookData();
-  const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] =
-    useAudiobookCover();
+  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAudiobookData();
+  const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
-  const [
-    audiobookCommnets,
-    setAudiobookCommnets,
-    setAudiobookCommnetsRefetchState,
-  ] = useAudiobookComments();
+  const [audiobookCommnets, setAudiobookCommnets, setAudiobookCommnetsRefetchState] =
+    useAudiobookComments();
 
   const categoriesStore = useCategoryListStore();
 
@@ -47,7 +42,7 @@ export default function AudiobookDetail(props) {
           stars.push(
             <div key={uuidv4()} className='col-1'>
               <i className='bi bi-star-fill'></i>
-            </div>
+            </div>,
           );
           amountOfStars = amountOfStars - 1;
         }
@@ -57,7 +52,7 @@ export default function AudiobookDetail(props) {
         stars.push(
           <div key={uuidv4()} className='col-1'>
             <i className='bi bi-star'></i>
-          </div>
+          </div>,
         );
       }
     }
@@ -172,8 +167,7 @@ export default function AudiobookDetail(props) {
                 onClick={() =>
                   props.setAudiobookState({
                     ...props.audiobookState,
-                    addCategoriesModal:
-                      !props.audiobookState.addCategoriesModal,
+                    addCategoriesModal: !props.audiobookState.addCategoriesModal,
                   })
                 }
               >

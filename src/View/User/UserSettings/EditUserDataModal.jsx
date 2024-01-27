@@ -38,7 +38,7 @@ export default function EditUserDataModal(props) {
         lastName: state.lastname,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         element.target.classList.remove('disabled');
@@ -151,21 +151,15 @@ export default function EditUserDataModal(props) {
       >
         <div className='text-white'>
           {state.checkChanges ? (
-            <div className='fs-3 text-center my-3'>
-              {props.t('checkUserData')}
-            </div>
+            <div className='fs-3 text-center my-3'>{props.t('checkUserData')}</div>
           ) : (
             <Form>
               <Form.Group className='mb-3'>
                 <Form.Label>{props.t('firstname')}</Form.Label>
                 <Form.Control
                   type='text'
-                  isValid={
-                    state.firstname.length > 1 && validateName(state.firstname)
-                  }
-                  isInvalid={
-                    state.firstname.length > 1 && !validateName(state.firstname)
-                  }
+                  isValid={state.firstname.length > 1 && validateName(state.firstname)}
+                  isInvalid={state.firstname.length > 1 && !validateName(state.firstname)}
                   value={state.firstname}
                   onChange={(event) => handleFirstnameChange(event)}
                 />
@@ -181,14 +175,8 @@ export default function EditUserDataModal(props) {
                 <Form.Label>{props.t('lastname')}</Form.Label>
                 <Form.Control
                   type='text'
-                  isValid={
-                    state.lastname.length > 1 &&
-                    validateLastName(state.lastname)
-                  }
-                  isInvalid={
-                    state.lastname.length > 1 &&
-                    !validateLastName(state.lastname)
-                  }
+                  isValid={state.lastname.length > 1 && validateLastName(state.lastname)}
+                  isInvalid={state.lastname.length > 1 && !validateLastName(state.lastname)}
                   value={state.lastname}
                   onChange={(event) => handleLastnameChange(event)}
                 />
@@ -204,14 +192,8 @@ export default function EditUserDataModal(props) {
                 <Form.Label>{props.t('phoneNumber')}</Form.Label>
                 <Form.Control
                   type='tel'
-                  isValid={
-                    state.phoneNumber.length > 1 &&
-                    validatePhone(state.phoneNumber)
-                  }
-                  isInvalid={
-                    state.phoneNumber.length > 1 &&
-                    !validatePhone(state.phoneNumber)
-                  }
+                  isValid={state.phoneNumber.length > 1 && validatePhone(state.phoneNumber)}
+                  isInvalid={state.phoneNumber.length > 1 && !validatePhone(state.phoneNumber)}
                   value={state.phoneNumber}
                   onChange={(event) => handlePhoneNumberChange(event)}
                 />

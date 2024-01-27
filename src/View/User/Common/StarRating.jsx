@@ -31,7 +31,7 @@ export default function StarRating(props) {
         rating: rating,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         setUserRate(false);
@@ -62,11 +62,7 @@ export default function StarRating(props) {
         <button
           type='button'
           key={uuidv4()}
-          className={
-            idx <= ((rating && hover) || hover)
-              ? 'on button-star'
-              : 'off button-star'
-          }
+          className={idx <= ((rating && hover) || hover) ? 'on button-star' : 'off button-star'}
           onClick={userRate ? () => clickRating(idx) : undefined}
           onMouseEnter={userRate ? () => setHover(idx) : undefined}
           onMouseLeave={userRate ? () => setHover(rating) : undefined}
@@ -82,18 +78,11 @@ export default function StarRating(props) {
       <div className='row justify-content-start m-0 p-0'>
         <div className='col-4'>{starRating}</div>
         <div className='col-2 p-0 m-0'>{props.t('rated')}</div>
-        <div className='col-1 p-0 m-0'>
-          {props.audiobookDetail.ratingAmount}
-        </div>
+        <div className='col-1 p-0 m-0'>{props.audiobookDetail.ratingAmount}</div>
         {props.audiobookDetail.canRate ? (
           !sure ? (
             <div className='col-3 align-self-center'>
-              <Button
-                onClick={() => clearBoard()}
-                variant='success'
-                size='sm'
-                className='p-1'
-              >
+              <Button onClick={() => clearBoard()} variant='success' size='sm' className='p-1'>
                 {props.t('rate')}
               </Button>
             </div>
@@ -101,20 +90,12 @@ export default function StarRating(props) {
             <div className='col-3 '>
               <div className='row justify-content-center'>
                 <div className='col-6'>
-                  <Button
-                    onClick={() => fetchData()}
-                    variant='success'
-                    size='sm'
-                  >
+                  <Button onClick={() => fetchData()} variant='success' size='sm'>
                     {props.t('yes')}
                   </Button>
                 </div>
                 <div className='col-6'>
-                  <Button
-                    onClick={() => doubleClickRating()}
-                    variant='danger'
-                    size='sm'
-                  >
+                  <Button onClick={() => doubleClickRating()} variant='danger' size='sm'>
                     {props.t('no')}
                   </Button>
                 </div>

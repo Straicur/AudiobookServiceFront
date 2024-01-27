@@ -29,13 +29,7 @@ export default function CategoriesList(props) {
   const dateUpdate = useCategoryTreeListStore((state) => state.dateUpdate);
 
   const fetchCategories = () => {
-    HandleFetch(
-      '/admin/categories/tree',
-      'GET',
-      null,
-      props.token,
-      i18n.language
-    )
+    HandleFetch('/admin/categories/tree', 'GET', null, props.token, i18n.language)
       .then((data) => {
         setState({ ...state, json: data.categories });
 
@@ -115,16 +109,12 @@ export default function CategoriesList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() =>
-                setState({ ...state, jsonModal: !state.jsonModal })
-              }
+              onClick={() => setState({ ...state, jsonModal: !state.jsonModal })}
             >
               {t('jsonData')}
             </Button>
           </div>
-          {state.jsonModal ? (
-            <JsonModal state={state} setState={setState} t={t} />
-          ) : null}
+          {state.jsonModal ? <JsonModal state={state} setState={setState} t={t} /> : null}
           {state.editCategoryModal && state.editCategoryElement != null ? (
             <EditCategoryModal
               state={state}

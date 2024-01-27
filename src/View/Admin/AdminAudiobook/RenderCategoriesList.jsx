@@ -13,7 +13,7 @@ export default function RenderCategoriesList(props) {
         audiobookId: props.audiobookDetail.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         element.target.disabled = true;
@@ -95,9 +95,7 @@ export default function RenderCategoriesList(props) {
   }
 
   function listParent(element, child, parent) {
-    const usedCategory = props.categoriesState.categoriesId.filter(
-      (x) => x == element.id
-    ).length;
+    const usedCategory = props.categoriesState.categoriesId.filter((x) => x == element.id).length;
 
     return (
       <li
@@ -162,15 +160,9 @@ export default function RenderCategoriesList(props) {
   }
 
   function createListElement(element) {
-    const usedCategory = props.categoriesState.categoriesId.filter(
-      (x) => x == element.id
-    ).length;
+    const usedCategory = props.categoriesState.categoriesId.filter((x) => x == element.id).length;
     return (
-      <li
-        key={uuidv4()}
-        className='d-none p-2 border list-group-item'
-        id={element.id}
-      >
+      <li key={uuidv4()} className='d-none p-2 border list-group-item' id={element.id}>
         <div className='d-flex flex-row bd-highlight mb-2'>
           <div className='d-flex flex-column bd-highlight mb-3'>
             <div className='d-flex flex-row bd-highlight mb-2'>
@@ -224,12 +216,7 @@ export default function RenderCategoriesList(props) {
       elementArray.push = element;
 
       if (element['children'].length != 0) {
-        let returnedChildren = recursiveTree(
-          element['children'],
-          renderArray,
-          kids,
-          element
-        );
+        let returnedChildren = recursiveTree(element['children'], renderArray, kids, element);
 
         for (const value of returnedChildren) {
           let childElement = [createListElement(value.push)];
@@ -241,7 +228,7 @@ export default function RenderCategoriesList(props) {
               !ul.some((cat) =>
                 cat.props.children[1] != undefined
                   ? cat.props.children[1].props['data-name'] == value.push.name
-                  : false
+                  : false,
               )
             ) {
               kids[element.id] = kids[element.id].concat(childElement);
@@ -282,9 +269,7 @@ export default function RenderCategoriesList(props) {
 
   return (
     <div>
-      <ul className='list-group categories_add_list overflow-auto'>
-        {createTree()}
-      </ul>
+      <ul className='list-group categories_add_list overflow-auto'>{createTree()}</ul>
     </div>
   );
 }

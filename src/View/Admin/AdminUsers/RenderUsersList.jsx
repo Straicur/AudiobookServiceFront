@@ -25,7 +25,7 @@ export default function RenderUsersList(props) {
         userId: selectedUser.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         props.setState({
@@ -45,13 +45,7 @@ export default function RenderUsersList(props) {
   const getUserRoles = (element) => {
     if (props.dateUpdate < Date.now()) {
       props.userRolesStore.removeRoles();
-      HandleFetch(
-        '/admin/user/system/roles',
-        'GET',
-        null,
-        props.token,
-        props.i18n.language
-      )
+      HandleFetch('/admin/user/system/roles', 'GET', null, props.token, props.i18n.language)
         .then((data) => {
           props.userRolesStore.setRoles(data);
         })

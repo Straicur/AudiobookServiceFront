@@ -35,7 +35,7 @@ export default function AudiobookCommentsModal(props) {
           audiobookId: props.state.detailAudiobookElement.id,
         },
         props.token,
-        props.i18n.language
+        props.i18n.language,
       ),
     {
       retry: 1,
@@ -50,7 +50,7 @@ export default function AudiobookCommentsModal(props) {
       onSuccess: (data) => {
         setState({ ...state, comments: data });
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -75,12 +75,7 @@ export default function AudiobookCommentsModal(props) {
           <h1>{props.t('comments')}</h1>
         </div>
         <hr></hr>
-        <RenderCommentsList
-          state={state}
-          setState={setState}
-          t={props.t}
-          token={props.token}
-        />
+        <RenderCommentsList state={state} setState={setState} t={props.t} token={props.token} />
       </Modal.Body>
     </Modal>
   );

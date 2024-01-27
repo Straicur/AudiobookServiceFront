@@ -9,8 +9,7 @@ const ChildFirstMemo = React.memo(RenderAudiobooksList);
 const ChildSecondMemo = React.memo(RenderProposedList);
 
 export default function GetAllAudiobooks(props) {
-  const [audiobooks, loading, hasMore, setAudiobooks, setRefetchState] =
-    useAudiobookUserData();
+  const [audiobooks, loading, hasMore, setAudiobooks, setRefetchState] = useAudiobookUserData();
 
   const [loadstate, setLoadState] = useState(true);
 
@@ -38,7 +37,7 @@ export default function GetAllAudiobooks(props) {
           audiobooks: audiobooksIds,
         },
         props.token,
-        props.i18n.language
+        props.i18n.language,
       )
         .then((data) => {
           if (data.audiobookCoversModels != undefined) {
@@ -82,10 +81,7 @@ export default function GetAllAudiobooks(props) {
     <div>
       {loadstate ? (
         <div className='text-center'>
-          <div
-            className='spinner-border text-info spinner my-5'
-            role='status'
-          ></div>
+          <div className='spinner-border text-info spinner my-5' role='status'></div>
         </div>
       ) : (
         <div>

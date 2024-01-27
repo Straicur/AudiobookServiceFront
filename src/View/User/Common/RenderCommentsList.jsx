@@ -189,13 +189,7 @@ export default function RenderCommentsList(props) {
       };
     }
 
-    HandleFetch(
-      '/user/audiobook/comment/edit',
-      'PATCH',
-      jsonData,
-      props.token,
-      props.i18n.language
-    )
+    HandleFetch('/user/audiobook/comment/edit', 'PATCH', jsonData, props.token, props.i18n.language)
       .then(() => {
         element.target.classList.remove('disabled');
         props.refetch(true);
@@ -222,13 +216,7 @@ export default function RenderCommentsList(props) {
       };
     }
 
-    HandleFetch(
-      '/user/audiobook/comment/add',
-      'PUT',
-      jsonData,
-      props.token,
-      props.i18n.language
-    )
+    HandleFetch('/user/audiobook/comment/add', 'PUT', jsonData, props.token, props.i18n.language)
       .then(() => {
         element.target.classList.remove('disabled');
         props.refetch(true);
@@ -252,7 +240,7 @@ export default function RenderCommentsList(props) {
         deleted: true,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         element.target.classList.remove('disabled');
@@ -329,12 +317,8 @@ export default function RenderCommentsList(props) {
 
   function openParentList(element) {
     element.currentTarget.parentElement.parentElement.classList.remove('ps-3');
-    element.currentTarget.parentElement.parentElement.classList.remove(
-      'comment-pill'
-    );
-    element.currentTarget.parentElement.parentElement.classList.add(
-      'comments-pill'
-    );
+    element.currentTarget.parentElement.parentElement.classList.remove('comment-pill');
+    element.currentTarget.parentElement.parentElement.classList.add('comments-pill');
     element.currentTarget.parentElement.parentElement.classList.add('px-2');
 
     let children = element.currentTarget.parentElement.parentElement.children;
@@ -357,14 +341,10 @@ export default function RenderCommentsList(props) {
   }
 
   function closeParentList(element) {
-    element.currentTarget.parentElement.parentElement.classList.remove(
-      'comments-pill'
-    );
+    element.currentTarget.parentElement.parentElement.classList.remove('comments-pill');
     element.currentTarget.parentElement.parentElement.classList.remove('px-2');
     element.currentTarget.parentElement.parentElement.classList.add('ps-3');
-    element.currentTarget.parentElement.parentElement.classList.add(
-      'comment-pill'
-    );
+    element.currentTarget.parentElement.parentElement.classList.add('comment-pill');
 
     let children = element.currentTarget.parentElement.parentElement.children;
 
@@ -420,31 +400,21 @@ export default function RenderCommentsList(props) {
                 ) : null}
               </div>
               <div className='col-1'>
-                <span className='badge bg-dark comment-pill'>
-                  {element.children.length}
-                </span>
+                <span className='badge bg-dark comment-pill'>{element.children.length}</span>
               </div>
-              <div className='col-8 fw-bold medium-text'>
-                {element.userModel.email}
-              </div>
+              <div className='col-8 fw-bold medium-text'>{element.userModel.email}</div>
             </div>
           </div>
           <div className='col-4'>
             <div className='row justify-content-center '>
               <div className='row'>
                 <div className='col-1'>
-                  <span className='badge bg-dark comment-pill'>
-                    {element.audiobookCommentLike}
-                  </span>
+                  <span className='badge bg-dark comment-pill'>{element.audiobookCommentLike}</span>
                 </div>
                 <div className='col-3'>
                   <Button
                     name='en'
-                    variant={
-                      element.liked == null || !element.liked
-                        ? 'dark'
-                        : 'success'
-                    }
+                    variant={element.liked == null || !element.liked ? 'dark' : 'success'}
                     size='sm'
                     className={
                       element.liked == null || !element.liked
@@ -461,9 +431,7 @@ export default function RenderCommentsList(props) {
                 <div className='col-3'>
                   <Button
                     name='en'
-                    variant={
-                      element.liked == null || element.liked ? 'dark' : 'danger'
-                    }
+                    variant={element.liked == null || element.liked ? 'dark' : 'danger'}
                     size='sm'
                     className={
                       element.liked == null || element.liked
@@ -491,10 +459,7 @@ export default function RenderCommentsList(props) {
           {element.comment.length > 20 ? (
             <div className='row text-break'>
               <div className='col-8'>{element.comment.slice(0, 40)}</div>
-              <p
-                className='col-4 show-more'
-                onClick={(e) => showText(element.comment, e)}
-              >
+              <p className='col-4 show-more' onClick={(e) => showText(element.comment, e)}>
                 {props.t('showMore')}
               </p>
             </div>
@@ -603,25 +568,17 @@ export default function RenderCommentsList(props) {
         id={element.id}
       >
         <div className='row p-1 bd-highlight'>
-          <div className='col-8 fw-bold medium-text'>
-            {element.userModel.email}
-          </div>
+          <div className='col-8 fw-bold medium-text'>{element.userModel.email}</div>
           <div className='col-4'>
             <div className='row justify-content-center '>
               <div className='row'>
                 <div className='col-1'>
-                  <span className='badge bg-dark comment-pill'>
-                    {element.audiobookCommentLike}
-                  </span>
+                  <span className='badge bg-dark comment-pill'>{element.audiobookCommentLike}</span>
                 </div>
                 <div className='col-3'>
                   <Button
                     name='en'
-                    variant={
-                      element.liked == null || !element.liked
-                        ? 'dark'
-                        : 'success'
-                    }
+                    variant={element.liked == null || !element.liked ? 'dark' : 'success'}
                     size='sm'
                     className={
                       element.liked == null || !element.liked
@@ -638,9 +595,7 @@ export default function RenderCommentsList(props) {
                 <div className='col-3'>
                   <Button
                     name='en'
-                    variant={
-                      element.liked == null || element.liked ? 'dark' : 'danger'
-                    }
+                    variant={element.liked == null || element.liked ? 'dark' : 'danger'}
                     size='sm'
                     className={
                       element.liked == null || element.liked
@@ -668,10 +623,7 @@ export default function RenderCommentsList(props) {
           {element.comment.length > 20 ? (
             <div className='row text-break'>
               <div className='col-8'>{element.comment.slice(0, 40)}</div>
-              <p
-                className='col-4 show-more'
-                onClick={(e) => showText(element.comment, e)}
-              >
+              <p className='col-4 show-more' onClick={(e) => showText(element.comment, e)}>
                 {props.t('showMore')}
               </p>
             </div>
@@ -725,7 +677,7 @@ export default function RenderCommentsList(props) {
           <hr
             key={uuidv4()}
             className={element.id == lastOpenComment.current ? null : 'd-none'}
-          ></hr>
+          ></hr>,
         );
         for (const child of element['children']) {
           children.push(createListElement(child));
@@ -781,8 +733,7 @@ export default function RenderCommentsList(props) {
             size='sm'
             className='btn button rounded-3 comment-button warning_button'
             disabled={
-              props.audiobookDetail &&
-              !props.audiobookDetail.canComment ||
+              (props.audiobookDetail && !props.audiobookDetail.canComment) ||
               (commentState.comment.length <= 0 &&
               (commentState.add || commentState.edit) &&
               commentState.commentId != null
@@ -800,8 +751,10 @@ export default function RenderCommentsList(props) {
             variant='secondary'
             size='sm'
             className='btn button rounded-3 comment-button primary_button'
-            disabled={props.audiobookDetail &&
-              !props.audiobookDetail.canComment || commentState.comment.length == 0}
+            disabled={
+              (props.audiobookDetail && !props.audiobookDetail.canComment) ||
+              commentState.comment.length == 0
+            }
             onClick={
               commentState.add
                 ? (e) => {
@@ -814,11 +767,7 @@ export default function RenderCommentsList(props) {
                 : undefined
             }
           >
-            {commentState.add
-              ? props.t('add')
-              : commentState.edit
-              ? props.t('edit')
-              : null}
+            {commentState.add ? props.t('add') : commentState.edit ? props.t('edit') : null}
           </Button>
         </div>
       </div>

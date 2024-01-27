@@ -37,7 +37,7 @@ export default function AddCategoryModal(props) {
         additionalData: additionalData,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         handleClose();
@@ -60,19 +60,13 @@ export default function AddCategoryModal(props) {
   }, [modalState.name]);
 
   return (
-    <Modal
-      show={props.state.addCategoryModal}
-      backdrop='static'
-      keyboard={false}
-    >
+    <Modal show={props.state.addCategoryModal} backdrop='static' keyboard={false}>
       <Modal.Header>
         <Modal.Title>
           <h3>
             <b>
               {props.state.addCategoryParent != null
-                ? props.t('addToCategory') +
-                  ' ' +
-                  props.state.addCategoryParent.name
+                ? props.t('addToCategory') + ' ' + props.state.addCategoryParent.name
                 : props.t('addMainCategory')}
             </b>
           </h3>
@@ -93,11 +87,7 @@ export default function AddCategoryModal(props) {
         <Button variant='dark' onClick={handleClose}>
           {props.t('close')}
         </Button>
-        <Button
-          disabled={modalState.isButtonDisabled}
-          variant='dark'
-          onClick={addNewSet}
-        >
+        <Button disabled={modalState.isButtonDisabled} variant='dark' onClick={addNewSet}>
           {props.t('add')}
         </Button>
       </Modal.Footer>

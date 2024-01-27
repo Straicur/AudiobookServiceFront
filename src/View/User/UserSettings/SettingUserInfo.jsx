@@ -1,6 +1,5 @@
 import CreateUtil from 'Util/CreateUtil';
 
-
 export default function SettingUserInfo(props) {
   return (
     <div className='text-white fs-4'>

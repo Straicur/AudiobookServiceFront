@@ -1,12 +1,12 @@
 .info_card {
-    width: 51.2rem;
-    font-size: 1rem !important;
+  width: 51.2rem;
+  font-size: 1rem !important;
 }
 
 .info_card_body {
-    padding: 0.25 !important;
+  padding: 0.25 !important;
 }
 
 .info_card_body_el {
-    height: 1.5rem !important;
+  height: 1.5rem !important;
 }

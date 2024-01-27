@@ -15,12 +15,7 @@ export const RegisterNotificationModal = () => {
 
   return (
     <>
-      <Modal
-        show={true}
-        onHide={handleClose}
-        backdrop='static'
-        keyboard={false}
-      >
+      <Modal show={true} onHide={handleClose} backdrop='static' keyboard={false}>
         <Modal.Body className=''>
           <h3>{t('mailSended')}</h3>
         </Modal.Body>

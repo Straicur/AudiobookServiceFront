@@ -4,14 +4,7 @@ import { HandleFetch } from '../Util/HandleFetch';
 
 const AudiobookSearchContext = createContext(null);
 
-export const AudiobookSearchProvider = ({
-  children,
-  token,
-  title,
-  state,
-  setState,
-  i18n,
-}) => {
+export const AudiobookSearchProvider = ({ children, token, title, state, setState, i18n }) => {
   const [audiobookSearch, setAudiobookSearch] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -32,7 +25,7 @@ export const AudiobookSearchProvider = ({
           title: title,
         },
         token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -45,7 +38,7 @@ export const AudiobookSearchProvider = ({
         setAudiobookSearch(data.audiobooks);
         setLoading(false);
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -58,9 +51,7 @@ export const AudiobookSearchProvider = ({
   const value = [audiobookSearch, loading, setAudiobookSearch, setRefetchState];
 
   return (
-    <AudiobookSearchContext.Provider value={value}>
-      {children}
-    </AudiobookSearchContext.Provider>
+    <AudiobookSearchContext.Provider value={value}>{children}</AudiobookSearchContext.Provider>
   );
 };
 

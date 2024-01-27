@@ -34,7 +34,7 @@ export default function EditCategoryModal(props) {
         categoryId: props.state.editCategoryElement.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         handleClose();
@@ -55,7 +55,7 @@ export default function EditCategoryModal(props) {
         categoryId: props.state.editCategoryElement.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         handleClose();
@@ -76,7 +76,7 @@ export default function EditCategoryModal(props) {
         active: !props.state.editCategoryElement.active,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         handleClose();
@@ -98,11 +98,7 @@ export default function EditCategoryModal(props) {
   }, [editModal.new_name]);
 
   return (
-    <Modal
-      show={props.state.editCategoryModal}
-      backdrop='static'
-      keyboard={false}
-    >
+    <Modal show={props.state.editCategoryModal} backdrop='static' keyboard={false}>
       <Modal.Header>
         <Modal.Title>
           <h3>
@@ -145,21 +141,13 @@ export default function EditCategoryModal(props) {
             </h3>
 
             <div className='col'>
-              <Button
-                variant='danger'
-                onClick={activateCategory}
-                className='form-control mt-2'
-              >
+              <Button variant='danger' onClick={activateCategory} className='form-control mt-2'>
                 {props.t('yes')}
               </Button>
             </div>
 
             <div className='col'>
-              <Button
-                variant='success'
-                onClick={handleClose}
-                className='form-control mt-2'
-              >
+              <Button variant='success' onClick={handleClose} className='form-control mt-2'>
                 {props.t('no')}
               </Button>
             </div>
@@ -169,21 +157,13 @@ export default function EditCategoryModal(props) {
           <div className='row'>
             <h3>{props.t('youDelete')}</h3>
             <div className='col'>
-              <Button
-                variant='danger'
-                onClick={deleteCategory}
-                className='form-control mt-2'
-              >
+              <Button variant='danger' onClick={deleteCategory} className='form-control mt-2'>
                 {props.t('yes')}
               </Button>
             </div>
 
             <div className='col'>
-              <Button
-                variant='success'
-                onClick={handleClose}
-                className='form-control mt-2'
-              >
+              <Button variant='success' onClick={handleClose} className='form-control mt-2'>
                 {props.t('no')}
               </Button>
             </div>
@@ -191,26 +171,16 @@ export default function EditCategoryModal(props) {
         ) : null}
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant='dark'
-          onClick={() => setEditModal({ ...editModal, edit: 1 })}
-        >
+        <Button variant='dark' onClick={() => setEditModal({ ...editModal, edit: 1 })}>
           {props.t('editName')}
         </Button>
         <Button
-          variant={
-            props.state.editCategoryElement.active ? 'danger' : 'success'
-          }
+          variant={props.state.editCategoryElement.active ? 'danger' : 'success'}
           onClick={() => setEditModal({ ...editModal, edit: 2 })}
         >
-          {props.state.editCategoryElement.active
-            ? props.t('deActivate')
-            : props.t('activate')}
+          {props.state.editCategoryElement.active ? props.t('deActivate') : props.t('activate')}
         </Button>
-        <Button
-          variant='dark'
-          onClick={() => setEditModal({ ...editModal, edit: 3 })}
-        >
+        <Button variant='dark' onClick={() => setEditModal({ ...editModal, edit: 3 })}>
           {props.t('delete')}
         </Button>
         <Button variant='dark' onClick={handleClose}>

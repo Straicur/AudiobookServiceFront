@@ -48,10 +48,7 @@ export default function GetCovers(props) {
                     : 'card-img-sm-sm-title'
                 }
               >
-                <img
-                  src={imgUrl == null ? '/noImg.jpg' : imgUrl}
-                  className='card-img-top'
-                />
+                <img src={imgUrl == null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
               </div>
 
               <div className='card-body'>
@@ -65,7 +62,7 @@ export default function GetCovers(props) {
             </div>
           </div>
         );
-      })
+      }),
     );
     return audiobooksArray;
   };
@@ -77,9 +74,7 @@ export default function GetCovers(props) {
       props.audiobooks.length > 0 ? (
         returnAudioboks()
       ) : (
-        <div className='text-white center_text fs-2'>
-          {props.t('emptyMyList')}
-        </div>
+        <div className='text-white center_text fs-2'>{props.t('emptyMyList')}</div>
       )}
     </div>
   );

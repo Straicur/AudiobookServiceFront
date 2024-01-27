@@ -22,10 +22,8 @@ export default function CategoryAudiobookDetailModal(props) {
     deleteEntarly: false,
   });
 
-  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] =
-    useAudiobookData();
-  const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] =
-    useAudiobookCover();
+  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAudiobookData();
+  const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart, setAudiobookPart] = useAudiobookPart();
 
   const handleClose = () => {
@@ -50,7 +48,7 @@ export default function CategoryAudiobookDetailModal(props) {
         audiobookId: audiobookDetail.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         handleClose();
@@ -73,7 +71,7 @@ export default function CategoryAudiobookDetailModal(props) {
         audiobookId: audiobookDetail.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         handleClose();
@@ -96,7 +94,7 @@ export default function CategoryAudiobookDetailModal(props) {
         stars.push(
           <div key={uuidv4()} className='col-1'>
             <i className='bi bi-star-fill'></i>
-          </div>
+          </div>,
         );
         amountOfStars = amountOfStars - 1;
       }
@@ -106,7 +104,7 @@ export default function CategoryAudiobookDetailModal(props) {
       stars.push(
         <div key={uuidv4()} className='col-1'>
           <i className='bi bi-star'></i>
-        </div>
+        </div>,
       );
     }
 
@@ -172,10 +170,7 @@ export default function CategoryAudiobookDetailModal(props) {
             <div className='row d-flex justify-content-center text-light text-center'>
               <h4>{props.t('categories')}</h4>
             </div>
-            <AudiobookCategoryList
-              audiobookDetail={audiobookDetail}
-              t={props.t}
-            />
+            <AudiobookCategoryList audiobookDetail={audiobookDetail} t={props.t} />
           </div>
 
           <div className='col'>

@@ -80,9 +80,7 @@ export default function RenderCategoriesList(props) {
         data-clicable={true}
       >
         <div className='d-flex align-items-center flex-row bd-highlight'>
-          {child.length > 0 ? (
-            <i className='p-2 bi bi-arrow-right-square '></i>
-          ) : null}
+          {child.length > 0 ? <i className='p-2 bi bi-arrow-right-square '></i> : null}
           <div className='p-2 bd-highlight'>
             <h5>{props.t('categoryName')}:</h5>
           </div>
@@ -290,17 +288,10 @@ export default function RenderCategoriesList(props) {
       elementArray.push = element;
 
       if (element['children'].length != 0) {
-        let returnedChildren = recursiveTree(
-          element['children'],
-          renderArray,
-          kids,
-          element
-        );
+        let returnedChildren = recursiveTree(element['children'], renderArray, kids, element);
 
         for (const [index, value] of returnedChildren.entries()) {
-          let childElement = [
-            createListElement(index, value.push, returnedChildren.length),
-          ];
+          let childElement = [createListElement(index, value.push, returnedChildren.length)];
 
           if (kids[element.id] != undefined) {
             let ul = kids[element.id].filter((x) => x.type == 'li');
@@ -309,7 +300,7 @@ export default function RenderCategoriesList(props) {
               !ul.some((cat) =>
                 cat.props.children[1] != undefined
                   ? cat.props.children[1].props['data-name'] == value.push.name
-                  : false
+                  : false,
               )
             ) {
               kids[element.id] = kids[element.id].concat(childElement);

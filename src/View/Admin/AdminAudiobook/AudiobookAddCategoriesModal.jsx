@@ -24,13 +24,7 @@ export default function AudiobookAddCategoriesModal(props) {
   };
 
   const fetchCategories = () => {
-    HandleFetch(
-      '/admin/categories/tree',
-      'GET',
-      null,
-      props.token,
-      props.i18n.language
-    )
+    HandleFetch('/admin/categories/tree', 'GET', null, props.token, props.i18n.language)
       .then((data) => {
         categoriesStore.removeCategories();
 

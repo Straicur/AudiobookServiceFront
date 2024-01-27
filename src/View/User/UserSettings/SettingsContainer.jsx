@@ -10,14 +10,7 @@ import SettingUserInfo from './SettingUserInfo';
 export default function SettingsContainer(props) {
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     'data',
-    () =>
-      HandleFetch(
-        '/user/settings',
-        'GET',
-        null,
-        props.token,
-        props.i18n.language
-      ),
+    () => HandleFetch('/user/settings', 'GET', null, props.token, props.i18n.language),
     {
       retry: 1,
       retryDelay: 500,
@@ -39,7 +32,7 @@ export default function SettingsContainer(props) {
           editableDate: data.editableDate,
         });
       },
-    }
+    },
   );
 
   return (

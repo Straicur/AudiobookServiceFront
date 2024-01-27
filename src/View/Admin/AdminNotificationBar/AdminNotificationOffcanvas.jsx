@@ -85,7 +85,7 @@ export default function NotificationOffcanvas(props) {
             notificationId: notification.id,
           },
           props.token,
-          props.i18n.language
+          props.i18n.language,
         )
           .then(() => {})
           .catch((e) => {});
@@ -136,8 +136,7 @@ export default function NotificationOffcanvas(props) {
                   {': '}
                   {createNotificationType(notification.notificationType)}
                 </div>
-                {notification.notificationType == 1 ||
-                notification.notificationType == 2 ? null : (
+                {notification.notificationType == 1 || notification.notificationType == 2 ? null : (
                   <div className='col'>
                     <Button
                       name='logout'
@@ -162,7 +161,7 @@ export default function NotificationOffcanvas(props) {
               ) : null}
             </div>
           );
-        })
+        }),
       );
     }
     return returnArray;

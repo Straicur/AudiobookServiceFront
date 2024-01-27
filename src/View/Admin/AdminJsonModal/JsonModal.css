@@ -1,11 +1,11 @@
 .preStyle {
-    display: block;
-    padding: 10px 30px;
-    margin: 0;
-    overflow: scroll;
-    height: 40rem;
+  display: block;
+  padding: 10px 30px;
+  margin: 0;
+  overflow: scroll;
+  height: 40rem;
 }
 
 .background_json {
-    background-color: #c2ffe6;
+  background-color: #c2ffe6;
 }

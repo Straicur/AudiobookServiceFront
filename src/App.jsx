@@ -33,12 +33,7 @@ function App() {
       <Router>
         <Routes>
           {/*Admin*/}
-          <Route
-            exact
-            path='/admin'
-            element={<AdminMain />}
-            errorElement={<Page404 />}
-          />
+          <Route exact path='/admin' element={<AdminMain />} errorElement={<Page404 />} />
           <Route
             exact
             path='/admin/audiobooks'
@@ -63,12 +58,7 @@ function App() {
             element={<Notifications />}
             errorElement={<Page404 />}
           />
-          <Route
-            exact
-            path='/admin/users'
-            element={<Users />}
-            errorElement={<Page404 />}
-          />
+          <Route exact path='/admin/users' element={<Users />} errorElement={<Page404 />} />
           <Route
             exact
             path='/admin/category/:categoryKey'
@@ -88,54 +78,14 @@ function App() {
               )
             }
           />
-          <Route
-            exact
-            path='/login'
-            element={<UserLogin />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/register'
-            element={<Register />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/main'
-            element={<Main />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/myList'
-            element={<MyList />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/help'
-            element={<Help />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/about'
-            element={<About />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/policy'
-            element={<Policy />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/user/settings'
-            element={<Settings />}
-            errorElement={<Page404 />}
-          />
+          <Route exact path='/login' element={<UserLogin />} errorElement={<Page404 />} />
+          <Route exact path='/register' element={<Register />} errorElement={<Page404 />} />
+          <Route exact path='/main' element={<Main />} errorElement={<Page404 />} />
+          <Route exact path='/myList' element={<MyList />} errorElement={<Page404 />} />
+          <Route exact path='/help' element={<Help />} errorElement={<Page404 />} />
+          <Route exact path='/about' element={<About />} errorElement={<Page404 />} />
+          <Route exact path='/policy' element={<Policy />} errorElement={<Page404 />} />
+          <Route exact path='/user/settings' element={<Settings />} errorElement={<Page404 />} />
           <Route
             exact
             path='/user/reset/password/:id'

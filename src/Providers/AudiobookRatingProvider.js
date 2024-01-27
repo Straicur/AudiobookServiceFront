@@ -33,7 +33,7 @@ export const AudiobookRatingProvider = ({
           categoryKey: categoryKey,
         },
         token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -45,7 +45,7 @@ export const AudiobookRatingProvider = ({
       onSuccess: (data) => {
         setAudiobookRating(data.ratingPercent);
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -58,9 +58,7 @@ export const AudiobookRatingProvider = ({
   const value = [audiobookRating, setAudiobookRating, setRefetchState];
 
   return (
-    <AudiobookRatingContext.Provider value={value}>
-      {children}
-    </AudiobookRatingContext.Provider>
+    <AudiobookRatingContext.Provider value={value}>{children}</AudiobookRatingContext.Provider>
   );
 };
 

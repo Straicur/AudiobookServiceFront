@@ -67,10 +67,7 @@ export default function RenderCarousel(props, category) {
                   : 'card-img-sm-sm-title'
               }
             >
-              <img
-                src={imgUrl == null ? '/noImg.jpg' : imgUrl}
-                className='card-img-top'
-              />
+              <img src={imgUrl == null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
             </div>
 
             <div className='card-body'>
@@ -83,7 +80,7 @@ export default function RenderCarousel(props, category) {
             </div>
           </div>
         );
-      })
+      }),
     );
     return audiobooksArray;
   };
@@ -98,9 +95,7 @@ export default function RenderCarousel(props, category) {
 
   return (
     <div key={uuidv4()}>
-      {props.coversState != undefined && props.coversState.length > 0
-        ? render()
-        : null}
+      {props.coversState != undefined && props.coversState.length > 0 ? render() : null}
     </div>
   );
 }

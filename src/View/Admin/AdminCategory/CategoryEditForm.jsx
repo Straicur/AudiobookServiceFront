@@ -35,7 +35,7 @@ export default function CategoryEditForm(props) {
         encoded: props.audiobookDetail.encoded,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         props.setAudiobookDetailRefetch(true);
@@ -147,10 +147,7 @@ export default function CategoryEditForm(props) {
     if (props.audiobookDetail.parts <= 0) {
       setWrongState(6);
     }
-    if (
-      props.audiobookDetail.encoded == undefined ||
-      props.audiobookDetail.encoded.length < 1
-    ) {
+    if (props.audiobookDetail.encoded == undefined || props.audiobookDetail.encoded.length < 1) {
       setWrongState(7);
     }
     if (props.audiobookDetail.size.length < 1) {
@@ -198,9 +195,7 @@ export default function CategoryEditForm(props) {
             {props.t('title')}
           </InputGroup.Text>
           <Form.Control
-            value={
-              props.audiobookDetail != null ? props.audiobookDetail.title : ''
-            }
+            value={props.audiobookDetail != null ? props.audiobookDetail.title : ''}
             onChange={(event) => {
               handleTitleChange(event);
             }}
@@ -213,9 +208,7 @@ export default function CategoryEditForm(props) {
             {props.t('author')}
           </InputGroup.Text>
           <Form.Control
-            value={
-              props.audiobookDetail != null ? props.audiobookDetail.author : ''
-            }
+            value={props.audiobookDetail != null ? props.audiobookDetail.author : ''}
             onChange={(event) => {
               handleAuthorChange(event);
             }}
@@ -228,9 +221,7 @@ export default function CategoryEditForm(props) {
             {props.t('album')}
           </InputGroup.Text>
           <Form.Control
-            value={
-              props.audiobookDetail != null ? props.audiobookDetail.album : ''
-            }
+            value={props.audiobookDetail != null ? props.audiobookDetail.album : ''}
             onChange={(event) => {
               handleAlbumChange(event);
             }}
@@ -244,9 +235,7 @@ export default function CategoryEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             type='date'
-            value={
-              props.audiobookDetail != null ? props.audiobookDetail.year : ''
-            }
+            value={props.audiobookDetail != null ? props.audiobookDetail.year : ''}
             onChange={(event) => {
               handleYearChange(event);
             }}
@@ -260,9 +249,7 @@ export default function CategoryEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             type='number'
-            value={
-              props.audiobookDetail != null ? props.audiobookDetail.parts : ''
-            }
+            value={props.audiobookDetail != null ? props.audiobookDetail.parts : ''}
             onChange={(event) => {
               handlePartsChange(event);
             }}
@@ -275,11 +262,7 @@ export default function CategoryEditForm(props) {
             {props.t('duration')}
           </InputGroup.Text>
           <Form.Control
-            value={
-              props.audiobookDetail != null
-                ? props.audiobookDetail.duration
-                : ''
-            }
+            value={props.audiobookDetail != null ? props.audiobookDetail.duration : ''}
             onChange={(event) => {
               handleDurationChange(event);
             }}
@@ -294,11 +277,7 @@ export default function CategoryEditForm(props) {
           <Form.Control
             as='textarea'
             rows={4}
-            value={
-              props.audiobookDetail != null
-                ? props.audiobookDetail.description
-                : ''
-            }
+            value={props.audiobookDetail != null ? props.audiobookDetail.description : ''}
             onChange={(event) => {
               handleDescriptionChange(event);
             }}
@@ -330,9 +309,7 @@ export default function CategoryEditForm(props) {
             {props.t('size')}
           </InputGroup.Text>
           <Form.Control
-            value={
-              props.audiobookDetail != null ? props.audiobookDetail.size : ''
-            }
+            value={props.audiobookDetail != null ? props.audiobookDetail.size : ''}
             onChange={(event) => {
               handleSizeChange(event);
             }}
@@ -345,9 +322,7 @@ export default function CategoryEditForm(props) {
             {props.t('version')}
           </InputGroup.Text>
           <Form.Control
-            value={
-              props.audiobookDetail != null ? props.audiobookDetail.version : ''
-            }
+            value={props.audiobookDetail != null ? props.audiobookDetail.version : ''}
             onChange={(event) => {
               handleVersionChange(event);
             }}
@@ -357,55 +332,36 @@ export default function CategoryEditForm(props) {
       <div className='row text-light pe-0 input_modal'>
         <InputGroup className='mb-1'>
           <Dropdown onSelect={(event) => handleAgeChange(event)}>
-            <Dropdown.Toggle
-              className=' text-start'
-              variant='success'
-              id='dropdown-basic'
-            >
+            <Dropdown.Toggle className=' text-start' variant='success' id='dropdown-basic'>
               {props.t('age')}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
               {props.audiobookDetail != null ? (
-                <Dropdown.Item
-                  eventKey={1}
-                  active={props.audiobookDetail.age == 1}
-                >
+                <Dropdown.Item eventKey={1} active={props.audiobookDetail.age == 1}>
                   3-7
                 </Dropdown.Item>
               ) : null}
               {props.audiobookDetail != null ? (
-                <Dropdown.Item
-                  eventKey={2}
-                  active={props.audiobookDetail.age == 2}
-                >
+                <Dropdown.Item eventKey={2} active={props.audiobookDetail.age == 2}>
                   7-12
                 </Dropdown.Item>
               ) : null}
 
               {props.audiobookDetail != null ? (
-                <Dropdown.Item
-                  eventKey={3}
-                  active={props.audiobookDetail.age == 3}
-                >
+                <Dropdown.Item eventKey={3} active={props.audiobookDetail.age == 3}>
                   12-16
                 </Dropdown.Item>
               ) : null}
 
               {props.audiobookDetail != null ? (
-                <Dropdown.Item
-                  eventKey={4}
-                  active={props.audiobookDetail.age == 4}
-                >
+                <Dropdown.Item eventKey={4} active={props.audiobookDetail.age == 4}>
                   16-18
                 </Dropdown.Item>
               ) : null}
 
               {props.audiobookDetail != null ? (
-                <Dropdown.Item
-                  eventKey={5}
-                  active={props.audiobookDetail.age == 5}
-                >
+                <Dropdown.Item eventKey={5} active={props.audiobookDetail.age == 5}>
                   18+
                 </Dropdown.Item>
               ) : null}
@@ -430,12 +386,8 @@ export default function CategoryEditForm(props) {
       </div>
 
       <div className='row text-light me-2 input_modal'>
-        <div> 
-          <Alert
-            show={wrongState != 0}
-            className='dangerAllert mt-1 text-center'
-            variant='danger'
-          >
+        <div>
+          <Alert show={wrongState != 0} className='dangerAllert mt-1 text-center' variant='danger'>
             {returnFormError()}
           </Alert>
         </div>

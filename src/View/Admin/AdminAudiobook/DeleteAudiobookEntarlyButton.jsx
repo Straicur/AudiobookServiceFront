@@ -14,7 +14,7 @@ export default function DeleteAudiobookEntarlyButton(props) {
         audiobookId: props.audiobookDetail.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         navigate(`/admin/audiobooks`);

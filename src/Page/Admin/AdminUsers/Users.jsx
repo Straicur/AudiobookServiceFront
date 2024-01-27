@@ -22,11 +22,7 @@ export default function Users() {
         });
       }}
     >
-      <UsersList
-        usersState={usersState}
-        setUsersState={setUsersState}
-        token={token}
-      />
+      <UsersList usersState={usersState} setUsersState={setUsersState} token={token} />
     </ErrorBoundary>
   );
 }

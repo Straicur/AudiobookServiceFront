@@ -196,9 +196,7 @@ export default function SearchUsersOffCanvas(props) {
                 ? props.t('active')
                 : props.t('notActive')
             }
-            checked={
-              props.searchState.active != null && props.searchState.active
-            }
+            checked={props.searchState.active != null && props.searchState.active}
             onChange={(e) => changeActive(e)}
           />
         </InputGroup>
@@ -211,9 +209,7 @@ export default function SearchUsersOffCanvas(props) {
                 ? props.t('banned')
                 : props.t('notBanned')
             }
-            checked={
-              props.searchState.banned != null && props.searchState.banned
-            }
+            checked={props.searchState.banned != null && props.searchState.banned}
             onChange={(e) => changeBanned(e)}
           />
         </InputGroup>

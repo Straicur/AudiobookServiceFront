@@ -45,10 +45,7 @@ export default function AddAudiobookModal(props) {
     if (e.target.files) {
       let file = e.target.files[0];
 
-      if (
-        file.type == 'application/zip' ||
-        file.type == 'application/vnd.rar'
-      ) {
+      if (file.type == 'application/zip' || file.type == 'application/vnd.rar') {
         setStateModal({ ...stateModal, file: file });
       }
     }
@@ -136,10 +133,7 @@ export default function AddAudiobookModal(props) {
 
           HandleFetch(url, method, jsonData, props.token, props.i18n.language)
             .then((data) => {
-              if (
-                currentPart.current == maxParts.current ||
-                Object.keys(data).length !== 0
-              ) {
+              if (currentPart.current == maxParts.current || Object.keys(data).length !== 0) {
                 setStateModal({
                   author: '',
                   title: '',
@@ -149,7 +143,7 @@ export default function AddAudiobookModal(props) {
                   uploadEnded: false,
                 });
               }
-              currentPart.current = currentPart.current+1;
+              currentPart.current = currentPart.current + 1;
             })
             .catch((e) => {
               props.setAudiobooksState({
@@ -185,10 +179,7 @@ export default function AddAudiobookModal(props) {
 
             HandleFetch(url, method, jsonData, props.token, props.i18n.language)
               .then((data) => {
-                if (
-                  currentPart.current == maxParts.current ||
-                  Object.keys(data).length !== 0
-                ) {
+                if (currentPart.current == maxParts.current || Object.keys(data).length !== 0) {
                   setStateModal({
                     author: '',
                     title: '',
@@ -198,7 +189,7 @@ export default function AddAudiobookModal(props) {
                     uploadEnded: false,
                   });
                 }
-                currentPart.current =currentPart.current +1
+                currentPart.current = currentPart.current + 1;
               })
               .catch((e) => {
                 props.setAudiobooksState({
@@ -226,11 +217,7 @@ export default function AddAudiobookModal(props) {
   }, [stateModal.author, stateModal.title]);
 
   return (
-    <Modal
-      show={props.state.addAudiobookModal}
-      backdrop='static'
-      keyboard={false}
-    >
+    <Modal show={props.state.addAudiobookModal} backdrop='static' keyboard={false}>
       <Modal.Header>
         <Modal.Title>
           <h3>
@@ -287,11 +274,7 @@ export default function AddAudiobookModal(props) {
               animated
               variant='info'
               max={maxParts.current}
-              now={
-                maxParts.current == 1
-                  ? undefined
-                  : currentPart.current
-              }
+              now={maxParts.current == 1 ? undefined : currentPart.current}
             />
           ) : (
             <input
@@ -309,11 +292,7 @@ export default function AddAudiobookModal(props) {
           <Button variant='dark' onClick={handleClose}>
             {props.t('close')}
           </Button>
-          <Button
-            disabled={stateModal.isNextButtonDisabled}
-            variant='dark'
-            onClick={nextPage}
-          >
+          <Button disabled={stateModal.isNextButtonDisabled} variant='dark' onClick={nextPage}>
             {props.t('save')}
           </Button>
         </Modal.Footer>

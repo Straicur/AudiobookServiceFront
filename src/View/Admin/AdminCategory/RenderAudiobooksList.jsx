@@ -29,7 +29,7 @@ export default function RenderAudiobooksList(props) {
         active: !selectedAudiobook.active,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         element.target.classList.remove('disabled');
@@ -109,8 +109,7 @@ export default function RenderAudiobooksList(props) {
               onClick={() =>
                 props.setState({
                   ...props.state,
-                  detailCommentsAudiobookModal:
-                    !props.state.detailCommentsAudiobookModal,
+                  detailCommentsAudiobookModal: !props.state.detailCommentsAudiobookModal,
                   detailAudiobookElement: element,
                 })
               }

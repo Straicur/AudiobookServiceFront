@@ -4,13 +4,7 @@ import { HandleFetch } from '../Util/HandleFetch';
 
 const AudiobookUserProposedContext = createContext(null);
 
-export const AudiobookUserProposedProvider = ({
-  children,
-  token,
-  state,
-  setState,
-  i18n,
-}) => {
+export const AudiobookUserProposedProvider = ({ children, token, state, setState, i18n }) => {
   const [audiobookProposed, setAudiobookProposed] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
@@ -22,14 +16,7 @@ export const AudiobookUserProposedProvider = ({
     refetch: refetchAudiobookUserProposed,
   } = useQuery(
     'dataAudiobookUserProposed',
-    () =>
-      HandleFetch(
-        '/user/proposed/audiobooks',
-        'GET',
-        null,
-        token,
-        i18n.language
-      ),
+    () => HandleFetch('/user/proposed/audiobooks', 'GET', null, token, i18n.language),
     {
       retry: 1,
       retryDelay: 500,
@@ -40,7 +27,7 @@ export const AudiobookUserProposedProvider = ({
       onSuccess: (data) => {
         setAudiobookProposed(data);
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -59,5 +46,4 @@ export const AudiobookUserProposedProvider = ({
   );
 };
 
-export const useAudiobookUserProposed = () =>
-  useContext(AudiobookUserProposedContext);
+export const useAudiobookUserProposed = () => useContext(AudiobookUserProposedContext);

@@ -12,7 +12,7 @@ export default function AudiobookCategoryList(props) {
         audiobookId: props.audiobookDetail.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         props.setAudiobookDetailRefetch(true);
@@ -61,26 +61,17 @@ export default function AudiobookCategoryList(props) {
 
   const getCategoryList = () => {
     let categories = [];
-    if (
-      props.audiobookDetail != null &&
-      props.audiobookDetail.categories != undefined
-    ) {
+    if (props.audiobookDetail != null && props.audiobookDetail.categories != undefined) {
       props.audiobookDetail.categories.forEach((category) => {
         categories.push(createCategory(category));
       });
     }
 
-    if (
-      props.audiobookDetail != null &&
-      props.audiobookDetail.categories == 0
-    ) {
+    if (props.audiobookDetail != null && props.audiobookDetail.categories == 0) {
       categories.push(
-        <div
-          key={uuidv4()}
-          className='row d-flex justify-content-center text-center'
-        >
+        <div key={uuidv4()} className='row d-flex justify-content-center text-center'>
           <h5>{props.t('empty')}</h5>
-        </div>
+        </div>,
       );
     }
     return (

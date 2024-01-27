@@ -99,7 +99,7 @@ export default function NotificationsList(props) {
           searchData: formatData(),
         },
         props.token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -115,7 +115,7 @@ export default function NotificationsList(props) {
         setState({ ...state, json: data });
         setPageState({ ...pageState, maxPage: data.maxPage });
       },
-    }
+    },
   );
 
   const openAddModal = () => {
@@ -128,13 +128,7 @@ export default function NotificationsList(props) {
   const openSearchModal = () => {
     if (dateUpdate < Date.now()) {
       userRolesStore.removeRoles();
-      HandleFetch(
-        '/admin/user/system/roles',
-        'GET',
-        null,
-        props.token,
-        i18n.language
-      )
+      HandleFetch('/admin/user/system/roles', 'GET', null, props.token, i18n.language)
         .then((data) => {
           userRolesStore.setRoles(data);
         })
@@ -223,9 +217,7 @@ export default function NotificationsList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() =>
-                setState({ ...state, jsonModal: !state.jsonModal })
-              }
+              onClick={() => setState({ ...state, jsonModal: !state.jsonModal })}
             >
               {t('jsonData')}
             </Button>
@@ -266,8 +258,7 @@ export default function NotificationsList(props) {
             resetSearchStates={resetSearchStates}
           />
         ) : null}
-        {state.editNotificationkModal &&
-        state.editNotificationElement != null ? (
+        {state.editNotificationkModal && state.editNotificationElement != null ? (
           <EditNotificationModal
             state={state}
             setState={setState}
@@ -285,9 +276,7 @@ export default function NotificationsList(props) {
             setUsersState={setUsersState}
           />
         ) : null}
-        {state.jsonModal ? (
-          <JsonModal state={state} setState={setState} t={t} />
-        ) : null}
+        {state.jsonModal ? <JsonModal state={state} setState={setState} t={t} /> : null}
       </div>
     </div>
   );

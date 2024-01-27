@@ -63,5 +63,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "lint": "eslint .",
+  "lint:fix": "eslint --fix",
+  "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
 }

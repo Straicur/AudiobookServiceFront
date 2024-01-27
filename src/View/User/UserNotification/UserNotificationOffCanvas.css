@@ -1,16 +1,16 @@
 .notification-heigth {
-    max-height: 52rem !important;
+  max-height: 52rem !important;
 }
 
 .load-more-btn {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .load-more-btn:hover {
-    background-color: rgb(49, 49, 49);
-    cursor: pointer;
+  background-color: rgb(49, 49, 49);
+  cursor: pointer;
 }
 
 .detail-notification-btn {
-    padding: 0.2rem !important;
+  padding: 0.2rem !important;
 }

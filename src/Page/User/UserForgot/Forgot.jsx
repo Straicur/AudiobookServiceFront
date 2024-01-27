@@ -38,14 +38,7 @@ export default function Forgot() {
         });
       }}
     >
-      <ForgotPage
-        state={state}
-        setState={setState}
-        id={id}
-        t={t}
-        i18n={i18n}
-        navigate={navigate}
-      />
+      <ForgotPage state={state} setState={setState} id={id} t={t} i18n={i18n} navigate={navigate} />
     </ErrorBoundary>
   );
 }

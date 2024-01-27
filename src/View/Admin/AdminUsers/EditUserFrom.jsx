@@ -28,7 +28,7 @@ export default function EditUserFrom(props) {
         banned: !props.state.editUserElement.banned,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         const newSelcetedUser = {
@@ -61,7 +61,7 @@ export default function EditUserFrom(props) {
         userId: props.state.editUserElement.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         element.target.classList.remove('disabled');
@@ -106,8 +106,7 @@ export default function EditUserFrom(props) {
   };
 
   function validatePassword(pass) {
-    const re =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return re.test(pass);
   }
 
@@ -128,7 +127,7 @@ export default function EditUserFrom(props) {
           newPassword: passwordState.password,
         },
         props.token,
-        props.i18n.language
+        props.i18n.language,
       )
         .then(() => {
           setPasswordState({
@@ -167,7 +166,7 @@ export default function EditUserFrom(props) {
           newPhone: phoneNumberState.phoneNumber,
         },
         props.token,
-        props.i18n.language
+        props.i18n.language,
       )
         .then(() => {
           setPhoneNumberState({
@@ -231,9 +230,7 @@ export default function EditUserFrom(props) {
               banUser();
             }}
           >
-            {props.state.editUserElement.banned
-              ? props.t('unban')
-              : props.t('ban')}
+            {props.state.editUserElement.banned ? props.t('unban') : props.t('ban')}
           </Button>
         </div>
       </div>
@@ -242,9 +239,7 @@ export default function EditUserFrom(props) {
         <h3>{props.t('changeData')}</h3>
       </div>
       <InputGroup className='mb-1 input_modal ms-3'>
-        <InputGroup.Text className='input_group_text'>
-          {props.t('changePassword')}
-        </InputGroup.Text>
+        <InputGroup.Text className='input_group_text'>{props.t('changePassword')}</InputGroup.Text>
         <Form.Control
           type='password'
           onChange={(event) => {

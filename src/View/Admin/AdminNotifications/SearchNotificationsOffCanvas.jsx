@@ -153,9 +153,7 @@ export default function SearchNotificationsOffCanvas(props) {
             <option value={3}>{props.t('notificationTypeProposed')}</option>
             <option value={4}>{props.t('notificationTypeNewCategory')}</option>
             <option value={5}>{props.t('notificationTypeNewAudiobook')}</option>
-            <option value={6}>
-              {props.t('notificationTypeUserDeleteDecline')}
-            </option>
+            <option value={6}>{props.t('notificationTypeUserDeleteDecline')}</option>
           </Form.Select>
         </InputGroup>
         <InputGroup className='mb-1 input_modal py-1 '>
@@ -163,9 +161,7 @@ export default function SearchNotificationsOffCanvas(props) {
             type='switch'
             id='custom-switch'
             label={props.t('deleted')}
-            checked={
-              props.searchState.deleted != null && props.searchState.deleted
-            }
+            checked={props.searchState.deleted != null && props.searchState.deleted}
             onChange={(e) => changeDeleted(e)}
           />
         </InputGroup>
@@ -174,9 +170,7 @@ export default function SearchNotificationsOffCanvas(props) {
             type='switch'
             id='custom-switch'
             label={props.t('notDeleted')}
-            checked={
-              props.searchState.deleted != null && !props.searchState.deleted
-            }
+            checked={props.searchState.deleted != null && !props.searchState.deleted}
             onChange={(e) => changeNotDeleted(e)}
           />
         </InputGroup>

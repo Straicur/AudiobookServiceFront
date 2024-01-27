@@ -42,7 +42,7 @@ export default function DeletedUsersModal(props) {
           limit: pageState.limit,
         },
         props.token,
-        props.i18n.language
+        props.i18n.language,
       ),
     {
       retry: 1,
@@ -58,7 +58,7 @@ export default function DeletedUsersModal(props) {
         setState({ ...state, users: data.users });
         setPageState({ ...pageState, maxPage: data.maxPage });
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -69,22 +69,12 @@ export default function DeletedUsersModal(props) {
   }, [state.refresh]);
 
   return (
-    <Modal
-      size='lg'
-      show={props.state.deletedUsersModal}
-      onHide={handleClose}
-      backdrop='static'
-    >
+    <Modal size='lg' show={props.state.deletedUsersModal} onHide={handleClose} backdrop='static'>
       <Modal.Header>
         <Modal.Title>{props.t('deletedUsers')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <RenderDeletedUsersList
-          state={state}
-          setState={setState}
-          token={props.token}
-          t={props.t}
-        />
+        <RenderDeletedUsersList state={state} setState={setState} token={props.token} t={props.t} />
         {state.users != null && pageState.maxPage > 1 ? (
           <RenderPageSwitches
             state={state}

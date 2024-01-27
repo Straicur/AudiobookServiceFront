@@ -26,10 +26,7 @@ export default function EditPasswordModal(props) {
   const changePassword = (element) => {
     element.target.classList.add('disabled');
 
-    if (
-      state.oldPassword != state.newPassword &&
-      state.newPassword == state.newConfirmPassword
-    ) {
+    if (state.oldPassword != state.newPassword && state.newPassword == state.newConfirmPassword) {
       HandleFetch(
         '/user/settings/password',
         'PATCH',
@@ -38,7 +35,7 @@ export default function EditPasswordModal(props) {
           newPassword: md5(state.newPassword),
         },
         props.token,
-        props.i18n.language
+        props.i18n.language,
       )
         .then(() => {
           element.target.classList.remove('disabled');
@@ -56,8 +53,7 @@ export default function EditPasswordModal(props) {
   };
 
   function validatePassword(pass) {
-    const re =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return re.test(pass);
   }
 
@@ -134,9 +130,7 @@ export default function EditPasswordModal(props) {
       >
         <div className='text-white'>
           {state.checkPassword ? (
-            <div className='fs-3 text-center my-3'>
-              {props.t('checkPassword')}
-            </div>
+            <div className='fs-3 text-center my-3'>{props.t('checkPassword')}</div>
           ) : (
             <Form>
               <Form.Group className='mb-3'>

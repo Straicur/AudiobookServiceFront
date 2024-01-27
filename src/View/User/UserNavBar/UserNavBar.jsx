@@ -44,12 +44,8 @@ export const UserNavBar = () => {
   };
   const notificationsListStore = useNotificationsListStore();
 
-  const notifications = useNotificationsListStore(
-    (state) => state.notifications
-  );
-  const newNotifications = useNotificationsListStore(
-    (state) => state.newNotifications
-  );
+  const notifications = useNotificationsListStore((state) => state.notifications);
+  const newNotifications = useNotificationsListStore((state) => state.newNotifications);
   const maxPage = useNotificationsListStore((state) => state.maxPage);
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
@@ -63,7 +59,7 @@ export const UserNavBar = () => {
           limit: state.limit,
         },
         token,
-        i18n.language
+        i18n.language,
       )
         .then((data) => {
           setState({
@@ -73,14 +69,9 @@ export const UserNavBar = () => {
             refresh: false,
           });
           data.systemNotifications.forEach((element) => {
-            let found =
-              notificationsList.current.filter((x) => x.id == element.id)
-                .length > 0;
+            let found = notificationsList.current.filter((x) => x.id == element.id).length > 0;
             if (!found) {
-              notificationsList.current = [
-                ...notificationsList.current,
-                element,
-              ];
+              notificationsList.current = [...notificationsList.current, element];
             }
           });
 
@@ -161,11 +152,7 @@ export const UserNavBar = () => {
             <Button
               name='pl'
               size='sm'
-              className={
-                i18n.language == 'pl'
-                  ? 'btn  m-1 button_light'
-                  : 'btn  m-1 button_dark'
-              }
+              className={i18n.language == 'pl' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'}
               onClick={() => i18n.changeLanguage('pl')}
             >
               PL
@@ -173,11 +160,7 @@ export const UserNavBar = () => {
             <Button
               name='en'
               size='sm'
-              className={
-                i18n.language == 'en'
-                  ? 'btn  m-1 button_light'
-                  : 'btn  m-1 button_dark'
-              }
+              className={i18n.language == 'en' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'}
               onClick={() => i18n.changeLanguage('en')}
             >
               EN

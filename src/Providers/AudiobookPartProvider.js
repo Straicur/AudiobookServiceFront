@@ -39,14 +39,7 @@ export const AudiobookPartProvider = ({
     refetch: refetchAudiobookPart,
   } = useQuery(
     'dataAudiobookPart',
-    () =>
-      HandleFetch(
-        '/audiobook/part',
-        'POST',
-        createContext(),
-        token,
-        i18n.language,
-      ),
+    () => HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language),
     {
       retry: 1,
       retryDelay: 500,
@@ -57,7 +50,7 @@ export const AudiobookPartProvider = ({
       onSuccess: (data) => {
         setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -67,7 +60,7 @@ export const AudiobookPartProvider = ({
       detailWatchingDate: null,
       datailEndedTime: null,
     });
-    
+
     refetchAudiobookPart();
   }, [part]);
 
@@ -80,11 +73,7 @@ export const AudiobookPartProvider = ({
 
   const value = [audiobookPart, setAudiobookPart, setRefetchState];
 
-  return (
-    <AudiobookPartContext.Provider value={value}>
-      {children}
-    </AudiobookPartContext.Provider>
-  );
+  return <AudiobookPartContext.Provider value={value}>{children}</AudiobookPartContext.Provider>;
 };
 
 export const useAudiobookPart = () => useContext(AudiobookPartContext);

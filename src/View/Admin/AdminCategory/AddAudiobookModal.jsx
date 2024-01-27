@@ -104,10 +104,7 @@ export default function AddAudiobookModal(props) {
 
           HandleFetch(url, method, jsonData, props.token, props.i18n.language)
             .then((data) => {
-              if (
-                currentPart.current == maxParts.current ||
-                Object.keys(data).length !== 0
-              ) {
+              if (currentPart.current == maxParts.current || Object.keys(data).length !== 0) {
                 setStateModal({
                   author: '',
                   title: '',
@@ -155,10 +152,7 @@ export default function AddAudiobookModal(props) {
 
             HandleFetch(url, method, jsonData, props.token, props.i18n.language)
               .then((data) => {
-                if (
-                  currentPart.current == maxParts.current ||
-                  Object.keys(data).length !== 0
-                ) {
+                if (currentPart.current == maxParts.current || Object.keys(data).length !== 0) {
                   setStateModal({
                     author: '',
                     title: '',
@@ -196,11 +190,7 @@ export default function AddAudiobookModal(props) {
   }, [stateModal.author, stateModal.title]);
 
   return (
-    <Modal
-      show={props.state.addAudiobookModal}
-      backdrop='static'
-      keyboard={false}
-    >
+    <Modal show={props.state.addAudiobookModal} backdrop='static' keyboard={false}>
       <Modal.Header>
         <Modal.Title>
           <h3>
@@ -270,11 +260,7 @@ export default function AddAudiobookModal(props) {
           <Button variant='dark' onClick={handleClose}>
             {props.t('close')}
           </Button>
-          <Button
-            disabled={stateModal.isNextButtonDisabled}
-            variant='dark'
-            onClick={nextPage}
-          >
+          <Button disabled={stateModal.isNextButtonDisabled} variant='dark' onClick={nextPage}>
             {props.t('save')}
           </Button>
         </Modal.Footer>

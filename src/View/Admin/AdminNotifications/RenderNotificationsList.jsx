@@ -13,10 +13,7 @@ export default function RenderAudiobooksList(props) {
 
   const createTable = () => {
     let renderArray = [];
-    if (
-      props.state.json != null &&
-      props.state.json.systemNotifications != undefined
-    ) {
+    if (props.state.json != null && props.state.json.systemNotifications != undefined) {
       props.state.json.systemNotifications.forEach((element) => {
         renderArray.push(createColumn(element));
       });

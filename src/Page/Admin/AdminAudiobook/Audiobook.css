@@ -1,30 +1,30 @@
 .audiobook_detail_modal_button {
-    width: 32.4rem !important;
+  width: 32.4rem !important;
 }
 
 .rounded_left_button {
-    border-radius: 2rem 0.5rem 0.5rem 2rem !important;
+  border-radius: 2rem 0.5rem 0.5rem 2rem !important;
 }
 
 .rounded_right_button {
-    border-radius: 0.5rem 2rem 2rem 0.5rem !important;
+  border-radius: 0.5rem 2rem 2rem 0.5rem !important;
 }
 
 .comment_detail_height {
-    height: 4rem !important;
+  height: 4rem !important;
 }
 
 .comment_detail_height_comment {
-    min-height: 2rem;
-    max-height: 4rem;
+  min-height: 2rem;
+  max-height: 4rem;
 }
 
 .categories_add_list {
-    padding-right: 1rem;
-    padding-left: 1rem;
-    max-height: 45rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  max-height: 45rem;
 }
 
 .category_data {
-    max-height: 45rem;
+  max-height: 45rem;
 }

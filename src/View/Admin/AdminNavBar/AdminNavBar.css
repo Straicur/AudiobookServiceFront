@@ -1,34 +1,34 @@
 .admin_button_dark {
-    color: rgb(255, 255, 255) !important;
-    background-color: black !important;
-    border-color: black !important;
+  color: rgb(255, 255, 255) !important;
+  background-color: black !important;
+  border-color: black !important;
 }
 
 .admin_button_dark:hover {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 .admin_button_light {
-    color: black !important;
-    background-color: rgb(136, 136, 136) !important;
-    border-color: rgb(138, 138, 138) !important;
+  color: black !important;
+  background-color: rgb(136, 136, 136) !important;
+  border-color: rgb(138, 138, 138) !important;
 }
 
 .admin_button_light:hover {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 .nav-col {
-    padding-right: 0 !important;
-    padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
 }
 
 .admin-notification-row {
-    padding: 0.4rem;
-    border-radius: 0.5rem;
-    cursor: pointer !important;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  cursor: pointer !important;
 }
 
 .admin-notification-row:hover {
-    background-color: rgb(150, 150, 150) !important;
+  background-color: rgb(150, 150, 150) !important;
 }

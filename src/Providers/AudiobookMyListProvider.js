@@ -3,13 +3,7 @@ import { HandleFetch } from '../Util/HandleFetch';
 
 const AudiobookMyContext = createContext(null);
 
-export const AudiobookMyListProvider = ({
-  children,
-  token,
-  state,
-  setState,
-  i18n,
-}) => {
+export const AudiobookMyListProvider = ({ children, token, state, setState, i18n }) => {
   const [audiobooks, setAudiobooks] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -35,11 +29,7 @@ export const AudiobookMyListProvider = ({
 
   const value = [audiobooks, loading, setAudiobooks, setRefetchState];
 
-  return (
-    <AudiobookMyContext.Provider value={value}>
-      {children}
-    </AudiobookMyContext.Provider>
-  );
+  return <AudiobookMyContext.Provider value={value}>{children}</AudiobookMyContext.Provider>;
 };
 
 export const useAudiobookMy = () => useContext(AudiobookMyContext);

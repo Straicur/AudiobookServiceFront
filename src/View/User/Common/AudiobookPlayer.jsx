@@ -31,9 +31,9 @@ export default function AudiobookPlayer(props) {
     }
   };
 
-  const setDuration = (event)=>{
+  const setDuration = (event) => {
     props.audioDuration.current = parseInt(event.target.duration);
-  }
+  };
 
   useEffect(() => {
     if (
@@ -42,12 +42,11 @@ export default function AudiobookPlayer(props) {
       !props.timeAudio.current &&
       !props.audiobookState.newPart
     ) {
-      player.current.audio.current.currentTime =
-        props.audiobookState.datailEndedTime;
+      player.current.audio.current.currentTime = props.audiobookState.datailEndedTime;
     }
   }, []);
 
-  //TODO to jest do przetestowania i znalezienia błędu jeszcze 
+  //TODO to jest do przetestowania i znalezienia błędu jeszcze
 
   useEffect(() => {
     if (
@@ -56,14 +55,11 @@ export default function AudiobookPlayer(props) {
       !props.audiobookState.newPart &&
       props.audiobookState.renderAudiobookPlayer
     ) {
-      let procent =
-        ((props.timeAudio.current / duration.current) * 100).toFixed(2) + '%';
+      let procent = ((props.timeAudio.current / duration.current) * 100).toFixed(2) + '%';
       console.log(procent);
       player.current.progressBar.current.setAttribute('aria-valuenow', procent);
-      player.current.progressBar.current.childNodes[0].childNodes[0].style.left =
-        procent;
-      player.current.progressBar.current.childNodes[0].childNodes[1].style.width =
-        procent;
+      player.current.progressBar.current.childNodes[0].childNodes[0].style.left = procent;
+      player.current.progressBar.current.childNodes[0].childNodes[1].style.width = procent;
 
       player.current.audio.current.currentTime = props.timeAudio.current;
 
@@ -81,10 +77,8 @@ export default function AudiobookPlayer(props) {
       props.audiobookState.datailEndedTime == null
     ) {
       player.current.progressBar.current.setAttribute('aria-valuenow', '0%');
-      player.current.progressBar.current.childNodes[0].childNodes[0].style.left =
-        '0%';
-      player.current.progressBar.current.childNodes[0].childNodes[1].style.width =
-        '0%';
+      player.current.progressBar.current.childNodes[0].childNodes[0].style.left = '0%';
+      player.current.progressBar.current.childNodes[0].childNodes[1].style.width = '0%';
 
       props.setAudiobookState({
         ...props.audiobookState,
@@ -105,7 +99,7 @@ export default function AudiobookPlayer(props) {
       autoPlay={false}
       src={props.audiobookPart}
       onListen={(e) => timeCur(e)}
-      onLoadedMetaData={e=> setDuration(e)}
+      onLoadedMetaData={(e) => setDuration(e)}
       autoPlayAfterSrcChange={false}
       showSkipControls={true}
       onClickPrevious={prevPart}

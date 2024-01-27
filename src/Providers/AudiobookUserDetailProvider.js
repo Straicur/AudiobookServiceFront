@@ -34,7 +34,7 @@ export const AudiobookUserDetailProvider = ({
           categoryKey: categoryKey,
         },
         token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -60,10 +60,10 @@ export const AudiobookUserDetailProvider = ({
           year: CreateUtil.createDate(data.year),
           canRate: data.canRate,
           canComment: data.canComment,
-          ratingAmount: data.ratingAmount
+          ratingAmount: data.ratingAmount,
         });
       },
-    }
+    },
   );
 
   useEffect(() => {

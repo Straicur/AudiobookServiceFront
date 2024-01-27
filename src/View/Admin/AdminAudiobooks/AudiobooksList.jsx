@@ -94,8 +94,7 @@ export default function AudiobooksList(props) {
     }
     if (searchState.year != 0) {
       let date = new Date(searchState.year);
-      searchJson.year =
-        date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
+      searchJson.year = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
     }
     if (searchState.duration != 0) {
       searchJson.duration = parseInt(searchState.duration);
@@ -116,7 +115,7 @@ export default function AudiobooksList(props) {
           searchData: createSearchData(),
         },
         props.token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -132,7 +131,7 @@ export default function AudiobooksList(props) {
         setState({ ...state, json: data });
         setPageState({ ...pageState, maxPage: data.maxPage });
       },
-    }
+    },
   );
 
   const fetchCategoriesList = () => {
@@ -256,9 +255,7 @@ export default function AudiobooksList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() =>
-                setState({ ...state, jsonModal: !state.jsonModal })
-              }
+              onClick={() => setState({ ...state, jsonModal: !state.jsonModal })}
             >
               {t('jsonData')}
             </Button>
@@ -298,8 +295,7 @@ export default function AudiobooksList(props) {
             resetSearchStates={resetSearchStates}
           />
         ) : null}
-        {state.detailCommentsAudiobookModal &&
-        state.detailAudiobookElement != null ? (
+        {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (
           <AudiobookCommentsModal
             state={state}
             setState={setState}
@@ -310,9 +306,7 @@ export default function AudiobooksList(props) {
             setAudiobooksState={props.setAudiobooksState}
           />
         ) : null}
-        {state.jsonModal ? (
-          <JsonModal state={state} setState={setState} t={t} />
-        ) : null}
+        {state.jsonModal ? <JsonModal state={state} setState={setState} t={t} /> : null}
       </div>
     </div>
   );

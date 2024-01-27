@@ -44,15 +44,11 @@ export const AdminNavBar = () => {
   };
   const notificationsListStore = useNotificationsListStore();
 
-  const notifications = useNotificationsListStore(
-    (state) => state.notifications
-  );
-  const newNotifications = useNotificationsListStore(
-    (state) => state.newNotifications
-  );
+  const notifications = useNotificationsListStore((state) => state.notifications);
+  const newNotifications = useNotificationsListStore((state) => state.newNotifications);
   const maxPage = useNotificationsListStore((state) => state.maxPage);
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
-  
+
   const fetchNotifications = () => {
     for (let index = 0; index <= state.page; index++) {
       HandleFetch(
@@ -63,7 +59,7 @@ export const AdminNavBar = () => {
           limit: state.limit,
         },
         token,
-        i18n.language
+        i18n.language,
       )
         .then((data) => {
           setState({
@@ -73,14 +69,9 @@ export const AdminNavBar = () => {
             refresh: false,
           });
           data.systemNotifications.forEach((element) => {
-            let found =
-              notificationsList.current.filter((x) => x.id == element.id)
-                .length > 0;
+            let found = notificationsList.current.filter((x) => x.id == element.id).length > 0;
             if (!found) {
-              notificationsList.current = [
-                ...notificationsList.current,
-                element,
-              ];
+              notificationsList.current = [...notificationsList.current, element];
             }
           });
 
@@ -186,9 +177,7 @@ export const AdminNavBar = () => {
             name='pl'
             size='sm'
             className={
-              i18n.language == 'pl'
-                ? 'btn  m-1 admin_button_dark'
-                : 'btn  m-1 admin_button_light'
+              i18n.language == 'pl' ? 'btn  m-1 admin_button_dark' : 'btn  m-1 admin_button_light'
             }
             onClick={() => i18n.changeLanguage('pl')}
           >
@@ -198,9 +187,7 @@ export const AdminNavBar = () => {
             name='en'
             size='sm'
             className={
-              i18n.language == 'en'
-                ? 'btn  m-1 admin_button_dark'
-                : 'btn  m-1 admin_button_light'
+              i18n.language == 'en' ? 'btn  m-1 admin_button_dark' : 'btn  m-1 admin_button_light'
             }
             onClick={() => i18n.changeLanguage('en')}
           >
@@ -220,13 +207,7 @@ export const AdminNavBar = () => {
             </h6>
           </div>
         </div>
-        <Button
-          name='logout'
-          variant='dark'
-          size='sm'
-          className='btn button'
-          onClick={logout}
-        >
+        <Button name='logout' variant='dark' size='sm' className='btn button' onClick={logout}>
           {t('logout')}
         </Button>
         {state.notificationsOffCanvas ? (

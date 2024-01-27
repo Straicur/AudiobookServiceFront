@@ -10,13 +10,13 @@ export const HandleFetch = async (
   jsonData = null,
   token = null,
   language = null,
-  headers = {}
+  headers = {},
 ) => {
   headers['Content-Type'] = 'application/json';
-  
+
   if (language != null) {
     headers['Accept-Language'] = language;
-  } 
+  }
 
   if (token != null) {
     headers.authorization = token;

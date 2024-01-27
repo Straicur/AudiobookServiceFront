@@ -11,7 +11,7 @@ export default function RenderCommentsList(props) {
         audiobookCommentId: element.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then(() => {
         props.setState({
@@ -40,7 +40,7 @@ export default function RenderCommentsList(props) {
           <div className='col-md-6 offset-md-3 '>
             <h3>{props.t('empty')}</h3>
           </div>
-        </div>
+        </div>,
       );
     }
 
@@ -68,9 +68,7 @@ export default function RenderCommentsList(props) {
         }
       }
       if (element.nodeName == 'DIV') {
-        element.children[0].children[0].classList.remove(
-          'bi-arrow-right-square'
-        );
+        element.children[0].children[0].classList.remove('bi-arrow-right-square');
         element.children[0].children[0].classList.add('bi-arrow-down-square');
       }
     }
@@ -88,9 +86,7 @@ export default function RenderCommentsList(props) {
         }
       }
       if (element.nodeName == 'DIV') {
-        element.children[0].children[0].classList.remove(
-          'bi-arrow-down-square'
-        );
+        element.children[0].children[0].classList.remove('bi-arrow-down-square');
         element.children[0].children[0].classList.add('bi-arrow-right-square');
       }
     }
@@ -134,9 +130,7 @@ export default function RenderCommentsList(props) {
             </Button>
           </div>
           <div className='col-4 fw-bold'>{props.t('comment')}:</div>
-          <div className='col-8 overflow-auto text-break comment_height'>
-            {element.comment}
-          </div>
+          <div className='col-8 overflow-auto text-break comment_height'>{element.comment}</div>
         </div>
         <ul className='list-group' data-name={element.id}>
           {child}
@@ -182,9 +176,7 @@ export default function RenderCommentsList(props) {
             </Button>
           </div>
           <div className='col-4 fw-bold'>{props.t('comment')}:</div>
-          <div className='col-8 overflow-auto text-break comment_height'>
-            {element.comment}
-          </div>
+          <div className='col-8 overflow-auto text-break comment_height'>{element.comment}</div>
         </div>
       </li>
     );
@@ -196,9 +188,7 @@ export default function RenderCommentsList(props) {
 
       if (element['children'].length != 0) {
         for (const [index, child] of element['children'].entries()) {
-          children.push(
-            createListElement(index, child, element['children'].length)
-          );
+          children.push(createListElement(index, child, element['children'].length));
         }
       }
       renderArray.push(listParent(element, children));
@@ -207,9 +197,7 @@ export default function RenderCommentsList(props) {
 
   return (
     <div>
-      <ul className='list-group comment_delete_list overflow-auto'>
-        {renderTree()}
-      </ul>
+      <ul className='list-group comment_delete_list overflow-auto'>{renderTree()}</ul>
     </div>
   );
 }

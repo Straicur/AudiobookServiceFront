@@ -31,7 +31,7 @@ export const AdminAudiobookCoverDataProvider = ({
           audiobooks: [audiobookId],
         },
         token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -45,7 +45,7 @@ export const AdminAudiobookCoverDataProvider = ({
           setAudiobookCover(data.audiobookCoversModels[0]);
         }
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -57,11 +57,7 @@ export const AdminAudiobookCoverDataProvider = ({
 
   const value = [audiobookCover, setAudiobookCover, setRefetchState];
 
-  return (
-    <AudiobookCoverContext.Provider value={value}>
-      {children}
-    </AudiobookCoverContext.Provider>
-  );
+  return <AudiobookCoverContext.Provider value={value}>{children}</AudiobookCoverContext.Provider>;
 };
 
 export const useAudiobookCover = () => useContext(AudiobookCoverContext);

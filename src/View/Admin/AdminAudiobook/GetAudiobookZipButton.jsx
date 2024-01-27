@@ -11,7 +11,7 @@ export default function GetAudiobookZipButton(props) {
         audiobookId: props.audiobookDetail.id,
       },
       props.token,
-      props.i18n.language
+      props.i18n.language,
     )
       .then((blob) => {
         const url = window.URL.createObjectURL(new Blob([blob]));

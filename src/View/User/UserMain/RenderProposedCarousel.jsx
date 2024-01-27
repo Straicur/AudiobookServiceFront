@@ -84,7 +84,7 @@ export default function RenderProposedCarousel(props, audiobooks) {
             </div>
           </div>
         );
-      })
+      }),
     );
     return audiobooksArray;
   };
@@ -99,9 +99,7 @@ export default function RenderProposedCarousel(props, audiobooks) {
 
   return (
     <div key={uuidv4()}>
-      {props.coversState != undefined && props.coversState.length > 0
-        ? render()
-        : null}
+      {props.coversState != undefined && props.coversState.length > 0 ? render() : null}
     </div>
   );
 }

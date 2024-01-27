@@ -48,13 +48,7 @@ export default function GetCategoriesList(props) {
 
   useEffect(() => {
     if (!props.categoriesState.fetched) {
-      HandleFetch(
-        '/admin/categories',
-        'GET',
-        null,
-        props.token,
-        props.i18n.language
-      )
+      HandleFetch('/admin/categories', 'GET', null, props.token, props.i18n.language)
         .then((data) => {
           props.setCategoriesState({
             ...props.categoriesState,

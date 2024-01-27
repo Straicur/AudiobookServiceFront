@@ -27,7 +27,7 @@ export const AudiobookUserDataProvider = ({
         limit: limit,
       },
       token,
-      i18n.language
+      i18n.language,
     )
       .then((data) => {
         setHasMore(data.maxPage > page + 1);
@@ -38,10 +38,7 @@ export const AudiobookUserDataProvider = ({
         } else if (audiobooks.categories != undefined) {
           setAudiobooks({
             ...audiobooks,
-            categories: [
-              ...audiobooks.categories,
-              ...data.categories.map((category) => category),
-            ],
+            categories: [...audiobooks.categories, ...data.categories.map((category) => category)],
             page: data.page,
           });
         }
@@ -65,9 +62,7 @@ export const AudiobookUserDataProvider = ({
   const value = [audiobooks, loading, hasMore, setAudiobooks, setRefetchState];
 
   return (
-    <AudiobookUserDataContext.Provider value={value}>
-      {children}
-    </AudiobookUserDataContext.Provider>
+    <AudiobookUserDataContext.Provider value={value}>{children}</AudiobookUserDataContext.Provider>
   );
 };
 

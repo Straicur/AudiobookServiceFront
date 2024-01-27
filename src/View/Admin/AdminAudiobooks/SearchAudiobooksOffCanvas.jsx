@@ -113,9 +113,7 @@ export default function SearchAudiobooksOffCanvas(props) {
   };
 
   const formatDuration = () => {
-    return new Date(props.searchState.duration * 1000)
-      .toISOString()
-      .slice(11, 19);
+    return new Date(props.searchState.duration * 1000).toISOString().slice(11, 19);
   };
 
   const searchAgain = () => {

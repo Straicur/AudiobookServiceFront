@@ -33,7 +33,7 @@ export const AudiobookUserCommentsProvider = ({
           categoryKey: categoryKey,
         },
         token,
-        i18n.language
+        i18n.language,
       ),
     {
       retry: 1,
@@ -45,7 +45,7 @@ export const AudiobookUserCommentsProvider = ({
       onSuccess: (data) => {
         setAudiobookUserComments(data.comments);
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -55,11 +55,7 @@ export const AudiobookUserCommentsProvider = ({
     }
   }, [refetchState]);
 
-  const value = [
-    audiobookUserComments,
-    setAudiobookUserComments,
-    setAudiobookCommnetsRefetchState,
-  ];
+  const value = [audiobookUserComments, setAudiobookUserComments, setAudiobookCommnetsRefetchState];
 
   return (
     <AudiobookUserCommentsContext.Provider value={value}>
@@ -68,5 +64,4 @@ export const AudiobookUserCommentsProvider = ({
   );
 };
 
-export const useAudiobookUserComments = () =>
-  useContext(AudiobookUserCommentsContext);
+export const useAudiobookUserComments = () => useContext(AudiobookUserCommentsContext);
