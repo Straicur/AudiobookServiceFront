@@ -3,7 +3,7 @@ import { UserNavBar } from 'View/User/UserNavBar/UserNavBar';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { Footer } from 'View/User/Common/Footer';
-import './Help.css';
+import './UserHelp.css';
 
 export default function Help() {
   const { t } = useTranslation();

@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { UserNavBar } from 'View/User/UserNavBar/UserNavBar';
 import { useTokenStore } from 'Store/store';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { UserNavBar } from 'View/User/UserNavBar/UserNavBar';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import GetMyList from 'View/User/UserMyList/GetMyList';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import SettingsContainer from 'View/User/UserSettings/SettingsContainer';
 import { Footer } from 'View/User/Common/Footer';
-import './MyList.css';
+import './UserSettings.css';
 
-export default function MyList() {
-  const { t, i18n } = useTranslation();
-
+export default function Settings() {
+  const navigate = useNavigate();
   const token = useTokenStore((state) => state.token);
 
-  const [myListState, setMyListState] = useState({
-    detailModal: false,
-    detailModalAudiobook: null,
-    detailModalCover: null,
-    detailModalCategory: null,
+  const { t, i18n } = useTranslation();
+
+  const [state, setState] = useState({
+    phoneNumber: '',
+    firstname: '',
+    lastname: '',
+    email: '',
+    edited: false,
+    editableDate: 0,
+    buttonEmail: false,
+    buttonPassword: false,
+    buttonDelete: false,
+    buttonUserData: false,
     error: null,
   });
 
@@ -26,11 +34,10 @@ export default function MyList() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setMyListState({
-          ...myListState,
-          detailModal: false,
-          detailModalAudiobook: null,
-          detailModalCover: null,
+        setState({
+          ...state,
+          isButtonDisabled: true,
+          validated: false,
           error: null,
         });
       }}
@@ -39,19 +46,18 @@ export default function MyList() {
         <Helmet>
           <style>{'body { background-color: black; }'}</style>
         </Helmet>
+
         <div className='container-fluid main-container mt-3'>
           <div className='card position-relative p-3 bg-dark shadow'>
             <UserNavBar />
-            <GetMyList
-              myListState={myListState}
-              setMyListState={setMyListState}
-              token={token}
+            <SettingsContainer
+              state={state}
+              setState={setState}
               t={t}
               i18n={i18n}
+              token={token}
+              navigate={navigate}
             />
-            <div className='p-5'>
-              <div className='p-3'></div>
-            </div>
           </div>
         </div>
         <Footer />

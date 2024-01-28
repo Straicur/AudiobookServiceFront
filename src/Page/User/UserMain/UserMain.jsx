@@ -10,7 +10,7 @@ import AudiobookDetailProviders from 'View/User/UserMain/AudiobookDetailProvider
 import SearchAudiobooks from 'View/User/UserMain/SearchAudiobooks';
 import RenderAudiobookSearch from 'View/User/UserMain/RenderAudiobookSearch';
 import { Footer } from 'View/User/Common/Footer';
-import './Main.css';
+import './UserMain.css';
 
 export default function Main() {
   const { t, i18n } = useTranslation();

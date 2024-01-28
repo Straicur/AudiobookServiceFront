@@ -11,15 +11,15 @@ import AdminCategory from 'Page/Admin/AdminCategory/AdminCategory';
 import AdminCategories from 'Page/Admin/AdminCategories/AdminCategories';
 import AdminNotifications from 'Admin/Notifications/AdminNotifications';
 import AdminUsers from 'Page/Admin/AdminUsers/AdminUsers';
-import Forgot from 'Page/User/UserForgot/Forgot';
-import Help from 'Page/User/UserHelp/Help';
-import About from 'Page/User/UserAbout/About';
-import Policy from 'Page/User/UserPolicy/Policy';
+import UserForgot from 'Page/User/UserForgot/UserForgot';
+import UserHelp from 'Page/User/UserHelp/UserHelp';
+import UserAbout from 'Page/User/UserAbout/UserAbout';
+import UserPolicy from 'Page/User/UserPolicy/UserPolicy';
 import UserLogin from 'Page/User/UserLogin/UserLogin';
-import Main from 'Page/User/UserMain/Main';
-import MyList from 'Page/User/UserMyList/MyList';
-import Register from 'Page/User/UserRegister/Register';
-import Settings from 'Page/User/UserSettings/Settings';
+import UserMain from 'Page/User/UserMain/UserMain';
+import UserMyList from 'Page/User/UserMyList/UserMyList';
+import UserRegister from 'Page/User/UserRegister/UserRegister';
+import UserSettings from 'Page/User/UserSettings/UserSettings';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -79,17 +79,22 @@ function App() {
             }
           />
           <Route exact path='/login' element={<UserLogin />} errorElement={<Page404 />} />
-          <Route exact path='/register' element={<Register />} errorElement={<Page404 />} />
-          <Route exact path='/main' element={<Main />} errorElement={<Page404 />} />
-          <Route exact path='/myList' element={<MyList />} errorElement={<Page404 />} />
-          <Route exact path='/help' element={<Help />} errorElement={<Page404 />} />
-          <Route exact path='/about' element={<About />} errorElement={<Page404 />} />
-          <Route exact path='/policy' element={<Policy />} errorElement={<Page404 />} />
-          <Route exact path='/user/settings' element={<Settings />} errorElement={<Page404 />} />
+          <Route exact path='/register' element={<UserRegister />} errorElement={<Page404 />} />
+          <Route exact path='/main' element={<UserMain />} errorElement={<Page404 />} />
+          <Route exact path='/myList' element={<UserMyList />} errorElement={<Page404 />} />
+          <Route exact path='/help' element={<UserHelp />} errorElement={<Page404 />} />
+          <Route exact path='/about' element={<UserAbout />} errorElement={<Page404 />} />
+          <Route exact path='/policy' element={<UserPolicy />} errorElement={<Page404 />} />
+          <Route
+            exact
+            path='/user/settings'
+            element={<UserSettings />}
+            errorElement={<Page404 />}
+          />
           <Route
             exact
             path='/user/reset/password/:id'
-            element={<Forgot />}
+            element={<UserForgot />}
             errorElement={<Page404 />}
           />
 

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Footer } from 'View/User/Common/Footer';
-import './Policy.css';
+import './UserPolicy.css';
 
 export default function Policy() {
   const { t, i18n } = useTranslation();
