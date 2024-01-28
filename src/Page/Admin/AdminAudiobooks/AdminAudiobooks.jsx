@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import AudiobooksList from 'View/Admin/AdminAudiobooks/AudiobooksList';
+import AdminAudiobooksList from 'View/Admin/AdminAudiobooks/AdminAudiobooksList';
 import './AdminAudiobooks.css';
 
 export default function AdminAudiobooks() {
@@ -22,7 +22,7 @@ export default function AdminAudiobooks() {
         });
       }}
     >
-      <AudiobooksList
+      <AdminAudiobooksList
         audiobooksState={audiobooksState}
         setAudiobooksState={setAudiobooksState}
         token={token}

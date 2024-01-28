@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import CategoriesList from 'View/Admin/AdminCategories/CategoriesList';
+import AdminCategoriesList from 'View/Admin/AdminCategories/AdminCategoriesList';
 import './AdminCategories.css';
 
 export default function AdminCategories() {
@@ -22,7 +22,7 @@ export default function AdminCategories() {
         });
       }}
     >
-      <CategoriesList
+      <AdminCategoriesList
         categoiesState={categoiesState}
         setCategoiesState={setCategoiesState}
         token={token}

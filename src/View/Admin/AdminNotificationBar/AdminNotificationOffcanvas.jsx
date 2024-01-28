@@ -8,7 +8,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import './AdminNotificationOffcanvas.css';
 import CreateUtil from 'Util/CreateUtil';
 
-export default function NotificationOffcanvas(props) {
+export default function AdminNotificationOffcanvas(props) {
   const [show, setShow] = useState(true);
   const [trigerTable, setTrigerTable] = useState([]);
 

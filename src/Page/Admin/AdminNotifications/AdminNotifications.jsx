@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import NotificationsList from 'View/Admin/AdminNotifications/NotificationsList';
+import AdminNotificationsList from 'View/Admin/AdminNotifications/AdminNotificationsList';
 import './AdminNotifications.css';
 
 export default function AdminNotifications() {
@@ -22,7 +22,7 @@ export default function AdminNotifications() {
         });
       }}
     >
-      <NotificationsList
+      <AdminNotificationsList
         notificationsState={notificationsState}
         setNotificationsState={setNotificationsState}
         token={token}

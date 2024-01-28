@@ -6,7 +6,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import { useNotificationsListStore } from 'Store/store';
-import NotificationOffcanvas from 'AdminNotificationBar/AdminNotificationOffcanvas';
+import AdminNotificationOffcanvas from 'AdminNotificationBar/AdminNotificationOffcanvas';
 import Badge from 'react-bootstrap/Badge';
 import './AdminNavBar.css';
 
@@ -211,7 +211,7 @@ export const AdminNavBar = () => {
           {t('logout')}
         </Button>
         {state.notificationsOffCanvas ? (
-          <NotificationOffcanvas
+          <AdminNotificationOffcanvas
             state={state}
             setState={setState}
             dateUpdate={dateUpdate}

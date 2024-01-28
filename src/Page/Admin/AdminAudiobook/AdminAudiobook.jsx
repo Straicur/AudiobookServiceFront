@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import AuidobookDetailProviders from 'View/Admin/AdminAudiobook/AuidobookDetailProviders';
+import AdminAuidobookDetailProviders from 'View/Admin/AdminAudiobook/AdminAuidobookDetailProviders';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './AdminAudiobook.css';
@@ -39,7 +39,7 @@ export default function AdminAudiobook() {
         });
       }}
     >
-      <AuidobookDetailProviders
+      <AdminAuidobookDetailProviders
         audiobookState={audiobookState}
         setAudiobookState={setAudiobookState}
         audiobookId={audiobookId}

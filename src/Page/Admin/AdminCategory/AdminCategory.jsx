@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import AudiobooksList from 'View/Admin/AdminCategory/AudiobooksList';
+import AdminCategoryAudiobooksList from 'View/Admin/AdminCategory/AdminCategoryAudiobooksList';
 import { useParams } from 'react-router-dom';
 import './AdminCategory.css';
 
@@ -27,7 +27,7 @@ export default function AdminCategory() {
         });
       }}
     >
-      <AudiobooksList
+      <AdminCategoryAudiobooksList
         audiobooksState={audiobooksState}
         setAudiobooksState={setAudiobooksState}
         token={token}
