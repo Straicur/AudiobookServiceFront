@@ -2,7 +2,7 @@ import React from 'react';
 import UserMainGetAllSearchAudiobooks from './UserMainGetAllSearchAudiobooks';
 import { AudiobookSearchProvider } from 'Providers/AudiobookSearchProvider';
 
-export default function RenderAudiobookSearch(props) {
+export default function UserMainRenderAudiobookSearch(props) {
   return (
     <AudiobookSearchProvider
       state={props.audiobooksState}

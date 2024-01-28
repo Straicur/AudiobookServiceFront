@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-export const RegisterNotificationModal = () => {
+export const UserRegisterNotificationModal = () => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
