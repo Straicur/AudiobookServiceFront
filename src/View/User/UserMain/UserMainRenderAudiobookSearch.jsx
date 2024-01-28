@@ -1,4 +1,5 @@
-import GetAllSearchAudiobooks from './GetAllSearchAudiobooks';
+import React from 'react';
+import UserMainGetAllSearchAudiobooks from './UserMainGetAllSearchAudiobooks';
 import { AudiobookSearchProvider } from 'Providers/AudiobookSearchProvider';
 
 export default function RenderAudiobookSearch(props) {
@@ -10,7 +11,7 @@ export default function RenderAudiobookSearch(props) {
       token={props.token}
       i18n={props.i18n}
     >
-      <GetAllSearchAudiobooks
+      <UserMainGetAllSearchAudiobooks
         state={props.audiobooksState}
         setState={props.setAudiobooksState}
         token={props.token}

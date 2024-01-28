@@ -6,8 +6,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import SettingsContainer from 'View/User/UserSettings/SettingsContainer';
-import { Footer } from 'View/User/Common/Footer';
+import UserSettingsContainer from 'View/User/UserSettings/UserSettingsContainer';
+import { UserFooter } from 'View/User/Common/UserFooter';
 import './UserSettings.css';
 
 export default function Settings() {
@@ -50,7 +50,7 @@ export default function Settings() {
         <div className='container-fluid main-container mt-3'>
           <div className='card position-relative p-3 bg-dark shadow'>
             <UserNavBar />
-            <SettingsContainer
+            <UserSettingsContainer
               state={state}
               setState={setState}
               t={t}
@@ -60,7 +60,7 @@ export default function Settings() {
             />
           </div>
         </div>
-        <Footer />
+        <UserFooter />
       </HelmetProvider>
     </ErrorBoundary>
   );

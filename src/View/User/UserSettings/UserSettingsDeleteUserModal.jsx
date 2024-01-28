@@ -5,7 +5,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 
-export default function DeleteUserModal(props) {
+export default function UserSettingsDeleteUserModal(props) {
   const tokenStore = useTokenStore();
   const navigate = useNavigate();
 

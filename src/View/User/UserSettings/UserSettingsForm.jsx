@@ -1,6 +1,7 @@
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 
-export default function SettingsForm(props) {
+export default function UserSettingsForm(props) {
   return (
     <div className='row mt-4'>
       <div className='row align-items-center justify-content-center '>

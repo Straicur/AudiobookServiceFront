@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { HandleFetch } from 'Util/HandleFetch';
 import CreateUtil from 'Util/CreateUtil';
 
-export default function NotificationOffcanvas(props) {
+export default function UserNotificationOffCanvas(props) {
   const [show, setShow] = useState(true);
   const [trigerTable, setTrigerTable] = useState([]);
 

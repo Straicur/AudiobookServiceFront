@@ -5,11 +5,11 @@ import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import { useTranslation } from 'react-i18next';
-import GetAudiobooksProviders from 'View/User/UserMain/GetAudiobooksProviders';
-import AudiobookDetailProviders from 'View/User/UserMain/AudiobookDetailProviders';
-import SearchAudiobooks from 'View/User/UserMain/SearchAudiobooks';
-import RenderAudiobookSearch from 'View/User/UserMain/RenderAudiobookSearch';
-import { Footer } from 'View/User/Common/Footer';
+import UserMainGetAudiobooksProviders from 'View/User/UserMain/UserMainGetAudiobooksProviders';
+import UserMainAudiobookDetailProviders from 'View/User/UserMain/UserMainAudiobookDetailProviders';
+import UserMainSearchAudiobooks from 'View/User/UserMain/UserMainSearchAudiobooks';
+import UserMainRenderAudiobookSearch from 'View/User/UserMain/UserMainRenderAudiobookSearch';
+import { UserFooter } from 'View/User/Common/UserFooter';
 import './UserMain.css';
 
 export default function Main() {
@@ -52,7 +52,7 @@ export default function Main() {
         <div className='container-fluid main-container mt-3'>
           <div className='card position-relative p-3 bg-dark shadow'>
             <UserNavBar />
-            <SearchAudiobooks
+            <UserMainSearchAudiobooks
               audiobooksState={audiobooksState}
               setAudiobooksState={setAudiobooksState}
               token={token}
@@ -60,7 +60,7 @@ export default function Main() {
               i18n={i18n}
             />
             {audiobooksState.search ? (
-              <RenderAudiobookSearch
+              <UserMainRenderAudiobookSearch
                 audiobooksState={audiobooksState}
                 setAudiobooksState={setAudiobooksState}
                 token={token}
@@ -68,7 +68,7 @@ export default function Main() {
                 i18n={i18n}
               />
             ) : (
-              <GetAudiobooksProviders
+              <UserMainGetAudiobooksProviders
                 audiobooksState={audiobooksState}
                 setAudiobooksState={setAudiobooksState}
                 token={token}
@@ -80,7 +80,7 @@ export default function Main() {
             {audiobooksState.detailModal &&
             audiobooksState.detailModalAudiobook != null &&
             audiobooksState.detailModalCategory != null ? (
-              <AudiobookDetailProviders
+              <UserMainAudiobookDetailProviders
                 state={audiobooksState}
                 setState={setAudiobooksState}
                 token={token}
@@ -90,7 +90,7 @@ export default function Main() {
             ) : null}
           </div>
         </div>
-        <Footer />
+        <UserFooter />
       </HelmetProvider>
     </ErrorBoundary>
   );

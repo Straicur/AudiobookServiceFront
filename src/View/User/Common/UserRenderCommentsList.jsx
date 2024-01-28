@@ -5,7 +5,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-export default function RenderCommentsList(props) {
+export default function UserRenderCommentsList(props) {
   const [commentState, setCommentState] = useState({
     parentId: null,
     commentId: null,

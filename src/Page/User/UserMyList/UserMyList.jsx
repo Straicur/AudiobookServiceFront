@@ -5,8 +5,8 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { UserNavBar } from 'View/User/UserNavBar/UserNavBar';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import GetMyList from 'View/User/UserMyList/GetMyList';
-import { Footer } from 'View/User/Common/Footer';
+import UserMyListGet from 'View/User/UserMyList/UserMyListGet';
+import { UserFooter } from 'View/User/Common/UserFooter';
 import './UserMyList.css';
 
 export default function MyList() {
@@ -42,7 +42,7 @@ export default function MyList() {
         <div className='container-fluid main-container mt-3'>
           <div className='card position-relative p-3 bg-dark shadow'>
             <UserNavBar />
-            <GetMyList
+            <UserMyListGet
               myListState={myListState}
               setMyListState={setMyListState}
               token={token}
@@ -54,7 +54,7 @@ export default function MyList() {
             </div>
           </div>
         </div>
-        <Footer />
+        <UserFooter />
       </HelmetProvider>
     </ErrorBoundary>
   );

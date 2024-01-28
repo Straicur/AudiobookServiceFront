@@ -3,10 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import ForgotPage from 'View/User/UserForgot/ForgotPage';
+import UserForgotView from 'View/User/UserForgot/UserForgotView';
 import DataNotFoundError from 'Errors/Errors/DataNotFoundError';
 
-export default function Forgot() {
+export default function UserForgot() {
   const { t, i18n } = useTranslation();
 
   const { id } = useParams();
@@ -38,7 +38,14 @@ export default function Forgot() {
         });
       }}
     >
-      <ForgotPage state={state} setState={setState} id={id} t={t} i18n={i18n} navigate={navigate} />
+      <UserForgotView
+        state={state}
+        setState={setState}
+        id={id}
+        t={t}
+        i18n={i18n}
+        navigate={navigate}
+      />
     </ErrorBoundary>
   );
 }

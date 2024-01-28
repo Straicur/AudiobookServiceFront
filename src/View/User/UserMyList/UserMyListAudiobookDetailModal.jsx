@@ -5,13 +5,13 @@ import { useAudiobookRating } from 'Providers/AudiobookRatingProvider';
 import { useAudiobookDetail } from 'Providers/AudiobookUserDetailProvider';
 import { useAudiobookPart } from 'Providers/AudiobookPartProvider';
 import { useAudiobookUserComments } from 'Providers/AudiobookUserCommentsProvider';
-import AudiobookPlayer from 'Common/AudiobookPlayer';
+import UserAudiobookPlayer from 'Common/UserAudiobookPlayer';
 import { HandleFetch } from 'Util/HandleFetch';
-import StarRating from 'Common/StarRating';
-import RenderCommentsList from 'Common/RenderCommentsList';
+import UserStarRating from 'Common/UserStarRating';
+import UserRenderCommentsList from 'Common/UserRenderCommentsList';
 import { useAudiobookMy } from 'Providers/AudiobookMyListProvider';
 
-export default function AudiobookDetailModal(props) {
+export default function UserMyListAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
 
@@ -194,7 +194,7 @@ export default function AudiobookDetailModal(props) {
               <div className='row'>
                 <div className='col-3'>{props.t('rating')}:</div>
                 <div className='col-9'>
-                  <StarRating
+                  <UserStarRating
                     count={5}
                     audiobookDetail={audiobookDetail}
                     audiobookRating={audiobookRating}
@@ -211,7 +211,7 @@ export default function AudiobookDetailModal(props) {
                 </div>
               </div>
               <div className='row my-1'>
-                <RenderCommentsList
+                <UserRenderCommentsList
                   comments={audiobookUserComments}
                   setAudiobookUserComments={setAudiobookUserComments}
                   state={props.state}
@@ -237,7 +237,7 @@ export default function AudiobookDetailModal(props) {
 
         <div className='row mt-4 justify-content-center'>
           <div className='col'>
-            <AudiobookPlayer
+            <UserAudiobookPlayer
               audiobookPart={audiobookPart}
               setAudiobookState={props.setAudiobookState}
               audiobookState={props.audiobookState}

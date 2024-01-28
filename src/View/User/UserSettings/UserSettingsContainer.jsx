@@ -1,13 +1,14 @@
+import React from 'react';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQuery } from 'react-query';
-import EditEmailModal from './EditEmailModal';
-import EditPasswordModal from './EditPasswordModal';
-import EditUserDataModal from './EditUserDataModal';
-import DeleteUserModal from './DeleteUserModal';
-import SettingsForm from './SettingsForm';
-import SettingUserInfo from './SettingUserInfo';
+import UserSettingsEditEmailModal from './UserSettingsEditEmailModal';
+import UserSettingsEditPasswordModal from './UserSettingsEditPasswordModal';
+import UserSettingsEditUserDataModal from './UserSettingsEditUserDataModal';
+import UserSettingsDeleteUserModal from './UserSettingsDeleteUserModal';
+import UserSettingsForm from './UserSettingsForm';
+import UserSettingInfo from './UserSettingInfo';
 
-export default function SettingsContainer(props) {
+export default function UserSettingsContainer(props) {
   const { isLoading, error, data, isFetching, refetch } = useQuery(
     'data',
     () => HandleFetch('/user/settings', 'GET', null, props.token, props.i18n.language),
@@ -38,7 +39,7 @@ export default function SettingsContainer(props) {
   return (
     <div className='row my-5 min_container_height'>
       <div className='col-3 vertivcal_border'>
-        <SettingsForm
+        <UserSettingsForm
           state={props.state}
           setState={props.setState}
           t={props.t}
@@ -47,7 +48,7 @@ export default function SettingsContainer(props) {
         />
       </div>
       <div className='col-4'>
-        <SettingUserInfo
+        <UserSettingInfo
           state={props.state}
           setState={props.setState}
           t={props.t}
@@ -55,7 +56,7 @@ export default function SettingsContainer(props) {
         />
       </div>
       {props.state.buttonEmail ? (
-        <EditEmailModal
+        <UserSettingsEditEmailModal
           state={props.state}
           setState={props.setState}
           t={props.t}
@@ -64,7 +65,7 @@ export default function SettingsContainer(props) {
         />
       ) : null}
       {props.state.buttonPassword ? (
-        <EditPasswordModal
+        <UserSettingsEditPasswordModal
           state={props.state}
           setState={props.setState}
           t={props.t}
@@ -73,7 +74,7 @@ export default function SettingsContainer(props) {
         />
       ) : null}
       {props.state.buttonUserData ? (
-        <EditUserDataModal
+        <UserSettingsEditUserDataModal
           state={props.state}
           setState={props.setState}
           t={props.t}
@@ -83,7 +84,7 @@ export default function SettingsContainer(props) {
         />
       ) : null}
       {props.state.buttonDelete ? (
-        <DeleteUserModal
+        <UserSettingsDeleteUserModal
           state={props.state}
           setState={props.setState}
           t={props.t}

@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-export default function RenderCarousel(props, category) {
+export default function UserMainRenderProposedCarousel(props, audiobooks) {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -38,10 +38,10 @@ export default function RenderCarousel(props, category) {
   const showAudiobookModal = (audiobook, imgUrl) => {
     props.setState({
       ...props.state,
-      detailModal: !props.detailModal,
+      detailModal: !props.state.detailModal,
       detailModalAudiobook: audiobook,
-      detailModalCover: imgUrl == null ? '/noImg.jpg' : imgUrl,
-      detailModalCategory: category,
+      detailModalCover: imgUrl,
+      detailModalCategory: audiobook.categories[0],
     });
   };
 
@@ -49,7 +49,7 @@ export default function RenderCarousel(props, category) {
     let audiobooksArray = [];
 
     audiobooksArray.push(
-      category.audiobooks.map((audiobook) => {
+      audiobooks.map((audiobook) => {
         let imgUrl = getImgUrl(audiobook);
         return (
           <div
@@ -67,7 +67,11 @@ export default function RenderCarousel(props, category) {
                   : 'card-img-sm-sm-title'
               }
             >
-              <img src={imgUrl == null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
+              <img
+                src={imgUrl == null ? '/noImg.jpg' : imgUrl}
+                className='card-img-top'
+                alt='...'
+              />
             </div>
 
             <div className='card-body'>

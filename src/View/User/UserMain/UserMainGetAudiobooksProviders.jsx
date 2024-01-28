@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { AudiobookUserDataProvider } from 'Providers/AudiobookUserDataProvider';
 import { AudiobookUserProposedProvider } from 'Providers/AudiobookUserProposedProvider';
-import GetAllAudiobooks from './GetAllAudiobooks';
+import UserMainGetAllAudiobooks from './UserMainGetAllAudiobooks';
 
-export default function GetAudiobooksProviders(props) {
+export default function UserMainGetAudiobooksProviders(props) {
   useEffect(() => {
     if (props.audiobooksState.error != null) {
       throw props.audiobooksState.error;
@@ -25,7 +25,7 @@ export default function GetAudiobooksProviders(props) {
         limit={props.audiobooksState.limit}
         i18n={props.i18n}
       >
-        <GetAllAudiobooks
+        <UserMainGetAllAudiobooks
           state={props.audiobooksState}
           setState={props.setAudiobooksState}
           token={props.token}

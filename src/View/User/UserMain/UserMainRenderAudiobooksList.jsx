@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import RenderCarousel from './RenderCarousel';
+import UserMainRenderCarousel from './UserMainRenderCarousel';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function RenderAudiobooksList(props) {
+export default function UserMainRenderAudiobooksList(props) {
   const lastPageChangeRef = useRef(false);
   const lastItemRef = useRef(null);
   const lastItemOffsetTopRef = useRef(null);
@@ -41,7 +41,7 @@ export default function RenderAudiobooksList(props) {
         let renderAudiobooks = [];
 
         if (category.audiobooks.length > 0) {
-          renderAudiobooks.push(RenderCarousel(props, category));
+          renderAudiobooks.push(UserMainRenderCarousel(props, category));
         }
 
         if (props.audiobooks.categories.length == index + 1) {

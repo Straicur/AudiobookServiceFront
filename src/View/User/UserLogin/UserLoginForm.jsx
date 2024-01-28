@@ -3,13 +3,13 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import md5 from 'md5';
-import { ForgotPasswordModal } from './ForgotPasswordModal';
+import { UserLoginForgotPasswordModal } from './UserLoginForgotPasswordModal';
 import { useTokenStore } from 'Store/store';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { handleEmailChange, handlePasswordChange, validateEmail } from './Events';
 
-export default function LoginForm(props) {
+export default function UserLoginForm(props) {
   const [formState, setFormState] = useState({
     modal: false,
   });
@@ -185,7 +185,7 @@ export default function LoginForm(props) {
                 </div>
 
                 {formState.modal ? (
-                  <ForgotPasswordModal
+                  <UserLoginForgotPasswordModal
                     formState={formState}
                     setFormState={setFormState}
                     state={props.state}

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { HandleFetch } from 'Util/HandleFetch';
 
-export const ForgotPasswordModal = (props) => {
+export const UserLoginForgotPasswordModal = (props) => {
   const [state, setState] = useState({
     email: '',
     isButtonDisabled: false,

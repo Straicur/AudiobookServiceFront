@@ -2,7 +2,7 @@ import React from 'react';
 import { UserNavBar } from 'View/User/UserNavBar/UserNavBar';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { Footer } from 'View/User/Common/Footer';
+import { UserFooter } from 'View/User/Common/UserFooter';
 import './UserHelp.css';
 
 export default function Help() {
@@ -92,7 +92,7 @@ export default function Help() {
           </div>
         </div>
       </div>
-      <Footer />
+      <UserFooter />
     </HelmetProvider>
   );
 }

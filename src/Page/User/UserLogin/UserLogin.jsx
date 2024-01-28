@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
-import LoginForm from 'View/User/UserLogin/LoginForm';
+import UserLoginForm from 'View/User/UserLogin/UserLoginForm';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import './UserLogin.css';
@@ -44,7 +44,7 @@ export default function UserLogin() {
         });
       }}
     >
-      <LoginForm state={state} setState={setState} token={token} />
+      <UserLoginForm state={state} setState={setState} token={token} />
     </ErrorBoundary>
   );
 }

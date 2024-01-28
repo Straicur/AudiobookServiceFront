@@ -5,10 +5,9 @@ import { AudiobookPartProvider } from 'Providers/AudiobookPartProvider';
 import { AudiobookRatingProvider } from 'Providers/AudiobookRatingProvider';
 import { AudiobookUserCommentsProvider } from 'Providers/AudiobookUserCommentsProvider';
 import DataNotFoundError from 'Errors/Errors/DataNotFoundError';
+import UserMainAudiobookDetailModal from './UserMainAudiobookDetailModal';
 
-import AudiobookDetailModal from './AudiobookDetailModal';
-
-export default function AudiobookDetailProviders(props) {
+export default function UserMainAudiobookDetailProviders(props) {
   const [audiobookState, setAudiobookState] = useState({
     part: 0,
     detailWatchingDate: null,
@@ -100,7 +99,7 @@ export default function AudiobookDetailProviders(props) {
                 categoryKey={props.state.detailModalCategory.categoryKey}
                 i18n={props.i18n}
               >
-                <AudiobookDetailModal
+                <UserMainAudiobookDetailModal
                   state={props.state}
                   setState={props.setState}
                   audiobookState={audiobookState}

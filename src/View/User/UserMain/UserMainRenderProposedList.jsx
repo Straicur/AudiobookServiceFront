@@ -1,8 +1,8 @@
-import RenderProposedCarousel from './RenderProposedCarousel';
+import UserMainRenderProposedCarousel from './UserMainRenderProposedCarousel';
 import { v4 as uuidv4 } from 'uuid';
 import { useAudiobookUserProposed } from 'Providers/AudiobookUserProposedProvider';
 
-export default function RenderProposedList(props) {
+export default function UserMainRenderProposedList(props) {
   const [audiobookProposed, setAudiobookProposed, setRefetchState] = useAudiobookUserProposed();
 
   const renderColumns = () => {
@@ -16,7 +16,7 @@ export default function RenderProposedList(props) {
       renderCategories.push(
         <div key={uuidv4()}>
           <div className='fw-bold fs-1 ms-2 mb-2 text-light'>{props.t('proposed')}</div>
-          {RenderProposedCarousel(props, audiobookProposed.audiobooks)}
+          {UserMainRenderProposedCarousel(props, audiobookProposed.audiobooks)}
           <hr className=' text-light'></hr>
         </div>,
       );

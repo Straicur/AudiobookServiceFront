@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { HandleFetch } from 'Util/HandleFetch';
 import md5 from 'md5';
-import { RegisterNotificationModal } from './RegisterNotificationModal';
+import { UserRegisterNotificationModal } from './UserRegisterNotificationModal';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -24,7 +24,7 @@ import {
   handleBirthdayDate,
 } from './Events';
 
-export default function RegisterForm(props) {
+export default function UserRegisterForm(props) {
   const { t, i18n } = useTranslation();
 
   const navigate = useNavigate();
@@ -355,7 +355,7 @@ export default function RegisterForm(props) {
           </div>
         </div>
       </div>
-      {formState.modal ? <RegisterNotificationModal /> : null}
+      {formState.modal ? <UserRegisterNotificationModal /> : null}
     </section>
   );
 }

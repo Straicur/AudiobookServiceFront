@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useAudiobookSearch } from 'Providers/AudiobookSearchProvider';
-import RenderSearchAudiobooksList from './RenderSearchAudiobooksList';
+import UserMainRenderSearchAudiobooksList from './UserMainRenderSearchAudiobooksList';
 import { HandleFetch } from 'Util/HandleFetch';
 
-const ChildMemo = React.memo(RenderSearchAudiobooksList);
+const ChildMemo = React.memo(UserMainRenderSearchAudiobooksList);
 
-export default function GetAllSearchAudiobooks(props) {
+export default function UserMainGetAllSearchAudiobooks(props) {
   const [audiobooks, loading, setAudiobooks, setRefetchState] = useAudiobookSearch();
 
   const [coversState, setCoversState] = useState([]);

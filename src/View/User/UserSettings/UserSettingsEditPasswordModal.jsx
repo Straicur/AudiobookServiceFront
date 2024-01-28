@@ -6,7 +6,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
 import md5 from 'md5';
 
-export default function EditPasswordModal(props) {
+export default function UserSettingsEditPasswordModal(props) {
   const [state, setState] = useState({
     oldPassword: '',
     newPassword: '',

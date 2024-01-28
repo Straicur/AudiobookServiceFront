@@ -1,9 +1,10 @@
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function RenderSearchAudiobooksList(props) {
+export default function UserMyListRender(props) {
   const getImgUrl = (audiobook) => {
     if (props.coversState != undefined && props.coversState.length > 0) {
-      let url = props.coversState.filter((obj) => obj.audiobook == audiobook.id);
+      let url = props.coversState.filter((obj) => obj.id == audiobook.id);
 
       if (url.length > 0 && url[0].url != '') {
         return process.env.REACT_APP_API_URL + url[0].url;
@@ -39,12 +40,24 @@ export default function RenderSearchAudiobooksList(props) {
                 showAudiobookModal(audiobook, imgUrl);
               }}
             >
-              <div className='card-search-img-sm'>
+              <div
+                className={
+                  audiobook.title.length > 17
+                    ? audiobook.title.length > 46
+                      ? 'card-img-sm-ext-lg-title '
+                      : 'card-img-sm-lg-title'
+                    : 'card-img-sm-sm-title'
+                }
+              >
                 <img src={imgUrl == null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
               </div>
 
               <div className='card-body'>
-                <h5 className='card-title'>{audiobook.title}</h5>
+                {audiobook.title.length > 17 ? (
+                  <h6 className='card-title'>{audiobook.title}</h6>
+                ) : (
+                  <h5 className='card-title'>{audiobook.title}</h5>
+                )}
                 <p className='card-text'>{audiobook.author}</p>
               </div>
             </div>
@@ -56,8 +69,14 @@ export default function RenderSearchAudiobooksList(props) {
   };
 
   return (
-    <div key={uuidv4()} className='row'>
-      {props.coversState != undefined && props.coversState.length > 0 ? returnAudioboks() : null}
+    <div key={uuidv4()} className='row min_container_height'>
+      {props.coversState != undefined &&
+      props.coversState.length > 0 &&
+      props.audiobooks.length > 0 ? (
+        returnAudioboks()
+      ) : (
+        <div className='text-white center_text fs-2'>{props.t('emptyMyList')}</div>
+      )}
     </div>
   );
 }

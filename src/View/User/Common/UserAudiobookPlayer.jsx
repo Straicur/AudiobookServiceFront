@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-export default function AudiobookPlayer(props) {
+export default function UserAudiobookPlayer(props) {
   const player = useRef(null);
   const duration = useRef(0);
 

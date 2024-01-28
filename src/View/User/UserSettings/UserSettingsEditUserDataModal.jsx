@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
 
-export default function EditUserDataModal(props) {
+export default function UserSettingsEditUserDataModal(props) {
   const [state, setState] = useState({
     phoneNumber: '',
     firstname: '',

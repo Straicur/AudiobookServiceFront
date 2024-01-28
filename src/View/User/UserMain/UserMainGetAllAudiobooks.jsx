@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import RenderAudiobooksList from './RenderAudiobooksList';
+import UserMainRenderAudiobooksList from './UserMainRenderAudiobooksList';
 import { useAudiobookUserData } from 'Providers/AudiobookUserDataProvider';
 import { HandleFetch } from 'Util/HandleFetch';
-import RenderProposedList from './RenderProposedList';
+import UserMainRenderProposedList from './UserMainRenderProposedList';
 import { useCoverListStore } from 'Store/store';
 
-const ChildFirstMemo = React.memo(RenderAudiobooksList);
-const ChildSecondMemo = React.memo(RenderProposedList);
+const ChildFirstMemo = React.memo(UserMainRenderAudiobooksList);
+const ChildSecondMemo = React.memo(UserMainRenderProposedList);
 
 export default function GetAllAudiobooks(props) {
   const [audiobooks, loading, hasMore, setAudiobooks, setRefetchState] = useAudiobookUserData();

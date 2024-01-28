@@ -1,8 +1,9 @@
-import GetCovers from './GetCovers';
+import React from 'react';
+import UserMyListGetCovers from './UserMyListGetCovers';
 import { AudiobookMyListProvider } from 'Providers/AudiobookMyListProvider';
-import AudiobookDetailProviders from './AudiobookDetailProviders';
+import UserMyListAudiobookDetailProviders from './UserMyListAudiobookDetailProviders';
 
-export default function GetMyList(props) {
+export default function UserMyListGet(props) {
   return (
     <AudiobookMyListProvider
       state={props.myListState}
@@ -10,7 +11,7 @@ export default function GetMyList(props) {
       token={props.token}
       i18n={props.i18n}
     >
-      <GetCovers
+      <UserMyListGetCovers
         state={props.myListState}
         setState={props.setMyListState}
         token={props.token}
@@ -20,7 +21,7 @@ export default function GetMyList(props) {
       {props.myListState.detailModal &&
       props.myListState.detailModalAudiobook != null &&
       props.myListState.detailModalCategory != null ? (
-        <AudiobookDetailProviders
+        <UserMyListAudiobookDetailProviders
           state={props.myListState}
           setState={props.setMyListState}
           token={props.token}
