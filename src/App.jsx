@@ -1,25 +1,25 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useTokenStore } from './Store/store';
+import { useTokenStore } from 'Store/store';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import Page404 from './Page/Page404/Page404';
-import Audiobooks from './Page/Admin/AdminAudiobooks/Audiobooks';
-import Audiobook from './Page/Admin/AdminAudiobook/Audiobook';
-import AdminMain from './Page/Admin/AdminMain/AdminMain';
-import Category from './Page/Admin/AdminCategory/Category';
-import Categories from './Page/Admin/AdminCategories/Categories';
-import Notifications from './Admin/Notifications/Notifications';
-import Users from './Page/Admin/AdminUsers/Users';
-import Forgot from './Page/User/UserForgot/Forgot';
-import Help from './Page/User/UserHelp/Help';
-import About from './Page/User/UserAbout/About';
-import Policy from './Page/User/UserPolicy/Policy';
-import UserLogin from './Page/User/UserLogin/UserLogin';
-import Main from './Page/User/UserMain/Main';
-import MyList from './Page/User/UserMyList/MyList';
-import Register from './Page/User/UserRegister/Register';
-import Settings from './Page/User/UserSettings/Settings';
+import Page404 from 'Page/Page404/Page404';
+import AdminAudiobooks from 'Page/Admin/AdminAudiobooks/AdminAudiobooks';
+import AdminAudiobook from 'Page/Admin/AdminAudiobook/AdminAudiobook';
+import AdminMain from 'Page/Admin/AdminMain/AdminMain';
+import AdminCategory from 'Page/Admin/AdminCategory/AdminCategory';
+import AdminCategories from 'Page/Admin/AdminCategories/AdminCategories';
+import AdminNotifications from 'Admin/Notifications/AdminNotifications';
+import AdminUsers from 'Page/Admin/AdminUsers/AdminUsers';
+import Forgot from 'Page/User/UserForgot/Forgot';
+import Help from 'Page/User/UserHelp/Help';
+import About from 'Page/User/UserAbout/About';
+import Policy from 'Page/User/UserPolicy/Policy';
+import UserLogin from 'Page/User/UserLogin/UserLogin';
+import Main from 'Page/User/UserMain/Main';
+import MyList from 'Page/User/UserMyList/MyList';
+import Register from 'Page/User/UserRegister/Register';
+import Settings from 'Page/User/UserSettings/Settings';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -37,32 +37,32 @@ function App() {
           <Route
             exact
             path='/admin/audiobooks'
-            element={<Audiobooks />}
+            element={<AdminAudiobooks />}
             errorElement={<Page404 />}
           />
           <Route
             exact
             path='/admin/audiobook/:audiobookId'
-            element={<Audiobook />}
+            element={<AdminAudiobook />}
             errorElement={<Page404 />}
           />
           <Route
             exact
             path='/admin/categories'
-            element={<Categories />}
+            element={<AdminCategories />}
             errorElement={<Page404 />}
           />
           <Route
             exact
             path='/admin/notifications'
-            element={<Notifications />}
+            element={<AdminNotifications />}
             errorElement={<Page404 />}
           />
-          <Route exact path='/admin/users' element={<Users />} errorElement={<Page404 />} />
+          <Route exact path='/admin/users' element={<AdminUsers />} errorElement={<Page404 />} />
           <Route
             exact
             path='/admin/category/:categoryKey'
-            element={<Category />}
+            element={<AdminCategory />}
             errorElement={<Page404 />}
           />
 

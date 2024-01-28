@@ -5,9 +5,9 @@ import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AuidobookDetailProviders from 'View/Admin/AdminAudiobook/AuidobookDetailProviders';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import './Audiobook.css';
+import './AdminAudiobook.css';
 
-export default function Audiobook() {
+export default function AdminAudiobook() {
   const token = useTokenStore((state) => state.token);
   const { t, i18n } = useTranslation();
 

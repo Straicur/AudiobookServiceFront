@@ -3,9 +3,9 @@ import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import NotificationsList from 'View/Admin/AdminNotifications/NotificationsList';
-import './Notifications.css';
+import './AdminNotifications.css';
 
-export default function Notifications() {
+export default function AdminNotifications() {
   const token = useTokenStore((state) => state.token);
 
   const [notificationsState, setNotificationsState] = useState({

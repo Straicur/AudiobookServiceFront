@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import UsersList from 'View/Admin/AdminUsers/UsersList';
-import './Users.css';
+import CategoriesList from 'View/Admin/AdminCategories/CategoriesList';
+import './AdminCategories.css';
 
-export default function Users() {
+export default function AdminCategories() {
   const token = useTokenStore((state) => state.token);
 
-  const [usersState, setUsersState] = useState({
+  const [categoiesState, setCategoiesState] = useState({
     error: null,
   });
 
@@ -16,13 +16,17 @@ export default function Users() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setUsersState({
-          ...usersState,
+        setCategoiesState({
+          ...categoiesState,
           error: null,
         });
       }}
     >
-      <UsersList usersState={usersState} setUsersState={setUsersState} token={token} />
+      <CategoriesList
+        categoiesState={categoiesState}
+        setCategoiesState={setCategoiesState}
+        token={token}
+      />
     </ErrorBoundary>
   );
 }
