@@ -9,7 +9,7 @@ import AdminAudiobook from 'Page/Admin/AdminAudiobook/AdminAudiobook';
 import AdminMain from 'Page/Admin/AdminMain/AdminMain';
 import AdminCategory from 'Page/Admin/AdminCategory/AdminCategory';
 import AdminCategories from 'Page/Admin/AdminCategories/AdminCategories';
-import AdminNotifications from 'Admin/Notifications/AdminNotifications';
+import AdminNotifications from 'Page/Admin/AdminNotifications/AdminNotifications';
 import AdminUsers from 'Page/Admin/AdminUsers/AdminUsers';
 import UserForgot from 'Page/User/UserForgot/UserForgot';
 import UserHelp from 'Page/User/UserHelp/UserHelp';

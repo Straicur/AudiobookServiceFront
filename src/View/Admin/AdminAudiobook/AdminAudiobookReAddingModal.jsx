@@ -80,7 +80,7 @@ export default function AdminAudiobookReAddingModal(props) {
   };
 
   const changeCategories = (element) => {
-    if (element != NaN && element != undefined) {
+    if (isNaN(element) && element != undefined) {
       setStateModal({
         ...stateModal,
         categories: element,
