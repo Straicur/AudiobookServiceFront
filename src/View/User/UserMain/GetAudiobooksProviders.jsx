@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { AudiobookUserDataProvider } from '../../../Providers/AudiobookUserDataProvider';
-import { AudiobookUserProposedProvider } from '../../../Providers/AudiobookUserProposedProvider';
+import { AudiobookUserDataProvider } from 'Providers/AudiobookUserDataProvider';
+import { AudiobookUserProposedProvider } from 'Providers/AudiobookUserProposedProvider';
 import GetAllAudiobooks from './GetAllAudiobooks';
 
 export default function GetAudiobooksProviders(props) {

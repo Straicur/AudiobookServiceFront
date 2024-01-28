@@ -1,6 +1,6 @@
 import create from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { HandleFetch } from '../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 
 let tokenStore = (set) => ({
   token: '',

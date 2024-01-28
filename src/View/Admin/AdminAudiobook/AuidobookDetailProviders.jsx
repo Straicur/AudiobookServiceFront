@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { AudiobookDataProvider } from '../../../Providers/AudiobookDataProvider';
-import { AdminAudiobookCoverDataProvider } from '../../../Providers/AdminAudiobookCoverDataProvider';
-import { AdminAudiobookPartProvider } from '../../../Providers/AdminAudiobookPartProvider';
-import { AudiobookCommentsProvider } from '../../../Providers/AudiobookCommentsProvider';
+import { AudiobookDataProvider } from 'Providers/AudiobookDataProvider';
+import { AdminAudiobookCoverDataProvider } from 'Providers/AdminAudiobookCoverDataProvider';
+import { AdminAudiobookPartProvider } from 'Providers/AdminAudiobookPartProvider';
+import { AudiobookCommentsProvider } from 'Providers/AudiobookCommentsProvider';
 
 import AudiobookDetail from './AudiobookDetail';
 

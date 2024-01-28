@@ -5,7 +5,7 @@ import './UserNotificationOffCanvas.css';
 import { v4 as uuidv4 } from 'uuid';
 import Badge from 'react-bootstrap/Badge';
 import { useNavigate } from 'react-router-dom';
-import { HandleFetch } from '../../../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 import CreateUtil from 'Util/CreateUtil';
 
 export default function NotificationOffcanvas(props) {

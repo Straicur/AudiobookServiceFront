@@ -1,8 +1,8 @@
 import React from 'react';
-import { UserNavBar } from '../../../View/User/UserNavBar/UserNavBar';
+import { UserNavBar } from 'View/User/UserNavBar/UserNavBar';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { Footer } from '../../../View/User/Common/Footer';
+import { Footer } from 'View/User/Common/Footer';
 import './Help.css';
 
 export default function Help() {

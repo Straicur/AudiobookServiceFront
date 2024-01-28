@@ -1,5 +1,5 @@
 import GetCovers from './GetCovers';
-import { AudiobookMyListProvider } from '../../../Providers/AudiobookMyListProvider';
+import { AudiobookMyListProvider } from 'Providers/AudiobookMyListProvider';
 import AudiobookDetailProviders from './AudiobookDetailProviders';
 
 export default function GetMyList(props) {

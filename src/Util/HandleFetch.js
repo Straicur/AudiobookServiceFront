@@ -1,8 +1,8 @@
-import DataNotFoundError from '../Errors/Errors/DataNotFoundError';
-import AuthenticationError from '../Errors/Errors/AuthenticationError';
-import InvalidJsonDataError from '../Errors/Errors/InvalidJsonDataError';
-import ServiceUnaviableError from '../Errors/Errors/ServiceUnaviableError';
-import PermissionError from '../Errors/Errors/PermissionError';
+import DataNotFoundError from 'Errors/Errors/DataNotFoundError';
+import AuthenticationError from 'Errors/Errors/AuthenticationError';
+import InvalidJsonDataError from 'Errors/Errors/InvalidJsonDataError';
+import ServiceUnaviableError from 'Errors/Errors/ServiceUnaviableError';
+import PermissionError from 'Errors/Errors/PermissionError';
 
 export const HandleFetch = async (
   url,

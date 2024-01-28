@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useTokenStore } from '../../../Store/store';
+import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
-import AudiobooksList from '../../../View/Admin/AdminCategory/AudiobooksList';
+import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
+import AudiobooksList from 'View/Admin/AdminCategory/AudiobooksList';
 import { useParams } from 'react-router-dom';
 import './Category.css';
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useTokenStore } from '../../../Store/store';
+import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
-import LoginForm from '../../../View/User/UserLogin/LoginForm';
+import LoginForm from 'View/User/UserLogin/LoginForm';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
+import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import './UserLogin.css';
 
 export default function UserLogin() {

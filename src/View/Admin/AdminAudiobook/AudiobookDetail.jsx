@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useAudiobookData } from '../../../Providers/AudiobookDataProvider';
-import { useAudiobookCover } from '../../../Providers/AdminAudiobookCoverDataProvider';
-import { useAudiobookPart } from '../../../Providers/AdminAudiobookPartProvider';
-import { useAudiobookComments } from '../../../Providers/AudiobookCommentsProvider';
-import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import { useAudiobookData } from 'Providers/AudiobookDataProvider';
+import { useAudiobookCover } from 'Providers/AdminAudiobookCoverDataProvider';
+import { useAudiobookPart } from 'Providers/AdminAudiobookPartProvider';
+import { useAudiobookComments } from 'Providers/AudiobookCommentsProvider';
+import { AdminNavBar } from 'AdminNavBar/AdminNavBar';
 import CategoryEditForm from './AudiobookEditForm';
 import AudiobookCategoryList from './AudiobookCategoryList';
 import AudiobookCover from './AudiobookCover';
@@ -17,7 +17,7 @@ import ReAddAudiobookButton from './ReAddAudiobookButton';
 import DeleteAudiobookEntarlyButton from './DeleteAudiobookEntarlyButton';
 import { v4 as uuidv4 } from 'uuid';
 import Alert from 'react-bootstrap/Alert';
-import { useCategoryListStore } from '../../../Store/store';
+import { useCategoryListStore } from 'Store/store';
 
 export default function AudiobookDetail(props) {
   const [categoriesState, setCategories] = useState([]);

@@ -1,5 +1,5 @@
 import CreateUtil from 'Util/CreateUtil';
-import { HandleFetch } from '../../../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 import Button from 'react-bootstrap/Button';
 import { v4 as uuidv4 } from 'uuid';
 

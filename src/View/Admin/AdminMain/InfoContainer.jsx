@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import { AdminNavBar } from 'AdminNavBar/AdminNavBar';
 import { useQuery } from 'react-query';
-import { HandleFetch } from '../../../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 import { useTranslation } from 'react-i18next';
 import Card from 'react-bootstrap/Card';
 

@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import RegisterForm from '../../../View/User/UserRegister/RegisterForm';
+import RegisterForm from 'View/User/UserRegister/RegisterForm';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
-import {
-  validateEmail,
-  validatePassword,
-  validateBirthday,
-} from '../../../View/User/UserRegister/Events';
+import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
+import { validateEmail, validatePassword, validateBirthday } from 'View/User/UserRegister/Events';
 import './Register.css';
 
 export default function Register() {

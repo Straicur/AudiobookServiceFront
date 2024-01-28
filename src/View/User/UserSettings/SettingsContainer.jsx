@@ -1,4 +1,4 @@
-import { HandleFetch } from '../../../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 import { useQuery } from 'react-query';
 import EditEmailModal from './EditEmailModal';
 import EditPasswordModal from './EditPasswordModal';

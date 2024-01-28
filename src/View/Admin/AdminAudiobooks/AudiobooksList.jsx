@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import { AdminNavBar } from 'AdminNavBar/AdminNavBar';
 import { useQuery } from 'react-query';
-import { HandleFetch } from '../../../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
-import JsonModal from '../AdminJsonModal/JsonModal';
-import AudiobookCommentsModal from '../AdminCategory/AudiobookCommentsModal';
+import JsonModal from 'AdminJsonModal/JsonModal';
+import AudiobookCommentsModal from 'AdminCategory/AudiobookCommentsModal';
 import AddAudiobookModal from './AddAudiobookModal';
 import RenderAudiobooksList from './RenderAudiobooksList';
-import RenderPageSwitches from '../Common/RenderPageSwitches';
+import RenderPageSwitches from 'Common/RenderPageSwitches';
 import SearchAudiobooksOffCanvas from './SearchAudiobooksOffCanvas';
-import { useCategoryListStore } from '../../../Store/store';
+import { useCategoryListStore } from 'Store/store';
 
 export default function AudiobooksList(props) {
   const { t, i18n } = useTranslation();

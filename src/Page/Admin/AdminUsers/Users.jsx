@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useTokenStore } from '../../../Store/store';
+import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
-import UsersList from '../../../View/Admin/AdminUsers/UsersList';
+import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
+import UsersList from 'View/Admin/AdminUsers/UsersList';
 import './Users.css';
 
 export default function Users() {

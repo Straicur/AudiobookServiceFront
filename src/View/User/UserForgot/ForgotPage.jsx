@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HandleFetch } from '../../../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 import md5 from 'md5';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';

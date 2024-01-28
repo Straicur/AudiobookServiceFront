@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState, useContext, useMemo } from 'react';
 import { useQuery } from 'react-query';
-import { HandleFetch } from '../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 
 const AudiobookPartContext = createContext(null);
 

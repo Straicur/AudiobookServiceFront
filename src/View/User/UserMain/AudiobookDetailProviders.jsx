@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { HandleFetch } from '../../../Util/HandleFetch';
-import { AudiobookUserDetailProvider } from '../../../Providers/AudiobookUserDetailProvider';
-import { AudiobookPartProvider } from '../../../Providers/AudiobookPartProvider';
-import { AudiobookRatingProvider } from '../../../Providers/AudiobookRatingProvider';
-import { AudiobookUserCommentsProvider } from '../../../Providers/AudiobookUserCommentsProvider';
-import DataNotFoundError from '../../../Errors/Errors/DataNotFoundError';
+import { HandleFetch } from 'Util/HandleFetch';
+import { AudiobookUserDetailProvider } from 'Providers/AudiobookUserDetailProvider';
+import { AudiobookPartProvider } from 'Providers/AudiobookPartProvider';
+import { AudiobookRatingProvider } from 'Providers/AudiobookRatingProvider';
+import { AudiobookUserCommentsProvider } from 'Providers/AudiobookUserCommentsProvider';
+import DataNotFoundError from 'Errors/Errors/DataNotFoundError';
 
 import AudiobookDetailModal from './AudiobookDetailModal';
 

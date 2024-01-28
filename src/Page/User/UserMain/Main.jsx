@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { UserNavBar } from '../../../View/User/UserNavBar/UserNavBar';
-import { useTokenStore } from '../../../Store/store';
+import { UserNavBar } from 'View/User/UserNavBar/UserNavBar';
+import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorHandlerModal } from '../../../Errors/ErrorHandlerModal';
+import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import { useTranslation } from 'react-i18next';
-import GetAudiobooksProviders from '../../../View/User/UserMain/GetAudiobooksProviders';
-import AudiobookDetailProviders from '../../../View/User/UserMain/AudiobookDetailProviders';
-import SearchAudiobooks from '../../../View/User/UserMain/SearchAudiobooks';
-import RenderAudiobookSearch from '../../../View/User/UserMain/RenderAudiobookSearch';
-import { Footer } from '../../../View/User/Common/Footer';
+import GetAudiobooksProviders from 'View/User/UserMain/GetAudiobooksProviders';
+import AudiobookDetailProviders from 'View/User/UserMain/AudiobookDetailProviders';
+import SearchAudiobooks from 'View/User/UserMain/SearchAudiobooks';
+import RenderAudiobookSearch from 'View/User/UserMain/RenderAudiobookSearch';
+import { Footer } from 'View/User/Common/Footer';
 import './Main.css';
 
 export default function Main() {

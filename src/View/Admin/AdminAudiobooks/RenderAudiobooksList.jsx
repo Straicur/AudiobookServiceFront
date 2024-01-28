@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
-import { HandleFetch } from '../../../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 import { useNavigate } from 'react-router-dom';
 import CreateUtil from 'Util/CreateUtil';
 

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import { AdminNavBar } from 'AdminNavBar/AdminNavBar';
 import { useQuery } from 'react-query';
-import { HandleFetch } from '../../../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
-import JsonModal from '../AdminJsonModal/JsonModal';
+import JsonModal from 'AdminJsonModal/JsonModal';
 import AddNotificationModal from './AddNotificationModal';
 import EditNotificationModal from './EditNotificationModal';
 import SearchNotificationsOffCanvas from './SearchNotificationsOffCanvas';
 import RenderNotificationsList from './RenderNotificationsList';
-import RenderPageSwitches from '../Common/RenderPageSwitches';
-import { useLastUserRolesStore } from '../../../Store/store';
+import RenderPageSwitches from 'Common/RenderPageSwitches';
+import { useLastUserRolesStore } from 'Store/store';
 
 export default function NotificationsList(props) {
   const { t, i18n } = useTranslation();

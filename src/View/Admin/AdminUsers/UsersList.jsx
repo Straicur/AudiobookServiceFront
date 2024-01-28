@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import { AdminNavBar } from 'AdminNavBar/AdminNavBar';
 import { useQuery } from 'react-query';
-import { HandleFetch } from '../../../Util/HandleFetch';
+import { HandleFetch } from 'Util/HandleFetch';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
-import JsonModal from '../AdminJsonModal/JsonModal';
+import JsonModal from 'AdminJsonModal/JsonModal';
 import RenderUsersList from './RenderUsersList';
-import RenderPageSwitches from '../Common/RenderPageSwitches';
+import RenderPageSwitches from 'Common/RenderPageSwitches';
 import DeleteUsersModal from './DeleteUsersModal';
 import EditUserModal from './EditUserModal';
 import DeletedUsersModal from './DeletedUsersModal';
 import SearchUsersOffCanvas from './SearchUsersOffCanvas';
-import { useLastUserRolesStore } from '../../../Store/store';
+import { useLastUserRolesStore } from 'Store/store';
 
 export default function UsersList(props) {
   const { t, i18n } = useTranslation();

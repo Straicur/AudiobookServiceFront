@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { HandleFetch } from '../../../Util/HandleFetch';
-import { useCategoryTreeListStore } from '../../../Store/store';
+import { HandleFetch } from 'Util/HandleFetch';
+import { useCategoryTreeListStore } from 'Store/store';
 import RenderCategoriesList from './RenderCategoriesList';
 import Modal from 'react-bootstrap/Modal';
 

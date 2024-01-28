@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import md5 from 'md5';
 import { ForgotPasswordModal } from './ForgotPasswordModal';
-import { useTokenStore } from '../../../Store/store';
+import { useTokenStore } from 'Store/store';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { handleEmailChange, handlePasswordChange, validateEmail } from './Events';
