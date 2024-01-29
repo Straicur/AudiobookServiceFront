@@ -32,7 +32,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
   };
 
   const changeSort = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         sort: element.target.value,
@@ -41,7 +41,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
   };
 
   const changeCategories = (element) => {
-    if (element != NaN && element != undefined) {
+    if (!isNaN(element) && element != undefined) {
       props.setSearchState({
         ...props.searchState,
         categories: element,
@@ -50,7 +50,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
   };
 
   const changeTitle = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         title: element.target.value,
@@ -59,7 +59,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
   };
 
   const changeAuthor = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         author: element.target.value,
@@ -68,7 +68,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
   };
 
   const changeAlbum = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         album: element.target.value,
@@ -77,7 +77,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
   };
 
   const changeParts = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         parts: element.target.value,
@@ -86,7 +86,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
   };
 
   const changeAge = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         age: element.target.value,
@@ -95,7 +95,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
   };
 
   const changeYear = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         year: element.target.value,
@@ -104,7 +104,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
   };
 
   const changeDuration = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         duration: element.target.value,

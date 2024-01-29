@@ -225,7 +225,7 @@ export default function AdminCategoryAudiobookAddModal(props) {
                 id='custom-switch'
                 label={props.t('categoryParentSelect')}
                 checked={stateModal.categoryParent}
-                onChange={(e) =>
+                onChange={() =>
                   setStateModal({
                     ...stateModal,
                     categoryParent: !stateModal.categoryParent,

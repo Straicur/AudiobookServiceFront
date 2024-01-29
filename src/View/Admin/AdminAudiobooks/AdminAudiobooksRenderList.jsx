@@ -1,3 +1,4 @@
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
 import { HandleFetch } from 'Util/HandleFetch';
@@ -76,19 +77,14 @@ export default function AdminAudiobooksRenderList(props) {
     switch (element.age) {
       case 1:
         return '3-7';
-        break;
       case 2:
         return '7-12';
-        break;
       case 3:
         return '12-16';
-        break;
       case 4:
         return '16-18';
-        break;
       case 5:
         return '18+';
-        break;
     }
   };
 

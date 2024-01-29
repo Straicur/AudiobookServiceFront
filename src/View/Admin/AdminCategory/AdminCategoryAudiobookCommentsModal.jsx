@@ -19,13 +19,7 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
     });
   };
 
-  const {
-    isLoading: isLoadingAudiobookComments,
-    error: errorAudiobookComments,
-    data: dataAudiobookComments,
-    isFetching: isFetchingAudiobookComments,
-    refetch: refetchAudiobookComments,
-  } = useQuery(
+  const { refetch: refetchAudiobookComments } = useQuery(
     'dataAudiobookComments',
     () =>
       HandleFetch(

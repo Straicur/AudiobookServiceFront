@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card';
 export default function AdminMainContainer(props) {
   const { t, i18n } = useTranslation();
 
-  const { isLoading, error, data, isFetching, refetch } = useQuery(
+  useQuery(
     'data',
     () => HandleFetch('/admin/statistic/main', 'GET', null, props.token, i18n.language),
     {

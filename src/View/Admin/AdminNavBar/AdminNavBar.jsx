@@ -22,8 +22,6 @@ export const AdminNavBar = () => {
 
   const notificationsList = useRef([]);
 
-  const update = useRef(false);
-
   const { t, i18n } = useTranslation();
 
   const tokenStore = useTokenStore();
@@ -82,7 +80,7 @@ export const AdminNavBar = () => {
           notificationsListStore.setNewNotification(data.maxPage);
           notificationsListStore.setNewNotification(data.newNotifications);
         })
-        .catch((e) => {
+        .catch(() => {
           notificationsListStore.setNewNotification(0);
         });
     }

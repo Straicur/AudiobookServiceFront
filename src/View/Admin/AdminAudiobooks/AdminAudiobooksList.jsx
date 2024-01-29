@@ -103,7 +103,7 @@ export default function AdminAudiobooksList(props) {
     return searchJson;
   };
 
-  const { isLoading, error, data, isFetching, refetch } = useQuery(
+  const { refetch } = useQuery(
     'data',
     () =>
       HandleFetch(

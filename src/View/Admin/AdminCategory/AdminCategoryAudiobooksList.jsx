@@ -35,13 +35,7 @@ export default function AdminCategoryAudiobooksList(props) {
     maxPage: 0,
   });
 
-  const {
-    isLoading: isLoadingFirst,
-    error: errorFirst,
-    data: dataFirst,
-    isFetching: isFetchingFirst,
-    refetch: refetchFirst,
-  } = useQuery(
+  const { refetch: refetchFirst } = useQuery(
     'dataFirst',
     () =>
       HandleFetch(
@@ -72,13 +66,7 @@ export default function AdminCategoryAudiobooksList(props) {
     },
   );
 
-  const {
-    isLoading: isLoadingSecond,
-    error: errorSecond,
-    data: dataSecond,
-    isFetching: isFetchingSecond,
-    refetch: refetchSecond,
-  } = useQuery(
+  useQuery(
     'dataSecond',
     () =>
       HandleFetch(

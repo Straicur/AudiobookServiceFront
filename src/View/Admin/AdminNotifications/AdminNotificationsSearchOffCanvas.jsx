@@ -16,7 +16,7 @@ export default function AdminNotificationsSearchOffCanvas(props) {
   };
 
   const changeOrder = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         order: parseInt(element.target.value),
@@ -25,7 +25,7 @@ export default function AdminNotificationsSearchOffCanvas(props) {
   };
 
   const changeText = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         text: element.target.value,
@@ -34,7 +34,7 @@ export default function AdminNotificationsSearchOffCanvas(props) {
   };
 
   const changeType = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         type: parseInt(element.target.value),

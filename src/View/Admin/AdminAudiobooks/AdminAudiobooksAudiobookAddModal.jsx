@@ -21,16 +21,8 @@ export default function AdminAudiobooksAudiobookAddModal(props) {
     uploadEnded: true,
   });
 
-  // const [stateProgress, setStateProgress] = useState({
-  //   maxParts: 0,
-  //   currentPart: 0,
-  //   error: false,
-  // });
-
   const maxParts = useRef(0);
   const currentPart = useRef(0);
-  const error = useRef(false);
-
   const seconds = useRef(3000);
 
   const handleSetAuthorChange = (event) => {
@@ -85,7 +77,7 @@ export default function AdminAudiobooksAudiobookAddModal(props) {
   };
 
   const changeCategories = (element) => {
-    if (element != NaN && element != undefined) {
+    if (!isNaN(element) && element != undefined) {
       setStateModal({
         ...stateModal,
         categories: element,

@@ -23,10 +23,9 @@ export default function AdminAudiobookDetail(props) {
   const [categoriesState, setCategories] = useState([]);
 
   const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAudiobookData();
-  const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
+  const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
-  const [audiobookCommnets, setAudiobookCommnets, setAudiobookCommnetsRefetchState] =
-    useAudiobookComments();
+  const [audiobookCommnets, setAudiobookCommnetsRefetchState] = useAudiobookComments();
 
   const categoriesStore = useCategoryListStore();
 

@@ -23,8 +23,8 @@ export default function AdminCategoryAudiobookDetailModal(props) {
   });
 
   const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAudiobookData();
-  const [audiobookCover, setAudiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
-  const [audiobookPart, setAudiobookPart] = useAudiobookPart();
+  const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
+  const [audiobookPart] = useAudiobookPart();
 
   const handleClose = () => {
     props.setAudiobooksState({

@@ -53,19 +53,14 @@ export default function AdminNotificationsGetAudiobooksList(props) {
     switch (element.age) {
       case 1:
         return '3-7';
-        break;
       case 2:
         return '7-12';
-        break;
       case 3:
         return '12-16';
-        break;
       case 4:
         return '16-18';
-        break;
       case 5:
         return '18+';
-        break;
     }
   };
 

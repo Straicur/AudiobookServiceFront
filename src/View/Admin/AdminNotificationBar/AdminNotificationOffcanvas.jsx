@@ -48,6 +48,7 @@ export default function AdminNotificationOffcanvas(props) {
   const navigateUser = (notification) => {
     switch (notification.notificationType) {
       case 1: {
+        break;
       }
       case 2: {
         break;
@@ -88,7 +89,7 @@ export default function AdminNotificationOffcanvas(props) {
           props.i18n.language,
         )
           .then(() => {})
-          .catch((e) => {});
+          .catch(() => {});
         props.setState({
           ...props.state,
           refresh: true,
