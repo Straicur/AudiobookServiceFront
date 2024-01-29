@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserMainRenderAudiobooksList from './UserMainRenderAudiobooksList';
 import { useAudiobookUserData } from 'Providers/AudiobookUserDataProvider';
 import { HandleFetch } from 'Util/HandleFetch';
@@ -9,7 +9,7 @@ const ChildFirstMemo = React.memo(UserMainRenderAudiobooksList);
 const ChildSecondMemo = React.memo(UserMainRenderProposedList);
 
 export default function GetAllAudiobooks(props) {
-  const [audiobooks, loading, hasMore, setAudiobooks, setRefetchState] = useAudiobookUserData();
+  const [audiobooks, loading, hasMore] = useAudiobookUserData();
 
   const [loadstate, setLoadState] = useState(true);
 

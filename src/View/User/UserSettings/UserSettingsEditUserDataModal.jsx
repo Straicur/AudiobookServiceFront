@@ -87,7 +87,7 @@ export default function UserSettingsEditUserDataModal(props) {
   }
 
   function validatePhone(phoneNumber) {
-    const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/;
+    const re = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{3,6}$/;
     return re.test(phoneNumber);
   }
 

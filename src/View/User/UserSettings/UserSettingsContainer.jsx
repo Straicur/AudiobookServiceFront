@@ -9,7 +9,7 @@ import UserSettingsForm from './UserSettingsForm';
 import UserSettingInfo from './UserSettingInfo';
 
 export default function UserSettingsContainer(props) {
-  const { isLoading, error, data, isFetching, refetch } = useQuery(
+  const { refetch } = useQuery(
     'data',
     () => HandleFetch('/user/settings', 'GET', null, props.token, props.i18n.language),
     {

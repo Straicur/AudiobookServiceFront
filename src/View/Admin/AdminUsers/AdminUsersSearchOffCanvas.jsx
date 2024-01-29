@@ -18,7 +18,7 @@ export default function AdminUsersSearchOffCanvas(props) {
   };
 
   const changeSort = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         order: parseInt(element.target.value),
@@ -27,7 +27,7 @@ export default function AdminUsersSearchOffCanvas(props) {
   };
 
   const changeEmail = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         email: element.target.value,
@@ -36,7 +36,7 @@ export default function AdminUsersSearchOffCanvas(props) {
   };
 
   const changePhoneNumber = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         phoneNumber: element.target.value,
@@ -45,7 +45,7 @@ export default function AdminUsersSearchOffCanvas(props) {
   };
 
   const changeFirstname = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         firstname: element.target.value,
@@ -54,7 +54,7 @@ export default function AdminUsersSearchOffCanvas(props) {
   };
 
   const changeLastname = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState({
         ...props.searchState,
         lastname: element.target.value,

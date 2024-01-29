@@ -1,3 +1,4 @@
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -57,6 +58,7 @@ export default function UserMainRenderCarousel(props, category) {
             onClick={() => {
               showAudiobookModal(audiobook, imgUrl);
             }}
+            key={uuidv4()}
           >
             <div
               className={
@@ -66,6 +68,7 @@ export default function UserMainRenderCarousel(props, category) {
                     : 'card-img-sm-lg-title'
                   : 'card-img-sm-sm-title'
               }
+              key={uuidv4()}
             >
               <img src={imgUrl == null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
             </div>

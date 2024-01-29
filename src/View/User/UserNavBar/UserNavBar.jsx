@@ -82,7 +82,7 @@ export const UserNavBar = () => {
           notificationsListStore.setNewNotification(data.maxPage);
           notificationsListStore.setNewNotification(data.newNotifications);
         })
-        .catch((e) => {
+        .catch(() => {
           notificationsListStore.setNewNotification(0);
         });
     }

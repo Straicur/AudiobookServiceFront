@@ -25,13 +25,7 @@ export default function AdminUsersDeletedUsersModal(props) {
     });
   };
 
-  const {
-    isLoading: isLoadingSecond,
-    error: errorSecond,
-    data: dataSecond,
-    isFetching: isFetchingSecond,
-    refetch: refetchSecond,
-  } = useQuery(
+  const { refetch: refetchSecond } = useQuery(
     'dataSecond',
     () =>
       HandleFetch(

@@ -14,9 +14,9 @@ export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
 
-  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAudiobookDetail();
-  const [audiobookRating, setAudiobookRating, setRefetchRatingState] = useAudiobookRating();
-  const [audiobookPart, setAudiobookPart, setRefetchPartState] = useAudiobookPart();
+  const [audiobookDetail, setAudiobookDetail] = useAudiobookDetail();
+  const [audiobookRating] = useAudiobookRating();
+  const [audiobookPart] = useAudiobookPart();
 
   const [audiobookUserComments, setAudiobookUserComments, setAudiobookCommnetsRefetchState] =
     useAudiobookUserComments();

@@ -6,7 +6,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 const ChildMemo = React.memo(UserMainRenderSearchAudiobooksList);
 
 export default function UserMainGetAllSearchAudiobooks(props) {
-  const [audiobooks, loading, setAudiobooks, setRefetchState] = useAudiobookSearch();
+  const [audiobooks, loading, setRefetchState] = useAudiobookSearch();
 
   const [coversState, setCoversState] = useState([]);
 

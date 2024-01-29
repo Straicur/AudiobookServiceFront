@@ -24,7 +24,7 @@ export default function UserMainSearchAudiobooks(props) {
   };
 
   const changeSearchText = (element) => {
-    if (element.target.value != NaN && element.target.value != undefined) {
+    if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setAudiobooksState({
         ...props.audiobooksState,
         searchText: element.target.value,

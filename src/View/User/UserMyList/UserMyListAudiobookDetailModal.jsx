@@ -15,10 +15,10 @@ export default function UserMyListAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
 
-  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAudiobookDetail();
-  const [audiobookRating, setAudiobookRating, setRefetchRatingState] = useAudiobookRating();
-  const [audiobookPart, setAudiobookPart, setRefetchPartState] = useAudiobookPart();
-  const [audiobooks, loading, setAudiobooks, setRefetchState] = useAudiobookMy();
+  const [audiobookDetail, setAudiobookDetail] = useAudiobookDetail();
+  const [audiobookRating] = useAudiobookRating();
+  const [audiobookPart] = useAudiobookPart();
+  const [audiobooks, setAudiobooks] = useAudiobookMy();
 
   const [audiobookUserComments, setAudiobookUserComments, setAudiobookCommnetsRefetchState] =
     useAudiobookUserComments();

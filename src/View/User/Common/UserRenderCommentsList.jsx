@@ -166,7 +166,7 @@ export default function UserRenderCommentsList(props) {
 
         element.target.classList.remove('disabled');
       })
-      .catch((e) => {
+      .catch(() => {
         element.target.classList.remove('disabled');
       });
   }
@@ -195,7 +195,7 @@ export default function UserRenderCommentsList(props) {
         props.refetch(true);
         decline();
       })
-      .catch((e) => {
+      .catch(() => {
         element.target.classList.remove('disabled');
       });
   }
@@ -222,7 +222,7 @@ export default function UserRenderCommentsList(props) {
         props.refetch(true);
         decline();
       })
-      .catch((e) => {
+      .catch(() => {
         element.target.classList.remove('disabled');
       });
   }
@@ -247,7 +247,7 @@ export default function UserRenderCommentsList(props) {
         props.refetch(true);
         decline();
       })
-      .catch((e) => {
+      .catch(() => {
         element.target.classList.remove('disabled');
       });
   }

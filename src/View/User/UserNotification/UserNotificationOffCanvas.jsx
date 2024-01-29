@@ -68,7 +68,7 @@ export default function UserNotificationOffCanvas(props) {
               refresh: true,
             });
           })
-          .catch((e) => {});
+          .catch(() => {});
       }
     }
   };

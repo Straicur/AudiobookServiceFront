@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAudiobookMy } from 'Providers/AudiobookMyListProvider';
 import UserMyListRender from './UserMyListRender';
 import { HandleFetch } from 'Util/HandleFetch';
@@ -7,7 +7,7 @@ import { useCoverListStore } from 'Store/store';
 const ChildMemo = React.memo(UserMyListRender);
 
 export default function UserMyListGetCovers(props) {
-  const [audiobooks, loading, setAudiobooks, setRefetchState] = useAudiobookMy();
+  const [audiobooks, loading] = useAudiobookMy();
 
   const [loadstate, setLoadState] = useState(true);
 

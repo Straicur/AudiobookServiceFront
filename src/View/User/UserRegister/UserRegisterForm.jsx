@@ -23,6 +23,7 @@ import {
   handleParentalControl,
   handleBirthdayDate,
 } from './Events';
+import CreateUtil from 'Util/CreateUtil';
 
 export default function UserRegisterForm(props) {
   const { t, i18n } = useTranslation();
@@ -58,14 +59,15 @@ export default function UserRegisterForm(props) {
       };
 
       if (props.state.parentalControl) {
-        jsonData.additionalData = { birthday: CreateJsonFormatDate(props.state.birthdayDate) };
+        jsonData.additionalData = {
+          birthday: CreateUtil.createJsonFormatDate(props.state.birthdayDate),
+        };
       }
 
       const method = 'PUT';
 
       HandleFetch(url, method, jsonData, null, i18n.language)
-        .then((data) => {
-          console.log('data');
+        .then(() => {
           setFormState({
             ...formState,
             modal: true,
