@@ -15,13 +15,13 @@ export const AdminAudiobookCoverDataProvider = ({
   const [audiobookCover, setAudiobookCover] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
-  const {
-    isLoading: isLoadingAudiobookCover,
-    error: errorAudiobookCover,
-    data: dataAudiobookCover,
-    isFetching: isFetchingAudiobookCover,
-    refetch: refetchAudiobookCover,
-  } = useQuery(
+  //TODO zastanów się nad implementacją tych danych
+  // isLoading: isLoadingAudiobookCover,
+  // error: errorAudiobookCover,
+  // data: dataAudiobookCover,
+  // isFetching: isFetchingAudiobookCover,
+
+  const { refetch: refetchAudiobookCover } = useQuery(
     'dataAudiobookCover',
     () =>
       HandleFetch(

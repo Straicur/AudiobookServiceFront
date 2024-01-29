@@ -23,7 +23,7 @@ export const AudiobookPartProvider = ({
       audiobookId: audiobookId,
     };
 
-    if (part == undefined || part == NaN) {
+    if (part == undefined || isNaN(part)) {
       json.part = 0;
     } else {
       json.part = part;
@@ -31,13 +31,7 @@ export const AudiobookPartProvider = ({
     return json;
   };
 
-  const {
-    isLoading: isLoadingAudiobookPart,
-    error: errorAudiobookPart,
-    data: dataAudiobookPart,
-    isFetching: isFetchingAudiobookPart,
-    refetch: refetchAudiobookPart,
-  } = useQuery(
+  const { refetch: refetchAudiobookPart } = useQuery(
     'dataAudiobookPart',
     () => HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language),
     {

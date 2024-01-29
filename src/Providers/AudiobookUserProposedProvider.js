@@ -8,13 +8,7 @@ export const AudiobookUserProposedProvider = ({ children, token, state, setState
   const [audiobookProposed, setAudiobookProposed] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
-  const {
-    isLoading: isLoadingAudiobookUserProposed,
-    error: errorAudiobookUserProposed,
-    data: dataAudiobookUserProposed,
-    isFetching: isFetchingAudiobookUserProposed,
-    refetch: refetchAudiobookUserProposed,
-  } = useQuery(
+  const { refetch: refetchAudiobookUserProposed } = useQuery(
     'dataAudiobookUserProposed',
     () => HandleFetch('/user/proposed/audiobooks', 'GET', null, token, i18n.language),
     {

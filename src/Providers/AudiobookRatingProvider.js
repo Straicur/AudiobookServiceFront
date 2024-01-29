@@ -16,13 +16,7 @@ export const AudiobookRatingProvider = ({
   const [audiobookRating, setAudiobookRating] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
-  const {
-    isLoading: isLoadingAudiobookData,
-    error: errorAudiobookData,
-    data: dataAudiobookData,
-    isFetching: isFetchingAudiobookData,
-    refetch: refetchAudiobookData,
-  } = useQuery(
+  const { refetch: refetchAudiobookData } = useQuery(
     'dataAudiobookRating',
     () =>
       HandleFetch(

@@ -16,13 +16,7 @@ export const AudiobookUserCommentsProvider = ({
   const [audiobookUserComments, setAudiobookUserComments] = useState(null);
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
 
-  const {
-    isLoading: isLoadingAudiobookUserComments,
-    error: errorAudiobookUserComments,
-    data: dataAudiobookUserComments,
-    isFetching: isFetchingAudiobookUserComments,
-    refetch: refetchAudiobookUserComments,
-  } = useQuery(
+  const { refetch: refetchAudiobookUserComments } = useQuery(
     'dataAudiobookUserComments',
     () =>
       HandleFetch(

@@ -17,13 +17,7 @@ export const AudiobookUserDetailProvider = ({
   const [audiobookDetail, setAudiobookDetail] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
-  const {
-    isLoading: isLoadingAudiobookDetail,
-    error: errorAudiobookDetail,
-    data: dataAudiobookDetail,
-    isFetching: isFetchingAudiobookDetail,
-    refetch: refetchAudiobookData,
-  } = useQuery(
+  const { refetch: refetchAudiobookData } = useQuery(
     'dataAudiobookDetail',
     () =>
       HandleFetch(
