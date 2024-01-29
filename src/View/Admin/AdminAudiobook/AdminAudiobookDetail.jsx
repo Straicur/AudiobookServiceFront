@@ -3,7 +3,7 @@ import { useAudiobookData } from 'Providers/AudiobookDataProvider';
 import { useAudiobookCover } from 'Providers/AdminAudiobookCoverDataProvider';
 import { useAudiobookPart } from 'Providers/AdminAudiobookPartProvider';
 import { useAudiobookComments } from 'Providers/AudiobookCommentsProvider';
-import { AdminNavBar } from 'AdminNavBar/AdminNavBar';
+import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
 import AdminAudiobookEditForm from './AdminAudiobookEditForm';
 import AdminAudiobookCategoryList from './AdminAudiobookCategoryList';
 import AdminAudiobookCover from './AdminAudiobookCover';

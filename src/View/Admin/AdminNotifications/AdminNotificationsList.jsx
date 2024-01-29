@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { AdminNavBar } from 'AdminNavBar/AdminNavBar';
+import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
 import { useQuery } from 'react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
-import AdminJsonModal from 'AdminJsonModal/AdminJsonModal';
+import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
 import AdminNotificationsAddModal from './AdminNotificationsAddModal';
 import AdminNotificationsEditModal from './AdminNotificationsEditModal';
 import AdminNotificationsSearchOffCanvas from './AdminNotificationsSearchOffCanvas';
 import AdminNotificationsRenderList from './AdminNotificationsRenderList';
-import AdminRenderPageSwitches from 'Common/AdminRenderPageSwitches';
+import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import { useLastUserRolesStore } from 'Store/store';
 
 export default function AdminNotificationsList(props) {

@@ -3,7 +3,7 @@ import { AudiobookDataProvider } from 'Providers/AudiobookDataProvider';
 import { AdminAudiobookCoverDataProvider } from 'Providers/AdminAudiobookCoverDataProvider';
 import { AdminAudiobookPartProvider } from 'Providers/AdminAudiobookPartProvider';
 
-import AdminCategoryAudiobookDetailModal from 'Category/AdminCategoryAudiobookDetailModal';
+import AdminCategoryAudiobookDetailModal from './AdminCategoryAudiobookDetailModal';
 
 export default function AdminCategoryDetailProviders(props) {
   return (

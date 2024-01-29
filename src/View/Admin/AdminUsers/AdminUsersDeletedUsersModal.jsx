@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useQuery } from 'react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import AdminUsersRenderDeletedUsersList from './AdminUsersRenderDeletedUsersList';
-import AdminRenderPageSwitches from 'Common/AdminRenderPageSwitches';
+import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 
 export default function AdminUsersDeletedUsersModal(props) {
   const [state, setState] = useState({

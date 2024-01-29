@@ -6,7 +6,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import { useNotificationsListStore } from 'Store/store';
-import UserNotificationOffCanvas from 'UserNotification/UserNotificationOffCanvas';
+import UserNotificationOffCanvas from '../UserNotification/UserNotificationOffCanvas';
 import Badge from 'react-bootstrap/Badge';
 import './UserNavBar.css';
 

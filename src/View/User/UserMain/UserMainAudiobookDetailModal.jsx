@@ -5,10 +5,10 @@ import { useAudiobookRating } from 'Providers/AudiobookRatingProvider';
 import { useAudiobookDetail } from 'Providers/AudiobookUserDetailProvider';
 import { useAudiobookPart } from 'Providers/AudiobookPartProvider';
 import { useAudiobookUserComments } from 'Providers/AudiobookUserCommentsProvider';
-import UserAudiobookPlayer from 'Common/UserAudiobookPlayer';
+import UserAudiobookPlayer from '../Common/UserAudiobookPlayer';
 import { HandleFetch } from 'Util/HandleFetch';
-import UserStarRating from 'Common/UserStarRating';
-import UserRenderCommentsList from 'Common/UserRenderCommentsList';
+import UserStarRating from '../Common/UserStarRating';
+import UserRenderCommentsList from '../Common/UserRenderCommentsList';
 
 export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);

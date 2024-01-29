@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { AdminNavBar } from 'AdminNavBar/AdminNavBar';
+import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
 import { useQuery } from 'react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
-import AdminJsonModal from 'AdminJsonModal/AdminJsonModal';
-import AudiobookCommentsModal from 'AdminCategory/AudiobookCommentsModal';
+import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
+import AudiobookCommentsModal from '../AdminCategory/AdminCategoryAudiobookCommentsModal';
 import AdminAudiobooksAudiobookAddModal from './AdminAudiobooksAudiobookAddModal';
 import AdminAudiobooksRenderList from './AdminAudiobooksRenderList';
-import AdminRenderPageSwitches from 'Common/AdminRenderPageSwitches';
+import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import AdminAudiobooksSearchOffCanvas from './AdminAudiobooksSearchOffCanvas';
 import { useCategoryListStore } from 'Store/store';
 
