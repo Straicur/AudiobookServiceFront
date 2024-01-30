@@ -50,11 +50,11 @@ export default function UserMainRenderAudiobooksList(props) {
               id={category.categoryKey}
               key={uuidv4()}
               ref={lastItemRef}
-              onLoad={() => {
-                if (lastItemRef.current && lastItemOffsetTopRef.current == null && props.hasMore) {
-                  lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
-                }
-              }}
+              // onLoad={() => {
+              //   if (lastItemRef.current && lastItemOffsetTopRef.current == null && props.hasMore) {
+              //     lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
+              //   }
+              // }}
             >
               <div className='fw-bold fs-1 ms-2 mb-2 text-light'>{category.name}</div>
               {renderAudiobooks}
@@ -104,6 +104,12 @@ export default function UserMainRenderAudiobooksList(props) {
       }, 1000);
     }
   }, [props.audiobooks]);
+
+  useEffect(() => {
+    if (lastItemRef.current && lastItemOffsetTopRef.current === null && props.hasMore) {
+      lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
+    }
+  }, []);
 
   return renderColumns();
 }
