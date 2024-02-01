@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { HandleFetch } from 'Util/HandleFetch';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import AdminNotificationsPickActionIdList from './AdminNotificationsPickActionIdList';
+import AdminNotificationsEditService from 'Service/Admin/AdminNotificationsEditService';
 
 export default function AdminNotificationsEditModal(props) {
-  const [state, setState] = useState({
+  const [notificationsState, setNotificationsState] = useState({
     actionId: '',
     dateAdd: 0,
     delete: false,
@@ -26,125 +26,25 @@ export default function AdminNotificationsEditModal(props) {
     sure: false,
   });
 
-  const handleClose = () => {
-    props.setState({
-      ...props.state,
-      editNotificationkModal: !props.state.editNotificationkModal,
-      refresh: !props.state.refresh,
-    });
-  };
-
-  const changeNotificationType = (element) => {
-    if (element.target.value != 0) {
-      setState({
-        ...state,
-        notificationType: parseInt(element.target.value),
-      });
-    }
-  };
-
-  const changeUserType = (element) => {
-    if (element.target.value != 0) {
-      setState({
-        ...state,
-        userType: parseInt(element.target.value),
-      });
-    }
-  };
-
-  const changeText = (element) => {
-    setState({
-      ...state,
-      text: element.target.value,
-    });
-  };
-
-  const deleteNotification = (element) => {
-    element.target.classList.add('disabled');
-    HandleFetch(
-      '/admin/user/notification/delete',
-      'PATCH',
-      {
-        notificationId: state.id,
-        delete: !state.delete,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        element.target.classList.remove('disabled');
-
-        setDelteteState({
-          ...deleteState,
-          sure: !deleteState.sure,
-        });
-
-        setState({
-          ...state,
-          delete: !state.delete,
-        });
-      })
-      .catch((e) => {
-        props.setNotificationsState({
-          ...props.notificationsState,
-          error: e,
-        });
-      });
-  };
-
-  const selectActionId = () => {
-    setActionState({
-      ...actionState,
-      list: true,
-    });
-  };
-  const goBack = () => {
-    setActionState({
-      ...actionState,
-      list: false,
-    });
-  };
-
-  const saveChanges = () => {
-    HandleFetch(
-      '/admin/user/notification',
-      'PATCH',
-      {
-        notificationId: state.id,
-        notificationType: state.notificationType,
-        notificationUserType: state.userType,
-        actionId: state.actionId,
-        additionalData: {
-          text: state.text,
-        },
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        props.setState({
-          ...props.state,
-          editNotificationkModal: !props.state.editNotificationkModal,
-          refresh: !props.state.refresh,
-        });
-      })
-      .catch((e) => {
-        props.setNotificationsState({
-          ...props.notificationsState,
-          error: e,
-        });
-      });
-  };
+  const adminService = new AdminNotificationsEditService(
+    notificationsState,
+    setNotificationsState,
+    props,
+    actionState,
+    setActionState,
+    deleteState,
+    setDelteteState,
+  );
 
   useEffect(() => {
-    setState(props.state.editNotificationElement);
+    setNotificationsState(props.state.editNotificationElement);
   }, [props]);
 
   return (
     <Modal
       size='lg'
       show={props.state.editNotificationkModal}
-      onHide={handleClose}
+      onHide={adminService.handleClose}
       backdrop='static'
     >
       <Modal.Header>
@@ -153,8 +53,8 @@ export default function AdminNotificationsEditModal(props) {
       <Modal.Body>
         {actionState.list ? (
           <AdminNotificationsPickActionIdList
-            state={state}
-            setState={setState}
+            state={notificationsState}
+            setState={setNotificationsState}
             actionState={actionState}
             setActionState={setActionState}
             notificationsState={props.notificationsState}
@@ -178,9 +78,9 @@ export default function AdminNotificationsEditModal(props) {
                 </InputGroup.Text>
                 <Form.Select
                   onChange={(e) => {
-                    changeUserType(e);
+                    adminService.changeUserType(e);
                   }}
-                  value={state.userType}
+                  value={notificationsState.userType}
                 >
                   <option value={0}>{props.t('selectNotificationType')}</option>
                   <option value={1}>{props.t('administration')}</option>
@@ -193,9 +93,9 @@ export default function AdminNotificationsEditModal(props) {
                 </InputGroup.Text>
                 <Form.Select
                   onChange={(e) => {
-                    changeNotificationType(e);
+                    adminService.changeNotificationType(e);
                   }}
-                  value={state.notificationType}
+                  value={notificationsState.notificationType}
                 >
                   <option value={0}>{props.t('selectType')}</option>
                   <option value={1}>{props.t('notificationTypeNormal')}</option>
@@ -212,22 +112,22 @@ export default function AdminNotificationsEditModal(props) {
                 <Form.Control
                   as='textarea'
                   aria-label='With textarea'
-                  value={state.text}
+                  value={notificationsState.text}
                   onChange={(e) => {
-                    changeText(e);
+                    adminService.changeText(e);
                   }}
                 />
               </InputGroup>
 
               <InputGroup className='mb-2 mt-3 input_modal'>
                 <InputGroup.Text>{props.t('actionId')}</InputGroup.Text>
-                <Form.Control disabled value={state.actionId} />
+                <Form.Control disabled value={notificationsState.actionId} />
                 <Button
                   name='en'
                   variant='outline-secondary'
                   size='sm'
                   className='btn button mx-2'
-                  onClick={(e) => selectActionId(e)}
+                  onClick={(e) => adminService.selectActionId(e)}
                 >
                   {props.t('select')}
                 </Button>
@@ -235,14 +135,17 @@ export default function AdminNotificationsEditModal(props) {
 
               <InputGroup className='my-2 input_modal'>
                 <InputGroup.Text>{props.t('deleted')}</InputGroup.Text>
-                <Form.Control disabled value={state.delete ? props.t('yes') : props.t('no')} />
+                <Form.Control
+                  disabled
+                  value={notificationsState.delete ? props.t('yes') : props.t('no')}
+                />
                 {deleteState.sure ? (
                   <Button
                     name='en'
                     size='sm'
                     className='btn button'
                     variant='outline-danger'
-                    onClick={(e) => deleteNotification(e)}
+                    onClick={(e) => adminService.deleteNotification(e)}
                   >
                     {props.t('yes')}
                   </Button>
@@ -266,7 +169,7 @@ export default function AdminNotificationsEditModal(props) {
                 {!deleteState.sure ? (
                   <Button
                     name='en'
-                    variant={state.delete ? 'outline-success' : 'outline-danger'}
+                    variant={notificationsState.delete ? 'outline-success' : 'outline-danger'}
                     size='sm'
                     className='btn button mx-2'
                     onClick={() =>
@@ -276,7 +179,7 @@ export default function AdminNotificationsEditModal(props) {
                       })
                     }
                   >
-                    {state.delete ? props.t('activate') : props.t('delete')}
+                    {notificationsState.delete ? props.t('activate') : props.t('delete')}
                   </Button>
                 ) : null}
               </InputGroup>
@@ -288,7 +191,7 @@ export default function AdminNotificationsEditModal(props) {
                   variant='success'
                   size='sm'
                   className='btn button button_notification'
-                  onClick={(e) => saveChanges(e)}
+                  onClick={(e) => adminService.saveChanges(e)}
                 >
                   {props.t('save')}
                 </Button>
@@ -299,11 +202,11 @@ export default function AdminNotificationsEditModal(props) {
       </Modal.Body>
       <Modal.Footer>
         {actionState.list != 0 ? (
-          <Button variant='dark' onClick={goBack}>
+          <Button variant='dark' onClick={adminService.goBack}>
             {props.t('back')}
           </Button>
         ) : null}
-        <Button variant='dark' onClick={handleClose}>
+        <Button variant='dark' onClick={adminService.handleClose}>
           {props.t('close')}
         </Button>
       </Modal.Footer>

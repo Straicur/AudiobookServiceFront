@@ -11,6 +11,7 @@ import AdminNotificationsSearchOffCanvas from './AdminNotificationsSearchOffCanv
 import AdminNotificationsRenderList from './AdminNotificationsRenderList';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import { useLastUserRolesStore } from 'Store/store';
+import AdminNotificationsService from 'Service/Admin/AdminNotificationsService';
 
 export default function AdminNotificationsList(props) {
   const { t, i18n } = useTranslation();
@@ -55,37 +56,15 @@ export default function AdminNotificationsList(props) {
     fetch: false,
   });
 
-  const userRolesStore = useLastUserRolesStore();
   const roles = useLastUserRolesStore((state) => state.roles);
-  const dateUpdate = useLastUserRolesStore((state) => state.dateUpdate);
 
-  const resetSearchStates = () => {
-    setSearchState({
-      text: '',
-      type: 0,
-      deleted: null,
-      order: 0,
-    });
-  };
-
-  const formatData = () => {
-    let searchJson = {};
-
-    if (searchState.text != '') {
-      searchJson.text = searchState.text;
-    }
-    if (searchState.deleted != null) {
-      searchJson.deleted = searchState.deleted;
-    }
-    if (searchState.type != 0) {
-      searchJson.type = parseInt(searchState.type);
-    }
-    if (searchState.order != 0) {
-      searchJson.order = parseInt(searchState.order);
-    }
-
-    return searchJson;
-  };
+  const adminService = new AdminNotificationsService(
+    props,
+    searchState,
+    setSearchState,
+    state,
+    setState,
+  );
 
   const { refetch } = useQuery(
     'data',
@@ -96,7 +75,7 @@ export default function AdminNotificationsList(props) {
         {
           page: pageState.page,
           limit: pageState.limit,
-          searchData: formatData(),
+          searchData: adminService.formatData(),
         },
         props.token,
         i18n.language,
@@ -117,34 +96,6 @@ export default function AdminNotificationsList(props) {
       },
     },
   );
-
-  const openAddModal = () => {
-    setState({
-      ...state,
-      addNotificationModal: !state.addNotificationModal,
-    });
-  };
-
-  const openSearchModal = () => {
-    if (dateUpdate < Date.now()) {
-      userRolesStore.removeRoles();
-      HandleFetch('/admin/user/system/roles', 'GET', null, props.token, i18n.language)
-        .then((data) => {
-          userRolesStore.setRoles(data);
-        })
-        .catch((e) => {
-          props.setNotificationsState({
-            ...props.notificationsState,
-            error: e,
-          });
-        });
-    }
-
-    setState({
-      ...state,
-      searchModal: !state.searchModal,
-    });
-  };
 
   useEffect(() => {
     if (state.refresh) {
@@ -175,7 +126,7 @@ export default function AdminNotificationsList(props) {
                 size='sm'
                 color='dark'
                 className=' btn button mt-2'
-                onClick={() => openSearchModal()}
+                onClick={() => adminService.openSearchModal()}
               >
                 {t('search')}
               </Button>
@@ -206,7 +157,7 @@ export default function AdminNotificationsList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() => openAddModal()}
+              onClick={() => adminService.openAddModal()}
             >
               {t('addNotification')}
             </Button>
@@ -233,7 +184,7 @@ export default function AdminNotificationsList(props) {
             t={t}
             i18n={i18n}
             token={props.token}
-            resetSearchStates={resetSearchStates}
+            resetSearchStates={adminService.resetSearchStates}
             roles={roles}
             audiobooksState={audiobooksState}
             setAudiobooksState={setAudiobooksState}
@@ -255,7 +206,7 @@ export default function AdminNotificationsList(props) {
             token={props.token}
             pageState={pageState}
             setPageState={setPageState}
-            resetSearchStates={resetSearchStates}
+            resetSearchStates={adminService.resetSearchStates}
           />
         ) : null}
         {state.editNotificationkModal && state.editNotificationElement != null ? (

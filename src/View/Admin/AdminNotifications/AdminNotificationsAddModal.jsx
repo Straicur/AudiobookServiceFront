@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { HandleFetch } from 'Util/HandleFetch';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import AdminNotificationsPickActionIdAddList from './AdminNotificationsPickActionIdAddList';
+import AdminNotificationsAddService from 'Service/Admin/AdminNotificationsAddService';
 
 export default function AdminNotificationsAddModal(props) {
-  const [state, setState] = useState({
+  const [modalState, setModalState] = useState({
     actionId: '',
     notificationType: 0,
     text: '',
@@ -19,108 +19,29 @@ export default function AdminNotificationsAddModal(props) {
     actionIdChanged: false,
   });
 
-  const handleClose = () => {
-    props.setState({
-      ...props.state,
-      addNotificationModal: !props.state.addNotificationModal,
-      refresh: !props.state.refresh,
-    });
-  };
-
-  const changeNotificationType = (element) => {
-    if (element.target.value != 0) {
-      setState({
-        ...state,
-        notificationType: parseInt(element.target.value),
-      });
-    }
-  };
-
-  const changeUserType = (element) => {
-    if (element.target.value != 0) {
-      setState({
-        ...state,
-        userType: parseInt(element.target.value),
-      });
-    }
-  };
-
-  const changeText = (element) => {
-    setState({
-      ...state,
-      text: element.target.value,
-    });
-  };
-
-  const selectActionId = () => {
-    setActionState({
-      ...actionState,
-      list: true,
-    });
-  };
-  const goBack = () => {
-    setActionState({
-      ...actionState,
-      list: false,
-    });
-  };
-
-  const createAdditionalData = () => {
-    let additionalData = {};
-
-    if (state.notificationType == 4) {
-      additionalData.categoryKey = state.actionId;
-    }
-    if (state.notificationType == 5) {
-      additionalData.actionId = state.actionId;
-    }
-    if (state.notificationType == 2) {
-      additionalData.userId = state.actionId;
-    }
-    if (state.text != '') {
-      additionalData.text = state.text;
-    }
-
-    return additionalData;
-  };
-
-  const addNotification = () => {
-    HandleFetch(
-      '/admin/user/notification',
-      'PUT',
-      {
-        notificationType: state.notificationType,
-        notificationUserType: state.userType,
-        additionalData: createAdditionalData(),
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        props.setState({
-          ...props.state,
-          addNotificationModal: !props.state.addNotificationModal,
-          refresh: !props.state.refresh,
-        });
-      })
-      .catch((e) => {
-        props.setNotificationsState({
-          ...props.notificationsState,
-          error: e,
-        });
-      });
-  };
+  const adminService = new AdminNotificationsAddService(
+    props,
+    modalState,
+    setModalState,
+    actionState,
+    setActionState,
+  );
 
   return (
-    <Modal size='lg' show={props.state.addNotificationModal} onHide={handleClose} backdrop='static'>
+    <Modal
+      size='lg'
+      show={props.state.addNotificationModal}
+      onHide={adminService.handleClose}
+      backdrop='static'
+    >
       <Modal.Header>
         <Modal.Title>{props.t('addNotification')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {actionState.list ? (
           <AdminNotificationsPickActionIdAddList
-            state={state}
-            setState={setState}
+            state={modalState}
+            setState={setModalState}
             actionState={actionState}
             setActionState={setActionState}
             notificationsState={props.notificationsState}
@@ -144,9 +65,9 @@ export default function AdminNotificationsAddModal(props) {
                 </InputGroup.Text>
                 <Form.Select
                   onChange={(e) => {
-                    changeUserType(e);
+                    adminService.changeUserType(e);
                   }}
-                  value={state.userType}
+                  value={modalState.userType}
                 >
                   <option value={0}>{props.t('selectNotificationType')}</option>
                   <option value={1}>{props.t('administration')}</option>
@@ -159,9 +80,9 @@ export default function AdminNotificationsAddModal(props) {
                 </InputGroup.Text>
                 <Form.Select
                   onChange={(e) => {
-                    changeNotificationType(e);
+                    adminService.changeNotificationType(e);
                   }}
-                  value={state.notificationType}
+                  value={modalState.notificationType}
                 >
                   <option value={0}>{props.t('selectType')}</option>
                   <option value={1}>{props.t('notificationTypeNormal')}</option>
@@ -177,18 +98,18 @@ export default function AdminNotificationsAddModal(props) {
                 <Form.Control
                   as='textarea'
                   aria-label='With textarea'
-                  value={state.text}
+                  value={modalState.text}
                   onChange={(e) => {
-                    changeText(e);
+                    adminService.changeText(e);
                   }}
                 />
               </InputGroup>
               <InputGroup className='mt-2 mb-1 input_modal py-1'>
                 <InputGroup.Text>{props.t('actionId')}</InputGroup.Text>
-                <Form.Control disabled className='text-success' value={state.actionId} />
+                <Form.Control disabled className='text-success' value={modalState.actionId} />
               </InputGroup>
             </div>
-            {actionState.actionIdChanged || state.notificationType == 1 ? (
+            {actionState.actionIdChanged || modalState.notificationType == 1 ? (
               <div className='row justify-content-center mx-5 mt-3'>
                 <div className='col-7'>
                   <Button
@@ -196,8 +117,8 @@ export default function AdminNotificationsAddModal(props) {
                     variant='success'
                     size='sm'
                     className='btn button button_notification'
-                    disabled={state.notificationType == 0 || state.userType == 0}
-                    onClick={(e) => addNotification(e)}
+                    disabled={modalState.notificationType == 0 || modalState.userType == 0}
+                    onClick={(e) => adminService.addNotification(e)}
                   >
                     {props.t('save')}
                   </Button>
@@ -209,10 +130,10 @@ export default function AdminNotificationsAddModal(props) {
                   <Button
                     name='en'
                     variant='dark'
-                    disabled={state.notificationType == 0 || state.userType == 0}
+                    disabled={modalState.notificationType == 0 || modalState.userType == 0}
                     size='sm'
                     className='btn button button_notification'
-                    onClick={(e) => selectActionId(e)}
+                    onClick={(e) => adminService.selectActionId(e)}
                   >
                     {props.t('select')}
                   </Button>
@@ -224,11 +145,11 @@ export default function AdminNotificationsAddModal(props) {
       </Modal.Body>
       <Modal.Footer>
         {actionState.list != 0 ? (
-          <Button variant='dark' onClick={goBack}>
+          <Button variant='dark' onClick={adminService.goBack}>
             {props.t('back')}
           </Button>
         ) : null}
-        <Button variant='dark' onClick={handleClose}>
+        <Button variant='dark' onClick={adminService.handleClose}>
           {props.t('close')}
         </Button>
       </Modal.Footer>
