@@ -51,7 +51,7 @@ export default class AdminNotificationsService {
   openSearchModal = () => {
     if (this.dateUpdate < Date.now()) {
       this.userRolesStore.removeRoles();
-      HandleFetch('/admin/user/system/roles', 'GET', null, props.token, i18n.language)
+      HandleFetch('/admin/user/system/roles', 'GET', null, this.props.token, this.i18n.language)
         .then((data) => {
           this.userRolesStore.setRoles(data);
         })
