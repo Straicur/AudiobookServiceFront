@@ -5,132 +5,15 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import { useLastSearchStore } from 'Store/store';
+import AdminAudiobooksSearchService from 'Service/Admin/AdminAudiobooksSearchService';
 
 export default function AdminAudiobooksSearchOffCanvas(props) {
   const [show, setShow] = useState(true);
 
-  const handleClose = () => {
-    props.setState({
-      ...props.state,
-      searchModal: !props.state.searchModal,
-    });
-    setShow(false);
-  };
-
-  const searchStore = useLastSearchStore();
-
   const searchData = useLastSearchStore((state) => state.search);
   const searchDateUpdate = useLastSearchStore((state) => state.dateUpdate);
 
-  const generateCategoriesList = () => {
-    let multiSelectTable = [];
-
-    props.categoriesState.forEach((element) => {
-      multiSelectTable.push({ key: element.id, label: element.name });
-    });
-    return multiSelectTable;
-  };
-
-  const changeSort = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        sort: element.target.value,
-      });
-    }
-  };
-
-  const changeCategories = (element) => {
-    if (!isNaN(element) && element != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        categories: element,
-      });
-    }
-  };
-
-  const changeTitle = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        title: element.target.value,
-      });
-    }
-  };
-
-  const changeAuthor = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        author: element.target.value,
-      });
-    }
-  };
-
-  const changeAlbum = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        album: element.target.value,
-      });
-    }
-  };
-
-  const changeParts = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        parts: element.target.value,
-      });
-    }
-  };
-
-  const changeAge = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        age: element.target.value,
-      });
-    }
-  };
-
-  const changeYear = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        year: element.target.value,
-      });
-    }
-  };
-
-  const changeDuration = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        duration: element.target.value,
-      });
-    }
-  };
-
-  const formatDuration = () => {
-    return new Date(props.searchState.duration * 1000).toISOString().slice(11, 19);
-  };
-
-  const searchAgain = () => {
-    searchStore.setSearch(props.searchState);
-
-    props.setPageState({
-      ...props.pageState,
-      page: 0,
-    });
-
-    props.setState({
-      ...props.state,
-      searchModal: !props.state.searchModal,
-      refresh: !props.state.refresh,
-    });
-    setShow(false);
-  };
+  const adminService = new AdminAudiobooksSearchService(props, setShow);
 
   useEffect(() => {
     if (
@@ -146,7 +29,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
   return (
     <Offcanvas
       show={show}
-      onHide={handleClose}
+      onHide={adminService.handleClose}
       className='bg-dark text-light off_canvas_with'
       backdrop='static'
       placement='end'
@@ -178,7 +61,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
           </InputGroup.Text>
           <Form.Select
             onChange={(e) => {
-              changeSort(e);
+              adminService.changeSort(e);
             }}
             value={props.searchState.sort}
           >
@@ -201,10 +84,10 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             placeholder={props.t('selectCategories')}
             placeholderMultipleChecked={props.t('slectedMultiCategories')}
             selectDeselectLabel={props.t('slectedAll')}
-            options={generateCategoriesList()}
+            options={adminService.generateCategoriesList()}
             name='countries'
             handleOnChange={(e) => {
-              changeCategories(e);
+              adminService.changeCategories(e);
             }}
             selected={props.searchState.categories}
             className={'dropdown_multiselect'}
@@ -217,7 +100,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
           <Form.Control
             value={props.searchState.title}
             onChange={(e) => {
-              changeTitle(e);
+              adminService.changeTitle(e);
             }}
           />
         </InputGroup>
@@ -229,7 +112,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
           <Form.Control
             value={props.searchState.author}
             onChange={(e) => {
-              changeAuthor(e);
+              adminService.changeAuthor(e);
             }}
           />
         </InputGroup>
@@ -240,7 +123,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
           <Form.Control
             value={props.searchState.album}
             onChange={(e) => {
-              changeAlbum(e);
+              adminService.changeAlbum(e);
             }}
           />
         </InputGroup>
@@ -252,7 +135,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
           <Form.Control
             type='number'
             onChange={(e) => {
-              changeParts(e);
+              adminService.changeParts(e);
             }}
             value={props.searchState.parts}
           />
@@ -264,7 +147,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
           </InputGroup.Text>
           <Form.Select
             onChange={(e) => {
-              changeAge(e);
+              adminService.changeAge(e);
             }}
             value={props.searchState.age}
           >
@@ -285,15 +168,15 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             type='date'
             value={props.searchState.year}
             onChange={(e) => {
-              changeYear(e);
+              adminService.changeYear(e);
             }}
           />
         </InputGroup>
         <InputGroup className='mb-1 input_modal py-1 '>
-          {props.t('duration')}: {formatDuration()}
+          {props.t('duration')}: {adminService.formatDuration()}
           <Form.Range
             onChange={(e) => {
-              changeDuration(e);
+              adminService.changeDuration(e);
             }}
             min={0}
             max={86399}
@@ -307,7 +190,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             size='lg'
             color='success'
             className=' btn button mt-2'
-            onClick={() => searchAgain()}
+            onClick={() => adminService.ZsearchAgain()}
           >
             {props.t('search')}
           </Button>

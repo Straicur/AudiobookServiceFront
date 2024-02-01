@@ -10,15 +10,10 @@ import AdminAudiobooksAudiobookAddModal from './AdminAudiobooksAudiobookAddModal
 import AdminAudiobooksRenderList from './AdminAudiobooksRenderList';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import AdminAudiobooksSearchOffCanvas from './AdminAudiobooksSearchOffCanvas';
-import { useCategoryListStore } from 'Store/store';
+import AdminAudiobooksService from 'Service/Admin/AdminAudiobooksService';
 
 export default function AdminAudiobooksList(props) {
   const { t, i18n } = useTranslation();
-
-  const categoriesStore = useCategoryListStore();
-
-  const categories = useCategoryListStore((state) => state.categories);
-  const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
 
   const [state, setState] = useState({
     jsonModal: false,
@@ -54,54 +49,15 @@ export default function AdminAudiobooksList(props) {
 
   const [categoriesState, setCategories] = useState([]);
 
-  const resetSearchStates = () => {
-    setSearchState({
-      sort: 0,
-      categories: [],
-      title: '',
-      author: '',
-      album: '',
-      parts: 0,
-      age: 0,
-      year: 0,
-      duration: 0,
-    });
-  };
-
-  const createSearchData = () => {
-    let searchJson = {};
-
-    if (searchState.sort != 0) {
-      searchJson.order = parseInt(searchState.sort);
-    }
-    if (searchState.categories.length != 0) {
-      searchJson.categories = searchState.categories;
-    }
-    if (searchState.title != '') {
-      searchJson.title = searchState.title;
-    }
-    if (searchState.author != '') {
-      searchJson.author = searchState.author;
-    }
-    if (searchState.album != '') {
-      searchJson.album = searchState.album;
-    }
-    if (searchState.parts != 0) {
-      searchJson.parts = parseInt(searchState.parts);
-    }
-    if (searchState.age != 0) {
-      searchJson.age = parseInt(searchState.age);
-    }
-    if (searchState.year != 0) {
-      let date = new Date(searchState.year);
-      searchJson.year = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
-    }
-    if (searchState.duration != 0) {
-      searchJson.duration = parseInt(searchState.duration);
-    }
-
-    return searchJson;
-  };
+  const adminService = new AdminAudiobooksService(
+    searchState,
+    setSearchState,
+    props,
+    i18n,
+    setState,
+    state,
+    setCategories,
+  );
 
   const { refetch } = useQuery(
     'data',
@@ -112,7 +68,7 @@ export default function AdminAudiobooksList(props) {
         {
           page: pageState.page,
           limit: pageState.limit,
-          searchData: createSearchData(),
+          searchData: adminService.createSearchData(),
         },
         props.token,
         i18n.language,
@@ -133,46 +89,6 @@ export default function AdminAudiobooksList(props) {
       },
     },
   );
-
-  const fetchCategoriesList = () => {
-    if (dateUpdate > Date.now() && dateUpdate != 0) {
-      setCategories(categories);
-    } else {
-      HandleFetch('/admin/categories', 'GET', null, props.token, i18n.language)
-        .then((data) => {
-          categoriesStore.removeCategories();
-          for (const category of data.categories) {
-            categoriesStore.addCategory(category);
-          }
-
-          setCategories(data.categories);
-        })
-        .catch((e) => {
-          props.setAudiobooksState({
-            ...props.audiobooksState,
-            error: e,
-          });
-        });
-    }
-  };
-
-  const openAddModal = () => {
-    fetchCategoriesList();
-
-    setState({
-      ...state,
-      addAudiobookModal: !state.addAudiobookModal,
-    });
-  };
-
-  const openSearchModal = () => {
-    fetchCategoriesList();
-
-    setState({
-      ...state,
-      searchModal: !state.searchModal,
-    });
-  };
 
   useEffect(() => {
     if (state.refresh) {
@@ -213,7 +129,7 @@ export default function AdminAudiobooksList(props) {
                 size='sm'
                 color='dark'
                 className=' btn button mt-2'
-                onClick={() => openSearchModal()}
+                onClick={() => adminService.openSearchModal()}
               >
                 {t('search')}
               </Button>
@@ -244,7 +160,7 @@ export default function AdminAudiobooksList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() => openAddModal()}
+              onClick={() => adminService.openAddModal()}
             >
               {t('addAudiobook')}
             </Button>
@@ -273,7 +189,7 @@ export default function AdminAudiobooksList(props) {
             token={props.token}
             categoriesState={categoriesState}
             setCategories={setCategories}
-            resetSearchStates={resetSearchStates}
+            resetSearchStates={adminService.resetSearchStates}
           />
         ) : null}
 
@@ -292,7 +208,7 @@ export default function AdminAudiobooksList(props) {
             setCategories={setCategories}
             pageState={pageState}
             setPageState={setPageState}
-            resetSearchStates={resetSearchStates}
+            resetSearchStates={adminService.resetSearchStates}
           />
         ) : null}
         {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (
