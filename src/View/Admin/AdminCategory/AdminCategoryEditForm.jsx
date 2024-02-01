@@ -3,187 +3,16 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
-import CreateUtil from 'Util/CreateUtil';
-
+import AdminCategoriesRenderList from '../AdminCategories/AdminCategoriesRenderList';
 export default function AdminCategoryEditForm(props) {
   const [wrongState, setWrongState] = useState(0);
 
-  const editAudiobookData = () => {
-    let myDate = props.audiobookDetail.duration.split(':');
-
-    let hours = parseInt(myDate[0] * 60 * 60);
-    let minutes = parseInt(myDate[1] * 60);
-    let seconds = parseInt(myDate[2]);
-
-    HandleFetch(
-      '/admin/audiobook/edit',
-      'PATCH',
-      {
-        audiobookId: props.audiobookDetail.id,
-        title: props.audiobookDetail.title,
-        author: props.audiobookDetail.author,
-        version: props.audiobookDetail.version,
-        album: props.audiobookDetail.album,
-        year: CreateUtil.createJsonFormatDate(props.audiobookDetail.year),
-        duration: hours + minutes + seconds,
-        size: props.audiobookDetail.size,
-        parts: props.audiobookDetail.parts,
-        description: props.audiobookDetail.description,
-        age: props.audiobookDetail.age,
-        encoded: props.audiobookDetail.encoded,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        props.setAudiobookDetailRefetch(true);
-        props.setStateModal({
-          ...props.stateModal,
-          edit: !props.stateModal.edit,
-        });
-      })
-      .catch((e) => {
-        props.setState({
-          ...props.state,
-          error: e,
-        });
-        props.handleClose();
-      });
-  };
-
-  const handleVersionChange = (event) => {
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      version: event.target.value,
-    });
-  };
-  const handlePartsChange = (event) => {
-    let value = event.target.value;
-    if (value == '') {
-      value = 0;
-    }
-
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      parts: parseInt(value),
-    });
-  };
-  const handleEncodedChange = (event) => {
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      encoded: event.target.value,
-    });
-  };
-  const handleDescriptionChange = (event) => {
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      description: event.target.value,
-    });
-  };
-  const handleDurationChange = (event) => {
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      duration: event.target.value,
-    });
-  };
-
-  const handleYearChange = (event) => {
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      year: event.target.value,
-    });
-  };
-  const handleAlbumChange = (event) => {
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      album: event.target.value,
-    });
-  };
-  const handleAuthorChange = (event) => {
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      author: event.target.value,
-    });
-  };
-  const handleTitleChange = (event) => {
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      title: event.target.value,
-    });
-  };
-  const handleSizeChange = (event) => {
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      size: event.target.value,
-    });
-  };
-  const handleAgeChange = (event) => {
-    props.setAudiobookDetail({
-      ...props.audiobookDetail,
-      age: parseInt(event),
-    });
-  };
-
-  const validateFields = () => {
-    setWrongState(0);
-
-    if (props.audiobookDetail.title.length < 1) {
-      setWrongState(1);
-    }
-    if (props.audiobookDetail.author.length < 1) {
-      setWrongState(2);
-    }
-    if (props.audiobookDetail.album.length < 1) {
-      setWrongState(3);
-    }
-    if (props.audiobookDetail.year.length < 1) {
-      setWrongState(4);
-    }
-    if (props.audiobookDetail.duration.length < 1) {
-      setWrongState(5);
-    }
-    if (props.audiobookDetail.parts <= 0) {
-      setWrongState(6);
-    }
-    if (props.audiobookDetail.encoded == undefined || props.audiobookDetail.encoded.length < 1) {
-      setWrongState(7);
-    }
-    if (props.audiobookDetail.size.length < 1) {
-      setWrongState(8);
-    }
-    if (props.audiobookDetail.version.length < 1) {
-      setWrongState(9);
-    }
-  };
-
-  const returnFormError = () => {
-    switch (wrongState) {
-      case 1:
-        return props.t('enterValidTitle');
-      case 2:
-        return props.t('enterValidAuthor');
-      case 3:
-        return props.t('enterValidAlbum');
-      case 4:
-        return props.t('enterValidYear');
-      case 5:
-        return props.t('enterValidPart');
-      case 6:
-        return props.t('enterValidDuration');
-      case 7:
-        return props.t('enterValidEncoded');
-      case 8:
-        return props.t('enterValidSize');
-      case 9:
-        return props.t('enterValidVersion');
-    }
-  };
+  const adminService = new AdminCategoriesRenderList(props, wrongState, setWrongState);
 
   useEffect(() => {
     if (props.audiobookDetail != null) {
-      validateFields();
+      adminService.validateFields();
     }
   }, [props.audiobookDetail]);
 
@@ -197,7 +26,7 @@ export default function AdminCategoryEditForm(props) {
           <Form.Control
             value={props.audiobookDetail != null ? props.audiobookDetail.title : ''}
             onChange={(event) => {
-              handleTitleChange(event);
+              adminService.handleTitleChange(event);
             }}
           />
         </InputGroup>
@@ -210,7 +39,7 @@ export default function AdminCategoryEditForm(props) {
           <Form.Control
             value={props.audiobookDetail != null ? props.audiobookDetail.author : ''}
             onChange={(event) => {
-              handleAuthorChange(event);
+              adminService.handleAuthorChange(event);
             }}
           />
         </InputGroup>
@@ -223,7 +52,7 @@ export default function AdminCategoryEditForm(props) {
           <Form.Control
             value={props.audiobookDetail != null ? props.audiobookDetail.album : ''}
             onChange={(event) => {
-              handleAlbumChange(event);
+              adminService.handleAlbumChange(event);
             }}
           />
         </InputGroup>
@@ -237,7 +66,7 @@ export default function AdminCategoryEditForm(props) {
             type='date'
             value={props.audiobookDetail != null ? props.audiobookDetail.year : ''}
             onChange={(event) => {
-              handleYearChange(event);
+              adminService.handleYearChange(event);
             }}
           />
         </InputGroup>
@@ -251,7 +80,7 @@ export default function AdminCategoryEditForm(props) {
             type='number'
             value={props.audiobookDetail != null ? props.audiobookDetail.parts : ''}
             onChange={(event) => {
-              handlePartsChange(event);
+              adminService.handlePartsChange(event);
             }}
           />
         </InputGroup>
@@ -264,7 +93,7 @@ export default function AdminCategoryEditForm(props) {
           <Form.Control
             value={props.audiobookDetail != null ? props.audiobookDetail.duration : ''}
             onChange={(event) => {
-              handleDurationChange(event);
+              adminService.handleDurationChange(event);
             }}
           />
         </InputGroup>
@@ -279,7 +108,7 @@ export default function AdminCategoryEditForm(props) {
             rows={4}
             value={props.audiobookDetail != null ? props.audiobookDetail.description : ''}
             onChange={(event) => {
-              handleDescriptionChange(event);
+              adminService.handleDescriptionChange(event);
             }}
           />
         </InputGroup>
@@ -298,7 +127,7 @@ export default function AdminCategoryEditForm(props) {
                 : ''
             }
             onChange={(event) => {
-              handleEncodedChange(event);
+              adminService.handleEncodedChange(event);
             }}
           />
         </InputGroup>
@@ -311,7 +140,7 @@ export default function AdminCategoryEditForm(props) {
           <Form.Control
             value={props.audiobookDetail != null ? props.audiobookDetail.size : ''}
             onChange={(event) => {
-              handleSizeChange(event);
+              adminService.handleSizeChange(event);
             }}
           />
         </InputGroup>
@@ -324,14 +153,14 @@ export default function AdminCategoryEditForm(props) {
           <Form.Control
             value={props.audiobookDetail != null ? props.audiobookDetail.version : ''}
             onChange={(event) => {
-              handleVersionChange(event);
+              adminService.handleVersionChange(event);
             }}
           />
         </InputGroup>
       </div>
       <div className='row text-light pe-0 input_modal'>
         <InputGroup className='mb-1'>
-          <Dropdown onSelect={(event) => handleAgeChange(event)}>
+          <Dropdown onSelect={(event) => adminService.handleAgeChange(event)}>
             <Dropdown.Toggle className=' text-start' variant='success' id='dropdown-basic'>
               {props.t('age')}
             </Dropdown.Toggle>
@@ -388,7 +217,7 @@ export default function AdminCategoryEditForm(props) {
       <div className='row text-light me-2 input_modal'>
         <div>
           <Alert show={wrongState != 0} className='dangerAllert mt-1 text-center' variant='danger'>
-            {returnFormError()}
+            {adminService.returnFormError()}
           </Alert>
         </div>
       </div>
@@ -400,7 +229,7 @@ export default function AdminCategoryEditForm(props) {
               size='sm'
               disabled={wrongState != 0}
               className='btn button px-4 my-1 question_button success_button'
-              onClick={editAudiobookData}
+              onClick={adminService.editAudiobookData}
             >
               {props.t('yes')}
             </Button>
