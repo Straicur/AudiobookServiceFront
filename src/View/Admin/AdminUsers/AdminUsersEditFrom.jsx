@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
-import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
+import AdminUsersEditService from 'Service/Admin/AdminUsersEditService';
 
 export default function AdminUsersEditFrom(props) {
   const [passwordState, setPasswordState] = useState({
@@ -19,169 +19,13 @@ export default function AdminUsersEditFrom(props) {
     buttonDisabled: false,
   });
 
-  const banUser = () => {
-    HandleFetch(
-      '/admin/user/ban',
-      'PATCH',
-      {
-        userId: props.state.editUserElement.id,
-        banned: !props.state.editUserElement.banned,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        const newSelcetedUser = {
-          active: props.state.editUserElement.active,
-          banned: !props.state.editUserElement.banned,
-          dateCreated: props.state.editUserElement.dateCreated,
-          email: props.state.editUserElement.email,
-          firstname: props.state.editUserElement.firstname,
-          id: props.state.editUserElement.id,
-          lastname: props.state.editUserElement.lastname,
-          roles: props.state.editUserElement.roles,
-        };
-
-        props.setState({ ...props.state, editUserElement: newSelcetedUser });
-      })
-      .catch((e) => {
-        props.setState({
-          ...props.state,
-          error: e,
-        });
-      });
-  };
-
-  const activateUser = (element) => {
-    element.target.classList.add('disabled');
-    HandleFetch(
-      '/admin/user/activate',
-      'PATCH',
-      {
-        userId: props.state.editUserElement.id,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        element.target.classList.remove('disabled');
-
-        const newSelcetedUser = {
-          active: !props.state.editUserElement.active,
-          banned: props.state.editUserElement.banned,
-          dateCreated: props.state.editUserElement.dateCreated,
-          email: props.state.editUserElement.email,
-          firstname: props.state.editUserElement.firstname,
-          id: props.state.editUserElement.id,
-          lastname: props.state.editUserElement.lastname,
-          roles: props.state.editUserElement.roles,
-        };
-
-        props.setState({ ...props.state, editUserElement: newSelcetedUser });
-      })
-      .catch((e) => {
-        props.setState({
-          ...props.state,
-          error: e,
-        });
-      });
-  };
-
-  const handlePasswordChange = (event) => {
-    setPasswordState({
-      ...passwordState,
-      password: event.target.value,
-      buttonDisabled: false,
-      wrong: false,
-    });
-  };
-
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumberState({
-      ...phoneNumberState,
-      phoneNumber: event.target.value,
-      buttonDisabled: false,
-      wrong: false,
-    });
-  };
-
-  function validatePassword(pass) {
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return re.test(pass);
-  }
-
-  const changeUserPassword = () => {
-    if (!validatePassword(passwordState.password)) {
-      setPasswordState({
-        ...passwordState,
-        wrong: !passwordState.wrong,
-        buttonDisabled: !passwordState.buttonDisabled,
-        sure: !passwordState.sure,
-      });
-    } else {
-      HandleFetch(
-        '/admin/user/change/password',
-        'PATCH',
-        {
-          userId: props.state.editUserElement.id,
-          newPassword: passwordState.password,
-        },
-        props.token,
-        props.i18n.language,
-      )
-        .then(() => {
-          setPasswordState({
-            ...passwordState,
-            sure: !passwordState.sure,
-          });
-        })
-        .catch((e) => {
-          props.setState({
-            ...props.state,
-            error: e,
-          });
-        });
-    }
-  };
-
-  function validatePhoneNumber(pass) {
-    const re = /^\+?[0-9]{3}-?[0-9]{6,12}$/;
-    return re.test(pass);
-  }
-
-  const changeUserPhone = () => {
-    if (!validatePhoneNumber(phoneNumberState.phoneNumber)) {
-      setPhoneNumberState({
-        ...phoneNumberState,
-        wrong: !phoneNumberState.wrong,
-        buttonDisabled: !phoneNumberState.buttonDisabled,
-        sure: !phoneNumberState.sure,
-      });
-    } else {
-      HandleFetch(
-        '/admin/user/change/phone',
-        'PATCH',
-        {
-          userId: props.state.editUserElement.id,
-          newPhone: phoneNumberState.phoneNumber,
-        },
-        props.token,
-        props.i18n.language,
-      )
-        .then(() => {
-          setPhoneNumberState({
-            ...phoneNumberState,
-            sure: !phoneNumberState.sure,
-          });
-        })
-        .catch((e) => {
-          props.setState({
-            ...props.state,
-            error: e,
-          });
-        });
-    }
-  };
+  const adminService = new AdminUsersEditService(
+    passwordState,
+    setPasswordState,
+    props,
+    phoneNumberState,
+    setPhoneNumberState,
+  );
 
   return (
     <div className='row mt-3 align-items-center'>
@@ -205,7 +49,7 @@ export default function AdminUsersEditFrom(props) {
             disabled={props.state.editUserElement.active}
             className=' btn button text-light'
             onClick={(e) => {
-              activateUser(e);
+              adminService.activateUser(e);
             }}
           >
             {props.t('activate')}
@@ -227,7 +71,7 @@ export default function AdminUsersEditFrom(props) {
             size='sm'
             className=' btn button text-light'
             onClick={() => {
-              banUser();
+              adminService.banUser();
             }}
           >
             {props.state.editUserElement.banned ? props.t('unban') : props.t('ban')}
@@ -243,7 +87,7 @@ export default function AdminUsersEditFrom(props) {
         <Form.Control
           type='password'
           onChange={(event) => {
-            handlePasswordChange(event);
+            adminService.handlePasswordChange(event);
           }}
         />
       </InputGroup>
@@ -265,7 +109,7 @@ export default function AdminUsersEditFrom(props) {
               name='en'
               size='sm'
               className='btn button px-4 my-1 question_button success_button'
-              onClick={(e) => changeUserPassword(e)}
+              onClick={(e) => adminService.changeUserPassword(e)}
             >
               {props.t('yes')}
             </Button>
@@ -311,7 +155,7 @@ export default function AdminUsersEditFrom(props) {
         <InputGroup.Text>{props.t('changePhoneNumber')}</InputGroup.Text>
         <Form.Control
           onChange={(event) => {
-            handlePhoneNumberChange(event);
+            adminService.handlePhoneNumberChange(event);
           }}
         />
       </InputGroup>
@@ -333,7 +177,7 @@ export default function AdminUsersEditFrom(props) {
               name='en'
               size='sm'
               className='btn button px-4 my-1 question_button success_button'
-              onClick={(e) => changeUserPhone(e)}
+              onClick={(e) => adminService.changeUserPhone(e)}
             >
               {props.t('yes')}
             </Button>

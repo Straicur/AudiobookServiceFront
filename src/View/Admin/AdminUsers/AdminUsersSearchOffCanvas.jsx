@@ -3,102 +3,17 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+import AdminUsersSearchService from 'Service/Admin/AdminUsersSearchService';
 
 export default function AdminUsersSearchOffCanvas(props) {
   const [show, setShow] = useState(true);
 
-  const handleClose = () => {
-    props.setState({
-      ...props.state,
-      searchModal: !props.state.searchModal,
-    });
-    props.resetSearchStates();
-
-    setShow(false);
-  };
-
-  const changeSort = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        order: parseInt(element.target.value),
-      });
-    }
-  };
-
-  const changeEmail = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        email: element.target.value,
-      });
-    }
-  };
-
-  const changePhoneNumber = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        phoneNumber: element.target.value,
-      });
-    }
-  };
-
-  const changeFirstname = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        firstname: element.target.value,
-      });
-    }
-  };
-
-  const changeLastname = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
-        lastname: element.target.value,
-      });
-    }
-  };
-
-  const changeActive = (element) => {
-    if (props.searchState.active == null) {
-      props.setSearchState({
-        ...props.searchState,
-        active: element.target.checked,
-      });
-    } else {
-      props.setSearchState({
-        ...props.searchState,
-        active: !props.searchState.active,
-      });
-    }
-  };
-
-  const changeBanned = (element) => {
-    if (props.searchState.banned == null) {
-      props.setSearchState({
-        ...props.searchState,
-        banned: element.target.checked,
-      });
-    } else {
-      props.setSearchState({
-        ...props.searchState,
-        banned: !props.searchState.banned,
-      });
-    }
-  };
-
-  const searchAgain = () => {
-    props.setState({ ...props.state, refresh: !props.state.refresh });
-    setShow(false);
-  };
+  const adminService = new AdminUsersSearchService(props, setShow);
 
   return (
     <Offcanvas
       show={show}
-      onHide={handleClose}
+      onHide={adminService.handleClose}
       className='bg-dark text-light off_canvas_with'
       backdrop='static'
       placement='end'
@@ -130,7 +45,7 @@ export default function AdminUsersSearchOffCanvas(props) {
           </InputGroup.Text>
           <Form.Select
             onChange={(e) => {
-              changeSort(e);
+              adminService.changeSort(e);
             }}
             value={props.searchState.sort}
           >
@@ -148,7 +63,7 @@ export default function AdminUsersSearchOffCanvas(props) {
           <Form.Control
             value={props.searchState.title}
             onChange={(e) => {
-              changeEmail(e);
+              adminService.changeEmail(e);
             }}
           />
         </InputGroup>
@@ -160,7 +75,7 @@ export default function AdminUsersSearchOffCanvas(props) {
           <Form.Control
             value={props.searchState.author}
             onChange={(e) => {
-              changePhoneNumber(e);
+              adminService.changePhoneNumber(e);
             }}
           />
         </InputGroup>
@@ -171,7 +86,7 @@ export default function AdminUsersSearchOffCanvas(props) {
           <Form.Control
             value={props.searchState.album}
             onChange={(e) => {
-              changeFirstname(e);
+              adminService.changeFirstname(e);
             }}
           />
         </InputGroup>
@@ -182,7 +97,7 @@ export default function AdminUsersSearchOffCanvas(props) {
           </InputGroup.Text>
           <Form.Control
             onChange={(e) => {
-              changeLastname(e);
+              adminService.changeLastname(e);
             }}
             value={props.searchState.parts}
           />
@@ -197,7 +112,7 @@ export default function AdminUsersSearchOffCanvas(props) {
                 : props.t('notActive')
             }
             checked={props.searchState.active != null && props.searchState.active}
-            onChange={(e) => changeActive(e)}
+            onChange={(e) => adminService.changeActive(e)}
           />
         </InputGroup>
         <InputGroup className='mb-1 input_modal py-1 '>
@@ -210,7 +125,7 @@ export default function AdminUsersSearchOffCanvas(props) {
                 : props.t('notBanned')
             }
             checked={props.searchState.banned != null && props.searchState.banned}
-            onChange={(e) => changeBanned(e)}
+            onChange={(e) => adminService.changeBanned(e)}
           />
         </InputGroup>
         <div className='row mx-1'>
@@ -219,7 +134,7 @@ export default function AdminUsersSearchOffCanvas(props) {
             size='lg'
             color='success'
             className=' btn button mt-2'
-            onClick={() => searchAgain()}
+            onClick={() => adminService.searchAgain()}
           >
             {props.t('search')}
           </Button>
