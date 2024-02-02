@@ -7,11 +7,11 @@ export default function AdminAudiobookPlayer(props) {
   const timeAudio = useRef(0);
 
   const nextPart = () => {
-    let nextPart = props.audiobookState.part + 1;
+    let nextPart = props.part + 1;
 
-    if (nextPart < props.audiobookDetail.parts) {
+    if (nextPart < props.parts) {
       timeAudio.current = 0;
-      props.setAudiobookState({ ...props.audiobookState, part: nextPart });
+      props.setState({ ...props.state, part: nextPart });
     }
   };
 
@@ -20,11 +20,11 @@ export default function AdminAudiobookPlayer(props) {
   };
 
   const prevPart = () => {
-    let prevPart = props.audiobookState.part - 1;
+    let prevPart = props.state.part - 1;
 
     if (prevPart >= 0) {
       timeAudio.current = 0;
-      props.setAudiobookState({ ...props.audiobookState, part: prevPart });
+      props.setState({ ...props.state, part: prevPart });
     }
   };
 
@@ -39,7 +39,7 @@ export default function AdminAudiobookPlayer(props) {
       header={
         <div className='row  justify-content-center'>
           <div className='col-2 fs-5 text-center'>
-            {props.t('part')}: {props.audiobookState.part + 1}
+            {props.t('part')}: {props.part + 1}
           </div>
         </div>
       }
@@ -50,6 +50,7 @@ export default function AdminAudiobookPlayer(props) {
       showSkipControls={true}
       onClickPrevious={prevPart}
       onClickNext={nextPart}
+      volume={0.5}
       ref={player}
     />
   );

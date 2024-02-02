@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import AdminCategoryAudiobookPlayer from './AdminCategoryAudiobookPlayer';
+import AdminAudiobookPlayer from '../Common/AdminAudiobookPlayer';
 import { HandleFetch } from 'Util/HandleFetch';
 import 'react-h5-audio-player/lib/styles.css';
 import { useAudiobookData } from 'Providers/AudiobookDataProvider';
@@ -283,11 +283,11 @@ export default function AdminCategoryAudiobookDetailModal(props) {
         <hr className='text-light'></hr>
         <div className='row d-flex justify-content-center'>
           {audiobookPart != null ? (
-            <AdminCategoryAudiobookPlayer
-              audiobookPart={audiobookPart}
-              setState={props.setState}
-              state={props.state}
-              t={props.t}
+            <AdminAudiobookPlayer
+              part={audiobookPart}
+              parts={props.state.detailAudiobookElement.parts}
+              setState={props.setAudiobookState}
+              state={props.audiobookState}
             />
           ) : null}
           <Alert

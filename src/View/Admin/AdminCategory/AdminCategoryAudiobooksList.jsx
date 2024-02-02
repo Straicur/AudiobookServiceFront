@@ -23,7 +23,7 @@ export default function AdminCategoryAudiobooksList(props) {
     detailAudiobookModal: false,
     detailAudiobookElement: null,
     detailCommentsAudiobookModal: false,
-    detailAudiobookElementPart: 0,
+    part: 0,
     addAudiobook: false,
     addAudiobookSeconds: 3000,
     refresh: false,

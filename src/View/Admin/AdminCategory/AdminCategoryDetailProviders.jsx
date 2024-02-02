@@ -26,7 +26,7 @@ export default function AdminCategoryDetailProviders(props) {
           setState={props.setAudiobooksState}
           token={props.token}
           audiobookId={props.state.detailAudiobookElement.id}
-          part={props.state.detailAudiobookElementPart}
+          part={props.state.part}
           i18n={props.i18n}
         >
           <AdminCategoryAudiobookDetailModal

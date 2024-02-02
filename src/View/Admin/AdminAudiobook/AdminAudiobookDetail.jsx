@@ -12,7 +12,7 @@ import AdminAudiobookRenderCommentsList from './AdminAudiobookRenderCommentsList
 import AdminAudiobookAddCategoriesModal from './AdminAudiobookAddCategoriesModal';
 import AdminAudiobookReAddingModal from './AdminAudiobookReAddingModal';
 import Button from 'react-bootstrap/Button';
-import AdminAudiobookPlayer from './AdminAudiobookPlayer';
+import AdminAudiobookPlayer from '../Common/AdminAudiobookPlayer';
 import AdminAudiobookReAddButton from './AdminAudiobookReAddButton';
 import AdminAudiobookDeleteEntarlyButton from './AdminAudiobookDeleteEntarlyButton';
 import { v4 as uuidv4 } from 'uuid';
@@ -112,12 +112,10 @@ export default function AdminAudiobookDetail(props) {
             <div className='row d-flex justify-content-center me-1'>
               {audiobookPart != null ? (
                 <AdminAudiobookPlayer
-                  audiobookDetail={audiobookDetail}
-                  audiobookPart={audiobookPart}
-                  setAudiobookState={props.setAudiobookState}
-                  audiobookState={props.audiobookState}
-                  i18n={props.i18n}
-                  t={props.t}
+                  part={props.audiobookState.part}
+                  parts={audiobookDetail.parts}
+                  setState={props.setAudiobookState}
+                  state={props.audiobookState}
                 />
               ) : null}
               <Alert
