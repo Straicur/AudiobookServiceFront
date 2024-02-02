@@ -6,6 +6,7 @@ import { UserLoginForgotPasswordModal } from './UserLoginForgotPasswordModal';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import UserLoginService from 'Service/User/UserLoginService';
+import ValidateUtil from 'Util/ValidateUtil';
 
 export default function UserLoginForm(props) {
   const [formState, setFormState] = useState({
@@ -82,11 +83,11 @@ export default function UserLoginForm(props) {
                           className='form-control form-control-lg'
                           isValid={
                             props.state.email.length > 0 &&
-                            userService.validateEmail(props.state.email)
+                            ValidateUtil.validateEmail(props.state.email)
                           }
                           isInvalid={
                             props.state.email.length > 0 &&
-                            !userService.validateEmail(props.state.email)
+                            !ValidateUtil.validateEmail(props.state.email)
                           }
                           onChange={(event) => userService.handleEmailChange(event)}
                         />

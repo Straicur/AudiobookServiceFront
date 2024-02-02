@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { HandleFetch } from 'Util/HandleFetch';
+import ValidateUtil from 'Util/ValidateUtil';
 
 export const UserLoginForgotPasswordModal = (props) => {
   const [state, setState] = useState({
@@ -10,11 +11,6 @@ export const UserLoginForgotPasswordModal = (props) => {
     send: false,
   });
 
-  function validateEmail(email) {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
   const handleEmailChange = (event) => {
     setState({ ...state, email: event.target.value });
   };
@@ -47,7 +43,7 @@ export const UserLoginForgotPasswordModal = (props) => {
 
   useEffect(() => {
     if (state.email.trim()) {
-      if (validateEmail(state.email)) {
+      if (ValidateUtil.validateEmail(state.email)) {
         setState({ ...state, isButtonDisabled: false });
       }
     } else {

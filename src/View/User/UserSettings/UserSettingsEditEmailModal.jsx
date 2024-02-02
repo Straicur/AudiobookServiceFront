@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
+import ValidateUtil from 'Util/ValidateUtil';
 
 export default function UserSettingsEditEmailModal(props) {
   const [state, setState] = useState({
@@ -63,16 +64,10 @@ export default function UserSettingsEditEmailModal(props) {
     });
   };
 
-  function validateEmail(email) {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
-
   useEffect(() => {
     if (state.oldEmail.length == 0) {
       setState({ ...state, wrongEmail: false });
-    } else if (!validateEmail(state.oldEmail)) {
+    } else if (!ValidateUtil.validateEmail(state.oldEmail)) {
       setState({ ...state, wrongEmail: true });
     } else {
       setState({ ...state, wrongEmail: false });
@@ -82,7 +77,7 @@ export default function UserSettingsEditEmailModal(props) {
   useEffect(() => {
     if (state.newEmail.length == 0) {
       setState({ ...state, wrongNewEmail: false });
-    } else if (!validateEmail(state.newEmail)) {
+    } else if (!ValidateUtil.validateEmail(state.newEmail)) {
       setState({ ...state, wrongNewEmail: true });
     } else {
       setState({ ...state, wrongNewEmail: false });
@@ -112,8 +107,10 @@ export default function UserSettingsEditEmailModal(props) {
                 <Form.Control
                   type='email'
                   placeholder='name@example.com'
-                  isValid={state.oldEmail.length > 1 && validateEmail(state.oldEmail)}
-                  isInvalid={state.oldEmail.length > 1 && !validateEmail(state.oldEmail)}
+                  isValid={state.oldEmail.length > 1 && ValidateUtil.validateEmail(state.oldEmail)}
+                  isInvalid={
+                    state.oldEmail.length > 1 && !ValidateUtil.validateEmail(state.oldEmail)
+                  }
                   onChange={(event) => handleEmailChange(event)}
                 />
                 <Alert
@@ -129,8 +126,10 @@ export default function UserSettingsEditEmailModal(props) {
                 <Form.Control
                   type='email'
                   placeholder='name@example.com'
-                  isValid={state.newEmail.length > 1 && validateEmail(state.newEmail)}
-                  isInvalid={state.newEmail.length > 1 && !validateEmail(state.newEmail)}
+                  isValid={state.newEmail.length > 1 && ValidateUtil.validateEmail(state.newEmail)}
+                  isInvalid={
+                    state.newEmail.length > 1 && !ValidateUtil.validateEmail(state.newEmail)
+                  }
                   onChange={(event) => handleEmailNewChange(event)}
                 />
               </Form.Group>

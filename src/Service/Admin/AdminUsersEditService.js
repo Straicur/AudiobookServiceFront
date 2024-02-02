@@ -1,4 +1,5 @@
 import { HandleFetch } from 'Util/HandleFetch';
+import ValidateUtil from 'Util/ValidateUtil';
 
 export default class AdminUsersEditService {
   constructor(passwordState, setPasswordState, props, phoneNumberState, setPhoneNumberState) {
@@ -94,13 +95,8 @@ export default class AdminUsersEditService {
     });
   };
 
-  validatePassword(pass) {
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return re.test(pass);
-  }
-
   changeUserPassword = () => {
-    if (!this.validatePassword(this.passwordState.password)) {
+    if (!ValidateUtil.validatePassword(this.passwordState.password)) {
       this.setPasswordState({
         ...this.passwordState,
         wrong: !this.passwordState.wrong,
@@ -133,13 +129,8 @@ export default class AdminUsersEditService {
     }
   };
 
-  validatePhoneNumber(pass) {
-    const re = /^\+?[0-9]{3}-?[0-9]{6,12}$/;
-    return re.test(pass);
-  }
-
   changeUserPhone = () => {
-    if (!this.validatePhoneNumber(this.phoneNumberState.phoneNumber)) {
+    if (!ValidateUtil.validatePhoneNumber(this.phoneNumberState.phoneNumber)) {
       this.setPhoneNumberState({
         ...this.phoneNumberState,
         wrong: !this.phoneNumberState.wrong,

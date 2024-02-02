@@ -4,13 +4,9 @@ import md5 from 'md5';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import ValidateUtil from 'Util/ValidateUtil';
 
 export default function UserForgotView(props) {
-  function validatePassword(pass) {
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return re.test(pass);
-  }
-
   function getPasswordStrenghtText(t, passStr) {
     switch (passStr) {
       case 10:
@@ -37,30 +33,10 @@ export default function UserForgotView(props) {
     }
   }
 
-  function validatePasswordStrength(pass) {
-    const moderate =
-      /(?=.*[A-Z])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[A-Z])(?=.*[a-z]).{5,}/;
-    const strong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const extraStrong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
-
-    let strength = 10;
-
-    if (extraStrong.test(pass)) {
-      strength = 100;
-    } else if (strong.test(pass)) {
-      strength = 50;
-    } else if (moderate.test(pass)) {
-      strength = 25;
-    } else if (pass.length > 0) {
-      strength = 10;
-    }
-    return strength;
-  }
-
   const handleNewPassword = async () => {
     if (
-      validatePassword(props.state.password) &&
-      validatePassword(props.state.confirmPassword) &&
+      ValidateUtil.validatePassword(props.state.password) &&
+      ValidateUtil.validatePassword(props.state.confirmPassword) &&
       props.state.password == props.state.confirmPassword
     ) {
       const url = '/user/reset/password/confirm';
@@ -94,7 +70,7 @@ export default function UserForgotView(props) {
     props.setState({
       ...props.state,
       password: event.target.value,
-      passwordStrength: validatePasswordStrength(event.target.value),
+      passwordStrength: ValidateUtil.validatePasswordStrength(event.target.value),
     });
   };
   const handleConfirmPasswordChange = (event) => {

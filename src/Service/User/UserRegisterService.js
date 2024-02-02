@@ -1,6 +1,7 @@
 import { HandleFetch } from 'Util/HandleFetch';
 import md5 from 'md5';
 import CreateUtil from 'Util/CreateUtil';
+import ValidateUtil from 'Util/ValidateUtil';
 
 export default class UserRegisterService {
   constructor(formState, setFormState, props, i18n) {
@@ -22,8 +23,8 @@ export default class UserRegisterService {
 
     if (
       this.props.state.password == this.props.state.confirmPassword &&
-      this.validateEmail(this.props.state.email) &&
-      this.validatePassword(this.props.state.password)
+      ValidateUtil.validateEmail(this.props.state.email) &&
+      ValidateUtil.validatePassword(this.props.state.password)
     ) {
       const url = '/register';
       const jsonData = {
@@ -71,26 +72,6 @@ export default class UserRegisterService {
     }
   }
 
-  validatePasswordStrength(pass) {
-    const moderate =
-      /(?=.*[A-Z])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[a-z]).{5,}|(?=.*[\d])(?=.*[A-Z])(?=.*[a-z]).{5,}/;
-    const strong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const extraStrong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
-
-    let strength = 10;
-
-    if (extraStrong.test(pass)) {
-      strength = 100;
-    } else if (strong.test(pass)) {
-      strength = 50;
-    } else if (moderate.test(pass)) {
-      strength = 25;
-    } else if (pass.length > 0) {
-      strength = 10;
-    }
-    return strength;
-  }
-
   handleEmailChange = (event) => {
     this.props.setState({
       ...this.props.state,
@@ -102,7 +83,7 @@ export default class UserRegisterService {
     this.props.setState({
       ...this.props.state,
       password: event.target.value,
-      passwordStrength: this.validatePasswordStrength(event.target.value),
+      passwordStrength: ValidateUtil.validatePasswordStrength(event.target.value),
     });
   };
 

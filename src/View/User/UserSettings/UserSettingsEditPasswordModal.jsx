@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
 import md5 from 'md5';
+import ValidateUtil from 'Util/ValidateUtil';
 
 export default function UserSettingsEditPasswordModal(props) {
   const [state, setState] = useState({
@@ -52,11 +53,6 @@ export default function UserSettingsEditPasswordModal(props) {
     }
   };
 
-  function validatePassword(pass) {
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return re.test(pass);
-  }
-
   const handleOldPasswordChange = (event) => {
     setState({
       ...state,
@@ -89,7 +85,7 @@ export default function UserSettingsEditPasswordModal(props) {
   useEffect(() => {
     if (state.newPassword.length == 0) {
       setState({ ...state, wrongNewPassword: false });
-    } else if (!validatePassword(state.newPassword)) {
+    } else if (!ValidateUtil.validatePassword(state.newPassword)) {
       setState({ ...state, wrongNewPassword: true });
     } else {
       setState({ ...state, wrongNewPassword: false });
@@ -100,7 +96,7 @@ export default function UserSettingsEditPasswordModal(props) {
     if (state.newConfirmPassword.length == 0) {
       setState({ ...state, wrongNewConfirmPassword: false });
     } else if (
-      !validatePassword(state.newConfirmPassword) ||
+      !ValidateUtil.validatePassword(state.newConfirmPassword) ||
       state.newConfirmPassword != state.newPassword
     ) {
       setState({ ...state, wrongNewConfirmPassword: true });
@@ -163,12 +159,12 @@ export default function UserSettingsEditPasswordModal(props) {
                   placeholder={props.t('insertPassword')}
                   isValid={
                     state.newPassword.length > 1 &&
-                    validatePassword(state.newPassword) &&
+                    ValidateUtil.validatePassword(state.newPassword) &&
                     state.oldPassword.trim() != state.newPassword.trim()
                   }
                   isInvalid={
                     state.newPassword.length > 1 &&
-                    !validatePassword(state.newPassword) &&
+                    !ValidateUtil.validatePassword(state.newPassword) &&
                     state.oldPassword.trim() == state.newPassword.trim()
                   }
                   onChange={(event) => handleNewPasswordChange(event)}
@@ -188,12 +184,12 @@ export default function UserSettingsEditPasswordModal(props) {
                   placeholder={props.t('insertPasswordConfirm')}
                   isValid={
                     state.newConfirmPassword.length > 1 &&
-                    validatePassword(state.newConfirmPassword) &&
+                    ValidateUtil.validatePassword(state.newConfirmPassword) &&
                     state.newConfirmPassword.trim() == state.newPassword.trim()
                   }
                   isInvalid={
                     state.newConfirmPassword.length > 1 &&
-                    !validatePassword(state.newConfirmPassword) &&
+                    !ValidateUtil.validatePassword(state.newConfirmPassword) &&
                     state.newConfirmPassword.trim() != state.newPassword.trim()
                   }
                   onChange={(event) => handleNewConfirmPasswordChange(event)}

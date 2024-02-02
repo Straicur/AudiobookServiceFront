@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
+import ValidateUtil from 'Util/ValidateUtil';
 
 export default function UserSettingsEditUserDataModal(props) {
   const [state, setState] = useState({
@@ -75,26 +76,10 @@ export default function UserSettingsEditUserDataModal(props) {
     });
   };
 
-  function validateName(name) {
-    const re = /^[A-Za-z]+(?:\s[A-Za-z]+)?$/;
-    return re.test(name);
-  }
-
-  function validateLastName(lastName) {
-    const re =
-      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
-    return re.test(lastName);
-  }
-
-  function validatePhone(phoneNumber) {
-    const re = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{3,6}$/;
-    return re.test(phoneNumber);
-  }
-
   useEffect(() => {
     if (state.firstname.length == 0) {
       setState({ ...state, wrongFirstname: false });
-    } else if (!validateName(state.firstname)) {
+    } else if (!ValidateUtil.validateName(state.firstname)) {
       setState({ ...state, wrongFirstname: true });
     } else {
       setState({ ...state, wrongFirstname: false });
@@ -104,7 +89,7 @@ export default function UserSettingsEditUserDataModal(props) {
   useEffect(() => {
     if (state.lastname.length == 0) {
       setState({ ...state, wrongLastname: false });
-    } else if (!validateLastName(state.lastname)) {
+    } else if (!ValidateUtil.validateLastName(state.lastname)) {
       setState({ ...state, wrongLastname: true });
     } else {
       setState({ ...state, wrongLastname: false });
@@ -114,7 +99,7 @@ export default function UserSettingsEditUserDataModal(props) {
   useEffect(() => {
     if (state.phoneNumber.length == 0) {
       setState({ ...state, wrongPhoneNumber: false });
-    } else if (!validatePhone(state.phoneNumber)) {
+    } else if (!ValidateUtil.validatePhone(state.phoneNumber)) {
       setState({ ...state, wrongPhoneNumber: true });
     } else {
       setState({ ...state, wrongPhoneNumber: false });
@@ -158,8 +143,10 @@ export default function UserSettingsEditUserDataModal(props) {
                 <Form.Label>{props.t('firstname')}</Form.Label>
                 <Form.Control
                   type='text'
-                  isValid={state.firstname.length > 1 && validateName(state.firstname)}
-                  isInvalid={state.firstname.length > 1 && !validateName(state.firstname)}
+                  isValid={state.firstname.length > 1 && ValidateUtil.validateName(state.firstname)}
+                  isInvalid={
+                    state.firstname.length > 1 && !ValidateUtil.validateName(state.firstname)
+                  }
                   value={state.firstname}
                   onChange={(event) => handleFirstnameChange(event)}
                 />
@@ -175,8 +162,12 @@ export default function UserSettingsEditUserDataModal(props) {
                 <Form.Label>{props.t('lastname')}</Form.Label>
                 <Form.Control
                   type='text'
-                  isValid={state.lastname.length > 1 && validateLastName(state.lastname)}
-                  isInvalid={state.lastname.length > 1 && !validateLastName(state.lastname)}
+                  isValid={
+                    state.lastname.length > 1 && ValidateUtil.validateLastName(state.lastname)
+                  }
+                  isInvalid={
+                    state.lastname.length > 1 && !ValidateUtil.validateLastName(state.lastname)
+                  }
                   value={state.lastname}
                   onChange={(event) => handleLastnameChange(event)}
                 />
@@ -192,8 +183,12 @@ export default function UserSettingsEditUserDataModal(props) {
                 <Form.Label>{props.t('phoneNumber')}</Form.Label>
                 <Form.Control
                   type='tel'
-                  isValid={state.phoneNumber.length > 1 && validatePhone(state.phoneNumber)}
-                  isInvalid={state.phoneNumber.length > 1 && !validatePhone(state.phoneNumber)}
+                  isValid={
+                    state.phoneNumber.length > 1 && ValidateUtil.validatePhone(state.phoneNumber)
+                  }
+                  isInvalid={
+                    state.phoneNumber.length > 1 && !ValidateUtil.validatePhone(state.phoneNumber)
+                  }
                   value={state.phoneNumber}
                   onChange={(event) => handlePhoneNumberChange(event)}
                 />

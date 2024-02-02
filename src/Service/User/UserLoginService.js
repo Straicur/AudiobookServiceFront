@@ -1,5 +1,6 @@
 import md5 from 'md5';
 import { useTokenStore } from 'Store/store';
+import ValidateUtil from 'Util/ValidateUtil';
 
 export default class UserLoginService {
   constructor(formState, setFormState, props, i18n) {
@@ -25,19 +26,13 @@ export default class UserLoginService {
     });
   };
 
-  validateEmail(email) {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
-
   fetchToken = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     const form = e.currentTarget;
 
-    if (form.checkValidity() == true && this.validateEmail(form[0].value)) {
+    if (form.checkValidity() == true && ValidateUtil.validateEmail(form[0].value)) {
       this.props.setState({
         ...this.props.state,
         validated: true,
