@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { HandleFetch } from 'Util/HandleFetch';
 
-export default function AdminCategoryAudiobookGetZipButton(props) {
+export default function ZipButton(props) {
   const getZip = () => {
     HandleFetch(
       '/admin/audiobook/zip',
@@ -29,16 +29,21 @@ export default function AdminCategoryAudiobookGetZipButton(props) {
         link.parentNode.removeChild(link);
       })
       .catch((e) => {
-        props.setAudiobooksState({
-          ...props.setAudiobooksState,
+        props.setState({
+          ...props.state,
           error: e,
         });
-        props.handleClose();
+
+        if (props.handleClose != null) {
+          props.handleClose();
+        }
       });
   };
 
+  const cssValue = 'btn button ' + props.cssData;
+
   return (
-    <Button name='en' size='sm' className='btn button primary_button' onClick={getZip}>
+    <Button name='en' size='sm' className={cssValue} onClick={getZip}>
       {props.t('downloadZip')}
     </Button>
   );

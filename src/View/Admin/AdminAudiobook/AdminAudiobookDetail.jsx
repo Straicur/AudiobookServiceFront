@@ -7,7 +7,7 @@ import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
 import AdminAudiobookEditForm from './AdminAudiobookEditForm';
 import AdminAudiobookCategoryList from './AdminAudiobookCategoryList';
 import AdminAudiobookCover from './AdminAudiobookCover';
-import AdminAudiobookGetZipButton from './AdminAudiobookGetZipButton';
+import ZipButton from '../Common/ZipButton';
 import AdminAudiobookRenderCommentsList from './AdminAudiobookRenderCommentsList';
 import AdminAudiobookAddCategoriesModal from './AdminAudiobookAddCategoriesModal';
 import AdminAudiobookReAddingModal from './AdminAudiobookReAddingModal';
@@ -110,12 +110,14 @@ export default function AdminAudiobookDetail(props) {
               <hr></hr>
             </div>
             <div className='row d-flex justify-content-center me-1'>
-              {audiobookPart != null ? (
+              {audiobookPart != null && audiobookDetail != null ? (
                 <AdminAudiobookPlayer
                   part={props.audiobookState.part}
+                  audiobookPart={audiobookPart}
                   parts={audiobookDetail.parts}
                   setState={props.setAudiobookState}
                   state={props.audiobookState}
+                  t={props.t}
                 />
               ) : null}
               <Alert
@@ -194,10 +196,12 @@ export default function AdminAudiobookDetail(props) {
             />
 
             <div className='row my-1 '>
-              <AdminAudiobookGetZipButton
+              <ZipButton
                 audiobookDetail={audiobookDetail}
-                audiobookState={props.audiobookState}
-                setAudiobookState={props.setAudiobookState}
+                state={props.audiobookState}
+                setState={props.setAudiobookState}
+                handleClose={null}
+                cssData={'primary_button'}
                 t={props.t}
                 i18n={props.i18n}
                 token={props.token}

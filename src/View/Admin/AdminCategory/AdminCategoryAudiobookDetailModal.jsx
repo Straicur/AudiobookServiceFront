@@ -10,7 +10,7 @@ import { useAudiobookPart } from 'Providers/AdminAudiobookPartProvider';
 import AdminCategoryEditForm from './AdminCategoryEditForm';
 import AdminCategoryAudiobookCategoryList from './AdminCategoryAudiobookCategoryList';
 import AdminCategoryAudiobookCover from './AdminCategoryAudiobookCover';
-import AdminCategoryAudiobookGetZipButton from './AdminCategoryAudiobookGetZipButton';
+import ZipButton from '../Common/ZipButton';
 import { v4 as uuidv4 } from 'uuid';
 import Alert from 'react-bootstrap/Alert';
 
@@ -120,11 +120,12 @@ export default function AdminCategoryAudiobookDetailModal(props) {
       centered
     >
       <Modal.Header closeButton className='bg-dark'>
-        <AdminCategoryAudiobookGetZipButton
+        <ZipButton
           audiobookDetail={audiobookDetail}
-          audiobooksState={props.audiobooksState}
-          setAudiobooksState={props.setAudiobooksState}
+          state={props.audiobooksState}
+          setState={props.setAudiobooksState}
           handleClose={handleClose}
+          cssData={'primary_button'}
           t={props.t}
           i18n={props.i18n}
           token={props.token}
@@ -284,10 +285,12 @@ export default function AdminCategoryAudiobookDetailModal(props) {
         <div className='row d-flex justify-content-center'>
           {audiobookPart != null ? (
             <AdminAudiobookPlayer
-              part={audiobookPart}
+              part={props.state.part}
+              audiobookPart={audiobookPart}
               parts={props.state.detailAudiobookElement.parts}
-              setState={props.setAudiobookState}
-              state={props.audiobookState}
+              setState={props.setState}
+              state={props.state}
+              t={props.t}
             />
           ) : null}
           <Alert
