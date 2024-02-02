@@ -13,15 +13,15 @@ export default class UserLoginService {
   fetchData = useTokenStore();
 
   handleEmailChange = (event) => {
-    this.setState({
-      ...this.state,
+    this.props.setState({
+      ...this.props.state,
       email: event.target.value,
     });
   };
 
   handlePasswordChange = (event) => {
-    this.setState({
-      ...this.state,
+    this.props.setState({
+      ...this.props.state,
       password: event.target.value,
     });
   };

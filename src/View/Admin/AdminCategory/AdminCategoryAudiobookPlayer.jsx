@@ -3,6 +3,8 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
 export default function AdminCategoryAudiobookPlayer(props) {
+  console.log(props);
+
   const player = useRef(null);
   const timeAudio = useRef(0);
 
