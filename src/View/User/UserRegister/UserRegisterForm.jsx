@@ -2,28 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { HandleFetch } from 'Util/HandleFetch';
-import md5 from 'md5';
 import { UserRegisterNotificationModal } from './UserRegisterNotificationModal';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import {
-  validateEmail,
-  validatePassword,
-  validatePhoneNumber,
-  handleEmailChange,
-  handlePasswordChange,
-  handleConfirmPasswordChange,
-  handlePhoneNumber,
-  handleFirstname,
-  handleLastname,
-  getPasswordStrenghtText,
-  getPasswordStrenghtProgressColor,
-  handleParentalControl,
-  handleBirthdayDate,
-} from './Events';
-import CreateUtil from 'Util/CreateUtil';
+import UserRegisterService from 'Service/User/UserRegisterService';
+import ValidateUtil from 'Util/ValidateUtil';
 
 export default function UserRegisterForm(props) {
   const { t, i18n } = useTranslation();
@@ -34,53 +18,20 @@ export default function UserRegisterForm(props) {
     modal: false,
   });
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const userService = new UserRegisterService(formState, setFormState, props, i18n);
 
-    props.setState({
-      ...props.state,
-      isButtonDisabled: true,
-      validated: false,
-    });
-
-    if (
-      props.state.password == props.state.confirmPassword &&
-      validateEmail(props.state.email) &&
-      validatePassword(props.state.password)
-    ) {
-      const url = '/register';
-      const jsonData = {
-        email: props.state.email,
-        phoneNumber: props.state.phoneNumber,
-        firstname: props.state.firstname,
-        lastname: props.state.lastname,
-        password: md5(props.state.password),
-      };
-
-      if (props.state.parentalControl) {
-        jsonData.additionalData = {
-          birthday: CreateUtil.createJsonFormatDate(props.state.birthdayDate),
-        };
-      }
-
-      const method = 'PUT';
-
-      HandleFetch(url, method, jsonData, null, i18n.language)
-        .then(() => {
-          setFormState({
-            ...formState,
-            modal: true,
-          });
-        })
-        .catch((e) => {
-          props.setState({
-            ...props.state,
-            error: e,
-          });
-        });
+  function getPasswordStrenghtText(passStr) {
+    switch (passStr) {
+      case 10:
+        return <p className='text-center text-danger'>{t('weakPassword')}</p>;
+      case 25:
+        return <p className='text-center text-warning'>{t('moderatePassword')}</p>;
+      case 50:
+        return <p className='text-center text-success'>{t('strongPassword')}</p>;
+      case 100:
+        return <p className='text-center text-info'>{t('extraStrongPassword')}</p>;
     }
-  };
+  }
 
   useEffect(() => {
     if (props.state.error != null) {
@@ -127,7 +78,7 @@ export default function UserRegisterForm(props) {
                   <Form
                     noValidate
                     validated={props.state.validated}
-                    onSubmit={handleRegister}
+                    onSubmit={userService.handleRegister}
                     autoComplete='off'
                   >
                     <Row className='mb-3'>
@@ -142,13 +93,15 @@ export default function UserRegisterForm(props) {
                           placeholder={t('insertEmail')}
                           value={props.state.email}
                           className='form-control form-control-lg'
-                          isValid={props.state.email.length > 1 && validateEmail(props.state.email)}
+                          isValid={
+                            props.state.email.length > 1 &&
+                            ValidateUtil.validateEmail(props.state.email)
+                          }
                           isInvalid={
-                            props.state.email.length > 1 && !validateEmail(props.state.email)
+                            props.state.email.length > 1 &&
+                            !ValidateUtil.validateEmail(props.state.email)
                           }
-                          onChange={(event) =>
-                            handleEmailChange(event, props.state, props.setState)
-                          }
+                          onChange={(event) => userService.handleEmailChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidEmail')}
@@ -169,17 +122,15 @@ export default function UserRegisterForm(props) {
                           className='form-control form-control-lg '
                           isValid={
                             props.state.password.length > 1 &&
-                            validatePassword(props.state.password) &&
+                            ValidateUtil.validatePassword(props.state.password) &&
                             props.state.password.trim() == props.state.confirmPassword.trim()
                           }
                           isInvalid={
                             props.state.password.length >= 1 &&
-                            !validatePassword(props.state.password) &&
+                            !ValidateUtil.validatePassword(props.state.password) &&
                             props.state.password.trim() != props.state.confirmPassword.trim()
                           }
-                          onChange={(event) =>
-                            handlePasswordChange(event, props.state, props.setState)
-                          }
+                          onChange={(event) => userService.handlePasswordChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           <div>{t('enterValidPassword')}</div>
@@ -189,7 +140,7 @@ export default function UserRegisterForm(props) {
                           <div>
                             <ProgressBar
                               className='mt-3'
-                              variant={getPasswordStrenghtProgressColor(
+                              variant={userService.getPasswordStrenghtProgressColor(
                                 props.state.passwordStrength,
                               )}
                               now={props.state.passwordStrength}
@@ -213,17 +164,15 @@ export default function UserRegisterForm(props) {
                           className='form-control form-control-lg '
                           isValid={
                             props.state.confirmPassword.length > 1 &&
-                            validatePassword(props.state.confirmPassword) &&
+                            ValidateUtil.validatePassword(props.state.confirmPassword) &&
                             props.state.password.trim() == props.state.confirmPassword.trim()
                           }
                           isInvalid={
                             props.state.confirmPassword.length > 1 &&
-                            !validatePassword(props.state.confirmPassword) &&
+                            !ValidateUtil.validatePassword(props.state.confirmPassword) &&
                             props.state.password.trim() != props.state.confirmPassword.trim()
                           }
-                          onChange={(event) =>
-                            handleConfirmPasswordChange(event, props.state, props.setState)
-                          }
+                          onChange={(event) => userService.handleConfirmPasswordChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidConfirmPassword')}
@@ -244,15 +193,13 @@ export default function UserRegisterForm(props) {
                           className='form-control form-control-lg '
                           isValid={
                             props.state.phoneNumber.length > 1 &&
-                            validatePhoneNumber(props.state.phoneNumber)
+                            ValidateUtil.validatePhoneNumber(props.state.phoneNumber)
                           }
                           isInvalid={
                             props.state.phoneNumber.length > 1 &&
-                            !validatePhoneNumber(props.state.phoneNumber)
+                            !ValidateUtil.validatePhoneNumber(props.state.phoneNumber)
                           }
-                          onChange={(event) =>
-                            handlePhoneNumber(event, props.state, props.setState)
-                          }
+                          onChange={(event) => userService.handlePhoneNumber(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidPhoneNumber')}
@@ -275,7 +222,7 @@ export default function UserRegisterForm(props) {
                           isInvalid={
                             props.state.firstname.length > 1 && props.state.firstname.length < 3
                           }
-                          onChange={(event) => handleFirstname(event, props.state, props.setState)}
+                          onChange={(event) => userService.handleFirstname(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidFirstName')}
@@ -297,7 +244,7 @@ export default function UserRegisterForm(props) {
                           isInvalid={
                             props.state.lastname.length > 1 && props.state.lastname.length < 3
                           }
-                          onChange={(event) => handleLastname(event, props.state, props.setState)}
+                          onChange={(event) => userService.handleLastname(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidLastName')}
@@ -314,7 +261,7 @@ export default function UserRegisterForm(props) {
                           className='text-start'
                           checked={props.state.parentalControl}
                           label={t('addparentalControlYear')}
-                          onChange={() => handleParentalControl(props.state, props.setState)}
+                          onChange={() => userService.handleParentalControl()}
                         />
                         {props.state.parentalControl ? (
                           <div>
@@ -322,9 +269,7 @@ export default function UserRegisterForm(props) {
                             <Form.Control
                               type='date'
                               value={props.state.birthdayDate}
-                              onChange={(event) =>
-                                handleBirthdayDate(event, props.state, props.setState)
-                              }
+                              onChange={(event) => userService.handleBirthdayDate(event)}
                             />
                             <Form.Control.Feedback type='invalid'>
                               {t('enterValidLastName')}

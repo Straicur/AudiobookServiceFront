@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import md5 from 'md5';
 import { UserLoginForgotPasswordModal } from './UserLoginForgotPasswordModal';
-import { useTokenStore } from 'Store/store';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import { handleEmailChange, handlePasswordChange, validateEmail } from './Events';
+import UserLoginService from 'Service/User/UserLoginService';
 
 export default function UserLoginForm(props) {
   const [formState, setFormState] = useState({
@@ -16,39 +14,9 @@ export default function UserLoginForm(props) {
 
   const { t, i18n } = useTranslation();
 
-  const fetchData = useTokenStore();
-
   const navigate = useNavigate();
 
-  const fetchToken = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const form = e.currentTarget;
-
-    if (form.checkValidity() == true && validateEmail(form[0].value)) {
-      props.setState({
-        ...props.state,
-        validated: true,
-      });
-
-      fetchData.setToken(
-        {
-          email: props.state.email,
-          password: md5(props.state.password),
-        },
-        props.state,
-        props.setState,
-        i18n.language,
-      );
-    } else {
-      props.setState({
-        ...props.state,
-        isButtonDisabled: true,
-        validated: false,
-      });
-    }
-  };
+  const userService = new UserLoginService(formState, setFormState, props, i18n);
 
   useEffect(() => {
     if (props.state.error != null) {
@@ -97,7 +65,7 @@ export default function UserLoginForm(props) {
                   <Form
                     noValidate
                     validated={props.state.validated}
-                    onSubmit={fetchToken}
+                    onSubmit={userService.fetchToken}
                     autoComplete='off'
                   >
                     <Row className='mb-3'>
@@ -112,13 +80,15 @@ export default function UserLoginForm(props) {
                           placeholder={t('insertEmail')}
                           value={props.state.email}
                           className='form-control form-control-lg'
-                          isValid={props.state.email.length > 0 && validateEmail(props.state.email)}
+                          isValid={
+                            props.state.email.length > 0 &&
+                            userService.validateEmail(props.state.email)
+                          }
                           isInvalid={
-                            props.state.email.length > 0 && !validateEmail(props.state.email)
+                            props.state.email.length > 0 &&
+                            !userService.validateEmail(props.state.email)
                           }
-                          onChange={(event) =>
-                            handleEmailChange(event, props.state, props.setState)
-                          }
+                          onChange={(event) => userService.handleEmailChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidEmail')}
@@ -141,9 +111,7 @@ export default function UserLoginForm(props) {
                             props.state.password.length < 3 && props.state.password.length > 0
                           }
                           className='form-control form-control-lg'
-                          onChange={(event) =>
-                            handlePasswordChange(event, props.state, props.setState)
-                          }
+                          onChange={(event) => userService.handlePasswordChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidPassword')}

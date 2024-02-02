@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import UserRegisterForm from 'View/User/UserRegister/UserRegisterForm';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import { validateEmail, validatePassword, validateBirthday } from 'View/User/UserRegister/Events';
+import ValidateUtil from 'Util/ValidateUtil';
 import './UserRegister.css';
 
 export default function Register() {
@@ -31,9 +31,9 @@ export default function Register() {
       state.phoneNumber.trim() != '' &&
       state.password.trim() == state.confirmPassword.trim() &&
       state.password == state.confirmPassword &&
-      validateEmail(state.email) &&
-      validatePassword(state.password) &&
-      validateBirthday(state)
+      ValidateUtil.validateEmail(state.email) &&
+      ValidateUtil.validatePassword(state.password) &&
+      ValidateUtil.validateBirthday(state.parentalControl, state.birthdayDate)
     ) {
       setState({ ...state, isButtonDisabled: false });
     } else {
