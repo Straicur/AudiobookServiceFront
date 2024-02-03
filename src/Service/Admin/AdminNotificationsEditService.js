@@ -52,6 +52,19 @@ export default class AdminNotificationsEditService {
     });
   };
 
+  selectActionId = () => {
+    this.setActionState({
+      ...this.actionState,
+      list: true,
+    });
+  };
+  goBack = () => {
+    this.setActionState({
+      ...this.actionState,
+      list: false,
+    });
+  };
+
   deleteNotification = (element) => {
     element.target.classList.add('disabled');
     HandleFetch(
@@ -83,19 +96,6 @@ export default class AdminNotificationsEditService {
           error: e,
         });
       });
-  };
-
-  selectActionId = () => {
-    this.setActionState({
-      ...this.actionState,
-      list: true,
-    });
-  };
-  goBack = () => {
-    this.setActionState({
-      ...this.actionState,
-      list: false,
-    });
   };
 
   saveChanges = () => {

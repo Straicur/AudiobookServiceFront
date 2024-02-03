@@ -9,6 +9,25 @@ export default class AdminUsersEditService {
     this.phoneNumberState = phoneNumberState;
     this.setPhoneNumberState = setPhoneNumberState;
   }
+
+  handlePasswordChange = (event) => {
+    this.setPasswordState({
+      ...this.passwordState,
+      password: event.target.value,
+      buttonDisabled: false,
+      wrong: false,
+    });
+  };
+
+  handlePhoneNumberChange = (event) => {
+    this.setPhoneNumberState({
+      ...this.phoneNumberState,
+      phoneNumber: event.target.value,
+      buttonDisabled: false,
+      wrong: false,
+    });
+  };
+
   banUser = () => {
     HandleFetch(
       '/admin/user/ban',
@@ -75,24 +94,6 @@ export default class AdminUsersEditService {
           error: e,
         });
       });
-  };
-
-  handlePasswordChange = (event) => {
-    this.setPasswordState({
-      ...this.passwordState,
-      password: event.target.value,
-      buttonDisabled: false,
-      wrong: false,
-    });
-  };
-
-  handlePhoneNumberChange = (event) => {
-    this.setPhoneNumberState({
-      ...this.phoneNumberState,
-      phoneNumber: event.target.value,
-      buttonDisabled: false,
-      wrong: false,
-    });
   };
 
   changeUserPassword = () => {

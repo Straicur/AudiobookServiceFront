@@ -8,48 +8,6 @@ export default class AdminAudiobookEditService {
     this.props = props;
   }
 
-  editAudiobookData = () => {
-    let myDate = this.props.audiobookDetail.duration.split(':');
-
-    let hours = parseInt(myDate[0] * 60 * 60);
-    let minutes = parseInt(myDate[1] * 60);
-    let seconds = parseInt(myDate[2]);
-
-    HandleFetch(
-      '/admin/audiobook/edit',
-      'PATCH',
-      {
-        audiobookId: this.props.audiobookDetail.id,
-        title: this.props.audiobookDetail.title,
-        author: this.props.audiobookDetail.author,
-        version: this.props.audiobookDetail.version,
-        album: this.props.audiobookDetail.album,
-        year: CreateUtil.createJsonFormatDate(this.props.audiobookDetail.year),
-        duration: hours + minutes + seconds,
-        size: this.props.audiobookDetail.size,
-        parts: this.props.audiobookDetail.parts,
-        description: this.props.audiobookDetail.description,
-        age: this.props.audiobookDetail.age,
-        encoded: this.props.audiobookDetail.encoded,
-      },
-      this.props.token,
-      this.props.i18n.language,
-    )
-      .then(() => {
-        this.props.setAudiobookDetailRefetch(true);
-        this.props.setAudiobookState({
-          ...this.props.audiobookState,
-          edit: !this.props.audiobookState.edit,
-        });
-      })
-      .catch((e) => {
-        this.props.setAudiobookState({
-          ...this.props.audiobookState,
-          error: e,
-        });
-      });
-  };
-
   handleVersionChange = (event) => {
     this.props.setAudiobookDetail({
       ...this.props.audiobookDetail,
@@ -179,5 +137,47 @@ export default class AdminAudiobookEditService {
       case 9:
         return this.props.t('enterValidVersion');
     }
+  };
+
+  editAudiobookData = () => {
+    let myDate = this.props.audiobookDetail.duration.split(':');
+
+    let hours = parseInt(myDate[0] * 60 * 60);
+    let minutes = parseInt(myDate[1] * 60);
+    let seconds = parseInt(myDate[2]);
+
+    HandleFetch(
+      '/admin/audiobook/edit',
+      'PATCH',
+      {
+        audiobookId: this.props.audiobookDetail.id,
+        title: this.props.audiobookDetail.title,
+        author: this.props.audiobookDetail.author,
+        version: this.props.audiobookDetail.version,
+        album: this.props.audiobookDetail.album,
+        year: CreateUtil.createJsonFormatDate(this.props.audiobookDetail.year),
+        duration: hours + minutes + seconds,
+        size: this.props.audiobookDetail.size,
+        parts: this.props.audiobookDetail.parts,
+        description: this.props.audiobookDetail.description,
+        age: this.props.audiobookDetail.age,
+        encoded: this.props.audiobookDetail.encoded,
+      },
+      this.props.token,
+      this.props.i18n.language,
+    )
+      .then(() => {
+        this.props.setAudiobookDetailRefetch(true);
+        this.props.setAudiobookState({
+          ...this.props.audiobookState,
+          edit: !this.props.audiobookState.edit,
+        });
+      })
+      .catch((e) => {
+        this.props.setAudiobookState({
+          ...this.props.audiobookState,
+          error: e,
+        });
+      });
   };
 }

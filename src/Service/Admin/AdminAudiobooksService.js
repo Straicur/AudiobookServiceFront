@@ -30,6 +30,24 @@ export default class AdminAudiobooksService {
     });
   };
 
+  openAddModal = () => {
+    this.fetchCategoriesList();
+
+    this.setState({
+      ...this.state,
+      addAudiobookModal: !this.state.addAudiobookModal,
+    });
+  };
+
+  openSearchModal = () => {
+    this.fetchCategoriesList();
+
+    this.setState({
+      ...this.state,
+      searchModal: !this.state.searchModal,
+    });
+  };
+
   createSearchData = () => {
     let searchJson = {};
 
@@ -85,23 +103,5 @@ export default class AdminAudiobooksService {
           });
         });
     }
-  };
-
-  openAddModal = () => {
-    this.fetchCategoriesList();
-
-    this.setState({
-      ...this.state,
-      addAudiobookModal: !this.state.addAudiobookModal,
-    });
-  };
-
-  openSearchModal = () => {
-    this.fetchCategoriesList();
-
-    this.setState({
-      ...this.state,
-      searchModal: !this.state.searchModal,
-    });
   };
 }

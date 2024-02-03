@@ -5,29 +5,6 @@ export default class AdminAudiobookRenderCategoriesService {
     this.props = props;
   }
 
-  addCategory = (element, category) => {
-    element.stopPropagation();
-    HandleFetch(
-      '/admin/category/add/audiobook',
-      'PUT',
-      {
-        categoryId: category.id,
-        audiobookId: this.props.audiobookDetail.id,
-      },
-      this.props.token,
-      this.props.i18n.language,
-    )
-      .then(() => {
-        element.target.disabled = true;
-      })
-      .catch((e) => {
-        this.props.setAudiobookState({
-          ...this.props.audiobookState,
-          error: e,
-        });
-      });
-  };
-
   oparateParentList = (element) => {
     element.stopPropagation();
     if (element.currentTarget.attributes['data-clicable'].value == 'true') {
@@ -86,4 +63,27 @@ export default class AdminAudiobookRenderCategoriesService {
       }
     }
   }
+
+  addCategory = (element, category) => {
+    element.stopPropagation();
+    HandleFetch(
+      '/admin/category/add/audiobook',
+      'PUT',
+      {
+        categoryId: category.id,
+        audiobookId: this.props.audiobookDetail.id,
+      },
+      this.props.token,
+      this.props.i18n.language,
+    )
+      .then(() => {
+        element.target.disabled = true;
+      })
+      .catch((e) => {
+        this.props.setAudiobookState({
+          ...this.props.audiobookState,
+          error: e,
+        });
+      });
+  };
 }

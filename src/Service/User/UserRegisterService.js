@@ -11,67 +11,6 @@ export default class UserRegisterService {
     this.i18n = i18n;
   }
 
-  handleRegister = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    this.props.setState({
-      ...this.props.state,
-      isButtonDisabled: true,
-      validated: false,
-    });
-
-    if (
-      this.props.state.password == this.props.state.confirmPassword &&
-      ValidateUtil.validateEmail(this.props.state.email) &&
-      ValidateUtil.validatePassword(this.props.state.password)
-    ) {
-      const url = '/register';
-      const jsonData = {
-        email: this.props.state.email,
-        phoneNumber: this.props.state.phoneNumber,
-        firstname: this.props.state.firstname,
-        lastname: this.props.state.lastname,
-        password: md5(this.props.state.password),
-      };
-
-      if (this.props.state.parentalControl) {
-        jsonData.additionalData = {
-          birthday: CreateUtil.createJsonFormatDate(this.props.state.birthdayDate),
-        };
-      }
-
-      const method = 'PUT';
-
-      HandleFetch(url, method, jsonData, null, this.i18n.language)
-        .then(() => {
-          this.setFormState({
-            ...this.formState,
-            modal: true,
-          });
-        })
-        .catch((e) => {
-          this.props.setState({
-            ...this.props.state,
-            error: e,
-          });
-        });
-    }
-  };
-
-  getPasswordStrenghtProgressColor(passStr) {
-    switch (passStr) {
-      case 10:
-        return 'danger';
-      case 25:
-        return 'warning';
-      case 50:
-        return 'success';
-      case 100:
-        return 'info';
-    }
-  }
-
   handleEmailChange = (event) => {
     this.props.setState({
       ...this.props.state,
@@ -127,5 +66,66 @@ export default class UserRegisterService {
       ...this.props.state,
       birthdayDate: event.target.value,
     });
+  };
+
+  getPasswordStrenghtProgressColor(passStr) {
+    switch (passStr) {
+      case 10:
+        return 'danger';
+      case 25:
+        return 'warning';
+      case 50:
+        return 'success';
+      case 100:
+        return 'info';
+    }
+  }
+
+  handleRegister = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.props.setState({
+      ...this.props.state,
+      isButtonDisabled: true,
+      validated: false,
+    });
+
+    if (
+      this.props.state.password == this.props.state.confirmPassword &&
+      ValidateUtil.validateEmail(this.props.state.email) &&
+      ValidateUtil.validatePassword(this.props.state.password)
+    ) {
+      const url = '/register';
+      const jsonData = {
+        email: this.props.state.email,
+        phoneNumber: this.props.state.phoneNumber,
+        firstname: this.props.state.firstname,
+        lastname: this.props.state.lastname,
+        password: md5(this.props.state.password),
+      };
+
+      if (this.props.state.parentalControl) {
+        jsonData.additionalData = {
+          birthday: CreateUtil.createJsonFormatDate(this.props.state.birthdayDate),
+        };
+      }
+
+      const method = 'PUT';
+
+      HandleFetch(url, method, jsonData, null, this.i18n.language)
+        .then(() => {
+          this.setFormState({
+            ...this.formState,
+            modal: true,
+          });
+        })
+        .catch((e) => {
+          this.props.setState({
+            ...this.props.state,
+            error: e,
+          });
+        });
+    }
   };
 }

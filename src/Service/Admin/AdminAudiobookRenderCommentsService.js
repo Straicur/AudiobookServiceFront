@@ -5,27 +5,6 @@ export default class AdminAudiobookRenderCommentsService {
     this.props = props;
   }
 
-  deleteCommnet(element) {
-    HandleFetch(
-      '/admin/audiobook/comment/delete',
-      'DELETE',
-      {
-        audiobookCommentId: element.id,
-      },
-      this.props.token,
-      this.props.i18n.language,
-    )
-      .then(() => {
-        this.props.setAudiobookCommnetsRefetchState(true);
-      })
-      .catch((e) => {
-        this.props.setAudiobookState({
-          ...this.props.audiobookState,
-          error: e,
-        });
-      });
-  }
-
   oparateParentList = (element) => {
     element.stopPropagation();
     if (element.currentTarget.attributes['data-clicable'].value == 'true') {
@@ -69,5 +48,26 @@ export default class AdminAudiobookRenderCommentsService {
         element.children[0].children[0].classList.add('bi-arrow-right-square');
       }
     }
+  }
+
+  deleteCommnet(element) {
+    HandleFetch(
+      '/admin/audiobook/comment/delete',
+      'DELETE',
+      {
+        audiobookCommentId: element.id,
+      },
+      this.props.token,
+      this.props.i18n.language,
+    )
+      .then(() => {
+        this.props.setAudiobookCommnetsRefetchState(true);
+      })
+      .catch((e) => {
+        this.props.setAudiobookState({
+          ...this.props.audiobookState,
+          error: e,
+        });
+      });
   }
 }
