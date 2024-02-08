@@ -120,7 +120,7 @@ export default function UserSettingsEditUserDataModal(props) {
         ...prev,
         wrongPhoneNumber: false,
       }));
-    } else if (!ValidateUtil.validatePhone(state.phoneNumber)) {..props.state,
+    } else if (!ValidateUtil.validatePhoneNumber(state.phoneNumber)) {
       setState((prev) => ({
         ...prev,
         wrongPhoneNumber: true,
@@ -211,10 +211,12 @@ export default function UserSettingsEditUserDataModal(props) {
                 <Form.Control
                   type='tel'
                   isValid={
-                    state.phoneNumber.length > 1 && ValidateUtil.validatePhone(state.phoneNumber)
+                    state.phoneNumber.length > 1 &&
+                    ValidateUtil.validatePhoneNumber(state.phoneNumber)
                   }
                   isInvalid={
-                    state.phoneNumber.length > 1 && !ValidateUtil.validatePhone(state.phoneNumber)
+                    state.phoneNumber.length > 1 &&
+                    !ValidateUtil.validatePhoneNumber(state.phoneNumber)
                   }
                   value={state.phoneNumber}
                   onChange={(event) => handlePhoneNumberChange(event)}
