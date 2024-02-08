@@ -21,10 +21,10 @@ export default function UserSettingsEditUserDataModal(props) {
   const handleClose = () => {
     props.refetch();
 
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       buttonUserData: !props.state.buttonUserData,
-    });
+    }));
   };
 
   const changeUserData = (element) => {
@@ -43,66 +43,93 @@ export default function UserSettingsEditUserDataModal(props) {
     )
       .then(() => {
         element.target.classList.remove('disabled');
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           checkChanges: !state.checkChanges,
           sure: !state.sure,
-        });
+        }));
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
   const handleFirstnameChange = (event) => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       firstname: event.target.value,
-    });
+    }));
   };
   const handleLastnameChange = (event) => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       lastname: event.target.value,
-    });
+    }));
   };
   const handlePhoneNumberChange = (event) => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       phoneNumber: event.target.value,
-    });
+    }));
   };
 
   useEffect(() => {
     if (state.firstname.length == 0) {
-      setState({ ...state, wrongFirstname: false });
+      setState((prev) => ({
+        ...prev,
+        wrongFirstname: false,
+      }));
     } else if (!ValidateUtil.validateName(state.firstname)) {
-      setState({ ...state, wrongFirstname: true });
+      setState((prev) => ({
+        ...prev,
+        wrongFirstname: true,
+      }));
     } else {
-      setState({ ...state, wrongFirstname: false });
+      setState((prev) => ({
+        ...prev,
+        wrongFirstname: false,
+      }));
     }
   }, [state.firstname]);
 
   useEffect(() => {
     if (state.lastname.length == 0) {
-      setState({ ...state, wrongLastname: false });
+      setState((prev) => ({
+        ...prev,
+        wrongLastname: false,
+      }));
     } else if (!ValidateUtil.validateLastName(state.lastname)) {
-      setState({ ...state, wrongLastname: true });
+      setState((prev) => ({
+        ...prev,
+        wrongLastname: true,
+      }));
     } else {
-      setState({ ...state, wrongLastname: false });
+      setState((prev) => ({
+        ...prev,
+        wrongLastname: false,
+      }));
     }
   }, [state.lastname]);
 
   useEffect(() => {
     if (state.phoneNumber.length == 0) {
-      setState({ ...state, wrongPhoneNumber: false });
-    } else if (!ValidateUtil.validatePhone(state.phoneNumber)) {
-      setState({ ...state, wrongPhoneNumber: true });
+      setState((prev) => ({
+        ...prev,
+        wrongPhoneNumber: false,
+      }));
+    } else if (!ValidateUtil.validatePhone(state.phoneNumber)) {..props.state,
+      setState((prev) => ({
+        ...prev,
+        wrongPhoneNumber: true,
+      }));
     } else {
-      setState({ ...state, wrongPhoneNumber: false });
+      setState((prev) => ({
+        ...prev,
+        wrongPhoneNumber: false,
+      }));
     }
   }, [state.phoneNumber]);
 
@@ -113,12 +140,12 @@ export default function UserSettingsEditUserDataModal(props) {
   }, [props.state.error]);
 
   useEffect(() => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       phoneNumber: props.state.phoneNumber,
       firstname: props.state.firstname,
       lastname: props.state.lastname,
-    });
+    }));
   }, [props]);
 
   return (
@@ -241,10 +268,10 @@ export default function UserSettingsEditUserDataModal(props) {
                         className='btn button danger_button settings-button fs-5 sure_button'
                         size='sm'
                         onClick={() =>
-                          setState({
-                            ...state,
+                          setState((prev) => ({
+                            ...prev,
                             sure: !state.sure,
-                          })
+                          }))
                         }
                       >
                         {props.t('no')}
@@ -267,10 +294,10 @@ export default function UserSettingsEditUserDataModal(props) {
                     }
                     className='btn button success_button settings-button fs-5'
                     onClick={() =>
-                      setState({
-                        ...state,
+                      setState((prev) => ({
+                        ...prev,
                         sure: !state.sure,
-                      })
+                      }))
                     }
                   >
                     {props.t('save')}

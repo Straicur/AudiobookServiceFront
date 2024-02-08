@@ -19,10 +19,10 @@ export default function UserSettingsEditPasswordModal(props) {
   });
 
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       buttonPassword: !props.state.buttonPassword,
-    });
+    }));
   };
   const changePassword = (element) => {
     element.target.classList.add('disabled');
@@ -40,68 +40,101 @@ export default function UserSettingsEditPasswordModal(props) {
       )
         .then(() => {
           element.target.classList.remove('disabled');
-          setState({ ...state, checkPassword: !state.checkPassword });
+          setState((prev) => ({
+            ...prev,
+            checkPassword: !state.checkPassword,
+          }));
         })
         .catch((e) => {
-          props.setState({
-            ...props.state,
+          props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     } else {
-      setState({ ...state, wrongNewConfirmPassword: true });
+      setState((prev) => ({
+        ...prev,
+        wrongNewConfirmPassword: true,
+      }));
     }
   };
 
   const handleOldPasswordChange = (event) => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       oldPassword: event.target.value,
-    });
+    }));
   };
   const handleNewPasswordChange = (event) => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       newPassword: event.target.value,
-    });
+    }));
   };
   const handleNewConfirmPasswordChange = (event) => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       newConfirmPassword: event.target.value,
-    });
+    }));
   };
 
   useEffect(() => {
     if (state.oldPassword.length == 0) {
-      setState({ ...state, wrongOldPassword: false });
+      setState((prev) => ({
+        ...prev,
+        wrongOldPassword: false,
+      }));
     } else if (state.oldPassword == state.newPassword) {
-      setState({ ...state, wrongOldPassword: true });
+      setState((prev) => ({
+        ...prev,
+        wrongOldPassword: true,
+      }));
     } else {
-      setState({ ...state, wrongOldPassword: false });
+      setState((prev) => ({
+        ...prev,
+        wrongOldPassword: false,
+      }));
     }
   }, [state.oldPassword]);
 
   useEffect(() => {
     if (state.newPassword.length == 0) {
-      setState({ ...state, wrongNewPassword: false });
+      setState((prev) => ({
+        ...prev,
+        wrongNewPassword: false,
+      }));
     } else if (!ValidateUtil.validatePassword(state.newPassword)) {
-      setState({ ...state, wrongNewPassword: true });
+      setState((prev) => ({
+        ...prev,
+        wrongNewPassword: true,
+      }));
     } else {
-      setState({ ...state, wrongNewPassword: false });
+      setState((prev) => ({
+        ...prev,
+        wrongNewPassword: false,
+      }));
     }
   }, [state.newPassword]);
 
   useEffect(() => {
     if (state.newConfirmPassword.length == 0) {
-      setState({ ...state, wrongNewConfirmPassword: false });
+      setState((prev) => ({
+        ...prev,
+        wrongNewConfirmPassword: false,
+      }));
     } else if (
       !ValidateUtil.validatePassword(state.newConfirmPassword) ||
       state.newConfirmPassword != state.newPassword
     ) {
-      setState({ ...state, wrongNewConfirmPassword: true });
+      setState((prev) => ({
+        ...prev,
+        wrongNewConfirmPassword: true,
+      }));
     } else {
-      setState({ ...state, wrongNewConfirmPassword: false });
+      setState((prev) => ({
+        ...prev,
+        wrongNewConfirmPassword: false,
+      }));
     }
   }, [state.newConfirmPassword]);
 

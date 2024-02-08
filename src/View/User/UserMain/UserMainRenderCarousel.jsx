@@ -37,13 +37,13 @@ export default function UserMainRenderCarousel(props, category) {
   };
 
   const showAudiobookModal = (audiobook, imgUrl) => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       detailModal: !props.detailModal,
       detailModalAudiobook: audiobook,
       detailModalCover: imgUrl == null ? '/noImg.jpg' : imgUrl,
       detailModalCategory: category,
-    });
+    }));
   };
 
   const returnAudioboks = () => {

@@ -16,10 +16,10 @@ export default function UserSettingsEditEmailModal(props) {
   });
 
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       buttonEmail: !props.state.buttonEmail,
-    });
+    }));
   };
 
   const changeEmail = (element) => {
@@ -38,49 +38,73 @@ export default function UserSettingsEditEmailModal(props) {
       )
         .then(() => {
           element.target.classList.remove('disabled');
-          setState({ ...state, checkEmail: !state.checkEmail });
+          setState((prev) => ({
+            ...prev,
+            checkEmail: !state.checkEmail,
+          }));
         })
         .catch((e) => {
-          props.setState({
-            ...props.state,
+          props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     } else {
-      setState({ ...state, wrongNewEmail: false });
+      setState((prev) => ({
+        ...prev,
+        wrongNewEmail: false,
+      }));
     }
   };
 
   const handleEmailChange = (event) => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       oldEmail: event.target.value,
-    });
+    }));
   };
   const handleEmailNewChange = (event) => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       newEmail: event.target.value,
-    });
+    }));
   };
 
   useEffect(() => {
     if (state.oldEmail.length == 0) {
-      setState({ ...state, wrongEmail: false });
+      setState((prev) => ({
+        ...prev,
+        wrongEmail: false,
+      }));
     } else if (!ValidateUtil.validateEmail(state.oldEmail)) {
-      setState({ ...state, wrongEmail: true });
+      setState((prev) => ({
+        ...prev,
+        wrongEmail: true,
+      }));
     } else {
-      setState({ ...state, wrongEmail: false });
+      setState((prev) => ({
+        ...prev,
+        wrongEmail: false,
+      }));
     }
   }, [state.oldEmail]);
 
   useEffect(() => {
     if (state.newEmail.length == 0) {
-      setState({ ...state, wrongNewEmail: false });
+      setState((prev) => ({
+        ...prev,
+        wrongNewEmail: false,
+      }));
     } else if (!ValidateUtil.validateEmail(state.newEmail)) {
-      setState({ ...state, wrongNewEmail: true });
+      setState((prev) => ({
+        ...prev,
+        wrongNewEmail: true,
+      }));
     } else {
-      setState({ ...state, wrongNewEmail: false });
+      setState((prev) => ({
+        ...prev,
+        wrongNewEmail: false,
+      }));
     }
   }, [state.newEmail]);
 

@@ -11,11 +11,11 @@ export default function UserMainRenderAudiobooksList(props) {
     if (props.hasMore) {
       lastPageChangeRef.current = true;
 
-      props.setState({
-        ...props.state,
+      props.setState((prev) => ({
+        ...prev,
         page: props.state.page + 1,
         wasSearch: false,
-      });
+      }));
     }
   };
 

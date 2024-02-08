@@ -23,12 +23,12 @@ export default function UserMainAudiobookDetailModal(props) {
 
   const handleClose = () => {
     addInfo();
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       detailModal: !props.state.detailModal,
       detailModalAudiobook: null,
       detailModalCover: null,
-    });
+    }));
   };
 
   const addToMyList = (element) => {
@@ -44,23 +44,23 @@ export default function UserMainAudiobookDetailModal(props) {
       props.i18n.language,
     )
       .then(() => {
-        setAudiobookDetail({
-          ...audiobookDetail,
+        setAudiobookDetail((prev) => ({
+          ...prev,
           inList: !audiobookDetail.inList,
-        });
+        }));
 
-        props.setAudiobookState({
-          ...props.audiobookState,
+        props.setAudiobookState((prev) => ({
+          ...prev,
           renderAudiobookPlayer: true,
-        });
+        }));
 
         element.target.classList.remove('disabled');
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
@@ -87,10 +87,10 @@ export default function UserMainAudiobookDetailModal(props) {
       )
         .then(() => {})
         .catch((e) => {
-          props.setState({
-            ...props.state,
+          props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
 

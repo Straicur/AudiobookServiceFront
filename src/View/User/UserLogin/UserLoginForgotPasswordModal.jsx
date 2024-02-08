@@ -12,7 +12,10 @@ export const UserLoginForgotPasswordModal = (props) => {
   });
 
   const handleEmailChange = (event) => {
-    setState({ ...state, email: event.target.value });
+    setState((prev) => ({
+      ...prev,
+      email: event.target.value,
+    }));
   };
 
   const handleSend = async () => {
@@ -24,7 +27,10 @@ export const UserLoginForgotPasswordModal = (props) => {
       HandleFetch(url, method, jsonData, props.i18n.language)
         .then((data) => {
           if (data) {
-            setState({ ...state, send: !state.send });
+            setState((prev) => ({
+              ...prev,
+              send: !state.send,
+            }));
 
             setTimeout(function () {
               handleClose();
@@ -32,22 +38,34 @@ export const UserLoginForgotPasswordModal = (props) => {
           }
         })
         .catch((e) => {
-          props.setState({ ...props.state, error: e });
+          props.setState((prev) => ({
+            ...prev,
+            error: e,
+          }));
           handleClose();
         });
     }
   };
 
   const handleClose = () =>
-    props.setFormState({ ...props.formState, modal: !props.formState.modal });
+    props.setFormState((prev) => ({
+      ...prev,
+      modal: !props.formState.modal,
+    }));
 
   useEffect(() => {
     if (state.email.trim()) {
       if (ValidateUtil.validateEmail(state.email)) {
-        setState({ ...state, isButtonDisabled: false });
+        setState((prev) => ({
+          ...prev,
+          isButtonDisabled: false,
+        }));
       }
     } else {
-      setState({ ...state, isButtonDisabled: true });
+      setState((prev) => ({
+        ...prev,
+        isButtonDisabled: true,
+      }));
     }
   }, [state.email]);
 

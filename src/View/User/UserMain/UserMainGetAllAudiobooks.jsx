@@ -57,10 +57,10 @@ export default function GetAllAudiobooks(props) {
           }
         })
         .catch((e) => {
-          props.setState({
-            ...props.state,
+          props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
   };

@@ -17,13 +17,13 @@ export default function UserMyListRender(props) {
   };
 
   const showAudiobookModal = (audiobook, imgUrl) => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       detailModal: !props.state.detailModal,
       detailModalAudiobook: audiobook,
       detailModalCover: imgUrl,
       detailModalCategory: audiobook.categories[0],
-    });
+    }));
   };
 
   const returnAudioboks = () => {

@@ -29,25 +29,25 @@ export default function UserMyListAudiobookDetailProviders(props) {
       props.i18n.language,
     )
       .then((data) => {
-        setAudiobookState({
-          ...audiobookState,
+        setAudiobookState((prev) => ({
+          ...prev,
           info: true,
           part: data.part,
           detailWatchingDate: data.watchingDate,
           datailEndedTime: data.endedTime,
-        });
+        }));
       })
       .catch((e) => {
         if (e instanceof DataNotFoundError) {
-          setAudiobookState({
-            ...audiobookState,
+          setAudiobookState((prev) => ({
+            ...prev,
             info: true,
-          });
+          }));
         } else {
-          props.setState({
-            ...props.state,
+          props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         }
       });
   };

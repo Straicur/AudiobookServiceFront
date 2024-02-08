@@ -12,14 +12,20 @@ export default function UserAudiobookPlayer(props) {
     if (nextPart < props.state.detailModalAudiobook.parts) {
       props.addInfo();
       props.timeAudio.current = 0;
-      props.setAudiobookState({ ...props.audiobookState, part: nextPart });
+      props.setAudiobookState((prev) => ({
+        ...prev,
+        part: nextPart,
+      }));
     }
   };
   const prevPart = () => {
     let prevPart = props.audiobookState.part - 1;
 
     if (prevPart >= 0) {
-      props.setAudiobookState({ ...props.audiobookState, part: prevPart });
+      props.setAudiobookState((prev) => ({
+        ...prev,
+        part: prevPart,
+      }));
       props.timeAudio.current = 0;
     }
   };
@@ -63,10 +69,10 @@ export default function UserAudiobookPlayer(props) {
 
       player.current.audio.current.currentTime = props.timeAudio.current;
 
-      props.setAudiobookState({
-        ...props.audiobookState,
+      props.setAudiobookState((prev) => ({
+        ...prev,
         renderAudiobookPlayer: false,
-      });
+      }));
     }
   }, [props.audiobookState.renderAudiobookPlayer]);
 
@@ -80,10 +86,10 @@ export default function UserAudiobookPlayer(props) {
       player.current.progressBar.current.childNodes[0].childNodes[0].style.left = '0%';
       player.current.progressBar.current.childNodes[0].childNodes[1].style.width = '0%';
 
-      props.setAudiobookState({
-        ...props.audiobookState,
+      props.setAudiobookState((prev) => ({
+        ...prev,
         newPart: false,
-      });
+      }));
     }
   }, [props.audiobookState.newPart]);
 

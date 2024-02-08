@@ -25,12 +25,12 @@ export default function UserMyListAudiobookDetailModal(props) {
 
   const handleClose = () => {
     addInfo();
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       detailModal: !props.state.detailModal,
       detailModalAudiobook: null,
       detailModalCover: null,
-    });
+    }));
   };
 
   const removeFromMyList = () => {
@@ -54,10 +54,10 @@ export default function UserMyListAudiobookDetailModal(props) {
       props.i18n.language,
     )
       .then(() => {
-        setAudiobookDetail({
-          ...audiobookDetail,
+        setAudiobookDetail((prev) => ({
+          ...prev,
           inList: !audiobookDetail.inList,
-        });
+        }));
 
         removeFromMyList();
 
@@ -65,10 +65,10 @@ export default function UserMyListAudiobookDetailModal(props) {
         handleClose();
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
@@ -95,10 +95,10 @@ export default function UserMyListAudiobookDetailModal(props) {
       )
         .then(() => {})
         .catch((e) => {
-          props.setState({
-            ...props.state,
+          props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
 

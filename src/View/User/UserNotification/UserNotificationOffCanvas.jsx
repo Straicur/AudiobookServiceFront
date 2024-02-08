@@ -15,10 +15,10 @@ export default function UserNotificationOffCanvas(props) {
   const navigate = useNavigate();
 
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       notificationsOffCanvas: !props.state.notificationsOffCanvas,
-    });
+    }));
     setShow(false);
   };
 
@@ -63,10 +63,10 @@ export default function UserNotificationOffCanvas(props) {
           props.i18n.language,
         )
           .then(() => {
-            props.setState({
-              ...props.state,
+            props.setState((prev) => ({
+              ...prev,
               refresh: true,
-            });
+            }));
           })
           .catch(() => {});
       }
@@ -74,11 +74,11 @@ export default function UserNotificationOffCanvas(props) {
   };
 
   const loadMore = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       page: props.state.page + 1,
       refresh: true,
-    });
+    }));
   };
 
   const renderNotifications = () => {
@@ -145,10 +145,10 @@ export default function UserNotificationOffCanvas(props) {
 
   useEffect(() => {
     if (props.dateUpdate < Date.now()) {
-      props.setState({
-        ...props.state,
+      props.setState((prev) => ({
+        ...prev,
         refresh: true,
-      });
+      }));
     }
   }, []);
 

@@ -10,10 +10,10 @@ export default function UserSettingsDeleteUserModal(props) {
   const navigate = useNavigate();
 
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       buttonDelete: !props.state.buttonDelete,
-    });
+    }));
   };
 
   const deleteAccount = (element) => {
@@ -25,10 +25,10 @@ export default function UserSettingsDeleteUserModal(props) {
         navigate('/login');
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 

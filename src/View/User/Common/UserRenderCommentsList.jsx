@@ -259,45 +259,45 @@ export default function UserRenderCommentsList(props) {
       lastOpenComment.current = comment.parentId;
     }
 
-    setCommentState({
-      ...commentState,
+    setCommentState((prev) => ({
+      ...prev,
       commentId: comment.id,
       comment: comment.comment,
       edit: true,
       add: false,
-    });
+    }));
   }
 
   function addChildComment(comment) {
     lastOpenComment.current = comment.id;
 
-    setCommentState({
-      ...commentState,
+    setCommentState((prev) => ({
+      ...prev,
       parentId: comment.id,
       commentId: comment.id,
       comment: '',
       edit: false,
       add: true,
-    });
+    }));
   }
 
   function decline() {
     lastOpenComment.current = null;
-    setCommentState({
-      ...commentState,
+    setCommentState((prev) => ({
+      ...prev,
       parentId: null,
       commentId: null,
       comment: '',
       add: true,
       edit: false,
-    });
+    }));
   }
 
   function textareaWrite(event) {
-    setCommentState({
-      ...commentState,
+    setCommentState((prev) => ({
+      ...prev,
       comment: event.target.value,
-    });
+    }));
   }
   function showText(comment, element) {
     element.currentTarget.parentElement.innerHTML = comment;

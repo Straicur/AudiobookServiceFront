@@ -135,10 +135,10 @@ export default function UserLoginForm(props) {
                       <a
                         className='link-info'
                         onClick={() =>
-                          setFormState({
-                            ...formState,
+                          setFormState((prev) => ({
+                            ...prev,
                             modal: !formState.modal,
-                          })
+                          }))
                         }
                       >
                         {t('forgotPassword')}

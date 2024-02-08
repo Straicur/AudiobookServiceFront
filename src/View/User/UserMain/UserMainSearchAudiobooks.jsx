@@ -6,29 +6,29 @@ import Button from 'react-bootstrap/Button';
 export default function UserMainSearchAudiobooks(props) {
   const searchAudiobooks = () => {
     if (props.audiobooksState.searchText.length > 0) {
-      props.setAudiobooksState({
-        ...props.audiobooksState,
+      props.setAudiobooksState((prev) => ({
+        ...prev,
         search: true,
         wasSearch: false,
         searching: !props.audiobooksState.searching,
         page: 0,
-      });
+      }));
     } else {
-      props.setAudiobooksState({
-        ...props.audiobooksState,
+      props.setAudiobooksState((prev) => ({
+        ...prev,
         search: false,
         wasSearch: true,
         page: 0,
-      });
+      }));
     }
   };
 
   const changeSearchText = (element) => {
     if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setAudiobooksState({
-        ...props.audiobooksState,
+      props.setAudiobooksState((prev) => ({
+        ...prev,
         searchText: element.target.value,
-      });
+      }));
     }
   };
 

@@ -17,21 +17,21 @@ export default function UserSettingsContainer(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       },
       onSuccess: (data) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           phoneNumber: data.phoneNumber,
           firstname: data.firstname,
           lastname: data.lastname,
           email: data.email,
           edited: data.edited,
           editableDate: data.editableDate,
-        });
+        }));
       },
     },
   );

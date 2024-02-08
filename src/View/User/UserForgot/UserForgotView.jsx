@@ -53,31 +53,31 @@ export default function UserForgotView(props) {
           }
         })
         .catch((e) => {
-          props.setState({
-            ...props.state,
+          props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     } else {
-      props.setState({
-        ...props.state,
+      props.setState((prev) => ({
+        ...prev,
         wrongPassword: true,
-      });
+      }));
     }
   };
 
   const handlePasswordChange = (event) => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       password: event.target.value,
       passwordStrength: ValidateUtil.validatePasswordStrength(event.target.value),
-    });
+    }));
   };
   const handleConfirmPasswordChange = (event) => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       confirmPassword: event.target.value,
-    });
+    }));
   };
   useEffect(() => {
     if (
@@ -85,13 +85,16 @@ export default function UserForgotView(props) {
       props.state.confirmPassword.trim() != '' &&
       props.state.password == props.state.confirmPassword
     ) {
-      props.setState({
-        ...props.state,
+      props.setState((prev) => ({
+        ...prev,
         isButtonDisabled: false,
         wrongPassword: false,
-      });
+      }));
     } else {
-      props.setState({ ...props.state, isButtonDisabled: true });
+      props.setState((prev) => ({
+        ...prev,
+        isButtonDisabled: true,
+      }));
     }
   }, [props.state.password, props.state.confirmPassword]);
 
