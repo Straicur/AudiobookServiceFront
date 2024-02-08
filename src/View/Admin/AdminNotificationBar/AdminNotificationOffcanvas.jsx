@@ -15,10 +15,10 @@ export default function AdminNotificationOffcanvas(props) {
   const navigate = useNavigate();
 
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       notificationsOffCanvas: !props.state.notificationsOffCanvas,
-    });
+    }));
     setShow(false);
   };
 
@@ -90,20 +90,20 @@ export default function AdminNotificationOffcanvas(props) {
         )
           .then(() => {})
           .catch(() => {});
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           refresh: true,
-        });
+        }));
       }
     }
   };
 
   const loadMore = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       page: props.state.page + 1,
       refresh: true,
-    });
+    }));
   };
 
   const renderNotifications = () => {
@@ -170,10 +170,10 @@ export default function AdminNotificationOffcanvas(props) {
 
   useEffect(() => {
     if (props.dateUpdate < Date.now()) {
-      props.setState({
-        ...props.state,
+      props.setState((prev) => ({
+        ...prev,
         refresh: true,
-      });
+      }));
     }
   }, []);
 

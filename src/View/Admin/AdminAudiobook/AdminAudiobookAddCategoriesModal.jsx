@@ -17,10 +17,10 @@ export default function AdminAudiobookAddCategoriesModal(props) {
 
   const handleClose = () => {
     props.setAudiobookDetailRefetch(true);
-    props.setAudiobookState({
-      ...props.audiobookState,
+    props.setAudiobookState((prev) => ({
+      ...prev,
       addCategoriesModal: !props.audiobookState.addCategoriesModal,
-    });
+    }));
   };
 
   const fetchCategories = () => {
@@ -33,17 +33,17 @@ export default function AdminAudiobookAddCategoriesModal(props) {
         }
 
         if (categoriesState.refresh) {
-          setCategoriesState({
-            ...categoriesState,
+          setCategoriesState((prev) => ({
+            ...prev,
             refresh: !categoriesState.refresh,
-          });
+          }));
         }
       })
       .catch((e) => {
-        props.setAudiobookState({
-          ...props.audiobookState,
+        props.setAudiobookState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
@@ -60,7 +60,10 @@ export default function AdminAudiobookAddCategoriesModal(props) {
       categoriesIds.push(category.id);
     }
 
-    setCategoriesState({ ...categoriesState, categoriesId: categoriesIds });
+    setCategoriesState((prev) => ({
+      ...prev,
+      categoriesId: categoriesIds,
+    }));
 
     if (categoriesState.refresh) {
       fetchCategories();

@@ -164,10 +164,10 @@ export default function AdminAudiobookDetail(props) {
                 size='sm'
                 className='btn button px-4 my-1 audiobook_detail_modal_button success_button'
                 onClick={() =>
-                  props.setAudiobookState({
-                    ...props.audiobookState,
+                  props.setAudiobookState((prev) => ({
+                    ...prev,
                     addCategoriesModal: !props.audiobookState.addCategoriesModal,
-                  })
+                  }))
                 }
               >
                 {props.t('addCategory')}

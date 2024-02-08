@@ -20,10 +20,10 @@ export default function AdminAudiobookDeleteEntarlyButton(props) {
         navigate(`/admin/audiobooks`);
       })
       .catch((e) => {
-        props.setAudiobookState({
-          ...props.audiobookState,
+        props.setAudiobookState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
@@ -45,10 +45,10 @@ export default function AdminAudiobookDeleteEntarlyButton(props) {
           size='sm'
           className='btn button px-4 my-1 question_button danger_button me-2'
           onClick={() =>
-            props.setAudiobookState({
-              ...props.audiobookState,
+            props.setAudiobookState((prev) => ({
+              ...prev,
               deleteEntarly: !props.audiobookState.deleteEntarly,
-            })
+            }))
           }
         >
           {props.t('no')}
@@ -62,10 +62,10 @@ export default function AdminAudiobookDeleteEntarlyButton(props) {
         size='sm'
         className='btn button px-4 my-1 audiobook_detail_modal_button danger_button'
         onClick={() =>
-          props.setAudiobookState({
-            ...props.audiobookState,
+          props.setAudiobookState((prev) => ({
+            ...prev,
             deleteEntarly: !props.audiobookState.deleteEntarly,
-          })
+          }))
         }
       >
         {props.t('deleteEntarly')}

@@ -17,10 +17,10 @@ export default function AdminAudiobookReAddButton(props) {
           props.setCategories(data.categories);
         })
         .catch((e) => {
-          props.setAudiobookState({
-            ...props.audiobooksState,
+          props.setAudiobookState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
   };
@@ -28,10 +28,10 @@ export default function AdminAudiobookReAddButton(props) {
   const openReAddingModal = () => {
     fetchCategoriesList();
 
-    props.setAudiobookState({
-      ...props.audiobookState,
+    props.setAudiobookState((prev) => ({
+      ...prev,
       reAddingModal: !props.audiobookState.reAddingModal,
-    });
+    }));
   };
 
   return props.audiobookState.reAdding ? (
@@ -52,10 +52,10 @@ export default function AdminAudiobookReAddButton(props) {
           size='sm'
           className='btn button px-4 my-1 question_button danger_button me-2'
           onClick={() =>
-            props.setAudiobookState({
-              ...props.audiobookState,
+            props.setAudiobookState((prev) => ({
+              ...prev,
               reAdding: !props.audiobookState.reAdding,
-            })
+            }))
           }
         >
           {props.t('no')}
@@ -69,10 +69,10 @@ export default function AdminAudiobookReAddButton(props) {
         size='sm'
         className='btn button px-4 my-1 audiobook_detail_modal_button warning_button'
         onClick={() =>
-          props.setAudiobookState({
-            ...props.audiobookState,
+          props.setAudiobookState((prev) => ({
+            ...prev,
             reAdding: !props.audiobookState.reAdding,
-          })
+          }))
         }
       >
         {props.t('reAdding')}

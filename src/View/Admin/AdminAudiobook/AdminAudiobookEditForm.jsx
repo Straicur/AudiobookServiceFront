@@ -242,10 +242,10 @@ export default function AdminAudiobookEditForm(props) {
               size='sm'
               className='btn button px-4 mt-3  mb-1 question_button danger_button me-2'
               onClick={() =>
-                props.setAudiobookState({
-                  ...props.audiobookState,
+                props.setAudiobookState((prev) => ({
+                  ...prev,
                   edit: !props.audiobookState.edit,
-                })
+                }))
               }
             >
               {props.t('no')}
@@ -260,10 +260,10 @@ export default function AdminAudiobookEditForm(props) {
             disabled={wrongState != 0}
             className='btn button px-4 mt-3 mb-1 audiobook_detail_modal_button success_button '
             onClick={() =>
-              props.setAudiobookState({
-                ...props.audiobookState,
+              props.setAudiobookState((prev) => ({
+                ...prev,
                 edit: !props.audiobookState.edit,
-              })
+              }))
             }
           >
             {props.t('edit')}

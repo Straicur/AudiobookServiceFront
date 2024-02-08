@@ -60,12 +60,12 @@ export const AdminNavBar = () => {
         i18n.language,
       )
         .then((data) => {
-          setState({
-            ...state,
+          setState((prev) => ({
+            ...prev,
             page: data.page,
             maxPage: data.maxPage,
             refresh: false,
-          });
+          }));
           data.systemNotifications.forEach((element) => {
             let found = notificationsList.current.filter((x) => x.id == element.id).length > 0;
             if (!found) {
@@ -87,10 +87,10 @@ export const AdminNavBar = () => {
   };
 
   const openNotificationsList = () => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       notificationsOffCanvas: !state.notificationsOffCanvas,
-    });
+    }));
   };
 
   useEffect(() => {
@@ -102,10 +102,10 @@ export const AdminNavBar = () => {
   useEffect(() => {
     if (dateUpdate > Date.now()) {
       notificationsList.current = notifications;
-      setState({
-        ...state,
+      setState((prev) => ({
+        ...prev,
         maxPage: maxPage,
-      });
+      }));
     } else {
       fetchNotifications();
     }
