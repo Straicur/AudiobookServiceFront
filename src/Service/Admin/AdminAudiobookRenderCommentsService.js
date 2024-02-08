@@ -64,10 +64,10 @@ export default class AdminAudiobookRenderCommentsService {
         this.props.setAudiobookCommnetsRefetchState(true);
       })
       .catch((e) => {
-        this.props.setAudiobookState({
-          ...this.props.audiobookState,
+        this.props.setAudiobookState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   }
 }

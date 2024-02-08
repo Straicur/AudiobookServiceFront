@@ -10,49 +10,49 @@ export default class AdminNotificationsAddService {
   }
 
   handleClose = () => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       addNotificationModal: !this.props.state.addNotificationModal,
       refresh: !this.props.state.refresh,
-    });
+    }));
   };
 
   changeNotificationType = (element) => {
     if (element.target.value != 0) {
-      this.setModalState({
-        ...this.modalState,
+      this.setModalState((prev) => ({
+        ...prev,
         notificationType: parseInt(element.target.value),
-      });
+      }));
     }
   };
 
   changeUserType = (element) => {
     if (element.target.value != 0) {
-      this.setModalState({
-        ...this.modalState,
+      this.setModalState((prev) => ({
+        ...prev,
         userType: parseInt(element.target.value),
-      });
+      }));
     }
   };
 
   changeText = (element) => {
-    this.setModalState({
-      ...this.modalState,
+    this.setModalState((prev) => ({
+      ...prev,
       text: element.target.value,
-    });
+    }));
   };
 
   selectActionId = () => {
-    this.setActionState({
-      ...this.actionState,
+    this.setActionState((prev) => ({
+      ...prev,
       list: true,
-    });
+    }));
   };
   goBack = () => {
-    this.setActionState({
-      ...this.actionState,
+    this.setActionState((prev) => ({
+      ...prev,
       list: false,
-    });
+    }));
   };
 
   createAdditionalData = () => {
@@ -87,17 +87,17 @@ export default class AdminNotificationsAddService {
       this.props.i18n.language,
     )
       .then(() => {
-        this.props.setState({
-          ...this.props.state,
+        this.props.setState((prev) => ({
+          ...prev,
           addNotificationModal: !this.props.state.addNotificationModal,
           refresh: !this.props.state.refresh,
-        });
+        }));
       })
       .catch((e) => {
-        this.props.setNotificationsState({
-          ...this.props.notificationsState,
+        this.props.setNotificationsState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 }

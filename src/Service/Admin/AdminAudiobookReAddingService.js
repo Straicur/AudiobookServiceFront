@@ -13,11 +13,17 @@ export default class AdminAudiobookReAddingService {
   }
 
   handleSetAuthorChange = (event) => {
-    this.setStateModal({ ...this.stateModal, author: event.target.value });
+    this.setStateModal((prev) => ({
+      ...prev,
+      author: event.target.value,
+    }));
   };
 
   handleSetTitleChange = (event) => {
-    this.setStateModal({ ...this.stateModal, title: event.target.value });
+    this.setStateModal((prev) => ({
+      ...prev,
+      title: event.target.value,
+    }));
   };
 
   handleOnFileChange = (e) => {
@@ -25,31 +31,37 @@ export default class AdminAudiobookReAddingService {
       let file = e.target.files[0];
 
       if (file.type == 'application/zip') {
-        this.setStateModal({ ...this.stateModal, file: file });
+        this.setStateModal((prev) => ({
+          ...prev,
+          file: file,
+        }));
       }
     }
   };
 
   handleClose = () => {
-    this.props.setAudiobookState({
-      ...this.props.audiobookState,
+    this.props.setAudiobookState((prev) => ({
+      ...prev,
       reAddingModal: !this.props.audiobookState.reAddingModal,
       reAdding: !this.props.audiobookState.reAdding,
-    });
+    }));
   };
 
   handleCloseAndUpdate = () => {
-    this.props.setAudiobookState({
-      ...this.props.audiobookState,
+    this.props.setAudiobookState((prev) => ({
+      ...prev,
       reAddingModal: !this.props.audiobookState.reAddingModal,
       reAdding: !this.props.audiobookState.reAdding,
       refresh: !this.props.audiobookState.refresh,
       addAudiobookSeconds: this.seconds.current,
-    });
+    }));
   };
 
   handleBack = () => {
-    this.setStateModal({ ...this.stateModal, modal: 1 });
+    this.setStateModal((prev) => ({
+      ...prev,
+      modal: 1,
+    }));
   };
 
   generateCategoriesList = () => {
@@ -64,14 +76,17 @@ export default class AdminAudiobookReAddingService {
 
   changeCategories = (element) => {
     if (isNaN(element) && element != undefined) {
-      this.setStateModal({
-        ...this.stateModal,
+      this.setStateModal((prev) => ({
+        ...prev,
         categories: element,
-      });
+      }));
     }
   };
   nextPage = () => {
-    this.setStateModal({ ...this.stateModal, modal: 2 });
+    this.setStateModal((prev) => ({
+      ...prev,
+      modal: 2,
+    }));
   };
 
   reAddAudiobook = () => {
@@ -83,7 +98,11 @@ export default class AdminAudiobookReAddingService {
     const hashName = sha256(fileName).toString();
     //todo to jest do rozkminy bo przeszkadza
     // Nie wykonuje się po i nie mogę zmienić stanu
-    this.setStateModal({ ...this.stateModal, upload: true, modal: 3 });
+    this.setStateModal((prev) => ({
+      ...prev,
+      upload: true,
+      modal: 3,
+    }));
 
     reader.onload = function (e) {
       if (e.target.result instanceof ArrayBuffer) {
@@ -110,11 +129,11 @@ export default class AdminAudiobookReAddingService {
             },
           };
 
-          this.setStateProgress({
-            ...this.stateProgress,
+          this.setStateProgress((prev) => ({
+            ...prev,
             maxParts: part,
             currentPart: part,
-          });
+          }));
 
           HandleFetch(url, method, jsonData, this.props.token, this.props.i18n.language)
             .then((data) => {
@@ -131,16 +150,16 @@ export default class AdminAudiobookReAddingService {
                   uploadEnded: false,
                 });
               }
-              this.setStateProgress({
-                ...this.stateProgress,
+              this.setStateProgress((prev) => ({
+                ...prev,
                 currentPart: this.stateProgress.currentPart + 1,
-              });
+              }));
             })
             .catch((e) => {
-              this.props.setAudiobookState({
-                ...this.props.audiobookState,
+              this.props.setAudiobookState((prev) => ({
+                ...prev,
                 error: e,
-              });
+              }));
             });
         } else {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
@@ -150,11 +169,11 @@ export default class AdminAudiobookReAddingService {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
             const arr = new Uint8Array(buf).subarray(i, i + CHUNK_SIZE);
 
-            this.setStateProgress({
-              ...this.stateProgress,
+            this.setStateProgress((prev) => ({
+              ...prev,
               maxParts: allparts,
               currentPart: part,
-            });
+            }));
 
             let b64 = Buffer.from(arr).toString('base64');
 
@@ -187,16 +206,16 @@ export default class AdminAudiobookReAddingService {
                     uploadEnded: false,
                   });
                 }
-                this.setStateProgress({
-                  ...this.stateProgress,
+                this.setStateProgress((prev) => ({
+                  ...prev,
                   currentPart: this.stateProgress.currentPart + 1,
-                });
+                }));
               })
               .catch((e) => {
-                this.props.setAudiobookState({
-                  ...this.props.audiobookState,
+                this.props.setAudiobookState((prev) => ({
+                  ...prev,
                   error: e,
-                });
+                }));
               });
 
             part = part + 1;

@@ -13,11 +13,17 @@ export default class AdminAudiobooksAudiobookAddService {
   }
 
   handleSetAuthorChange = (event) => {
-    this.setStateModal({ ...this.stateModal, author: event.target.value });
+    this.setStateModal((prev) => ({
+      ...prev,
+      author: event.target.value,
+    }));
   };
 
   handleSetTitleChange = (event) => {
-    this.setStateModal({ ...this.stateModal, title: event.target.value });
+    this.setStateModal((prev) => ({
+      ...prev,
+      title: event.target.value,
+    }));
   };
 
   handleOnFileChange = (e) => {
@@ -25,33 +31,42 @@ export default class AdminAudiobooksAudiobookAddService {
       let file = e.target.files[0];
 
       if (file.type == 'application/zip' || file.type == 'application/vnd.rar') {
-        this.setStateModal({ ...this.stateModal, file: file });
+        this.setStateModal((prev) => ({
+          ...prev,
+          file: file,
+        }));
       }
     }
   };
 
   handleClose = () => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       addAudiobookModal: !this.props.state.addAudiobookModal,
-    });
+    }));
   };
 
   handleCloseAndUpdate = () => {
     this.props.resetSearchStates();
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       addAudiobookModal: !this.props.state.addAudiobookModal,
       addAudiobook: !this.props.state.addAudiobook,
       addAudiobookSeconds: this.seconds.current,
-    });
+    }));
   };
 
   handleBack = () => {
-    this.setStateModal({ ...this.stateModal, modal: 1 });
+    this.setStateModal((prev) => ({
+      ...prev,
+      modal: 1,
+    }));
   };
   nextPage = () => {
-    this.setStateModal({ ...this.stateModal, modal: 2 });
+    this.setStateModal((prev) => ({
+      ...prev,
+      modal: 2,
+    }));
   };
 
   generateCategoriesList = () => {
@@ -65,10 +80,10 @@ export default class AdminAudiobooksAudiobookAddService {
 
   changeCategories = (element) => {
     if (!isNaN(element) && element != undefined) {
-      this.setStateModal({
-        ...this.stateModal,
+      this.setStateModal((prev) => ({
+        ...prev,
         categories: element,
-      });
+      }));
     }
   };
 
@@ -81,7 +96,11 @@ export default class AdminAudiobooksAudiobookAddService {
     const hashName = sha256(fileName).toString();
     //todo to jest do rozkminy bo przeszkadza
     // Nie wykonuje się po i nie mogę zmienić stanu
-    this.setStateModal({ ...this.stateModal, upload: true, modal: 3 });
+    this.setStateModal((prev) => ({
+      ...prev,
+      upload: true,
+      modal: 3,
+    }));
 
     reader.onload = function (e) {
       if (e.target.result instanceof ArrayBuffer) {
@@ -128,10 +147,10 @@ export default class AdminAudiobooksAudiobookAddService {
               this.currentPart.current = this.currentPart.current + 1;
             })
             .catch((e) => {
-              this.props.setAudiobooksState({
-                ...this.props.audiobooksState,
+              this.props.setAudiobooksState((prev) => ({
+                ...prev,
                 error: e,
-              });
+              }));
             });
         } else {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
@@ -177,10 +196,10 @@ export default class AdminAudiobooksAudiobookAddService {
                 this.currentPart.current = this.currentPart.current + 1;
               })
               .catch((e) => {
-                this.props.setAudiobooksState({
-                  ...this.props.audiobooksState,
+                this.props.setAudiobooksState((prev) => ({
+                  ...prev,
                   error: e,
-                });
+                }));
               });
 
             part = part + 1;

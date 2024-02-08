@@ -20,49 +20,49 @@ export default class AdminNotificationsEditService {
   }
 
   handleClose = () => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       editNotificationkModal: !this.props.state.editNotificationkModal,
       refresh: !this.props.state.refresh,
-    });
+    }));
   };
 
   changeNotificationType = (element) => {
     if (element.target.value != 0) {
-      this.setNotificationsState({
-        ...this.notificationsState,
+      this.setNotificationsState((prev) => ({
+        ...prev,
         notificationType: parseInt(element.target.value),
-      });
+      }));
     }
   };
 
   changeUserType = (element) => {
     if (element.target.value != 0) {
-      this.setNotificationsState({
-        ...this.notificationsState,
+      this.setNotificationsState((prev) => ({
+        ...prev,
         userType: parseInt(element.target.value),
-      });
+      }));
     }
   };
 
   changeText = (element) => {
-    this.setNotificationsState({
-      ...this.notificationsState,
+    this.setNotificationsState((prev) => ({
+      ...prev,
       text: element.target.value,
-    });
+    }));
   };
 
   selectActionId = () => {
-    this.setActionState({
-      ...this.actionState,
+    this.setActionState((prev) => ({
+      ...prev,
       list: true,
-    });
+    }));
   };
   goBack = () => {
-    this.setActionState({
-      ...this.actionState,
+    this.setActionState((prev) => ({
+      ...prev,
       list: false,
-    });
+    }));
   };
 
   deleteNotification = (element) => {
@@ -80,21 +80,21 @@ export default class AdminNotificationsEditService {
       .then(() => {
         element.target.classList.remove('disabled');
 
-        this.setDelteteState({
-          ...this.deleteState,
+        this.setDelteteState((prev) => ({
+          ...prev,
           sure: !this.deleteState.sure,
-        });
+        }));
 
-        this.setNotificationsState({
-          ...this.notificationsState,
+        this.setNotificationsState((prev) => ({
+          ...prev,
           delete: !this.notificationsState.delete,
-        });
+        }));
       })
       .catch((e) => {
-        this.props.setNotificationsState({
-          ...this.props.notificationsState,
+        this.props.setNotificationsState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
@@ -115,17 +115,17 @@ export default class AdminNotificationsEditService {
       this.props.i18n.language,
     )
       .then(() => {
-        this.props.setState({
-          ...this.props.state,
+        this.props.setState((prev) => ({
+          ...prev,
           editNotificationkModal: !this.props.state.editNotificationkModal,
           refresh: !this.props.state.refresh,
-        });
+        }));
       })
       .catch((e) => {
-        this.props.setNotificationsState({
-          ...this.props.notificationsState,
+        this.props.setNotificationsState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 }

@@ -13,17 +13,17 @@ export default class UserLoginService {
   fetchData = useTokenStore();
 
   handleEmailChange = (event) => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       email: event.target.value,
-    });
+    }));
   };
 
   handlePasswordChange = (event) => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       password: event.target.value,
-    });
+    }));
   };
 
   fetchToken = (e) => {
@@ -33,10 +33,10 @@ export default class UserLoginService {
     const form = e.currentTarget;
 
     if (form.checkValidity() == true && ValidateUtil.validateEmail(form[0].value)) {
-      this.props.setState({
-        ...this.props.state,
+      this.props.setState((prev) => ({
+        ...prev,
         validated: true,
-      });
+      }));
 
       this.fetchData.setToken(
         {
@@ -48,11 +48,11 @@ export default class UserLoginService {
         this.i18n.language,
       );
     } else {
-      this.props.setState({
-        ...this.props.state,
+      this.props.setState((prev) => ({
+        ...prev,
         isButtonDisabled: true,
         validated: false,
-      });
+      }));
     }
   };
 }

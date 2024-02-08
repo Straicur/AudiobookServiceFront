@@ -11,21 +11,21 @@ export default class AdminUsersEditService {
   }
 
   handlePasswordChange = (event) => {
-    this.setPasswordState({
-      ...this.passwordState,
+    this.setPasswordState((prev) => ({
+      ...prev,
       password: event.target.value,
       buttonDisabled: false,
       wrong: false,
-    });
+    }));
   };
 
   handlePhoneNumberChange = (event) => {
-    this.setPhoneNumberState({
-      ...this.phoneNumberState,
+    this.setPhoneNumberState((prev) => ({
+      ...prev,
       phoneNumber: event.target.value,
       buttonDisabled: false,
       wrong: false,
-    });
+    }));
   };
 
   banUser = () => {
@@ -51,13 +51,16 @@ export default class AdminUsersEditService {
           roles: this.props.state.editUserElement.roles,
         };
 
-        this.props.setState({ ...this.props.state, editUserElement: newSelcetedUser });
+        this.props.setState((prev) => ({
+          ...prev,
+          editUserElement: newSelcetedUser,
+        }));
       })
       .catch((e) => {
-        this.props.setState({
-          ...this.props.state,
+        this.props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
@@ -86,24 +89,27 @@ export default class AdminUsersEditService {
           roles: this.props.state.editUserElement.roles,
         };
 
-        this.props.setState({ ...this.props.state, editUserElement: newSelcetedUser });
+        this.props.setState((prev) => ({
+          ...prev,
+          editUserElement: newSelcetedUser,
+        }));
       })
       .catch((e) => {
-        this.props.setState({
-          ...this.props.state,
+        this.props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
   changeUserPassword = () => {
     if (!ValidateUtil.validatePassword(this.passwordState.password)) {
-      this.setPasswordState({
-        ...this.passwordState,
+      this.setPasswordState((prev) => ({
+        ...prev,
         wrong: !this.passwordState.wrong,
         buttonDisabled: !this.passwordState.buttonDisabled,
         sure: !this.passwordState.sure,
-      });
+      }));
     } else {
       HandleFetch(
         '/admin/user/change/password',
@@ -116,28 +122,28 @@ export default class AdminUsersEditService {
         this.props.i18n.language,
       )
         .then(() => {
-          this.setPasswordState({
-            ...this.passwordState,
+          this.setPasswordState((prev) => ({
+            ...prev,
             sure: !this.passwordState.sure,
-          });
+          }));
         })
         .catch((e) => {
-          this.props.setState({
-            ...this.props.state,
+          this.props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
   };
 
   changeUserPhone = () => {
     if (!ValidateUtil.validatePhoneNumber(this.phoneNumberState.phoneNumber)) {
-      this.setPhoneNumberState({
-        ...this.phoneNumberState,
+      this.setPhoneNumberState((prev) => ({
+        ...prev,
         wrong: !this.phoneNumberState.wrong,
         buttonDisabled: !this.phoneNumberState.buttonDisabled,
         sure: !this.phoneNumberState.sure,
-      });
+      }));
     } else {
       HandleFetch(
         '/admin/user/change/phone',
@@ -150,16 +156,16 @@ export default class AdminUsersEditService {
         this.props.i18n.language,
       )
         .then(() => {
-          this.setPhoneNumberState({
-            ...this.phoneNumberState,
+          this.setPhoneNumberState((prev) => ({
+            ...prev,
             sure: !this.phoneNumberState.sure,
-          });
+          }));
         })
         .catch((e) => {
-          this.props.setState({
-            ...this.props.state,
+          this.props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
   };

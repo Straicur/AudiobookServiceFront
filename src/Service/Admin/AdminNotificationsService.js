@@ -42,10 +42,10 @@ export default class AdminNotificationsService {
   };
 
   openAddModal = () => {
-    this.setState({
-      ...this.state,
+    this.setState((prev) => ({
+      ...prev,
       addNotificationModal: !this.state.addNotificationModal,
-    });
+    }));
   };
 
   openSearchModal = () => {
@@ -56,16 +56,16 @@ export default class AdminNotificationsService {
           this.userRolesStore.setRoles(data);
         })
         .catch((e) => {
-          this.props.setNotificationsState({
-            ...this.props.notificationsState,
+          this.props.setNotificationsState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
 
-    this.setState({
-      ...this.state,
+    this.setState((prev) => ({
+      ...prev,
       searchModal: !this.state.searchModal,
-    });
+    }));
   };
 }

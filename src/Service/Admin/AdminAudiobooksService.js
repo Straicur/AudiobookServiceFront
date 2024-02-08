@@ -33,19 +33,19 @@ export default class AdminAudiobooksService {
   openAddModal = () => {
     this.fetchCategoriesList();
 
-    this.setState({
-      ...this.state,
+    this.setState((prev) => ({
+      ...prev,
       addAudiobookModal: !this.state.addAudiobookModal,
-    });
+    }));
   };
 
   openSearchModal = () => {
     this.fetchCategoriesList();
 
-    this.setState({
-      ...this.state,
+    this.setState((prev) => ({
+      ...prev,
       searchModal: !this.state.searchModal,
-    });
+    }));
   };
 
   createSearchData = () => {
@@ -97,10 +97,10 @@ export default class AdminAudiobooksService {
           this.setCategories(data.categories);
         })
         .catch((e) => {
-          this.props.setAudiobooksState({
-            ...this.props.audiobooksState,
+          this.props.setAudiobooksState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
   };

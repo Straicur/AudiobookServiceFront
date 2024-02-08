@@ -5,10 +5,10 @@ export default class AdminUsersSearchService {
   }
 
   handleClose = () => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       searchModal: !this.props.state.searchModal,
-    });
+    }));
     this.props.resetSearchStates();
 
     this.setShow(false);
@@ -16,19 +16,19 @@ export default class AdminUsersSearchService {
 
   changeSort = (element) => {
     if (!isNaN(element.target.value) && element.target.value != undefined) {
-      this.props.setSearchState({
-        ...this.props.searchState,
+      this.props.setSearchState((prev) => ({
+        ...prev,
         order: parseInt(element.target.value),
-      });
+      }));
     }
   };
 
   changeEmail = (element) => {
     if (!isNaN(element.target.value) && element.target.value != undefined) {
-      this.props.setSearchState({
-        ...this.props.searchState,
+      this.props.setSearchState((prev) => ({
+        ...prev,
         email: element.target.value,
-      });
+      }));
     }
   };
 

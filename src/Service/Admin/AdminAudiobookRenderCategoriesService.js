@@ -80,10 +80,10 @@ export default class AdminAudiobookRenderCategoriesService {
         element.target.disabled = true;
       })
       .catch((e) => {
-        this.props.setAudiobookState({
-          ...this.props.audiobookState,
+        this.props.setAudiobookState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 }

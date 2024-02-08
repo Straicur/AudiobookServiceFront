@@ -20,65 +20,65 @@ export default class AdminAudiobookEditService {
       value = 0;
     }
 
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       parts: parseInt(value),
-    });
+    }));
   };
   handleEncodedChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       encoded: event.target.value,
-    });
+    }));
   };
   handleDescriptionChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       description: event.target.value,
-    });
+    }));
   };
   handleDurationChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       duration: event.target.value,
-    });
+    }));
   };
 
   handleYearChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       year: event.target.value,
-    });
+    }));
   };
   handleAlbumChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       album: event.target.value,
-    });
+    }));
   };
   handleAuthorChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       author: event.target.value,
-    });
+    }));
   };
   handleTitleChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       title: event.target.value,
-    });
+    }));
   };
   handleSizeChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       size: event.target.value,
-    });
+    }));
   };
   handleAgeChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       age: parseInt(event),
-    });
+    }));
   };
 
   validateFields = () => {
@@ -168,16 +168,16 @@ export default class AdminAudiobookEditService {
     )
       .then(() => {
         this.props.setAudiobookDetailRefetch(true);
-        this.props.setAudiobookState({
-          ...this.props.audiobookState,
+        this.props.setAudiobookState((prev) => ({
+          ...prev,
           edit: !this.props.audiobookState.edit,
-        });
+        }));
       })
       .catch((e) => {
-        this.props.setAudiobookState({
-          ...this.props.audiobookState,
+        this.props.setAudiobookState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 }

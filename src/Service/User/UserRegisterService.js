@@ -12,60 +12,60 @@ export default class UserRegisterService {
   }
 
   handleEmailChange = (event) => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       email: event.target.value,
-    });
+    }));
   };
 
   handlePasswordChange = (event) => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       password: event.target.value,
       passwordStrength: ValidateUtil.validatePasswordStrength(event.target.value),
-    });
+    }));
   };
 
   handleConfirmPasswordChange = (event) => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       confirmPassword: event.target.value,
-    });
+    }));
   };
 
   handlePhoneNumber = (event) => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       phoneNumber: event.target.value,
-    });
+    }));
   };
 
   handleFirstname = (event) => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       firstname: event.target.value,
-    });
+    }));
   };
 
   handleLastname = (event) => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       lastname: event.target.value,
-    });
+    }));
   };
 
   handleParentalControl = () => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       parentalControl: !this.props.parentalControl,
-    });
+    }));
   };
 
   handleBirthdayDate = (event) => {
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       birthdayDate: event.target.value,
-    });
+    }));
   };
 
   getPasswordStrenghtProgressColor(passStr) {
@@ -85,11 +85,11 @@ export default class UserRegisterService {
     e.preventDefault();
     e.stopPropagation();
 
-    this.props.setState({
-      ...this.props.state,
+    this.props.setState((prev) => ({
+      ...prev,
       isButtonDisabled: true,
       validated: false,
-    });
+    }));
 
     if (
       this.props.state.password == this.props.state.confirmPassword &&
@@ -115,16 +115,16 @@ export default class UserRegisterService {
 
       HandleFetch(url, method, jsonData, null, this.i18n.language)
         .then(() => {
-          this.setFormState({
-            ...this.formState,
+          this.setFormState((prev) => ({
+            ...prev,
             modal: true,
-          });
+          }));
         })
         .catch((e) => {
-          this.props.setState({
-            ...this.props.state,
+          this.props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
   };

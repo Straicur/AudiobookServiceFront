@@ -9,10 +9,10 @@ export default class AdminCategoryEditService {
   }
 
   handleVersionChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       version: event.target.value,
-    });
+    }));
   };
   handlePartsChange = (event) => {
     let value = event.target.value;
@@ -20,65 +20,65 @@ export default class AdminCategoryEditService {
       value = 0;
     }
 
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       parts: parseInt(value),
-    });
+    }));
   };
   handleEncodedChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       encoded: event.target.value,
-    });
+    }));
   };
   handleDescriptionChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       description: event.target.value,
-    });
+    }));
   };
   handleDurationChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       duration: event.target.value,
-    });
+    }));
   };
 
   handleYearChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       year: event.target.value,
-    });
+    }));
   };
   handleAlbumChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       album: event.target.value,
-    });
+    }));
   };
   handleAuthorChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       author: event.target.value,
-    });
+    }));
   };
   handleTitleChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       title: event.target.value,
-    });
+    }));
   };
   handleSizeChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       size: event.target.value,
-    });
+    }));
   };
   handleAgeChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
+    this.props.setAudiobookDetail((prev) => ({
+      ...prev,
       age: parseInt(event),
-    });
+    }));
   };
 
   validateFields = () => {
@@ -168,16 +168,16 @@ export default class AdminCategoryEditService {
     )
       .then(() => {
         this.props.setAudiobookDetailRefetch(true);
-        this.props.setStateModal({
-          ...this.props.stateModal,
+        this.props.setStateModal((prev) => ({
+          ...prev,
           edit: !this.props.stateModal.edit,
-        });
+        }));
       })
       .catch((e) => {
-        this.props.setState({
-          ...this.props.state,
+        this.props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
         this.props.handleClose();
       });
   };
