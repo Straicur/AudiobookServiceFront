@@ -4,14 +4,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 
 const AudiobookCommentsContext = createContext(null);
 
-export const AudiobookCommentsProvider = ({
-  children,
-  token,
-  audiobookId,
-  state,
-  setState,
-  i18n,
-}) => {
+export const AudiobookCommentsProvider = ({ children, token, audiobookId, setState, i18n }) => {
   const [audiobookComments, setAudiobookComments] = useState(null);
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
 

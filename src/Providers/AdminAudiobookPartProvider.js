@@ -9,7 +9,6 @@ export const AdminAudiobookPartProvider = ({
   token,
   audiobookId,
   part,
-  state,
   setState,
   i18n,
 }) => {

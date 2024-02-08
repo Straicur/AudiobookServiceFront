@@ -9,7 +9,6 @@ export const AudiobookRatingProvider = ({
   token,
   audiobookId,
   categoryKey,
-  state,
   setState,
   i18n,
 }) => {

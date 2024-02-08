@@ -9,7 +9,6 @@ export const AudiobookUserCommentsProvider = ({
   token,
   audiobookId,
   categoryKey,
-  state,
   setState,
   i18n,
 }) => {

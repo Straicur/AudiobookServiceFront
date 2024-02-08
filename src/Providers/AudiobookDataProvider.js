@@ -5,7 +5,7 @@ import CreateUtil from 'Util/CreateUtil';
 
 const AudiobookDataContext = createContext(null);
 
-export const AudiobookDataProvider = ({ children, token, audiobookId, state, setState, i18n }) => {
+export const AudiobookDataProvider = ({ children, token, audiobookId, setState, i18n }) => {
   const [audiobookDetail, setAudiobookDetail] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
