@@ -8,7 +8,6 @@ export const AdminAudiobookCoverDataProvider = ({
   children,
   token,
   audiobookId,
-  state,
   setState,
   i18n,
 }) => {
@@ -38,7 +37,10 @@ export const AdminAudiobookCoverDataProvider = ({
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        setState({ ...state, errorCover: e.data });
+        setState((prev) => ({
+          ...prev,
+          errorCover: e.data,
+        }));
       },
       onSuccess: (data) => {
         if (data.audiobookCoversModels != undefined) {

@@ -19,7 +19,11 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
     notAuthenticated: false,
   });
 
-  const handleClose = () => setState({ ...state, show: !state.show });
+  const handleClose = () =>
+    setState((prev) => ({
+      ...prev,
+      show: !state.show,
+    }));
 
   function logout() {
     tokenStore.removeToken();
@@ -34,31 +38,63 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
   useEffect(() => {
     switch (error.name) {
       case 'InvalidJsonDataError':
-        setState({ ...state, data: error.data, message: error.message });
+        setState((prev) => ({
+          ...prev,
+          data: error.data,
+          message: error.message,
+        }));
         break;
       case 'ValidationError':
-        setState({ ...state, data: error.data, message: error.message });
+        setState((prev) => ({
+          ...prev,
+          data: error.data,
+          message: error.message,
+        }));
         break;
       case 'SystemError':
-        setState({ ...state, message: error.message });
+        setState((prev) => ({
+          ...prev,
+          message: error.message,
+        }));
         break;
       case 'ServiceUnaviableError':
-        setState({ ...state, message: error.message });
+        setState((prev) => ({
+          ...prev,
+          message: error.message,
+        }));
         break;
       case 'PermissionError':
-        setState({ ...state, message: error.message });
+        setState((prev) => ({
+          ...prev,
+          message: error.message,
+        }));
         break;
       case 'DataNotFoundError':
-        setState({ ...state, data: error.data, message: error.message });
+        setState((prev) => ({
+          ...prev,
+          data: error.data,
+          message: error.message,
+        }));
         break;
       case 'InvalidDataError':
-        setState({ ...state, data: error.data, message: error.message });
+        setState((prev) => ({
+          ...prev,
+          data: error.data,
+          message: error.message,
+        }));
         break;
       case 'AuthenticationError':
-        setState({ ...state, message: error.message, notAuthenticated: true });
+        setState((prev) => ({
+          ...prev,
+          message: error.message,
+          notAuthenticated: true,
+        }));
         break;
       default: {
-        setState({ ...state, message: t('systemError') });
+        setState((prev) => ({
+          ...prev,
+          message: t('systemError'),
+        }));
         break;
       }
     }

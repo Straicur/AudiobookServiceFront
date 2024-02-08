@@ -26,7 +26,10 @@ export const AudiobookDataProvider = ({ children, token, audiobookId, state, set
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        setState({ ...state, error: e });
+        setState((prev) => ({
+          ...prev,
+          error: e,
+        }));
       },
       onSuccess: (data) => {
         setAudiobookDetail({

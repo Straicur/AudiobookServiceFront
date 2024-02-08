@@ -39,7 +39,10 @@ export const AudiobookPartProvider = ({
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        setState({ ...state, error: e });
+        setState((prev) => ({
+          ...prev,
+          error: e,
+        }));
       },
       onSuccess: (data) => {
         setAudiobookPart(process.env.REACT_APP_API_URL + data.url);

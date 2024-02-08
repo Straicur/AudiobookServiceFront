@@ -32,7 +32,10 @@ export const AudiobookCoverDataProvider = ({
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        setState({ ...state, error: e });
+        setState((prev) => ({
+          ...prev,
+          error: e,
+        }));
       },
       onSuccess: (data) => {
         if (data.audiobookCoversModels != undefined) {

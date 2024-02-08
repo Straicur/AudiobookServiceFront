@@ -41,7 +41,10 @@ export const AdminAudiobookPartProvider = ({
         setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
       },
       onError: (e) => {
-        setState({ ...state, errorPart: e.data });
+        setState((prev) => ({
+          ...prev,
+          errorPart: e.data,
+        }));
       },
     },
   );

@@ -36,18 +36,18 @@ export const AudiobookUserDataProvider = ({
         if (audiobooks == null) {
           setAudiobooks(data);
         } else if (audiobooks.categories != undefined) {
-          setAudiobooks({
-            ...audiobooks,
+          setAudiobooks((prev) => ({
+            ...prev,
             categories: [...audiobooks.categories, ...data.categories.map((category) => category)],
             page: data.page,
-          });
+          }));
         }
       })
       .catch((e) => {
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 

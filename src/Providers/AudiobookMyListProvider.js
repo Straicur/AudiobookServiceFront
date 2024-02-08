@@ -16,10 +16,10 @@ export const AudiobookMyListProvider = ({ children, token, state, setState, i18n
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       },
       onSuccess: (data) => {
         setAudiobooks(data.audiobooks);
