@@ -34,12 +34,12 @@ export default function Settings() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           isButtonDisabled: true,
           validated: false,
           error: null,
-        });
+        }));
       }}
     >
       <HelmetProvider>

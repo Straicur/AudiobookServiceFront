@@ -16,10 +16,10 @@ export default function AdminCategories() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setCategoiesState({
-          ...categoiesState,
+        setCategoiesState((prev) => ({
+          ...prev,
           error: null,
-        });
+        }));
       }}
     >
       <AdminCategoriesList

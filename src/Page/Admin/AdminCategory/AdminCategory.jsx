@@ -21,10 +21,10 @@ export default function AdminCategory() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setAudiobooksState({
-          ...audiobooksState,
+        setAudiobooksState((prev) => ({
+          ...prev,
           error: null,
-        });
+        }));
       }}
     >
       <AdminCategoryAudiobooksList

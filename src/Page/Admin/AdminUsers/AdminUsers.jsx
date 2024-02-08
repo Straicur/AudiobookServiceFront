@@ -16,10 +16,10 @@ export default function AdminUsers() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setUsersState({
-          ...usersState,
+        setUsersState((prev) => ({
+          ...prev,
           error: null,
-        });
+        }));
       }}
     >
       <AdminUsersList usersState={usersState} setUsersState={setUsersState} token={token} />

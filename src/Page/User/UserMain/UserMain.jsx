@@ -35,13 +35,13 @@ export default function Main() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setAudiobooksState({
-          ...audiobooksState,
+        setAudiobooksState((prev) => ({
+          ...prev,
           detailModal: false,
           detailModalAudiobook: null,
           detailModalCover: null,
           error: null,
-        });
+        }));
       }}
     >
       <HelmetProvider>

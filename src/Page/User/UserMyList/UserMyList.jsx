@@ -26,13 +26,13 @@ export default function MyList() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setMyListState({
-          ...myListState,
+        setMyListState((prev) => ({
+          ...prev,
           detailModal: false,
           detailModalAudiobook: null,
           detailModalCover: null,
           error: null,
-        });
+        }));
       }}
     >
       <HelmetProvider>

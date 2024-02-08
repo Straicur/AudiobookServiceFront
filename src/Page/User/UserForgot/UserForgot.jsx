@@ -32,10 +32,10 @@ export default function UserForgot() {
           navigate('/login');
         }
 
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           error: null,
-        });
+        }));
       }}
     >
       <UserForgotView

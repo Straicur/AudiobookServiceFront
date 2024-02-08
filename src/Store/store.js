@@ -14,10 +14,10 @@ let tokenStore = (set) => ({
         }));
       })
       .catch((e) => {
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   },
   removeToken: () =>

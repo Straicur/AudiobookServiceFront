@@ -26,9 +26,15 @@ export default function UserLogin() {
 
   useEffect(() => {
     if (state.email.trim() && state.password.trim()) {
-      setState({ ...state, isButtonDisabled: false });
+      setState((prev) => ({
+        ...prev,
+        isButtonDisabled: false,
+      }));
     } else {
-      setState({ ...state, isButtonDisabled: true });
+      setState((prev) => ({
+        ...prev,
+        isButtonDisabled: true,
+      }));
     }
   }, [state.email, state.password]);
 
@@ -36,12 +42,12 @@ export default function UserLogin() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           isButtonDisabled: true,
           validated: false,
           error: null,
-        });
+        }));
       }}
     >
       <UserLoginForm state={state} setState={setState} token={token} />

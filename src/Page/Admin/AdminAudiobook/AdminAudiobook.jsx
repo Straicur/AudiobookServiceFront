@@ -33,10 +33,10 @@ export default function AdminAudiobook() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setAudiobookState({
-          ...audiobookState,
+        setAudiobookState((prev) => ({
+          ...prev,
           error: null,
-        });
+        }));
       }}
     >
       <AdminAuidobookDetailProviders

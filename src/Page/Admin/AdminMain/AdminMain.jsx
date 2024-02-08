@@ -22,10 +22,10 @@ export default function AdminMain() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setInfoState({
-          ...infoState,
+        setInfoState((prev) => ({
+          ...prev,
           error: null,
-        });
+        }));
       }}
     >
       <AdminMainContainer infoState={infoState} setInfoState={setInfoState} token={token} />

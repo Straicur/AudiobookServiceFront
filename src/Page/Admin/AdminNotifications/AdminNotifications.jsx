@@ -16,10 +16,10 @@ export default function AdminNotifications() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setNotificationsState({
-          ...notificationsState,
+        setNotificationsState((prev) => ({
+          ...prev,
           error: null,
-        });
+        }));
       }}
     >
       <AdminNotificationsList

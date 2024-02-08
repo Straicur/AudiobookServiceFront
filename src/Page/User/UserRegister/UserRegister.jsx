@@ -35,9 +35,15 @@ export default function Register() {
       ValidateUtil.validatePassword(state.password) &&
       ValidateUtil.validateBirthday(state.parentalControl, state.birthdayDate)
     ) {
-      setState({ ...state, isButtonDisabled: false });
+      setState((prev) => ({
+        ...prev,
+        isButtonDisabled: false,
+      }));
     } else {
-      setState({ ...state, isButtonDisabled: true });
+      setState((prev) => ({
+        ...prev,
+        isButtonDisabled: true,
+      }));
     }
   }, [
     state.email,
@@ -54,11 +60,11 @@ export default function Register() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           isButtonDisabled: true,
           error: null,
-        });
+        }));
       }}
     >
       <UserRegisterForm state={state} setState={setState} />
