@@ -31,7 +31,10 @@ export default function AdminCategoriesList(props) {
   const fetchCategories = () => {
     HandleFetch('/admin/categories/tree', 'GET', null, props.token, i18n.language)
       .then((data) => {
-        setState({ ...state, json: data.categories });
+        setState((prev) => ({
+          ...prev,
+          json: data.categories,
+        }));
 
         categoriesStore.removeCategories();
 
@@ -39,19 +42,25 @@ export default function AdminCategoriesList(props) {
           categoriesStore.addCategory(category);
         }
         if (state.refresh) {
-          setState({ ...state, refresh: !state.refresh });
+          setState((prev) => ({
+            ...prev,
+            refresh: !state.refresh,
+          }));
         }
       })
       .catch((e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setCategoiesState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
   useEffect(() => {
-    setState({ ...state, json: categories });
+    setState((prev) => ({
+      ...prev,
+      json: categories,
+    }));
 
     if (dateUpdate < Date.now() || state.refresh) {
       fetchCategories();
@@ -94,10 +103,10 @@ export default function AdminCategoriesList(props) {
               color='dark'
               className=' btn button mt-2'
               onClick={() =>
-                setState({
-                  ...state,
+                setState((prev) => ({
+                  ...prev,
                   addCategoryModal: !state.addCategoryModal,
-                })
+                }))
               }
             >
               {t('addMainCategory')}
@@ -109,7 +118,12 @@ export default function AdminCategoriesList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() => setState({ ...state, jsonModal: !state.jsonModal })}
+              onClick={() =>
+                setState((prev) => ({
+                  ...prev,
+                  jsonModal: !state.jsonModal,
+                }))
+              }
             >
               {t('jsonData')}
             </Button>

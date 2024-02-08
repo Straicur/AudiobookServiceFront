@@ -78,28 +78,40 @@ export default function AdminAudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setAudiobooksState({
-          ...props.audiobooksState,
+        props.setAudiobooksState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       },
       onSuccess: (data) => {
-        setState({ ...state, json: data });
-        setPageState({ ...pageState, maxPage: data.maxPage });
+        setState((prev) => ({
+          ...prev,
+          json: data,
+        }));
+        setPageState((prev) => ({
+          ...prev,
+          maxPage: data.maxPage,
+        }));
       },
     },
   );
 
   useEffect(() => {
     if (state.refresh) {
-      setState({ ...state, refresh: !state.refresh });
+      setState((prev) => ({
+        ...prev,
+        refresh: !state.refresh,
+      }));
       refetch();
     }
   }, [state.refresh]);
 
   useEffect(() => {
     if (state.addAudiobook) {
-      setState({ ...state, addAudiobook: !state.addAudiobook });
+      setState((prev) => ({
+        ...prev,
+        addAudiobook: !state.addAudiobook,
+      }));
 
       setTimeout(function () {
         refetch();
@@ -171,7 +183,12 @@ export default function AdminAudiobooksList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() => setState({ ...state, jsonModal: !state.jsonModal })}
+              onClick={() =>
+                setState((prev) => ({
+                  ...prev,
+                  jsonModal: !state.jsonModal,
+                }))
+              }
             >
               {t('jsonData')}
             </Button>

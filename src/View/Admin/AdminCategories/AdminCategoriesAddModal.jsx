@@ -10,16 +10,19 @@ export default function AdminCategoriesAddModal(props) {
   });
 
   const handleSetNameChange = (event) => {
-    setModalState({ ...modalState, name: event.target.value });
+    setModalState((prev) => ({
+      ...prev,
+      name: event.target.value,
+    }));
   };
 
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       addCategoryModal: !props.state.addCategoryModal,
       refresh: !props.state.refresh,
       addCategoryParent: null,
-    });
+    }));
   };
 
   const addNewSet = () => {
@@ -53,9 +56,15 @@ export default function AdminCategoriesAddModal(props) {
 
   useEffect(() => {
     if (modalState.name.trim()) {
-      setModalState({ ...modalState, isButtonDisabled: false });
+      setModalState((prev) => ({
+        ...prev,
+        isButtonDisabled: false,
+      }));
     } else {
-      setModalState({ ...modalState, isButtonDisabled: true });
+      setModalState((prev) => ({
+        ...prev,
+        isButtonDisabled: true,
+      }));
     }
   }, [modalState.name]);
 

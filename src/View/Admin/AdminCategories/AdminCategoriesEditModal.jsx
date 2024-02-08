@@ -13,16 +13,19 @@ export default function AdminCategoriesEditModal(props) {
   });
 
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       editCategoryModal: !props.state.editCategoryModal,
       editCategoryElement: null,
       refresh: !props.state.refresh,
-    });
+    }));
   };
 
   const handleNewNameChange = (event) => {
-    setEditModal({ ...editModal, new_name: event.target.value });
+    setEditModal((prev) => ({
+      ...prev,
+      new_name: event.target.value,
+    }));
   };
 
   const editCategoryName = () => {
@@ -40,10 +43,10 @@ export default function AdminCategoriesEditModal(props) {
         handleClose();
       })
       .catch((e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setCategoiesState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
@@ -61,10 +64,10 @@ export default function AdminCategoriesEditModal(props) {
         handleClose();
       })
       .catch((e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
+        props.setCategoiesState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
   const activateCategory = () => {
@@ -171,7 +174,15 @@ export default function AdminCategoriesEditModal(props) {
         ) : null}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='dark' onClick={() => setEditModal({ ...editModal, edit: 1 })}>
+        <Button
+          variant='dark'
+          onClick={() =>
+            setEditModal((prev) => ({
+              ...prev,
+              edit: 1,
+            }))
+          }
+        >
           {props.t('editName')}
         </Button>
         <Button
@@ -180,7 +191,15 @@ export default function AdminCategoriesEditModal(props) {
         >
           {props.state.editCategoryElement.active ? props.t('deActivate') : props.t('activate')}
         </Button>
-        <Button variant='dark' onClick={() => setEditModal({ ...editModal, edit: 3 })}>
+        <Button
+          variant='dark'
+          onClick={() =>
+            setEditModal((prev) => ({
+              ...prev,
+              edit: 3,
+            }))
+          }
+        >
           {props.t('delete')}
         </Button>
         <Button variant='dark' onClick={handleClose}>

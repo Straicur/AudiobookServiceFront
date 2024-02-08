@@ -138,11 +138,11 @@ export default function AdminCategoriesRenderList(props) {
               size='lg'
               className='btn button'
               onClick={() => {
-                props.setState({
-                  ...props.state,
+                props.setState((prev) => ({
+                  ...prev,
                   editCategoryModal: !props.state.editCategoryModal,
                   editCategoryElement: element,
-                });
+                }));
               }}
             >
               {props.t('edit')}
@@ -168,11 +168,11 @@ export default function AdminCategoriesRenderList(props) {
               size='lg'
               className='btn button'
               onClick={() =>
-                props.setState({
-                  ...props.state,
+                props.setState((prev) => ({
+                  ...prev,
                   addCategoryModal: !props.state.addCategoryModal,
                   addCategoryParent: element,
-                })
+                }))
               }
             >
               {props.t('addChildCategory')}
@@ -245,11 +245,11 @@ export default function AdminCategoriesRenderList(props) {
               size='lg'
               className='btn button'
               onClick={() => {
-                props.setState({
-                  ...props.state,
+                props.setState((prev) => ({
+                  ...prev,
                   editCategoryModal: !props.state.editCategoryModal,
                   editCategoryElement: element,
-                });
+                }));
               }}
             >
               {props.t('edit')}
@@ -275,11 +275,11 @@ export default function AdminCategoriesRenderList(props) {
               size='lg'
               className='btn button'
               onClick={() => {
-                props.setState({
-                  ...props.state,
+                props.setState((prev) => ({
+                  ...prev,
                   addCategoryModal: !props.state.addCategoryModal,
                   addCategoryParent: element,
-                });
+                }));
               }}
             >
               {props.t('addChildCategory')}

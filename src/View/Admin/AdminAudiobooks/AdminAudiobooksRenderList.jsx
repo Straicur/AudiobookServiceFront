@@ -63,13 +63,16 @@ export default function AdminAudiobooksRenderList(props) {
           maxPage: props.pageState.maxPage,
         };
 
-        props.setState({ ...props.state, json: newJson });
+        props.setState((prev) => ({
+          ...prev,
+          json: newJson,
+        }));
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
@@ -121,11 +124,11 @@ export default function AdminAudiobooksRenderList(props) {
               size='sm'
               className='btn button mx-2'
               onClick={() =>
-                props.setState({
-                  ...props.state,
+                props.setState((prev) => ({
+                  ...prev,
                   detailCommentsAudiobookModal: !props.state.detailCommentsAudiobookModal,
                   detailAudiobookElement: element,
-                })
+                }))
               }
             >
               {props.t('comments')}
