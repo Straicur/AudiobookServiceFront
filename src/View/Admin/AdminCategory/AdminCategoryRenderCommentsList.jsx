@@ -15,16 +15,16 @@ export default function AdminCategoryRenderCommentsList(props) {
       props.i18n.language,
     )
       .then(() => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           refetch: !props.state.refetch,
-        });
+        }));
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   }
 

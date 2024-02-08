@@ -5,11 +5,11 @@ import AdminNotificationsGetCategoriesList from './AdminNotificationsGetCategori
 
 export default function AdminNotificationsPickActionIdAddList(props) {
   const goBack = () => {
-    props.setActionState({
-      ...props.actionState,
+    props.setActionState((prev) => ({
+      ...prev,
       list: !props.actionState.list,
       actionIdChanged: !props.actionState.actionIdChanged,
-    });
+    }));
   };
 
   return (

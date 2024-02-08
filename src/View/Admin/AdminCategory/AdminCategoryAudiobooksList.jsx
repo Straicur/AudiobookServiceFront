@@ -54,14 +54,20 @@ export default function AdminCategoryAudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setAudiobooksState({
-          ...props.audiobooksState,
+        props.setAudiobooksState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       },
       onSuccess: (data) => {
-        setState({ ...state, json: data.audiobooks });
-        setPageState({ ...pageState, maxPage: data.maxPage });
+        setState((prev) => ({
+          ...prev,
+          json: data.audiobooks,
+        }));
+        setPageState((prev) => ({
+          ...prev,
+          maxPage: data.maxPage,
+        }));
       },
     },
   );
@@ -83,14 +89,14 @@ export default function AdminCategoryAudiobooksList(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setAudiobooksState({
-          ...props.audiobooksState,
+        props.setAudiobooksState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       },
       onSuccess: (dataSecond) => {
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           category: {
             id: dataSecond.id,
             name: dataSecond.name,
@@ -98,14 +104,17 @@ export default function AdminCategoryAudiobooksList(props) {
             parentCategoryName: dataSecond.parentCategoryName,
             parentCategoryId: dataSecond.parentCategoryId,
           },
-        });
+        }));
       },
     },
   );
 
   useEffect(() => {
     if (state.addAudiobook) {
-      setState({ ...state, addAudiobook: !state.addAudiobook });
+      setState((prev) => ({
+        ...prev,
+        addAudiobook: !state.addAudiobook,
+      }));
       setTimeout(function () {
         refetchFirst();
       }, state.addAudiobookSeconds);
@@ -114,7 +123,10 @@ export default function AdminCategoryAudiobooksList(props) {
 
   useEffect(() => {
     if (state.refresh) {
-      setState({ ...state, refresh: !state.refresh });
+      setState((prev) => ({
+        ...prev,
+        refresh: !state.refresh,
+      }));
       refetchFirst();
     }
   }, [state.refresh]);
@@ -158,10 +170,10 @@ export default function AdminCategoryAudiobooksList(props) {
               color='dark'
               className=' btn button mt-2'
               onClick={() =>
-                setState({
-                  ...state,
+                setState((prev) => ({
+                  ...prev,
                   addAudiobookModal: !state.addAudiobookModal,
-                })
+                }))
               }
             >
               {t('addAudiobook')}

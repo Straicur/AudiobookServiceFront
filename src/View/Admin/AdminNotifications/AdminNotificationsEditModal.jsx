@@ -157,10 +157,10 @@ export default function AdminNotificationsEditModal(props) {
                     className='btn button'
                     variant='outline-success'
                     onClick={() =>
-                      setDelteteState({
-                        ...deleteState,
+                      setDelteteState((prev) => ({
+                        ...prev,
                         sure: !deleteState.sure,
-                      })
+                      }))
                     }
                   >
                     {props.t('no')}
@@ -173,10 +173,10 @@ export default function AdminNotificationsEditModal(props) {
                     size='sm'
                     className='btn button mx-2'
                     onClick={() =>
-                      setDelteteState({
-                        ...deleteState,
+                      setDelteteState((prev) => ({
+                        ...prev,
                         sure: !deleteState.sure,
-                      })
+                      }))
                     }
                   >
                     {notificationsState.delete ? props.t('activate') : props.t('delete')}

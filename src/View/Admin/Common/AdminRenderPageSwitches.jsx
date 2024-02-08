@@ -4,21 +4,23 @@ import Button from 'react-bootstrap/Button';
 export default function AdminRenderPageSwitches(props) {
   const nextPage = () => {
     if (props.pageState.page + 1 < props.pageState.maxPage) {
-      props.setPageState({
-        ...props.pageState,
+      props.setPageState((prev) => ({
+        ...prev,
         page: props.pageState.page + 1,
       });
-      props.setState({ ...props.state, refresh: !props.state.refresh });
+      props.setState((prev) => ({
+        ...prev, refresh: !props.state.refresh }));
     }
   };
 
   const prevPage = () => {
     if (props.pageState.page > 0) {
-      props.setPageState({
-        ...props.pageState,
+      props.setPageState((prev) => ({
+        ...prev,
         page: props.pageState.page - 1,
-      });
-      props.setState({ ...props.state, refresh: !props.state.refresh });
+      }));
+      props.setState((prev) => ({
+        ...prev, refresh: !props.state.refresh }));
     }
   };
 

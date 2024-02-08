@@ -25,13 +25,16 @@ export default function AdminUsersRenderDeleteUsersList(props) {
       props.i18n.language,
     )
       .then(() => {
-        props.setState({ ...props.state, refresh: !props.state.refresh });
+        props.setState((prev) => ({
+          ...prev,
+          refresh: !props.state.refresh,
+        }));
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
   const declineDeleteUser = (selectedUser) => {
@@ -45,13 +48,16 @@ export default function AdminUsersRenderDeleteUsersList(props) {
       props.i18n.language,
     )
       .then(() => {
-        props.setState({ ...props.state, refresh: !props.state.refresh });
+        props.setState((prev) => ({
+          ...prev,
+          refresh: !props.state.refresh,
+        }));
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
   const createColumn = (element) => {

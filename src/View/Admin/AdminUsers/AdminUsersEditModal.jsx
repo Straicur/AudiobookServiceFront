@@ -6,11 +6,11 @@ import AdminUsersEditFrom from './AdminUsersEditFrom';
 
 export default function AdminUsersEditModal(props) {
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       editUserModal: !props.state.editUserModal,
       refresh: !props.state.refresh,
-    });
+    }));
   };
 
   return (

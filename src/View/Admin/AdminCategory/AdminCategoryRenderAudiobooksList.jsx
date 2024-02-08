@@ -52,13 +52,16 @@ export default function AdminCategoryRenderAudiobooksList(props) {
           }
         });
 
-        props.setState({ ...props.state, json: newJson });
+        props.setState((prev) => ({
+          ...prev,
+          json: newJson,
+        }));
       })
       .catch((e) => {
-        props.setAudiobooksState({
-          ...props.audiobooksState,
+        props.setAudiobooksState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
@@ -92,11 +95,11 @@ export default function AdminCategoryRenderAudiobooksList(props) {
               size='sm'
               className='btn button mx-2'
               onClick={() =>
-                props.setState({
-                  ...props.state,
+                props.setState((prev) => ({
+                  ...prev,
                   detailAudiobookModal: !props.state.detailAudiobookModal,
                   detailAudiobookElement: element,
-                })
+                }))
               }
             >
               {props.t('details')}
@@ -108,11 +111,11 @@ export default function AdminCategoryRenderAudiobooksList(props) {
               size='sm'
               className='btn button mx-2'
               onClick={() =>
-                props.setState({
-                  ...props.state,
+                props.setState((prev) => ({
+                  ...prev,
                   detailCommentsAudiobookModal: !props.state.detailCommentsAudiobookModal,
                   detailAudiobookElement: element,
-                })
+                }))
               }
             >
               {props.t('comments')}

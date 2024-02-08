@@ -9,40 +9,40 @@ export default function AdminNotificationsPickActionIdList(props) {
 
   const getUsersList = () => {
     if (!props.usersState.fetched) {
-      props.setUsersState({
-        ...props.usersState,
+      props.setUsersState((prev) => ({
+        ...prev,
         fetch: !props.usersState.fetch,
-      });
+      }));
     }
     setListState(1);
   };
 
   const getAudiobooksList = () => {
     if (!props.audiobooksState.fetched) {
-      props.setAudiobooksState({
-        ...props.audiobooksState,
+      props.setAudiobooksState((prev) => ({
+        ...prev,
         fetch: !props.audiobooksState.fetch,
-      });
+      }));
     }
     setListState(2);
   };
 
   const getCategriesList = () => {
     if (!props.categoriesState.fetched) {
-      props.setCategoriesState({
-        ...props.categoriesState,
+      props.setCategoriesState((prev) => ({
+        ...prev,
         fetch: !props.categoriesState.fetch,
-      });
+      }));
     }
     setListState(3);
   };
 
   const goBack = () => {
-    props.setActionState({
-      ...props.actionState,
+    props.setActionState((prev) => ({
+      ...prev,
       list: !props.actionState.list,
       actionIdChanged: !props.actionState.actionIdChanged,
-    });
+    }));
   };
 
   return (

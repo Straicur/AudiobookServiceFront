@@ -34,13 +34,16 @@ export default function AdminUsersRenderRoles(props) {
           roles: newUserSelectedRoles,
         };
 
-        props.setState({ ...props.state, editUserElement: newSelcetedUser });
+        props.setState((prev) => ({
+          ...prev,
+          editUserElement: newSelcetedUser,
+        }));
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 
@@ -74,13 +77,16 @@ export default function AdminUsersRenderRoles(props) {
           roles: newUserSelectedRoles,
         };
 
-        props.setState({ ...props.state, editUserElement: newSelcetedUser });
+        props.setState((prev) => ({
+          ...prev,
+          editUserElement: newSelcetedUser,
+        }));
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
 

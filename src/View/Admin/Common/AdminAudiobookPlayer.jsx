@@ -12,7 +12,10 @@ export default function AdminAudiobookPlayer(props) {
 
     if (nextPart < props.parts) {
       timeAudio.current = 0;
-      props.setState({ ...props.state, part: nextPart });
+      props.setState((prev) => ({
+        ...prev,
+        part: nextPart,
+      }));
     }
   };
 
@@ -25,7 +28,10 @@ export default function AdminAudiobookPlayer(props) {
 
     if (prevPart >= 0) {
       timeAudio.current = 0;
-      props.setState({ ...props.state, part: prevPart });
+      props.setState((prev) => ({
+        ...prev,
+        part: prevPart,
+      }));
     }
   };
 

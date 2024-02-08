@@ -19,10 +19,10 @@ export default function AdminUsersDeletedUsersModal(props) {
   });
 
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       deletedUsersModal: !props.state.deletedUsersModal,
-    });
+    }));
   };
 
   const { refetch: refetchSecond } = useQuery(
@@ -43,21 +43,30 @@ export default function AdminUsersDeletedUsersModal(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setUsersState({
-          ...props.usersState,
+        props.setUsersState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       },
       onSuccess: (data) => {
-        setState({ ...state, users: data.users });
-        setPageState({ ...pageState, maxPage: data.maxPage });
+        setState((prev) => ({
+          ...prev,
+          users: data.users,
+        }));
+        setPageState((prev) => ({
+          ...prev,
+          maxPage: data.maxPage,
+        }));
       },
     },
   );
 
   useEffect(() => {
     if (state.refresh) {
-      setState({ ...state, refresh: !state.refresh });
+      setState((prev) => ({
+        ...prev,
+        refresh: !state.refresh,
+      }));
       refetchSecond();
     }
   }, [state.refresh]);

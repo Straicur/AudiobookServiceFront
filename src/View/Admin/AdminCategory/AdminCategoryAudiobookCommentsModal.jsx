@@ -12,11 +12,11 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
   });
 
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       detailCommentsAudiobookModal: !props.state.detailCommentsAudiobookModal,
       detailAudiobookElement: null,
-    });
+    }));
   };
 
   const { refetch: refetchAudiobookComments } = useQuery(
@@ -36,13 +36,16 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
       retryDelay: 500,
       refetchOnWindowFocus: false,
       onError: (e) => {
-        props.setAudiobooksState({
-          ...props.audiobooksState,
+        props.setAudiobooksState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       },
       onSuccess: (data) => {
-        setState({ ...state, comments: data });
+        setState((prev) => ({
+          ...prev,
+          comments: data,
+        }));
       },
     },
   );
@@ -50,7 +53,10 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
   useEffect(() => {
     if (state.refetch) {
       refetchAudiobookComments();
-      setState({ ...state, refetch: !state.refetch });
+      setState((prev) => ({
+        ...prev,
+        refetch: !state.refetch,
+      }));
     }
   }, [state.refetch]);
 

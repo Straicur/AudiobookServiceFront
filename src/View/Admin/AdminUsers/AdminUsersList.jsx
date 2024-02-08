@@ -112,23 +112,32 @@ export default function AdminUsersList(props) {
         });
       },
       onSuccess: (data) => {
-        setState({ ...state, json: data });
-        setPageState({ ...pageState, maxPage: data.maxPage });
+        setState((prev) => ({
+          ...prev,
+          json: data,
+        }));
+        setPageState((prev) => ({
+          ...prev,
+          maxPage: data.maxPage,
+        }));
         resetSearchStates();
       },
     },
   );
 
   const openSearchModal = () => {
-    setState({
-      ...state,
+    setState((prev) => ({
+      ...prev,
       searchModal: !state.searchModal,
-    });
+    }));
   };
 
   useEffect(() => {
     if (state.refresh) {
-      setState({ ...state, refresh: !state.refresh });
+      setState((prev) => ({
+        ...prev,
+        refresh: !state.refresh,
+      }));
       refetch();
     }
   }, [state.refresh]);
@@ -190,10 +199,10 @@ export default function AdminUsersList(props) {
               color='dark'
               className=' btn button mt-2'
               onClick={() =>
-                setState({
-                  ...state,
+                setState((prev) => ({
+                  ...prev,
                   deleteUsersModal: !state.deleteUsersModal,
-                })
+                }))
               }
             >
               {t('deleteUserList')}
@@ -206,10 +215,10 @@ export default function AdminUsersList(props) {
               color='dark'
               className=' btn button mt-2'
               onClick={() =>
-                setState({
-                  ...state,
+                setState((prev) => ({
+                  ...prev,
                   deletedUsersModal: !state.deletedUsersModal,
-                })
+                }))
               }
             >
               {t('deletedUsers')}
@@ -221,7 +230,12 @@ export default function AdminUsersList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() => setState({ ...state, jsonModal: !state.jsonModal })}
+              onClick={() =>
+                setState((prev) => ({
+                  ...prev,
+                  jsonModal: !state.jsonModal,
+                }))
+              }
             >
               {t('jsonData')}
             </Button>

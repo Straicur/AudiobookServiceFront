@@ -34,10 +34,10 @@ export default function AdminNotificationsGetAudiobooksList(props) {
             size='sm'
             className='btn button question_button success_button'
             onClick={() => {
-              props.setState({
-                ...props.state,
+              props.setState((prev) => ({
+                ...prev,
                 actionId: element.id,
-              });
+              }));
 
               props.goBack();
             }}
@@ -80,18 +80,18 @@ export default function AdminNotificationsGetAudiobooksList(props) {
         props.i18n.language,
       )
         .then((data) => {
-          props.setAudiobooksState({
-            ...props.audiobooksState,
+          props.setAudiobooksState((prev) => ({
+            ...prev,
             audiobooks: data.audiobooks,
             fetch: !props.audiobooksState.fetch,
             fetched: !props.audiobooksState.fetched,
-          });
+          }));
         })
         .catch((e) => {
-          props.setNotificationsState({
-            ...props.notificationsState,
+          props.setNotificationsState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
   }, [props]);

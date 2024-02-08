@@ -5,11 +5,11 @@ import CreateUtil from 'Util/CreateUtil';
 
 export default function AdminNotificationsRenderList(props) {
   const openDetailNotificationModal = (element) => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       editNotificationkModal: !props.editNotificationkModal,
       editNotificationElement: element,
-    });
+    }));
   };
 
   const createTable = () => {

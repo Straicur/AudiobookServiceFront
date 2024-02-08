@@ -29,18 +29,18 @@ export default function AdminUsersRenderList(props) {
       props.i18n.language,
     )
       .then(() => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           refresh: !props.state.refresh,
-        });
+        }));
 
         element.target.classList.remove('disabled');
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
       });
   };
   const getUserRoles = (element) => {
@@ -51,18 +51,18 @@ export default function AdminUsersRenderList(props) {
           props.userRolesStore.setRoles(data);
         })
         .catch((e) => {
-          props.setState({
-            ...props.state,
+          props.setState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
 
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       editUserModal: !props.state.editUserModal,
       editUserElement: element,
-    });
+    }));
   };
   const createColumn = (element) => {
     return (

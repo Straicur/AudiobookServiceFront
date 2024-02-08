@@ -10,7 +10,10 @@ export default function AdminCategoryAudiobookCover(props) {
       let file = e.target.files[0];
 
       if (file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg') {
-        props.setStateModal({ ...props.stateModal, file: file });
+        props.setStateModal((prev) => ({
+          ...prev,
+          file: file,
+        }));
       }
     }
   };
@@ -41,18 +44,21 @@ export default function AdminCategoryAudiobookCover(props) {
               .then(() => {
                 props.setAudiobookCoverRefetch(true);
 
-                props.setStateModal({ ...props.stateModal, file: null });
+                props.setStateModal((prev) => ({
+                  ...prev,
+                  file: null,
+                }));
 
-                props.setAudiobooksState({
-                  ...props.audiobooksState,
+                props.setAudiobooksState((prev) => ({
+                  ...prev,
                   errorCover: '',
-                });
+                }));
               })
               .catch((e) => {
-                props.setAudiobooksState({
-                  ...props.setAudiobooksState,
+                props.setAudiobooksState((prev) => ({
+                  ...prev,
                   error: e,
-                });
+                }));
                 props.handleClose();
               });
           }

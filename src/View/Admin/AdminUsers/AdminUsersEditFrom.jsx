@@ -120,10 +120,10 @@ export default function AdminUsersEditFrom(props) {
               size='sm'
               className='btn button px-4 my-1 question_button danger_button me-2'
               onClick={() =>
-                setPasswordState({
-                  ...passwordState,
+                setPasswordState((prev) => ({
+                  ...prev,
                   sure: !passwordState.sure,
-                })
+                }))
               }
             >
               {props.t('no')}
@@ -139,10 +139,10 @@ export default function AdminUsersEditFrom(props) {
               className=' btn button text-light my-1 button_save'
               disabled={passwordState.buttonDisabled}
               onClick={() => {
-                setPasswordState({
-                  ...passwordState,
+                setPasswordState((prev) => ({
+                  ...prev,
                   sure: !passwordState.sure,
-                });
+                }));
               }}
             >
               {props.t('save')}
@@ -188,10 +188,10 @@ export default function AdminUsersEditFrom(props) {
               size='sm'
               className='btn button px-4 my-1 question_button danger_button me-2'
               onClick={() =>
-                setPhoneNumberState({
-                  ...phoneNumberState,
+                setPhoneNumberState((prev) => ({
+                  ...prev,
                   sure: !phoneNumberState.sure,
-                })
+                }))
               }
             >
               {props.t('no')}
@@ -207,10 +207,10 @@ export default function AdminUsersEditFrom(props) {
               className=' btn button text-light my-1 button_save'
               disabled={phoneNumberState.buttonDisabled}
               onClick={() => {
-                setPhoneNumberState({
-                  ...phoneNumberState,
+                setPhoneNumberState((prev) => ({
+                  ...prev,
                   sure: !phoneNumberState.sure,
-                });
+                }));
               }}
             >
               {props.t('save')}

@@ -54,10 +54,10 @@ export default function AdminCategoryAudiobookDetailModal(props) {
         handleClose();
       })
       .catch((e) => {
-        props.setAudiobooksState({
-          ...props.audiobooksState,
+        props.setAudiobooksState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
         handleClose();
       });
   };
@@ -77,10 +77,10 @@ export default function AdminCategoryAudiobookDetailModal(props) {
         handleClose();
       })
       .catch((e) => {
-        props.setAudiobooksState({
-          ...props.audiobooksState,
+        props.setAudiobooksState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
         handleClose();
       });
   };
@@ -206,10 +206,10 @@ export default function AdminCategoryAudiobookDetailModal(props) {
                     size='sm'
                     className='btn button px-4 my-1 question_button danger_button me-2'
                     onClick={() =>
-                      setStateModal({
-                        ...stateModal,
+                      setStateModal((prev) => ({
+                        ...prev,
                         deleteFromCategory: !stateModal.deleteFromCategory,
-                      })
+                      }))
                     }
                   >
                     {props.t('no')}
@@ -223,10 +223,10 @@ export default function AdminCategoryAudiobookDetailModal(props) {
                   size='sm'
                   className='btn button px-4 my-1 modal_button danger_button'
                   onClick={() =>
-                    setStateModal({
-                      ...stateModal,
+                    setStateModal((prev) => ({
+                      ...prev,
                       deleteFromCategory: !stateModal.deleteFromCategory,
-                    })
+                    }))
                   }
                 >
                   {props.t('deleteFromCurrentCategory')}
@@ -252,10 +252,10 @@ export default function AdminCategoryAudiobookDetailModal(props) {
                     size='sm'
                     className='btn button px-4 my-1 question_button danger_button me-2'
                     onClick={() =>
-                      setStateModal({
-                        ...stateModal,
+                      setStateModal((prev) => ({
+                        ...prev,
                         deleteEntarly: !stateModal.deleteEntarly,
-                      })
+                      }))
                     }
                   >
                     {props.t('no')}
@@ -269,10 +269,10 @@ export default function AdminCategoryAudiobookDetailModal(props) {
                   size='sm'
                   className='btn button px-4 my-1 modal_button danger_button'
                   onClick={() =>
-                    setStateModal({
-                      ...stateModal,
+                    setStateModal((prev) => ({
+                      ...prev,
                       deleteEntarly: !stateModal.deleteEntarly,
-                    })
+                    }))
                   }
                 >
                   {props.t('deleteEntarly')}

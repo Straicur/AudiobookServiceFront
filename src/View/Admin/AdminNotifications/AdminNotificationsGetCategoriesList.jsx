@@ -31,10 +31,10 @@ export default function GetCategoriesList(props) {
             size='sm'
             className='btn button question_button success_button'
             onClick={() => {
-              props.setState({
-                ...props.state,
+              props.setState((prev) => ({
+                ...prev,
                 actionId: element.categoryKey,
-              });
+              }));
 
               props.goBack();
             }}
@@ -50,18 +50,18 @@ export default function GetCategoriesList(props) {
     if (!props.categoriesState.fetched) {
       HandleFetch('/admin/categories', 'GET', null, props.token, props.i18n.language)
         .then((data) => {
-          props.setCategoriesState({
-            ...props.categoriesState,
+          props.setCategoriesState((prev) => ({
+            ...prev,
             categories: data.categories,
             fetch: !props.categoriesState.fetch,
             fetched: !props.categoriesState.fetched,
-          });
+          }));
         })
         .catch((e) => {
-          props.setNotificationsState({
-            ...props.notificationsState,
+          props.setNotificationsState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
   }, [props]);

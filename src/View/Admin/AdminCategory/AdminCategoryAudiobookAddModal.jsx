@@ -32,9 +32,15 @@ export default function AdminCategoryAudiobookAddModal(props) {
 
   useEffect(() => {
     if (stateModal.author.trim() && stateModal.title.trim()) {
-      setStateModal({ ...stateModal, isNextButtonDisabled: false });
+      setStateModal((prev) => ({
+        ...prev,
+        isNextButtonDisabled: false,
+      }));
     } else {
-      setStateModal({ ...stateModal, isNextButtonDisabled: true });
+      setStateModal((prev) => ({
+        ...prev,
+        isNextButtonDisabled: true,
+      }));
     }
   }, [stateModal.author, stateModal.title]);
 

@@ -29,10 +29,10 @@ export default function ZipButton(props) {
         link.parentNode.removeChild(link);
       })
       .catch((e) => {
-        props.setState({
-          ...props.state,
+        props.setState((prev) => ({
+          ...prev,
           error: e,
-        });
+        }));
 
         if (props.handleClose != null) {
           props.handleClose();

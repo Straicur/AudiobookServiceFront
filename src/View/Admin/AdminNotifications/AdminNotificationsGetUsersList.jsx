@@ -39,10 +39,10 @@ export default function AdminNotificationsGetUsersList(props) {
             size='sm'
             className='btn button question_button success_button'
             onClick={() => {
-              props.setState({
-                ...props.state,
+              props.setState((prev) => ({
+                ...prev,
                 actionId: element.id,
-              });
+              }));
               props.goBack();
             }}
           >
@@ -68,18 +68,18 @@ export default function AdminNotificationsGetUsersList(props) {
         props.i18n.language,
       )
         .then((data) => {
-          props.setUsersState({
-            ...props.usersState,
+          props.setUsersState((prev) => ({
+            ...prev,
             users: data.users,
             fetch: !props.usersState.fetch,
             fetched: !props.usersState.fetched,
-          });
+          }));
         })
         .catch((e) => {
-          props.setNotificationsState({
-            ...props.notificationsState,
+          props.setNotificationsState((prev) => ({
+            ...prev,
             error: e,
-          });
+          }));
         });
     }
   }, [props]);

@@ -8,76 +8,76 @@ export default function AdminNotificationsSearchOffCanvas(props) {
   const [show, setShow] = useState(true);
 
   const handleClose = () => {
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       searchModal: !props.state.searchModal,
-    });
+    }));
     setShow(false);
   };
 
   const changeOrder = (element) => {
     if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
+      props.setSearchState((prev) => ({
+        ...prev,
         order: parseInt(element.target.value),
-      });
+      }));
     }
   };
 
   const changeText = (element) => {
     if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
+      props.setSearchState((prev) => ({
+        ...prev,
         text: element.target.value,
-      });
+      }));
     }
   };
 
   const changeType = (element) => {
     if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState({
-        ...props.searchState,
+      props.setSearchState((prev) => ({
+        ...prev,
         type: parseInt(element.target.value),
-      });
+      }));
     }
   };
   const changeDeleted = (element) => {
     if (element.target.checked) {
-      props.setSearchState({
-        ...props.searchState,
+      props.setSearchState((prev) => ({
+        ...prev,
         deleted: element.target.checked,
-      });
+      }));
     } else {
-      props.setSearchState({
-        ...props.searchState,
+      props.setSearchState((prev) => ({
+        ...prev,
         deleted: null,
-      });
+      }));
     }
   };
   const changeNotDeleted = (element) => {
     if (element.target.checked) {
-      props.setSearchState({
-        ...props.searchState,
+      props.setSearchState((prev) => ({
+        ...prev,
         deleted: !element.target.checked,
-      });
+      }));
     } else {
-      props.setSearchState({
-        ...props.searchState,
+      props.setSearchState((prev) => ({
+        ...prev,
         deleted: null,
-      });
+      }));
     }
   };
   const searchAgain = () => {
-    props.setPageState({
-      ...props.pageState,
+    props.setPageState((prev) => ({
+      ...prev,
       page: 0,
-    });
+    }));
 
-    props.setState({
-      ...props.state,
+    props.setState((prev) => ({
+      ...prev,
       searchModal: !props.state.searchModal,
       refresh: !props.state.refresh,
-    });
+    }));
     setShow(false);
   };
 

@@ -241,10 +241,10 @@ export default function AdminCategoryEditForm(props) {
               size='sm'
               className='btn button px-4 my-1 question_button danger_button me-2'
               onClick={() =>
-                props.setStateModal({
-                  ...props.stateModal,
+                props.setStateModal((prev) => ({
+                  ...prev,
                   edit: !props.stateModal.edit,
-                })
+                }))
               }
             >
               {props.t('no')}
@@ -259,10 +259,10 @@ export default function AdminCategoryEditForm(props) {
             disabled={wrongState != 0}
             className='btn button px-4 mt-3 mb-1 modal_button success_button'
             onClick={() =>
-              props.setStateModal({
-                ...props.stateModal,
+              props.setStateModal((prev) => ({
+                ...prev,
                 edit: !props.stateModal.edit,
-              })
+              }))
             }
           >
             {props.t('edit')}
