@@ -111,6 +111,12 @@ export const AdminNavBar = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (token === '') {
+      navigate('/login');
+    }
+  }, [token]);
+
   return (
     <div className='row navbar'>
       <div className='col-8'>

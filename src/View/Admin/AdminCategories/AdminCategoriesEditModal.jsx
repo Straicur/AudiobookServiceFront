@@ -8,7 +8,7 @@ export default function AdminCategoriesEditModal(props) {
 
   const [editModal, setEditModal] = useState({
     edit: 1,
-    new_name: '',
+    newName: '',
     error: 0,
   });
 
@@ -24,7 +24,7 @@ export default function AdminCategoriesEditModal(props) {
   const handleNewNameChange = (event) => {
     setEditModal((prev) => ({
       ...prev,
-      new_name: event.target.value,
+      newName: event.target.value,
     }));
   };
 
@@ -33,7 +33,7 @@ export default function AdminCategoriesEditModal(props) {
       '/admin/category/edit',
       'PATCH',
       {
-        name: editModal.new_name,
+        name: editModal.newName,
         categoryId: props.state.editCategoryElement.id,
       },
       props.token,
@@ -93,12 +93,12 @@ export default function AdminCategoriesEditModal(props) {
   };
 
   useEffect(() => {
-    if (editModal.new_name != '') {
+    if (editModal.newName != '') {
       setStateEditButton(false);
     } else {
       setStateEditButton(true);
     }
-  }, [editModal.new_name]);
+  }, [editModal.newName]);
 
   return (
     <Modal show={props.state.editCategoryModal} backdrop='static' keyboard={false}>
@@ -118,7 +118,7 @@ export default function AdminCategoriesEditModal(props) {
                 id='name'
                 type='text'
                 name='name'
-                value={editModal.new_name}
+                value={editModal.newName}
                 className='form-control mt-2'
                 onChange={handleNewNameChange}
               />
