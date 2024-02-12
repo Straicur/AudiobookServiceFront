@@ -101,7 +101,7 @@ export default function UserRegisterForm(props) {
                             props.state.email.length > 1 &&
                             !ValidateUtil.validateEmail(props.state.email)
                           }
-                          onChange={(event) => userService.handleEmailChange(event)}
+                          onChange={(event) => userService.handleChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidEmail')}
@@ -116,7 +116,7 @@ export default function UserRegisterForm(props) {
                         <Form.Control
                           required
                           type='password'
-                          name='Password'
+                          name='password'
                           placeholder={t('insertPassword')}
                           value={props.state.password}
                           className='form-control form-control-lg '
@@ -158,7 +158,7 @@ export default function UserRegisterForm(props) {
                         <Form.Control
                           required
                           type='password'
-                          name='passwordConfirm'
+                          name='confirmPassword'
                           placeholder={t('insertPasswordConfirm')}
                           value={props.state.confirmPassword}
                           className='form-control form-control-lg '
@@ -172,7 +172,7 @@ export default function UserRegisterForm(props) {
                             !ValidateUtil.validatePassword(props.state.confirmPassword) &&
                             props.state.password.trim() != props.state.confirmPassword.trim()
                           }
-                          onChange={(event) => userService.handleConfirmPasswordChange(event)}
+                          onChange={(event) => userService.handleChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidConfirmPassword')}
@@ -199,7 +199,7 @@ export default function UserRegisterForm(props) {
                             props.state.phoneNumber.length > 1 &&
                             !ValidateUtil.validatePhoneNumber(props.state.phoneNumber)
                           }
-                          onChange={(event) => userService.handlePhoneNumber(event)}
+                          onChange={(event) => userService.handleChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidPhoneNumber')}
@@ -222,7 +222,7 @@ export default function UserRegisterForm(props) {
                           isInvalid={
                             props.state.firstname.length > 1 && props.state.firstname.length < 3
                           }
-                          onChange={(event) => userService.handleFirstname(event)}
+                          onChange={(event) => userService.handleChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidFirstName')}
@@ -244,7 +244,7 @@ export default function UserRegisterForm(props) {
                           isInvalid={
                             props.state.lastname.length > 1 && props.state.lastname.length < 3
                           }
-                          onChange={(event) => userService.handleLastname(event)}
+                          onChange={(event) => userService.handleChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidLastName')}
@@ -268,8 +268,9 @@ export default function UserRegisterForm(props) {
                             <p className='fs-5 mt-1'>{t('enterBirthday')}</p>
                             <Form.Control
                               type='date'
+                              name='birthdayDate'
                               value={props.state.birthdayDate}
-                              onChange={(event) => userService.handleBirthdayDate(event)}
+                              onChange={(event) => userService.handleChange(event)}
                             />
                             <Form.Control.Feedback type='invalid'>
                               {t('enterValidLastName')}

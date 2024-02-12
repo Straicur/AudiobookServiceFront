@@ -89,7 +89,7 @@ export default function UserLoginForm(props) {
                             props.state.email.length > 0 &&
                             !ValidateUtil.validateEmail(props.state.email)
                           }
-                          onChange={(event) => userService.handleEmailChange(event)}
+                          onChange={(event) => userService.handleChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidEmail')}
@@ -104,7 +104,7 @@ export default function UserLoginForm(props) {
                         <Form.Control
                           required
                           type='password'
-                          name='Password'
+                          name='password'
                           placeholder={t('insertPassword')}
                           value={props.state.password}
                           isValid={props.state.password.length > 1}
@@ -112,7 +112,7 @@ export default function UserLoginForm(props) {
                             props.state.password.length < 3 && props.state.password.length > 0
                           }
                           className='form-control form-control-lg'
-                          onChange={(event) => userService.handlePasswordChange(event)}
+                          onChange={(event) => userService.handleChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
                           {t('enterValidPassword')}

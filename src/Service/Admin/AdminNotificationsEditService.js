@@ -58,6 +58,7 @@ export default class AdminNotificationsEditService {
       list: true,
     }));
   };
+
   goBack = () => {
     this.setActionState((prev) => ({
       ...prev,

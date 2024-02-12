@@ -2,21 +2,16 @@ import { HandleFetch } from 'Util/HandleFetch';
 import md5 from 'md5';
 import CreateUtil from 'Util/CreateUtil';
 import ValidateUtil from 'Util/ValidateUtil';
+import FormService from 'Service/Common/FormService';
 
-export default class UserRegisterService {
+export default class UserRegisterService extends FormService {
   constructor(formState, setFormState, props, i18n) {
+    super(props.setState);
     this.formState = formState;
     this.setFormState = setFormState;
     this.props = props;
     this.i18n = i18n;
   }
-
-  handleEmailChange = (event) => {
-    this.props.setState((prev) => ({
-      ...prev,
-      email: event.target.value,
-    }));
-  };
 
   handlePasswordChange = (event) => {
     this.props.setState((prev) => ({
@@ -26,45 +21,10 @@ export default class UserRegisterService {
     }));
   };
 
-  handleConfirmPasswordChange = (event) => {
-    this.props.setState((prev) => ({
-      ...prev,
-      confirmPassword: event.target.value,
-    }));
-  };
-
-  handlePhoneNumber = (event) => {
-    this.props.setState((prev) => ({
-      ...prev,
-      phoneNumber: event.target.value,
-    }));
-  };
-
-  handleFirstname = (event) => {
-    this.props.setState((prev) => ({
-      ...prev,
-      firstname: event.target.value,
-    }));
-  };
-
-  handleLastname = (event) => {
-    this.props.setState((prev) => ({
-      ...prev,
-      lastname: event.target.value,
-    }));
-  };
-
   handleParentalControl = () => {
     this.props.setState((prev) => ({
       ...prev,
       parentalControl: !this.props.parentalControl,
-    }));
-  };
-
-  handleBirthdayDate = (event) => {
-    this.props.setState((prev) => ({
-      ...prev,
-      birthdayDate: event.target.value,
     }));
   };
 

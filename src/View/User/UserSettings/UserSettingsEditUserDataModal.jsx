@@ -146,7 +146,7 @@ export default function UserSettingsEditUserDataModal(props) {
       firstname: props.state.firstname,
       lastname: props.state.lastname,
     }));
-  }, [props]);
+  }, [props.state]);
 
   return (
     <Modal

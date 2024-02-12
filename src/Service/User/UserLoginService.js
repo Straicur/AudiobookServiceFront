@@ -1,9 +1,11 @@
 import md5 from 'md5';
+import FormService from 'Service/Common/FormService';
 import { useTokenStore } from 'Store/store';
 import ValidateUtil from 'Util/ValidateUtil';
 
-export default class UserLoginService {
+export default class UserLoginService extends FormService {
   constructor(formState, setFormState, props, i18n) {
+    super(props.setState);
     this.formState = formState;
     this.setFormState = setFormState;
     this.props = props;
@@ -11,20 +13,6 @@ export default class UserLoginService {
   }
 
   fetchData = useTokenStore();
-
-  handleEmailChange = (event) => {
-    this.props.setState((prev) => ({
-      ...prev,
-      email: event.target.value,
-    }));
-  };
-
-  handlePasswordChange = (event) => {
-    this.props.setState((prev) => ({
-      ...prev,
-      password: event.target.value,
-    }));
-  };
 
   fetchToken = (e) => {
     e.preventDefault();
