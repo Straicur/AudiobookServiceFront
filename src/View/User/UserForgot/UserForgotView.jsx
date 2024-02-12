@@ -5,8 +5,11 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import ValidateUtil from 'Util/ValidateUtil';
+import FormService from 'Service/Common/FormService';
 
 export default function UserForgotView(props) {
+  const userService = new FormService(props.setState);
+
   function getPasswordStrenghtText(t, passStr) {
     switch (passStr) {
       case 10:
@@ -73,12 +76,7 @@ export default function UserForgotView(props) {
       passwordStrength: ValidateUtil.validatePasswordStrength(event.target.value),
     }));
   };
-  const handleConfirmPasswordChange = (event) => {
-    props.setState((prev) => ({
-      ...prev,
-      confirmPassword: event.target.value,
-    }));
-  };
+
   useEffect(() => {
     if (
       props.state.password.trim() != '' &&
@@ -125,11 +123,13 @@ export default function UserForgotView(props) {
           />
           <input
             type='password'
-            name='passwordConfirm'
+            name='confirmPassword'
             placeholder={props.t('insertPasswordConfirm')}
             value={props.state.confirmPassword}
             className='form-control mt-4'
-            onChange={handleConfirmPasswordChange}
+            onChange={(e) => {
+              userService.handleChange(e);
+            }}
           />
           <hr className='mt-4'></hr>
           {props.state.password.length >= 1 ? (

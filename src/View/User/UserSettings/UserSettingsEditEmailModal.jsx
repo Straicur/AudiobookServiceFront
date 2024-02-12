@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
 import ValidateUtil from 'Util/ValidateUtil';
+import FormService from 'Service/Common/FormService';
 
 export default function UserSettingsEditEmailModal(props) {
   const [state, setState] = useState({
@@ -14,6 +15,8 @@ export default function UserSettingsEditEmailModal(props) {
     wrongEmail: false,
     wrongNewEmail: false,
   });
+
+  const userService = new FormService(setState);
 
   const handleClose = () => {
     props.setState((prev) => ({
@@ -55,19 +58,6 @@ export default function UserSettingsEditEmailModal(props) {
         wrongNewEmail: false,
       }));
     }
-  };
-
-  const handleEmailChange = (event) => {
-    setState((prev) => ({
-      ...prev,
-      oldEmail: event.target.value,
-    }));
-  };
-  const handleEmailNewChange = (event) => {
-    setState((prev) => ({
-      ...prev,
-      newEmail: event.target.value,
-    }));
   };
 
   useEffect(() => {
@@ -130,12 +120,13 @@ export default function UserSettingsEditEmailModal(props) {
                 <Form.Label>{props.t('oldEmail')}</Form.Label>
                 <Form.Control
                   type='email'
+                  name='oldEmail'
                   placeholder='name@example.com'
                   isValid={state.oldEmail.length > 1 && ValidateUtil.validateEmail(state.oldEmail)}
                   isInvalid={
                     state.oldEmail.length > 1 && !ValidateUtil.validateEmail(state.oldEmail)
                   }
-                  onChange={(event) => handleEmailChange(event)}
+                  onChange={(event) => userService.handleChange(event)}
                 />
                 <Alert
                   show={state.wrongEmail}
@@ -149,12 +140,13 @@ export default function UserSettingsEditEmailModal(props) {
                 <Form.Label>{props.t('newEmail')}</Form.Label>
                 <Form.Control
                   type='email'
+                  name='newEmail'
                   placeholder='name@example.com'
                   isValid={state.newEmail.length > 1 && ValidateUtil.validateEmail(state.newEmail)}
                   isInvalid={
                     state.newEmail.length > 1 && !ValidateUtil.validateEmail(state.newEmail)
                   }
-                  onChange={(event) => handleEmailNewChange(event)}
+                  onChange={(event) => userService.handleChange(event)}
                 />
               </Form.Group>
               <Alert

@@ -6,6 +6,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
 import md5 from 'md5';
 import ValidateUtil from 'Util/ValidateUtil';
+import FormService from 'Service/Common/FormService';
 
 export default function UserSettingsEditPasswordModal(props) {
   const [state, setState] = useState({
@@ -18,12 +19,15 @@ export default function UserSettingsEditPasswordModal(props) {
     wrongNewConfirmPassword: false,
   });
 
+  const userService = new FormService(setState);
+
   const handleClose = () => {
     props.setState((prev) => ({
       ...prev,
       buttonPassword: !props.state.buttonPassword,
     }));
   };
+
   const changePassword = (element) => {
     element.target.classList.add('disabled');
 
@@ -57,25 +61,6 @@ export default function UserSettingsEditPasswordModal(props) {
         wrongNewConfirmPassword: true,
       }));
     }
-  };
-
-  const handleOldPasswordChange = (event) => {
-    setState((prev) => ({
-      ...prev,
-      oldPassword: event.target.value,
-    }));
-  };
-  const handleNewPasswordChange = (event) => {
-    setState((prev) => ({
-      ...prev,
-      newPassword: event.target.value,
-    }));
-  };
-  const handleNewConfirmPasswordChange = (event) => {
-    setState((prev) => ({
-      ...prev,
-      newConfirmPassword: event.target.value,
-    }));
   };
 
   useEffect(() => {
@@ -166,6 +151,7 @@ export default function UserSettingsEditPasswordModal(props) {
                 <Form.Label>{props.t('oldPassword')}</Form.Label>
                 <Form.Control
                   type='password'
+                  name='oldPassword'
                   placeholder={props.t('insertPassword')}
                   isValid={
                     state.oldPassword.length > 1 &&
@@ -175,7 +161,7 @@ export default function UserSettingsEditPasswordModal(props) {
                     state.oldPassword.length > 1 &&
                     state.oldPassword.trim() == state.newPassword.trim()
                   }
-                  onChange={(event) => handleOldPasswordChange(event)}
+                  onChange={(event) => userService.handleChange(event)}
                 />
                 <Alert
                   show={state.wrongOldPassword}
@@ -189,6 +175,7 @@ export default function UserSettingsEditPasswordModal(props) {
                 <Form.Label>{props.t('newPassword')}</Form.Label>
                 <Form.Control
                   type='password'
+                  name='newPassword'
                   placeholder={props.t('insertPassword')}
                   isValid={
                     state.newPassword.length > 1 &&
@@ -200,7 +187,7 @@ export default function UserSettingsEditPasswordModal(props) {
                     !ValidateUtil.validatePassword(state.newPassword) &&
                     state.oldPassword.trim() == state.newPassword.trim()
                   }
-                  onChange={(event) => handleNewPasswordChange(event)}
+                  onChange={(event) => userService.handleChange(event)}
                 />
                 <Alert
                   show={state.wrongNewPassword}
@@ -214,6 +201,7 @@ export default function UserSettingsEditPasswordModal(props) {
                 <Form.Label>{props.t('newPassword')}</Form.Label>
                 <Form.Control
                   type='password'
+                  name='newConfirmPassword'
                   placeholder={props.t('insertPasswordConfirm')}
                   isValid={
                     state.newConfirmPassword.length > 1 &&
@@ -225,7 +213,7 @@ export default function UserSettingsEditPasswordModal(props) {
                     !ValidateUtil.validatePassword(state.newConfirmPassword) &&
                     state.newConfirmPassword.trim() != state.newPassword.trim()
                   }
-                  onChange={(event) => handleNewConfirmPasswordChange(event)}
+                  onChange={(event) => userService.handleChange(event)}
                 />
                 <Alert
                   show={state.wrongNewConfirmPassword}

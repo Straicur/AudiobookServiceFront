@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
+import FormService from 'Service/Common/FormService';
 
 export default function UserMainSearchAudiobooks(props) {
+  const userService = new FormService(props.setAudiobooksState);
+
   const searchAudiobooks = () => {
     if (props.audiobooksState.searchText.length > 0) {
       props.setAudiobooksState((prev) => ({
@@ -23,15 +26,6 @@ export default function UserMainSearchAudiobooks(props) {
     }
   };
 
-  const changeSearchText = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setAudiobooksState((prev) => ({
-        ...prev,
-        searchText: element.target.value,
-      }));
-    }
-  };
-
   useEffect(() => {
     if (props.audiobooksState.error != null) {
       throw props.audiobooksState.error;
@@ -46,8 +40,9 @@ export default function UserMainSearchAudiobooks(props) {
             <i className='bi bi-search'></i>
           </InputGroup.Text>
           <Form.Control
+            name='searchText'
             placeholder={props.t('title')}
-            onChange={(e) => changeSearchText(e)}
+            onChange={(e) => userService.handleChange(e)}
             value={props.audiobooksState.searchText}
           />
           <Button className={'success_button'} onClick={searchAudiobooks}>

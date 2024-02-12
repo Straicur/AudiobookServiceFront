@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { HandleFetch } from 'Util/HandleFetch';
 import ValidateUtil from 'Util/ValidateUtil';
+import FormService from 'Service/Common/FormService';
 
 export const UserLoginForgotPasswordModal = (props) => {
   const [state, setState] = useState({
@@ -11,12 +12,7 @@ export const UserLoginForgotPasswordModal = (props) => {
     send: false,
   });
 
-  const handleEmailChange = (event) => {
-    setState((prev) => ({
-      ...prev,
-      email: event.target.value,
-    }));
-  };
+  const userService = new FormService(setState);
 
   const handleSend = async () => {
     if (state.email) {
@@ -81,10 +77,13 @@ export const UserLoginForgotPasswordModal = (props) => {
           <input
             id='email'
             type='email'
+            name='email'
             placeholder={props.t('insertEmail')}
             value={state.email}
             className='form-control mt-2 shadow'
-            onChange={handleEmailChange}
+            onChange={(e) => {
+              userService.handleChange(e);
+            }}
           />
         )}
       </Modal.Body>

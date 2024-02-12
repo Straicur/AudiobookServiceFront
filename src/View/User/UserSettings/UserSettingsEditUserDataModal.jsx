@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
 import ValidateUtil from 'Util/ValidateUtil';
+import FormService from 'Service/Common/FormService';
 
 export default function UserSettingsEditUserDataModal(props) {
   const [state, setState] = useState({
@@ -17,6 +18,8 @@ export default function UserSettingsEditUserDataModal(props) {
     wrongFirstname: false,
     wrongLastname: false,
   });
+
+  const userService = new FormService(setState);
 
   const handleClose = () => {
     props.refetch();
@@ -55,25 +58,6 @@ export default function UserSettingsEditUserDataModal(props) {
           error: e,
         }));
       });
-  };
-
-  const handleFirstnameChange = (event) => {
-    setState((prev) => ({
-      ...prev,
-      firstname: event.target.value,
-    }));
-  };
-  const handleLastnameChange = (event) => {
-    setState((prev) => ({
-      ...prev,
-      lastname: event.target.value,
-    }));
-  };
-  const handlePhoneNumberChange = (event) => {
-    setState((prev) => ({
-      ...prev,
-      phoneNumber: event.target.value,
-    }));
   };
 
   useEffect(() => {
@@ -170,12 +154,13 @@ export default function UserSettingsEditUserDataModal(props) {
                 <Form.Label>{props.t('firstname')}</Form.Label>
                 <Form.Control
                   type='text'
+                  name='firstname'
                   isValid={state.firstname.length > 1 && ValidateUtil.validateName(state.firstname)}
                   isInvalid={
                     state.firstname.length > 1 && !ValidateUtil.validateName(state.firstname)
                   }
                   value={state.firstname}
-                  onChange={(event) => handleFirstnameChange(event)}
+                  onChange={(event) => userService.handleChange(event)}
                 />
                 <Alert
                   show={state.wrongFirstname}
@@ -189,6 +174,7 @@ export default function UserSettingsEditUserDataModal(props) {
                 <Form.Label>{props.t('lastname')}</Form.Label>
                 <Form.Control
                   type='text'
+                  name='lastname'
                   isValid={
                     state.lastname.length > 1 && ValidateUtil.validateLastName(state.lastname)
                   }
@@ -196,7 +182,7 @@ export default function UserSettingsEditUserDataModal(props) {
                     state.lastname.length > 1 && !ValidateUtil.validateLastName(state.lastname)
                   }
                   value={state.lastname}
-                  onChange={(event) => handleLastnameChange(event)}
+                  onChange={(event) => userService.handleChange(event)}
                 />
                 <Alert
                   show={state.wrongLastname}
@@ -210,6 +196,7 @@ export default function UserSettingsEditUserDataModal(props) {
                 <Form.Label>{props.t('phoneNumber')}</Form.Label>
                 <Form.Control
                   type='tel'
+                  typnamee='phoneNumber'
                   isValid={
                     state.phoneNumber.length > 1 &&
                     ValidateUtil.validatePhoneNumber(state.phoneNumber)
@@ -219,7 +206,7 @@ export default function UserSettingsEditUserDataModal(props) {
                     !ValidateUtil.validatePhoneNumber(state.phoneNumber)
                   }
                   value={state.phoneNumber}
-                  onChange={(event) => handlePhoneNumberChange(event)}
+                  onChange={(event) => userService.handleChange(event)}
                 />
                 <Alert
                   show={state.wrongPhoneNumber}
