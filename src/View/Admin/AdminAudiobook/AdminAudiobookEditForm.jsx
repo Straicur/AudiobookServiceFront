@@ -25,9 +25,10 @@ export default function AdminAudiobookEditForm(props) {
             {props.t('title')}
           </InputGroup.Text>
           <Form.Control
+            name='title'
             value={props.audiobookDetail != null ? props.audiobookDetail.title : ''}
             onChange={(event) => {
-              adminService.handleTitleChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -38,9 +39,10 @@ export default function AdminAudiobookEditForm(props) {
             {props.t('author')}
           </InputGroup.Text>
           <Form.Control
+            name='author'
             value={props.audiobookDetail != null ? props.audiobookDetail.author : ''}
             onChange={(event) => {
-              adminService.handleAuthorChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -51,9 +53,10 @@ export default function AdminAudiobookEditForm(props) {
             {props.t('album')}
           </InputGroup.Text>
           <Form.Control
+            name='album'
             value={props.audiobookDetail != null ? props.audiobookDetail.album : ''}
             onChange={(event) => {
-              adminService.handleAlbumChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -65,9 +68,10 @@ export default function AdminAudiobookEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             type='date'
+            name='year'
             value={props.audiobookDetail != null ? props.audiobookDetail.year : ''}
             onChange={(event) => {
-              adminService.handleYearChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -79,6 +83,7 @@ export default function AdminAudiobookEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             type='number'
+            name='parts'
             value={props.audiobookDetail != null ? props.audiobookDetail.parts : ''}
             onChange={(event) => {
               adminService.handlePartsChange(event);
@@ -92,9 +97,10 @@ export default function AdminAudiobookEditForm(props) {
             {props.t('duration')}
           </InputGroup.Text>
           <Form.Control
+            name='duration'
             value={props.audiobookDetail != null ? props.audiobookDetail.duration : ''}
             onChange={(event) => {
-              adminService.handleDurationChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -106,10 +112,11 @@ export default function AdminAudiobookEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             as='textarea'
+            name='description'
             rows={4}
             value={props.audiobookDetail != null ? props.audiobookDetail.description : ''}
             onChange={(event) => {
-              adminService.handleDescriptionChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -120,6 +127,7 @@ export default function AdminAudiobookEditForm(props) {
             {props.t('encoded')}
           </InputGroup.Text>
           <Form.Control
+            name='encoded'
             value={
               props.audiobookDetail != null
                 ? props.audiobookDetail.encoded != undefined
@@ -128,7 +136,7 @@ export default function AdminAudiobookEditForm(props) {
                 : ''
             }
             onChange={(event) => {
-              adminService.handleEncodedChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -139,9 +147,10 @@ export default function AdminAudiobookEditForm(props) {
             {props.t('size')}
           </InputGroup.Text>
           <Form.Control
+            name='size'
             value={props.audiobookDetail != null ? props.audiobookDetail.size : ''}
             onChange={(event) => {
-              adminService.handleSizeChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -153,9 +162,10 @@ export default function AdminAudiobookEditForm(props) {
               {props.t('version')}
             </InputGroup.Text>
             <Form.Control
+              name='version'
               value={props.audiobookDetail != null ? props.audiobookDetail.version : ''}
               onChange={(event) => {
-                adminService.handleVersionChange(event);
+                adminService.handleChange(event);
               }}
             />
           </InputGroup>

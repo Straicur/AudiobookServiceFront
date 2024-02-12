@@ -1,5 +1,8 @@
-export default class AdminUsersSearchService {
+import FormService from 'Service/Common/FormService';
+
+export default class AdminUsersSearchService extends FormService {
   constructor(props, setShow) {
+    super(props.setSearchState);
     this.props = props;
     setShow.setShow = setShow;
   }
@@ -20,42 +23,6 @@ export default class AdminUsersSearchService {
         ...prev,
         order: parseInt(element.target.value),
       }));
-    }
-  };
-
-  changeEmail = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      this.props.setSearchState((prev) => ({
-        ...prev,
-        email: element.target.value,
-      }));
-    }
-  };
-
-  changePhoneNumber = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      this.props.setSearchState({
-        ...this.props.searchState,
-        phoneNumber: element.target.value,
-      });
-    }
-  };
-
-  changeFirstname = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      this.props.setSearchState({
-        ...this.props.searchState,
-        firstname: element.target.value,
-      });
-    }
-  };
-
-  changeLastname = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      this.props.setSearchState({
-        ...this.props.searchState,
-        lastname: element.target.value,
-      });
     }
   };
 

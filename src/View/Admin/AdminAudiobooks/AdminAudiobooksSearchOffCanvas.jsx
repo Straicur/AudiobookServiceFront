@@ -60,8 +60,9 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             {props.t('sort')}
           </InputGroup.Text>
           <Form.Select
+            name='sort'
             onChange={(e) => {
-              adminService.changeSort(e);
+              adminService.handleChange(e);
             }}
             value={props.searchState.sort}
           >
@@ -85,7 +86,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             placeholderMultipleChecked={props.t('slectedMultiCategories')}
             selectDeselectLabel={props.t('slectedAll')}
             options={adminService.generateCategoriesList()}
-            name='countries'
+            name='categories'
             handleOnChange={(e) => {
               adminService.changeCategories(e);
             }}
@@ -98,9 +99,10 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             {props.t('title')}
           </InputGroup.Text>
           <Form.Control
+            name='title'
             value={props.searchState.title}
             onChange={(e) => {
-              adminService.changeTitle(e);
+              adminService.handleChange(e);
             }}
           />
         </InputGroup>
@@ -110,9 +112,10 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             {props.t('author')}
           </InputGroup.Text>
           <Form.Control
+            name='author'
             value={props.searchState.author}
             onChange={(e) => {
-              adminService.changeAuthor(e);
+              adminService.handleChange(e);
             }}
           />
         </InputGroup>
@@ -121,9 +124,10 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             {props.t('album')}
           </InputGroup.Text>
           <Form.Control
+            name='album'
             value={props.searchState.album}
             onChange={(e) => {
-              adminService.changeAlbum(e);
+              adminService.handleChange(e);
             }}
           />
         </InputGroup>
@@ -134,8 +138,9 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
           </InputGroup.Text>
           <Form.Control
             type='number'
+            name='parts'
             onChange={(e) => {
-              adminService.changeParts(e);
+              adminService.handleChange(e);
             }}
             value={props.searchState.parts}
           />
@@ -146,8 +151,9 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             {props.t('age')}
           </InputGroup.Text>
           <Form.Select
+            name='age'
             onChange={(e) => {
-              adminService.changeAge(e);
+              adminService.handleChange(e);
             }}
             value={props.searchState.age}
           >
@@ -165,18 +171,20 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             {props.t('year')}
           </InputGroup.Text>
           <Form.Control
+            name='year'
             type='date'
             value={props.searchState.year}
             onChange={(e) => {
-              adminService.changeYear(e);
+              adminService.handleChange(e);
             }}
           />
         </InputGroup>
         <InputGroup className='mb-1 input_modal py-1 '>
           {props.t('duration')}: {adminService.formatDuration()}
           <Form.Range
+            name='duration'
             onChange={(e) => {
-              adminService.changeDuration(e);
+              adminService.handleChange(e);
             }}
             min={0}
             max={86399}
@@ -190,7 +198,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             size='lg'
             color='success'
             className=' btn button mt-2'
-            onClick={() => adminService.ZsearchAgain()}
+            onClick={() => adminService.searchAgain()}
           >
             {props.t('search')}
           </Button>

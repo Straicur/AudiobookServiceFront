@@ -63,9 +63,10 @@ export default function AdminAudiobooksAudiobookAddModal(props) {
               {props.t('title')}
             </InputGroup.Text>
             <Form.Control
+              name='title'
               value={stateModal.title}
               onChange={(e) => {
-                adminService.handleSetTitleChange(e);
+                adminService.handleChange(e);
               }}
             />
           </InputGroup>
@@ -74,9 +75,10 @@ export default function AdminAudiobooksAudiobookAddModal(props) {
               {props.t('author')}
             </InputGroup.Text>
             <Form.Control
+              name='author'
               value={stateModal.author}
               onChange={(e) => {
-                adminService.handleSetAuthorChange(e);
+                adminService.handleChange(e);
               }}
             />
           </InputGroup>

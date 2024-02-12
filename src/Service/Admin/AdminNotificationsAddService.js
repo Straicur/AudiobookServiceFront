@@ -1,7 +1,9 @@
 import { HandleFetch } from 'Util/HandleFetch';
+import FormService from 'Service/Common/FormService';
 
-export default class AdminNotificationsAddService {
+export default class AdminNotificationsAddService extends FormService {
   constructor(props, modalState, setModalState, actionState, setActionState) {
+    super(props.setModalState);
     this.props = props;
     this.modalState = modalState;
     this.setModalState = setModalState;
@@ -35,19 +37,13 @@ export default class AdminNotificationsAddService {
     }
   };
 
-  changeText = (element) => {
-    this.setModalState((prev) => ({
-      ...prev,
-      text: element.target.value,
-    }));
-  };
-
   selectActionId = () => {
     this.setActionState((prev) => ({
       ...prev,
       list: true,
     }));
   };
+
   goBack = () => {
     this.setActionState((prev) => ({
       ...prev,

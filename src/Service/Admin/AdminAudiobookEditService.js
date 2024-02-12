@@ -1,19 +1,15 @@
 import { HandleFetch } from 'Util/HandleFetch';
 import CreateUtil from 'Util/CreateUtil';
+import FormService from 'Service/Common/FormService';
 
-export default class AdminAudiobookEditService {
+export default class AdminAudiobookEditService extends FormService {
   constructor(wrongState, setWrongState, props) {
+    super(props.setAudiobookDetail);
     this.wrongState = wrongState;
     this.setWrongState = setWrongState;
     this.props = props;
   }
 
-  handleVersionChange = (event) => {
-    this.props.setAudiobookDetail({
-      ...this.props.audiobookDetail,
-      version: event.target.value,
-    });
-  };
   handlePartsChange = (event) => {
     let value = event.target.value;
     if (value == '') {
@@ -25,55 +21,7 @@ export default class AdminAudiobookEditService {
       parts: parseInt(value),
     }));
   };
-  handleEncodedChange = (event) => {
-    this.props.setAudiobookDetail((prev) => ({
-      ...prev,
-      encoded: event.target.value,
-    }));
-  };
-  handleDescriptionChange = (event) => {
-    this.props.setAudiobookDetail((prev) => ({
-      ...prev,
-      description: event.target.value,
-    }));
-  };
-  handleDurationChange = (event) => {
-    this.props.setAudiobookDetail((prev) => ({
-      ...prev,
-      duration: event.target.value,
-    }));
-  };
 
-  handleYearChange = (event) => {
-    this.props.setAudiobookDetail((prev) => ({
-      ...prev,
-      year: event.target.value,
-    }));
-  };
-  handleAlbumChange = (event) => {
-    this.props.setAudiobookDetail((prev) => ({
-      ...prev,
-      album: event.target.value,
-    }));
-  };
-  handleAuthorChange = (event) => {
-    this.props.setAudiobookDetail((prev) => ({
-      ...prev,
-      author: event.target.value,
-    }));
-  };
-  handleTitleChange = (event) => {
-    this.props.setAudiobookDetail((prev) => ({
-      ...prev,
-      title: event.target.value,
-    }));
-  };
-  handleSizeChange = (event) => {
-    this.props.setAudiobookDetail((prev) => ({
-      ...prev,
-      size: event.target.value,
-    }));
-  };
   handleAgeChange = (event) => {
     this.props.setAudiobookDetail((prev) => ({
       ...prev,

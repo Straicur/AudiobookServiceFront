@@ -44,10 +44,11 @@ export default function AdminUsersSearchOffCanvas(props) {
             {props.t('sort')}
           </InputGroup.Text>
           <Form.Select
+            name='order'
+            value={props.searchState.order}
             onChange={(e) => {
               adminService.changeSort(e);
             }}
-            value={props.searchState.sort}
           >
             <option value={0}>{props.t('selectSort')}</option>
             <option value={1}>{props.t('latest')}</option>
@@ -61,9 +62,10 @@ export default function AdminUsersSearchOffCanvas(props) {
             {props.t('email')}
           </InputGroup.Text>
           <Form.Control
-            value={props.searchState.title}
+            name='email'
+            value={props.searchState.email}
             onChange={(e) => {
-              adminService.changeEmail(e);
+              adminService.handleChange(e);
             }}
           />
         </InputGroup>
@@ -73,9 +75,10 @@ export default function AdminUsersSearchOffCanvas(props) {
             {props.t('phoneNumber')}
           </InputGroup.Text>
           <Form.Control
-            value={props.searchState.author}
+            name='phoneNumber'
+            value={props.searchState.phoneNumber}
             onChange={(e) => {
-              adminService.changePhoneNumber(e);
+              adminService.handleChange(e);
             }}
           />
         </InputGroup>
@@ -84,9 +87,10 @@ export default function AdminUsersSearchOffCanvas(props) {
             {props.t('firstname')}
           </InputGroup.Text>
           <Form.Control
-            value={props.searchState.album}
+            name='firstname'
+            value={props.searchState.firstname}
             onChange={(e) => {
-              adminService.changeFirstname(e);
+              adminService.handleChange(e);
             }}
           />
         </InputGroup>
@@ -96,10 +100,11 @@ export default function AdminUsersSearchOffCanvas(props) {
             {props.t('lastname')}
           </InputGroup.Text>
           <Form.Control
+            name='lastname'
+            value={props.searchState.lastname}
             onChange={(e) => {
-              adminService.changeLastname(e);
+              adminService.handleChange(e);
             }}
-            value={props.searchState.parts}
           />
         </InputGroup>
         <InputGroup className='mb-1 input_modal py-1 '>

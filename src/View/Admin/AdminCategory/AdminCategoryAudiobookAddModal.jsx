@@ -62,7 +62,7 @@ export default function AdminCategoryAudiobookAddModal(props) {
             name='title'
             value={stateModal.title}
             className='form-control mt-2'
-            onChange={adminService.handleSetTitleChange}
+            onChange={(e) => adminService.handleChange(e)}
           />
           <h5>{props.t('author')}</h5>
           <input
@@ -71,7 +71,7 @@ export default function AdminCategoryAudiobookAddModal(props) {
             name='author'
             value={stateModal.author}
             className='form-control mt-2'
-            onChange={adminService.handleSetAuthorChange}
+            onChange={(e) => adminService.handleChange(e)}
           />
           {props.parentCategoryId != null ? (
             <div className='mt-3'>

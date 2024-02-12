@@ -97,10 +97,11 @@ export default function AdminNotificationsAddModal(props) {
                 </InputGroup.Text>
                 <Form.Control
                   as='textarea'
+                  name='text'
                   aria-label='With textarea'
                   value={modalState.text}
                   onChange={(e) => {
-                    adminService.changeText(e);
+                    adminService.handleChange(e);
                   }}
                 />
               </InputGroup>

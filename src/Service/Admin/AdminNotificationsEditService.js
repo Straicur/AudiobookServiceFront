@@ -1,6 +1,7 @@
 import { HandleFetch } from 'Util/HandleFetch';
+import FormService from 'Service/Common/FormService';
 
-export default class AdminNotificationsEditService {
+export default class AdminNotificationsEditService extends FormService {
   constructor(
     notificationsState,
     setNotificationsState,
@@ -10,6 +11,7 @@ export default class AdminNotificationsEditService {
     deleteState,
     setDelteteState,
   ) {
+    super(setNotificationsState);
     this.notificationsState = notificationsState;
     this.setNotificationsState = setNotificationsState;
     this.props = props;
@@ -43,13 +45,6 @@ export default class AdminNotificationsEditService {
         userType: parseInt(element.target.value),
       }));
     }
-  };
-
-  changeText = (element) => {
-    this.setNotificationsState((prev) => ({
-      ...prev,
-      text: element.target.value,
-    }));
   };
 
   selectActionId = () => {

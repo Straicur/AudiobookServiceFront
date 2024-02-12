@@ -1,9 +1,11 @@
 import { HandleFetch } from 'Util/HandleFetch';
 import sha256 from 'crypto-js/sha256';
 import { Buffer } from 'buffer';
+import FormService from 'Service/Common/FormService';
 
-export default class AdminAudiobookReAddingService {
+export default class AdminAudiobookReAddingService extends FormService {
   constructor(stateModal, setStateModal, props, seconds, stateProgress, setStateProgress) {
+    super(setStateModal);
     this.stateModal = stateModal;
     this.setStateModal = setStateModal;
     this.props = props;
@@ -11,20 +13,6 @@ export default class AdminAudiobookReAddingService {
     this.stateProgress = stateProgress;
     this.setStateProgress = setStateProgress;
   }
-
-  handleSetAuthorChange = (event) => {
-    this.setStateModal((prev) => ({
-      ...prev,
-      author: event.target.value,
-    }));
-  };
-
-  handleSetTitleChange = (event) => {
-    this.setStateModal((prev) => ({
-      ...prev,
-      title: event.target.value,
-    }));
-  };
 
   handleOnFileChange = (e) => {
     if (e.target.files) {
