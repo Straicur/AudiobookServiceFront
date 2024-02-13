@@ -45,11 +45,13 @@ export default function AdminNotificationsList(props) {
     fetched: false,
     fetch: false,
   });
+
   const [categoriesState, setCategoriesState] = useState({
     categories: [],
     fetched: false,
     fetch: false,
   });
+
   const [usersState, setUsersState] = useState({
     users: [],
     fetched: false,

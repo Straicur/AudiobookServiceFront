@@ -3,9 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+import FormService from 'Service/Common/FormService';
 
 export default function AdminNotificationsSearchOffCanvas(props) {
   const [show, setShow] = useState(true);
+
+  const adminService = new FormService(props.setSearchState);
 
   const handleClose = () => {
     props.setState((prev) => ({
@@ -24,15 +27,6 @@ export default function AdminNotificationsSearchOffCanvas(props) {
     }
   };
 
-  const changeText = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState((prev) => ({
-        ...prev,
-        text: element.target.value,
-      }));
-    }
-  };
-
   const changeType = (element) => {
     if (!isNaN(element.target.value) && element.target.value != undefined) {
       props.setSearchState((prev) => ({
@@ -41,6 +35,7 @@ export default function AdminNotificationsSearchOffCanvas(props) {
       }));
     }
   };
+
   const changeDeleted = (element) => {
     if (element.target.checked) {
       props.setSearchState((prev) => ({
@@ -54,6 +49,7 @@ export default function AdminNotificationsSearchOffCanvas(props) {
       }));
     }
   };
+
   const changeNotDeleted = (element) => {
     if (element.target.checked) {
       props.setSearchState((prev) => ({
@@ -67,6 +63,7 @@ export default function AdminNotificationsSearchOffCanvas(props) {
       }));
     }
   };
+
   const searchAgain = () => {
     props.setPageState((prev) => ({
       ...prev,
@@ -130,9 +127,10 @@ export default function AdminNotificationsSearchOffCanvas(props) {
             {props.t('text')}
           </InputGroup.Text>
           <Form.Control
+            name='text'
             value={props.searchState.text}
             onChange={(e) => {
-              changeText(e);
+              adminService.handleChange(e);
             }}
           />
         </InputGroup>

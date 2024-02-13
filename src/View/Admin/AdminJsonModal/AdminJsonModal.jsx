@@ -18,6 +18,7 @@ export default function AdminJsonModal(props) {
       </div>
     );
   };
+
   return (
     <Modal size='lg' show={props.state.jsonModal} onHide={handleClose} backdrop='static'>
       <Modal.Header closeButton>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { HandleFetch } from 'Util/HandleFetch';
+import FormService from 'Service/Common/FormService';
 
 export default function AdminCategoriesEditModal(props) {
   const [stateEditButton, setStateEditButton] = useState(true);
@@ -12,19 +13,14 @@ export default function AdminCategoriesEditModal(props) {
     error: 0,
   });
 
+  const adminService = new FormService(props.setSearchState);
+
   const handleClose = () => {
     props.setState((prev) => ({
       ...prev,
       editCategoryModal: !props.state.editCategoryModal,
       editCategoryElement: null,
       refresh: !props.state.refresh,
-    }));
-  };
-
-  const handleNewNameChange = (event) => {
-    setEditModal((prev) => ({
-      ...prev,
-      newName: event.target.value,
     }));
   };
 
@@ -117,10 +113,10 @@ export default function AdminCategoriesEditModal(props) {
               <input
                 id='name'
                 type='text'
-                name='name'
+                name='newName'
                 value={editModal.newName}
                 className='form-control mt-2'
-                onChange={handleNewNameChange}
+                onChange={(e) => adminService.handleChange(e)}
               />
             </div>
             <div className='col'>

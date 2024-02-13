@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { HandleFetch } from 'Util/HandleFetch';
+import FormService from 'Service/Common/FormService';
 
 export default function AdminCategoriesAddModal(props) {
   const [modalState, setModalState] = useState({
@@ -9,12 +10,7 @@ export default function AdminCategoriesAddModal(props) {
     isButtonDisabled: true,
   });
 
-  const handleSetNameChange = (event) => {
-    setModalState((prev) => ({
-      ...prev,
-      name: event.target.value,
-    }));
-  };
+  const adminService = new FormService(props.setSearchState);
 
   const handleClose = () => {
     props.setState((prev) => ({
@@ -89,7 +85,7 @@ export default function AdminCategoriesAddModal(props) {
           name='name'
           value={modalState.name}
           className='form-control mt-2'
-          onChange={handleSetNameChange}
+          onChange={(e) => adminService.handleChange(e)}
         />
       </Modal.Body>
       <Modal.Footer>
