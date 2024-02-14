@@ -32,6 +32,12 @@ export const UserNavBar = () => {
 
   const navigate = useNavigate();
 
+  const notificationsListStore = useNotificationsListStore();
+  const notifications = useNotificationsListStore((state) => state.notifications);
+  const newNotifications = useNotificationsListStore((state) => state.newNotifications);
+  const maxPage = useNotificationsListStore((state) => state.maxPage);
+  const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
+
   const logout = async () => {
     const url = '/logout';
     const jsonData = {};
@@ -42,12 +48,6 @@ export const UserNavBar = () => {
       navigate('/login');
     });
   };
-  const notificationsListStore = useNotificationsListStore();
-
-  const notifications = useNotificationsListStore((state) => state.notifications);
-  const newNotifications = useNotificationsListStore((state) => state.newNotifications);
-  const maxPage = useNotificationsListStore((state) => state.maxPage);
-  const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
   const fetchNotifications = () => {
     for (let index = 0; index <= state.page; index++) {
@@ -168,6 +168,7 @@ export const UserNavBar = () => {
           </ButtonGroup>
           <div
             className='row mx-1 pt-3 ms-1 me-3 text-white align-items-center justify-content-center notification-row'
+            name='notificationsOffCanvas'
             onClick={() => openNotificationsList()}
           >
             <div className='col nav-col justify-content-end  align-items-center pe-2'>

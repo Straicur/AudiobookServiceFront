@@ -253,7 +253,6 @@ export default function UserSettingsEditUserDataModal(props) {
                     </div>
                     <div className='col-6'>
                       <Button
-                        // onClick={() => doubleClickRating()}
                         className='btn button danger_button settings-button fs-5 sure_button'
                         size='sm'
                         onClick={() =>

@@ -11,4 +11,13 @@ export default class FormService {
       }));
     }
   }
+
+  handleChangeInt(event) {
+    if (event.target.value != undefined) {
+      this.setState((prev) => ({
+        ...prev,
+        [event.target.name]: parseInt(event.target.value),
+      }));
+    }
+  }
 }
