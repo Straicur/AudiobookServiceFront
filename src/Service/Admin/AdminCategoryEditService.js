@@ -22,13 +22,6 @@ export default class AdminCategoryEditService extends FormService {
     }));
   };
 
-  handleAgeChange = (event) => {
-    this.props.setAudiobookDetail((prev) => ({
-      ...prev,
-      age: parseInt(event),
-    }));
-  };
-
   validateFields = () => {
     this.setWrongState(0);
 

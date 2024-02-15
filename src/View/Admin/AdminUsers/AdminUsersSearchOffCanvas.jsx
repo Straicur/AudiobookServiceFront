@@ -47,7 +47,7 @@ export default function AdminUsersSearchOffCanvas(props) {
             name='order'
             value={props.searchState.order}
             onChange={(e) => {
-              adminService.changeSort(e);
+              adminService.handleChangeInt(e);
             }}
           >
             <option value={0}>{props.t('selectSort')}</option>

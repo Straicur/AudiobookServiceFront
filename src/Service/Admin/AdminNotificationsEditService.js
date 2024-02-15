@@ -29,24 +29,6 @@ export default class AdminNotificationsEditService extends FormService {
     }));
   };
 
-  changeNotificationType = (element) => {
-    if (element.target.value != 0) {
-      this.setNotificationsState((prev) => ({
-        ...prev,
-        notificationType: parseInt(element.target.value),
-      }));
-    }
-  };
-
-  changeUserType = (element) => {
-    if (element.target.value != 0) {
-      this.setNotificationsState((prev) => ({
-        ...prev,
-        userType: parseInt(element.target.value),
-      }));
-    }
-  };
-
   selectActionId = () => {
     this.setActionState((prev) => ({
       ...prev,

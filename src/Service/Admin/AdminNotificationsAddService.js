@@ -19,24 +19,6 @@ export default class AdminNotificationsAddService extends FormService {
     }));
   };
 
-  changeNotificationType = (element) => {
-    if (element.target.value != 0) {
-      this.setModalState((prev) => ({
-        ...prev,
-        notificationType: parseInt(element.target.value),
-      }));
-    }
-  };
-
-  changeUserType = (element) => {
-    if (element.target.value != 0) {
-      this.setModalState((prev) => ({
-        ...prev,
-        userType: parseInt(element.target.value),
-      }));
-    }
-  };
-
   selectActionId = () => {
     this.setActionState((prev) => ({
       ...prev,

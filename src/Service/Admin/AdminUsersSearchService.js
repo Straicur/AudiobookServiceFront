@@ -17,15 +17,6 @@ export default class AdminUsersSearchService extends FormService {
     this.setShow(false);
   };
 
-  changeSort = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      this.props.setSearchState((prev) => ({
-        ...prev,
-        order: parseInt(element.target.value),
-      }));
-    }
-  };
-
   changeActive = (element) => {
     if (this.props.searchState.active == null) {
       this.props.setSearchState({

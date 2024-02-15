@@ -172,7 +172,7 @@ export default function AdminAudiobookEditForm(props) {
         </div>
         <div className='col-auto input_modal'>
           <InputGroup className='mb-1'>
-            <Dropdown onSelect={(event) => adminService.handleAgeChange(event)}>
+            <Dropdown name='age' onSelect={(event) => adminService.handleChangeInt(event)}>
               <Dropdown.Toggle className=' text-start' variant='success' id='dropdown-basic'>
                 {props.t('age')}
               </Dropdown.Toggle>

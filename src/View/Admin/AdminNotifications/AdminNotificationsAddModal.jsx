@@ -64,8 +64,9 @@ export default function AdminNotificationsAddModal(props) {
                   {props.t('userType')}
                 </InputGroup.Text>
                 <Form.Select
+                  name='userType'
                   onChange={(e) => {
-                    adminService.changeUserType(e);
+                    adminService.handleChangeInt(e);
                   }}
                   value={modalState.userType}
                 >
@@ -79,8 +80,9 @@ export default function AdminNotificationsAddModal(props) {
                   {props.t('notificationType')}
                 </InputGroup.Text>
                 <Form.Select
+                  name='notificationType'
                   onChange={(e) => {
-                    adminService.changeNotificationType(e);
+                    adminService.handleChangeInt(e);
                   }}
                   value={modalState.notificationType}
                 >

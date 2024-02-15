@@ -18,24 +18,6 @@ export default function AdminNotificationsSearchOffCanvas(props) {
     setShow(false);
   };
 
-  const changeOrder = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState((prev) => ({
-        ...prev,
-        order: parseInt(element.target.value),
-      }));
-    }
-  };
-
-  const changeType = (element) => {
-    if (!isNaN(element.target.value) && element.target.value != undefined) {
-      props.setSearchState((prev) => ({
-        ...prev,
-        type: parseInt(element.target.value),
-      }));
-    }
-  };
-
   const changeDeleted = (element) => {
     if (element.target.checked) {
       props.setSearchState((prev) => ({
@@ -112,10 +94,11 @@ export default function AdminNotificationsSearchOffCanvas(props) {
             {props.t('sort')}
           </InputGroup.Text>
           <Form.Select
+            name='order'
             onChange={(e) => {
-              changeOrder(e);
+              adminService.handleChangeInt(e);
             }}
-            value={props.searchState.sort}
+            value={props.searchState.order}
           >
             <option value={0}>{props.t('selectSort')}</option>
             <option value={1}>{props.t('latest')}</option>
@@ -140,8 +123,9 @@ export default function AdminNotificationsSearchOffCanvas(props) {
             {props.t('type')}
           </InputGroup.Text>
           <Form.Select
+            name='type'
             onChange={(e) => {
-              changeType(e);
+              adminService.handleChangeInt(e);
             }}
             value={props.searchState.type}
           >
