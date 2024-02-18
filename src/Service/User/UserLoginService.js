@@ -31,7 +31,6 @@ export default class UserLoginService extends FormService {
           email: this.props.state.email,
           password: md5(this.props.state.password),
         },
-        this.props.state,
         this.props.setState,
         this.i18n.language,
       );

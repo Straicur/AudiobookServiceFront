@@ -5,7 +5,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 let tokenStore = (set) => ({
   token: '',
   roles: [],
-  setToken: (jsonData, state, setState, language) => {
+  setToken: (jsonData, setState, language) => {
     HandleFetch('/authorize', 'POST', jsonData, language)
       .then((data) => {
         set(() => ({
