@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import CreateUtil from 'Util/CreateUtil';
 

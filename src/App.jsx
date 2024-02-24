@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useTokenStore } from 'Store/store';
-import { QueryClientProvider, QueryClient } from 'react-query';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import Page404 from 'Page/Page404/Page404';
 import AdminAudiobooks from 'Page/Admin/AdminAudiobooks/AdminAudiobooks';
 import AdminAudiobook from 'Page/Admin/AdminAudiobook/AdminAudiobook';

@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 
 const AudiobookPartContext = createContext(null);

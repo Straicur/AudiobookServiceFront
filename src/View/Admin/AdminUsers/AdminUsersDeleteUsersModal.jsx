@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import AdminUsersRenderDeleteUsersList from './AdminUsersRenderDeleteUsersList';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';

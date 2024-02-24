@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import Modal from 'react-bootstrap/Modal';
 import 'react-h5-audio-player/lib/styles.css';

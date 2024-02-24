@@ -1,6 +1,6 @@
 import React from 'react';
 import { HandleFetch } from 'Util/HandleFetch';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import UserSettingsEditEmailModal from './UserSettingsEditEmailModal';
 import UserSettingsEditPasswordModal from './UserSettingsEditPasswordModal';
 import UserSettingsEditUserDataModal from './UserSettingsEditUserDataModal';
