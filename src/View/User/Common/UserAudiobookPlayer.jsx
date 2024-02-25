@@ -103,7 +103,9 @@ export default function UserAudiobookPlayer(props) {
         </div>
       }
       autoPlay={false}
-      src={props.audiobookPart}
+      src={
+        props.audiobookPart != null ? process.env.REACT_APP_API_URL + props.audiobookPart.url : ''
+      }
       onListen={(e) => timeCur(e)}
       onLoadedMetaData={(e) => setDuration(e)}
       autoPlayAfterSrcChange={false}

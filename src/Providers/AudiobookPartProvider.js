@@ -1,6 +1,7 @@
-import React, { createContext, useEffect, useState, useContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
+import { QueryClient } from '@tanstack/react-query';
 
 const AudiobookPartContext = createContext(null);
 
@@ -14,8 +15,28 @@ export const AudiobookPartProvider = ({
   setAudiobookState,
   i18n,
 }) => {
-  const [audiobookPart, setAudiobookPart] = useState(null);
-  const [refetchState, setRefetchState] = useState(false);
+  const qc = new QueryClient();
+
+  const setAudiobookPart = (variables) => {
+    let copy = dataAudiobookPart;
+
+    for (var key in variables) {
+      copy[key] = variables[key];
+    }
+
+    qc.setQueryData(['dataAudiobookDetail'], copy);
+  };
+
+  const setRefetch = () => {
+    setAudiobookState({
+      ...audiobookState,
+      newPart: true,
+      detailWatchingDate: null,
+      datailEndedTime: null,
+    });
+
+    qc.invalidateQueries(['dataAudiobookDetail']);
+  };
 
   const createContext = () => {
     let json = {
@@ -30,9 +51,11 @@ export const AudiobookPartProvider = ({
     return json;
   };
 
-  const { refetch: refetchAudiobookPart } = useQuery(
+  const { data: dataAudiobookPart = null } = useQuery(
     ['dataAudiobookPart'],
-    () => HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language),
+    () => {
+      return HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language);
+    },
     {
       retry: 1,
       retryDelay: 500,
@@ -43,31 +66,13 @@ export const AudiobookPartProvider = ({
           error: e,
         }));
       },
-      onSuccess: (data) => {
-        setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
-      },
+      // onSuccess: (data) => {
+      //   setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
+      // },
     },
   );
 
-  useEffect(() => {
-    setAudiobookState({
-      ...audiobookState,
-      newPart: true,
-      detailWatchingDate: null,
-      datailEndedTime: null,
-    });
-
-    refetchAudiobookPart();
-  }, [part]);
-
-  useEffect(() => {
-    if (refetchState) {
-      refetchAudiobookPart();
-      setRefetchState(!refetchState);
-    }
-  }, [refetchState]);
-
-  const value = [audiobookPart, setAudiobookPart, setRefetchState];
+  const value = [dataAudiobookPart, setAudiobookPart, setRefetch];
 
   return <AudiobookPartContext.Provider value={value}>{children}</AudiobookPartContext.Provider>;
 };

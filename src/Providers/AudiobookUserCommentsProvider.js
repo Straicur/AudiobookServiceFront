@@ -1,6 +1,7 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
+import { QueryClient } from '@tanstack/react-query';
 
 const AudiobookUserCommentsContext = createContext(null);
 
@@ -12,13 +13,26 @@ export const AudiobookUserCommentsProvider = ({
   setState,
   i18n,
 }) => {
-  const [audiobookUserComments, setAudiobookUserComments] = useState(null);
-  const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
+  const qc = new QueryClient();
 
-  const { refetch: refetchAudiobookUserComments } = useQuery(
+  const setAudiobookUserComments = (variables) => {
+    let copy = dataAudiobookUserComments;
+
+    for (var key in variables) {
+      copy[key] = variables[key];
+    }
+
+    qc.setQueryData(['dataAudiobookUserComments'], copy);
+  };
+
+  const setRefetch = () => {
+    qc.invalidateQueries(['dataAudiobookUserComments']);
+  };
+
+  const { data: dataAudiobookUserComments = null } = useQuery(
     ['dataAudiobookUserComments'],
-    () =>
-      HandleFetch(
+    () => {
+      return HandleFetch(
         '/user/audiobook/comment/get',
         'POST',
         {
@@ -27,7 +41,8 @@ export const AudiobookUserCommentsProvider = ({
         },
         token,
         i18n.language,
-      ),
+      );
+    },
     {
       retry: 1,
       retryDelay: 500,
@@ -38,20 +53,10 @@ export const AudiobookUserCommentsProvider = ({
           error: e,
         }));
       },
-      onSuccess: (data) => {
-        setAudiobookUserComments(data.comments);
-      },
     },
   );
 
-  useEffect(() => {
-    if (refetchState) {
-      refetchAudiobookUserComments();
-      setAudiobookCommnetsRefetchState(!refetchState);
-    }
-  }, [refetchState]);
-
-  const value = [audiobookUserComments, setAudiobookUserComments, setAudiobookCommnetsRefetchState];
+  const value = [dataAudiobookUserComments, setAudiobookUserComments, setRefetch];
 
   return (
     <AudiobookUserCommentsContext.Provider value={value}>

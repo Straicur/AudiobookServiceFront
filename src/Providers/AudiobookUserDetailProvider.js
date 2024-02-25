@@ -53,26 +53,6 @@ export const AudiobookUserDetailProvider = ({
           error: e,
         }));
       },
-      // onSuccess: (data) => {
-      //   setAudiobookDetail({
-      //     age: data.age,
-      //     album: data.album,
-      //     author: data.author,
-      //     categories: data.categories,
-      //     comments: data.comments,
-      //     description: data.description,
-      //     duration: CreateUtil.createTime(data.duration),
-      //     id: data.id,
-      //     inList: data.inList,
-      //     parts: data.parts,
-      //     title: data.title,
-      //     version: data.version,
-      //     year: CreateUtil.createDate(data.year),
-      //     canRate: data.canRate,
-      //     canComment: data.canComment,
-      //     ratingAmount: data.ratingAmount,
-      //   });
-      // },
     },
   );
 

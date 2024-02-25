@@ -202,7 +202,7 @@ export default function UserMainAudiobookDetailModal(props) {
               </div>
               <div className='row my-1'>
                 <UserRenderCommentsList
-                  comments={audiobookUserComments}
+                  comments={audiobookUserComments.comments}
                   setAudiobookUserComments={setAudiobookUserComments}
                   audiobookDetail={audiobookDetail}
                   state={props.state}

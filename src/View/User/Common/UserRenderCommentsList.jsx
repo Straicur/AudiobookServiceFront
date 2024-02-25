@@ -61,7 +61,9 @@ export default function UserRenderCommentsList(props) {
       }
       return element;
     });
-    props.setAudiobookUserComments(newComments);
+    props.setAudiobookUserComments({
+      comments: newComments,
+    });
   }
 
   function setChildComment(parentId, comment, bool) {
@@ -127,7 +129,9 @@ export default function UserRenderCommentsList(props) {
       }
       return element;
     });
-    props.setAudiobookUserComments(newComments);
+    props.setAudiobookUserComments({
+      comments: newComments,
+    });
   }
 
   function likeComment(comment, element, bool) {
@@ -192,7 +196,7 @@ export default function UserRenderCommentsList(props) {
     HandleFetch('/user/audiobook/comment/edit', 'PATCH', jsonData, props.token, props.i18n.language)
       .then(() => {
         element.target.classList.remove('disabled');
-        props.refetch(true);
+        props.refetch();
         decline();
       })
       .catch(() => {
@@ -219,7 +223,7 @@ export default function UserRenderCommentsList(props) {
     HandleFetch('/user/audiobook/comment/add', 'PUT', jsonData, props.token, props.i18n.language)
       .then(() => {
         element.target.classList.remove('disabled');
-        props.refetch(true);
+        props.refetch();
         decline();
       })
       .catch(() => {
@@ -244,7 +248,7 @@ export default function UserRenderCommentsList(props) {
     )
       .then(() => {
         element.target.classList.remove('disabled');
-        props.refetch(true);
+        props.refetch();
         decline();
       })
       .catch(() => {
@@ -727,6 +731,7 @@ export default function UserRenderCommentsList(props) {
           </InputGroup>
         </div>
         <div className='col-2'>
+          {console.log(props.audiobookDetail)}
           <Button
             name='en'
             variant='secondary'

@@ -131,6 +131,7 @@ export default class AdminCategoryAudiobookAddService extends FormService {
           }
 
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
+            // setTimeout(() => {
             const arr = new Uint8Array(buf).subarray(i, i + CHUNK_SIZE);
 
             this.maxParts.current = allparts;
@@ -176,6 +177,7 @@ export default class AdminCategoryAudiobookAddService extends FormService {
               });
 
             part = part + 1;
+            // }, 1000);
           }
         }
       }

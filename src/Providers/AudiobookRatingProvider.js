@@ -1,6 +1,7 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
+import { QueryClient } from '@tanstack/react-query';
 
 const AudiobookRatingContext = createContext(null);
 
@@ -12,13 +13,26 @@ export const AudiobookRatingProvider = ({
   setState,
   i18n,
 }) => {
-  const [audiobookRating, setAudiobookRating] = useState(null);
-  const [refetchState, setRefetchState] = useState(false);
+  const qc = new QueryClient();
 
-  const { refetch: refetchAudiobookData } = useQuery(
+  const setAudiobookRating = (variables) => {
+    let copy = dataAudiobookRating;
+
+    for (var key in variables) {
+      copy[key] = variables[key];
+    }
+
+    qc.setQueryData(['dataAudiobookRating'], copy);
+  };
+
+  const setRefetch = () => {
+    qc.invalidateQueries(['dataAudiobookRating']);
+  };
+
+  const { data: dataAudiobookRating = null } = useQuery(
     ['dataAudiobookRating'],
-    () =>
-      HandleFetch(
+    () => {
+      return HandleFetch(
         '/user/audiobook/rating/get',
         'POST',
         {
@@ -27,7 +41,8 @@ export const AudiobookRatingProvider = ({
         },
         token,
         i18n.language,
-      ),
+      );
+    },
     {
       retry: 1,
       retryDelay: 500,
@@ -38,20 +53,10 @@ export const AudiobookRatingProvider = ({
           error: e,
         }));
       },
-      onSuccess: (data) => {
-        setAudiobookRating(data.ratingPercent);
-      },
     },
   );
 
-  useEffect(() => {
-    if (refetchState) {
-      refetchAudiobookData();
-      setRefetchState(!refetchState);
-    }
-  }, [refetchState]);
-
-  const value = [audiobookRating, setAudiobookRating, setRefetchState];
+  const value = [dataAudiobookRating, setAudiobookRating, setRefetch];
 
   return (
     <AudiobookRatingContext.Provider value={value}>{children}</AudiobookRatingContext.Provider>
