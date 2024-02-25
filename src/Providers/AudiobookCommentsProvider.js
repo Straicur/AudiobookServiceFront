@@ -9,7 +9,7 @@ export const AudiobookCommentsProvider = ({ children, token, audiobookId, setSta
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
 
   const { refetch: refetchAudiobookComments } = useQuery(
-    'dataAudiobookComments',
+    ['dataAudiobookComments'],
     () =>
       HandleFetch(
         '/admin/audiobook/comment/get',

@@ -29,7 +29,7 @@ export const AdminAudiobookPartProvider = ({
   };
 
   const { refetch: refetchAudiobookPart } = useQuery(
-    'dataAudiobookPart',
+    ['dataAudiobookPart'],
     () => HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language),
     {
       retry: 1,

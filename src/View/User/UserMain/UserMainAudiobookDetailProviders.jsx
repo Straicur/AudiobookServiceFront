@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { AudiobookUserDetailProvider } from 'Providers/AudiobookUserDetailProvider';
 import { AudiobookPartProvider } from 'Providers/AudiobookPartProvider';
@@ -16,27 +15,6 @@ export default function UserMainAudiobookDetailProviders(props) {
     renderAudiobookPlayer: false,
     newPart: false,
     info: false,
-  });
-
-  const { data } = useQuery({
-    queryKey: ['dataAudiobookDetail'],
-    queryFn: () => {
-      HandleFetch(
-        '/audiobook/part',
-        'POST',
-        {
-          audiobookId: props.state.detailModalAudiobook.id,
-          part: 0,
-        },
-        props.token,
-        props.i18n.language,
-      );
-    },
-    // {
-    enabled: props.state != undefined,
-    retry: 1,
-    retryDelay: 500,
-    refetchOnWindowFocus: false,
   });
 
   const fetchData = () => {
@@ -86,7 +64,6 @@ export default function UserMainAudiobookDetailProviders(props) {
 
   return (
     <div>
-      {console.log(data)}
       {audiobookState.info ? (
         <AudiobookUserDetailProvider
           state={props.state}

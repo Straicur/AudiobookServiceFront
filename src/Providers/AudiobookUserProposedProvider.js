@@ -9,7 +9,7 @@ export const AudiobookUserProposedProvider = ({ children, token, setState, i18n 
   const [refetchState, setRefetchState] = useState(false);
 
   const { refetch: refetchAudiobookUserProposed } = useQuery(
-    'dataAudiobookUserProposed',
+    ['dataAudiobookUserProposed'],
     () => HandleFetch('/user/proposed/audiobooks', 'GET', null, token, i18n.language),
     {
       retry: 1,

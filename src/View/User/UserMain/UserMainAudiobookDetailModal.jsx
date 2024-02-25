@@ -9,6 +9,7 @@ import UserAudiobookPlayer from '../Common/UserAudiobookPlayer';
 import { HandleFetch } from 'Util/HandleFetch';
 import UserStarRating from '../Common/UserStarRating';
 import UserRenderCommentsList from '../Common/UserRenderCommentsList';
+import CreateUtil from 'Util/CreateUtil';
 
 export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
@@ -44,10 +45,7 @@ export default function UserMainAudiobookDetailModal(props) {
       props.i18n.language,
     )
       .then(() => {
-        setAudiobookDetail((prev) => ({
-          ...prev,
-          inList: !audiobookDetail.inList,
-        }));
+        setAudiobookDetail({ inList: !audiobookDetail.inList });
 
         props.setAudiobookState((prev) => ({
           ...prev,
@@ -135,7 +133,7 @@ export default function UserMainAudiobookDetailModal(props) {
               </div>
               <div className='row mb-2'>
                 <div className='col-5'>
-                  {props.t('year')}: {audiobookDetail.year}
+                  {props.t('year')}: {CreateUtil.createDate(audiobookDetail.year)}
                 </div>
                 <div className='col-4'>
                   {props.t('version')}: {audiobookDetail.version}
@@ -146,7 +144,7 @@ export default function UserMainAudiobookDetailModal(props) {
                   {props.t('parts')}: {audiobookDetail.parts}
                 </div>
                 <div className='col-5'>
-                  {props.t('duration')}: {audiobookDetail.duration}
+                  {props.t('duration')}: {CreateUtil.createTime(audiobookDetail.duration)}
                 </div>
               </div>
               <div className='row mb-2'>

@@ -1,7 +1,7 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
-import CreateUtil from 'Util/CreateUtil';
+import { QueryClient } from '@tanstack/react-query';
 
 const AudiobookUserDetailContext = createContext(null);
 
@@ -13,13 +13,26 @@ export const AudiobookUserDetailProvider = ({
   setState,
   i18n,
 }) => {
-  const [audiobookDetail, setAudiobookDetail] = useState(null);
-  const [refetchState, setRefetchState] = useState(false);
+  const qc = new QueryClient();
 
-  const { refetch: refetchAudiobookData } = useQuery(
-    'dataAudiobookDetail',
-    () =>
-      HandleFetch(
+  const setAudiobookDetail = (variables) => {
+    let copy = dataAudiobookDetail;
+
+    for (var key in variables) {
+      copy[key] = variables[key];
+    }
+
+    qc.setQueryData(['dataAudiobookDetail'], copy);
+  };
+
+  const setRefetch = () => {
+    qc.invalidateQueries(['dataAudiobookDetail']);
+  };
+
+  const { data: dataAudiobookDetail = null } = useQuery(
+    ['dataAudiobookDetail'],
+    () => {
+      return HandleFetch(
         '/user/audiobook/details',
         'POST',
         {
@@ -28,7 +41,8 @@ export const AudiobookUserDetailProvider = ({
         },
         token,
         i18n.language,
-      ),
+      );
+    },
     {
       retry: 1,
       retryDelay: 500,
@@ -39,37 +53,30 @@ export const AudiobookUserDetailProvider = ({
           error: e,
         }));
       },
-      onSuccess: (data) => {
-        setAudiobookDetail({
-          age: data.age,
-          album: data.album,
-          author: data.author,
-          categories: data.categories,
-          comments: data.comments,
-          description: data.description,
-          duration: CreateUtil.createTime(data.duration),
-          id: data.id,
-          inList: data.inList,
-          parts: data.parts,
-          title: data.title,
-          version: data.version,
-          year: CreateUtil.createDate(data.year),
-          canRate: data.canRate,
-          canComment: data.canComment,
-          ratingAmount: data.ratingAmount,
-        });
-      },
+      // onSuccess: (data) => {
+      //   setAudiobookDetail({
+      //     age: data.age,
+      //     album: data.album,
+      //     author: data.author,
+      //     categories: data.categories,
+      //     comments: data.comments,
+      //     description: data.description,
+      //     duration: CreateUtil.createTime(data.duration),
+      //     id: data.id,
+      //     inList: data.inList,
+      //     parts: data.parts,
+      //     title: data.title,
+      //     version: data.version,
+      //     year: CreateUtil.createDate(data.year),
+      //     canRate: data.canRate,
+      //     canComment: data.canComment,
+      //     ratingAmount: data.ratingAmount,
+      //   });
+      // },
     },
   );
 
-  useEffect(() => {
-    if (refetchState) {
-      refetchAudiobookData();
-      setRefetchState(!refetchState);
-    }
-  }, [refetchState]);
-
-  const value = [audiobookDetail, setAudiobookDetail, setRefetchState];
+  const value = [dataAudiobookDetail, setAudiobookDetail, setRefetch];
 
   return (
     <AudiobookUserDetailContext.Provider value={value}>

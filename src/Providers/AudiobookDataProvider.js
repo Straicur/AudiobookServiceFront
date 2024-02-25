@@ -10,7 +10,7 @@ export const AudiobookDataProvider = ({ children, token, audiobookId, setState, 
   const [refetchState, setRefetchState] = useState(false);
 
   const { refetch: refetchAudiobookData } = useQuery(
-    'dataAudiobookData',
+    ['dataAudiobookData'],
     () =>
       HandleFetch(
         '/admin/audiobook/details',
