@@ -19,160 +19,37 @@ export default function UserRenderCommentsList(props) {
 
   //--------------------------------------------------------------------------------------------------------------------------------
   //Changing comments functions
-  function setComment(comment, bool) {
-    let newComments = props.comments.map((element) => {
-      let like = element.audiobookCommentLike;
-      let unlike = element.audiobookCommentUnlike;
-
-      if (bool) {
-        if (comment.liked == bool) {
-          like = like - 1;
-        } else if (comment.liked != null && comment.liked != bool) {
-          like = like + 1;
-          unlike = unlike - 1;
-        } else {
-          like = like + 1;
-        }
-      } else {
-        if (comment.liked == bool) {
-          unlike = unlike - 1;
-        } else if (comment.liked != null && comment.liked != bool) {
-          unlike = unlike + 1;
-          like = like - 1;
-        } else {
-          unlike = unlike + 1;
-        }
-      }
-
-      if (element.id == comment.id) {
-        return {
-          audiobookCommentLike: like,
-          audiobookCommentUnlike: unlike,
-          children: element.children,
-          comment: element.comment,
-          deleted: element.deleted,
-          edited: element.edited,
-          id: element.id,
-          liked: element.liked == bool ? null : bool,
-          myComment: element.myComment,
-          userModel: element.userModel,
-          parentId: element.parentId,
-        };
-      }
-      return element;
-    });
-    props.setAudiobookUserComments({
-      comments: newComments,
-    });
-  }
-
-  function setChildComment(parentId, comment, bool) {
-    let parent = props.comments.find((element) => element.id == parentId);
-
-    let children = parent.children.map((element) => {
-      let like = element.audiobookCommentLike;
-      let unlike = element.audiobookCommentUnlike;
-
-      if (bool) {
-        if (comment.liked == bool) {
-          like = like - 1;
-        } else if (comment.liked != null && comment.liked != bool) {
-          like = like + 1;
-          unlike = unlike - 1;
-        } else {
-          like = like + 1;
-        }
-      } else {
-        if (comment.liked == bool) {
-          unlike = unlike - 1;
-        } else if (comment.liked != null && comment.liked != bool) {
-          unlike = unlike + 1;
-          like = like - 1;
-        } else {
-          unlike = unlike + 1;
-        }
-      }
-
-      if (element.id == comment.id) {
-        return {
-          audiobookCommentLike: like,
-          audiobookCommentUnlike: unlike,
-          children: element.children,
-          comment: element.comment,
-          deleted: element.deleted,
-          edited: element.edited,
-          id: element.id,
-          liked: element.liked == bool ? null : bool,
-          myComment: element.myComment,
-          userModel: element.userModel,
-          parentId: element.parentId,
-        };
-      }
-      return element;
-    });
-
-    let newComments = props.comments.map((element) => {
-      if (element.id == parent.id) {
-        return {
-          audiobookCommentLike: element.audiobookCommentLike,
-          audiobookCommentUnlike: element.audiobookCommentUnlike,
-          children: children,
-          comment: element.comment,
-          deleted: element.deleted,
-          edited: element.edited,
-          id: element.id,
-          liked: element.liked,
-          myComment: element.myComment,
-          userModel: element.userModel,
-          parentId: element.parentId,
-        };
-      }
-      return element;
-    });
-    props.setAudiobookUserComments({
-      comments: newComments,
-    });
-  }
-
   function likeComment(comment, element, bool) {
-    let url;
-    let method;
-    let jsonData;
-
     if (comment.children.length == 0) {
       lastOpenComment.current = comment.parentId;
     }
-
+    let data;
     if (comment.liked == bool) {
-      url = '/user/audiobook/comment/like/delete';
-      method = 'DELETE';
-      jsonData = {
-        commentId: comment.id,
+      data = {
+        url: '/user/audiobook/comment/like/delete',
+        method: 'DELETE',
+        jsonData: {
+          commentId: comment.id,
+        },
       };
     } else {
-      url = '/user/audiobook/comment/like/add';
-      method = 'PATCH';
-      jsonData = {
-        commentId: comment.id,
-        like: bool,
+      data = {
+        url: '/user/audiobook/comment/like/add',
+        method: 'PATCH',
+        jsonData: {
+          commentId: comment.id,
+          like: bool,
+        },
       };
     }
 
+    data.props = props;
+    data.element = element;
+    data.comment = comment;
+    data.bool = bool;
+
     element.target.classList.add('disabled');
-
-    HandleFetch(url, method, jsonData, props.token, props.i18n.language)
-      .then(() => {
-        if (comment.parentId != null) {
-          setChildComment(comment.parentId, comment, bool);
-        } else {
-          setComment(comment, bool);
-        }
-
-        element.target.classList.remove('disabled');
-      })
-      .catch(() => {
-        element.target.classList.remove('disabled');
-      });
+    props.mutate(data);
   }
 
   function editComment(element) {
@@ -731,7 +608,6 @@ export default function UserRenderCommentsList(props) {
           </InputGroup>
         </div>
         <div className='col-2'>
-          {console.log(props.audiobookDetail)}
           <Button
             name='en'
             variant='secondary'

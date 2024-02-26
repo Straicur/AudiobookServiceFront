@@ -19,7 +19,7 @@ export default function UserMainAudiobookDetailModal(props) {
   const [audiobookRating] = useAudiobookRating();
   const [audiobookPart] = useAudiobookPart();
 
-  const [audiobookUserComments, setAudiobookUserComments, setAudiobookCommnetsRefetchState] =
+  const [audiobookUserComments, setAudiobookCommnetsRefetchState, mutate] =
     useAudiobookUserComments();
 
   const handleClose = () => {
@@ -203,8 +203,8 @@ export default function UserMainAudiobookDetailModal(props) {
               <div className='row my-1'>
                 <UserRenderCommentsList
                   comments={audiobookUserComments.comments}
-                  setAudiobookUserComments={setAudiobookUserComments}
                   audiobookDetail={audiobookDetail}
+                  mutate={mutate}
                   state={props.state}
                   setState={props.setState}
                   t={props.t}
