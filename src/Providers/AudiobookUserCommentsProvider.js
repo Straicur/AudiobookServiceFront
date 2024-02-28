@@ -2,8 +2,7 @@ import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
-import { QueryClient } from '@tanstack/react-query';
-
+import { useQueryClient } from '@tanstack/react-query';
 const AudiobookUserCommentsContext = createContext(null);
 
 export const AudiobookUserCommentsProvider = ({
@@ -14,14 +13,10 @@ export const AudiobookUserCommentsProvider = ({
   setState,
   i18n,
 }) => {
-  const qc = new QueryClient();
+  const qc = useQueryClient();
 
-  function setComment(props, comment, bool) {
-    // console.log(props);
-    // console.log(comment);
-    // console.log(bool);
-
-    let newComments = props.comments.map((element) => {
+  function setComment(comment, bool) {
+    let newComments = dataAudiobookUserComments.comments.map((element) => {
       let like = element.audiobookCommentLike;
       let unlike = element.audiobookCommentUnlike;
 
@@ -66,8 +61,8 @@ export const AudiobookUserCommentsProvider = ({
     return newComments;
   }
 
-  function setChildComment(props, parentId, comment, bool) {
-    let parent = props.comments.find((element) => element.id == parentId);
+  function setChildComment(parentId, comment, bool) {
+    let parent = dataAudiobookUserComments.comments.find((element) => element.id == parentId);
 
     let children = parent.children.map((element) => {
       let like = element.audiobookCommentLike;
@@ -111,7 +106,7 @@ export const AudiobookUserCommentsProvider = ({
       return element;
     });
 
-    let newComments = props.comments.map((element) => {
+    let newComments = dataAudiobookUserComments.comments.map((element) => {
       if (element.id == parent.id) {
         return {
           audiobookCommentLike: element.audiobookCommentLike,
@@ -146,18 +141,12 @@ export const AudiobookUserCommentsProvider = ({
       onMutate: (variables) => {
         let copy;
         if (variables.comment.parentId != null) {
-          copy = setChildComment(
-            variables.props,
-            variables.comment.parentId,
-            variables.comment,
-            variables.bool,
-          );
+          copy = setChildComment(variables.comment.parentId, variables.comment, variables.bool);
         } else {
-          copy = setComment(variables.props, variables.comment, variables.bool);
+          copy = setComment(variables.comment, variables.bool);
         }
         console.log({ comments: copy });
 
-        qc.invalidateQueries(['dataAudiobookUserComments']);
         qc.setQueryData(['dataAudiobookUserComments'], { comments: copy });
       },
     },

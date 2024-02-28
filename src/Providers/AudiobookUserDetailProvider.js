@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
-import { QueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 const AudiobookUserDetailContext = createContext(null);
 
@@ -13,7 +13,7 @@ export const AudiobookUserDetailProvider = ({
   setState,
   i18n,
 }) => {
-  const qc = new QueryClient();
+  const qc = useQueryClient();
 
   const setAudiobookDetail = (variables) => {
     let copy = dataAudiobookDetail;

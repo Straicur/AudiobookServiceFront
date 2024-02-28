@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
-import { QueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 const AudiobookRatingContext = createContext(null);
 
@@ -13,7 +13,7 @@ export const AudiobookRatingProvider = ({
   setState,
   i18n,
 }) => {
-  const qc = new QueryClient();
+  const qc = useQueryClient();
 
   const setAudiobookRating = (variables) => {
     let copy = dataAudiobookRating;
