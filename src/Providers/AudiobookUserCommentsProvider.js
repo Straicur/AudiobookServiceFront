@@ -23,6 +23,7 @@ export const AudiobookUserCommentsProvider = ({
       if (bool) {
         if (comment.liked == bool) {
           like = like - 1;
+          bool = null;
         } else if (comment.liked != null && comment.liked != bool) {
           like = like + 1;
           unlike = unlike - 1;
@@ -32,6 +33,7 @@ export const AudiobookUserCommentsProvider = ({
       } else {
         if (comment.liked == bool) {
           unlike = unlike - 1;
+          bool = null;
         } else if (comment.liked != null && comment.liked != bool) {
           unlike = unlike + 1;
           like = like - 1;
