@@ -4,9 +4,9 @@ import Modal from 'react-bootstrap/Modal';
 import AdminAudiobookPlayer from '../Common/AdminAudiobookPlayer';
 import { HandleFetch } from 'Util/HandleFetch';
 import 'react-h5-audio-player/lib/styles.css';
-import { useAudiobookData } from 'Providers/AudiobookDataProvider';
-import { useAudiobookCover } from 'Providers/AdminAudiobookCoverDataProvider';
-import { useAudiobookPart } from 'Providers/AdminAudiobookPartProvider';
+import { useUserAudiobookData } from 'Providers/User/UserAudiobookDataProvider';
+import { useAudiobookCover } from 'Providers/Common/AudiobookCoverDataProvider';
+import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
 import AdminCategoryEditForm from './AdminCategoryEditForm';
 import AdminCategoryAudiobookCategoryList from './AdminCategoryAudiobookCategoryList';
 import AdminCategoryAudiobookCover from './AdminCategoryAudiobookCover';
@@ -22,7 +22,7 @@ export default function AdminCategoryAudiobookDetailModal(props) {
     deleteEntarly: false,
   });
 
-  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAudiobookData();
+  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useUserAudiobookData();
   const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart] = useAudiobookPart();
 

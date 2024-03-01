@@ -3,14 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import CreateUtil from 'Util/CreateUtil';
 
-const AudiobookDataContext = createContext(null);
+const AdminAudiobookDataContext = createContext(null);
 
-export const AudiobookDataProvider = ({ children, token, audiobookId, setState, i18n }) => {
+export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setState, i18n }) => {
   const [audiobookDetail, setAudiobookDetail] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
   const { refetch: refetchAudiobookData } = useQuery({
-    queryKey: ['dataAudiobookData'],
+    queryKey: ['dataAudiobookData' + audiobookId],
     queryFn: () =>
       HandleFetch(
         '/admin/audiobook/details',
@@ -61,7 +61,11 @@ export const AudiobookDataProvider = ({ children, token, audiobookId, setState, 
 
   const value = [audiobookDetail, setAudiobookDetail, setRefetchState];
 
-  return <AudiobookDataContext.Provider value={value}>{children}</AudiobookDataContext.Provider>;
+  return (
+    <AdminAudiobookDataContext.Provider value={value}>
+      {children}
+    </AdminAudiobookDataContext.Provider>
+  );
 };
 
-export const useAudiobookData = () => useContext(AudiobookDataContext);
+export const useAdminAudiobookData = () => useContext(AdminAudiobookDataContext);

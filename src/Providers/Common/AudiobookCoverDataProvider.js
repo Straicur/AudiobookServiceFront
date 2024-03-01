@@ -9,7 +9,7 @@ export const AudiobookCoverDataProvider = ({ children, token, audiobookId, setSt
   const [refetchState, setRefetchState] = useState(false);
 
   const { refetch: refetchAudiobookCover } = useQuery({
-    queryKey: ['dataAudiobookCover'],
+    queryKey: ['dataAudiobookCover' + audiobookId],
     queryFn: () =>
       HandleFetch(
         '/audiobook/covers',

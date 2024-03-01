@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useAudiobookData } from 'Providers/AudiobookDataProvider';
-import { useAudiobookCover } from 'Providers/AdminAudiobookCoverDataProvider';
-import { useAudiobookPart } from 'Providers/AdminAudiobookPartProvider';
-import { useAudiobookComments } from 'Providers/AudiobookCommentsProvider';
+import { useAdminAudiobookData } from 'Providers/Admin/AdminAudiobookDataProvider';
+import { useAudiobookCover } from 'Providers/Common/AudiobookCoverDataProvider';
+import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
+import { useAdminAudiobookComments } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
 import AdminAudiobookEditForm from './AdminAudiobookEditForm';
 import AdminAudiobookCategoryList from './AdminAudiobookCategoryList';
@@ -22,10 +22,10 @@ import { useCategoryListStore } from 'Store/store';
 export default function AdminAudiobookDetail(props) {
   const [categoriesState, setCategories] = useState([]);
 
-  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAudiobookData();
+  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAdminAudiobookData();
   const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
-  const [audiobookCommnets, setAudiobookCommnetsRefetchState] = useAudiobookComments();
+  const [audiobookCommnets, setAudiobookCommnetsRefetchState] = useAdminAudiobookComments();
 
   const categoriesStore = useCategoryListStore();
 

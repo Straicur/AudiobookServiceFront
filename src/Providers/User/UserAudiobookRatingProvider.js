@@ -3,9 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 
-const AudiobookUserDetailContext = createContext(null);
+const UserAudiobookRatingContext = createContext(null);
 
-export const AudiobookUserDetailProvider = ({
+export const UserAudiobookRatingProvider = ({
   children,
   token,
   audiobookId,
@@ -15,25 +15,25 @@ export const AudiobookUserDetailProvider = ({
 }) => {
   const qc = useQueryClient();
 
-  const setAudiobookDetail = (variables) => {
-    let copy = dataAudiobookDetail;
+  const setAudiobookRating = (variables) => {
+    let copy = dataAudiobookRating;
 
     for (var key in variables) {
       copy[key] = variables[key];
     }
 
-    qc.setQueryData(['dataAudiobookDetail'], copy);
+    qc.setQueryData(['dataAudiobookRating'], copy);
   };
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAudiobookDetail']);
+    qc.invalidateQueries(['dataAudiobookRating']);
   };
 
-  const { data: dataAudiobookDetail = null } = useQuery({
-    queryKey: ['dataAudiobookDetail'],
+  const { data: dataAudiobookRating = null } = useQuery({
+    queryKey: ['dataAudiobookRating'],
     queryFn: () => {
       return HandleFetch(
-        '/user/audiobook/details',
+        '/user/audiobook/rating/get',
         'POST',
         {
           audiobookId: audiobookId,
@@ -54,13 +54,13 @@ export const AudiobookUserDetailProvider = ({
     },
   });
 
-  const value = [dataAudiobookDetail, setAudiobookDetail, setRefetch];
+  const value = [dataAudiobookRating, setAudiobookRating, setRefetch];
 
   return (
-    <AudiobookUserDetailContext.Provider value={value}>
+    <UserAudiobookRatingContext.Provider value={value}>
       {children}
-    </AudiobookUserDetailContext.Provider>
+    </UserAudiobookRatingContext.Provider>
   );
 };
 
-export const useAudiobookDetail = () => useContext(AudiobookUserDetailContext);
+export const useUserAudiobookRating = () => useContext(UserAudiobookRatingContext);

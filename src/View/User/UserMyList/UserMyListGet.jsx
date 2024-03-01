@@ -1,11 +1,11 @@
 import React from 'react';
 import UserMyListGetCovers from './UserMyListGetCovers';
-import { AudiobookMyListProvider } from 'Providers/AudiobookMyListProvider';
+import { UserAudiobookMyListProvider } from 'Providers/User/UserAudiobookMyListProvider';
 import UserMyListAudiobookDetailProviders from './UserMyListAudiobookDetailProviders';
 
 export default function UserMyListGet(props) {
   return (
-    <AudiobookMyListProvider
+    <UserAudiobookMyListProvider
       state={props.myListState}
       setState={props.setMyListState}
       token={props.token}
@@ -29,6 +29,6 @@ export default function UserMyListGet(props) {
           i18n={props.i18n}
         />
       ) : null}
-    </AudiobookMyListProvider>
+    </UserAudiobookMyListProvider>
   );
 }

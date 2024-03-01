@@ -1,10 +1,10 @@
 import React from 'react';
 import UserMainRenderProposedCarousel from './UserMainRenderProposedCarousel';
 import { v4 as uuidv4 } from 'uuid';
-import { useAudiobookUserProposed } from 'Providers/AudiobookUserProposedProvider';
+import { useUserAudiobookProposed } from 'Providers/User/UserAudiobookProposedProvider';
 
 export default function UserMainRenderProposedList(props) {
-  const [audiobookProposed] = useAudiobookUserProposed();
+  const [audiobookProposed] = useUserAudiobookProposed();
 
   const renderColumns = () => {
     let renderCategories = [];

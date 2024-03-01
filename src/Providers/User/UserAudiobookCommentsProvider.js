@@ -4,9 +4,9 @@ import { useMutation } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 
-const AudiobookUserCommentsContext = createContext(null);
+const UserAudiobookCommentsContext = createContext(null);
 
-export const AudiobookUserCommentsProvider = ({
+export const UserAudiobookCommentsProvider = ({
   children,
   token,
   audiobookId,
@@ -184,10 +184,10 @@ export const AudiobookUserCommentsProvider = ({
   const value = [dataAudiobookUserComments, setRefetch, mutate];
 
   return (
-    <AudiobookUserCommentsContext.Provider value={value}>
+    <UserAudiobookCommentsContext.Provider value={value}>
       {children}
-    </AudiobookUserCommentsContext.Provider>
+    </UserAudiobookCommentsContext.Provider>
   );
 };
 
-export const useAudiobookUserComments = () => useContext(AudiobookUserCommentsContext);
+export const useUserAudiobookComments = () => useContext(UserAudiobookCommentsContext);

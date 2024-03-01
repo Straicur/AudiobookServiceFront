@@ -1,9 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { HandleFetch } from 'Util/HandleFetch';
 
-const AudiobookUserDataContext = createContext(null);
+const UserAudiobookDataContext = createContext(null);
 //TODO to sprawdź czy nie będzie działać jak myList
-export const AudiobookUserDataProvider = ({ children, token, page, limit, setState, i18n }) => {
+export const UserAudiobookDataProvider = ({ children, token, page, limit, setState, i18n }) => {
   const [audiobooks, setAudiobooks] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -54,8 +54,8 @@ export const AudiobookUserDataProvider = ({ children, token, page, limit, setSta
   const value = [audiobooks, loading, hasMore, setAudiobooks, setRefetchState];
 
   return (
-    <AudiobookUserDataContext.Provider value={value}>{children}</AudiobookUserDataContext.Provider>
+    <UserAudiobookDataContext.Provider value={value}>{children}</UserAudiobookDataContext.Provider>
   );
 };
 
-export const useAudiobookUserData = () => useContext(AudiobookUserDataContext);
+export const useUserAudiobookData = () => useContext(UserAudiobookDataContext);

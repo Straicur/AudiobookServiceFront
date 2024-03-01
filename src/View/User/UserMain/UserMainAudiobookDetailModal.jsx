@@ -1,10 +1,10 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import React, { useRef } from 'react';
-import { useAudiobookRating } from 'Providers/AudiobookRatingProvider';
-import { useAudiobookDetail } from 'Providers/AudiobookUserDetailProvider';
-import { useAudiobookPart } from 'Providers/AudiobookPartProvider';
-import { useAudiobookUserComments } from 'Providers/AudiobookUserCommentsProvider';
+import { useUserAudiobookRating } from 'Providers/User/UserAudiobookRatingProvider';
+import { useUserAudiobookDetail } from 'Providers/User/UserAudiobookDetailProvider';
+import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
+import { useUserAudiobookComments } from 'Providers/User/UserAudiobookCommentsProvider';
 import UserAudiobookPlayer from '../Common/UserAudiobookPlayer';
 import { HandleFetch } from 'Util/HandleFetch';
 import UserStarRating from '../Common/UserStarRating';
@@ -15,12 +15,12 @@ export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
 
-  const [audiobookDetail, setAudiobookDetail] = useAudiobookDetail();
-  const [audiobookRating] = useAudiobookRating();
+  const [audiobookDetail, setAudiobookDetail] = useUserAudiobookDetail();
+  const [audiobookRating] = useUserAudiobookRating();
   const [audiobookPart] = useAudiobookPart();
 
   const [audiobookUserComments, setAudiobookCommnetsRefetchState, mutate] =
-    useAudiobookUserComments();
+    useUserAudiobookComments();
 
   const handleClose = () => {
     addInfo();

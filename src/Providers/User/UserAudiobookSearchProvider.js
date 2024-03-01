@@ -2,9 +2,9 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 
-const AudiobookSearchContext = createContext(null);
+const UserAudiobookSearchContext = createContext(null);
 
-export const AudiobookSearchProvider = ({ children, token, title, setState, i18n }) => {
+export const UserAudiobookSearchProvider = ({ children, token, title, setState, i18n }) => {
   const [audiobookSearch, setAudiobookSearch] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -46,8 +46,10 @@ export const AudiobookSearchProvider = ({ children, token, title, setState, i18n
   const value = [audiobookSearch, loading, setAudiobookSearch, setRefetchState];
 
   return (
-    <AudiobookSearchContext.Provider value={value}>{children}</AudiobookSearchContext.Provider>
+    <UserAudiobookSearchContext.Provider value={value}>
+      {children}
+    </UserAudiobookSearchContext.Provider>
   );
 };
 
-export const useAudiobookSearch = () => useContext(AudiobookSearchContext);
+export const useUserAudiobookSearch = () => useContext(UserAudiobookSearchContext);

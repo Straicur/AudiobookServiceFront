@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { AudiobookUserDataProvider } from 'Providers/AudiobookUserDataProvider';
-import { AudiobookUserProposedProvider } from 'Providers/AudiobookUserProposedProvider';
+import { UserAudiobookDataProvider } from 'Providers/User/UserAudiobookDataProvider';
+import { UserAudiobookProposedProvider } from 'Providers/User/UserAudiobookProposedProvider';
 import UserMainGetAllAudiobooks from './UserMainGetAllAudiobooks';
 
 export default function UserMainGetAudiobooksProviders(props) {
@@ -11,13 +11,13 @@ export default function UserMainGetAudiobooksProviders(props) {
   }, [props.audiobooksState.error]);
 
   return (
-    <AudiobookUserProposedProvider
+    <UserAudiobookProposedProvider
       state={props.audiobooksState}
       setState={props.setAudiobooksState}
       token={props.token}
       i18n={props.i18n}
     >
-      <AudiobookUserDataProvider
+      <UserAudiobookDataProvider
         state={props.audiobooksState}
         setState={props.setAudiobooksState}
         token={props.token}
@@ -32,7 +32,7 @@ export default function UserMainGetAudiobooksProviders(props) {
           t={props.t}
           i18n={props.i18n}
         />
-      </AudiobookUserDataProvider>
-    </AudiobookUserProposedProvider>
+      </UserAudiobookDataProvider>
+    </UserAudiobookProposedProvider>
   );
 }

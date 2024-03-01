@@ -1,10 +1,10 @@
 import React from 'react';
 import UserMainGetAllSearchAudiobooks from './UserMainGetAllSearchAudiobooks';
-import { AudiobookSearchProvider } from 'Providers/AudiobookSearchProvider';
+import { UserAudiobookSearchProvider } from 'Providers/User/UserAudiobookSearchProvider';
 
 export default function UserMainRenderAudiobookSearch(props) {
   return (
-    <AudiobookSearchProvider
+    <UserAudiobookSearchProvider
       state={props.audiobooksState}
       setState={props.setAudiobooksState}
       title={props.audiobooksState.searchText}
@@ -18,6 +18,6 @@ export default function UserMainRenderAudiobookSearch(props) {
         t={props.t}
         i18n={props.i18n}
       />
-    </AudiobookSearchProvider>
+    </UserAudiobookSearchProvider>
   );
 }

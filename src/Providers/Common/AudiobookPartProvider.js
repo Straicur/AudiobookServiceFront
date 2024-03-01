@@ -52,7 +52,7 @@ export const AudiobookPartProvider = ({
   };
 
   const { data: dataAudiobookPart = null } = useQuery({
-    queryKey: ['dataAudiobookPart'],
+    queryKey: ['dataAudiobookPart' + audiobookId],
     queryFn: () => {
       return HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language);
     },

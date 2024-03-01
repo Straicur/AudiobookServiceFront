@@ -2,9 +2,15 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 
-const AudiobookCommentsContext = createContext(null);
+const AdminAudiobookCommentsContext = createContext(null);
 
-export const AudiobookCommentsProvider = ({ children, token, audiobookId, setState, i18n }) => {
+export const AdminAudiobookCommentsProvider = ({
+  children,
+  token,
+  audiobookId,
+  setState,
+  i18n,
+}) => {
   const [audiobookComments, setAudiobookComments] = useState(null);
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
 
@@ -44,8 +50,10 @@ export const AudiobookCommentsProvider = ({ children, token, audiobookId, setSta
   const value = [audiobookComments, setAudiobookComments, setAudiobookCommnetsRefetchState];
 
   return (
-    <AudiobookCommentsContext.Provider value={value}>{children}</AudiobookCommentsContext.Provider>
+    <AdminAudiobookCommentsContext.Provider value={value}>
+      {children}
+    </AdminAudiobookCommentsContext.Provider>
   );
 };
 
-export const useAudiobookComments = () => useContext(AudiobookCommentsContext);
+export const useAdminAudiobookComments = () => useContext(AdminAudiobookCommentsContext);

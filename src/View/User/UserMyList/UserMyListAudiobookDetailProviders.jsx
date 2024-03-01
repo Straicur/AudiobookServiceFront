@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { HandleFetch } from '../../../Util/HandleFetch';
-import { AudiobookUserDetailProvider } from '../../../Providers/AudiobookUserDetailProvider';
-import { AudiobookPartProvider } from '../../../Providers/AudiobookPartProvider';
-import { AudiobookRatingProvider } from '../../../Providers/AudiobookRatingProvider';
-import { AudiobookUserCommentsProvider } from '../../../Providers/AudiobookUserCommentsProvider';
+import { UserAudiobookDetailProvider } from '../../../Providers/User/UserAudiobookDetailProvider';
+import { AudiobookPartProvider } from '../../../Providers/Common/AudiobookPartProvider'; // '../../../Providers/Common/AudiobookPartProvider'
+import { UserAudiobookRatingProvider } from '../../../Providers/User/UserAudiobookRatingProvider';
+import { UserAudiobookCommentsProvider } from '../../../Providers/User/UserAudiobookCommentsProvider';
 import DataNotFoundError from '../../../Errors/Errors/DataNotFoundError';
 import UserMyListAudiobookDetailModal from './UserMyListAudiobookDetailModal';
 
@@ -65,7 +65,7 @@ export default function UserMyListAudiobookDetailProviders(props) {
   return (
     <div>
       {audiobookState.info ? (
-        <AudiobookUserDetailProvider
+        <UserAudiobookDetailProvider
           state={props.state}
           setState={props.setState}
           token={props.token}
@@ -83,7 +83,7 @@ export default function UserMyListAudiobookDetailProviders(props) {
             audiobookState={audiobookState}
             i18n={props.i18n}
           >
-            <AudiobookRatingProvider
+            <UserAudiobookRatingProvider
               state={props.state}
               setState={props.setState}
               token={props.token}
@@ -91,7 +91,7 @@ export default function UserMyListAudiobookDetailProviders(props) {
               categoryKey={props.state.detailModalCategory.categoryKey}
               i18n={props.i18n}
             >
-              <AudiobookUserCommentsProvider
+              <UserAudiobookCommentsProvider
                 state={props.state}
                 setState={props.setState}
                 token={props.token}
@@ -108,10 +108,10 @@ export default function UserMyListAudiobookDetailProviders(props) {
                   i18n={props.i18n}
                   token={props.token}
                 />
-              </AudiobookUserCommentsProvider>
-            </AudiobookRatingProvider>
+              </UserAudiobookCommentsProvider>
+            </UserAudiobookRatingProvider>
           </AudiobookPartProvider>
-        </AudiobookUserDetailProvider>
+        </UserAudiobookDetailProvider>
       ) : null}
     </div>
   );

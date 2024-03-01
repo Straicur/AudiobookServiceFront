@@ -2,9 +2,9 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 
-const AudiobookUserProposedContext = createContext(null);
+const UserAudiobookProposedContext = createContext(null);
 
-export const AudiobookUserProposedProvider = ({ children, token, setState, i18n }) => {
+export const UserAudiobookProposedProvider = ({ children, token, setState, i18n }) => {
   const [audiobookProposed, setAudiobookProposed] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
@@ -35,10 +35,10 @@ export const AudiobookUserProposedProvider = ({ children, token, setState, i18n 
   const value = [audiobookProposed, setAudiobookProposed, setRefetchState];
 
   return (
-    <AudiobookUserProposedContext.Provider value={value}>
+    <UserAudiobookProposedContext.Provider value={value}>
       {children}
-    </AudiobookUserProposedContext.Provider>
+    </UserAudiobookProposedContext.Provider>
   );
 };
 
-export const useAudiobookUserProposed = () => useContext(AudiobookUserProposedContext);
+export const useUserAudiobookProposed = () => useContext(UserAudiobookProposedContext);

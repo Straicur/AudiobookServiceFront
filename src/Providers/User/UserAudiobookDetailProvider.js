@@ -3,9 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 
-const AudiobookRatingContext = createContext(null);
+const UserAudiobookDetailContext = createContext(null);
 
-export const AudiobookRatingProvider = ({
+export const UserAudiobookDetailProvider = ({
   children,
   token,
   audiobookId,
@@ -15,25 +15,25 @@ export const AudiobookRatingProvider = ({
 }) => {
   const qc = useQueryClient();
 
-  const setAudiobookRating = (variables) => {
-    let copy = dataAudiobookRating;
+  const setAudiobookDetail = (variables) => {
+    let copy = dataAudiobookDetail;
 
     for (var key in variables) {
       copy[key] = variables[key];
     }
 
-    qc.setQueryData(['dataAudiobookRating'], copy);
+    qc.setQueryData(['dataAudiobookDetail'], copy);
   };
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAudiobookRating']);
+    qc.invalidateQueries(['dataAudiobookDetail']);
   };
 
-  const { data: dataAudiobookRating = null } = useQuery({
-    queryKey: ['dataAudiobookRating'],
+  const { data: dataAudiobookDetail = null } = useQuery({
+    queryKey: ['dataAudiobookDetail'],
     queryFn: () => {
       return HandleFetch(
-        '/user/audiobook/rating/get',
+        '/user/audiobook/details',
         'POST',
         {
           audiobookId: audiobookId,
@@ -54,11 +54,13 @@ export const AudiobookRatingProvider = ({
     },
   });
 
-  const value = [dataAudiobookRating, setAudiobookRating, setRefetch];
+  const value = [dataAudiobookDetail, setAudiobookDetail, setRefetch];
 
   return (
-    <AudiobookRatingContext.Provider value={value}>{children}</AudiobookRatingContext.Provider>
+    <UserAudiobookDetailContext.Provider value={value}>
+      {children}
+    </UserAudiobookDetailContext.Provider>
   );
 };
 
-export const useAudiobookRating = () => useContext(AudiobookRatingContext);
+export const useUserAudiobookDetail = () => useContext(UserAudiobookDetailContext);
