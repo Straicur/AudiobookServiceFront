@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useTokenStore } from 'Store/store';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
 import Page404 from 'Page/Page404/Page404';
 import AdminAudiobooks from 'Page/Admin/AdminAudiobooks/AdminAudiobooks';
 import AdminAudiobook from 'Page/Admin/AdminAudiobook/AdminAudiobook';
@@ -26,82 +26,74 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
   const token = useTokenStore((state) => state.token);
-  const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <Routes>
-          {/*Admin*/}
-          <Route exact path='/admin' element={<AdminMain />} errorElement={<Page404 />} />
-          <Route
-            exact
-            path='/admin/audiobooks'
-            element={<AdminAudiobooks />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/admin/audiobook/:audiobookId'
-            element={<AdminAudiobook />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/admin/categories'
-            element={<AdminCategories />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/admin/notifications'
-            element={<AdminNotifications />}
-            errorElement={<Page404 />}
-          />
-          <Route exact path='/admin/users' element={<AdminUsers />} errorElement={<Page404 />} />
-          <Route
-            exact
-            path='/admin/category/:categoryKey'
-            element={<AdminCategory />}
-            errorElement={<Page404 />}
-          />
+    <Router>
+      <Routes>
+        {/*Admin*/}
+        <Route exact path='/admin' element={<AdminMain />} errorElement={<Page404 />} />
+        <Route
+          exact
+          path='/admin/audiobooks'
+          element={<AdminAudiobooks />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          exact
+          path='/admin/audiobook/:audiobookId'
+          element={<AdminAudiobook />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          exact
+          path='/admin/categories'
+          element={<AdminCategories />}
+          errorElement={<Page404 />}
+        />
+        <Route
+          exact
+          path='/admin/notifications'
+          element={<AdminNotifications />}
+          errorElement={<Page404 />}
+        />
+        <Route exact path='/admin/users' element={<AdminUsers />} errorElement={<Page404 />} />
+        <Route
+          exact
+          path='/admin/category/:categoryKey'
+          element={<AdminCategory />}
+          errorElement={<Page404 />}
+        />
 
-          {/*User*/}
-          <Route
-            exact
-            path='/'
-            element={
-              token == '' || token == undefined ? (
-                <Navigate to='/login' replace={true} />
-              ) : (
-                <Navigate to='/main' replace={true} />
-              )
-            }
-          />
-          <Route exact path='/login' element={<UserLogin />} errorElement={<Page404 />} />
-          <Route exact path='/register' element={<UserRegister />} errorElement={<Page404 />} />
-          <Route exact path='/main' element={<UserMain />} errorElement={<Page404 />} />
-          <Route exact path='/myList' element={<UserMyList />} errorElement={<Page404 />} />
-          <Route exact path='/help' element={<UserHelp />} errorElement={<Page404 />} />
-          <Route exact path='/about' element={<UserAbout />} errorElement={<Page404 />} />
-          <Route exact path='/policy' element={<UserPolicy />} errorElement={<Page404 />} />
-          <Route
-            exact
-            path='/user/settings'
-            element={<UserSettings />}
-            errorElement={<Page404 />}
-          />
-          <Route
-            exact
-            path='/user/reset/password/:id'
-            element={<UserForgot />}
-            errorElement={<Page404 />}
-          />
+        {/*User*/}
+        <Route
+          exact
+          path='/'
+          element={
+            token == '' || token == undefined ? (
+              <Navigate to='/login' replace={true} />
+            ) : (
+              <Navigate to='/main' replace={true} />
+            )
+          }
+        />
+        <Route exact path='/login' element={<UserLogin />} errorElement={<Page404 />} />
+        <Route exact path='/register' element={<UserRegister />} errorElement={<Page404 />} />
+        <Route exact path='/main' element={<UserMain />} errorElement={<Page404 />} />
+        <Route exact path='/myList' element={<UserMyList />} errorElement={<Page404 />} />
+        <Route exact path='/help' element={<UserHelp />} errorElement={<Page404 />} />
+        <Route exact path='/about' element={<UserAbout />} errorElement={<Page404 />} />
+        <Route exact path='/policy' element={<UserPolicy />} errorElement={<Page404 />} />
+        <Route exact path='/user/settings' element={<UserSettings />} errorElement={<Page404 />} />
+        <Route
+          exact
+          path='/user/reset/password/:id'
+          element={<UserForgot />}
+          errorElement={<Page404 />}
+        />
 
-          <Route element={<Page404 />} />
-        </Routes>
-      </Router>
-    </QueryClientProvider>
+        <Route element={<Page404 />} />
+      </Routes>
+    </Router>
   );
 }
 

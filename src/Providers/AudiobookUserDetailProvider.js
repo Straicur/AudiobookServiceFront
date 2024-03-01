@@ -29,9 +29,9 @@ export const AudiobookUserDetailProvider = ({
     qc.invalidateQueries(['dataAudiobookDetail']);
   };
 
-  const { data: dataAudiobookDetail = null } = useQuery(
-    ['dataAudiobookDetail'],
-    () => {
+  const { data: dataAudiobookDetail = null } = useQuery({
+    queryKey: ['dataAudiobookDetail'],
+    queryFn: () => {
       return HandleFetch(
         '/user/audiobook/details',
         'POST',
@@ -43,18 +43,16 @@ export const AudiobookUserDetailProvider = ({
         i18n.language,
       );
     },
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+  });
 
   const value = [dataAudiobookDetail, setAudiobookDetail, setRefetch];
 

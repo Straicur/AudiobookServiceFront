@@ -8,24 +8,22 @@ export const AudiobookMyListProvider = ({ children, token, setState, i18n }) => 
   const [audiobooks, setAudiobooks] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
-  const { refetch: refetchMyListData, isLoading: isLoadingMyList } = useQuery(
-    ['dataAudiobookData'],
-    () => HandleFetch('/user/myList/audiobooks', 'GET', null, token, i18n.language),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      onSuccess: (data) => {
-        setAudiobooks(data.audiobooks);
-      },
+  const { refetch: refetchMyListData, isLoading: isLoadingMyList } = useQuery({
+    queryKey: ['dataAudiobookData'],
+    queryFn: () => HandleFetch('/user/myList/audiobooks', 'GET', null, token, i18n.language),
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    onSuccess: (data) => {
+      setAudiobooks(data.audiobooks);
+    },
+  });
 
   useEffect(() => {
     if (refetchState) {

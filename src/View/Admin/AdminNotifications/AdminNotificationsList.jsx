@@ -68,9 +68,9 @@ export default function AdminNotificationsList(props) {
     setState,
   );
 
-  const { refetch } = useQuery(
-    'data',
-    () =>
+  const { refetch } = useQuery({
+    queryKey: 'data',
+    queryFn: () =>
       HandleFetch(
         '/admin/user/notifications',
         'POST',
@@ -82,28 +82,26 @@ export default function AdminNotificationsList(props) {
         props.token,
         i18n.language,
       ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        props.setNotificationsState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      onSuccess: (data) => {
-        setState((prev) => ({
-          ...prev,
-          json: data,
-        }));
-        setPageState((prev) => ({
-          ...prev,
-          maxPage: data.maxPage,
-        }));
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      props.setNotificationsState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    onSuccess: (data) => {
+      setState((prev) => ({
+        ...prev,
+        json: data,
+      }));
+      setPageState((prev) => ({
+        ...prev,
+        maxPage: data.maxPage,
+      }));
+    },
+  });
 
   useEffect(() => {
     if (state.refresh) {

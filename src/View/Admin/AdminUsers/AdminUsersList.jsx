@@ -87,9 +87,9 @@ export default function AdminUsersList(props) {
     return searchJson;
   };
 
-  const { refetch } = useQuery(
-    'data',
-    () =>
+  const { refetch } = useQuery({
+    queryKey: 'data',
+    queryFn: () =>
       HandleFetch(
         '/admin/users',
         'POST',
@@ -101,29 +101,27 @@ export default function AdminUsersList(props) {
         props.token,
         i18n.language,
       ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        props.setUsersState({
-          ...props.usersState,
-          error: e,
-        });
-      },
-      onSuccess: (data) => {
-        setState((prev) => ({
-          ...prev,
-          json: data,
-        }));
-        setPageState((prev) => ({
-          ...prev,
-          maxPage: data.maxPage,
-        }));
-        resetSearchStates();
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      props.setUsersState({
+        ...props.usersState,
+        error: e,
+      });
     },
-  );
+    onSuccess: (data) => {
+      setState((prev) => ({
+        ...prev,
+        json: data,
+      }));
+      setPageState((prev) => ({
+        ...prev,
+        maxPage: data.maxPage,
+      }));
+      resetSearchStates();
+    },
+  });
 
   const openSearchModal = () => {
     setState((prev) => ({

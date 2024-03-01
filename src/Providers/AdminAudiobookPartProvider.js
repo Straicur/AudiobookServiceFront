@@ -28,25 +28,23 @@ export const AdminAudiobookPartProvider = ({
     return json;
   };
 
-  const { refetch: refetchAudiobookPart } = useQuery(
-    ['dataAudiobookPart'],
-    () => HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      enabled: false,
-      onSuccess: (data) => {
-        setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
-      },
-      onError: (e) => {
-        setState((prev) => ({
-          ...prev,
-          errorPart: e.data,
-        }));
-      },
+  const { refetch: refetchAudiobookPart } = useQuery({
+    queryKey: ['dataAudiobookPart'],
+    queryFn: () => HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language),
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    enabled: false,
+    onSuccess: (data) => {
+      setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
     },
-  );
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        errorPart: e.data,
+      }));
+    },
+  });
 
   useEffect(() => {
     refetchAudiobookPart();

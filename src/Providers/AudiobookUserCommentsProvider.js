@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
+
 const AudiobookUserCommentsContext = createContext(null);
 
 export const AudiobookUserCommentsProvider = ({
@@ -129,8 +130,8 @@ export const AudiobookUserCommentsProvider = ({
 
     return newComments;
   }
-  const { mutate } = useMutation(
-    (data) => {
+  const { mutate } = useMutation({
+    mutationFn: (data) => {
       HandleFetch(data.url, data.method, data.jsonData, data.props.token, data.props.i18n.language)
         .then(() => {
           data.element.target.classList.remove('disabled');
@@ -139,28 +140,25 @@ export const AudiobookUserCommentsProvider = ({
           data.element.target.classList.remove('disabled');
         });
     },
-    {
-      onMutate: (variables) => {
-        let copy;
-        if (variables.comment.parentId != null) {
-          copy = setChildComment(variables.comment.parentId, variables.comment, variables.bool);
-        } else {
-          copy = setComment(variables.comment, variables.bool);
-        }
-        console.log({ comments: copy });
+    onMutate: (variables) => {
+      let copy;
+      if (variables.comment.parentId != null) {
+        copy = setChildComment(variables.comment.parentId, variables.comment, variables.bool);
+      } else {
+        copy = setComment(variables.comment, variables.bool);
+      }
 
-        qc.setQueryData(['dataAudiobookUserComments'], { comments: copy });
-      },
+      qc.setQueryData(['dataAudiobookUserComments'], { comments: copy });
     },
-  );
+  });
 
   const setRefetch = () => {
     qc.invalidateQueries(['dataAudiobookUserComments']);
   };
 
-  const { data: dataAudiobookUserComments = null } = useQuery(
-    ['dataAudiobookUserComments'],
-    () => {
+  const { data: dataAudiobookUserComments = null } = useQuery({
+    queryKey: ['dataAudiobookUserComments'],
+    queryFn: () => {
       return HandleFetch(
         '/user/audiobook/comment/get',
         'POST',
@@ -172,18 +170,16 @@ export const AudiobookUserCommentsProvider = ({
         i18n.language,
       );
     },
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+  });
 
   const value = [dataAudiobookUserComments, setRefetch, mutate];
 

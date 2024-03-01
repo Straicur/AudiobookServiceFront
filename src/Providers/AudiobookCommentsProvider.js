@@ -8,9 +8,9 @@ export const AudiobookCommentsProvider = ({ children, token, audiobookId, setSta
   const [audiobookComments, setAudiobookComments] = useState(null);
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
 
-  const { refetch: refetchAudiobookComments } = useQuery(
-    ['dataAudiobookComments'],
-    () =>
+  const { refetch: refetchAudiobookComments } = useQuery({
+    queryKey: ['dataAudiobookComments'],
+    queryFn: () =>
       HandleFetch(
         '/admin/audiobook/comment/get',
         'POST',
@@ -20,21 +20,19 @@ export const AudiobookCommentsProvider = ({ children, token, audiobookId, setSta
         token,
         i18n.language,
       ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      onSuccess: (data) => {
-        setAudiobookComments(data);
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    onSuccess: (data) => {
+      setAudiobookComments(data);
+    },
+  });
 
   useEffect(() => {
     if (refetchState) {

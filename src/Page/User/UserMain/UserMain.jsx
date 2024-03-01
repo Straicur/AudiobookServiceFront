@@ -51,7 +51,14 @@ export default function Main() {
 
         <div className='container-fluid main-container mt-3'>
           <div className='card position-relative p-3 bg-dark shadow'>
-            <UserNavBar />z
+            <UserNavBar />
+            <UserMainSearchAudiobooks
+              audiobooksState={audiobooksState}
+              setAudiobooksState={setAudiobooksState}
+              token={token}
+              t={t}
+              i18n={i18n}
+            />
             {audiobooksState.search ? (
               <UserMainRenderAudiobookSearch
                 audiobooksState={audiobooksState}

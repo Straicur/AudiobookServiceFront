@@ -8,9 +8,9 @@ export const AudiobookCoverDataProvider = ({ children, token, audiobookId, setSt
   const [audiobookCover, setAudiobookCover] = useState(null);
   const [refetchState, setRefetchState] = useState(false);
 
-  const { refetch: refetchAudiobookCover } = useQuery(
-    ['dataAudiobookCover'],
-    () =>
+  const { refetch: refetchAudiobookCover } = useQuery({
+    queryKey: ['dataAudiobookCover'],
+    queryFn: () =>
       HandleFetch(
         '/audiobook/covers',
         'POST',
@@ -20,23 +20,21 @@ export const AudiobookCoverDataProvider = ({ children, token, audiobookId, setSt
         token,
         i18n.language,
       ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      onSuccess: (data) => {
-        if (data.audiobookCoversModels != undefined) {
-          setAudiobookCover(data.audiobookCoversModels[0]);
-        }
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    onSuccess: (data) => {
+      if (data.audiobookCoversModels != undefined) {
+        setAudiobookCover(data.audiobookCoversModels[0]);
+      }
+    },
+  });
 
   useEffect(() => {
     if (refetchState) {

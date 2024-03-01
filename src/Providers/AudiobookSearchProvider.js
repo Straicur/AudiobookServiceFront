@@ -9,9 +9,9 @@ export const AudiobookSearchProvider = ({ children, token, title, setState, i18n
   const [refetchState, setRefetchState] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const { refetch: refetchAudiobookData } = useQuery(
-    ['dataAudiobookSearch'],
-    () =>
+  const { refetch: refetchAudiobookData } = useQuery({
+    queryKey: ['dataAudiobookSearch'],
+    queryFn: () =>
       HandleFetch(
         '/user/audiobooks/search',
         'POST',
@@ -21,22 +21,20 @@ export const AudiobookSearchProvider = ({ children, token, title, setState, i18n
         token,
         i18n.language,
       ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      onSuccess: (data) => {
-        setAudiobookSearch(data.audiobooks);
-        setLoading(false);
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    onSuccess: (data) => {
+      setAudiobookSearch(data.audiobooks);
+      setLoading(false);
+    },
+  });
 
   useEffect(() => {
     if (refetchState) {

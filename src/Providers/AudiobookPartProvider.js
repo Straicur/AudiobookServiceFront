@@ -51,26 +51,24 @@ export const AudiobookPartProvider = ({
     return json;
   };
 
-  const { data: dataAudiobookPart = null } = useQuery(
-    ['dataAudiobookPart'],
-    () => {
+  const { data: dataAudiobookPart = null } = useQuery({
+    queryKey: ['dataAudiobookPart'],
+    queryFn: () => {
       return HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language);
     },
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      // onSuccess: (data) => {
-      //   setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
-      // },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    // onSuccess: (data) => {
+    //   setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
+    // },
+  });
 
   const value = [dataAudiobookPart, setAudiobookPart, setRefetch];
 

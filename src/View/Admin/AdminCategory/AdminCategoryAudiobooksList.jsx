@@ -35,9 +35,9 @@ export default function AdminCategoryAudiobooksList(props) {
     maxPage: 0,
   });
 
-  const { refetch: refetchFirst } = useQuery(
-    'dataFirst',
-    () =>
+  const { refetch: refetchFirst } = useQuery({
+    queryKey: 'dataFirst',
+    queryFn: () =>
       HandleFetch(
         '/admin/category/audiobooks',
         'POST',
@@ -49,32 +49,30 @@ export default function AdminCategoryAudiobooksList(props) {
         props.token,
         i18n.language,
       ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        props.setAudiobooksState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      onSuccess: (data) => {
-        setState((prev) => ({
-          ...prev,
-          json: data.audiobooks,
-        }));
-        setPageState((prev) => ({
-          ...prev,
-          maxPage: data.maxPage,
-        }));
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      props.setAudiobooksState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    onSuccess: (data) => {
+      setState((prev) => ({
+        ...prev,
+        json: data.audiobooks,
+      }));
+      setPageState((prev) => ({
+        ...prev,
+        maxPage: data.maxPage,
+      }));
+    },
+  });
 
-  useQuery(
-    'dataSecond',
-    () =>
+  useQuery({
+    queryKey: 'dataSecond',
+    queryFn: () =>
       HandleFetch(
         '/admin/category/detail',
         'POST',
@@ -84,30 +82,28 @@ export default function AdminCategoryAudiobooksList(props) {
         props.token,
         i18n.language,
       ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        props.setAudiobooksState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      onSuccess: (dataSecond) => {
-        setState((prev) => ({
-          ...prev,
-          category: {
-            id: dataSecond.id,
-            name: dataSecond.name,
-            active: dataSecond.active,
-            parentCategoryName: dataSecond.parentCategoryName,
-            parentCategoryId: dataSecond.parentCategoryId,
-          },
-        }));
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      props.setAudiobooksState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    onSuccess: (dataSecond) => {
+      setState((prev) => ({
+        ...prev,
+        category: {
+          id: dataSecond.id,
+          name: dataSecond.name,
+          active: dataSecond.active,
+          parentCategoryName: dataSecond.parentCategoryName,
+          parentCategoryId: dataSecond.parentCategoryId,
+        },
+      }));
+    },
+  });
 
   useEffect(() => {
     if (state.addAudiobook) {

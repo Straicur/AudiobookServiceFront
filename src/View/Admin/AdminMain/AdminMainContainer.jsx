@@ -8,32 +8,30 @@ import Card from 'react-bootstrap/Card';
 export default function AdminMainContainer(props) {
   const { t, i18n } = useTranslation();
 
-  useQuery(
-    'data',
-    () => HandleFetch('/admin/statistic/main', 'GET', null, props.token, i18n.language),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        props.setInfoState({
-          ...props.infoState,
-          error: e,
-        });
-      },
-      onSuccess: (data) => {
-        props.setInfoState({
-          ...props.infoState,
-          users: data.users,
-          categories: data.categories,
-          audiobooks: data.audiobooks,
-          lastWeekRegistered: data.lastWeekRegistered,
-          lastWeekLogins: data.lastWeekLogins,
-          lastWeekNotifications: data.lastWeekNotifications,
-        });
-      },
+  useQuery({
+    queryKey: 'data',
+    queryFn: () => HandleFetch('/admin/statistic/main', 'GET', null, props.token, i18n.language),
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      props.setInfoState({
+        ...props.infoState,
+        error: e,
+      });
     },
-  );
+    onSuccess: (data) => {
+      props.setInfoState({
+        ...props.infoState,
+        users: data.users,
+        categories: data.categories,
+        audiobooks: data.audiobooks,
+        lastWeekRegistered: data.lastWeekRegistered,
+        lastWeekLogins: data.lastWeekLogins,
+        lastWeekNotifications: data.lastWeekNotifications,
+      });
+    },
+  });
 
   useEffect(() => {
     if (props.infoState.error != null) {

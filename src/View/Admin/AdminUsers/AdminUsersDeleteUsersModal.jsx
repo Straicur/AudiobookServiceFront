@@ -26,9 +26,9 @@ export default function AdminUsersDeleteUsersModal(props) {
     }));
   };
 
-  const { refetch: refetchSecond } = useQuery(
-    'dataSecond',
-    () =>
+  const { refetch: refetchSecond } = useQuery({
+    queryKey: 'dataSecond',
+    queryFn: () =>
       HandleFetch(
         '/admin/user/to/delete/list',
         'POST',
@@ -39,28 +39,26 @@ export default function AdminUsersDeleteUsersModal(props) {
         props.token,
         props.i18n.language,
       ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        props.setUsersState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      onSuccess: (data) => {
-        setState((prev) => ({
-          ...prev,
-          users: data.users,
-        }));
-        setPageState((prev) => ({
-          ...prev,
-          maxPage: data.maxPage,
-        }));
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      props.setUsersState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    onSuccess: (data) => {
+      setState((prev) => ({
+        ...prev,
+        users: data.users,
+      }));
+      setPageState((prev) => ({
+        ...prev,
+        maxPage: data.maxPage,
+      }));
+    },
+  });
 
   useEffect(() => {
     if (state.refresh) {

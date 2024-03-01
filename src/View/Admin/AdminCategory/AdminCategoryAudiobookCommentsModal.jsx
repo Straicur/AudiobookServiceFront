@@ -19,9 +19,9 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
     }));
   };
 
-  const { refetch: refetchAudiobookComments } = useQuery(
-    'dataAudiobookComments',
-    () =>
+  const { refetch: refetchAudiobookComments } = useQuery({
+    queryKey: 'dataAudiobookComments',
+    queryFn: () =>
       HandleFetch(
         '/admin/audiobook/comment/get',
         'POST',
@@ -31,24 +31,22 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
         props.token,
         props.i18n.language,
       ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        props.setAudiobooksState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      onSuccess: (data) => {
-        setState((prev) => ({
-          ...prev,
-          comments: data,
-        }));
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      props.setAudiobooksState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    onSuccess: (data) => {
+      setState((prev) => ({
+        ...prev,
+        comments: data,
+      }));
+    },
+  });
 
   useEffect(() => {
     if (state.refetch) {

@@ -29,9 +29,9 @@ export const AudiobookRatingProvider = ({
     qc.invalidateQueries(['dataAudiobookRating']);
   };
 
-  const { data: dataAudiobookRating = null } = useQuery(
-    ['dataAudiobookRating'],
-    () => {
+  const { data: dataAudiobookRating = null } = useQuery({
+    queryKey: ['dataAudiobookRating'],
+    queryFn: () => {
       return HandleFetch(
         '/user/audiobook/rating/get',
         'POST',
@@ -43,18 +43,16 @@ export const AudiobookRatingProvider = ({
         i18n.language,
       );
     },
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+  });
 
   const value = [dataAudiobookRating, setAudiobookRating, setRefetch];
 

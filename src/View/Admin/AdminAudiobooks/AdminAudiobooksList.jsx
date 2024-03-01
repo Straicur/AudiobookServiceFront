@@ -59,9 +59,9 @@ export default function AdminAudiobooksList(props) {
     setCategories,
   );
 
-  const { refetch } = useQuery(
-    'data',
-    () =>
+  const { refetch } = useQuery({
+    queryKey: 'data',
+    queryFn: () =>
       HandleFetch(
         '/admin/audiobooks',
         'POST',
@@ -73,28 +73,26 @@ export default function AdminAudiobooksList(props) {
         props.token,
         i18n.language,
       ),
-    {
-      retry: 1,
-      retryDelay: 500,
-      refetchOnWindowFocus: false,
-      onError: (e) => {
-        props.setAudiobooksState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      },
-      onSuccess: (data) => {
-        setState((prev) => ({
-          ...prev,
-          json: data,
-        }));
-        setPageState((prev) => ({
-          ...prev,
-          maxPage: data.maxPage,
-        }));
-      },
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      props.setAudiobooksState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
-  );
+    onSuccess: (data) => {
+      setState((prev) => ({
+        ...prev,
+        json: data,
+      }));
+      setPageState((prev) => ({
+        ...prev,
+        maxPage: data.maxPage,
+      }));
+    },
+  });
 
   useEffect(() => {
     if (state.refresh) {
