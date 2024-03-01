@@ -15,7 +15,7 @@ export const AdminAudiobookCommentsProvider = ({
   const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
 
   const { refetch: refetchAudiobookComments } = useQuery({
-    queryKey: ['dataAudiobookComments'],
+    queryKey: ['dataAudiobookAdminComments' + audiobookId],
     queryFn: () =>
       HandleFetch(
         '/admin/audiobook/comment/get',

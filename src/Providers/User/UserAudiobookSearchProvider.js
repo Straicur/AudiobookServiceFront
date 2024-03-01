@@ -10,7 +10,7 @@ export const UserAudiobookSearchProvider = ({ children, token, title, setState, 
   const [loading, setLoading] = useState(true);
 
   const { refetch: refetchAudiobookData } = useQuery({
-    queryKey: ['dataAudiobookSearch'],
+    queryKey: ['dataAudiobookUserSearch'],
     queryFn: () =>
       HandleFetch(
         '/user/audiobooks/search',

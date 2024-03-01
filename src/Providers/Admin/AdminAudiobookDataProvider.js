@@ -10,7 +10,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
   const [refetchState, setRefetchState] = useState(false);
 
   const { refetch: refetchAudiobookData } = useQuery({
-    queryKey: ['dataAudiobookData' + audiobookId],
+    queryKey: ['dataAudiobookAdminData' + audiobookId],
     queryFn: () =>
       HandleFetch(
         '/admin/audiobook/details',

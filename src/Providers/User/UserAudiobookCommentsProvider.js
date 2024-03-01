@@ -157,7 +157,7 @@ export const UserAudiobookCommentsProvider = ({
   };
 
   const { data: dataAudiobookUserComments = null } = useQuery({
-    queryKey: ['dataAudiobookUserComments'],
+    queryKey: ['dataAudiobookUserComments' + audiobookId],
     queryFn: () => {
       return HandleFetch(
         '/user/audiobook/comment/get',

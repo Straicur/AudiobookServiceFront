@@ -22,15 +22,15 @@ export const UserAudiobookDetailProvider = ({
       copy[key] = variables[key];
     }
 
-    qc.setQueryData(['dataAudiobookDetail'], copy);
+    qc.setQueryData(['dataAudiobookUserDetail' + audiobookId], copy);
   };
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAudiobookDetail']);
+    qc.invalidateQueries(['dataAudiobookUserDetail' + audiobookId]);
   };
 
   const { data: dataAudiobookDetail = null } = useQuery({
-    queryKey: ['dataAudiobookDetail'],
+    queryKey: ['dataAudiobookUserDetail' + audiobookId],
     queryFn: () => {
       return HandleFetch(
         '/user/audiobook/details',

@@ -24,7 +24,7 @@ export const AudiobookPartProvider = ({
       copy[key] = variables[key];
     }
 
-    qc.setQueryData(['dataAudiobookDetail'], copy);
+    qc.setQueryData(['dataAudiobookPart' + audiobookId], copy);
   };
 
   const setRefetch = () => {
@@ -35,7 +35,7 @@ export const AudiobookPartProvider = ({
       datailEndedTime: null,
     });
 
-    qc.invalidateQueries(['dataAudiobookDetail']);
+    qc.invalidateQueries(['dataAudiobookPart' + audiobookId]);
   };
 
   const createContext = () => {

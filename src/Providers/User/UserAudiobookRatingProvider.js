@@ -16,21 +16,21 @@ export const UserAudiobookRatingProvider = ({
   const qc = useQueryClient();
 
   const setAudiobookRating = (variables) => {
-    let copy = dataAudiobookRating;
+    let copy = dataAudiobookUserRating;
 
     for (var key in variables) {
       copy[key] = variables[key];
     }
 
-    qc.setQueryData(['dataAudiobookRating'], copy);
+    qc.setQueryData(['dataAudiobookUserRating' + audiobookId], copy);
   };
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAudiobookRating']);
+    qc.invalidateQueries(['dataAudiobookUserRating' + audiobookId]);
   };
 
-  const { data: dataAudiobookRating = null } = useQuery({
-    queryKey: ['dataAudiobookRating'],
+  const { data: dataAudiobookUserRating = null } = useQuery({
+    queryKey: ['dataAudiobookUserRating' + audiobookId],
     queryFn: () => {
       return HandleFetch(
         '/user/audiobook/rating/get',

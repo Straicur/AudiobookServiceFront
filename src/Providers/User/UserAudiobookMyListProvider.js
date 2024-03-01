@@ -9,7 +9,7 @@ export const UserAudiobookMyListProvider = ({ children, token, setState, i18n })
   const [refetchState, setRefetchState] = useState(false);
 
   const { refetch: refetchMyListData, isLoading: isLoadingMyList } = useQuery({
-    queryKey: ['dataMyAudiobooksData'],
+    queryKey: ['dataMyAudiobooksUserData'],
     queryFn: () => HandleFetch('/user/myList/audiobooks', 'GET', null, token, i18n.language),
     retry: 1,
     retryDelay: 500,
