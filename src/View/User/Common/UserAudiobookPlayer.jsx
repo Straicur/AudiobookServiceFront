@@ -44,11 +44,12 @@ export default function UserAudiobookPlayer(props) {
   useEffect(() => {
     if (
       player.current &&
-      props.audiobookState.datailEndedTime != null &&
+      props.audiobookInfo &&
+      props.audiobookInfo.endedTime != null &&
       !props.timeAudio.current &&
       !props.audiobookState.newPart
     ) {
-      player.current.audio.current.currentTime = props.audiobookState.datailEndedTime;
+      player.current.audio.current.currentTime = props.audiobookInfo.endedTime;
     }
   }, []);
 
@@ -80,7 +81,7 @@ export default function UserAudiobookPlayer(props) {
     if (
       props.audiobookState.newPart &&
       player.current &&
-      props.audiobookState.datailEndedTime == null
+      (props.audiobookInfo || props.audiobookInfo.endedTime == null)
     ) {
       player.current.progressBar.current.setAttribute('aria-valuenow', '0%');
       player.current.progressBar.current.childNodes[0].childNodes[0].style.left = '0%';

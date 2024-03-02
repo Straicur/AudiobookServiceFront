@@ -54,7 +54,7 @@ export const UserAudiobookRatingProvider = ({
     },
   });
 
-  const value = [dataAudiobookRating, setAudiobookRating, setRefetch];
+  const value = [dataAudiobookUserRating, setAudiobookRating, setRefetch];
 
   return (
     <UserAudiobookRatingContext.Provider value={value}>

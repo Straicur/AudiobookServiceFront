@@ -13,6 +13,7 @@ export const AudiobookPartProvider = ({
   setState,
   audiobookState,
   setAudiobookState,
+  audiobookInfo,
   i18n,
 }) => {
   const qc = useQueryClient();
@@ -31,8 +32,8 @@ export const AudiobookPartProvider = ({
     setAudiobookState({
       ...audiobookState,
       newPart: true,
-      detailWatchingDate: null,
-      datailEndedTime: null,
+      // detailWatchingDate: null,
+      // datailEndedTime: null,
     });
 
     qc.invalidateQueries(['dataAudiobookPart' + audiobookId]);
@@ -43,7 +44,9 @@ export const AudiobookPartProvider = ({
       audiobookId: audiobookId,
     };
 
-    if (part == undefined || isNaN(part)) {
+    if (audiobookInfo != null && audiobookInfo.part != null) {
+      part = audiobookInfo.part;
+    } else if (part == undefined || isNaN(part)) {
       json.part = 0;
     } else {
       json.part = part;

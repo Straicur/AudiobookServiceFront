@@ -10,6 +10,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import UserStarRating from '../Common/UserStarRating';
 import UserRenderCommentsList from '../Common/UserRenderCommentsList';
 import CreateUtil from 'Util/CreateUtil';
+import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
 
 export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
@@ -18,7 +19,7 @@ export default function UserMainAudiobookDetailModal(props) {
   const [audiobookDetail, setAudiobookDetail] = useUserAudiobookDetail();
   const [audiobookRating] = useUserAudiobookRating();
   const [audiobookPart] = useAudiobookPart();
-
+  const [audiobookInfo, setAudiobookInfo] = useUserAudiobookInfo();
   const [audiobookUserComments, setAudiobookCommnetsRefetchState, mutate] =
     useUserAudiobookComments();
 
@@ -69,27 +70,9 @@ export default function UserMainAudiobookDetailModal(props) {
     if (procent >= 70) {
       watched = true;
     }
+
     if (procent >= 20) {
-      HandleFetch(
-        '/user/audiobook/info/add',
-        'PUT',
-        {
-          audiobookId: props.state.detailModalAudiobook.id,
-          categoryKey: props.state.detailModalCategory.categoryKey,
-          part: props.audiobookState.part,
-          endedTime: timeAudio.current,
-          watched: watched,
-        },
-        props.token,
-        props.i18n.language,
-      )
-        .then(() => {})
-        .catch((e) => {
-          props.setState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
+      setAudiobookInfo({ props: props, timeAudio: timeAudio, watched: watched });
     }
 
     timeAudio.current = 0;
@@ -232,6 +215,7 @@ export default function UserMainAudiobookDetailModal(props) {
               audiobookPart={audiobookPart}
               setAudiobookState={props.setAudiobookState}
               audiobookState={props.audiobookState}
+              audiobookInfo={audiobookInfo}
               state={props.state}
               timeAudio={timeAudio}
               audioDuration={audioDuration}

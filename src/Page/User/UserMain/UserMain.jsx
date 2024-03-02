@@ -7,6 +7,7 @@ import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import { useTranslation } from 'react-i18next';
 import UserMainGetAudiobooksProviders from 'View/User/UserMain/UserMainGetAudiobooksProviders';
 import UserMainAudiobookDetailProviders from 'View/User/UserMain/UserMainAudiobookDetailProviders';
+import { UserAudiobookInfoProvider } from 'Providers/User/UserAudiobookInfoProvider';
 import UserMainSearchAudiobooks from 'View/User/UserMain/UserMainSearchAudiobooks';
 import UserMainRenderAudiobookSearch from 'View/User/UserMain/UserMainRenderAudiobookSearch';
 import { UserFooter } from 'View/User/Common/UserFooter';
@@ -79,13 +80,22 @@ export default function Main() {
             {audiobooksState.detailModal &&
             audiobooksState.detailModalAudiobook != null &&
             audiobooksState.detailModalCategory != null ? (
-              <UserMainAudiobookDetailProviders
+              <UserAudiobookInfoProvider
                 state={audiobooksState}
                 setState={setAudiobooksState}
                 token={token}
-                t={t}
+                audiobookId={audiobooksState.detailModalAudiobook.id}
+                categoryKey={audiobooksState.detailModalCategory.categoryKey}
                 i18n={i18n}
-              />
+              >
+                <UserMainAudiobookDetailProviders
+                  state={audiobooksState}
+                  setState={setAudiobooksState}
+                  token={token}
+                  t={t}
+                  i18n={i18n}
+                />
+              </UserAudiobookInfoProvider>
             ) : null}
           </div>
         </div>

@@ -74,6 +74,7 @@ export const UserAudiobookCommentsProvider = ({
       if (bool) {
         if (comment.liked == bool) {
           like = like - 1;
+          bool = null;
         } else if (comment.liked != null && comment.liked != bool) {
           like = like + 1;
           unlike = unlike - 1;
@@ -83,6 +84,7 @@ export const UserAudiobookCommentsProvider = ({
       } else {
         if (comment.liked == bool) {
           unlike = unlike - 1;
+          bool = null;
         } else if (comment.liked != null && comment.liked != bool) {
           unlike = unlike + 1;
           like = like - 1;
@@ -148,12 +150,12 @@ export const UserAudiobookCommentsProvider = ({
         copy = setComment(variables.comment, variables.bool);
       }
 
-      qc.setQueryData(['dataAudiobookUserComments'], { comments: copy });
+      qc.setQueryData(['dataAudiobookUserComments' + audiobookId], { comments: copy });
     },
   });
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAudiobookUserComments']);
+    qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
   };
 
   const { data: dataAudiobookUserComments = null } = useQuery({
