@@ -36,7 +36,7 @@ export default function AdminCategoryAudiobooksList(props) {
   });
 
   const { refetch: refetchFirst } = useQuery({
-    queryKey: 'dataFirst',
+    queryKey: ['dataAdminCategoryAudiobooks' + props.categoryKey],
     queryFn: () =>
       HandleFetch(
         '/admin/category/audiobooks',
@@ -71,7 +71,7 @@ export default function AdminCategoryAudiobooksList(props) {
   });
 
   useQuery({
-    queryKey: 'dataSecond',
+    queryKey: ['dataAdminCategoryDetail'],
     queryFn: () =>
       HandleFetch(
         '/admin/category/detail',

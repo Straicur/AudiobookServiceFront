@@ -69,7 +69,7 @@ export default function AdminNotificationsList(props) {
   );
 
   const { refetch } = useQuery({
-    queryKey: 'data',
+    queryKey: ['dataAdminNotifications'],
     queryFn: () =>
       HandleFetch(
         '/admin/user/notifications',

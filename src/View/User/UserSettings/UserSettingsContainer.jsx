@@ -10,7 +10,7 @@ import UserSettingInfo from './UserSettingInfo';
 
 export default function UserSettingsContainer(props) {
   const { refetch } = useQuery({
-    queryKey: 'data',
+    queryKey: ['dataUserSettings'],
     queryFn: () => HandleFetch('/user/settings', 'GET', null, props.token, props.i18n.language),
     retry: 1,
     retryDelay: 500,

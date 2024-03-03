@@ -9,7 +9,7 @@ export default function AdminMainContainer(props) {
   const { t, i18n } = useTranslation();
 
   useQuery({
-    queryKey: 'data',
+    queryKey: ['dataAdminStatistics'],
     queryFn: () => HandleFetch('/admin/statistic/main', 'GET', null, props.token, i18n.language),
     retry: 1,
     retryDelay: 500,

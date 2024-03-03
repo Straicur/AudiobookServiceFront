@@ -53,6 +53,7 @@ export default function Main() {
         <div className='container-fluid main-container mt-3'>
           <div className='card position-relative p-3 bg-dark shadow'>
             <UserNavBar />
+            {/* Tu do poprawy jest UserNavBar też */}
             <UserMainSearchAudiobooks
               audiobooksState={audiobooksState}
               setAudiobooksState={setAudiobooksState}
@@ -60,6 +61,7 @@ export default function Main() {
               t={t}
               i18n={i18n}
             />
+            {/* Tu w obu przerób najpierw pobieranie coverów */}
             {audiobooksState.search ? (
               <UserMainRenderAudiobookSearch
                 audiobooksState={audiobooksState}

@@ -60,7 +60,7 @@ export default function AdminAudiobooksList(props) {
   );
 
   const { refetch } = useQuery({
-    queryKey: 'data',
+    queryKey: ['dataAdminAudiobooks'],
     queryFn: () =>
       HandleFetch(
         '/admin/audiobooks',

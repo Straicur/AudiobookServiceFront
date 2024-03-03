@@ -3,7 +3,7 @@ import FormService from 'Service/Common/FormService';
 
 export default class AdminNotificationsAddService extends FormService {
   constructor(props, modalState, setModalState, actionState, setActionState) {
-    super(props.setModalState);
+    super(setModalState);
     this.props = props;
     this.modalState = modalState;
     this.setModalState = setModalState;

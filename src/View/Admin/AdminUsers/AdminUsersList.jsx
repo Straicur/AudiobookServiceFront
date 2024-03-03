@@ -88,7 +88,7 @@ export default function AdminUsersList(props) {
   };
 
   const { refetch } = useQuery({
-    queryKey: 'data',
+    queryKey: ['dataAdminUsersList'],
     queryFn: () =>
       HandleFetch(
         '/admin/users',

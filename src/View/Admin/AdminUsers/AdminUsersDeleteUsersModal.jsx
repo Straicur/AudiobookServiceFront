@@ -27,7 +27,7 @@ export default function AdminUsersDeleteUsersModal(props) {
   };
 
   const { refetch: refetchSecond } = useQuery({
-    queryKey: 'dataSecond',
+    queryKey: ['dataAdminUsersDelete'],
     queryFn: () =>
       HandleFetch(
         '/admin/user/to/delete/list',

@@ -20,7 +20,7 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
   };
 
   const { refetch: refetchAudiobookComments } = useQuery({
-    queryKey: 'dataAudiobookComments',
+    queryKey: ['dataAdminAudiobookComments'] + props.state.detailAudiobookElement.id,
     queryFn: () =>
       HandleFetch(
         '/admin/audiobook/comment/get',
