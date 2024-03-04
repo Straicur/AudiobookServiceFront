@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,10 +7,21 @@ import { useNavigate } from 'react-router-dom';
 import { HandleFetch } from 'Util/HandleFetch';
 import './AdminNotificationOffcanvas.css';
 import CreateUtil from 'Util/CreateUtil';
+import { useNotifications } from 'Providers/Common/NotificationsProvider';
+import { useNotificationsListStore } from 'Store/store';
 
 export default function AdminNotificationOffcanvas(props) {
   const [show, setShow] = useState(true);
   const [trigerTable, setTrigerTable] = useState([]);
+
+  const notificationsList = useRef([]);
+
+  const [notificationsData, refetch] = useNotifications();
+
+  const notificationsListStore = useNotificationsListStore();
+  const notifications = useNotificationsListStore((state) => state.notifications);
+  const maxPage = useNotificationsListStore((state) => state.maxPage);
+  const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
   const navigate = useNavigate();
 
@@ -71,6 +82,7 @@ export default function AdminNotificationOffcanvas(props) {
       }
     }
   };
+
   const activateNotification = (notification) => {
     if (notification.active == undefined) {
       let hasRole = trigerTable.filter((x) => x == notification.id);
@@ -92,26 +104,70 @@ export default function AdminNotificationOffcanvas(props) {
           .catch(() => {});
         props.setState((prev) => ({
           ...prev,
-          refresh: true,
+          // refresh: true,
         }));
       }
     }
   };
 
   const loadMore = () => {
-    props.setState((prev) => ({
-      ...prev,
-      page: props.state.page + 1,
-      refresh: true,
-    }));
+    if (props.state.page + 1 <= props.state.maxPage) {
+      props.setState((prev) => ({
+        ...prev,
+        page: props.state.page + 1,
+        // refresh: true,
+      }));
+    }
   };
 
   const renderNotifications = () => {
-    let returnArray = [];
+    console.log(notificationsData);
+    console.log(notifications);
+    if (dateUpdate > Date.now()) {
+      notificationsList.current = notifications;
+      props.setState((prev) => ({
+        ...prev,
+        maxPage: maxPage,
+      }));
+    } else {
+      //PObierz dane i zapisz do store
+      //Czyszcze cały store powiadomień
+      //Tu podaje page i robię update w storze danej strony
+      let copy = notifications;
+      copy.push({ page: props.state.page, notifications: notificationsData.notifications });
 
-    if (props.notificationsList.current != undefined) {
+      notificationsListStore.addNotifications(copy);
+
+      props.setState((prev) => ({
+        ...prev,
+        maxPage: notificationsData.maxPage,
+      }));
+    }
+
+    // Przerób zapisywanie danych w store. Niech zapisuje też strony bo to dużo pomaga
+    // Natomiast Jeśli ta data jest mniejsza to mam pobrać dane i zapisać je do store ale nie renderować z nich
+    // Niech to ma jeden standard
+
+    //         console.log(data);
+    //         data.systemNotifications.forEach((element) => {
+    //           let found = notificationsList.current.filter((x) => x.id == element.id).length > 0;
+    //           if (!found) {
+    //             notificationsList.current = [...notificationsList.current, element];
+    //           }
+    //         });
+
+    //         if (index == 0) {
+    //           notificationsListStore.addNotifications(data.systemNotifications);
+    //         }
+
+    //         notificationsListStore.setNewNotification(data.maxPage);
+    //         notificationsListStore.setNewNotification(data.newNotifications);
+
+    let returnArray = [];
+    // notificationsList <- to mogę wykorzystać jako jakąś flagę czy coś
+    if (notifications != undefined) {
       returnArray.push(
-        props.notificationsList.current.map((notification) => {
+        notificationsList.current.map((notification) => {
           return (
             <div
               key={uuidv4()}
@@ -176,6 +232,11 @@ export default function AdminNotificationOffcanvas(props) {
       }));
     }
   }, []);
+  useEffect(() => {
+    if (props.state.page !== 0) {
+      refetch();
+    }
+  }, [props.state.page]);
 
   return (
     <Offcanvas

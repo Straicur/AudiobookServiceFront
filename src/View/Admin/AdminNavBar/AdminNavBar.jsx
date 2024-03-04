@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +6,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import { useNotificationsListStore } from 'Store/store';
+import { NotificationsProvider } from 'Providers/Common/NotificationsProvider';
 import AdminNotificationOffcanvas from '../AdminNotificationBar/AdminNotificationOffcanvas';
 import Badge from 'react-bootstrap/Badge';
 import './AdminNavBar.css';
@@ -13,14 +14,10 @@ import './AdminNavBar.css';
 export const AdminNavBar = () => {
   const [state, setState] = useState({
     page: 0,
-    limit: 6,
     maxPage: 0,
     notificationsOffCanvas: false,
-    refresh: false,
     error: null,
   });
-
-  const notificationsList = useRef([]);
 
   const { t, i18n } = useTranslation();
 
@@ -40,51 +37,7 @@ export const AdminNavBar = () => {
       navigate('/login');
     });
   };
-  const notificationsListStore = useNotificationsListStore();
-
-  const notifications = useNotificationsListStore((state) => state.notifications);
   const newNotifications = useNotificationsListStore((state) => state.newNotifications);
-  const maxPage = useNotificationsListStore((state) => state.maxPage);
-  const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
-
-  const fetchNotifications = () => {
-    for (let index = 0; index <= state.page; index++) {
-      HandleFetch(
-        '/notifications',
-        'POST',
-        {
-          page: index,
-          limit: state.limit,
-        },
-        token,
-        i18n.language,
-      )
-        .then((data) => {
-          setState((prev) => ({
-            ...prev,
-            page: data.page,
-            maxPage: data.maxPage,
-            refresh: false,
-          }));
-          data.systemNotifications.forEach((element) => {
-            let found = notificationsList.current.filter((x) => x.id == element.id).length > 0;
-            if (!found) {
-              notificationsList.current = [...notificationsList.current, element];
-            }
-          });
-
-          if (index == 0) {
-            notificationsListStore.addNotifications(data.systemNotifications);
-          }
-
-          notificationsListStore.setNewNotification(data.maxPage);
-          notificationsListStore.setNewNotification(data.newNotifications);
-        })
-        .catch(() => {
-          notificationsListStore.setNewNotification(0);
-        });
-    }
-  };
 
   const openNotificationsList = () => {
     setState((prev) => ({
@@ -92,24 +45,6 @@ export const AdminNavBar = () => {
       notificationsOffCanvas: !state.notificationsOffCanvas,
     }));
   };
-
-  useEffect(() => {
-    if (state.refresh) {
-      fetchNotifications();
-    }
-  }, [state.refresh]);
-
-  useEffect(() => {
-    if (dateUpdate > Date.now()) {
-      notificationsList.current = notifications;
-      setState((prev) => ({
-        ...prev,
-        maxPage: maxPage,
-      }));
-    } else {
-      fetchNotifications();
-    }
-  }, []);
 
   useEffect(() => {
     if (token === '') {
@@ -215,15 +150,15 @@ export const AdminNavBar = () => {
           {t('logout')}
         </Button>
         {state.notificationsOffCanvas ? (
-          <AdminNotificationOffcanvas
-            state={state}
-            setState={setState}
-            dateUpdate={dateUpdate}
-            notificationsList={notificationsList}
-            t={t}
-            token={token}
-            i18n={i18n}
-          />
+          <NotificationsProvider token={token} page={state.page} i18n={i18n}>
+            <AdminNotificationOffcanvas
+              state={state}
+              setState={setState}
+              t={t}
+              token={token}
+              i18n={i18n}
+            />
+          </NotificationsProvider>
         ) : null}
       </div>
     </div>
