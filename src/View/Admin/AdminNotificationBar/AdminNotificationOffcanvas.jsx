@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { v4 as uuidv4 } from 'uuid';
-import Badge from 'react-bootstrap/Badge';
-import { useNavigate } from 'react-router-dom';
-import { HandleFetch } from 'Util/HandleFetch';
+// import { v4 as uuidv4 } from 'uuid';
+// import Badge from 'react-bootstrap/Badge';
+// import { useNavigate } from 'react-router-dom';
+// import { HandleFetch } from 'Util/HandleFetch';
 import './AdminNotificationOffcanvas.css';
-import CreateUtil from 'Util/CreateUtil';
+// import CreateUtil from 'Util/CreateUtil';
 import { useNotifications } from 'Providers/Common/NotificationsProvider';
 import { useNotificationsListStore } from 'Store/store';
 
 export default function AdminNotificationOffcanvas(props) {
   const [show, setShow] = useState(true);
-  const [trigerTable, setTrigerTable] = useState([]);
+  // const [trigerTable, setTrigerTable] = useState([]);
 
   const notificationsList = useRef([]);
 
@@ -23,7 +23,7 @@ export default function AdminNotificationOffcanvas(props) {
   const maxPage = useNotificationsListStore((state) => state.maxPage);
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleClose = () => {
     props.setState((prev) => ({
@@ -33,82 +33,82 @@ export default function AdminNotificationOffcanvas(props) {
     setShow(false);
   };
 
-  const createNotificationType = (element) => {
-    switch (element) {
-      case 1: {
-        return props.t('notificationTypeNormal');
-      }
-      case 2: {
-        return props.t('notificationTypeAdmin');
-      }
-      case 3: {
-        return props.t('notificationTypeProposed');
-      }
-      case 4: {
-        return props.t('notificationTypeNewCategory');
-      }
-      case 5: {
-        return props.t('notificationTypeNewAudiobook');
-      }
-      case 6: {
-        return props.t('notificationTypeUserDeleteDecline');
-      }
-    }
-  };
+  // const createNotificationType = (element) => {
+  //   switch (element) {
+  //     case 1: {
+  //       return props.t('notificationTypeNormal');
+  //     }
+  //     case 2: {
+  //       return props.t('notificationTypeAdmin');
+  //     }
+  //     case 3: {
+  //       return props.t('notificationTypeProposed');
+  //     }
+  //     case 4: {
+  //       return props.t('notificationTypeNewCategory');
+  //     }
+  //     case 5: {
+  //       return props.t('notificationTypeNewAudiobook');
+  //     }
+  //     case 6: {
+  //       return props.t('notificationTypeUserDeleteDecline');
+  //     }
+  //   }
+  // };
 
-  const navigateUser = (notification) => {
-    switch (notification.notificationType) {
-      case 1: {
-        break;
-      }
-      case 2: {
-        break;
-      }
-      case 3: {
-        navigate(`/main`);
-        break;
-      }
-      case 4: {
-        navigate(`/admin/category/${notification.categoryKey}`);
-        break;
-      }
-      case 5: {
-        navigate(`/admin/audiobook/${notification.actionId}`);
-        break;
-      }
-      case 6: {
-        navigate(`/admin/users`);
-        break;
-      }
-    }
-  };
+  // const navigateUser = (notification) => {
+  //   switch (notification.notificationType) {
+  //     case 1: {
+  //       break;
+  //     }
+  //     case 2: {
+  //       break;
+  //     }
+  //     case 3: {
+  //       navigate(`/main`);
+  //       break;
+  //     }
+  //     case 4: {
+  //       navigate(`/admin/category/${notification.categoryKey}`);
+  //       break;
+  //     }
+  //     case 5: {
+  //       navigate(`/admin/audiobook/${notification.actionId}`);
+  //       break;
+  //     }
+  //     case 6: {
+  //       navigate(`/admin/users`);
+  //       break;
+  //     }
+  //   }
+  // };
 
-  const activateNotification = (notification) => {
-    if (notification.active == undefined) {
-      let hasRole = trigerTable.filter((x) => x == notification.id);
+  // const activateNotification = (notification) => {
+  //   if (notification.active == undefined) {
+  //     let hasRole = trigerTable.filter((x) => x == notification.id);
 
-      if (hasRole.length == 0) {
-        let newArray = trigerTable.concat(notification.id);
-        setTrigerTable(newArray);
+  //     if (hasRole.length == 0) {
+  //       let newArray = trigerTable.concat(notification.id);
+  //       setTrigerTable(newArray);
 
-        HandleFetch(
-          '/notification/activate',
-          'PUT',
-          {
-            notificationId: notification.id,
-          },
-          props.token,
-          props.i18n.language,
-        )
-          .then(() => {})
-          .catch(() => {});
-        props.setState((prev) => ({
-          ...prev,
-          // refresh: true,
-        }));
-      }
-    }
-  };
+  //       HandleFetch(
+  //         '/notification/activate',
+  //         'PUT',
+  //         {
+  //           notificationId: notification.id,
+  //         },
+  //         props.token,
+  //         props.i18n.language,
+  //       )
+  //         .then(() => {})
+  //         .catch(() => {});
+  //       props.setState((prev) => ({
+  //         ...prev,
+  //         // refresh: true,
+  //       }));
+  //     }
+  //   }
+  // };
 
   const loadMore = () => {
     if (props.state.page + 1 <= props.state.maxPage) {
@@ -121,8 +121,6 @@ export default function AdminNotificationOffcanvas(props) {
   };
 
   const renderNotifications = () => {
-    console.log(notificationsData);
-    console.log(notifications);
     if (dateUpdate > Date.now()) {
       notificationsList.current = notifications;
       props.setState((prev) => ({
@@ -130,11 +128,11 @@ export default function AdminNotificationOffcanvas(props) {
         maxPage: maxPage,
       }));
     } else {
-      //PObierz dane i zapisz do store
-      //Czyszcze cały store powiadomień
-      //Tu podaje page i robię update w storze danej strony
+      // PObierz dane i zapisz do store
+      // Czyszcze cały store powiadomień
+      // Tu podaje page i robię update w storze danej strony
       let copy = notifications;
-      copy.push({ page: props.state.page, notifications: notificationsData.notifications });
+      copy[props.state.page] = notificationsData.systemNotifications;
 
       notificationsListStore.addNotifications(copy);
 
@@ -165,62 +163,62 @@ export default function AdminNotificationOffcanvas(props) {
 
     let returnArray = [];
     // notificationsList <- to mogę wykorzystać jako jakąś flagę czy coś
-    if (notifications != undefined) {
-      returnArray.push(
-        notificationsList.current.map((notification) => {
-          return (
-            <div
-              key={uuidv4()}
-              className='border border-light border-1 rounded-4 text-white p-3 my-3'
-              onMouseEnter={() => activateNotification(notification)}
-            >
-              <div className='row mb-1'>
-                <div className='col'>
-                  {notification.active != undefined ? (
-                    <Badge bg='secondary'>{props.t('displayed')}</Badge>
-                  ) : (
-                    <Badge bg='success'>{props.t('new')}</Badge>
-                  )}
-                </div>
-                <div className='col'>
-                  {props.t('dateAdd')} {': '}
-                  {CreateUtil.createDate(notification.dateAdd)}
-                </div>
-              </div>
-              <div className='row mb-1'>
-                <div className='col'>
-                  {props.t('type')}
-                  {': '}
-                  {createNotificationType(notification.notificationType)}
-                </div>
-                {notification.notificationType == 1 || notification.notificationType == 2 ? null : (
-                  <div className='col'>
-                    <Button
-                      name='logout'
-                      variant='light'
-                      size='sm'
-                      className='btn button rounded detail-notification-btn'
-                      onClick={() => navigateUser(notification)}
-                    >
-                      {props.t('look')}
-                    </Button>
-                  </div>
-                )}
-              </div>
-              {notification.text != undefined ? (
-                <div className='row'>
-                  <div className='col'>
-                    {props.t('text')}
-                    {': '}
-                    {notification.text}
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          );
-        }),
-      );
-    }
+    // if (notifications != undefined) {
+    //   returnArray.push(
+    //     notificationsList.map((notification) => {
+    //       return (
+    //         <div
+    //           key={uuidv4()}
+    //           className='border border-light border-1 rounded-4 text-white p-3 my-3'
+    //           onMouseEnter={() => activateNotification(notification)}
+    //         >
+    //           <div className='row mb-1'>
+    //             <div className='col'>
+    //               {notification.active != undefined ? (
+    //                 <Badge bg='secondary'>{props.t('displayed')}</Badge>
+    //               ) : (
+    //                 <Badge bg='success'>{props.t('new')}</Badge>
+    //               )}
+    //             </div>
+    //             <div className='col'>
+    //               {props.t('dateAdd')} {': '}
+    //               {CreateUtil.createDate(notification.dateAdd)}
+    //             </div>
+    //           </div>
+    //           <div className='row mb-1'>
+    //             <div className='col'>
+    //               {props.t('type')}
+    //               {': '}
+    //               {createNotificationType(notification.notificationType)}
+    //             </div>
+    //             {notification.notificationType == 1 || notification.notificationType == 2 ? null : (
+    //               <div className='col'>
+    //                 <Button
+    //                   name='logout'
+    //                   variant='light'
+    //                   size='sm'
+    //                   className='btn button rounded detail-notification-btn'
+    //                   onClick={() => navigateUser(notification)}
+    //                 >
+    //                   {props.t('look')}
+    //                 </Button>
+    //               </div>
+    //             )}
+    //           </div>
+    //           {notification.text != undefined ? (
+    //             <div className='row'>
+    //               <div className='col'>
+    //                 {props.t('text')}
+    //                 {': '}
+    //                 {notification.text}
+    //               </div>
+    //             </div>
+    //           ) : null}
+    //         </div>
+    //       );
+    //     }),
+    //   );
+    // }
     return returnArray;
   };
 
