@@ -95,12 +95,17 @@ let notificationsListStore = (set) => ({
   notifications: [],
   maxPage: 0,
   newNotifications: 0,
-  dateUpdate: 0,
-  addNotifications: (notifications) => {
-    set(() => ({
-      notifications: notifications,
-      dateUpdate: Date.now() + 300000,
-    }));
+  dateUpdate: [],
+  addNotifications: (page, notifications) => {
+    set((state) => {
+      const updatedDateUpdate = [...state.dateUpdate];
+      updatedDateUpdate[page] = Date.now() + 300000;
+
+      return {
+        notifications: notifications,
+        dateUpdate: updatedDateUpdate,
+      };
+    });
   },
   setMaxPage: (maxPage) => {
     set(() => ({

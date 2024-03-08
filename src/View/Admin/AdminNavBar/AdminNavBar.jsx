@@ -7,14 +7,13 @@ import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import { useNotificationsListStore } from 'Store/store';
 import { NotificationsProvider } from 'Providers/Common/NotificationsProvider';
-import AdminNotificationOffcanvas from '../AdminNotificationBar/AdminNotificationOffcanvas';
+import AdminNotificationOffCanvas from '../AdminNotificationBar/AdminNotificationOffCanvas';
 import Badge from 'react-bootstrap/Badge';
 import './AdminNavBar.css';
 
 export const AdminNavBar = () => {
   const [state, setState] = useState({
     page: 0,
-    maxPage: 0,
     notificationsOffCanvas: false,
     error: null,
   });
@@ -151,7 +150,7 @@ export const AdminNavBar = () => {
         </Button>
         {state.notificationsOffCanvas ? (
           <NotificationsProvider token={token} page={state.page} i18n={i18n}>
-            <AdminNotificationOffcanvas
+            <AdminNotificationOffCanvas
               state={state}
               setState={setState}
               t={t}

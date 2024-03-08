@@ -42,7 +42,7 @@ export const NotificationsProvider = ({ children, token, page, i18n }) => {
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    enabled: dateUpdate <= Date.now(),
+    enabled: dateUpdate[page] <= Date.now(),
     onError: () => {
       notificationsListStore.setNewNotification(0);
     },
