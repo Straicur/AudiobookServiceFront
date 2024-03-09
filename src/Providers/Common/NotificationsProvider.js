@@ -8,7 +8,7 @@ const NotificationsContext = createContext(null);
 
 export const NotificationsProvider = ({ children, token, page, i18n }) => {
   const qc = useQueryClient();
-  const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
+  // const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
   const notificationsListStore = useNotificationsListStore();
   // const setAudiobookPart = (variables) => {
@@ -26,7 +26,7 @@ export const NotificationsProvider = ({ children, token, page, i18n }) => {
   };
 
   const { data: dataNotifications = null } = useQuery({
-    queryKey: ['dataNotifications'],
+    queryKey: ['dataNotifications' + page],
     queryFn: () => {
       return HandleFetch(
         '/notifications',
@@ -42,7 +42,7 @@ export const NotificationsProvider = ({ children, token, page, i18n }) => {
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    enabled: dateUpdate[page] <= Date.now(),
+    // enabled: dateUpdate[page] <= Date.now(),
     onError: () => {
       notificationsListStore.setNewNotification(0);
     },

@@ -2,7 +2,6 @@ import React from 'react';
 import { UserAudiobookDataProvider } from 'Providers/User/UserAudiobookDataProvider';
 import { AudiobookCoverDataProvider } from 'Providers/Common/AudiobookCoverDataProvider';
 import { AudiobookPartProvider } from 'Providers/Common/AudiobookPartProvider';
-
 import AdminCategoryAudiobookDetailModal from './AdminCategoryAudiobookDetailModal';
 
 export default function AdminCategoryDetailProviders(props) {

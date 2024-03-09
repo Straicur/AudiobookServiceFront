@@ -94,7 +94,6 @@ let lastUserRolesStore = (set) => ({
 let notificationsListStore = (set) => ({
   notifications: [],
   maxPage: 0,
-  newNotifications: 0,
   dateUpdate: [],
   addNotifications: (page, notifications) => {
     set((state) => {
@@ -110,11 +109,6 @@ let notificationsListStore = (set) => ({
   setMaxPage: (maxPage) => {
     set(() => ({
       maxPage: maxPage,
-    }));
-  },
-  setNewNotification: (newNotifications) => {
-    set(() => ({
-      newNotifications: newNotifications,
     }));
   },
 });

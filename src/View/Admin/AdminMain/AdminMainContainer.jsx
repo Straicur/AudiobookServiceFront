@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useTranslation } from 'react-i18next';
@@ -42,7 +42,7 @@ export default function AdminMainContainer(props) {
   return (
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 mb-5 shadow'>
-        <AdminNavBar />
+        <AdminNavBarProviders token={props.token} />
         <div className='p-5'>
           <div className='p-3'>
             <div className='p-3'>

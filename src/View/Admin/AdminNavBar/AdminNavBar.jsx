@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
-import { useNotificationsListStore } from 'Store/store';
 import { NotificationsProvider } from 'Providers/Common/NotificationsProvider';
+import { useNewNotifications } from 'Providers/Common/NewNotificationsProvider';
 import AdminNotificationOffCanvas from '../AdminNotificationBar/AdminNotificationOffCanvas';
 import Badge from 'react-bootstrap/Badge';
 import './AdminNavBar.css';
@@ -24,6 +24,8 @@ export const AdminNavBar = () => {
 
   const token = useTokenStore((state) => state.token);
 
+  const [newNotificationsData] = useNewNotifications();
+
   const navigate = useNavigate();
 
   const logout = async () => {
@@ -36,13 +38,18 @@ export const AdminNavBar = () => {
       navigate('/login');
     });
   };
-  const newNotifications = useNotificationsListStore((state) => state.newNotifications);
 
   const openNotificationsList = () => {
     setState((prev) => ({
       ...prev,
       notificationsOffCanvas: !state.notificationsOffCanvas,
     }));
+  };
+
+  const getNewNotifications = () => {
+    if (newNotificationsData != null) {
+      return newNotificationsData.newNotifications;
+    } else return 0;
   };
 
   useEffect(() => {
@@ -141,7 +148,7 @@ export const AdminNavBar = () => {
           </div>
           <div className='col nav-col justify-content-end  align-items-center'>
             <h6>
-              <Badge bg='secondary'>{newNotifications}</Badge>
+              <Badge bg='secondary'>{getNewNotifications()}</Badge>
             </h6>
           </div>
         </div>

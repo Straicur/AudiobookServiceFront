@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
@@ -82,7 +82,7 @@ export default function AdminCategoriesList(props) {
   return (
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 mb-5  shadow'>
-        <AdminNavBar />
+        <AdminNavBarProviders token={props.token} />
         <hr className='line' />
         <div className='table-title my-2'>
           <h1>{t('categories')}</h1>

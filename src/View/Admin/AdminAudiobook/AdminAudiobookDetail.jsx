@@ -3,7 +3,7 @@ import { useAdminAudiobookData } from 'Providers/Admin/AdminAudiobookDataProvide
 import { useAudiobookCover } from 'Providers/Common/AudiobookCoverDataProvider';
 import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
 import { useAdminAudiobookComments } from 'Providers/Admin/AdminAudiobookCommentsProvider';
-import { AdminNavBar } from '../AdminNavBar/AdminNavBar';
+import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import AdminAudiobookEditForm from './AdminAudiobookEditForm';
 import AdminAudiobookCategoryList from './AdminAudiobookCategoryList';
 import AdminAudiobookCover from './AdminAudiobookCover';
@@ -71,7 +71,7 @@ export default function AdminAudiobookDetail(props) {
   return (
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 mb-5  shadow'>
-        <AdminNavBar />
+        <AdminNavBarProviders token={props.token} />
         <hr className='line' />
         <div className='row '>
           <div className='col-4'>

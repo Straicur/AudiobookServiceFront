@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { v4 as uuidv4 } from 'uuid';
@@ -12,9 +12,8 @@ import { useNotificationsListStore } from 'Store/store';
 
 export default function AdminNotificationOffCanvas(props) {
   const [show, setShow] = useState(true);
-  const [trigerTable, setTrigerTable] = useState([]);
 
-  // const notificationsList = useRef([]);
+  const trigerTable = useRef([]);
 
   const [notificationsData, refetch] = useNotifications();
 
@@ -85,11 +84,10 @@ export default function AdminNotificationOffCanvas(props) {
 
   const activateNotification = (notification) => {
     if (notification.active == undefined) {
-      let hasRole = trigerTable.filter((x) => x == notification.id);
+      let hasRole = trigerTable.current.filter((x) => x == notification.id);
 
       if (hasRole.length == 0) {
-        let newArray = trigerTable.concat(notification.id);
-        setTrigerTable(newArray);
+        trigerTable.current = trigerTable.current.concat(notification.id);
 
         HandleFetch(
           '/notification/activate',
@@ -99,31 +97,25 @@ export default function AdminNotificationOffCanvas(props) {
           },
           props.token,
           props.i18n.language,
-        )
-          .then(() => {})
-          .catch(() => {});
-        props.setState((prev) => ({
-          ...prev,
-          // refresh: true,
-        }));
+        );
+
+        refetch();
       }
     }
   };
 
   const loadMore = () => {
-    if (props.state.page + 1 <= props.state.maxPage) {
+    if (props.state.page + 1 <= maxPage) {
       props.setState((prev) => ({
         ...prev,
         page: props.state.page + 1,
-        // refresh: true,
       }));
     }
   };
 
   const renderNotifications = () => {
-    if (dateUpdate[props.state.page] <= Date.now()) {
+    if (dateUpdate[props.state.page] <= Date.now() || dateUpdate[props.state.page] === undefined) {
       let copy = [];
-
       if (notifications !== undefined && notifications != null) {
         copy = notifications;
       }
@@ -136,75 +128,72 @@ export default function AdminNotificationOffCanvas(props) {
     }
 
     let returnArray = [];
-    notifications.map((notifications) => {
-      returnArray.push(
-        notifications.map((notification) => {
-          return (
-            <div
-              key={uuidv4()}
-              className='border border-light border-1 rounded-4 text-white p-3 my-3'
-              onMouseEnter={() => activateNotification(notification)}
-            >
-              <div className='row mb-1'>
-                <div className='col'>
-                  {notification.active != undefined ? (
-                    <Badge bg='secondary'>{props.t('displayed')}</Badge>
-                  ) : (
-                    <Badge bg='success'>{props.t('new')}</Badge>
-                  )}
-                </div>
-                <div className='col'>
-                  {props.t('dateAdd')} {': '}
-                  {CreateUtil.createDate(notification.dateAdd)}
-                </div>
-              </div>
-              <div className='row mb-1'>
-                <div className='col'>
-                  {props.t('type')}
-                  {': '}
-                  {createNotificationType(notification.notificationType)}
-                </div>
-                {notification.notificationType == 1 || notification.notificationType == 2 ? null : (
-                  <div className='col'>
-                    <Button
-                      name='logout'
-                      variant='light'
-                      size='sm'
-                      className='btn button rounded detail-notification-btn'
-                      onClick={() => navigateUser(notification)}
-                    >
-                      {props.t('look')}
-                    </Button>
+    if (notifications !== undefined && notifications !== null) {
+      notifications.map((notifications, index) => {
+        if (index <= props.state.page) {
+          returnArray.push(
+            notifications.map((notification) => {
+              return (
+                <div
+                  key={uuidv4()}
+                  className='border border-light border-1 rounded-4 text-white p-3 my-3'
+                  onMouseEnter={() => activateNotification(notification)}
+                >
+                  <div className='row mb-1'>
+                    <div className='col'>
+                      {notification.active != undefined ? (
+                        <Badge bg='secondary'>{props.t('displayed')}</Badge>
+                      ) : (
+                        <Badge bg='success'>{props.t('new')}</Badge>
+                      )}
+                    </div>
+                    <div className='col'>
+                      {props.t('dateAdd')} {': '}
+                      {CreateUtil.createDate(notification.dateAdd)}
+                    </div>
                   </div>
-                )}
-              </div>
-              {notification.text != undefined ? (
-                <div className='row'>
-                  <div className='col'>
-                    {props.t('text')}
-                    {': '}
-                    {notification.text}
+                  <div className='row mb-1'>
+                    <div className='col'>
+                      {props.t('type')}
+                      {': '}
+                      {createNotificationType(notification.notificationType)}
+                    </div>
+                    {notification.notificationType == 1 ||
+                    notification.notificationType == 2 ? null : (
+                      <div className='col'>
+                        <Button
+                          name='logout'
+                          variant='light'
+                          size='sm'
+                          className='btn button rounded detail-notification-btn'
+                          onClick={() => navigateUser(notification)}
+                        >
+                          {props.t('look')}
+                        </Button>
+                      </div>
+                    )}
                   </div>
+                  {notification.text != undefined ? (
+                    <div className='row'>
+                      <div className='col'>
+                        {props.t('text')}
+                        {': '}
+                        {notification.text}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
-              ) : null}
-            </div>
+              );
+            }),
           );
-        }),
-      );
-    });
+        }
+      });
+    }
 
     return returnArray;
   };
 
-  useEffect(() => {
-    if (props.dateUpdate < Date.now()) {
-      props.setState((prev) => ({
-        ...prev,
-        refresh: true,
-      }));
-    }
-  }, []);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.state.page !== 0) {
       refetch();
     }
