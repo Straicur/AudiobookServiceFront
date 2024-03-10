@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useTranslation } from 'react-i18next';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
-import { useNotificationsListStore } from 'Store/store';
+import { NotificationsProvider } from 'Providers/Common/NotificationsProvider';
+import { useNewNotifications } from 'Providers/Common/NewNotificationsProvider';
 import UserNotificationOffCanvas from '../UserNotification/UserNotificationOffCanvas';
 import Badge from 'react-bootstrap/Badge';
 import './UserNavBar.css';
@@ -13,14 +14,11 @@ import './UserNavBar.css';
 export const UserNavBar = () => {
   const [state, setState] = useState({
     page: 0,
-    limit: 6,
-    maxPage: 0,
     notificationsOffCanvas: false,
-    refresh: false,
     error: null,
   });
 
-  const notificationsList = useRef([]);
+  const [newNotificationsData] = useNewNotifications();
 
   const { t, i18n } = useTranslation();
 
@@ -31,12 +29,6 @@ export const UserNavBar = () => {
   const roles = useTokenStore((state) => state.roles);
 
   const navigate = useNavigate();
-
-  const notificationsListStore = useNotificationsListStore();
-  const notifications = useNotificationsListStore((state) => state.notifications);
-  const newNotifications = useNotificationsListStore((state) => state.newNotifications);
-  const maxPage = useNotificationsListStore((state) => state.maxPage);
-  const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
   const logout = async () => {
     const url = '/logout';
@@ -49,42 +41,6 @@ export const UserNavBar = () => {
     });
   };
 
-  const fetchNotifications = () => {
-    for (let index = 0; index <= state.page; index++) {
-      HandleFetch(
-        '/notifications',
-        'POST',
-        {
-          page: index,
-          limit: state.limit,
-        },
-        token,
-        i18n.language,
-      )
-        .then((data) => {
-          setState((prev) => ({
-            ...prev,
-            page: data.page,
-            maxPage: data.maxPage,
-            refresh: false,
-          }));
-          data.systemNotifications.forEach((element) => {
-            let found = notificationsList.current.filter((x) => x.id == element.id).length > 0;
-            if (!found) {
-              notificationsList.current = [...notificationsList.current, element];
-            }
-          });
-
-          if (index == 0) {
-            notificationsListStore.addNotifications(data.systemNotifications);
-          }
-
-          notificationsListStore.setMaxPage(data.maxPage);
-        })
-        .catch(() => {});
-    }
-  };
-
   const openNotificationsList = () => {
     setState((prev) => ({
       ...prev,
@@ -92,23 +48,17 @@ export const UserNavBar = () => {
     }));
   };
 
-  useEffect(() => {
-    if (state.refresh) {
-      fetchNotifications();
-    }
-  }, [state.refresh]);
+  const getNewNotifications = () => {
+    if (newNotificationsData != null) {
+      return newNotificationsData.newNotifications;
+    } else return 0;
+  };
 
   useEffect(() => {
-    if (dateUpdate > Date.now()) {
-      notificationsList.current = notifications;
-      setState((prev) => ({
-        ...prev,
-        maxPage: maxPage,
-      }));
-    } else {
-      fetchNotifications();
+    if (token === '') {
+      navigate('/login');
     }
-  }, []);
+  }, [token]);
 
   return (
     <>
@@ -173,7 +123,7 @@ export const UserNavBar = () => {
             </div>
             <div className='col nav-col justify-content-end  align-items-center'>
               <h6>
-                <Badge bg='secondary'>{newNotifications}</Badge>
+                <Badge bg='secondary'>{getNewNotifications()}</Badge>
               </h6>
             </div>
           </div>
@@ -202,15 +152,15 @@ export const UserNavBar = () => {
                 </select>
               </div>
               {state.notificationsOffCanvas ? (
-                <UserNotificationOffCanvas
-                  state={state}
-                  setState={setState}
-                  dateUpdate={dateUpdate}
-                  notificationsList={notificationsList}
-                  t={t}
-                  token={token}
-                  i18n={i18n}
-                />
+                <NotificationsProvider token={token} page={state.page} i18n={i18n}>
+                  <UserNotificationOffCanvas
+                    state={state}
+                    setState={setState}
+                    t={t}
+                    token={token}
+                    i18n={i18n}
+                  />
+                </NotificationsProvider>
               ) : null}
             </div>
           </div>

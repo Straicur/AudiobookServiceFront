@@ -1,12 +1,15 @@
 import React from 'react';
-import { UserNavBar } from 'View/User/UserNavBar/UserNavBar';
+import UserNavBarPrividers from 'View/User/UserNavBar/UserNavBarPrividers';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { UserFooter } from 'View/User/Common/UserFooter';
+import { useTokenStore } from 'Store/store';
 import './UserHelp.css';
 
 export default function Help() {
   const { t } = useTranslation();
+
+  const token = useTokenStore((state) => state.token);
 
   return (
     <HelmetProvider>
@@ -16,7 +19,7 @@ export default function Help() {
 
       <div className='container-fluid main-container mt-3'>
         <div className='card position-relative p-3 bg-dark shadow'>
-          <UserNavBar />
+          <UserNavBarPrividers token={token} />
           <div className='row justify-content-center fs-2 fw-bold text-white mt-4'>
             {t('helpTitle')}
           </div>

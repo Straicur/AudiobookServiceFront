@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserNavBar } from 'View/User/UserNavBar/UserNavBar';
+import UserNavBarPrividers from 'View/User/UserNavBar/UserNavBarPrividers';
 import { useTokenStore } from 'Store/store';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -49,7 +49,7 @@ export default function Settings() {
 
         <div className='container-fluid main-container mt-3'>
           <div className='card position-relative p-3 bg-dark shadow'>
-            <UserNavBar />
+            <UserNavBarPrividers token={token} />
             <UserSettingsContainer
               state={state}
               setState={setState}
