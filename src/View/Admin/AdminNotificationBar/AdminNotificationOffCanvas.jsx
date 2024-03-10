@@ -1,10 +1,9 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { v4 as uuidv4 } from 'uuid';
 import Badge from 'react-bootstrap/Badge';
 import { useNavigate } from 'react-router-dom';
-import { HandleFetch } from 'Util/HandleFetch';
 import './AdminNotificationOffcanvas.css';
 import CreateUtil from 'Util/CreateUtil';
 import { useNotifications } from 'Providers/Common/NotificationsProvider';
@@ -13,14 +12,13 @@ import { useNotificationsListStore } from 'Store/store';
 export default function AdminNotificationOffCanvas(props) {
   const [show, setShow] = useState(true);
 
-  const trigerTable = useRef([]);
-
-  const [notificationsData, refetch] = useNotifications();
+  const [notificationsData, refetch, mutate] = useNotifications();
 
   const notificationsListStore = useNotificationsListStore();
   const notifications = useNotificationsListStore((state) => state.notifications);
   const maxPage = useNotificationsListStore((state) => state.maxPage);
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
+  const trigerTable = useNotificationsListStore((state) => state.trigerTable);
 
   const navigate = useNavigate();
 
@@ -57,12 +55,6 @@ export default function AdminNotificationOffCanvas(props) {
 
   const navigateUser = (notification) => {
     switch (notification.notificationType) {
-      case 1: {
-        break;
-      }
-      case 2: {
-        break;
-      }
       case 3: {
         navigate(`/main`);
         break;
@@ -84,22 +76,11 @@ export default function AdminNotificationOffCanvas(props) {
 
   const activateNotification = (notification) => {
     if (notification.active == undefined) {
-      let hasRole = trigerTable.current.filter((x) => x == notification.id);
-
+      let hasRole = trigerTable.filter((x) => x == notification.id);
+      //TODO to jest do testów i do tego jeszcze nwm czy nie update tego cache bo zostaje powiadomienie na nowe
       if (hasRole.length == 0) {
-        trigerTable.current = trigerTable.current.concat(notification.id);
-
-        HandleFetch(
-          '/notification/activate',
-          'PUT',
-          {
-            notificationId: notification.id,
-          },
-          props.token,
-          props.i18n.language,
-        );
-
-        refetch();
+        notificationsListStore.addTrigerTable(notification.id);
+        mutate(notification.id);
       }
     }
   };

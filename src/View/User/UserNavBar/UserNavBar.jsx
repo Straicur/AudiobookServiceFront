@@ -79,12 +79,9 @@ export const UserNavBar = () => {
             notificationsListStore.addNotifications(data.systemNotifications);
           }
 
-          notificationsListStore.setNewNotification(data.maxPage);
-          notificationsListStore.setNewNotification(data.newNotifications);
+          notificationsListStore.setMaxPage(data.maxPage);
         })
-        .catch(() => {
-          notificationsListStore.setNewNotification(0);
-        });
+        .catch(() => {});
     }
   };
 

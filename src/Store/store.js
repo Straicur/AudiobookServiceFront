@@ -95,6 +95,7 @@ let notificationsListStore = (set) => ({
   notifications: [],
   maxPage: 0,
   dateUpdate: [],
+  trigerTable: [],
   addNotifications: (page, notifications) => {
     set((state) => {
       const updatedDateUpdate = [...state.dateUpdate];
@@ -110,6 +111,16 @@ let notificationsListStore = (set) => ({
     set(() => ({
       maxPage: maxPage,
     }));
+  },
+  addTrigerTable: (notification) => {
+    set((state) => {
+      const addNotification = [...state.trigerTable];
+      addNotification.push(notification);
+
+      return {
+        trigerTable: addNotification,
+      };
+    });
   },
 });
 

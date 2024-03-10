@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNotificationsListStore } from 'Store/store';
@@ -8,24 +9,28 @@ const NotificationsContext = createContext(null);
 
 export const NotificationsProvider = ({ children, token, page, i18n }) => {
   const qc = useQueryClient();
-  // const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
+  const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
-  const notificationsListStore = useNotificationsListStore();
-  // const setAudiobookPart = (variables) => {
-  //   let copy = dataNotifications;
+  const { mutate } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/notification/activate',
+        'PUT',
+        {
+          notificationId: data,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: () => {
+      for (let i = 0; i <= page; i++) {
+        qc.invalidateQueries(['dataNotifications' + i]);
+      }
+    },
+  });
 
-  //   for (var key in variables) {
-  //     copy[key] = variables[key];
-  //   }
-
-  //   qc.setQueryData(['dataNotifications'], copy);
-  // };
-
-  const setRefetch = () => {
-    qc.invalidateQueries(['dataNotifications']);
-  };
-
-  const { data: dataNotifications = null } = useQuery({
+  const { data: dataNotifications = null, refetch } = useQuery({
     queryKey: ['dataNotifications' + page],
     queryFn: () => {
       return HandleFetch(
@@ -42,13 +47,10 @@ export const NotificationsProvider = ({ children, token, page, i18n }) => {
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    // enabled: dateUpdate[page] <= Date.now(),
-    onError: () => {
-      notificationsListStore.setNewNotification(0);
-    },
+    enabled: dateUpdate[page] == undefined || dateUpdate[page] <= Date.now(),
   });
 
-  const value = [dataNotifications, setRefetch];
+  const value = [dataNotifications, refetch, mutate];
 
   return <NotificationsContext.Provider value={value}>{children}</NotificationsContext.Provider>;
 };
