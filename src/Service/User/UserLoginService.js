@@ -2,6 +2,7 @@ import md5 from 'md5';
 import FormService from 'Service/Common/FormService';
 import { useTokenStore } from 'Store/store';
 import ValidateUtil from 'Util/ValidateUtil';
+import { HandleFetch } from 'Util/HandleFetch';
 
 export default class UserLoginService extends FormService {
   constructor(formState, setFormState, props, i18n) {
@@ -26,14 +27,24 @@ export default class UserLoginService extends FormService {
         validated: true,
       }));
 
-      this.fetchData.setToken(
+      HandleFetch(
+        '/authorize',
+        'POST',
         {
           email: this.props.state.email,
           password: md5(this.props.state.password),
         },
-        this.props.setState,
         this.i18n.language,
-      );
+      )
+        .then((data) => {
+          this.fetchData.setToken(data);
+        })
+        .catch((e) => {
+          this.props.setState((prev) => ({
+            ...prev,
+            error: e,
+          }));
+        });
     } else {
       this.props.setState((prev) => ({
         ...prev,

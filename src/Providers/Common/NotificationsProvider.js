@@ -25,6 +25,7 @@ export const NotificationsProvider = ({ children, token, page, i18n }) => {
     },
     onSuccess: () => {
       for (let i = 0; i <= page; i++) {
+        //TODO trzeba pomyśleć czy nie ma lepszego rozwiązania
         qc.invalidateQueries(['dataNotifications' + i]);
       }
     },

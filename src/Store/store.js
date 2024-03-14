@@ -1,24 +1,14 @@
 import create from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { HandleFetch } from 'Util/HandleFetch';
 
 let tokenStore = (set) => ({
   token: '',
   roles: [],
-  setToken: (jsonData, setState, language) => {
-    HandleFetch('/authorize', 'POST', jsonData, language)
-      .then((data) => {
-        set(() => ({
-          token: data.token,
-          roles: data.roles.authorizationRoleModels.map((role) => role.name),
-        }));
-      })
-      .catch((e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+  setToken: (data) => {
+    set(() => ({
+      token: data.token,
+      roles: data.roles.authorizationRoleModels.map((role) => role.name),
+    }));
   },
   removeToken: () =>
     set(() => ({
