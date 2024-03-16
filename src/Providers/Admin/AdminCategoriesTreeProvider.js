@@ -29,7 +29,7 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
       let copy = dataAdminCategoriesTree.categories;
       copy[ArrayUtil.findIndexById(copy, variables.id)].name = variables.newName;
 
-      qc.invalidateQueries(['dataAdminCategoriesTree'], { categories: copy });
+      qc.setQueryData(['dataAdminCategoriesTree'], { categories: copy });
     },
     onError: (e) => {
       setState((prev) => ({
@@ -59,7 +59,7 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
       let copy = dataAdminCategoriesTree.categories;
       copy[ArrayUtil.findIndexById(copy, variables.id)].active = variables.active;
 
-      qc.invalidateQueries(['dataAdminCategoriesTree'], { categories: copy });
+      qc.setQueryData(['dataAdminCategoriesTree'], { categories: copy });
     },
     onError: (e) => {
       setState((prev) => ({
