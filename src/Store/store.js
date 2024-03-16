@@ -20,9 +20,9 @@ let tokenStore = (set) => ({
 let categoryTreeListStore = (set) => ({
   categories: [],
   dateUpdate: 0,
-  addCategory: (category) => {
-    set((state) => ({
-      categories: [...state.categories, category],
+  addCategories: (categories) => {
+    set(() => ({
+      categories: categories,
       dateUpdate: Date.now() + 1800000,
     }));
   },

@@ -20,7 +20,7 @@ export default function AdminCategoriesList(props) {
     error: null,
   });
 
-  // const categoriesStore = useCategoryTreeListStore();
+  const categoriesStore = useCategoryTreeListStore();
 
   const categories = useCategoryTreeListStore((state) => state.categories);
   const dateUpdate = useCategoryTreeListStore((state) => state.dateUpdate);
@@ -29,57 +29,17 @@ export default function AdminCategoriesList(props) {
 
   const getCategories = () => {
     if (dateUpdate < Date.now()) {
-      //TODO tu teraz podmieniam dane kategorii w store
-      return categoriesData.categories;
+      categoriesStore.addCategories(categoriesData.categories);
+
+      if (categoriesData != null) {
+        return categoriesData.categories;
+      }
+
+      return categories;
     }
 
     return categories;
   };
-
-  // const fetchCategories = () => {
-  //   HandleFetch('/admin/categories/tree', 'GET', null, props.token, props.i18n.language)
-  //     .then((data) => {
-  //       setState((prev) => ({
-  //         ...prev,
-  //         json: data.categories,
-  //       }));
-
-  //       categoriesStore.removeCategories();
-
-  //       for (const category of data.categories) {
-  //         categoriesStore.addCategory(category);
-  //       }
-  //       if (state.refresh) {
-  //         setState((prev) => ({
-  //           ...prev,
-  //           refresh: !state.refresh,
-  //         }));
-  //       }
-  //     })
-  //     .catch((e) => {
-  //       props.setCategoiesState((prev) => ({
-  //         ...prev,
-  //         error: e,
-  //       }));
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   setState((prev) => ({
-  //     ...prev,
-  //     json: categories,
-  //   }));
-
-  //   if (dateUpdate < Date.now() || state.refresh) {
-  //     fetchCategories();
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (state.refresh) {
-  //     fetchCategories();
-  //   }
-  // }, [state.refresh]);
 
   useEffect(() => {
     if (props.categoiesState.error != null) {
