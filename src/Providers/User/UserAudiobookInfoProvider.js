@@ -46,6 +46,14 @@ export const UserAudiobookInfoProvider = ({
         watchingDate: null,
       });
     },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAudiobookUserInfo' + audiobookId]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
   });
 
   const { data: dataAudiobookUserInfo = null } = useQuery({

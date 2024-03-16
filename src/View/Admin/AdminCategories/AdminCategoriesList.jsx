@@ -21,24 +21,19 @@ export default function AdminCategoriesList(props) {
   });
 
   const categoriesStore = useCategoryTreeListStore();
-
-  const categories = useCategoryTreeListStore((state) => state.categories);
   const dateUpdate = useCategoryTreeListStore((state) => state.dateUpdate);
 
-  const [categoriesData] = useAdminCategoriesTree();
+  const [categoriesData, refetch, categoryChange, categoryActivate] = useAdminCategoriesTree();
 
   const getCategories = () => {
-    if (dateUpdate < Date.now()) {
-      categoriesStore.addCategories(categoriesData.categories);
-
-      if (categoriesData != null) {
-        return categoriesData.categories;
+    if (categoriesData != null) {
+      if (dateUpdate < Date.now()) {
+        categoriesStore.addCategories(categoriesData.categories);
       }
 
-      return categories;
+      return categoriesData.categories;
     }
-
-    return categories;
+    return null;
   };
 
   useEffect(() => {
@@ -97,12 +92,21 @@ export default function AdminCategoriesList(props) {
             </Button>
           </div>
           {state.jsonModal ? (
-            <AdminJsonModal state={state} setState={setState} t={props.t} />
+            <AdminJsonModal
+              state={state}
+              setState={setState}
+              json={categoriesData.categories}
+              t={props.t}
+            />
           ) : null}
           {state.editCategoryModal && state.editCategoryElement != null ? (
             <AdminCategoriesEditModal
               state={state}
               setState={setState}
+              refetch={refetch}
+              categoryChange={categoryChange}
+              categoryActivate={categoryActivate}
+              setCategoiesState={props.setCategoiesState}
               t={props.t}
               i18n={props.i18n}
               token={props.token}
@@ -112,6 +116,8 @@ export default function AdminCategoriesList(props) {
             <AdminCategoriesAddModal
               state={state}
               setState={setState}
+              refetch={refetch}
+              setCategoiesState={props.setCategoiesState}
               t={props.t}
               i18n={props.i18n}
               token={props.token}

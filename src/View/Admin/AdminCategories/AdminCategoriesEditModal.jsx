@@ -13,7 +13,7 @@ export default function AdminCategoriesEditModal(props) {
     error: 0,
   });
 
-  const adminService = new FormService(props.setSearchState);
+  const adminService = new FormService(setEditModal);
 
   const handleClose = () => {
     props.setState((prev) => ({
@@ -25,25 +25,21 @@ export default function AdminCategoriesEditModal(props) {
   };
 
   const editCategoryName = () => {
-    HandleFetch(
-      '/admin/category/edit',
-      'PATCH',
-      {
-        name: editModal.newName,
-        categoryId: props.state.editCategoryElement.id,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        handleClose();
-      })
-      .catch((e) => {
-        props.setCategoiesState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+    props.categoryChange({
+      newName: editModal.newName,
+      id: props.state.editCategoryElement.id,
+    });
+
+    handleClose();
+  };
+
+  const activateCategory = () => {
+    props.categoryActivate({
+      id: props.state.editCategoryElement.id,
+      active: !props.state.editCategoryElement.active,
+    });
+
+    handleClose();
   };
 
   const deleteCategory = () => {
@@ -57,6 +53,7 @@ export default function AdminCategoriesEditModal(props) {
       props.i18n.language,
     )
       .then(() => {
+        props.refetch();
         handleClose();
       })
       .catch((e) => {
@@ -64,27 +61,6 @@ export default function AdminCategoriesEditModal(props) {
           ...prev,
           error: e,
         }));
-      });
-  };
-  const activateCategory = () => {
-    HandleFetch(
-      '/admin/category/active',
-      'PATCH',
-      {
-        categoryId: props.state.editCategoryElement.id,
-        active: !props.state.editCategoryElement.active,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        handleClose();
-      })
-      .catch((e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
-          error: e,
-        });
       });
   };
 

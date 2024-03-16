@@ -152,6 +152,14 @@ export const UserAudiobookCommentsProvider = ({
 
       qc.setQueryData(['dataAudiobookUserComments' + audiobookId], { comments: copy });
     },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
   });
 
   const setRefetch = () => {

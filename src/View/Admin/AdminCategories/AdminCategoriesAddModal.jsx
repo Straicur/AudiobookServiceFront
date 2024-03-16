@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { HandleFetch } from 'Util/HandleFetch';
@@ -10,7 +10,7 @@ export default function AdminCategoriesAddModal(props) {
     isButtonDisabled: true,
   });
 
-  const adminService = new FormService(props.setSearchState);
+  const adminService = new FormService(setModalState);
 
   const handleClose = () => {
     props.setState((prev) => ({
@@ -21,7 +21,7 @@ export default function AdminCategoriesAddModal(props) {
     }));
   };
 
-  const addNewSet = () => {
+  const addNewCategory = () => {
     let additionalData = {};
 
     if (props.state.addCategoryParent != null) {
@@ -39,6 +39,7 @@ export default function AdminCategoriesAddModal(props) {
       props.i18n.language,
     )
       .then(() => {
+        props.refetch();
         handleClose();
       })
       .catch((e) => {
@@ -50,7 +51,7 @@ export default function AdminCategoriesAddModal(props) {
       });
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (modalState.name.trim()) {
       setModalState((prev) => ({
         ...prev,
@@ -92,7 +93,7 @@ export default function AdminCategoriesAddModal(props) {
         <Button variant='dark' onClick={handleClose}>
           {props.t('close')}
         </Button>
-        <Button disabled={modalState.isButtonDisabled} variant='dark' onClick={addNewSet}>
+        <Button disabled={modalState.isButtonDisabled} variant='dark' onClick={addNewCategory}>
           {props.t('add')}
         </Button>
       </Modal.Footer>
