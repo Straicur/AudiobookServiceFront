@@ -10,7 +10,8 @@ import AdminCategoryRenderAudiobooksList from './AdminCategoryRenderAudiobooksLi
 import AdminCategoryDetailProviders from './AdminCategoryDetailProviders';
 import AdminCategoryAudiobookCommentsModal from './AdminCategoryAudiobookCommentsModal';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
-
+// import { AdminCategoryDetailProfider } from 'Providers/Admin/AdminCategoryDetailProfider';
+// import { AdminCategoryAudiobooksProvider } from 'Providers/Admin/AdminCategoryAudiobooksProvider';
 export default function AdminCategoryAudiobooksList(props) {
   const { t, i18n } = useTranslation();
 
@@ -132,7 +133,10 @@ export default function AdminCategoryAudiobooksList(props) {
       throw props.audiobooksState.error;
     }
   }, [props.audiobooksState.error]);
-
+  // <AdminCategoryDetailProfider>
+  // <AdminCategoryAudiobooksProvider>
+  // </AdminCategoryAudiobooksProvider>
+  //     </AdminCategoryDetailProfider>
   return (
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 mb-5  shadow'>
