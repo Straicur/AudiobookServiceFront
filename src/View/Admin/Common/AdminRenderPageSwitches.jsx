@@ -8,10 +8,6 @@ export default function AdminRenderPageSwitches(props) {
         ...prev,
         page: props.pageState.page + 1,
       }));
-      props.setState((prev) => ({
-        ...prev,
-        refresh: !props.state.refresh,
-      }));
     }
   };
 
@@ -20,10 +16,6 @@ export default function AdminRenderPageSwitches(props) {
       props.setPageState((prev) => ({
         ...prev,
         page: props.pageState.page - 1,
-      }));
-      props.setState((prev) => ({
-        ...prev,
-        refresh: !props.state.refresh,
       }));
     }
   };

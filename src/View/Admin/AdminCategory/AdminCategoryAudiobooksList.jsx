@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
-import { useQuery } from '@tanstack/react-query';
-import { HandleFetch } from 'Util/HandleFetch';
-import { useTranslation } from 'react-i18next';
+
 import Button from 'react-bootstrap/Button';
 import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
 import AdminCategoryAudiobookAddModal from './AdminCategoryAudiobookAddModal';
@@ -10,11 +8,10 @@ import AdminCategoryRenderAudiobooksList from './AdminCategoryRenderAudiobooksLi
 import AdminCategoryDetailProviders from './AdminCategoryDetailProviders';
 import AdminCategoryAudiobookCommentsModal from './AdminCategoryAudiobookCommentsModal';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
-// import { AdminCategoryDetailProfider } from 'Providers/Admin/AdminCategoryDetailProfider';
-// import { AdminCategoryAudiobooksProvider } from 'Providers/Admin/AdminCategoryAudiobooksProvider';
-export default function AdminCategoryAudiobooksList(props) {
-  const { t, i18n } = useTranslation();
+import { useAdminCategoryDetail } from 'Providers/Admin/AdminCategoryDetailProfider';
+import { useAdminCategoryAudiobooks } from 'Providers/Admin/AdminCategoryAudiobooksProvider';
 
+export default function AdminCategoryAudiobooksList(props) {
   const [state, setState] = useState({
     jsonModal: false,
     json: null,
@@ -30,81 +27,28 @@ export default function AdminCategoryAudiobooksList(props) {
     refresh: false,
   });
 
-  const [pageState, setPageState] = useState({
-    page: 0,
-    limit: 15,
-    maxPage: 0,
-  });
+  const [categoryDetail] = useAdminCategoryDetail(); //refetchDetail
+  const [categoryAudiobooks, refetchAudiobooks] = useAdminCategoryAudiobooks();
 
-  const { refetch: refetchFirst } = useQuery({
-    queryKey: ['dataAdminCategoryAudiobooks' + props.categoryKey],
-    queryFn: () =>
-      HandleFetch(
-        '/admin/category/audiobooks',
-        'POST',
-        {
-          categoryKey: props.categoryKey,
-          page: pageState.page,
-          limit: pageState.limit,
-        },
-        props.token,
-        i18n.language,
-      ),
-    retry: 1,
-    retryDelay: 500,
-    refetchOnWindowFocus: false,
-    onError: (e) => {
-      props.setAudiobooksState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
-    onSuccess: (data) => {
-      setState((prev) => ({
-        ...prev,
-        json: data.audiobooks,
-      }));
-      setPageState((prev) => ({
-        ...prev,
-        maxPage: data.maxPage,
-      }));
-    },
-  });
+  // onSuccess: (data) => {
+  //   setState((prev) => ({
+  //     ...prev,
+  //     json: data.audiobooks,
+  //   }));
+  //   setPageState((prev) => ({
+  //     ...prev,
+  //     maxPage: data.maxPage,
+  //   }));
 
-  useQuery({
-    queryKey: ['dataAdminCategoryDetail'],
-    queryFn: () =>
-      HandleFetch(
-        '/admin/category/detail',
-        'POST',
-        {
-          categoryKey: props.categoryKey,
-        },
-        props.token,
-        i18n.language,
-      ),
-    retry: 1,
-    retryDelay: 500,
-    refetchOnWindowFocus: false,
-    onError: (e) => {
-      props.setAudiobooksState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
-    onSuccess: (dataSecond) => {
-      setState((prev) => ({
-        ...prev,
-        category: {
-          id: dataSecond.id,
-          name: dataSecond.name,
-          active: dataSecond.active,
-          parentCategoryName: dataSecond.parentCategoryName,
-          parentCategoryId: dataSecond.parentCategoryId,
-        },
-      }));
-    },
-  });
+  //   setState((prev) => ({
+  //     ...prev,
+  //     category: {
+  //       id: dataSecond.id,
+  //       name: dataSecond.name,
+  //       active: dataSecond.active,
+  //       parentCategoryName: dataSecond.parentCategoryName,
+  //       parentCategoryId: dataSecond.parentCategoryId,
+  //     },
 
   useEffect(() => {
     if (state.addAudiobook) {
@@ -113,30 +57,34 @@ export default function AdminCategoryAudiobooksList(props) {
         addAudiobook: !state.addAudiobook,
       }));
       setTimeout(function () {
-        refetchFirst();
+        refetchAudiobooks();
       }, state.addAudiobookSeconds);
     }
   }, [state.addAudiobook]);
 
   useEffect(() => {
-    if (state.refresh) {
-      setState((prev) => ({
-        ...prev,
-        refresh: !state.refresh,
-      }));
-      refetchFirst();
+    if (props.audiobooksState.page != 0) {
+      refetchAudiobooks();
     }
-  }, [state.refresh]);
+  }, [props.audiobooksState.page]);
 
+  // useEffect(() => {
+  //   if (state.refresh) {
+  //     setState((prev) => ({
+  //       ...prev,
+  //       refresh: !state.refresh,
+  //     }));
+  //     // refetchFirst();
+  //   }
+  // }, [state.refresh]);
+  console.log(categoryDetail);
+  console.log(categoryAudiobooks);
   useEffect(() => {
     if (props.audiobooksState.error != null) {
       throw props.audiobooksState.error;
     }
   }, [props.audiobooksState.error]);
-  // <AdminCategoryDetailProfider>
-  // <AdminCategoryAudiobooksProvider>
-  // </AdminCategoryAudiobooksProvider>
-  //     </AdminCategoryDetailProfider>
+
   return (
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 mb-5  shadow'>
@@ -149,16 +97,14 @@ export default function AdminCategoryAudiobooksList(props) {
             setState={setState}
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}
-            t={t}
-            i18n={i18n}
+            t={props.t}
+            i18n={props.i18n}
             token={props.token}
           />
-          {state.json != null && pageState.maxPage > 1 ? (
+          {state.json != null && props.audiobooksState.maxPage > 1 ? (
             <AdminRenderPageSwitches
-              state={state}
-              setState={setState}
-              pageState={pageState}
-              setPageState={setPageState}
+              pageState={props.audiobooksState}
+              setPageState={props.setAudiobooksState}
             />
           ) : null}
         </div>
@@ -176,7 +122,7 @@ export default function AdminCategoryAudiobooksList(props) {
                 }))
               }
             >
-              {t('addAudiobook')}
+              {props.t('addAudiobook')}
             </Button>
           </div>
           <div className='col-3 d-flex justify-content-center'>
@@ -187,7 +133,7 @@ export default function AdminCategoryAudiobooksList(props) {
               className=' btn button mt-2'
               onClick={() => setState({ ...state, jsonModal: !state.jsonModal })}
             >
-              {t('jsonData')}
+              {props.t('jsonData')}
             </Button>
           </div>
         </div>
@@ -195,8 +141,8 @@ export default function AdminCategoryAudiobooksList(props) {
           <AdminCategoryAudiobookAddModal
             state={state}
             setState={setState}
-            t={t}
-            i18n={i18n}
+            t={props.t}
+            i18n={props.i18n}
             token={props.token}
             categoryID={state.category.id}
             parentCategoryId={
@@ -210,8 +156,8 @@ export default function AdminCategoryAudiobooksList(props) {
           <AdminCategoryDetailProviders
             state={state}
             setState={setState}
-            t={t}
-            i18n={i18n}
+            t={props.t}
+            i18n={props.i18n}
             token={props.token}
             categoryKey={props.categoryKey}
             setAudiobooksState={props.setAudiobooksState}
@@ -222,14 +168,14 @@ export default function AdminCategoryAudiobooksList(props) {
           <AdminCategoryAudiobookCommentsModal
             state={state}
             setState={setState}
-            t={t}
-            i18n={i18n}
+            t={props.t}
+            i18n={props.i18n}
             token={props.token}
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}
           />
         ) : null}
-        {state.jsonModal ? <AdminJsonModal state={state} setState={setState} t={t} /> : null}
+        {state.jsonModal ? <AdminJsonModal state={state} setState={setState} t={props.t} /> : null}
       </div>
     </div>
   );

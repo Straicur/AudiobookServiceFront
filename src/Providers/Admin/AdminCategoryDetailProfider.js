@@ -44,4 +44,4 @@ export const AdminCategoryDetailProfider = ({ children, categoryKey, token, setS
   );
 };
 
-export const useAdminCategoriesTree = () => useContext(AdminCategoryDetailContext);
+export const useAdminCategoryDetail = () => useContext(AdminCategoryDetailContext);
