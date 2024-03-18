@@ -59,6 +59,16 @@ export default class AdminCategoryAudiobookAddService extends FormService {
     const reader = new FileReader();
     const fileName = this.stateModal.title + '_' + this.stateModal.author;
     const hashName = sha256(fileName).toString();
+    const token = this.props.token;
+    const language = this.props.i18n.language;
+    // const setAudiobooksState = setAudiobooksState;
+    let seconds;
+    let categoriesArray = [this.props.categoryDetail.id];
+
+    if (this.stateModal.categoryParent) {
+      categoriesArray.push(this.props.categoryDetail.parentCategoryId);
+    }
+
     //todo to jest do rozkminy bo przeszkadza
     // Nie wykonuje się po i nie mogę zmienić stanu
     this.setStateModal((prev) => ({
@@ -68,18 +78,13 @@ export default class AdminCategoryAudiobookAddService extends FormService {
     }));
 
     reader.onload = function (e) {
+      console.log(self.props);
       if (e.target.result instanceof ArrayBuffer) {
         let buf = new Uint8Array(e.target.result);
         let allparts = 0;
         let part = 1;
 
-        let categoriesArray = [this.props.categoryID];
-
-        if (this.stateModal.categoryParent) {
-          categoriesArray.push(this.props.parentCategoryId);
-        }
-
-        this.seconds.current = buf.length / 10000;
+        seconds = buf.length / 10000;
 
         if (buf.length < CHUNK_SIZE) {
           let b64 = Buffer.from(buf).toString('base64');
@@ -100,7 +105,7 @@ export default class AdminCategoryAudiobookAddService extends FormService {
           this.maxParts.current = part;
           this.currentPart.current = part;
 
-          HandleFetch(url, method, jsonData, this.props.token, this.props.i18n.language)
+          HandleFetch(url, method, jsonData, token, language)
             .then((data) => {
               if (
                 this.currentPart.current == this.maxParts.current ||
@@ -119,11 +124,11 @@ export default class AdminCategoryAudiobookAddService extends FormService {
               this.maxParts.current = part;
               this.currentPart.current = this.currentPart.current + 1;
             })
-            .catch((e) => {
-              this.props.setAudiobooksState((prev) => ({
-                ...prev,
-                error: e,
-              }));
+            .catch(() => {
+              // setAudiobooksState((prev) => ({
+              //   ...prev,
+              //   error: e,
+              // }));
             });
         } else {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
@@ -152,7 +157,7 @@ export default class AdminCategoryAudiobookAddService extends FormService {
               },
             };
 
-            HandleFetch(url, method, jsonData, this.props.token, this.props.i18n.language)
+            HandleFetch(url, method, jsonData, token, language)
               .then((data) => {
                 if (
                   this.currentPart.current == this.maxParts.current ||
@@ -169,11 +174,11 @@ export default class AdminCategoryAudiobookAddService extends FormService {
                 }
                 this.currentPart.current = this.currentPart.current + 1;
               })
-              .catch((e) => {
-                this.props.setAudiobooksState((prev) => ({
-                  ...prev,
-                  error: e,
-                }));
+              .catch(() => {
+                // setAudiobooksState((prev) => ({
+                //   ...prev,
+                //   error: e,
+                // }));
               });
 
             part = part + 1;
@@ -182,8 +187,10 @@ export default class AdminCategoryAudiobookAddService extends FormService {
         }
       }
     };
+
     if (this.stateModal.file != null) {
       reader.readAsArrayBuffer(this.stateModal.file);
+      this.seconds.current = seconds;
     }
   };
 }

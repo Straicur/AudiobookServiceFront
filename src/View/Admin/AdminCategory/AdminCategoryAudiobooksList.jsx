@@ -77,8 +77,7 @@ export default function AdminCategoryAudiobooksList(props) {
   //     // refetchFirst();
   //   }
   // }, [state.refresh]);
-  console.log(categoryDetail);
-  console.log(categoryAudiobooks);
+
   useEffect(() => {
     if (props.audiobooksState.error != null) {
       throw props.audiobooksState.error;
@@ -97,6 +96,7 @@ export default function AdminCategoryAudiobooksList(props) {
             setState={setState}
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}
+            categoryAudiobooks={categoryAudiobooks}
             t={props.t}
             i18n={props.i18n}
             token={props.token}
@@ -144,10 +144,7 @@ export default function AdminCategoryAudiobooksList(props) {
             t={props.t}
             i18n={props.i18n}
             token={props.token}
-            categoryID={state.category.id}
-            parentCategoryId={
-              state.category.parentCategoryId != null ? state.category.parentCategoryId : null
-            }
+            categoryDetail={categoryDetail}
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}
           />

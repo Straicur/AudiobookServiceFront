@@ -73,7 +73,7 @@ export default function AdminCategoryAudiobookAddModal(props) {
             className='form-control mt-2'
             onChange={(e) => adminService.handleChange(e)}
           />
-          {props.parentCategoryId != null ? (
+          {props.categoryDetail.parentCategoryId != null ? (
             <div className='mt-3'>
               <Form.Check
                 type='switch'

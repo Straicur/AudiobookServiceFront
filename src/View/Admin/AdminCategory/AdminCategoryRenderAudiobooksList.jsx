@@ -10,8 +10,8 @@ export default function AdminCategoryRenderAudiobooksList(props) {
   const createTable = () => {
     let renderArray = [];
 
-    if (props.state.json != null) {
-      props.state.json.forEach((element) => {
+    if (props.categoryAudiobooks != null) {
+      props.categoryAudiobooks.audiobooks.forEach((element) => {
         renderArray.push(createColumn(element));
       });
     }
