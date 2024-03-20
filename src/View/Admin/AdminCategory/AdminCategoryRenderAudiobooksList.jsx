@@ -1,7 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
-import { HandleFetch } from 'Util/HandleFetch';
 import { useNavigate } from 'react-router-dom';
 
 export default function AdminCategoryRenderAudiobooksList(props) {
@@ -22,47 +21,10 @@ export default function AdminCategoryRenderAudiobooksList(props) {
   const activeteAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add('disabled');
 
-    HandleFetch(
-      '/admin/audiobook/active',
-      'PATCH',
-      {
-        audiobookId: selectedAudiobook.id,
-        active: !selectedAudiobook.active,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        element.target.classList.remove('disabled');
-        let newJson = props.state.json.map((audiobook) => {
-          if (audiobook.id == selectedAudiobook.id) {
-            return {
-              id: audiobook.id,
-              title: audiobook.title,
-              author: audiobook.author,
-              year: audiobook.year,
-              duration: audiobook.duration,
-              size: audiobook.size,
-              parts: audiobook.parts,
-              age: audiobook.age,
-              active: !audiobook.active,
-            };
-          } else {
-            return audiobook;
-          }
-        });
-
-        props.setState((prev) => ({
-          ...prev,
-          json: newJson,
-        }));
-      })
-      .catch((e) => {
-        props.setAudiobooksState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+    props.activate({
+      element: element,
+      selectedAudiobook: selectedAudiobook,
+    });
   };
 
   const createColumn = (element) => {

@@ -28,27 +28,7 @@ export default function AdminCategoryAudiobooksList(props) {
   });
 
   const [categoryDetail] = useAdminCategoryDetail(); //refetchDetail
-  const [categoryAudiobooks, refetchAudiobooks] = useAdminCategoryAudiobooks();
-
-  // onSuccess: (data) => {
-  //   setState((prev) => ({
-  //     ...prev,
-  //     json: data.audiobooks,
-  //   }));
-  //   setPageState((prev) => ({
-  //     ...prev,
-  //     maxPage: data.maxPage,
-  //   }));
-
-  //   setState((prev) => ({
-  //     ...prev,
-  //     category: {
-  //       id: dataSecond.id,
-  //       name: dataSecond.name,
-  //       active: dataSecond.active,
-  //       parentCategoryName: dataSecond.parentCategoryName,
-  //       parentCategoryId: dataSecond.parentCategoryId,
-  //     },
+  const [categoryAudiobooks, refetchAudiobooks, activate] = useAdminCategoryAudiobooks();
 
   useEffect(() => {
     if (state.addAudiobook) {
@@ -97,6 +77,7 @@ export default function AdminCategoryAudiobooksList(props) {
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}
             categoryAudiobooks={categoryAudiobooks}
+            activate={activate}
             t={props.t}
             i18n={props.i18n}
             token={props.token}
@@ -172,7 +153,9 @@ export default function AdminCategoryAudiobooksList(props) {
             audiobooksState={props.audiobooksState}
           />
         ) : null}
-        {state.jsonModal ? <AdminJsonModal state={state} setState={setState} t={props.t} /> : null}
+        {state.jsonModal ? (
+          <AdminJsonModal state={state} setState={setState} json={categoryAudiobooks} t={props.t} />
+        ) : null}
       </div>
     </div>
   );
