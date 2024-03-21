@@ -1,14 +1,18 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
+import { useQueryClient } from '@tanstack/react-query';
 
 const AudiobookCoverContext = createContext(null);
 
 export const AudiobookCoverDataProvider = ({ children, token, audiobookId, setState, i18n }) => {
-  const [audiobookCover, setAudiobookCover] = useState(null);
-  const [refetchState, setRefetchState] = useState(false);
+  const qc = useQueryClient();
 
-  const { refetch: refetchAudiobookCover } = useQuery({
+  const setRefetch = () => {
+    qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
+  };
+
+  const { data: dataAudiobookCover } = useQuery({
     queryKey: ['dataAudiobookCover' + audiobookId],
     queryFn: () =>
       HandleFetch(
@@ -29,21 +33,9 @@ export const AudiobookCoverDataProvider = ({ children, token, audiobookId, setSt
         error: e,
       }));
     },
-    onSuccess: (data) => {
-      if (data.audiobookCoversModels != undefined) {
-        setAudiobookCover(data.audiobookCoversModels[0]);
-      }
-    },
   });
 
-  useEffect(() => {
-    if (refetchState) {
-      refetchAudiobookCover();
-      setRefetchState(!refetchState);
-    }
-  }, [refetchState]);
-
-  const value = [audiobookCover, setAudiobookCover, setRefetchState];
+  const value = [dataAudiobookCover, setRefetch];
 
   return <AudiobookCoverContext.Provider value={value}>{children}</AudiobookCoverContext.Provider>;
 };

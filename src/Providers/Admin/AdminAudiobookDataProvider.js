@@ -1,15 +1,48 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
-import CreateUtil from 'Util/CreateUtil';
+import { useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 const AdminAudiobookDataContext = createContext(null);
 
 export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setState, i18n }) => {
-  const [audiobookDetail, setAudiobookDetail] = useState(null);
-  const [refetchState, setRefetchState] = useState(false);
+  const qc = useQueryClient();
 
-  const { refetch: refetchAudiobookData } = useQuery({
+  const { mutate: audiobookDataChange } = useMutation({
+    mutationFn: (data) => {
+      return HandleFetch(
+        '/admin/category/edit',
+        'PATCH',
+        {
+          name: data.newName,
+          categoryId: data.id,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    // onSuccess: (data, variables) => {
+    // data = [];
+
+    // let copy = dataAdminCategoriesTree.categories;
+    // copy[ArrayUtil.findIndexById(copy, variables.id)].name = variables.newName;
+
+    // qc.setQueryData(['dataAdminCategoriesTree'], { categories: copy });
+    // },
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
+  const setRefetch = () => {
+    qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
+  };
+
+  const { data: dataAudiobookAdminData } = useQuery({
     queryKey: ['dataAudiobookAdminData' + audiobookId],
     queryFn: () =>
       HandleFetch(
@@ -30,36 +63,9 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
         error: e,
       }));
     },
-    onSuccess: (data) => {
-      setAudiobookDetail({
-        active: data.active,
-        age: data.age,
-        album: data.album,
-        author: data.author,
-        avgRating: data.avgRating,
-        categories: data.categories,
-        description: data.description,
-        duration: CreateUtil.createTime(data.duration),
-        encoded: data.encoded,
-        id: data.id,
-        parts: data.parts,
-        size: data.size,
-        title: data.title,
-        version: data.version,
-        year: CreateUtil.createDate(data.year),
-        ratingAmount: data.ratingAmount,
-      });
-    },
   });
 
-  useEffect(() => {
-    if (refetchState) {
-      refetchAudiobookData();
-      setRefetchState(!refetchState);
-    }
-  }, [refetchState]);
-
-  const value = [audiobookDetail, setAudiobookDetail, setRefetchState];
+  const value = [dataAudiobookAdminData, setRefetch, audiobookDataChange];
 
   return (
     <AdminAudiobookDataContext.Provider value={value}>

@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Alert from 'react-bootstrap/Alert';
 import AdminCategoryEditService from 'Service/Admin/AdminCategoryEditService';
+import CreateUtil from 'Util/CreateUtil';
 
 export default function AdminCategoryEditForm(props) {
   const [wrongState, setWrongState] = useState(0);
@@ -69,7 +70,9 @@ export default function AdminCategoryEditForm(props) {
           <Form.Control
             type='date'
             name='year'
-            value={props.audiobookDetail != null ? props.audiobookDetail.year : ''}
+            value={
+              props.audiobookDetail != null ? CreateUtil.createDate(props.audiobookDetail.year) : ''
+            }
             onChange={(event) => {
               adminService.handleChange(event);
             }}
@@ -98,7 +101,11 @@ export default function AdminCategoryEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             name='duration'
-            value={props.audiobookDetail != null ? props.audiobookDetail.duration : ''}
+            value={
+              props.audiobookDetail != null
+                ? CreateUtil.createTime(props.audiobookDetail.duration)
+                : ''
+            }
             onChange={(event) => {
               adminService.handleChange(event);
             }}
