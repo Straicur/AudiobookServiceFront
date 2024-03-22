@@ -16,7 +16,7 @@ export const AdminCategoryAudiobooksProvider = ({
 }) => {
   const qc = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate: activate } = useMutation({
     mutationFn: (data) => {
       HandleFetch(
         '/admin/audiobook/active',
@@ -27,15 +27,11 @@ export const AdminCategoryAudiobooksProvider = ({
         },
         token,
         i18n.language,
-      ).catch((e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+      );
     },
     onSuccess: (data, variables) => {
       data = [];
+
       variables.element.target.classList.remove('disabled');
 
       let copy = dataAdminCategoryAudiobooks.audiobooks.map((audiobook) => {
@@ -62,6 +58,87 @@ export const AdminCategoryAudiobooksProvider = ({
         maxPage: dataAdminCategoryAudiobooks.maxPage,
         audiobooks: copy,
       });
+    },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAdminCategoryAudiobooks' + categoryKey]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
+  const { mutate: deleteAudiobookFromCategory } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/admin/category/remove/audiobook',
+        'DELETE',
+        {
+          categoryId: data.categoryId,
+          audiobookId: data.audiobookId,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+
+      let copy = dataAdminCategoryAudiobooks.audiobooks.map((audiobook) => {
+        if (audiobook.id != variables.audiobookId) {
+          return audiobook;
+        }
+      });
+
+      qc.setQueryData(['dataAdminCategoryAudiobooks' + categoryKey], {
+        page: dataAdminCategoryAudiobooks.page,
+        limit: dataAdminCategoryAudiobooks.limit,
+        maxPage: dataAdminCategoryAudiobooks.maxPage,
+        audiobooks: copy,
+      });
+
+      qc.invalidateQueries(['dataAdminCategoriesTree']);
+    },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAdminCategoryAudiobooks' + categoryKey]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
+  const { mutate: deleteAudiobook } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/admin/audiobook/delete',
+        'DELETE',
+        {
+          audiobookId: data.audiobookId,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+
+      let copy = dataAdminCategoryAudiobooks.audiobooks.map((audiobook) => {
+        if (audiobook.id != variables.audiobookId) {
+          return audiobook;
+        }
+      });
+
+      qc.setQueryData(['dataAdminCategoryAudiobooks' + categoryKey], {
+        page: dataAdminCategoryAudiobooks.page,
+        limit: dataAdminCategoryAudiobooks.limit,
+        maxPage: dataAdminCategoryAudiobooks.maxPage,
+        audiobooks: copy,
+      });
+
+      qc.invalidateQueries(['dataAdminCategoriesTree']);
     },
     onError: (e) => {
       qc.invalidateQueries(['dataAdminCategoryAudiobooks' + categoryKey]);
@@ -102,7 +179,13 @@ export const AdminCategoryAudiobooksProvider = ({
     },
   });
 
-  const value = [dataAdminCategoryAudiobooks, setRefetch, mutate];
+  const value = [
+    dataAdminCategoryAudiobooks,
+    setRefetch,
+    activate,
+    deleteAudiobook,
+    deleteAudiobookFromCategory,
+  ];
 
   return (
     <AdminCategoryAudiobooksContext.Provider value={value}>

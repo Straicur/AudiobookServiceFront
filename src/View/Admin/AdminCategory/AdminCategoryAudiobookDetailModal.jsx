@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import AdminAudiobookPlayer from '../Common/AdminAudiobookPlayer';
-import { HandleFetch } from 'Util/HandleFetch';
 import 'react-h5-audio-player/lib/styles.css';
 import { useAdminAudiobookData } from 'Providers/Admin/AdminAudiobookDataProvider';
 import { useAudiobookCover } from 'Providers/Common/AudiobookCoverDataProvider';
@@ -41,48 +40,20 @@ export default function AdminCategoryAudiobookDetailModal(props) {
   };
 
   const deleteAudiobookEntarly = () => {
-    HandleFetch(
-      '/admin/audiobook/delete',
-      'DELETE',
-      {
-        audiobookId: audiobookDetail.id,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        handleClose();
-      })
-      .catch((e) => {
-        props.setAudiobooksState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-        handleClose();
-      });
+    props.deleteAudiobook({
+      audiobookId: audiobookDetail.id,
+    });
+
+    handleClose();
   };
 
   const deleteAudiobookFromCategory = () => {
-    HandleFetch(
-      '/admin/category/remove/audiobook',
-      'DELETE',
-      {
-        categoryId: props.state.category.id,
-        audiobookId: audiobookDetail.id,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        handleClose();
-      })
-      .catch((e) => {
-        props.setAudiobooksState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-        handleClose();
-      });
+    props.deleteAudiobookFromCategory({
+      categoryId: props.categoryDetail.id,
+      audiobookId: audiobookDetail.id,
+    });
+
+    handleClose();
   };
 
   const renderStars = () => {

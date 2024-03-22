@@ -33,6 +33,9 @@ export default function AdminCategoryDetailProviders(props) {
             setState={props.setState}
             t={props.t}
             token={props.token}
+            deleteAudiobook={props.deleteAudiobook}
+            categoryDetail={props.categoryDetail}
+            deleteAudiobookFromCategory={props.deleteAudiobookFromCategory}
             categoryKey={props.categoryKey}
             audiobooksState={props.audiobooksState}
             setAudiobooksState={props.setAudiobooksState}

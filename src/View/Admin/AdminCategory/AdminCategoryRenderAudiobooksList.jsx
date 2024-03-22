@@ -11,7 +11,9 @@ export default function AdminCategoryRenderAudiobooksList(props) {
 
     if (props.categoryAudiobooks != null) {
       props.categoryAudiobooks.audiobooks.forEach((element) => {
-        renderArray.push(createColumn(element));
+        if (element !== undefined && element !== null) {
+          renderArray.push(createColumn(element));
+        }
       });
     }
 

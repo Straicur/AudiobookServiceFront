@@ -41,7 +41,6 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
 
   const { mutate: categoryActivate } = useMutation({
     mutationFn: (data) => {
-      console.log(data);
       return HandleFetch(
         '/admin/category/active',
         'PATCH',

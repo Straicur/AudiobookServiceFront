@@ -27,8 +27,14 @@ export default function AdminCategoryAudiobooksList(props) {
     refresh: false,
   });
 
-  const [categoryDetail] = useAdminCategoryDetail(); //refetchDetail
-  const [categoryAudiobooks, refetchAudiobooks, activate] = useAdminCategoryAudiobooks();
+  const [categoryDetail] = useAdminCategoryDetail();
+  const [
+    categoryAudiobooks,
+    refetchAudiobooks,
+    activate,
+    deleteAudiobook,
+    deleteAudiobookFromCategory,
+  ] = useAdminCategoryAudiobooks();
 
   useEffect(() => {
     if (state.addAudiobook) {
@@ -137,6 +143,9 @@ export default function AdminCategoryAudiobooksList(props) {
             t={props.t}
             i18n={props.i18n}
             token={props.token}
+            deleteAudiobook={deleteAudiobook}
+            deleteAudiobookFromCategory={deleteAudiobookFromCategory}
+            categoryDetail={categoryDetail}
             categoryKey={props.categoryKey}
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}
