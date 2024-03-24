@@ -62,7 +62,6 @@ export default class AdminCategoryAudiobookAddService extends FormService {
     const token = this.props.token;
     const language = this.props.i18n.language;
     // const setAudiobooksState = setAudiobooksState;
-    let seconds;
     let categoriesArray = [this.props.categoryDetail.id];
 
     if (this.stateModal.categoryParent) {
@@ -78,13 +77,12 @@ export default class AdminCategoryAudiobookAddService extends FormService {
     }));
 
     reader.onload = function (e) {
-      console.log(self.props);
       if (e.target.result instanceof ArrayBuffer) {
         let buf = new Uint8Array(e.target.result);
         let allparts = 0;
         let part = 1;
 
-        seconds = buf.length / 10000;
+        this.seconds.current = buf.length / 10000;
 
         if (buf.length < CHUNK_SIZE) {
           let b64 = Buffer.from(buf).toString('base64');
@@ -186,11 +184,9 @@ export default class AdminCategoryAudiobookAddService extends FormService {
           }
         }
       }
-    };
-
+    }.bind(this);
     if (this.stateModal.file != null) {
       reader.readAsArrayBuffer(this.stateModal.file);
-      this.seconds.current = seconds;
     }
   };
 }

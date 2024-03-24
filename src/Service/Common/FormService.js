@@ -12,6 +12,30 @@ export default class FormService {
     }
   }
 
+  handleProviderChange(event) {
+    if (event.target.value != undefined) {
+      this.setState({
+        [event.target.name]: event.target.value,
+      });
+    }
+  }
+
+  handleProviderChangeInt(event) {
+    if (event.target.value != undefined) {
+      this.setState({
+        [event.target.name]: parseInt(event.target.value),
+      });
+    }
+  }
+
+  handleProviderChangeDropDown(eventKey, name) {
+    if (eventKey != undefined) {
+      this.setState({
+        [name]: parseInt(eventKey),
+      });
+    }
+  }
+
   handleChangeInt(event) {
     if (event.target.value != undefined) {
       this.setState((prev) => ({

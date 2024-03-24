@@ -84,6 +84,8 @@ export default class AdminAudiobookReAddingService extends FormService {
     const reader = new FileReader();
     const fileName = this.stateModal.title + '_' + this.stateModal.author;
     const hashName = sha256(fileName).toString();
+    const token = this.props.token;
+    const language = this.props.i18n.language;
     //todo to jest do rozkminy bo przeszkadza
     // Nie wykonuje się po i nie mogę zmienić stanu
     this.setStateModal((prev) => ({
@@ -123,7 +125,7 @@ export default class AdminAudiobookReAddingService extends FormService {
             currentPart: part,
           }));
 
-          HandleFetch(url, method, jsonData, this.props.token, this.props.i18n.language)
+          HandleFetch(url, method, jsonData, token, language)
             .then((data) => {
               if (
                 this.stateProgress.currentPart == this.stateProgress.maxParts ||
@@ -179,7 +181,7 @@ export default class AdminAudiobookReAddingService extends FormService {
               },
             };
 
-            HandleFetch(url, method, jsonData, this.props.token, this.props.i18n.language)
+            HandleFetch(url, method, jsonData, token, language)
               .then((data) => {
                 if (
                   this.stateProgress.currentPart == this.stateProgress.maxParts ||
@@ -210,7 +212,8 @@ export default class AdminAudiobookReAddingService extends FormService {
           }
         }
       }
-    };
+    }.bind(this);
+
     if (this.stateModal.file != null) {
       reader.readAsArrayBuffer(this.stateModal.file);
     }

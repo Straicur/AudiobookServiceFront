@@ -3,33 +3,66 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
-
+import CreateUtil from 'Util/CreateUtil';
 const AdminAudiobookDataContext = createContext(null);
 
 export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setState, i18n }) => {
   const qc = useQueryClient();
 
+  const { mutate: audiobookDataEdit } = useMutation({
+    mutationFn: () => {
+      let json = {
+        audiobookId: dataAudiobookAdminData.id,
+        title: dataAudiobookAdminData.title,
+        author: dataAudiobookAdminData.author,
+        version: dataAudiobookAdminData.version,
+        album: dataAudiobookAdminData.album,
+        year: CreateUtil.createJsonFormatDate(dataAudiobookAdminData.year),
+        duration: dataAudiobookAdminData.duration,
+        size: dataAudiobookAdminData.size,
+        parts: dataAudiobookAdminData.parts,
+        description: dataAudiobookAdminData.description,
+        age: dataAudiobookAdminData.age,
+        encoded: dataAudiobookAdminData.encoded,
+      };
+
+      HandleFetch('/admin/audiobook/edit', 'PATCH', json, token, i18n.language);
+    },
+    onSuccess: () => {
+      qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
+    },
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
   const { mutate: audiobookDataChange } = useMutation({
     mutationFn: (data) => {
-      return HandleFetch(
-        '/admin/category/edit',
-        'PATCH',
-        {
-          name: data.newName,
-          categoryId: data.id,
-        },
-        token,
-        i18n.language,
-      );
+      let json = {
+        id: dataAudiobookAdminData.id,
+        title: dataAudiobookAdminData.title,
+        author: dataAudiobookAdminData.author,
+        version: dataAudiobookAdminData.version,
+        album: dataAudiobookAdminData.album,
+        year: dataAudiobookAdminData.year,
+        duration: dataAudiobookAdminData.duration,
+        size: dataAudiobookAdminData.size,
+        parts: dataAudiobookAdminData.parts,
+        description: dataAudiobookAdminData.description,
+        age: dataAudiobookAdminData.age,
+        encoded: dataAudiobookAdminData.encoded,
+        categories: dataAudiobookAdminData.categories,
+        active: dataAudiobookAdminData.active,
+        avgRating: dataAudiobookAdminData.avgRating,
+        ratingAmount: dataAudiobookAdminData.ratingAmount,
+      };
+
+      const copy = Object.assign(json, data);
+      qc.setQueryData(['dataAudiobookAdminData' + audiobookId], copy);
     },
-    // onSuccess: (data, variables) => {
-    // data = [];
-
-    // let copy = dataAdminCategoriesTree.categories;
-    // copy[ArrayUtil.findIndexById(copy, variables.id)].name = variables.newName;
-
-    // qc.setQueryData(['dataAdminCategoriesTree'], { categories: copy });
-    // },
     onError: (e) => {
       setState((prev) => ({
         ...prev,
@@ -65,7 +98,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
     },
   });
 
-  const value = [dataAudiobookAdminData, setRefetch, audiobookDataChange];
+  const value = [dataAudiobookAdminData, setRefetch, audiobookDataChange, audiobookDataEdit];
 
   return (
     <AdminAudiobookDataContext.Provider value={value}>

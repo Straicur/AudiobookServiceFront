@@ -21,7 +21,8 @@ export default function AdminCategoryAudiobookDetailModal(props) {
     deleteEntarly: false,
   });
 
-  const [audiobookDetail, setAudiobookDetailRefetch, setAudiobookDetail] = useAdminAudiobookData();
+  const [audiobookDetail, setAudiobookDetailRefetch, setAudiobookDetail, audiobookDataEdit] =
+    useAdminAudiobookData();
   const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart] = useAudiobookPart();
 
@@ -149,6 +150,7 @@ export default function AdminCategoryAudiobookDetailModal(props) {
             <AdminCategoryEditForm
               audiobookDetail={audiobookDetail}
               setAudiobookDetail={setAudiobookDetail}
+              audiobookDataEdit={audiobookDataEdit}
               stateModal={stateModal}
               setStateModal={setStateModal}
               setAudiobookDetailRefetch={setAudiobookDetailRefetch}

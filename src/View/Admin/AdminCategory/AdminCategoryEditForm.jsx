@@ -29,7 +29,7 @@ export default function AdminCategoryEditForm(props) {
             name='title'
             value={props.audiobookDetail != null ? props.audiobookDetail.title : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -43,7 +43,7 @@ export default function AdminCategoryEditForm(props) {
             name='author'
             value={props.audiobookDetail != null ? props.audiobookDetail.author : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -57,7 +57,7 @@ export default function AdminCategoryEditForm(props) {
             name='album'
             value={props.audiobookDetail != null ? props.audiobookDetail.album : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -74,7 +74,7 @@ export default function AdminCategoryEditForm(props) {
               props.audiobookDetail != null ? CreateUtil.createDate(props.audiobookDetail.year) : ''
             }
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -89,7 +89,7 @@ export default function AdminCategoryEditForm(props) {
             name='parts'
             value={props.audiobookDetail != null ? props.audiobookDetail.parts : ''}
             onChange={(event) => {
-              adminService.handlePartsChange(event);
+              adminService.handleProviderChangeInt(event);
             }}
           />
         </InputGroup>
@@ -107,7 +107,7 @@ export default function AdminCategoryEditForm(props) {
                 : ''
             }
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -123,7 +123,7 @@ export default function AdminCategoryEditForm(props) {
             rows={4}
             value={props.audiobookDetail != null ? props.audiobookDetail.description : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -143,7 +143,7 @@ export default function AdminCategoryEditForm(props) {
                 : ''
             }
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -157,7 +157,7 @@ export default function AdminCategoryEditForm(props) {
             name='size'
             value={props.audiobookDetail != null ? props.audiobookDetail.size : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -171,14 +171,16 @@ export default function AdminCategoryEditForm(props) {
             name='version'
             value={props.audiobookDetail != null ? props.audiobookDetail.version : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
       </div>
       <div className='row text-light pe-0 input_modal'>
         <InputGroup className='mb-1'>
-          <Dropdown name='age' onSelect={(event) => adminService.handleChangeInt(event)}>
+          <Dropdown
+            onSelect={(eventKey) => adminService.handleProviderChangeDropDown(eventKey, 'age')}
+          >
             <Dropdown.Toggle className=' text-start' variant='success' id='dropdown-basic'>
               {props.t('age')}
             </Dropdown.Toggle>
@@ -247,7 +249,13 @@ export default function AdminCategoryEditForm(props) {
               size='sm'
               disabled={wrongState != 0}
               className='btn button px-4 my-1 question_button success_button'
-              onClick={adminService.editAudiobookData}
+              onClick={() => {
+                props.setStateModal((prev) => ({
+                  ...prev,
+                  edit: !props.stateModal.edit,
+                }));
+                props.audiobookDataEdit();
+              }}
             >
               {props.t('yes')}
             </Button>

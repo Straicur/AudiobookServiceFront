@@ -194,7 +194,8 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
           }
         }
       }
-    };
+    }.bind(this);
+
     if (this.stateModal.file != null) {
       reader.readAsArrayBuffer(this.stateModal.file);
     }

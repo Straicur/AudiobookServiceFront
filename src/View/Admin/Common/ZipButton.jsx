@@ -20,7 +20,7 @@ export default function ZipButton(props) {
 
         link.href = url;
 
-        link.setAttribute('download', 'YourAudiobook.zip');
+        link.setAttribute('download', props.audiobookDetail.title + '.zip');
 
         document.body.appendChild(link);
 

@@ -42,6 +42,7 @@ export default function AdminCategoryAudiobooksList(props) {
         ...prev,
         addAudiobook: !state.addAudiobook,
       }));
+
       setTimeout(function () {
         refetchAudiobooks();
       }, state.addAudiobookSeconds);
