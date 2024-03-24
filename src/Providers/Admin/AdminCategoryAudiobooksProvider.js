@@ -151,7 +151,8 @@ export const AdminCategoryAudiobooksProvider = ({
   });
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
+    qc.invalidateQueries(['dataAdminCategoriesTree']);
+    qc.invalidateQueries(['dataAdminCategoryAudiobooks']);
   };
 
   const { data: dataAdminCategoryAudiobooks = null } = useQuery({
