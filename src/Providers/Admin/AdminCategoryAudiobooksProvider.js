@@ -52,7 +52,7 @@ export const AdminCategoryAudiobooksProvider = ({
         }
       });
 
-      qc.setQueryData(['dataAdminCategoryAudiobooks' + categoryKey], {
+      qc.setQueryData(['dataAdminCategoryAudiobooks' + page + categoryKey], {
         page: dataAdminCategoryAudiobooks.page,
         limit: dataAdminCategoryAudiobooks.limit,
         maxPage: dataAdminCategoryAudiobooks.maxPage,
@@ -60,7 +60,7 @@ export const AdminCategoryAudiobooksProvider = ({
       });
     },
     onError: (e) => {
-      qc.invalidateQueries(['dataAdminCategoryAudiobooks' + categoryKey]);
+      qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
 
       setState((prev) => ({
         ...prev,
@@ -91,7 +91,7 @@ export const AdminCategoryAudiobooksProvider = ({
         }
       });
 
-      qc.setQueryData(['dataAdminCategoryAudiobooks' + categoryKey], {
+      qc.setQueryData(['dataAdminCategoryAudiobooks' + page + categoryKey], {
         page: dataAdminCategoryAudiobooks.page,
         limit: dataAdminCategoryAudiobooks.limit,
         maxPage: dataAdminCategoryAudiobooks.maxPage,
@@ -101,7 +101,7 @@ export const AdminCategoryAudiobooksProvider = ({
       qc.invalidateQueries(['dataAdminCategoriesTree']);
     },
     onError: (e) => {
-      qc.invalidateQueries(['dataAdminCategoryAudiobooks' + categoryKey]);
+      qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
 
       setState((prev) => ({
         ...prev,
@@ -131,7 +131,7 @@ export const AdminCategoryAudiobooksProvider = ({
         }
       });
 
-      qc.setQueryData(['dataAdminCategoryAudiobooks' + categoryKey], {
+      qc.setQueryData(['dataAdminCategoryAudiobooks' + page + categoryKey], {
         page: dataAdminCategoryAudiobooks.page,
         limit: dataAdminCategoryAudiobooks.limit,
         maxPage: dataAdminCategoryAudiobooks.maxPage,
@@ -141,7 +141,7 @@ export const AdminCategoryAudiobooksProvider = ({
       qc.invalidateQueries(['dataAdminCategoriesTree']);
     },
     onError: (e) => {
-      qc.invalidateQueries(['dataAdminCategoryAudiobooks' + categoryKey]);
+      qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
 
       setState((prev) => ({
         ...prev,
@@ -151,11 +151,11 @@ export const AdminCategoryAudiobooksProvider = ({
   });
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAdminCategoryAudiobooks' + categoryKey]);
+    qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
   };
 
   const { data: dataAdminCategoryAudiobooks = null } = useQuery({
-    queryKey: ['dataAdminCategoryAudiobooks' + categoryKey],
+    queryKey: ['dataAdminCategoryAudiobooks' + page + categoryKey],
     queryFn: () =>
       HandleFetch(
         '/admin/category/audiobooks',

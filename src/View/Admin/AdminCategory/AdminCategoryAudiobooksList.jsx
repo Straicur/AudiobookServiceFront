@@ -50,22 +50,6 @@ export default function AdminCategoryAudiobooksList(props) {
   }, [state.addAudiobook]);
 
   useEffect(() => {
-    if (props.audiobooksState.page != 0) {
-      refetchAudiobooks();
-    }
-  }, [props.audiobooksState.page]);
-
-  // useEffect(() => {
-  //   if (state.refresh) {
-  //     setState((prev) => ({
-  //       ...prev,
-  //       refresh: !state.refresh,
-  //     }));
-  //     // refetchFirst();
-  //   }
-  // }, [state.refresh]);
-
-  useEffect(() => {
     if (props.audiobooksState.error != null) {
       throw props.audiobooksState.error;
     }
@@ -89,9 +73,10 @@ export default function AdminCategoryAudiobooksList(props) {
             i18n={props.i18n}
             token={props.token}
           />
-          {state.json != null && props.audiobooksState.maxPage > 1 ? (
+          {categoryAudiobooks != undefined && categoryAudiobooks.maxPage > 1 ? (
             <AdminRenderPageSwitches
-              pageState={props.audiobooksState}
+              page={props.audiobooksState.page}
+              maxPage={categoryAudiobooks.maxPage}
               setPageState={props.setAudiobooksState}
             />
           ) : null}
