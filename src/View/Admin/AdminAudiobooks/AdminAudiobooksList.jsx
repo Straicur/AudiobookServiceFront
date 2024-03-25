@@ -180,7 +180,9 @@ export default function AdminAudiobooksList(props) {
             setAudiobooksState={props.setAudiobooksState}
           />
         ) : null}
-        {state.jsonModal ? <AdminJsonModal state={state} setState={setState} t={t} /> : null}
+        {audiobooks !== null ? (
+          <AdminJsonModal state={state} setState={setState} json={audiobooks} t={t} />
+        ) : null}
       </div>
     </div>
   );

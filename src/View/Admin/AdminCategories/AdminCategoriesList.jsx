@@ -93,12 +93,7 @@ export default function AdminCategoriesList(props) {
             </Button>
           </div>
           {state.jsonModal ? (
-            <AdminJsonModal
-              state={state}
-              setState={setState}
-              json={categoriesData.categories}
-              t={props.t}
-            />
+            <AdminJsonModal state={state} setState={setState} json={categoriesData} t={props.t} />
           ) : null}
           {state.editCategoryModal && state.editCategoryElement != null ? (
             <AdminCategoriesEditModal
