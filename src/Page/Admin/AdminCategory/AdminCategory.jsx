@@ -18,7 +18,6 @@ export default function AdminCategory() {
 
   const [audiobooksState, setAudiobooksState] = useState({
     page: 0,
-    maxPage: 0,
     errorPart: '',
     errorCover: '',
     error: null,

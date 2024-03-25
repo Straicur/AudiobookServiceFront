@@ -1,20 +1,8 @@
-import { HandleFetch } from 'Util/HandleFetch';
-import { useCategoryListStore } from 'Store/store';
-
 export default class AdminAudiobooksService {
-  constructor(searchState, setSearchState, props, i18n, setState, state, setCategories) {
+  constructor(searchState, setSearchState) {
     this.searchState = searchState;
     this.setSearchState = setSearchState;
-    this.props = props;
-    this.i18n = i18n;
-    this.setState = setState;
-    this.state = state;
-    this.setCategories = setCategories;
   }
-
-  categoriesStore = useCategoryListStore();
-  categories = useCategoryListStore((state) => state.categories);
-  dateUpdate = useCategoryListStore((state) => state.dateUpdate);
 
   resetSearchStates = () => {
     this.setSearchState({
@@ -28,24 +16,6 @@ export default class AdminAudiobooksService {
       year: 0,
       duration: 0,
     });
-  };
-
-  openAddModal = () => {
-    this.fetchCategoriesList();
-
-    this.setState((prev) => ({
-      ...prev,
-      addAudiobookModal: !this.state.addAudiobookModal,
-    }));
-  };
-
-  openSearchModal = () => {
-    this.fetchCategoriesList();
-
-    this.setState((prev) => ({
-      ...prev,
-      searchModal: !this.state.searchModal,
-    }));
   };
 
   createSearchData = () => {
@@ -83,25 +53,25 @@ export default class AdminAudiobooksService {
     return searchJson;
   };
 
-  fetchCategoriesList = () => {
-    if (this.dateUpdate > Date.now() && this.dateUpdate != 0) {
-      this.setCategories(this.categories);
-    } else {
-      HandleFetch('/admin/categories', 'GET', null, this.props.token, this.i18n.language)
-        .then((data) => {
-          this.categoriesStore.removeCategories();
-          for (const category of data.categories) {
-            this.categoriesStore.addCategory(category);
-          }
+  // fetchCategoriesList = () => {
+  //   if (this.dateUpdate > Date.now() && this.dateUpdate != 0) {
+  //     this.setCategories(this.categories);
+  //   } else {
+  //     HandleFetch('/admin/categories', 'GET', null, this.props.token, this.i18n.language)
+  //       .then((data) => {
+  //         this.categoriesStore.removeCategories();
+  //         for (const category of data.categories) {
+  //           this.categoriesStore.addCategory(category);
+  //         }
 
-          this.setCategories(data.categories);
-        })
-        .catch((e) => {
-          this.props.setAudiobooksState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
-    }
-  };
+  //         this.setCategories(data.categories);
+  //       })
+  //       .catch((e) => {
+  //         this.props.setAudiobooksState((prev) => ({
+  //           ...prev,
+  //           error: e,
+  //         }));
+  //       });
+  //   }
+  // };
 }

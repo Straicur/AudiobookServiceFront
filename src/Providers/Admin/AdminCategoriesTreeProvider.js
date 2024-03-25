@@ -68,6 +68,7 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
     },
   });
 
+  //DODAWANIE I W NIM ROBIE Invalidate na dataAdminCategoriesList i dataAdminCategoriesTree
   const setRefetch = () => {
     qc.invalidateQueries(['dataAdminCategoriesTree']);
   };

@@ -11,9 +11,9 @@ export default function AdminAudiobooksRenderList(props) {
   const createTable = () => {
     let renderArray = [];
 
-    if (props.state.json != null) {
-      if (props.state.json.audiobooks != null) {
-        props.state.json.audiobooks.forEach((element) => {
+    if (props.audiobooks != null) {
+      if (props.audiobooks.audiobooks != null) {
+        props.audiobooks.audiobooks.forEach((element) => {
           renderArray.push(createColumn(element));
         });
       }
@@ -38,35 +38,35 @@ export default function AdminAudiobooksRenderList(props) {
       .then(() => {
         element.target.classList.remove('disabled');
 
-        let newAudiobookList = props.state.json.audiobooks.map((audiobook) => {
-          if (audiobook.id == selectedAudiobook.id) {
-            return {
-              id: audiobook.id,
-              title: audiobook.title,
-              author: audiobook.author,
-              year: audiobook.year,
-              duration: audiobook.duration,
-              size: audiobook.size,
-              parts: audiobook.parts,
-              age: audiobook.age,
-              active: !audiobook.active,
-            };
-          } else {
-            return audiobook;
-          }
-        });
+        // let newAudiobookList = props.state.json.audiobooks.map((audiobook) => {
+        //   if (audiobook.id == selectedAudiobook.id) {
+        //     return {
+        //       id: audiobook.id,
+        //       title: audiobook.title,
+        //       author: audiobook.author,
+        //       year: audiobook.year,
+        //       duration: audiobook.duration,
+        //       size: audiobook.size,
+        //       parts: audiobook.parts,
+        //       age: audiobook.age,
+        //       active: !audiobook.active,
+        //     };
+        //   } else {
+        //     return audiobook;
+        //   }
+        // });
 
-        const newJson = {
-          audiobooks: newAudiobookList,
-          page: props.pageState.page,
-          limit: props.pageState.limit,
-          maxPage: props.pageState.maxPage,
-        };
+        // const newJson = {
+        //   audiobooks: newAudiobookList,
+        //   page: props.pageState.page,
+        //   limit: props.pageState.limit,
+        //   maxPage: props.pageState.maxPage,
+        // };
 
-        props.setState((prev) => ({
-          ...prev,
-          json: newJson,
-        }));
+        // props.setState((prev) => ({
+        //   ...prev,
+        //   json: newJson,
+        // }));
       })
       .catch((e) => {
         props.setState((prev) => ({

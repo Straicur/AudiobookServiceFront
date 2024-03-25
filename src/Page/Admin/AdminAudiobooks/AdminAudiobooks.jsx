@@ -3,14 +3,35 @@ import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminAudiobooksList from 'View/Admin/AdminAudiobooks/AdminAudiobooksList';
+import AdminAudiobooksService from 'Service/Admin/AdminAudiobooksService';
+import { useTranslation } from 'react-i18next';
+import { AdminAudiobooksProvider } from 'Providers/Admin/AdminAudiobooksProvider';
+import { AdminCategoriesListProvider } from 'Providers/Admin/AdminCategoriesListProvider';
 import './AdminAudiobooks.css';
 
 export default function AdminAudiobooks() {
   const token = useTokenStore((state) => state.token);
 
+  const { t, i18n } = useTranslation();
+
   const [audiobooksState, setAudiobooksState] = useState({
+    page: 0,
     error: null,
   });
+
+  const [searchState, setSearchState] = useState({
+    sort: 0,
+    categories: [],
+    title: '',
+    author: '',
+    album: '',
+    parts: 0,
+    age: 0,
+    year: 0,
+    duration: 0,
+  });
+
+  const adminService = new AdminAudiobooksService(searchState, setSearchState);
 
   return (
     <ErrorBoundary
@@ -22,11 +43,26 @@ export default function AdminAudiobooks() {
         }));
       }}
     >
-      <AdminAudiobooksList
-        audiobooksState={audiobooksState}
-        setAudiobooksState={setAudiobooksState}
+      <AdminAudiobooksProvider
         token={token}
-      />
+        page={audiobooksState.page}
+        searchData={adminService.createSearchData}
+        setState={setAudiobooksState}
+        i18n={i18n}
+      >
+        <AdminCategoriesListProvider token={token} setState={setAudiobooksState} i18n={i18n}>
+          <AdminAudiobooksList
+            audiobooksState={audiobooksState}
+            setAudiobooksState={setAudiobooksState}
+            t={t}
+            i18n={i18n}
+            adminService={adminService}
+            searchState={searchState}
+            setSearchState={setSearchState}
+            token={token}
+          />
+        </AdminCategoriesListProvider>
+      </AdminAudiobooksProvider>
     </ErrorBoundary>
   );
 }

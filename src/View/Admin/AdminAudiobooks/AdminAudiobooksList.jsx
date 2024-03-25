@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
-import { useQuery } from '@tanstack/react-query';
-import { HandleFetch } from 'Util/HandleFetch';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
@@ -10,7 +8,8 @@ import AdminAudiobooksAudiobookAddModal from './AdminAudiobooksAudiobookAddModal
 import AdminAudiobooksRenderList from './AdminAudiobooksRenderList';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import AdminAudiobooksSearchOffCanvas from './AdminAudiobooksSearchOffCanvas';
-import AdminAudiobooksService from 'Service/Admin/AdminAudiobooksService';
+import { useAdminAudiobooksData } from 'Providers/Admin/AdminAudiobooksProvider';
+import { useAdminCategoriesListData } from 'Providers/Admin/AdminCategoriesListProvider';
 
 export default function AdminAudiobooksList(props) {
   const { t, i18n } = useTranslation();
@@ -29,80 +28,24 @@ export default function AdminAudiobooksList(props) {
     error: null,
   });
 
-  const [searchState, setSearchState] = useState({
-    sort: 0,
-    categories: [],
-    title: '',
-    author: '',
-    album: '',
-    parts: 0,
-    age: 0,
-    year: 0,
-    duration: 0,
-  });
-
-  const [pageState, setPageState] = useState({
-    page: 0,
-    limit: 15,
-    maxPage: 0,
-  });
-
   const [categoriesState, setCategories] = useState([]);
 
-  const adminService = new AdminAudiobooksService(
-    searchState,
-    setSearchState,
-    props,
-    i18n,
-    setState,
-    state,
-    setCategories,
-  );
+  const [audiobooks, refetch] = useAdminAudiobooksData();
+  const [categories] = useAdminCategoriesListData();
 
-  const { refetch } = useQuery({
-    queryKey: ['dataAdminAudiobooks'],
-    queryFn: () =>
-      HandleFetch(
-        '/admin/audiobooks',
-        'POST',
-        {
-          page: pageState.page,
-          limit: pageState.limit,
-          searchData: adminService.createSearchData(),
-        },
-        props.token,
-        i18n.language,
-      ),
-    retry: 1,
-    retryDelay: 500,
-    refetchOnWindowFocus: false,
-    onError: (e) => {
-      props.setAudiobooksState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
-    onSuccess: (data) => {
-      setState((prev) => ({
-        ...prev,
-        json: data,
-      }));
-      setPageState((prev) => ({
-        ...prev,
-        maxPage: data.maxPage,
-      }));
-    },
-  });
+  const openAddModal = () => {
+    this.setState((prev) => ({
+      ...prev,
+      addAudiobookModal: !this.state.addAudiobookModal,
+    }));
+  };
 
-  useEffect(() => {
-    if (state.refresh) {
-      setState((prev) => ({
-        ...prev,
-        refresh: !state.refresh,
-      }));
-      refetch();
-    }
-  }, [state.refresh]);
+  const openSearchModal = () => {
+    this.setState((prev) => ({
+      ...prev,
+      searchModal: !this.state.searchModal,
+    }));
+  };
 
   useEffect(() => {
     if (state.addAudiobook) {
@@ -139,7 +82,7 @@ export default function AdminAudiobooksList(props) {
                 size='sm'
                 color='dark'
                 className=' btn button mt-2'
-                onClick={() => adminService.openSearchModal()}
+                onClick={() => openSearchModal()}
               >
                 {t('search')}
               </Button>
@@ -148,18 +91,16 @@ export default function AdminAudiobooksList(props) {
           <AdminAudiobooksRenderList
             state={state}
             setState={setState}
+            audiobooks={audiobooks}
             t={t}
             i18n={i18n}
             token={props.token}
-            pageState={pageState}
-            setPageState={setPageState}
           />
-          {state.json != null && pageState.maxPage > 1 ? (
+          {audiobooks != null && audiobooks.maxPage > 1 ? (
             <AdminRenderPageSwitches
-              state={state}
-              setState={setState}
-              pageState={pageState}
-              setPageState={setPageState}
+              page={props.audiobooksState.page}
+              maxPage={audiobooks.maxPage}
+              setPageState={props.setAudiobooksState}
             />
           ) : null}
         </div>
@@ -170,7 +111,7 @@ export default function AdminAudiobooksList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() => adminService.openAddModal()}
+              onClick={() => openAddModal()}
             >
               {t('addAudiobook')}
             </Button>
@@ -199,12 +140,13 @@ export default function AdminAudiobooksList(props) {
             setState={setState}
             audiobooksState={props.audiobooksState}
             setAudiobooksState={props.setAudiobooksState}
+            categories={categories}
             t={t}
             i18n={i18n}
             token={props.token}
             categoriesState={categoriesState}
             setCategories={setCategories}
-            resetSearchStates={adminService.resetSearchStates}
+            resetSearchStates={props.adminService.resetSearchStates}
           />
         ) : null}
 
@@ -214,16 +156,17 @@ export default function AdminAudiobooksList(props) {
             setState={setState}
             audiobooksState={props.audiobooksState}
             setAudiobooksState={props.setAudiobooksState}
-            searchState={searchState}
-            setSearchState={setSearchState}
+            categories={categories}
+            // searchState={searchState}
+            // setSearchState={setSearchState}
             t={t}
             i18n={i18n}
             token={props.token}
             categoriesState={categoriesState}
             setCategories={setCategories}
-            pageState={pageState}
-            setPageState={setPageState}
-            resetSearchStates={adminService.resetSearchStates}
+            // pageState={pageState}
+            // setPageState={setPageState}
+            resetSearchStates={props.adminService.resetSearchStates}
           />
         ) : null}
         {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (
