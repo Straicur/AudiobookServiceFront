@@ -23,7 +23,8 @@ export default function AdminCategoriesList(props) {
   const categoriesStore = useCategoryTreeListStore();
   const dateUpdate = useCategoryTreeListStore((state) => state.dateUpdate);
 
-  const [categoriesData, refetch, categoryChange, categoryActivate] = useAdminCategoriesTree();
+  const [categoriesData, refetch, categoryChange, categoryActivate, categoryAdd] =
+    useAdminCategoriesTree();
 
   const getCategories = () => {
     if (categoriesData != null) {
@@ -117,6 +118,7 @@ export default function AdminCategoriesList(props) {
               state={state}
               setState={setState}
               refetch={refetch}
+              categoryAdd={categoryAdd}
               setCategoiesState={props.setCategoiesState}
               t={props.t}
               i18n={props.i18n}

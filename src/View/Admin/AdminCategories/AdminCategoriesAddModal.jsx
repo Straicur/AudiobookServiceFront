@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { HandleFetch } from 'Util/HandleFetch';
 import FormService from 'Service/Common/FormService';
 
 export default function AdminCategoriesAddModal(props) {
@@ -27,28 +26,12 @@ export default function AdminCategoriesAddModal(props) {
     if (props.state.addCategoryParent != null) {
       additionalData = { parentId: props.state.addCategoryParent.id };
     }
+    props.categoryAdd({
+      name: modalState.name,
+      additionalData: additionalData,
+    });
 
-    HandleFetch(
-      '/admin/category/add',
-      'PUT',
-      {
-        name: modalState.name,
-        additionalData: additionalData,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        props.refetch();
-        handleClose();
-      })
-      .catch((e) => {
-        props.setCategoiesState({
-          ...props.categoiesState,
-          error: e,
-        });
-        handleClose();
-      });
+    handleClose();
   };
 
   useLayoutEffect(() => {

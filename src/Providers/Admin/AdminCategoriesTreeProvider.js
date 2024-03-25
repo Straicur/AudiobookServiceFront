@@ -68,7 +68,31 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
     },
   });
 
-  //DODAWANIE I W NIM ROBIE Invalidate na dataAdminCategoriesList i dataAdminCategoriesTree
+  const { mutate: categoryAdd } = useMutation({
+    mutationFn: (data) => {
+      return HandleFetch(
+        '/admin/category/add',
+        'PUT',
+        {
+          name: data.name,
+          additionalData: data.additionalData,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: () => {
+      qc.invalidateQueries(['dataAdminCategoriesList']);
+      qc.invalidateQueries(['dataAdminCategoriesTree']);
+    },
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
   const setRefetch = () => {
     qc.invalidateQueries(['dataAdminCategoriesTree']);
   };
@@ -87,7 +111,13 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
     },
   });
 
-  const value = [dataAdminCategoriesTree, setRefetch, categoryChange, categoryActivate];
+  const value = [
+    dataAdminCategoriesTree,
+    setRefetch,
+    categoryChange,
+    categoryActivate,
+    categoryAdd,
+  ];
 
   return (
     <AdminCategoriesTreeContext.Provider value={value}>
