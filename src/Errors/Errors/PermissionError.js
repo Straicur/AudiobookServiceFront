@@ -1,6 +1,6 @@
 export default class PermissionError extends Error {
   constructor(message) {
     super(message);
-    this.name = "PermissionError";
+    this.name = 'PermissionError';
   }
 }

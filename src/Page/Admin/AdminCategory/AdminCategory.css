@@ -1,0 +1,111 @@
+.rhap_theme-color {
+  color: #868686;
+}
+
+.rhap_background-color {
+  background-color: #282c34;
+}
+
+.rhap_container {
+  border-radius: 0.25rem;
+  background-color: #282c34 !important;
+  width: 48rem !important;
+}
+
+.rhap_button-clear {
+  color: aliceblue !important;
+}
+
+.rhap_header {
+  color: ghostwhite !important;
+}
+
+.rhap_progress-bar-show-download {
+  color: ghostwhite !important;
+}
+
+.rhap_progress-indicator {
+  background-color: #015331;
+}
+
+.rhap_progress-filled {
+  background-color: #015331;
+}
+
+.rhap_time {
+  color: ghostwhite !important;
+}
+
+.audio {
+  margin: 0.03rem;
+}
+
+.table-image {
+  width: 20rem !important;
+}
+
+.modal_img_button {
+  width: 21.7rem !important;
+}
+
+.modal_button {
+  width: 22.4rem !important;
+}
+
+.primary_button {
+  background-color: #001057 !important;
+  border-color: #001057 !important;
+}
+
+.danger_button {
+  background-color: #530019 !important;
+  border-color: #530019 !important;
+}
+
+.success_button {
+  background-color: #005331 !important;
+  border-color: #005331 !important;
+}
+
+.warning_button {
+  background-color: #928800 !important;
+  border-color: #928800 !important;
+}
+
+.input_modal {
+  padding-left: 0 !important;
+}
+
+.btn-close {
+  background-color: #7e5600 !important;
+}
+
+.input-group-text-new {
+  width: 7rem !important;
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+}
+
+.input-group-new {
+  width: 7rem !important;
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+}
+
+.question_button {
+  width: 9.5rem !important;
+}
+
+.table_buttons_with {
+  width: 33rem;
+}
+
+.categories_detail_modal {
+  max-height: 26rem;
+}
+
+.comment_delete_list {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  max-height: 45rem;
+}
