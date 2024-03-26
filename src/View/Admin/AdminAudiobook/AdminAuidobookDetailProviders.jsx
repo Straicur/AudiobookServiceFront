@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { UserAudiobookDataProvider } from 'Providers/User/UserAudiobookDataProvider';
+import { AdminAudiobookDataProvider } from 'Providers/Admin/AdminAudiobookDataProvider';
 import { AudiobookCoverDataProvider } from 'Providers/Common/AudiobookCoverDataProvider';
 import { AudiobookPartProvider } from 'Providers/Common/AudiobookPartProvider';
-import { UserAudiobookCommentsProvider } from 'Providers/User/UserAudiobookCommentsProvider';
+import { AdminAudiobookCommentsProvider } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 import AdminAudiobookDetail from './AdminAudiobookDetail';
 
-export default function AuidobookDetailProviders(props) {
+export default function AdminAuidobookDetailProviders(props) {
   useEffect(() => {
     if (props.audiobookState.error != null) {
       throw props.audiobookState.error;
@@ -13,8 +13,7 @@ export default function AuidobookDetailProviders(props) {
   }, [props.audiobookState.error]);
 
   return (
-    <UserAudiobookDataProvider
-      state={props.audiobookState}
+    <AdminAudiobookDataProvider
       setState={props.setAudiobookState}
       token={props.token}
       audiobookId={props.audiobookId}
@@ -38,8 +37,7 @@ export default function AuidobookDetailProviders(props) {
           t={props.t}
           i18n={props.i18n}
         >
-          <UserAudiobookCommentsProvider
-            state={props.audiobookState}
+          <AdminAudiobookCommentsProvider
             setState={props.setAudiobookState}
             token={props.token}
             audiobookId={props.audiobookId}
@@ -53,9 +51,9 @@ export default function AuidobookDetailProviders(props) {
               token={props.token}
               i18n={props.i18n}
             />
-          </UserAudiobookCommentsProvider>
+          </AdminAudiobookCommentsProvider>
         </AudiobookPartProvider>
       </AudiobookCoverDataProvider>
-    </UserAudiobookDataProvider>
+    </AdminAudiobookDataProvider>
   );
 }

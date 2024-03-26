@@ -1,6 +1,8 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
+import { useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 const AdminAudiobookCommentsContext = createContext(null);
 
@@ -11,10 +13,62 @@ export const AdminAudiobookCommentsProvider = ({
   setState,
   i18n,
 }) => {
-  const [audiobookComments, setAudiobookComments] = useState(null);
-  const [refetchState, setAudiobookCommnetsRefetchState] = useState(false);
+  const qc = useQueryClient();
 
-  const { refetch: refetchAudiobookComments } = useQuery({
+  const setRefetch = () => {
+    qc.invalidateQueries(['dataAudiobookAdminComments' + audiobookId]);
+  };
+
+  const { mutate: deleteComment } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/admin/audiobook/comment/delete',
+        'DELETE',
+        {
+          audiobookCommentId: data.id,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+
+      let copy = dataAudiobookAdminComments.comments.map((comment) => {
+        if (comment.id == variables.id) {
+          return {
+            id: comment.id,
+            audiobookCommentLike: comment.audiobookCommentLike,
+            audiobookCommentUnlike: comment.audiobookCommentUnlike,
+            children: comment.children,
+            comment: comment.comment,
+            deleted: !comment.deleted,
+            edited: comment.edited,
+            liked: comment.liked,
+            myComment: comment.myComment,
+            parentId: comment.parentId,
+            userModel: comment.userModel,
+          };
+        } else {
+          return comment;
+        }
+      });
+
+      qc.setQueryData(['dataAudiobookAdminComments' + audiobookId], {
+        comments: copy,
+      });
+    },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAudiobookAdminComments']);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
+  const { data: dataAudiobookAdminComments = null } = useQuery({
     queryKey: ['dataAudiobookAdminComments' + audiobookId],
     queryFn: () =>
       HandleFetch(
@@ -35,19 +89,9 @@ export const AdminAudiobookCommentsProvider = ({
         error: e,
       }));
     },
-    onSuccess: (data) => {
-      setAudiobookComments(data);
-    },
   });
 
-  useEffect(() => {
-    if (refetchState) {
-      refetchAudiobookComments();
-      setAudiobookCommnetsRefetchState(!refetchState);
-    }
-  }, [refetchState]);
-
-  const value = [audiobookComments, setAudiobookComments, setAudiobookCommnetsRefetchState];
+  const value = [dataAudiobookAdminComments, setRefetch, deleteComment];
 
   return (
     <AdminAudiobookCommentsContext.Provider value={value}>

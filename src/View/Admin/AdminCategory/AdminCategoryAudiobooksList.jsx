@@ -8,6 +8,7 @@ import AdminCategoryRenderAudiobooksList from './AdminCategoryRenderAudiobooksLi
 import AdminCategoryDetailProviders from './AdminCategoryDetailProviders';
 import AdminCategoryAudiobookCommentsModal from './AdminCategoryAudiobookCommentsModal';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
+import { AdminAudiobookCommentsProvider } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 import { useAdminCategoryDetail } from 'Providers/Admin/AdminCategoryDetailProfider';
 import { useAdminCategoryAudiobooks } from 'Providers/Admin/AdminCategoryAudiobooksProvider';
 
@@ -138,15 +139,23 @@ export default function AdminCategoryAudiobooksList(props) {
           />
         ) : null}
         {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (
-          <AdminCategoryAudiobookCommentsModal
-            state={state}
-            setState={setState}
+          <AdminAudiobookCommentsProvider
+            setState={props.setAudiobooksState}
+            token={props.token}
+            audiobookId={state.detailAudiobookElement.id}
             t={props.t}
             i18n={props.i18n}
-            token={props.token}
-            setAudiobooksState={props.setAudiobooksState}
-            audiobooksState={props.audiobooksState}
-          />
+          >
+            <AdminCategoryAudiobookCommentsModal
+              state={state}
+              setState={setState}
+              t={props.t}
+              i18n={props.i18n}
+              token={props.token}
+              setAudiobooksState={props.setAudiobooksState}
+              audiobooksState={props.audiobooksState}
+            />
+          </AdminAudiobookCommentsProvider>
         ) : null}
         {state.jsonModal ? (
           <AdminJsonModal state={state} setState={setState} json={categoryAudiobooks} t={props.t} />

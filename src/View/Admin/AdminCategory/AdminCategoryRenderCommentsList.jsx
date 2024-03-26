@@ -1,38 +1,19 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
-import { HandleFetch } from 'Util/HandleFetch';
 
 export default function AdminCategoryRenderCommentsList(props) {
   function deleteCommnet(element) {
-    HandleFetch(
-      '/admin/audiobook/comment/delete',
-      'DELETE',
-      {
-        audiobookCommentId: element.id,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        props.setState((prev) => ({
-          ...prev,
-          refetch: !props.state.refetch,
-        }));
-      })
-      .catch((e) => {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+    props.deleteComment({
+      id: element.id,
+    });
   }
 
   const renderTree = () => {
     let renderArray = [];
 
-    if (props.state.comments != undefined) {
-      createTree(props.state.comments.comments, renderArray);
+    if (props.comments != undefined) {
+      createTree(props.comments.comments, renderArray);
     }
 
     if (props.comments != null && props.comments.comments.length == 0) {

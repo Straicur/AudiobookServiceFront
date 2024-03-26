@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { HandleFetch } from 'Util/HandleFetch';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import 'react-h5-audio-player/lib/styles.css';
 import AdminCategoryRenderCommentsList from './AdminCategoryRenderCommentsList';
+import { useAdminAudiobookComments } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 
 export default function AdminCategoryAudiobookCommentsModal(props) {
-  const [state, setState] = useState({
-    comments: null,
-    refresh: false,
-  });
+  const [audiobookCommnets, setRefetch, deleteComment] = useAdminAudiobookComments();
 
   const handleClose = () => {
     props.setState((prev) => ({
@@ -18,46 +14,7 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
       detailAudiobookElement: null,
     }));
   };
-
-  const { refetch: refetchAudiobookComments } = useQuery({
-    queryKey: ['dataAdminAudiobookComments'] + props.state.detailAudiobookElement.id,
-    queryFn: () =>
-      HandleFetch(
-        '/admin/audiobook/comment/get',
-        'POST',
-        {
-          audiobookId: props.state.detailAudiobookElement.id,
-        },
-        props.token,
-        props.i18n.language,
-      ),
-    retry: 1,
-    retryDelay: 500,
-    refetchOnWindowFocus: false,
-    onError: (e) => {
-      props.setAudiobooksState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
-    onSuccess: (data) => {
-      setState((prev) => ({
-        ...prev,
-        comments: data,
-      }));
-    },
-  });
-
-  useEffect(() => {
-    if (state.refetch) {
-      refetchAudiobookComments();
-      setState((prev) => ({
-        ...prev,
-        refetch: !state.refetch,
-      }));
-    }
-  }, [state.refetch]);
-
+  console.log(audiobookCommnets);
   return (
     <Modal
       show={props.state.detailCommentsAudiobookModal}
@@ -74,8 +31,9 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
         </div>
         <hr></hr>
         <AdminCategoryRenderCommentsList
-          state={state}
-          setState={setState}
+          comments={audiobookCommnets}
+          setRefetch={setRefetch}
+          deleteComment={deleteComment}
           t={props.t}
           token={props.token}
         />
