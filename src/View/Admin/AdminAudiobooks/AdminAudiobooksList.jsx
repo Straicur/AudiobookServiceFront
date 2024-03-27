@@ -31,7 +31,7 @@ export default function AdminAudiobooksList(props) {
 
   const [categoriesState, setCategories] = useState([]);
 
-  const [audiobooks, refetch] = useAdminAudiobooksData();
+  const [audiobooks, refetch, activate] = useAdminAudiobooksData();
   const [categories] = useAdminCategoriesListData();
 
   const openAddModal = () => {
@@ -93,6 +93,7 @@ export default function AdminAudiobooksList(props) {
             state={state}
             setState={setState}
             audiobooks={audiobooks}
+            activate={activate}
             t={t}
             i18n={i18n}
             token={props.token}
