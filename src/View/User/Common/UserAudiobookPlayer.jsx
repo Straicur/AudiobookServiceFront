@@ -63,7 +63,7 @@ export default function UserAudiobookPlayer(props) {
       props.audiobookState.renderAudiobookPlayer
     ) {
       let procent = ((props.timeAudio.current / duration.current) * 100).toFixed(2) + '%';
-      console.log(procent);
+
       player.current.progressBar.current.setAttribute('aria-valuenow', procent);
       player.current.progressBar.current.childNodes[0].childNodes[0].style.left = procent;
       player.current.progressBar.current.childNodes[0].childNodes[1].style.width = procent;

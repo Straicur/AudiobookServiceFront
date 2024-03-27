@@ -2,7 +2,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
 
-export default function AdminCategoryRenderCommentsList(props) {
+export default function AdminRenderCommentsList(props) {
   function deleteCommnet(element) {
     props.deleteComment({
       id: element.id,

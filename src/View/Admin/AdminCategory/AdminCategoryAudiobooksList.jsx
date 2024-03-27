@@ -6,7 +6,7 @@ import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
 import AdminCategoryAudiobookAddModal from './AdminCategoryAudiobookAddModal';
 import AdminCategoryRenderAudiobooksList from './AdminCategoryRenderAudiobooksList';
 import AdminCategoryDetailProviders from './AdminCategoryDetailProviders';
-import AdminCategoryAudiobookCommentsModal from './AdminCategoryAudiobookCommentsModal';
+import AudiobookCommentsModal from '../Common/AudiobookCommentsModal';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import { AdminAudiobookCommentsProvider } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 import { useAdminCategoryDetail } from 'Providers/Admin/AdminCategoryDetailProfider';
@@ -146,7 +146,7 @@ export default function AdminCategoryAudiobooksList(props) {
             t={props.t}
             i18n={props.i18n}
           >
-            <AdminCategoryAudiobookCommentsModal
+            <AudiobookCommentsModal
               state={state}
               setState={setState}
               t={props.t}

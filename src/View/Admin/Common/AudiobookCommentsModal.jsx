@@ -1,10 +1,10 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import 'react-h5-audio-player/lib/styles.css';
-import AdminCategoryRenderCommentsList from './AdminCategoryRenderCommentsList';
+import AdminRenderCommentsList from './AdminRenderCommentsList';
 import { useAdminAudiobookComments } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 
-export default function AdminCategoryAudiobookCommentsModal(props) {
+export default function AudiobookCommentsModal(props) {
   const [audiobookCommnets, setRefetch, deleteComment] = useAdminAudiobookComments();
 
   const handleClose = () => {
@@ -14,7 +14,7 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
       detailAudiobookElement: null,
     }));
   };
-  console.log(audiobookCommnets);
+
   return (
     <Modal
       show={props.state.detailCommentsAudiobookModal}
@@ -30,7 +30,7 @@ export default function AdminCategoryAudiobookCommentsModal(props) {
           <h1>{props.t('comments')}</h1>
         </div>
         <hr></hr>
-        <AdminCategoryRenderCommentsList
+        <AdminRenderCommentsList
           comments={audiobookCommnets}
           setRefetch={setRefetch}
           deleteComment={deleteComment}

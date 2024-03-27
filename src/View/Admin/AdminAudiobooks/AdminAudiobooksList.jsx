@@ -3,8 +3,9 @@ import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
-import AudiobookCommentsModal from '../AdminCategory/AdminCategoryAudiobookCommentsModal';
+import AudiobookCommentsModal from '../Common/AudiobookCommentsModal';
 import AdminAudiobooksAudiobookAddModal from './AdminAudiobooksAudiobookAddModal';
+import { AdminAudiobookCommentsProvider } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 import AdminAudiobooksRenderList from './AdminAudiobooksRenderList';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import AdminAudiobooksSearchOffCanvas from './AdminAudiobooksSearchOffCanvas';
@@ -170,15 +171,23 @@ export default function AdminAudiobooksList(props) {
           />
         ) : null}
         {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (
-          <AudiobookCommentsModal
-            state={state}
-            setState={setState}
-            t={t}
-            i18n={i18n}
+          <AdminAudiobookCommentsProvider
+            setState={props.setAudiobooksState}
             token={props.token}
-            audiobooksState={props.audiobooksState}
-            setAudiobooksState={props.setAudiobooksState}
-          />
+            audiobookId={state.detailAudiobookElement.id}
+            t={props.t}
+            i18n={props.i18n}
+          >
+            <AudiobookCommentsModal
+              state={state}
+              setState={setState}
+              t={t}
+              i18n={i18n}
+              token={props.token}
+              audiobooksState={props.audiobooksState}
+              setAudiobooksState={props.setAudiobooksState}
+            />
+          </AdminAudiobookCommentsProvider>
         ) : null}
         {audiobooks !== null ? (
           <AdminJsonModal state={state} setState={setState} json={audiobooks} t={t} />
