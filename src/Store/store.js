@@ -49,22 +49,6 @@ let categoryListStore = (set) => ({
     })),
 });
 
-let lastSearchStore = (set) => ({
-  search: null,
-  dateUpdate: 0,
-  setSearch: (search) => {
-    set(() => ({
-      search: search,
-      dateUpdate: Date.now() + 1800000,
-    }));
-  },
-  removeSearch: () =>
-    set(() => ({
-      search: null,
-      dateUpdate: 0,
-    })),
-});
-
 let lastUserRolesStore = (set) => ({
   roles: null,
   dateUpdate: 0,
@@ -148,9 +132,6 @@ categoryTreeListStore = persist(categoryTreeListStore, {
 categoryListStore = devtools(categoryListStore);
 categoryListStore = persist(categoryListStore, { name: 'categories' });
 
-lastSearchStore = devtools(lastSearchStore);
-lastSearchStore = persist(lastSearchStore, { name: 'searchAudiobooks' });
-
 lastUserRolesStore = devtools(lastUserRolesStore);
 lastUserRolesStore = persist(lastUserRolesStore, { name: 'userRolesStore' });
 
@@ -166,7 +147,6 @@ coverListStore = persist(coverListStore, {
 
 export const useTokenStore = create(tokenStore);
 export const useLastUserRolesStore = create(lastUserRolesStore);
-export const useLastSearchStore = create(lastSearchStore);
 export const useCategoryTreeListStore = create(categoryTreeListStore);
 export const useCategoryListStore = create(categoryListStore);
 export const useNotificationsListStore = create(notificationsListStore);

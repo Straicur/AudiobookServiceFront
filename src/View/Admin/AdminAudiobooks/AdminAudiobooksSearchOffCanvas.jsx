@@ -1,34 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
-import { useLastSearchStore } from 'Store/store';
 import AdminAudiobooksSearchService from 'Service/Admin/AdminAudiobooksSearchService';
+import AdminAudiobooksService from 'Service/Admin/AdminAudiobooksService';
 
 export default function AdminAudiobooksSearchOffCanvas(props) {
-  const [show, setShow] = useState(true);
-
-  const searchData = useLastSearchStore((state) => state.search);
-  const searchDateUpdate = useLastSearchStore((state) => state.dateUpdate);
-
-  const adminService = new AdminAudiobooksSearchService(props, setShow);
-
-  useEffect(() => {
-    if (
-      searchData != null &&
-      searchData != undefined &&
-      searchDateUpdate > Date.now() &&
-      searchDateUpdate != 0
-    ) {
-      props.setSearchState(searchData);
-    }
-  }, []);
+  const adminService = new AdminAudiobooksSearchService(props);
 
   return (
     <Offcanvas
-      show={show}
+      show={props.state.searchModal}
       onHide={adminService.handleClose}
       className='bg-dark text-light off_canvas_with'
       backdrop='static'
@@ -46,7 +30,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
                 size='sm'
                 color='success'
                 className=' btn button mt-2'
-                onClick={() => props.resetSearchStates()}
+                onClick={() => AdminAudiobooksService.resetSearchStates(props.setSearchState)}
               >
                 {props.t('reset')}
               </Button>

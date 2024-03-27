@@ -3,10 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
+import AdminAudiobooksService from 'Service/Admin/AdminAudiobooksService';
 
 const AdminAudiobooksContext = createContext(null);
 
-export const AdminAudiobooksProvider = ({ children, token, page, searchData, setState, i18n }) => {
+export const AdminAudiobooksProvider = ({ children, token, page, searchState, setState, i18n }) => {
   const qc = useQueryClient();
 
   const { mutate: activate } = useMutation({
@@ -75,7 +76,7 @@ export const AdminAudiobooksProvider = ({ children, token, page, searchData, set
         {
           page: page,
           limit: 15,
-          searchData: searchData,
+          searchData: AdminAudiobooksService.createSearchData(searchState),
         },
         token,
         i18n.language,

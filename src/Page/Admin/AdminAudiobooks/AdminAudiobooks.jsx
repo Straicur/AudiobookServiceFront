@@ -3,7 +3,6 @@ import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminAudiobooksList from 'View/Admin/AdminAudiobooks/AdminAudiobooksList';
-import AdminAudiobooksService from 'Service/Admin/AdminAudiobooksService';
 import { useTranslation } from 'react-i18next';
 import { AdminAudiobooksProvider } from 'Providers/Admin/AdminAudiobooksProvider';
 import { AdminCategoriesListProvider } from 'Providers/Admin/AdminCategoriesListProvider';
@@ -31,8 +30,6 @@ export default function AdminAudiobooks() {
     duration: 0,
   });
 
-  const adminService = new AdminAudiobooksService(searchState, setSearchState);
-
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
@@ -46,7 +43,7 @@ export default function AdminAudiobooks() {
       <AdminAudiobooksProvider
         token={token}
         page={audiobooksState.page}
-        searchData={adminService.createSearchData}
+        searchState={searchState}
         setState={setAudiobooksState}
         i18n={i18n}
       >
@@ -56,7 +53,6 @@ export default function AdminAudiobooks() {
             setAudiobooksState={setAudiobooksState}
             t={t}
             i18n={i18n}
-            adminService={adminService}
             searchState={searchState}
             setSearchState={setSearchState}
             token={token}

@@ -141,7 +141,6 @@ export default function AdminAudiobooksList(props) {
             t={t}
             i18n={i18n}
             token={props.token}
-            resetSearchStates={props.adminService.resetSearchStates}
           />
         ) : null}
 
@@ -152,14 +151,12 @@ export default function AdminAudiobooksList(props) {
             audiobooksState={props.audiobooksState}
             setAudiobooksState={props.setAudiobooksState}
             categories={categories}
-            // searchState={searchState}
-            // setSearchState={setSearchState}
+            searchState={props.searchState}
+            setSearchState={props.setSearchState}
+            refetch={refetch}
             t={t}
             i18n={i18n}
             token={props.token}
-            // pageState={pageState}
-            // setPageState={setPageState}
-            resetSearchStates={props.adminService.resetSearchStates}
           />
         ) : null}
         {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (

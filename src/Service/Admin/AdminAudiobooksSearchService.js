@@ -1,27 +1,22 @@
-import { useLastSearchStore } from 'Store/store';
 import FormService from 'Service/Common/FormService';
 
 export default class AdminAudiobooksSearchService extends FormService {
-  constructor(props, setShow) {
+  constructor(props) {
     super(props.setSearchState);
     this.props = props;
-    this.setShow = setShow;
   }
-
-  searchStore = useLastSearchStore();
 
   handleClose = () => {
     this.props.setState((prev) => ({
       ...prev,
       searchModal: !this.props.state.searchModal,
     }));
-    this.setShow(false);
   };
 
   generateCategoriesList = () => {
     let multiSelectTable = [];
 
-    this.props.categoriesState.forEach((element) => {
+    this.props.categories.categories.forEach((element) => {
       multiSelectTable.push({ key: element.id, label: element.name });
     });
     return multiSelectTable;
@@ -41,18 +36,15 @@ export default class AdminAudiobooksSearchService extends FormService {
   };
 
   searchAgain = () => {
-    this.searchStore.setSearch(this.props.searchState);
-
-    this.props.setPageState((prev) => ({
+    this.props.setAudiobooksState((prev) => ({
       ...prev,
       page: 0,
     }));
-
+    console.log('dsa');
+    this.props.refetch();
     this.props.setState((prev) => ({
       ...prev,
       searchModal: !this.props.state.searchModal,
-      refresh: !this.props.state.refresh,
     }));
-    this.setShow(false);
   };
 }

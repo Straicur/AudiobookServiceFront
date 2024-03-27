@@ -1,11 +1,6 @@
 export default class AdminAudiobooksService {
-  constructor(searchState, setSearchState) {
-    this.searchState = searchState;
-    this.setSearchState = setSearchState;
-  }
-
-  resetSearchStates = () => {
-    this.setSearchState({
+  static resetSearchStates = (setSearchState) => {
+    setSearchState({
       sort: 0,
       categories: [],
       title: '',
@@ -18,60 +13,39 @@ export default class AdminAudiobooksService {
     });
   };
 
-  createSearchData = () => {
+  static createSearchData = (searchState) => {
     let searchJson = {};
-
-    if (this.searchState.sort != 0) {
-      searchJson.order = parseInt(this.searchState.sort);
+    console.log(searchState.categories);
+    console.log(searchState);
+    if (searchState.sort != 0) {
+      searchJson.order = parseInt(searchState.sort);
     }
-    if (this.searchState.categories.length != 0) {
-      searchJson.categories = this.searchState.categories;
+    if (searchState.categories.length != 0) {
+      searchJson.categories = searchState.categories;
     }
-    if (this.searchState.title != '') {
-      searchJson.title = this.searchState.title;
+    if (searchState.title != '') {
+      searchJson.title = searchState.title;
     }
-    if (this.searchState.author != '') {
-      searchJson.author = this.searchState.author;
+    if (searchState.author != '') {
+      searchJson.author = searchState.author;
     }
-    if (this.searchState.album != '') {
-      searchJson.album = this.searchState.album;
+    if (searchState.album != '') {
+      searchJson.album = searchState.album;
     }
-    if (this.searchState.parts != 0) {
-      searchJson.parts = parseInt(this.searchState.parts);
+    if (searchState.parts != 0) {
+      searchJson.parts = parseInt(searchState.parts);
     }
-    if (this.searchState.age != 0) {
-      searchJson.age = parseInt(this.searchState.age);
+    if (searchState.age != 0) {
+      searchJson.age = parseInt(searchState.age);
     }
-    if (this.searchState.year != 0) {
-      let date = new Date(this.searchState.year);
+    if (searchState.year != 0) {
+      let date = new Date(searchState.year);
       searchJson.year = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
     }
-    if (this.searchState.duration != 0) {
-      searchJson.duration = parseInt(this.searchState.duration);
+    if (searchState.duration != 0) {
+      searchJson.duration = parseInt(searchState.duration);
     }
 
     return searchJson;
   };
-
-  // fetchCategoriesList = () => {
-  //   if (this.dateUpdate > Date.now() && this.dateUpdate != 0) {
-  //     this.setCategories(this.categories);
-  //   } else {
-  //     HandleFetch('/admin/categories', 'GET', null, this.props.token, this.i18n.language)
-  //       .then((data) => {
-  //         this.categoriesStore.removeCategories();
-  //         for (const category of data.categories) {
-  //           this.categoriesStore.addCategory(category);
-  //         }
-
-  //         this.setCategories(data.categories);
-  //       })
-  //       .catch((e) => {
-  //         this.props.setAudiobooksState((prev) => ({
-  //           ...prev,
-  //           error: e,
-  //         }));
-  //       });
-  //   }
-  // };
 }
