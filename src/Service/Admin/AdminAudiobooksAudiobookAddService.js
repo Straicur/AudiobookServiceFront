@@ -35,7 +35,6 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
   };
 
   handleCloseAndUpdate = () => {
-    this.props.resetSearchStates();
     this.props.setState((prev) => ({
       ...prev,
       addAudiobookModal: !this.props.state.addAudiobookModal,
@@ -60,7 +59,7 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
   generateCategoriesList = () => {
     let multiSelectTable = [];
 
-    this.props.categoriesState.forEach((element) => {
+    this.props.categories.categories.forEach((element) => {
       multiSelectTable.push({ key: element.id, label: element.name });
     });
     return multiSelectTable;
@@ -82,6 +81,8 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
     const reader = new FileReader();
     const fileName = this.stateModal.title + '_' + this.stateModal.author;
     const hashName = sha256(fileName).toString();
+    const token = this.props.token;
+    const language = this.props.i18n.language;
     //todo to jest do rozkminy bo przeszkadza
     // Nie wykonuje się po i nie mogę zmienić stanu
     this.setStateModal((prev) => ({
@@ -117,7 +118,7 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
           this.maxParts.current = part;
           this.currentPart.current = 0;
 
-          HandleFetch(url, method, jsonData, this.props.token, this.props.i18n.language)
+          HandleFetch(url, method, jsonData, token, language)
             .then((data) => {
               if (
                 this.currentPart.current == this.maxParts.current ||
@@ -166,7 +167,7 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
               },
             };
 
-            HandleFetch(url, method, jsonData, this.props.token, this.props.i18n.language)
+            HandleFetch(url, method, jsonData, token, language)
               .then((data) => {
                 if (
                   this.currentPart.current == this.maxParts.current ||

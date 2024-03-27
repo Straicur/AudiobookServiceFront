@@ -29,24 +29,8 @@ export default function AdminAudiobooksList(props) {
     error: null,
   });
 
-  const [categoriesState, setCategories] = useState([]);
-
   const [audiobooks, refetch, activate] = useAdminAudiobooksData();
   const [categories] = useAdminCategoriesListData();
-
-  const openAddModal = () => {
-    this.setState((prev) => ({
-      ...prev,
-      addAudiobookModal: !this.state.addAudiobookModal,
-    }));
-  };
-
-  const openSearchModal = () => {
-    this.setState((prev) => ({
-      ...prev,
-      searchModal: !this.state.searchModal,
-    }));
-  };
 
   useEffect(() => {
     if (state.addAudiobook) {
@@ -83,7 +67,12 @@ export default function AdminAudiobooksList(props) {
                 size='sm'
                 color='dark'
                 className=' btn button mt-2'
-                onClick={() => openSearchModal()}
+                onClick={() => {
+                  setState((prev) => ({
+                    ...prev,
+                    searchModal: !state.searchModal,
+                  }));
+                }}
               >
                 {t('search')}
               </Button>
@@ -113,7 +102,12 @@ export default function AdminAudiobooksList(props) {
               size='lg'
               color='dark'
               className=' btn button mt-2'
-              onClick={() => openAddModal()}
+              onClick={() => {
+                setState((prev) => ({
+                  ...prev,
+                  addAudiobookModal: !state.addAudiobookModal,
+                }));
+              }}
             >
               {t('addAudiobook')}
             </Button>
@@ -136,23 +130,22 @@ export default function AdminAudiobooksList(props) {
           </div>
         </div>
 
-        {state.addAudiobookModal && categoriesState.length != 0 ? (
+        {state.addAudiobookModal ? (
           <AdminAudiobooksAudiobookAddModal
             state={state}
             setState={setState}
             audiobooksState={props.audiobooksState}
             setAudiobooksState={props.setAudiobooksState}
             categories={categories}
+            refetch={refetch}
             t={t}
             i18n={i18n}
             token={props.token}
-            categoriesState={categoriesState}
-            setCategories={setCategories}
             resetSearchStates={props.adminService.resetSearchStates}
           />
         ) : null}
 
-        {state.searchModal && categoriesState.length != 0 ? (
+        {state.searchModal ? (
           <AdminAudiobooksSearchOffCanvas
             state={state}
             setState={setState}
@@ -164,8 +157,6 @@ export default function AdminAudiobooksList(props) {
             t={t}
             i18n={i18n}
             token={props.token}
-            categoriesState={categoriesState}
-            setCategories={setCategories}
             // pageState={pageState}
             // setPageState={setPageState}
             resetSearchStates={props.adminService.resetSearchStates}

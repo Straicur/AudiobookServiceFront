@@ -18,7 +18,7 @@ export default class AdminCategoryAudiobookAddService extends FormService {
     if (e.target.files) {
       let file = e.target.files[0];
 
-      if (file.type == 'application/zip') {
+      if (file.type == 'application/zip' || file.type == 'application/vnd.rar') {
         this.setStateModal((prev) => ({
           ...prev,
           fileAdded: true,
