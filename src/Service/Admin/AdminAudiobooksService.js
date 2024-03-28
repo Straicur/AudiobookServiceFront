@@ -15,8 +15,7 @@ export default class AdminAudiobooksService {
 
   static createSearchData = (searchState) => {
     let searchJson = {};
-    console.log(searchState.categories);
-    console.log(searchState);
+
     if (searchState.sort != 0) {
       searchJson.order = parseInt(searchState.sort);
     }

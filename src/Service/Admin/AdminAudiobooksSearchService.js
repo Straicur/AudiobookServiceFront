@@ -23,7 +23,7 @@ export default class AdminAudiobooksSearchService extends FormService {
   };
 
   changeCategories = (element) => {
-    if (!isNaN(element) && element != undefined) {
+    if (element != undefined) {
       this.props.setSearchState((prev) => ({
         ...prev,
         categories: element,
@@ -39,8 +39,9 @@ export default class AdminAudiobooksSearchService extends FormService {
     this.props.setAudiobooksState((prev) => ({
       ...prev,
       page: 0,
+      refresh: true,
     }));
-    console.log('dsa');
+
     this.props.refetch();
     this.props.setState((prev) => ({
       ...prev,

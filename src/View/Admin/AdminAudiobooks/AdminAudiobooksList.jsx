@@ -29,7 +29,7 @@ export default function AdminAudiobooksList(props) {
     error: null,
   });
 
-  const [audiobooks, refetch, activate] = useAdminAudiobooksData();
+  const [audiobooks, refetch, activate, forceRefetch] = useAdminAudiobooksData();
   const [categories] = useAdminCategoriesListData();
 
   useEffect(() => {
@@ -44,6 +44,17 @@ export default function AdminAudiobooksList(props) {
       }, state.addAudiobookSeconds);
     }
   }, [state.addAudiobook]);
+
+  useEffect(() => {
+    if (props.audiobooksState.refresh) {
+      forceRefetch();
+
+      props.setAudiobooksState((prev) => ({
+        ...prev,
+        refresh: false,
+      }));
+    }
+  }, [props.audiobooksState.refresh]);
 
   useEffect(() => {
     if (props.audiobooksState.error != null) {

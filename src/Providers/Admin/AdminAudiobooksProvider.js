@@ -67,7 +67,7 @@ export const AdminAudiobooksProvider = ({ children, token, page, searchState, se
     qc.invalidateQueries(['dataAdminAudiobooks' + page]);
   };
 
-  const { data: dataAdminAudiobooks = null } = useQuery({
+  const { data: dataAdminAudiobooks = null, refetch } = useQuery({
     queryKey: ['dataAdminAudiobooks' + page],
     queryFn: () =>
       HandleFetch(
@@ -92,7 +92,7 @@ export const AdminAudiobooksProvider = ({ children, token, page, searchState, se
     },
   });
 
-  const value = [dataAdminAudiobooks, setRefetch, activate];
+  const value = [dataAdminAudiobooks, setRefetch, activate, refetch];
 
   return (
     <AdminAudiobooksContext.Provider value={value}>{children}</AdminAudiobooksContext.Provider>

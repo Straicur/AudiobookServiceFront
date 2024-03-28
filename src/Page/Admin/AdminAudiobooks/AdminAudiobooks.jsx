@@ -15,6 +15,7 @@ export default function AdminAudiobooks() {
 
   const [audiobooksState, setAudiobooksState] = useState({
     page: 0,
+    refresh: false,
     error: null,
   });
 
