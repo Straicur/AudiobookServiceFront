@@ -9,7 +9,7 @@ import Alert from 'react-bootstrap/Alert';
 export default function AdminAudiobookEditForm(props) {
   const [wrongState, setWrongState] = useState(0);
 
-  const adminService = new AdminAudiobookEditService(wrongState, setWrongState, props);
+  const adminService = new AdminAudiobookEditService(props, wrongState, setWrongState);
 
   useEffect(() => {
     if (props.audiobookDetail != null) {
@@ -28,7 +28,7 @@ export default function AdminAudiobookEditForm(props) {
             name='title'
             value={props.audiobookDetail != null ? props.audiobookDetail.title : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -42,7 +42,7 @@ export default function AdminAudiobookEditForm(props) {
             name='author'
             value={props.audiobookDetail != null ? props.audiobookDetail.author : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -56,7 +56,7 @@ export default function AdminAudiobookEditForm(props) {
             name='album'
             value={props.audiobookDetail != null ? props.audiobookDetail.album : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -71,7 +71,7 @@ export default function AdminAudiobookEditForm(props) {
             name='year'
             value={props.audiobookDetail != null ? props.audiobookDetail.year : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -86,7 +86,7 @@ export default function AdminAudiobookEditForm(props) {
             name='parts'
             value={props.audiobookDetail != null ? props.audiobookDetail.parts : ''}
             onChange={(event) => {
-              adminService.handlePartsChange(event);
+              adminService.handleProviderChangeInt(event);
             }}
           />
         </InputGroup>
@@ -100,7 +100,7 @@ export default function AdminAudiobookEditForm(props) {
             name='duration'
             value={props.audiobookDetail != null ? props.audiobookDetail.duration : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -116,7 +116,7 @@ export default function AdminAudiobookEditForm(props) {
             rows={4}
             value={props.audiobookDetail != null ? props.audiobookDetail.description : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -136,7 +136,7 @@ export default function AdminAudiobookEditForm(props) {
                 : ''
             }
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -150,7 +150,7 @@ export default function AdminAudiobookEditForm(props) {
             name='size'
             value={props.audiobookDetail != null ? props.audiobookDetail.size : ''}
             onChange={(event) => {
-              adminService.handleChange(event);
+              adminService.handleProviderChange(event);
             }}
           />
         </InputGroup>
@@ -165,14 +165,17 @@ export default function AdminAudiobookEditForm(props) {
               name='version'
               value={props.audiobookDetail != null ? props.audiobookDetail.version : ''}
               onChange={(event) => {
-                adminService.handleChange(event);
+                adminService.handleProviderChange(event);
               }}
             />
           </InputGroup>
         </div>
         <div className='col-auto input_modal'>
           <InputGroup className='mb-1'>
-            <Dropdown name='age' onSelect={(event) => adminService.handleChangeInt(event)}>
+            <Dropdown
+              name='age'
+              onSelect={(eventKey) => adminService.handleProviderChangeDropDown(eventKey, 'age')}
+            >
               <Dropdown.Toggle className=' text-start' variant='success' id='dropdown-basic'>
                 {props.t('age')}
               </Dropdown.Toggle>
@@ -241,7 +244,13 @@ export default function AdminAudiobookEditForm(props) {
               size='sm'
               disabled={wrongState != 0}
               className='btn button px-4 mt-3  mb-1 question_button success_button'
-              onClick={adminService.editAudiobookData}
+              onClick={() => {
+                props.setAudiobookState((prev) => ({
+                  ...prev,
+                  edit: !props.audiobookState.edit,
+                }));
+                props.audiobookDataEdit();
+              }}
             >
               {props.t('yes')}
             </Button>

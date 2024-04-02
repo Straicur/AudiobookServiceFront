@@ -1,26 +1,12 @@
-import { HandleFetch } from 'Util/HandleFetch';
-import CreateUtil from 'Util/CreateUtil';
 import FormService from 'Service/Common/FormService';
 
 export default class AdminAudiobookEditService extends FormService {
-  constructor(wrongState, setWrongState, props) {
+  constructor(props, wrongState, setWrongState) {
     super(props.setAudiobookDetail);
+    this.props = props;
     this.wrongState = wrongState;
     this.setWrongState = setWrongState;
-    this.props = props;
   }
-
-  handlePartsChange = (event) => {
-    let value = event.target.value;
-    if (value == '') {
-      value = 0;
-    }
-
-    this.props.setAudiobookDetail((prev) => ({
-      ...prev,
-      parts: parseInt(value),
-    }));
-  };
 
   validateFields = () => {
     this.setWrongState(0);
@@ -78,47 +64,5 @@ export default class AdminAudiobookEditService extends FormService {
       case 9:
         return this.props.t('enterValidVersion');
     }
-  };
-
-  editAudiobookData = () => {
-    let myDate = this.props.audiobookDetail.duration.split(':');
-
-    let hours = parseInt(myDate[0] * 60 * 60);
-    let minutes = parseInt(myDate[1] * 60);
-    let seconds = parseInt(myDate[2]);
-
-    HandleFetch(
-      '/admin/audiobook/edit',
-      'PATCH',
-      {
-        audiobookId: this.props.audiobookDetail.id,
-        title: this.props.audiobookDetail.title,
-        author: this.props.audiobookDetail.author,
-        version: this.props.audiobookDetail.version,
-        album: this.props.audiobookDetail.album,
-        year: CreateUtil.createJsonFormatDate(this.props.audiobookDetail.year),
-        duration: hours + minutes + seconds,
-        size: this.props.audiobookDetail.size,
-        parts: this.props.audiobookDetail.parts,
-        description: this.props.audiobookDetail.description,
-        age: this.props.audiobookDetail.age,
-        encoded: this.props.audiobookDetail.encoded,
-      },
-      this.props.token,
-      this.props.i18n.language,
-    )
-      .then(() => {
-        this.props.setAudiobookDetailRefetch(true);
-        this.props.setAudiobookState((prev) => ({
-          ...prev,
-          edit: !this.props.audiobookState.edit,
-        }));
-      })
-      .catch((e) => {
-        this.props.setAudiobookState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
   };
 }

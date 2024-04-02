@@ -42,7 +42,7 @@ export default function AdminAudiobookCover(props) {
               props.i18n.language,
             )
               .then(() => {
-                props.setAudiobookCoverRefetch(true);
+                props.setAudiobookCoverRefetch();
                 props.setAudiobookState((prev) => ({
                   ...prev,
                   file: null,

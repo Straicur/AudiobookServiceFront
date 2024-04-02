@@ -32,8 +32,8 @@ export const AudiobookPartProvider = ({
     setAudiobookState({
       ...audiobookState,
       newPart: true,
-      // detailWatchingDate: null,
-      // datailEndedTime: null,
+      detailWatchingDate: null,
+      datailEndedTime: null,
     });
 
     qc.invalidateQueries(['dataAudiobookPart' + audiobookId]);
@@ -73,7 +73,7 @@ export const AudiobookPartProvider = ({
     // },
   });
 
-  const value = [dataAudiobookPart, setAudiobookPart, setRefetch];
+  const value = [dataAudiobookPart, setRefetch, setAudiobookPart];
 
   return <AudiobookPartContext.Provider value={value}>{children}</AudiobookPartContext.Provider>;
 };

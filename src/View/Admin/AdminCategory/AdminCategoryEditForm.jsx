@@ -4,13 +4,13 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Alert from 'react-bootstrap/Alert';
-import AdminCategoryEditService from 'Service/Admin/AdminCategoryEditService';
+import AdminAudiobookEditService from 'Service/Admin/AdminAudiobookEditService';
 import CreateUtil from 'Util/CreateUtil';
 
 export default function AdminCategoryEditForm(props) {
   const [wrongState, setWrongState] = useState(0);
 
-  const adminService = new AdminCategoryEditService(props, wrongState, setWrongState);
+  const adminService = new AdminAudiobookEditService(props, wrongState, setWrongState);
 
   useEffect(() => {
     if (props.audiobookDetail != null) {

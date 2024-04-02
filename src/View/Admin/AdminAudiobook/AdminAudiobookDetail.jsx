@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAdminAudiobookData } from 'Providers/Admin/AdminAudiobookDataProvider';
 import { useAudiobookCover } from 'Providers/Common/AudiobookCoverDataProvider';
 import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
@@ -20,12 +20,13 @@ import Alert from 'react-bootstrap/Alert';
 import { useCategoryListStore } from 'Store/store';
 
 export default function AdminAudiobookDetail(props) {
-  const [categoriesState, setCategories] = useState([]);
+  const [audiobookDetail, setAudiobookDetailRefetch, setAudiobookDetail, audiobookDataEdit] =
+    useAdminAudiobookData();
 
-  const [audiobookDetail, setAudiobookDetail, setAudiobookDetailRefetch] = useAdminAudiobookData();
   const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
-  const [audiobookCommnets, setAudiobookCommnetsRefetchState] = useAdminAudiobookComments();
+  const [audiobookCommnets, setAudiobookCommentsRefetch, deleteComment] =
+    useAdminAudiobookComments();
 
   const categoriesStore = useCategoryListStore();
 
@@ -61,9 +62,10 @@ export default function AdminAudiobookDetail(props) {
   useEffect(() => {
     if (props.audiobookState.refresh) {
       setTimeout(function () {
-        setAudiobookDetailRefetch(true);
-        setAudiobookCoverRefetch(true);
-        setAudiobookPartRefetch(true);
+        setAudiobookDetailRefetch();
+        setAudiobookPartRefetch();
+        setAudiobookCoverRefetch();
+        setAudiobookCommentsRefetch();
       }, props.audiobookState.addAudiobookSeconds);
     }
   }, [props.audiobookState.refresh]);
@@ -98,6 +100,7 @@ export default function AdminAudiobookDetail(props) {
             <AdminAudiobookEditForm
               audiobookDetail={audiobookDetail}
               setAudiobookDetail={setAudiobookDetail}
+              audiobookDataEdit={audiobookDataEdit}
               setAudiobookDetailRefetch={setAudiobookDetailRefetch}
               setAudiobookState={props.setAudiobookState}
               audiobookState={props.audiobookState}
@@ -187,7 +190,7 @@ export default function AdminAudiobookDetail(props) {
               dateUpdate={dateUpdate}
               categories={categories}
               categoriesStore={categoriesStore}
-              setCategories={setCategories}
+              // setCategories={setCategories}
               audiobookState={props.audiobookState}
               setAudiobookState={props.setAudiobookState}
               token={props.token}
@@ -216,7 +219,8 @@ export default function AdminAudiobookDetail(props) {
           audiobookState={props.audiobookState}
           setAudiobookState={props.setAudiobookState}
           audiobookCommnets={audiobookCommnets}
-          setAudiobookCommnetsRefetchState={setAudiobookCommnetsRefetchState}
+          deleteComment={deleteComment}
+          setAudiobookCommentsRefetch={setAudiobookCommentsRefetch}
           t={props.t}
           token={props.token}
           i18n={props.i18n}
@@ -233,12 +237,12 @@ export default function AdminAudiobookDetail(props) {
           i18n={props.i18n}
         />
       ) : null}
-      {props.audiobookState.reAddingModal && categoriesState.length != 0 ? (
+      {props.audiobookState.reAddingModal ? (
         <AdminAudiobookReAddingModal
           audiobookDetail={audiobookDetail}
           audiobookState={props.audiobookState}
           setAudiobookState={props.setAudiobookState}
-          categoriesState={categoriesState}
+          // categoriesState={categoriesState}
           t={props.t}
           token={props.token}
           i18n={props.i18n}

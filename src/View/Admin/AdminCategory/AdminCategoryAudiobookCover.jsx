@@ -42,7 +42,7 @@ export default function AdminCategoryAudiobookCover(props) {
               props.i18n.language,
             )
               .then(() => {
-                props.setAudiobookCoverRefetch(true);
+                props.setAudiobookCoverRefetch();
 
                 props.setStateModal((prev) => ({
                   ...prev,
