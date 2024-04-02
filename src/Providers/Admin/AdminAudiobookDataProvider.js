@@ -4,6 +4,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import CreateUtil from 'Util/CreateUtil';
+
 const AdminAudiobookDataContext = createContext(null);
 
 export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setState, i18n }) => {
@@ -71,11 +72,57 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
     },
   });
 
-  const setRefetch = () => {
-    qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
-  };
+  const { mutate: audiobookDeleteCategory } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/admin/category/remove/audiobook',
+        'DELETE',
+        {
+          categoryId: data.categoryId,
+          audiobookId: data.audiobookId,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: () => {
+      qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
+    },
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
 
-  const { data: dataAudiobookAdminData } = useQuery({
+  const { mutate: audiobookAddCategory } = useMutation({
+    mutationFn: (data) => {
+      data.element.stopPropagation();
+      HandleFetch(
+        '/admin/category/add/audiobook',
+        'PUT',
+        {
+          categoryId: data.categoryId,
+          audiobookId: data.audiobookId,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
+  // const setRefetch = () => {
+  //   qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
+  // };
+
+  const { data: dataAudiobookAdminData, refetch } = useQuery({
     queryKey: ['dataAudiobookAdminData' + audiobookId],
     queryFn: () =>
       HandleFetch(
@@ -98,7 +145,14 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
     },
   });
 
-  const value = [dataAudiobookAdminData, setRefetch, audiobookDataChange, audiobookDataEdit];
+  const value = [
+    dataAudiobookAdminData,
+    refetch,
+    audiobookDataChange,
+    audiobookDataEdit,
+    audiobookDeleteCategory,
+    audiobookAddCategory,
+  ];
 
   return (
     <AdminAudiobookDataContext.Provider value={value}>

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { HandleFetch } from 'Util/HandleFetch';
-import { useCategoryTreeListStore } from 'Store/store';
 import AdminAudiobookRenderCategoriesList from './AdminAudiobookRenderCategoriesList';
 import Modal from 'react-bootstrap/Modal';
 
@@ -10,48 +8,13 @@ export default function AdminAudiobookAddCategoriesModal(props) {
     refresh: false,
   });
 
-  const categoriesStore = useCategoryTreeListStore();
-
-  const categories = useCategoryTreeListStore((state) => state.categories);
-  const dateUpdate = useCategoryTreeListStore((state) => state.dateUpdate);
-
   const handleClose = () => {
-    props.setAudiobookDetailRefetch(true);
+    props.setAudiobookDetailRefetch();
     props.setAudiobookState((prev) => ({
       ...prev,
       addCategoriesModal: !props.audiobookState.addCategoriesModal,
     }));
   };
-
-  const fetchCategories = () => {
-    HandleFetch('/admin/categories/tree', 'GET', null, props.token, props.i18n.language)
-      .then((data) => {
-        categoriesStore.removeCategories();
-
-        for (const category of data.categories) {
-          categoriesStore.addCategory(category);
-        }
-
-        if (categoriesState.refresh) {
-          setCategoriesState((prev) => ({
-            ...prev,
-            refresh: !categoriesState.refresh,
-          }));
-        }
-      })
-      .catch((e) => {
-        props.setAudiobookState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
-  };
-
-  useEffect(() => {
-    if (dateUpdate < Date.now() || categoriesState.refresh) {
-      fetchCategories();
-    }
-  }, []);
 
   useEffect(() => {
     let categoriesIds = [];
@@ -66,7 +29,7 @@ export default function AdminAudiobookAddCategoriesModal(props) {
     }));
 
     if (categoriesState.refresh) {
-      fetchCategories();
+      // fetchCategories();
     }
   }, [categoriesState.refresh]);
 
@@ -82,7 +45,8 @@ export default function AdminAudiobookAddCategoriesModal(props) {
       </Modal.Header>
       <Modal.Body>
         <AdminAudiobookRenderCategoriesList
-          categories={categories}
+          categories={props.categories.categories}
+          audiobookAddCategory={props.audiobookAddCategory}
           audiobookDetail={props.audiobookDetail}
           categoriesState={categoriesState}
           setCategoriesState={setCategoriesState}

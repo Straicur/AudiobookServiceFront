@@ -17,38 +17,6 @@ let tokenStore = (set) => ({
     })),
 });
 
-let categoryTreeListStore = (set) => ({
-  categories: [],
-  dateUpdate: 0,
-  addCategories: (categories) => {
-    set(() => ({
-      categories: categories,
-      dateUpdate: Date.now() + 1800000,
-    }));
-  },
-  removeCategories: () =>
-    set(() => ({
-      categories: [],
-      dateUpdate: 0,
-    })),
-});
-
-let categoryListStore = (set) => ({
-  categories: [],
-  dateUpdate: 0,
-  addCategory: (category) => {
-    set((state) => ({
-      categories: [...state.categories, category],
-      dateUpdate: Date.now() + 1800000,
-    }));
-  },
-  removeCategories: () =>
-    set(() => ({
-      categories: [],
-      dateUpdate: 0,
-    })),
-});
-
 let lastUserRolesStore = (set) => ({
   roles: null,
   dateUpdate: 0,
@@ -124,14 +92,6 @@ let coverListStore = (set) => ({
 tokenStore = devtools(tokenStore);
 tokenStore = persist(tokenStore, { name: 'auth_token' });
 
-categoryTreeListStore = devtools(categoryTreeListStore);
-categoryTreeListStore = persist(categoryTreeListStore, {
-  name: 'categoriesTree',
-});
-
-categoryListStore = devtools(categoryListStore);
-categoryListStore = persist(categoryListStore, { name: 'categories' });
-
 lastUserRolesStore = devtools(lastUserRolesStore);
 lastUserRolesStore = persist(lastUserRolesStore, { name: 'userRolesStore' });
 
@@ -147,7 +107,5 @@ coverListStore = persist(coverListStore, {
 
 export const useTokenStore = create(tokenStore);
 export const useLastUserRolesStore = create(lastUserRolesStore);
-export const useCategoryTreeListStore = create(categoryTreeListStore);
-export const useCategoryListStore = create(categoryListStore);
 export const useNotificationsListStore = create(notificationsListStore);
 export const useCoverListStore = create(coverListStore);

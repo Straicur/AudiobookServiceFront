@@ -1,5 +1,3 @@
-import { HandleFetch } from 'Util/HandleFetch';
-
 export default class AdminAudiobookRenderCategoriesService {
   constructor(props) {
     this.props = props;
@@ -63,27 +61,4 @@ export default class AdminAudiobookRenderCategoriesService {
       }
     }
   }
-
-  addCategory = (element, category) => {
-    element.stopPropagation();
-    HandleFetch(
-      '/admin/category/add/audiobook',
-      'PUT',
-      {
-        categoryId: category.id,
-        audiobookId: this.props.audiobookDetail.id,
-      },
-      this.props.token,
-      this.props.i18n.language,
-    )
-      .then(() => {
-        element.target.disabled = true;
-      })
-      .catch((e) => {
-        this.props.setAudiobookState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
-  };
 }

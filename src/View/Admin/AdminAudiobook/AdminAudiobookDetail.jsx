@@ -17,21 +17,23 @@ import AdminAudiobookReAddButton from './AdminAudiobookReAddButton';
 import AdminAudiobookDeleteEntarlyButton from './AdminAudiobookDeleteEntarlyButton';
 import { v4 as uuidv4 } from 'uuid';
 import Alert from 'react-bootstrap/Alert';
-import { useCategoryListStore } from 'Store/store';
+import { useAdminCategoriesTree } from 'Providers/Admin/AdminCategoriesTreeProvider';
 
 export default function AdminAudiobookDetail(props) {
-  const [audiobookDetail, setAudiobookDetailRefetch, setAudiobookDetail, audiobookDataEdit] =
-    useAdminAudiobookData();
+  const [
+    audiobookDetail,
+    setAudiobookDetailRefetch,
+    setAudiobookDetail,
+    audiobookDataEdit,
+    audiobookDeleteCategory,
+    audiobookAddCategory,
+  ] = useAdminAudiobookData();
 
   const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
+  const [categories] = useAdminCategoriesTree();
   const [audiobookCommnets, setAudiobookCommentsRefetch, deleteComment] =
     useAdminAudiobookComments();
-
-  const categoriesStore = useCategoryListStore();
-
-  const categories = useCategoryListStore((state) => state.categories);
-  const dateUpdate = useCategoryListStore((state) => state.dateUpdate);
 
   const renderStars = () => {
     let stars = [];
@@ -153,6 +155,7 @@ export default function AdminAudiobookDetail(props) {
             <div className='row d-flex justify-content-center text-center'></div>
             <AdminAudiobookCategoryList
               audiobookDetail={audiobookDetail}
+              audiobookDeleteCategory={audiobookDeleteCategory}
               t={props.t}
               i18n={props.i18n}
               token={props.token}
@@ -187,9 +190,8 @@ export default function AdminAudiobookDetail(props) {
             />
 
             <AdminAudiobookReAddButton
-              dateUpdate={dateUpdate}
               categories={categories}
-              categoriesStore={categoriesStore}
+              // categoriesStore={categoriesStore}
               // setCategories={setCategories}
               audiobookState={props.audiobookState}
               setAudiobookState={props.setAudiobookState}
@@ -228,6 +230,8 @@ export default function AdminAudiobookDetail(props) {
       </div>
       {props.audiobookState.addCategoriesModal ? (
         <AdminAudiobookAddCategoriesModal
+          categories={categories}
+          audiobookAddCategory={audiobookAddCategory}
           audiobookDetail={audiobookDetail}
           audiobookState={props.audiobookState}
           setAudiobookState={props.setAudiobookState}

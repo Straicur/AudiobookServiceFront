@@ -1,30 +1,15 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
-import { HandleFetch } from 'Util/HandleFetch';
 
 export default function AdminAudiobookCategoryList(props) {
   const deleteFromCategory = (category) => {
-    HandleFetch(
-      '/admin/category/remove/audiobook',
-      'DELETE',
-      {
-        categoryId: category.id,
-        audiobookId: props.audiobookDetail.id,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        props.setAudiobookDetailRefetch(true);
-      })
-      .catch((e) => {
-        props.setAudiobookState({
-          ...props.audiobookState,
-          error: e,
-        });
-      });
+    props.audiobookDeleteCategory({
+      categoryId: category.id,
+      audiobookId: props.audiobookDetail.id,
+    });
   };
+
   const createCategory = (category) => {
     return (
       <div key={uuidv4()} className='row border border-secondary mb-1'>

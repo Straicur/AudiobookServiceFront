@@ -4,6 +4,7 @@ import { AudiobookCoverDataProvider } from 'Providers/Common/AudiobookCoverDataP
 import { AudiobookPartProvider } from 'Providers/Common/AudiobookPartProvider';
 import { AdminAudiobookCommentsProvider } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 import AdminAudiobookDetail from './AdminAudiobookDetail';
+import { AdminCategoriesTreeProvider } from 'Providers/Admin/AdminCategoriesTreeProvider';
 
 export default function AdminAuidobookDetailProviders(props) {
   useEffect(() => {
@@ -44,13 +45,19 @@ export default function AdminAuidobookDetailProviders(props) {
             t={props.t}
             i18n={props.i18n}
           >
-            <AdminAudiobookDetail
-              audiobookState={props.audiobookState}
-              setAudiobookState={props.setAudiobookState}
-              t={props.t}
+            <AdminCategoriesTreeProvider
               token={props.token}
+              setState={props.setAudiobookState}
               i18n={props.i18n}
-            />
+            >
+              <AdminAudiobookDetail
+                audiobookState={props.audiobookState}
+                setAudiobookState={props.setAudiobookState}
+                t={props.t}
+                token={props.token}
+                i18n={props.i18n}
+              />
+            </AdminCategoriesTreeProvider>
           </AdminAudiobookCommentsProvider>
         </AudiobookPartProvider>
       </AudiobookCoverDataProvider>

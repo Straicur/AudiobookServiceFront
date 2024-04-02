@@ -12,9 +12,9 @@ export default function AdminCategoriesRenderList(props) {
   const createTree = () => {
     let renderArray = [];
     let kids = [];
-
-    if (props.categories !== undefined && props.categories !== null) {
-      recursiveTree(props.categories, renderArray, kids, null);
+    console.log(props);
+    if (props.categories.categories !== undefined && props.categories.categories !== null) {
+      recursiveTree(props.categories.categories, renderArray, kids, null);
     }
 
     return renderArray;

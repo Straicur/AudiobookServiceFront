@@ -67,7 +67,15 @@ export default function AdminAudiobookRenderCategoriesList(props) {
               size='lg'
               className='btn button'
               disabled={usedCategory != 0}
-              onClick={(e) => adminService.addCategory(e, element)}
+              onClick={(e) => {
+                e.target.disabled = true;
+                console.log(e.target.disabled);
+                props.audiobookAddCategory({
+                  element: e,
+                  categoryId: element.id,
+                  audiobookId: props.audiobookDetail.id,
+                });
+              }}
             >
               {props.t('add')}
             </Button>
@@ -117,7 +125,14 @@ export default function AdminAudiobookRenderCategoriesList(props) {
               size='lg'
               className='btn button'
               disabled={usedCategory != 0}
-              onClick={(e) => adminService.addCategory(e, element)}
+              onClick={(e) => {
+                e.target.disabled = true;
+                props.audiobookAddCategory({
+                  element: e,
+                  categoryId: element.id,
+                  audiobookId: props.audiobookDetail.id,
+                });
+              }}
             >
               {props.t('add')}
             </Button>

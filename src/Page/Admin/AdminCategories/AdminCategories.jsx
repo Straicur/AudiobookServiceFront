@@ -12,7 +12,7 @@ export default function AdminCategories() {
 
   const { t, i18n } = useTranslation();
 
-  const [categoiesState, setCategoiesState] = useState({
+  const [categoriesState, setCategoriesState] = useState({
     error: null,
   });
 
@@ -20,16 +20,16 @@ export default function AdminCategories() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        setCategoiesState((prev) => ({
+        setCategoriesState((prev) => ({
           ...prev,
           error: null,
         }));
       }}
     >
-      <AdminCategoriesTreeProvider token={token} setState={setCategoiesState} i18n={i18n}>
+      <AdminCategoriesTreeProvider token={token} setState={setCategoriesState} i18n={i18n}>
         <AdminCategoriesList
-          categoiesState={categoiesState}
-          setCategoiesState={setCategoiesState}
+          categoriesState={categoriesState}
+          setCategoriesState={setCategoriesState}
           token={token}
           t={t}
           i18n={i18n}

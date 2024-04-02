@@ -57,7 +57,7 @@ export default function AdminCategoriesEditModal(props) {
         handleClose();
       })
       .catch((e) => {
-        props.setCategoiesState((prev) => ({
+        props.setCategoriesState((prev) => ({
           ...prev,
           error: e,
         }));

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import Button from 'react-bootstrap/Button';
-import { useCategoryTreeListStore } from 'Store/store';
 import AdminCategoriesRenderList from './AdminCategoriesRenderList';
 import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
 import AdminCategoriesAddModal from './AdminCategoriesAddModal';
@@ -20,28 +19,14 @@ export default function AdminCategoriesList(props) {
     error: null,
   });
 
-  const categoriesStore = useCategoryTreeListStore();
-  const dateUpdate = useCategoryTreeListStore((state) => state.dateUpdate);
-
   const [categoriesData, refetch, categoryChange, categoryActivate, categoryAdd] =
     useAdminCategoriesTree();
 
-  const getCategories = () => {
-    if (categoriesData != null) {
-      if (dateUpdate < Date.now()) {
-        categoriesStore.addCategories(categoriesData.categories);
-      }
-
-      return categoriesData.categories;
-    }
-    return null;
-  };
-
   useEffect(() => {
-    if (props.categoiesState.error != null) {
-      throw props.categoiesState.error;
+    if (props.categoriesState.error != null) {
+      throw props.categoriesState.error;
     }
-  }, [props.categoiesState.error]);
+  }, [props.categoriesState.error]);
 
   return (
     <div className='container-fluid main-container mt-3'>
@@ -54,9 +39,9 @@ export default function AdminCategoriesList(props) {
         <AdminCategoriesRenderList
           state={state}
           setState={setState}
-          categories={getCategories()}
+          categories={categoriesData}
           categoriesState={props.categoriesState}
-          setCategoriesState={props.setCategoiesState}
+          setCategoriesState={props.setCategoriesState}
           t={props.t}
         />
         <div className='row justify-content-md-center'>
@@ -102,7 +87,7 @@ export default function AdminCategoriesList(props) {
               refetch={refetch}
               categoryChange={categoryChange}
               categoryActivate={categoryActivate}
-              setCategoiesState={props.setCategoiesState}
+              setCategoriesState={props.setCategoriesState}
               t={props.t}
               i18n={props.i18n}
               token={props.token}
@@ -114,7 +99,7 @@ export default function AdminCategoriesList(props) {
               setState={setState}
               refetch={refetch}
               categoryAdd={categoryAdd}
-              setCategoiesState={props.setCategoiesState}
+              setCategoriesState={props.setCategoriesState}
               t={props.t}
               i18n={props.i18n}
               token={props.token}
