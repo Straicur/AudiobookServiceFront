@@ -27,6 +27,7 @@ export default function AdminAudiobookDetail(props) {
     audiobookDataEdit,
     audiobookDeleteCategory,
     audiobookAddCategory,
+    deleteAudiobook,
   ] = useAdminAudiobookData();
 
   const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
@@ -182,6 +183,7 @@ export default function AdminAudiobookDetail(props) {
 
             <AdminAudiobookDeleteEntarlyButton
               audiobookDetail={audiobookDetail}
+              deleteAudiobook={deleteAudiobook}
               audiobookState={props.audiobookState}
               setAudiobookState={props.setAudiobookState}
               token={props.token}

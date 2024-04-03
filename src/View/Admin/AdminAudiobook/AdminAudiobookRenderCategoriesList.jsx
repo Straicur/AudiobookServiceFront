@@ -16,7 +16,10 @@ export default function AdminAudiobookRenderCategoriesList(props) {
   };
 
   function listParent(element, child, parent) {
-    const usedCategory = props.categoriesState.categoriesId.filter((x) => x == element.id).length;
+    const usedInRefCategory = props.categoriesId.current.filter((x) => x == element.id).length;
+    const usedInitialCategory = props.audiobookDetail.categories.filter(
+      (x) => x.id == element.id,
+    ).length;
 
     return (
       <li
@@ -66,10 +69,9 @@ export default function AdminAudiobookRenderCategoriesList(props) {
               variant='dark'
               size='lg'
               className='btn button'
-              disabled={usedCategory != 0}
+              disabled={usedInRefCategory != 0 || usedInitialCategory}
               onClick={(e) => {
-                e.target.disabled = true;
-                console.log(e.target.disabled);
+                props.categoriesId.current.push(element.id);
                 props.audiobookAddCategory({
                   element: e,
                   categoryId: element.id,
@@ -89,7 +91,11 @@ export default function AdminAudiobookRenderCategoriesList(props) {
   }
 
   function createListElement(element) {
-    const usedCategory = props.categoriesState.categoriesId.filter((x) => x == element.id).length;
+    const usedInRefCategory = props.categoriesId.current.filter((x) => x == element.id).length;
+    const usedInitialCategory = props.audiobookDetail.categories.filter(
+      (x) => x.id == element.id,
+    ).length;
+
     return (
       <li key={uuidv4()} className='d-none p-2 border list-group-item' id={element.id}>
         <div className='d-flex flex-row bd-highlight mb-2'>
@@ -124,9 +130,9 @@ export default function AdminAudiobookRenderCategoriesList(props) {
               variant='dark'
               size='lg'
               className='btn button'
-              disabled={usedCategory != 0}
+              disabled={usedInRefCategory != 0 || usedInitialCategory}
               onClick={(e) => {
-                e.target.disabled = true;
+                props.categoriesId.current.push(element.id);
                 props.audiobookAddCategory({
                   element: e,
                   categoryId: element.id,

@@ -4,11 +4,14 @@ import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import CreateUtil from 'Util/CreateUtil';
+import { useNavigate } from 'react-router-dom';
 
 const AdminAudiobookDataContext = createContext(null);
 
 export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setState, i18n }) => {
   const qc = useQueryClient();
+
+  const navigate = useNavigate();
 
   const { mutate: audiobookDataEdit } = useMutation({
     mutationFn: () => {
@@ -118,6 +121,34 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
     },
   });
 
+  const { mutate: deleteAudiobook } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/admin/audiobook/delete',
+        'DELETE',
+        {
+          audiobookId: data.audiobookId,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: () => {
+      qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
+      qc.invalidateQueries(['dataAdminCategoriesTree']);
+      qc.invalidateQueries(['dataAdminAudiobooks']);
+      navigate(`/admin/audiobooks`);
+    },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
   // const setRefetch = () => {
   //   qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
   // };
@@ -152,6 +183,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
     audiobookDataEdit,
     audiobookDeleteCategory,
     audiobookAddCategory,
+    deleteAudiobook,
   ];
 
   return (

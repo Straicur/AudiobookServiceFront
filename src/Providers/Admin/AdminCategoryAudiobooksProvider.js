@@ -139,6 +139,8 @@ export const AdminCategoryAudiobooksProvider = ({
       });
 
       qc.invalidateQueries(['dataAdminCategoriesTree']);
+      qc.invalidateQueries(['dataAudiobookAdminData']);
+      qc.invalidateQueries(['dataAdminAudiobooks']);
     },
     onError: (e) => {
       qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);

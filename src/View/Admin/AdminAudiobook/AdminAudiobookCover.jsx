@@ -64,6 +64,25 @@ export default function AdminAudiobookCover(props) {
     }
   };
 
+  const getImgUrl = () => {
+    if (
+      props.audiobookCover != undefined &&
+      props.audiobookCover.audiobookCoversModels.length > 0
+    ) {
+      let url = props.audiobookCover.audiobookCoversModels.filter(
+        (obj) => obj.id == props.audiobookDetail.id,
+      );
+
+      if (url.length > 0 && url[0].url != '') {
+        return process.env.REACT_APP_API_URL + url[0].url;
+      } else {
+        return '/noImg.jpg';
+      }
+    } else {
+      return '/noImg.jpg';
+    }
+  };
+
   return (
     <div className='row '>
       <div className='row '>
@@ -71,7 +90,7 @@ export default function AdminAudiobookCover(props) {
           src={
             props.audiobookCover == null || props.audiobookCover.url == ''
               ? '/noImg.jpg'
-              : process.env.REACT_APP_API_URL + props.audiobookCover.url
+              : getImgUrl()
           }
           className='card-img-top'
           alt='...'
