@@ -6,6 +6,12 @@ import { Button } from 'react-bootstrap';
 export default function AdminAudiobookRenderCommentsList(props) {
   const adminService = new AdminAudiobookRenderCommentsService(props);
 
+  function deleteCommnet(element) {
+    props.deleteComment({
+      id: element.id,
+    });
+  }
+
   const renderTree = () => {
     let renderArray = [];
 
@@ -58,7 +64,7 @@ export default function AdminAudiobookRenderCommentsList(props) {
               size='sm'
               className='btn button'
               onClick={() => {
-                adminService.deleteCommnet(element);
+                deleteCommnet(element);
               }}
             >
               {element.deleted ? props.t('restore') : props.t('delete')}
