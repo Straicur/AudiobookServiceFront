@@ -66,7 +66,7 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
   };
 
   changeCategories = (element) => {
-    if (!isNaN(element) && element != undefined) {
+    if (element != undefined) {
       this.setStateModal((prev) => ({
         ...prev,
         categories: element,
@@ -182,6 +182,7 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
                     uploadEnded: false,
                   });
                 }
+
                 this.currentPart.current = this.currentPart.current + 1;
               })
               .catch((e) => {

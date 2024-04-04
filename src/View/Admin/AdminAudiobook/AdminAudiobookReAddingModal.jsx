@@ -19,12 +19,8 @@ export default function AdminAudiobookReAddingModal(props) {
     uploadEnded: true,
   });
 
-  const [stateProgress, setStateProgress] = useState({
-    maxParts: 0,
-    currentPart: 0,
-    error: false,
-  });
-
+  const maxParts = useRef(0);
+  const currentPart = useRef(0);
   const seconds = useRef(3000);
 
   const adminService = new AdminAudiobookReAddingService(
@@ -32,8 +28,8 @@ export default function AdminAudiobookReAddingModal(props) {
     setStateModal,
     props,
     seconds,
-    stateProgress,
-    setStateProgress,
+    currentPart,
+    maxParts,
   );
 
   useEffect(() => {
@@ -117,8 +113,8 @@ export default function AdminAudiobookReAddingModal(props) {
             <ProgressBar
               animated
               variant='info'
-              max={stateProgress.maxParts}
-              now={stateProgress.maxParts == 1 ? undefined : stateProgress.currentPart}
+              max={maxParts.current}
+              now={maxParts.current == 1 ? undefined : currentPart.current}
             />
           ) : (
             <input

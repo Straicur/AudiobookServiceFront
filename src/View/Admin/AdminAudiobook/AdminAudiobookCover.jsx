@@ -63,10 +63,11 @@ export default function AdminAudiobookCover(props) {
       }
     }
   };
-
+  //TODO to jest do implementacji ogólnej
   const getImgUrl = () => {
     if (
       props.audiobookCover != undefined &&
+      props.audiobookDetail != undefined &&
       props.audiobookCover.audiobookCoversModels.length > 0
     ) {
       let url = props.audiobookCover.audiobookCoversModels.filter(

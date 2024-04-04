@@ -18,6 +18,7 @@ import AdminAudiobookDeleteEntarlyButton from './AdminAudiobookDeleteEntarlyButt
 import { v4 as uuidv4 } from 'uuid';
 import Alert from 'react-bootstrap/Alert';
 import { useAdminCategoriesTree } from 'Providers/Admin/AdminCategoriesTreeProvider';
+import { useAdminCategoriesListData } from 'Providers/Admin/AdminCategoriesListProvider';
 
 export default function AdminAudiobookDetail(props) {
   const [
@@ -32,7 +33,8 @@ export default function AdminAudiobookDetail(props) {
 
   const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
-  const [categories] = useAdminCategoriesTree();
+  const [categoriesTree] = useAdminCategoriesTree();
+  const [categories] = useAdminCategoriesListData();
   const [audiobookCommnets, setAudiobookCommentsRefetch, deleteComment] =
     useAdminAudiobookComments();
 
@@ -192,9 +194,6 @@ export default function AdminAudiobookDetail(props) {
             />
 
             <AdminAudiobookReAddButton
-              categories={categories}
-              // categoriesStore={categoriesStore}
-              // setCategories={setCategories}
               audiobookState={props.audiobookState}
               setAudiobookState={props.setAudiobookState}
               token={props.token}
@@ -232,7 +231,7 @@ export default function AdminAudiobookDetail(props) {
       </div>
       {props.audiobookState.addCategoriesModal ? (
         <AdminAudiobookAddCategoriesModal
-          categories={categories}
+          categories={categoriesTree}
           audiobookAddCategory={audiobookAddCategory}
           audiobookDetail={audiobookDetail}
           audiobookState={props.audiobookState}
@@ -248,7 +247,7 @@ export default function AdminAudiobookDetail(props) {
           audiobookDetail={audiobookDetail}
           audiobookState={props.audiobookState}
           setAudiobookState={props.setAudiobookState}
-          // categoriesState={categoriesState}
+          categories={categories.categories}
           t={props.t}
           token={props.token}
           i18n={props.i18n}

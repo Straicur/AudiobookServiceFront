@@ -4,21 +4,21 @@ import { Buffer } from 'buffer';
 import FormService from 'Service/Common/FormService';
 
 export default class AdminAudiobookReAddingService extends FormService {
-  constructor(stateModal, setStateModal, props, seconds, stateProgress, setStateProgress) {
+  constructor(stateModal, setStateModal, props, seconds, currentPart, maxParts) {
     super(setStateModal);
     this.stateModal = stateModal;
     this.setStateModal = setStateModal;
     this.props = props;
     this.seconds = seconds;
-    this.stateProgress = stateProgress;
-    this.setStateProgress = setStateProgress;
+    this.currentPart = currentPart;
+    this.maxParts = maxParts;
   }
 
   handleOnFileChange = (e) => {
     if (e.target.files) {
       let file = e.target.files[0];
 
-      if (file.type == 'application/zip') {
+      if (file.type == 'application/zip' || file.type == 'application/vnd.rar') {
         this.setStateModal((prev) => ({
           ...prev,
           file: file,
@@ -55,7 +55,7 @@ export default class AdminAudiobookReAddingService extends FormService {
   generateCategoriesList = () => {
     let multiSelectTable = [];
 
-    this.props.categoriesState.forEach((element) => {
+    this.props.categories.forEach((element) => {
       multiSelectTable.push({ key: element.id, label: element.name });
     });
 
@@ -63,13 +63,14 @@ export default class AdminAudiobookReAddingService extends FormService {
   };
 
   changeCategories = (element) => {
-    if (isNaN(element) && element != undefined) {
+    if (element != undefined) {
       this.setStateModal((prev) => ({
         ...prev,
         categories: element,
       }));
     }
   };
+
   nextPage = () => {
     this.setStateModal((prev) => ({
       ...prev,
@@ -112,6 +113,8 @@ export default class AdminAudiobookReAddingService extends FormService {
             part: part,
             parts: part,
             base64: b64,
+            deleteNotifications: false,
+            deleteComments: false,
             additionalData: {
               categories: this.stateModal.categories,
               title: this.stateModal.title,
@@ -119,16 +122,13 @@ export default class AdminAudiobookReAddingService extends FormService {
             },
           };
 
-          this.setStateProgress((prev) => ({
-            ...prev,
-            maxParts: part,
-            currentPart: part,
-          }));
+          this.maxParts.current = part;
+          this.currentPart.current = 0;
 
           HandleFetch(url, method, jsonData, token, language)
             .then((data) => {
               if (
-                this.stateProgress.currentPart == this.stateProgress.maxParts ||
+                this.currentPart.current == this.maxParts.current ||
                 Object.keys(data).length !== 0
               ) {
                 this.setStateModal({
@@ -140,16 +140,15 @@ export default class AdminAudiobookReAddingService extends FormService {
                   uploadEnded: false,
                 });
               }
-              this.setStateProgress((prev) => ({
-                ...prev,
-                currentPart: this.stateProgress.currentPart + 1,
-              }));
+
+              this.currentPart.current = this.currentPart.current + 1;
             })
             .catch((e) => {
-              this.props.setAudiobookState((prev) => ({
-                ...prev,
-                error: e,
-              }));
+              console.log(e);
+              // this.props.setAudiobookState((prev) => ({
+              //   ...prev,
+              //   error: e,
+              // }));
             });
         } else {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
@@ -159,11 +158,8 @@ export default class AdminAudiobookReAddingService extends FormService {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
             const arr = new Uint8Array(buf).subarray(i, i + CHUNK_SIZE);
 
-            this.setStateProgress((prev) => ({
-              ...prev,
-              maxParts: allparts,
-              currentPart: part,
-            }));
+            this.maxParts.current = allparts;
+            this.currentPart.current = part;
 
             let b64 = Buffer.from(arr).toString('base64');
 
@@ -174,6 +170,8 @@ export default class AdminAudiobookReAddingService extends FormService {
               part: part,
               parts: allparts,
               base64: b64,
+              deleteNotifications: false,
+              deleteComments: false,
               additionalData: {
                 categories: this.stateModal.categories,
                 title: this.stateModal.title,
@@ -184,7 +182,7 @@ export default class AdminAudiobookReAddingService extends FormService {
             HandleFetch(url, method, jsonData, token, language)
               .then((data) => {
                 if (
-                  this.stateProgress.currentPart == this.stateProgress.maxParts ||
+                  this.currentPart.current == this.maxParts.current ||
                   Object.keys(data).length !== 0
                 ) {
                   this.setStateModal({
@@ -196,16 +194,15 @@ export default class AdminAudiobookReAddingService extends FormService {
                     uploadEnded: false,
                   });
                 }
-                this.setStateProgress((prev) => ({
-                  ...prev,
-                  currentPart: this.stateProgress.currentPart + 1,
-                }));
+
+                this.currentPart.current = this.currentPart.current + 1;
               })
               .catch((e) => {
-                this.props.setAudiobookState((prev) => ({
-                  ...prev,
-                  error: e,
-                }));
+                console.log(e);
+                // this.props.setAudiobookState((prev) => ({
+                //   ...prev,
+                //   error: e,
+                // }));
               });
 
             part = part + 1;

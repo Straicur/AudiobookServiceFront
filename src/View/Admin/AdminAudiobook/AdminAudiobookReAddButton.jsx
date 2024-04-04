@@ -1,33 +1,8 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import { HandleFetch } from 'Util/HandleFetch';
 
 export default function AdminAudiobookReAddButton(props) {
-  const fetchCategoriesList = () => {
-    if (props.dateUpdate > Date.now() && props.dateUpdate != 0) {
-      props.setCategories(props.categories);
-    } else {
-      HandleFetch('/admin/categories', 'GET', null, props.token, props.i18n.language)
-        .then((data) => {
-          props.categoriesStore.removeCategories();
-          for (const category of data.categories) {
-            props.categoriesStore.addCategory(category);
-          }
-
-          props.setCategories(data.categories);
-        })
-        .catch((e) => {
-          props.setAudiobookState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
-    }
-  };
-
   const openReAddingModal = () => {
-    fetchCategoriesList();
-
     props.setAudiobookState((prev) => ({
       ...prev,
       reAddingModal: !props.audiobookState.reAddingModal,
