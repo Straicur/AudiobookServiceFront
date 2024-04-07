@@ -25,7 +25,7 @@ export default function AdminAudiobookAddCategoriesModal(props) {
       </Modal.Header>
       <Modal.Body>
         <AdminAudiobookRenderCategoriesList
-          categories={props.categories.categories}
+          categories={props.categories}
           audiobookAddCategory={props.audiobookAddCategory}
           audiobookDetail={props.audiobookDetail}
           categoriesId={categoriesId}

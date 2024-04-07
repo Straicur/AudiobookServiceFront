@@ -3,18 +3,15 @@ import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminMainContainer from 'View/Admin/AdminMain/AdminMainContainer';
+import { useTranslation } from 'react-i18next';
+import { AdminMainDataPrivider } from 'Providers/Admin/AdminMainDataPrivider';
 import './AdminMain.css';
 
 export default function AdminMain() {
   const token = useTokenStore((state) => state.token);
+  const { t, i18n } = useTranslation();
 
   const [infoState, setInfoState] = useState({
-    users: 0,
-    categories: 0,
-    audiobooks: 0,
-    lastWeekRegistered: 0,
-    lastWeekLogins: 0,
-    lastWeekNotifications: 0,
     error: null,
   });
 
@@ -28,7 +25,9 @@ export default function AdminMain() {
         }));
       }}
     >
-      <AdminMainContainer infoState={infoState} setInfoState={setInfoState} token={token} />
+      <AdminMainDataPrivider token={token} setState={setInfoState} i18n={i18n}>
+        <AdminMainContainer infoState={infoState} setInfoState={setInfoState} t={t} />
+      </AdminMainDataPrivider>
     </ErrorBoundary>
   );
 }

@@ -7,13 +7,13 @@ import AdminCategoriesRenderService from 'Service/Admin/AdminCategoriesRenderSer
 export default function AdminCategoriesRenderList(props) {
   const navigate = useNavigate();
 
-  const adminService = new AdminCategoriesRenderService(props, createListElement, listParent);
+  const adminService = new AdminCategoriesRenderService(props);
 
   const createTree = () => {
     let renderArray = [];
     let kids = [];
-    console.log(props);
-    if (props.categories.categories !== undefined && props.categories.categories !== null) {
+
+    if (props.categories !== null && props.categories.categories !== null) {
       recursiveTree(props.categories.categories, renderArray, kids, null);
     }
 
@@ -60,7 +60,7 @@ export default function AdminCategoriesRenderList(props) {
           }
         }
 
-        if (element.parentCategoryKey == null) {
+        if (element.parentCategoryKey == null || element.parentCategoryKey == '') {
           renderArray.push(listParent(element, children, parent));
         } else {
           let parentElement = [listParent(element, children, parent)];
@@ -72,7 +72,7 @@ export default function AdminCategoriesRenderList(props) {
           }
         }
       } else {
-        if (element.parentCategoryKey == null) {
+        if (element.parentCategoryKey == null || element.parentCategoryKey == '') {
           renderArray.push(listParent(element, children, parent));
         }
       }
@@ -86,7 +86,7 @@ export default function AdminCategoriesRenderList(props) {
       <li
         key={uuidv4()}
         className={
-          parent == null
+          parent === null
             ? 'visible border border-1 border-dark list-group-item'
             : 'd-none border border-1 border-info list-group-item'
         }

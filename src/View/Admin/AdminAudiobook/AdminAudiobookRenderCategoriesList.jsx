@@ -10,7 +10,9 @@ export default function AdminAudiobookRenderCategoriesList(props) {
     let renderArray = [];
     let kids = [];
 
-    recursiveTree(props.categories, renderArray, kids, null);
+    if (props.categories !== null) {
+      recursiveTree(props.categories.categories, renderArray, kids, null);
+    }
 
     return renderArray;
   };

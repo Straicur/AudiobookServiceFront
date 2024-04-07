@@ -63,7 +63,7 @@ export default function AdminAudiobookCover(props) {
       }
     }
   };
-  //TODO to jest do implementacji ogólnej
+  //TODO to jest do implementacji ogólnej...
   const getImgUrl = () => {
     if (
       props.audiobookCover != undefined &&

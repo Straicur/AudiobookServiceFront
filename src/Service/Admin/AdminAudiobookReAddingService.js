@@ -51,7 +51,7 @@ export default class AdminAudiobookReAddingService extends FormService {
       modal: 1,
     }));
   };
-
+  //TODO TU pamiętaj że usuwam powiadomienia i komentarze dla audiobooka jeszcze z cache jesli zaznacze te checkboxy
   generateCategoriesList = () => {
     let multiSelectTable = [];
 
