@@ -190,7 +190,7 @@ export default function AdminAudiobookRenderCategoriesList(props) {
           }
         }
 
-        if (element.parentCategoryKey == null) {
+        if (element.parentCategoryKey == null || element.parentCategoryKey === '') {
           renderArray.push(listParent(element, children, parent));
         } else {
           let parentElement = [listParent(element, children, parent)];
@@ -202,7 +202,7 @@ export default function AdminAudiobookRenderCategoriesList(props) {
           }
         }
       } else {
-        if (element.parentCategoryKey == null) {
+        if (element.parentCategoryKey == null || element.parentCategoryKey === '') {
           renderArray.push(listParent(element, children, parent));
         }
       }

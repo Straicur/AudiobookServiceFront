@@ -190,6 +190,8 @@
   "notificationDetail": "Detale powiadomienia",
   "select": "Wybierz",
   "selectNotificationType": "Wybierz typ notyfikacji",
+  "deleteAudiobookComments": "Usuń aktualne komentarze audiobooka",
+  "deleteAudiobookNotifications": "Usuń aktualne powiadomienia audiobooka",
   "changed": "Zmieniony",
   "optional": "Opcjonalny",
   "loadMore": "Załaduj więcej",

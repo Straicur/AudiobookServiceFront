@@ -17,6 +17,8 @@ export default function AdminAudiobookReAddingModal(props) {
     fileAdded: false,
     upload: false,
     uploadEnded: true,
+    deleteComments: false,
+    deleteNotifications: false,
   });
 
   const maxParts = useRef(0);
@@ -104,6 +106,34 @@ export default function AdminAudiobookReAddingModal(props) {
               }}
               selected={stateModal.categories}
               className={'dropdown_multiselect'}
+            />
+          </InputGroup>
+          <InputGroup className='mb-1 input_modal py-1 '>
+            <Form.Check
+              type='switch'
+              id='custom-switch'
+              label={props.t('deleteAudiobookComments')}
+              checked={stateModal.deleteComments}
+              onChange={() =>
+                setStateModal({
+                  ...stateModal,
+                  deleteComments: !stateModal.deleteComments,
+                })
+              }
+            />
+          </InputGroup>
+          <InputGroup className='mb-1 input_modal py-1 '>
+            <Form.Check
+              type='switch'
+              id='custom-switch'
+              label={props.t('deleteAudiobookNotifications')}
+              checked={stateModal.deleteNotifications}
+              onChange={() =>
+                setStateModal({
+                  ...stateModal,
+                  deleteNotifications: !stateModal.deleteNotifications,
+                })
+              }
             />
           </InputGroup>
         </Modal.Body>

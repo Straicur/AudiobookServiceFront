@@ -4,7 +4,6 @@ import Modal from 'react-bootstrap/Modal';
 import AdminAudiobookPlayer from '../Common/AdminAudiobookPlayer';
 import 'react-h5-audio-player/lib/styles.css';
 import { useAdminAudiobookData } from 'Providers/Admin/AdminAudiobookDataProvider';
-import { useAudiobookCover } from 'Providers/Common/AudiobookCoverDataProvider';
 import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
 import AdminCategoryEditForm from './AdminCategoryEditForm';
 import AdminCategoryAudiobookCategoryList from './AdminCategoryAudiobookCategoryList';
@@ -23,7 +22,6 @@ export default function AdminCategoryAudiobookDetailModal(props) {
 
   const [audiobookDetail, setAudiobookDetailRefetch, setAudiobookDetail, audiobookDataEdit] =
     useAdminAudiobookData();
-  const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart] = useAudiobookPart();
 
   const handleClose = () => {
@@ -107,12 +105,11 @@ export default function AdminCategoryAudiobookDetailModal(props) {
         <div className='row'>
           <div className='col'>
             <AdminCategoryAudiobookCover
-              audiobookCover={audiobookCover}
               audiobooksState={props.audiobooksState}
               setAudiobooksState={props.setAudiobooksState}
               t={props.t}
               i18n={props.i18n}
-              setAudiobookCoverRefetch={setAudiobookCoverRefetch}
+              setAudiobookCoverRefetch={setAudiobookDetailRefetch}
               stateModal={stateModal}
               setStateModal={setStateModal}
               handleClose={handleClose}

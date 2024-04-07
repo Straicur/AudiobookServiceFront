@@ -189,6 +189,8 @@
   "notificationDetail": "Notification details",
   "select": "Select",
   "selectNotificationType": "Select notification type",
+  "deleteAudiobookComments": "Delete existing audiobook comments",
+  "deleteAudiobookNotifications": "Delete existing audiobook notifications",
   "changed": "Changed",
   "optional": "Optional",
   "loadMore": "Load more",

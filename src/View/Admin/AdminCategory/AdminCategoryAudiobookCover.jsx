@@ -75,9 +75,11 @@ export default function AdminCategoryAudiobookCover(props) {
       <div className='row '>
         <img
           src={
-            props.audiobookCover == null || props.audiobookCover.url == ''
+            props.audiobookDetail === undefined ||
+            props.audiobookDetail.imgFile == null ||
+            props.audiobookDetail.imgFile == ''
               ? '/noImg.jpg'
-              : process.env.REACT_APP_API_URL + props.audiobookCover.url
+              : process.env.REACT_APP_API_URL + props.audiobookDetail.imgFile
           }
           className='card-img-top'
           alt='...'

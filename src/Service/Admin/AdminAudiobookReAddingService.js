@@ -113,8 +113,8 @@ export default class AdminAudiobookReAddingService extends FormService {
             part: part,
             parts: part,
             base64: b64,
-            deleteNotifications: false,
-            deleteComments: false,
+            deleteNotifications: this.stateModal.deleteNotifications,
+            deleteComments: this.stateModal.deleteComments,
             additionalData: {
               categories: this.stateModal.categories,
               title: this.stateModal.title,
@@ -170,8 +170,8 @@ export default class AdminAudiobookReAddingService extends FormService {
               part: part,
               parts: allparts,
               base64: b64,
-              deleteNotifications: false,
-              deleteComments: false,
+              deleteNotifications: this.stateModal.deleteNotifications,
+              deleteComments: this.stateModal.deleteComments,
               additionalData: {
                 categories: this.stateModal.categories,
                 title: this.stateModal.title,

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useAdminAudiobookData } from 'Providers/Admin/AdminAudiobookDataProvider';
-import { useAudiobookCover } from 'Providers/Common/AudiobookCoverDataProvider';
 import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
 import { useAdminAudiobookComments } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
@@ -31,7 +30,6 @@ export default function AdminAudiobookDetail(props) {
     deleteAudiobook,
   ] = useAdminAudiobookData();
 
-  const [audiobookCover, setAudiobookCoverRefetch] = useAudiobookCover();
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
   const [categoriesTree] = useAdminCategoriesTree();
   const [categories] = useAdminCategoriesListData();
@@ -69,7 +67,6 @@ export default function AdminAudiobookDetail(props) {
       setTimeout(function () {
         setAudiobookDetailRefetch();
         setAudiobookPartRefetch();
-        setAudiobookCoverRefetch();
         setAudiobookCommentsRefetch();
       }, props.audiobookState.addAudiobookSeconds);
     }
@@ -83,11 +80,10 @@ export default function AdminAudiobookDetail(props) {
         <div className='row '>
           <div className='col-4'>
             <AdminAudiobookCover
-              audiobookCover={audiobookCover}
               setAudiobookState={props.setAudiobookState}
               audiobookState={props.audiobookState}
               t={props.t}
-              setAudiobookCoverRefetch={setAudiobookCoverRefetch}
+              setAudiobookCoverRefetch={setAudiobookDetailRefetch}
               audiobookDetail={audiobookDetail}
               token={props.token}
               i18n={props.i18n}

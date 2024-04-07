@@ -63,35 +63,17 @@ export default function AdminAudiobookCover(props) {
       }
     }
   };
-  //TODO to jest do implementacji ogólnej...
-  const getImgUrl = () => {
-    if (
-      props.audiobookCover != undefined &&
-      props.audiobookDetail != undefined &&
-      props.audiobookCover.audiobookCoversModels.length > 0
-    ) {
-      let url = props.audiobookCover.audiobookCoversModels.filter(
-        (obj) => obj.id == props.audiobookDetail.id,
-      );
-
-      if (url.length > 0 && url[0].url != '') {
-        return process.env.REACT_APP_API_URL + url[0].url;
-      } else {
-        return '/noImg.jpg';
-      }
-    } else {
-      return '/noImg.jpg';
-    }
-  };
 
   return (
     <div className='row '>
       <div className='row '>
         <img
           src={
-            props.audiobookCover == null || props.audiobookCover.url == ''
+            props.audiobookDetail === undefined ||
+            props.audiobookDetail.imgFile == null ||
+            props.audiobookDetail.imgFile == ''
               ? '/noImg.jpg'
-              : getImgUrl()
+              : process.env.REACT_APP_API_URL + props.audiobookDetail.imgFile
           }
           className='card-img-top'
           alt='...'
