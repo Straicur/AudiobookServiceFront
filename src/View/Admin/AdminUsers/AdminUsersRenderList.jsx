@@ -8,8 +8,8 @@ export default function AdminUsersRenderList(props) {
   const createTable = () => {
     let renderArray = [];
 
-    if (props.state.json != null) {
-      props.state.json.users.forEach((element) => {
+    if (props.usersList !== undefined && props.usersList != null) {
+      props.usersList.users.forEach((element) => {
         renderArray.push(createColumn(element));
       });
     }
@@ -19,30 +19,13 @@ export default function AdminUsersRenderList(props) {
 
   const deleteUser = (selectedUser, element) => {
     element.target.classList.add('disabled');
-    HandleFetch(
-      '/admin/user/delete',
-      'DELETE',
-      {
-        userId: selectedUser.id,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        props.setState((prev) => ({
-          ...prev,
-          refresh: !props.state.refresh,
-        }));
 
-        element.target.classList.remove('disabled');
-      })
-      .catch((e) => {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+    props.deleteUser({
+      element: element,
+      userId: selectedUser.id,
+    });
   };
+
   const getUserRoles = (element) => {
     if (props.dateUpdate < Date.now()) {
       props.userRolesStore.removeRoles();
@@ -64,6 +47,7 @@ export default function AdminUsersRenderList(props) {
       editUserElement: element,
     }));
   };
+
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
-import { useQuery } from '@tanstack/react-query';
-import { HandleFetch } from 'Util/HandleFetch';
-import { useTranslation } from 'react-i18next';
+
 import Button from 'react-bootstrap/Button';
 import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
 import AdminUsersRenderList from './AdminUsersRenderList';
@@ -11,15 +9,16 @@ import AdminUsersDeleteUsersModal from './AdminUsersDeleteUsersModal';
 import AdminUsersEditModal from './AdminUsersEditModal';
 import AdminUsersDeletedUsersModal from './AdminUsersDeletedUsersModal';
 import AdminUsersSearchOffCanvas from './AdminUsersSearchOffCanvas';
+import { useAdminUsersListData } from 'Providers/Admin/AdminUsersListPrivider';
 import { useLastUserRolesStore } from 'Store/store';
 
 export default function AdminUsersList(props) {
-  const { t, i18n } = useTranslation();
-
   const userRolesStore = useLastUserRolesStore();
 
   const roles = useLastUserRolesStore((state) => state.roles);
   const dateUpdate = useLastUserRolesStore((state) => state.dateUpdate);
+
+  const [usersList, refetch, deleteUser] = useAdminUsersListData();
 
   const [state, setState] = useState({
     json: null,
@@ -32,24 +31,9 @@ export default function AdminUsersList(props) {
     refresh: false,
     error: null,
   });
-  const [searchState, setSearchState] = useState({
-    email: '',
-    phoneNumber: '',
-    firstname: '',
-    lastname: '',
-    active: null,
-    banned: null,
-    order: 0,
-  });
-
-  const [pageState, setPageState] = useState({
-    page: 0,
-    limit: 15,
-    maxPage: 0,
-  });
 
   const resetSearchStates = () => {
-    setSearchState({
+    props.setSearchState({
       email: '',
       phoneNumber: '',
       firstname: '',
@@ -60,68 +44,41 @@ export default function AdminUsersList(props) {
     });
   };
 
-  const createSearchData = () => {
-    let searchJson = {};
-
-    if (searchState.email != '') {
-      searchJson.email = searchState.email;
-    }
-    if (searchState.phoneNumber != '') {
-      searchJson.phoneNumber = searchState.phoneNumber;
-    }
-    if (searchState.firstname != '') {
-      searchJson.firstname = searchState.firstname;
-    }
-    if (searchState.lastname != '') {
-      searchJson.lastname = searchState.lastname;
-    }
-    if (searchState.active != null) {
-      searchJson.active = searchState.active;
-    }
-    if (searchState.banned != null) {
-      searchJson.banned = searchState.banned;
-    }
-    if (searchState.order != 0) {
-      searchJson.order = searchState.order;
-    }
-    return searchJson;
-  };
-
-  const { refetch } = useQuery({
-    queryKey: ['dataAdminUsersList'],
-    queryFn: () =>
-      HandleFetch(
-        '/admin/users',
-        'POST',
-        {
-          page: pageState.page,
-          limit: pageState.limit,
-          searchData: createSearchData(),
-        },
-        props.token,
-        i18n.language,
-      ),
-    retry: 1,
-    retryDelay: 500,
-    refetchOnWindowFocus: false,
-    onError: (e) => {
-      props.setUsersState({
-        ...props.usersState,
-        error: e,
-      });
-    },
-    onSuccess: (data) => {
-      setState((prev) => ({
-        ...prev,
-        json: data,
-      }));
-      setPageState((prev) => ({
-        ...prev,
-        maxPage: data.maxPage,
-      }));
-      resetSearchStates();
-    },
-  });
+  // const { refetch } = useQuery({
+  //   queryKey: ['dataAdminUsersList'],
+  //   queryFn: () =>
+  //     HandleFetch(
+  //       '/admin/users',
+  //       'POST',
+  //       {
+  //         page: pageState.page,
+  //         limit: pageState.limit,
+  //         searchData: createSearchData(),
+  //       },
+  //       props.token,
+  //       i18n.language,
+  //     ),
+  //   retry: 1,
+  //   retryDelay: 500,
+  //   refetchOnWindowFocus: false,
+  //   onError: (e) => {
+  //     props.setUsersState({
+  //       ...props.usersState,
+  //       error: e,
+  //     });
+  //   },
+  //   onSuccess: (data) => {
+  //     setState((prev) => ({
+  //       ...prev,
+  //       json: data,
+  //     }));
+  //     setPageState((prev) => ({
+  //       ...prev,
+  //       maxPage: data.maxPage,
+  //     }));
+  //     resetSearchStates();
+  //   },
+  // });
 
   const openSearchModal = () => {
     setState((prev) => ({
@@ -154,7 +111,7 @@ export default function AdminUsersList(props) {
         <div className='table-title my-2'>
           <div className='d-flex justify-content-end '>
             <div className='p-2 bd-highlight'>
-              <h2>{t('filters')}</h2>
+              <h2>{props.t('filters')}</h2>
             </div>
             <div className='p-2 bd-highlight'>
               <Button
@@ -164,28 +121,29 @@ export default function AdminUsersList(props) {
                 className=' btn button mt-2'
                 onClick={() => openSearchModal()}
               >
-                {t('search')}
+                {props.t('search')}
               </Button>
             </div>
           </div>
           <AdminUsersRenderList
             state={state}
             setState={setState}
-            t={t}
-            i18n={i18n}
+            usersList={usersList}
+            deleteUser={deleteUser}
+            t={props.t}
+            i18n={props.i18n}
             token={props.token}
             roles={roles}
             dateUpdate={dateUpdate}
             userRolesStore={userRolesStore}
-            pageState={pageState}
-            setPageState={setPageState}
+            usersState={props.usersState}
+            setUsersState={props.setUsersState}
           />
-          {state.json != null && pageState.maxPage > 1 ? (
+          {usersList != null && usersList.maxPage > 1 ? (
             <AdminRenderPageSwitches
-              state={state}
-              setState={setState}
-              pageState={pageState}
-              setPageState={setPageState}
+              page={props.usersState.page}
+              maxPage={usersList.maxPage}
+              setPageState={props.setUsersState}
             />
           ) : null}
         </div>
@@ -203,7 +161,7 @@ export default function AdminUsersList(props) {
                 }))
               }
             >
-              {t('deleteUserList')}
+              {props.t('deleteUserList')}
             </Button>
           </div>
           <div className='col-2 d-flex justify-content-center'>
@@ -219,7 +177,7 @@ export default function AdminUsersList(props) {
                 }))
               }
             >
-              {t('deletedUsers')}
+              {props.t('deletedUsers')}
             </Button>
           </div>
           <div className='col-2 d-flex justify-content-center'>
@@ -235,7 +193,7 @@ export default function AdminUsersList(props) {
                 }))
               }
             >
-              {t('jsonData')}
+              {props.t('jsonData')}
             </Button>
           </div>
         </div>
@@ -244,17 +202,17 @@ export default function AdminUsersList(props) {
             state={state}
             setState={setState}
             resetSearchStates={resetSearchStates}
-            searchState={searchState}
-            setSearchState={setSearchState}
-            t={t}
+            searchState={props.searchState}
+            setSearchState={props.setSearchState}
+            t={props.t}
           />
         ) : null}
         {state.editUserModal && state.editUserElement && roles != null ? (
           <AdminUsersEditModal
             state={state}
             setState={setState}
-            t={t}
-            i18n={i18n}
+            t={props.t}
+            i18n={props.i18n}
             token={props.token}
             roles={roles.roles}
           />
@@ -263,25 +221,27 @@ export default function AdminUsersList(props) {
           <AdminUsersDeleteUsersModal
             state={state}
             setState={setState}
-            t={t}
-            i18n={i18n}
+            t={props.t}
+            i18n={props.i18n}
             token={props.token}
-            pageState={pageState}
-            setPageState={setPageState}
+            usersState={props.usersState}
+            setUsersState={props.setUsersState}
           />
         ) : null}
         {state.deletedUsersModal ? (
           <AdminUsersDeletedUsersModal
             state={state}
             setState={setState}
-            t={t}
-            i18n={i18n}
+            t={props.t}
+            i18n={props.i18n}
             token={props.token}
-            pageState={pageState}
-            setPageState={setPageState}
+            usersState={props.usersState}
+            setUsersState={props.setUsersState}
           />
         ) : null}
-        {state.jsonModal ? <AdminJsonModal state={state} setState={setState} t={t} /> : null}
+        {state.jsonModal ? (
+          <AdminJsonModal state={state} setState={setState} json={usersList} t={props.t} />
+        ) : null}
       </div>
     </div>
   );
