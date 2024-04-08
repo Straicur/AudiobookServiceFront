@@ -8,28 +8,14 @@ let tokenStore = (set) => ({
     set(() => ({
       token: data.token,
       roles: data.roles.authorizationRoleModels.map((role) => role.name),
+      admin: data.admin,
     }));
   },
   removeToken: () =>
     set(() => ({
       token: '',
       roles: [],
-    })),
-});
-
-let lastUserRolesStore = (set) => ({
-  roles: null,
-  dateUpdate: 0,
-  setRoles: (roles) => {
-    set(() => ({
-      roles: roles,
-      dateUpdate: Date.now() + 1800000,
-    }));
-  },
-  removeRoles: () =>
-    set(() => ({
-      roles: null,
-      dateUpdate: 0,
+      admin: false,
     })),
 });
 
@@ -92,9 +78,6 @@ let coverListStore = (set) => ({
 tokenStore = devtools(tokenStore);
 tokenStore = persist(tokenStore, { name: 'auth_token' });
 
-lastUserRolesStore = devtools(lastUserRolesStore);
-lastUserRolesStore = persist(lastUserRolesStore, { name: 'userRolesStore' });
-
 notificationsListStore = devtools(notificationsListStore);
 notificationsListStore = persist(notificationsListStore, {
   name: 'notificationsStore',
@@ -106,6 +89,5 @@ coverListStore = persist(coverListStore, {
 });
 
 export const useTokenStore = create(tokenStore);
-export const useLastUserRolesStore = create(lastUserRolesStore);
 export const useNotificationsListStore = create(notificationsListStore);
 export const useCoverListStore = create(coverListStore);

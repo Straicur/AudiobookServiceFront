@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import AdminUsersRenderRoles from './AdminUsersRenderRoles';
+import AdminUsersRenderRoles from './AdminUsersRoles';
 import AdminUsersEditFrom from './AdminUsersEditFrom';
 
 export default function AdminUsersEditModal(props) {
@@ -27,7 +27,7 @@ export default function AdminUsersEditModal(props) {
             setState={props.setState}
             t={props.t}
             i18n={props.i18n}
-            roles={props.roles}
+            userRoles={props.userRoles}
             token={props.token}
           />
         </div>

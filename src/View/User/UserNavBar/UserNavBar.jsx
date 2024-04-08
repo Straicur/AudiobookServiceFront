@@ -26,7 +26,7 @@ export const UserNavBar = () => {
 
   const token = useTokenStore((state) => state.token);
 
-  const roles = useTokenStore((state) => state.roles);
+  const admin = useTokenStore((state) => state.admin);
 
   const navigate = useNavigate();
 
@@ -82,7 +82,7 @@ export const UserNavBar = () => {
           >
             {t('myList')}
           </Button>
-          {roles.some((name) => name == 'Administrator') ? (
+          {admin ? (
             <Button
               variant='success'
               size='lg'

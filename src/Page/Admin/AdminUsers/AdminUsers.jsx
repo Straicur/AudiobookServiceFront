@@ -5,6 +5,7 @@ import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminUsersList from 'View/Admin/AdminUsers/AdminUsersList';
 import { AdminUsersListPrivider } from 'Providers/Admin/AdminUsersListPrivider';
 import { useTranslation } from 'react-i18next';
+import { AdminSystemRolesProvider } from 'Providers/Admin/AdminSystemRolesProvider';
 import './AdminUsers.css';
 
 export default function AdminUsers() {
@@ -44,15 +45,22 @@ export default function AdminUsers() {
         setState={setUsersState}
         i18n={i18n}
       >
-        <AdminUsersList
-          usersState={usersState}
-          setUsersState={setUsersState}
+        <AdminSystemRolesProvider
           token={token}
-          searchState={searchState}
-          setSearchState={setSearchState}
-          t={t}
+          page={usersState.page}
+          setState={setUsersState}
           i18n={i18n}
-        />
+        >
+          <AdminUsersList
+            usersState={usersState}
+            setUsersState={setUsersState}
+            token={token}
+            searchState={searchState}
+            setSearchState={setSearchState}
+            t={t}
+            i18n={i18n}
+          />
+        </AdminSystemRolesProvider>
       </AdminUsersListPrivider>
     </ErrorBoundary>
   );

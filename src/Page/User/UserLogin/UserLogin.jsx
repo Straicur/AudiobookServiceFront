@@ -50,7 +50,7 @@ export default function UserLogin() {
         }));
       }}
     >
-      <UserLoginForm state={state} setState={setState} token={token} />
+      <UserLoginForm state={state} setState={setState} />
     </ErrorBoundary>
   );
 }

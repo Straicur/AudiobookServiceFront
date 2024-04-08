@@ -1,6 +1,5 @@
 import React from 'react';
 import CreateUtil from 'Util/CreateUtil';
-import { HandleFetch } from 'Util/HandleFetch';
 import Button from 'react-bootstrap/Button';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -24,28 +23,6 @@ export default function AdminUsersRenderList(props) {
       element: element,
       userId: selectedUser.id,
     });
-  };
-
-  const getUserRoles = (element) => {
-    if (props.dateUpdate < Date.now()) {
-      props.userRolesStore.removeRoles();
-      HandleFetch('/admin/user/system/roles', 'GET', null, props.token, props.i18n.language)
-        .then((data) => {
-          props.userRolesStore.setRoles(data);
-        })
-        .catch((e) => {
-          props.setState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
-    }
-
-    props.setState((prev) => ({
-      ...prev,
-      editUserModal: !props.state.editUserModal,
-      editUserElement: element,
-    }));
   };
 
   const createColumn = (element) => {
@@ -76,7 +53,13 @@ export default function AdminUsersRenderList(props) {
               variant='dark'
               size='sm'
               className='btn button mx-2'
-              onClick={() => getUserRoles(element)}
+              onClick={() =>
+                props.setState((prev) => ({
+                  ...prev,
+                  editUserModal: !props.state.editUserModal,
+                  editUserElement: element,
+                }))
+              }
             >
               {props.t('edit')}
             </Button>

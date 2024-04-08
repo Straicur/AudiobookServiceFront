@@ -13,7 +13,7 @@ export default class UserLoginService extends FormService {
     this.i18n = i18n;
   }
 
-  fetchData = useTokenStore();
+  tokenStore = useTokenStore();
 
   fetchToken = (e) => {
     e.preventDefault();
@@ -37,7 +37,8 @@ export default class UserLoginService extends FormService {
         this.i18n.language,
       )
         .then((data) => {
-          this.fetchData.setToken(data);
+          console.log(data);
+          this.tokenStore.setToken(data);
         })
         .catch((e) => {
           this.props.setState((prev) => ({

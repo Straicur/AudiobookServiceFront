@@ -10,7 +10,7 @@ import AdminNotificationsEditModal from './AdminNotificationsEditModal';
 import AdminNotificationsSearchOffCanvas from './AdminNotificationsSearchOffCanvas';
 import AdminNotificationsRenderList from './AdminNotificationsRenderList';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
-import { useLastUserRolesStore } from 'Store/store';
+// import { useLastUserRolesStore } from 'Store/store';
 import AdminNotificationsService from 'Service/Admin/AdminNotificationsService';
 
 export default function AdminNotificationsList(props) {
@@ -58,7 +58,7 @@ export default function AdminNotificationsList(props) {
     fetch: false,
   });
 
-  const roles = useLastUserRolesStore((state) => state.roles);
+  // const roles = useLastUserRolesStore((state) => state.roles);
 
   const adminService = new AdminNotificationsService(
     props,
@@ -148,7 +148,7 @@ export default function AdminNotificationsList(props) {
             token={props.token}
             pageState={pageState}
             setPageState={setPageState}
-            roles={roles}
+            // roles={roles}
           />
           {state.json != null && pageState.maxPage > 1 ? (
             <AdminRenderPageSwitches
@@ -199,7 +199,7 @@ export default function AdminNotificationsList(props) {
             i18n={i18n}
             token={props.token}
             resetSearchStates={adminService.resetSearchStates}
-            roles={roles}
+            // roles={roles}
             audiobooksState={audiobooksState}
             setAudiobooksState={setAudiobooksState}
             categoriesState={categoriesState}
@@ -232,7 +232,7 @@ export default function AdminNotificationsList(props) {
             token={props.token}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
-            roles={roles}
+            // roles={roles}
             audiobooksState={audiobooksState}
             setAudiobooksState={setAudiobooksState}
             categoriesState={categoriesState}

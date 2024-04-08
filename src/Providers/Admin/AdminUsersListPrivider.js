@@ -9,6 +9,116 @@ const AdminUsersListContext = createContext(null);
 export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }) => {
   const qc = useQueryClient();
 
+  const { mutate: changeUserPassword } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/admin/user/change/phone',
+        'PATCH',
+        {
+          userId: data.userId,
+          newPhone: data.newPhone,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+      variables.element.target.classList.remove('disabled');
+      qc.invalidateQueries(['dataAdminUsersList']);
+    },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAdminUsersList' + page]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
+  const { mutate: changeUserPhone } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/admin/user/activate',
+        'PATCH',
+        {
+          userId: data.userId,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+      variables.element.target.classList.remove('disabled');
+      qc.invalidateQueries(['dataAdminUsersList']);
+    },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAdminUsersList' + page]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
+  const { mutate: activateUser } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/admin/user/activate',
+        'PATCH',
+        {
+          userId: data.userId,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+      variables.element.target.classList.remove('disabled');
+      qc.invalidateQueries(['dataAdminUsersList']);
+    },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAdminUsersList' + page]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
+  const { mutate: banUser } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/admin/user/ban',
+        'PATCH',
+        {
+          userId: data.userId,
+          banned: data.banned,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+      variables.element.target.classList.remove('disabled');
+      qc.invalidateQueries(['dataAdminUsersList']);
+    },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAdminUsersList' + page]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
   const { mutate: deleteUser } = useMutation({
     mutationFn: (data) => {
       HandleFetch(
@@ -93,7 +203,15 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
     },
   });
 
-  const value = [dataAdminStatistics, setRefetch, deleteUser];
+  const value = [
+    dataAdminStatistics,
+    setRefetch,
+    deleteUser,
+    banUser,
+    activateUser,
+    changeUserPassword,
+    changeUserPhone,
+  ];
 
   return <AdminUsersListContext.Provider value={value}>{children}</AdminUsersListContext.Provider>;
 };

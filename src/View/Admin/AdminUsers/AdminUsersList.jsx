@@ -10,15 +10,11 @@ import AdminUsersEditModal from './AdminUsersEditModal';
 import AdminUsersDeletedUsersModal from './AdminUsersDeletedUsersModal';
 import AdminUsersSearchOffCanvas from './AdminUsersSearchOffCanvas';
 import { useAdminUsersListData } from 'Providers/Admin/AdminUsersListPrivider';
-import { useLastUserRolesStore } from 'Store/store';
+import { useAdminSystemRoles } from 'Providers/Admin/AdminSystemRolesProvider';
 
 export default function AdminUsersList(props) {
-  const userRolesStore = useLastUserRolesStore();
-
-  const roles = useLastUserRolesStore((state) => state.roles);
-  const dateUpdate = useLastUserRolesStore((state) => state.dateUpdate);
-
   const [usersList, refetch, deleteUser] = useAdminUsersListData();
+  const [userRoles] = useAdminSystemRoles();
 
   const [state, setState] = useState({
     json: null,
@@ -43,42 +39,6 @@ export default function AdminUsersList(props) {
       order: 0,
     });
   };
-
-  // const { refetch } = useQuery({
-  //   queryKey: ['dataAdminUsersList'],
-  //   queryFn: () =>
-  //     HandleFetch(
-  //       '/admin/users',
-  //       'POST',
-  //       {
-  //         page: pageState.page,
-  //         limit: pageState.limit,
-  //         searchData: createSearchData(),
-  //       },
-  //       props.token,
-  //       i18n.language,
-  //     ),
-  //   retry: 1,
-  //   retryDelay: 500,
-  //   refetchOnWindowFocus: false,
-  //   onError: (e) => {
-  //     props.setUsersState({
-  //       ...props.usersState,
-  //       error: e,
-  //     });
-  //   },
-  //   onSuccess: (data) => {
-  //     setState((prev) => ({
-  //       ...prev,
-  //       json: data,
-  //     }));
-  //     setPageState((prev) => ({
-  //       ...prev,
-  //       maxPage: data.maxPage,
-  //     }));
-  //     resetSearchStates();
-  //   },
-  // });
 
   const openSearchModal = () => {
     setState((prev) => ({
@@ -133,9 +93,6 @@ export default function AdminUsersList(props) {
             t={props.t}
             i18n={props.i18n}
             token={props.token}
-            roles={roles}
-            dateUpdate={dateUpdate}
-            userRolesStore={userRolesStore}
             usersState={props.usersState}
             setUsersState={props.setUsersState}
           />
@@ -207,14 +164,14 @@ export default function AdminUsersList(props) {
             t={props.t}
           />
         ) : null}
-        {state.editUserModal && state.editUserElement && roles != null ? (
+        {state.editUserModal && state.editUserElement ? (
           <AdminUsersEditModal
             state={state}
             setState={setState}
             t={props.t}
             i18n={props.i18n}
             token={props.token}
-            roles={roles.roles}
+            userRoles={userRoles}
           />
         ) : null}
         {state.deleteUsersModal ? (

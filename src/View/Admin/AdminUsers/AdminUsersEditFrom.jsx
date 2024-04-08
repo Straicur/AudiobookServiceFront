@@ -94,7 +94,7 @@ export default function AdminUsersEditFrom(props) {
       <div className='row input_modal ms-3'>
         <div>
           <Alert
-            show={passwordState.wrongState}
+            show={passwordState.wrong}
             className='dangerAllert mt-1 text-center'
             variant='danger'
           >
@@ -162,7 +162,7 @@ export default function AdminUsersEditFrom(props) {
       <div className='row input_modal ms-3'>
         <div>
           <Alert
-            show={phoneNumberState.wrongState}
+            show={phoneNumberState.wrong}
             className='dangerAllert mt-1 text-center'
             variant='danger'
           >

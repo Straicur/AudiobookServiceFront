@@ -1,5 +1,5 @@
 import { HandleFetch } from 'Util/HandleFetch';
-import { useLastUserRolesStore } from 'Store/store';
+// import { useLastUserRolesStore } from 'Store/store';
 
 export default class AdminNotificationsService {
   constructor(props, searchState, setSearchState, state, setState) {
@@ -10,8 +10,8 @@ export default class AdminNotificationsService {
     this.setState = setState;
   }
 
-  userRolesStore = useLastUserRolesStore();
-  dateUpdate = useLastUserRolesStore((state) => state.dateUpdate);
+  // userRolesStore = useLastUserRolesStore();
+  // dateUpdate = useLastUserRolesStore((state) => state.dateUpdate);
 
   resetSearchStates = () => {
     this.setSearchState({

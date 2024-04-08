@@ -3,7 +3,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import Button from 'react-bootstrap/Button';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function AdminUsersRenderRoles(props) {
+export default function AdminUsersRoles(props) {
   const deleteRole = (e, element) => {
     e.target.classList.add('disabled');
     HandleFetch(
@@ -19,9 +19,9 @@ export default function AdminUsersRenderRoles(props) {
       .then(() => {
         e.target.classList.remove('disabled');
 
-        let newUserSelectedRoles = props.state.editUserElement.roles;
-
-        newUserSelectedRoles = newUserSelectedRoles.filter((item) => item !== element.type);
+        let newUserSelectedRoles = props.state.editUserElement.roles.filter(
+          (item) => item !== element.type,
+        );
 
         const newSelcetedUser = {
           active: props.state.editUserElement.active,
@@ -91,9 +91,10 @@ export default function AdminUsersRenderRoles(props) {
   };
 
   const generateUserRolesList = () => {
+    console.log(props.state);
     let roles = [];
-    if (props.roles != null) {
-      props.roles.forEach((element) => {
+    if (props.userRoles != null) {
+      props.userRoles.roles.forEach((element) => {
         let hasRole = props.state.editUserElement.roles.filter((x) => x == element.type);
 
         roles.push(
