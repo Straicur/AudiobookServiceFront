@@ -13,8 +13,16 @@ import { useAdminUsersListData } from 'Providers/Admin/AdminUsersListPrivider';
 import { useAdminSystemRoles } from 'Providers/Admin/AdminSystemRolesProvider';
 
 export default function AdminUsersList(props) {
-  const [usersList, refetch, deleteUser] = useAdminUsersListData();
-  const [userRoles] = useAdminSystemRoles();
+  const [
+    usersList,
+    refetch,
+    deleteUser,
+    banUser,
+    activateUser,
+    changeUserPassword,
+    changeUserPhone,
+  ] = useAdminUsersListData();
+  const [userRoles, removeUserRole, addUserRole] = useAdminSystemRoles();
 
   const [state, setState] = useState({
     json: null,
@@ -170,6 +178,12 @@ export default function AdminUsersList(props) {
             setState={setState}
             t={props.t}
             i18n={props.i18n}
+            removeUserRole={removeUserRole}
+            addUserRole={addUserRole}
+            banUser={banUser}
+            activateUser={activateUser}
+            changeUserPassword={changeUserPassword}
+            changeUserPhone={changeUserPhone}
             token={props.token}
             userRoles={userRoles}
           />

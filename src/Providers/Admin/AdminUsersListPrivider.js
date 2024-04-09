@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
+import md5 from 'md5';
 
 const AdminUsersListContext = createContext(null);
 
@@ -12,11 +13,11 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
   const { mutate: changeUserPassword } = useMutation({
     mutationFn: (data) => {
       HandleFetch(
-        '/admin/user/change/phone',
+        '/admin/user/change/password',
         'PATCH',
         {
           userId: data.userId,
-          newPhone: data.newPhone,
+          newPassword: md5(data.passwordState.password),
         },
         token,
         i18n.language,
@@ -24,8 +25,11 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
     },
     onSuccess: (data, variables) => {
       data = [];
-      variables.element.target.classList.remove('disabled');
-      qc.invalidateQueries(['dataAdminUsersList']);
+
+      variables.setPasswordState((prev) => ({
+        ...prev,
+        sure: !variables.passwordState.sure,
+      }));
     },
     onError: (e) => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
@@ -40,10 +44,11 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
   const { mutate: changeUserPhone } = useMutation({
     mutationFn: (data) => {
       HandleFetch(
-        '/admin/user/activate',
+        '/admin/user/change/phone',
         'PATCH',
         {
           userId: data.userId,
+          newPhone: data.phoneNumberState.phoneNumber,
         },
         token,
         i18n.language,
@@ -51,8 +56,11 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
     },
     onSuccess: (data, variables) => {
       data = [];
-      variables.element.target.classList.remove('disabled');
-      qc.invalidateQueries(['dataAdminUsersList']);
+
+      variables.setPhoneNumberState((prev) => ({
+        ...prev,
+        sure: !variables.phoneNumberState.sure,
+      }));
     },
     onError: (e) => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
@@ -70,7 +78,7 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
         '/admin/user/activate',
         'PATCH',
         {
-          userId: data.userId,
+          userId: data.state.editUserElement.id,
         },
         token,
         i18n.language,
@@ -78,8 +86,22 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
     },
     onSuccess: (data, variables) => {
       data = [];
-      variables.element.target.classList.remove('disabled');
-      qc.invalidateQueries(['dataAdminUsersList']);
+
+      const newSelcetedUser = {
+        active: !variables.state.editUserElement.active,
+        banned: variables.state.editUserElement.banned,
+        dateCreated: variables.state.editUserElement.dateCreated,
+        email: variables.state.editUserElement.email,
+        firstname: variables.state.editUserElement.firstname,
+        id: variables.state.editUserElement.id,
+        lastname: variables.state.editUserElement.lastname,
+        roles: variables.state.editUserElement.roles,
+      };
+
+      variables.setState((prev) => ({
+        ...prev,
+        editUserElement: newSelcetedUser,
+      }));
     },
     onError: (e) => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
@@ -97,8 +119,8 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
         '/admin/user/ban',
         'PATCH',
         {
-          userId: data.userId,
-          banned: data.banned,
+          userId: data.state.editUserElement.id,
+          banned: !data.state.editUserElement.banned,
         },
         token,
         i18n.language,
@@ -106,8 +128,23 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
     },
     onSuccess: (data, variables) => {
       data = [];
-      variables.element.target.classList.remove('disabled');
-      qc.invalidateQueries(['dataAdminUsersList']);
+      variables.e.target.classList.remove('disabled');
+
+      const newSelcetedUser = {
+        active: variables.state.editUserElement.active,
+        banned: !variables.state.editUserElement.banned,
+        dateCreated: variables.state.editUserElement.dateCreated,
+        email: variables.state.editUserElement.email,
+        firstname: variables.state.editUserElement.firstname,
+        id: variables.state.editUserElement.id,
+        lastname: variables.state.editUserElement.lastname,
+        roles: variables.state.editUserElement.roles,
+      };
+
+      variables.setState((prev) => ({
+        ...prev,
+        editUserElement: newSelcetedUser,
+      }));
     },
     onError: (e) => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);

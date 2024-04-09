@@ -1,97 +1,31 @@
 import React from 'react';
-import { HandleFetch } from 'Util/HandleFetch';
 import Button from 'react-bootstrap/Button';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function AdminUsersRoles(props) {
   const deleteRole = (e, element) => {
     e.target.classList.add('disabled');
-    HandleFetch(
-      '/admin/user/role/remove',
-      'PATCH',
-      {
-        userId: props.state.editUserElement.id,
-        role: element.type,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        e.target.classList.remove('disabled');
-
-        let newUserSelectedRoles = props.state.editUserElement.roles.filter(
-          (item) => item !== element.type,
-        );
-
-        const newSelcetedUser = {
-          active: props.state.editUserElement.active,
-          banned: props.state.editUserElement.banned,
-          dateCreated: props.state.editUserElement.dateCreated,
-          email: props.state.editUserElement.email,
-          firstname: props.state.editUserElement.firstname,
-          id: props.state.editUserElement.id,
-          lastname: props.state.editUserElement.lastname,
-          roles: newUserSelectedRoles,
-        };
-
-        props.setState((prev) => ({
-          ...prev,
-          editUserElement: newSelcetedUser,
-        }));
-      })
-      .catch((e) => {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+    props.removeUserRole({
+      userId: props.state.editUserElement.id,
+      element: element,
+      e: e,
+      state: props.state,
+      setState: props.setState,
+    });
   };
 
   const addRole = (e, element) => {
     e.target.classList.add('disabled');
-    HandleFetch(
-      '/admin/user/role/add',
-      'PATCH',
-      {
-        userId: props.state.editUserElement.id,
-        role: element.type,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        e.target.classList.remove('disabled');
-
-        let newUserSelectedRoles = props.state.editUserElement.roles;
-
-        newUserSelectedRoles.push(element.type);
-
-        const newSelcetedUser = {
-          active: props.state.editUserElement.active,
-          banned: props.state.editUserElement.banned,
-          dateCreated: props.state.editUserElement.dateCreated,
-          email: props.state.editUserElement.email,
-          firstname: props.state.editUserElement.firstname,
-          id: props.state.editUserElement.id,
-          lastname: props.state.editUserElement.lastname,
-          roles: newUserSelectedRoles,
-        };
-
-        props.setState((prev) => ({
-          ...prev,
-          editUserElement: newSelcetedUser,
-        }));
-      })
-      .catch((e) => {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+    props.addUserRole({
+      userId: props.state.editUserElement.id,
+      element: element,
+      e: e,
+      state: props.state,
+      setState: props.setState,
+    });
   };
 
   const generateUserRolesList = () => {
-    console.log(props.state);
     let roles = [];
     if (props.userRoles != null) {
       props.userRoles.roles.forEach((element) => {

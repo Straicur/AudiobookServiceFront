@@ -29,12 +29,18 @@ export default function AdminUsersEditModal(props) {
             i18n={props.i18n}
             userRoles={props.userRoles}
             token={props.token}
+            removeUserRole={props.removeUserRole}
+            addUserRole={props.addUserRole}
           />
         </div>
         <div className='row'>
           <AdminUsersEditFrom
             state={props.state}
             setState={props.setState}
+            activateUser={props.activateUser}
+            banUser={props.banUser}
+            changeUserPassword={props.changeUserPassword}
+            changeUserPhone={props.changeUserPhone}
             t={props.t}
             i18n={props.i18n}
             token={props.token}

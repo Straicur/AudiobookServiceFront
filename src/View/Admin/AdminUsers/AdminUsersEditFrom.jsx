@@ -49,7 +49,12 @@ export default function AdminUsersEditFrom(props) {
             disabled={props.state.editUserElement.active}
             className=' btn button text-light'
             onClick={(e) => {
-              adminService.activateUser(e);
+              e.target.classList.add('disabled');
+
+              props.activateUser({
+                state: props.state,
+                setState: props.setState,
+              });
             }}
           >
             {props.t('activate')}
@@ -70,8 +75,13 @@ export default function AdminUsersEditFrom(props) {
             variant='warning'
             size='sm'
             className=' btn button text-light'
-            onClick={() => {
-              adminService.banUser();
+            onClick={(e) => {
+              e.target.classList.add('disabled');
+              props.banUser({
+                state: props.state,
+                setState: props.setState,
+                e: e,
+              });
             }}
           >
             {props.state.editUserElement.banned ? props.t('unban') : props.t('ban')}

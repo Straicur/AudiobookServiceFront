@@ -13,30 +13,34 @@ export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) =>
         'PATCH',
         {
           userId: data.userId,
-          role: data.role,
+          role: data.element.type,
         },
         token,
         i18n.language,
       );
     },
-    onSuccess: () => {
-      // e.target.classList.remove('disabled');
-      // let newUserSelectedRoles = props.state.editUserElement.roles;
-      // newUserSelectedRoles.push(element.type);
-      // const newSelcetedUser = {
-      //   active: props.state.editUserElement.active,
-      //   banned: props.state.editUserElement.banned,
-      //   dateCreated: props.state.editUserElement.dateCreated,
-      //   email: props.state.editUserElement.email,
-      //   firstname: props.state.editUserElement.firstname,
-      //   id: props.state.editUserElement.id,
-      //   lastname: props.state.editUserElement.lastname,
-      //   roles: newUserSelectedRoles,
-      // };
-      // props.setState((prev) => ({
-      //   ...prev,
-      //   editUserElement: newSelcetedUser,
-      // }));
+    onSuccess: (data, variables) => {
+      data = [];
+      variables.e.target.classList.remove('disabled');
+
+      let newUserSelectedRoles = variables.state.editUserElement.roles;
+
+      newUserSelectedRoles.push(variables.element.type);
+
+      const newSelcetedUser = {
+        active: variables.state.editUserElement.active,
+        banned: variables.state.editUserElement.banned,
+        dateCreated: variables.state.editUserElement.dateCreated,
+        email: variables.state.editUserElement.email,
+        firstname: variables.state.editUserElement.firstname,
+        id: variables.state.editUserElement.id,
+        lastname: variables.state.editUserElement.lastname,
+        roles: newUserSelectedRoles,
+      };
+      variables.setState((prev) => ({
+        ...prev,
+        editUserElement: newSelcetedUser,
+      }));
     },
     onError: (e) => {
       setState((prev) => ({
@@ -46,38 +50,41 @@ export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) =>
     },
   });
 
-  const { mutate: removerUserRole } = useMutation({
+  const { mutate: removeUserRole } = useMutation({
     mutationFn: (data) => {
       HandleFetch(
         '/admin/user/role/remove',
         'PATCH',
         {
           userId: data.userId,
-          role: data.role,
+          role: data.element.type,
         },
         token,
         i18n.language,
       );
     },
-    onSuccess: () => {
-      // e.target.classList.remove('disabled');
-      // let newUserSelectedRoles = props.state.editUserElement.roles.filter(
-      //   (item) => item !== element.type,
-      // );
-      // const newSelcetedUser = {
-      //   active: props.state.editUserElement.active,
-      //   banned: props.state.editUserElement.banned,
-      //   dateCreated: props.state.editUserElement.dateCreated,
-      //   email: props.state.editUserElement.email,
-      //   firstname: props.state.editUserElement.firstname,
-      //   id: props.state.editUserElement.id,
-      //   lastname: props.state.editUserElement.lastname,
-      //   roles: newUserSelectedRoles,
-      // };
-      // props.setState((prev) => ({
-      //   ...prev,
-      //   editUserElement: newSelcetedUser,
-      // }));
+    onSuccess: (data, variables) => {
+      data = [];
+      variables.e.target.classList.remove('disabled');
+
+      let newUserSelectedRoles = variables.state.editUserElement.roles.filter(
+        (item) => item !== variables.element.type,
+      );
+
+      const newSelcetedUser = {
+        active: variables.state.editUserElement.active,
+        banned: variables.state.editUserElement.banned,
+        dateCreated: variables.state.editUserElement.dateCreated,
+        email: variables.state.editUserElement.email,
+        firstname: variables.state.editUserElement.firstname,
+        id: variables.state.editUserElement.id,
+        lastname: variables.state.editUserElement.lastname,
+        roles: newUserSelectedRoles,
+      };
+      variables.setState((prev) => ({
+        ...prev,
+        editUserElement: newSelcetedUser,
+      }));
     },
     onError: (e) => {
       setState((prev) => ({
@@ -101,7 +108,7 @@ export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) =>
     },
   });
 
-  const value = [dataAdminUsersRoles, removerUserRole, addUserRole];
+  const value = [dataAdminUsersRoles, removeUserRole, addUserRole];
 
   return (
     <AdminSystemRolesContext.Provider value={value}>{children}</AdminSystemRolesContext.Provider>
