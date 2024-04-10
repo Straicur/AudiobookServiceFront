@@ -100,6 +100,7 @@ export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) =>
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
+    gcTime: 21600000,
     onError: (e) => {
       setState((prev) => ({
         ...prev,

@@ -1,65 +1,24 @@
 import React from 'react';
-import { HandleFetch } from 'Util/HandleFetch';
 import Button from 'react-bootstrap/Button';
 import { v4 as uuidv4 } from 'uuid';
+import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
+import { useAdminUsersDeleteData } from 'Providers/Admin/AdminUsersDeleteProvider';
 
 export default function AdminUsersRenderDeleteUsersList(props) {
+  const [usersList, deleteUser, declineDeleteUser] = useAdminUsersDeleteData();
+
   const createTable = () => {
     let renderArray = [];
 
-    props.state.users.forEach((element) => {
-      renderArray.push(createColumn(element));
-    });
+    if (usersList != null) {
+      usersList.users.forEach((element) => {
+        renderArray.push(createColumn(element));
+      });
+    }
 
     return renderArray;
   };
 
-  const deleteUser = (selectedUser) => {
-    HandleFetch(
-      '/admin/user/delete/accept',
-      'PATCH',
-      {
-        userId: selectedUser.id,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        props.setState((prev) => ({
-          ...prev,
-          refresh: !props.state.refresh,
-        }));
-      })
-      .catch((e) => {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
-  };
-  const declineDeleteUser = (selectedUser) => {
-    HandleFetch(
-      '/admin/user/delete/decline',
-      'PATCH',
-      {
-        userId: selectedUser.id,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        props.setState((prev) => ({
-          ...prev,
-          refresh: !props.state.refresh,
-        }));
-      })
-      .catch((e) => {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
-  };
   const createColumn = (element) => {
     return (
       <tr key={uuidv4()}>
@@ -86,7 +45,7 @@ export default function AdminUsersRenderDeleteUsersList(props) {
               variant='success'
               size='sm'
               className='btn button mx-2'
-              onClick={() => declineDeleteUser(element)}
+              onClick={() => declineDeleteUser({ userId: element.id })}
             >
               {props.t('cancel')}
             </Button>
@@ -97,7 +56,7 @@ export default function AdminUsersRenderDeleteUsersList(props) {
               className='btn button mx-2'
               disabled={element.deleted}
               onClick={() => {
-                deleteUser(element);
+                deleteUser({ userId: element.id });
               }}
             >
               {element.deleted ? props.t('deleted') : props.t('accept')}
@@ -109,17 +68,25 @@ export default function AdminUsersRenderDeleteUsersList(props) {
   };
 
   return (
-    <table className='table'>
-      <thead className=''>
-        <tr>
-          <th scope='col'>{props.t('email')}</th>
-          <th scope='col'>{props.t('firstname')}</th>
-          <th scope='col'>{props.t('active')}</th>
-          <th scope='col'>{props.t('banned')}</th>
-          <th scope='col'></th>
-        </tr>
-      </thead>
-      <tbody>{createTable()}</tbody>
-    </table>
+    <>
+      <table className='table'>
+        <thead className=''>
+          <tr>
+            <th scope='col'>{props.t('email')}</th>
+            <th scope='col'>{props.t('firstname')}</th>
+            <th scope='col'>{props.t('active')}</th>
+            <th scope='col'>{props.t('banned')}</th>
+          </tr>
+        </thead>
+        <tbody>{createTable()}</tbody>
+      </table>
+      {usersList != null && usersList.maxPage > 1 ? (
+        <AdminRenderPageSwitches
+          page={props.pageState.page}
+          maxPage={usersList.maxPage}
+          setPageState={props.setPageState}
+        />
+      ) : null}
+    </>
   );
 }

@@ -1,14 +1,19 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
+import { useAdminUsersDeletedData } from 'Providers/Admin/AdminUsersDeletedProvider';
 
 export default function AdminUsersRenderDeletedUsersList(props) {
+  const [usersList] = useAdminUsersDeletedData();
+
   const createTable = () => {
     let renderArray = [];
 
-    props.state.users.forEach((element) => {
-      renderArray.push(createColumn(element));
-    });
-
+    if (usersList != null) {
+      usersList.users.forEach((element) => {
+        renderArray.push(createColumn(element));
+      });
+    }
     return renderArray;
   };
 
@@ -36,16 +41,25 @@ export default function AdminUsersRenderDeletedUsersList(props) {
   };
 
   return (
-    <table className='table'>
-      <thead className=''>
-        <tr>
-          <th scope='col'>{props.t('email')}</th>
-          <th scope='col'>{props.t('firstname')}</th>
-          <th scope='col'>{props.t('active')}</th>
-          <th scope='col'>{props.t('banned')}</th>
-        </tr>
-      </thead>
-      <tbody>{createTable()}</tbody>
-    </table>
+    <>
+      <table className='table'>
+        <thead className=''>
+          <tr>
+            <th scope='col'>{props.t('email')}</th>
+            <th scope='col'>{props.t('firstname')}</th>
+            <th scope='col'>{props.t('active')}</th>
+            <th scope='col'>{props.t('banned')}</th>
+          </tr>
+        </thead>
+        <tbody>{createTable()}</tbody>
+      </table>
+      {usersList != null && usersList.maxPage > 1 ? (
+        <AdminRenderPageSwitches
+          page={props.pageState.page}
+          maxPage={usersList.maxPage}
+          setPageState={props.setPageState}
+        />
+      ) : null}
+    </>
   );
 }

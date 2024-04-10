@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useQuery } from '@tanstack/react-query';
-import { HandleFetch } from 'Util/HandleFetch';
 import AdminUsersRenderDeleteUsersList from './AdminUsersRenderDeleteUsersList';
-import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
+import { AdminUsersDeleteProvider } from 'Providers/Admin/AdminUsersDeleteProvider';
 
 export default function AdminUsersDeleteUsersModal(props) {
-  const [state, setState] = useState({
-    users: [],
-    refresh: false,
-  });
-
   const [pageState, setPageState] = useState({
     page: 0,
     limit: 15,
@@ -26,70 +19,25 @@ export default function AdminUsersDeleteUsersModal(props) {
     }));
   };
 
-  const { refetch: refetchSecond } = useQuery({
-    queryKey: ['dataAdminUsersDelete'],
-    queryFn: () =>
-      HandleFetch(
-        '/admin/user/to/delete/list',
-        'POST',
-        {
-          page: pageState.page,
-          limit: pageState.limit,
-        },
-        props.token,
-        props.i18n.language,
-      ),
-    retry: 1,
-    retryDelay: 500,
-    refetchOnWindowFocus: false,
-    onError: (e) => {
-      props.setUsersState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
-    onSuccess: (data) => {
-      setState((prev) => ({
-        ...prev,
-        users: data.users,
-      }));
-      setPageState((prev) => ({
-        ...prev,
-        maxPage: data.maxPage,
-      }));
-    },
-  });
-
-  useEffect(() => {
-    if (state.refresh) {
-      setState((prev) => ({
-        ...prev,
-        refresh: !state.refresh,
-      }));
-      refetchSecond();
-    }
-  }, [state.refresh]);
-
   return (
     <Modal size='lg' show={props.state.deleteUsersModal} onHide={handleClose} backdrop='static'>
       <Modal.Header>
         <Modal.Title>{props.t('deleteUsers')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <AdminUsersRenderDeleteUsersList
-          state={state}
-          setState={setState}
+        <AdminUsersDeleteProvider
           token={props.token}
-          t={props.t}
-        />
-        {state.users != null && pageState.maxPage > 1 ? (
-          <AdminRenderPageSwitches
-            state={state}
-            setState={setState}
+          page={pageState.page}
+          setState={props.setUsersState}
+          i18n={props.i18n}
+        >
+          <AdminUsersRenderDeleteUsersList
             pageState={pageState}
             setPageState={setPageState}
+            token={props.token}
+            t={props.t}
           />
-        ) : null}
+        </AdminUsersDeleteProvider>
       </Modal.Body>
       <Modal.Footer>
         <Button variant='dark' onClick={handleClose}>
