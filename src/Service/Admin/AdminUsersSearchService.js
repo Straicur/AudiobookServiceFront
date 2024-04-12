@@ -1,10 +1,9 @@
 import FormService from 'Service/Common/FormService';
 
 export default class AdminUsersSearchService extends FormService {
-  constructor(props, setShow) {
+  constructor(props) {
     super(props.setSearchState);
     this.props = props;
-    setShow.setShow = setShow;
   }
 
   handleClose = () => {
@@ -12,9 +11,6 @@ export default class AdminUsersSearchService extends FormService {
       ...prev,
       searchModal: !this.props.state.searchModal,
     }));
-    this.props.resetSearchStates();
-
-    this.setShow(false);
   };
 
   changeActive = (element) => {
@@ -46,7 +42,41 @@ export default class AdminUsersSearchService extends FormService {
   };
 
   searchAgain = () => {
+    this.props.setUsersState((prev) => ({
+      ...prev,
+      page: 0,
+      refresh: true,
+    }));
     this.props.setState({ ...this.props.state, refresh: !this.props.state.refresh });
-    this.setShow(false);
+    this.props.refetch();
+
+    this.handleClose();
+  };
+
+  static createSearchData = (searchState) => {
+    let searchJson = {};
+
+    if (searchState.email != '') {
+      searchJson.email = searchState.email;
+    }
+    if (searchState.phoneNumber != '') {
+      searchJson.phoneNumber = searchState.phoneNumber;
+    }
+    if (searchState.firstname != '') {
+      searchJson.firstname = searchState.firstname;
+    }
+    if (searchState.lastname != '') {
+      searchJson.lastname = searchState.lastname;
+    }
+    if (searchState.active != null) {
+      searchJson.active = searchState.active;
+    }
+    if (searchState.banned != null) {
+      searchJson.banned = searchState.banned;
+    }
+    if (searchState.order != 0) {
+      searchJson.order = searchState.order;
+    }
+    return searchJson;
   };
 }

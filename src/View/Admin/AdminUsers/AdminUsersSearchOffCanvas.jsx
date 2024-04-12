@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -6,13 +6,11 @@ import Form from 'react-bootstrap/Form';
 import AdminUsersSearchService from 'Service/Admin/AdminUsersSearchService';
 
 export default function AdminUsersSearchOffCanvas(props) {
-  const [show, setShow] = useState(true);
-
-  const adminService = new AdminUsersSearchService(props, setShow);
+  const adminService = new AdminUsersSearchService(props);
 
   return (
     <Offcanvas
-      show={show}
+      show={props.state.searchModal}
       onHide={adminService.handleClose}
       className='bg-dark text-light off_canvas_with'
       backdrop='static'
@@ -77,6 +75,7 @@ export default function AdminUsersSearchOffCanvas(props) {
           <Form.Control
             name='phoneNumber'
             value={props.searchState.phoneNumber}
+            type='number'
             onChange={(e) => {
               adminService.handleChange(e);
             }}

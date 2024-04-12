@@ -5,7 +5,6 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import AdminAudiobooksSearchService from 'Service/Admin/AdminAudiobooksSearchService';
-import AdminAudiobooksService from 'Service/Admin/AdminAudiobooksService';
 
 export default function AdminAudiobooksSearchOffCanvas(props) {
   const adminService = new AdminAudiobooksSearchService(props);
@@ -30,7 +29,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
                 size='sm'
                 color='success'
                 className=' btn button mt-2'
-                onClick={() => AdminAudiobooksService.resetSearchStates(props.setSearchState)}
+                onClick={() => AdminAudiobooksSearchService.resetSearchStates(props.setSearchState)}
               >
                 {props.t('reset')}
               </Button>

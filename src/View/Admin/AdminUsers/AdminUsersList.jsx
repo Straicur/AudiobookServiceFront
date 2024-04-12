@@ -13,17 +13,6 @@ import { useAdminUsersListData } from 'Providers/Admin/AdminUsersListPrivider';
 import { useAdminSystemRoles } from 'Providers/Admin/AdminSystemRolesProvider';
 
 export default function AdminUsersList(props) {
-  const [
-    usersList,
-    refetch,
-    deleteUser,
-    banUser,
-    activateUser,
-    changeUserPassword,
-    changeUserPhone,
-  ] = useAdminUsersListData();
-  const [userRoles, removeUserRole, addUserRole] = useAdminSystemRoles();
-
   const [state, setState] = useState({
     json: null,
     jsonModal: false,
@@ -35,6 +24,18 @@ export default function AdminUsersList(props) {
     refresh: false,
     error: null,
   });
+
+  const [
+    usersList,
+    refetch,
+    forceRefetch,
+    deleteUser,
+    banUser,
+    activateUser,
+    changeUserPassword,
+    changeUserPhone,
+  ] = useAdminUsersListData();
+  const [userRoles, removeUserRole, addUserRole] = useAdminSystemRoles();
 
   const resetSearchStates = () => {
     props.setSearchState({
@@ -61,7 +62,7 @@ export default function AdminUsersList(props) {
         ...prev,
         refresh: !state.refresh,
       }));
-      refetch();
+      forceRefetch();
     }
   }, [state.refresh]);
 
@@ -167,6 +168,8 @@ export default function AdminUsersList(props) {
             state={state}
             setState={setState}
             resetSearchStates={resetSearchStates}
+            setUsersState={props.setUsersState}
+            refetch={refetch}
             searchState={props.searchState}
             setSearchState={props.setSearchState}
             t={props.t}

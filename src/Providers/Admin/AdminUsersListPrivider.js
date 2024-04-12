@@ -4,10 +4,11 @@ import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import md5 from 'md5';
+import AdminUsersSearchService from 'Service/Admin/AdminUsersSearchService';
 
 const AdminUsersListContext = createContext(null);
 
-export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }) => {
+export const AdminUsersListPrivider = ({ children, page, token, searchState, setState, i18n }) => {
   const qc = useQueryClient();
 
   const { mutate: changeUserPassword } = useMutation({
@@ -187,34 +188,7 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
     qc.invalidateQueries(['dataAdminUsersList']);
   };
 
-  //   const createSearchData = () => {
-  //     let searchJson = {};
-
-  //     if (searchState.email != '') {
-  //       searchJson.email = searchState.email;
-  //     }
-  //     if (searchState.phoneNumber != '') {
-  //       searchJson.phoneNumber = searchState.phoneNumber;
-  //     }
-  //     if (searchState.firstname != '') {
-  //       searchJson.firstname = searchState.firstname;
-  //     }
-  //     if (searchState.lastname != '') {
-  //       searchJson.lastname = searchState.lastname;
-  //     }
-  //     if (searchState.active != null) {
-  //       searchJson.active = searchState.active;
-  //     }
-  //     if (searchState.banned != null) {
-  //       searchJson.banned = searchState.banned;
-  //     }
-  //     if (searchState.order != 0) {
-  //       searchJson.order = searchState.order;
-  //     }
-  //     return searchJson;
-  //   };
-
-  const { data: dataAdminStatistics = null } = useQuery({
+  const { data: dataAdminStatistics = null, refetch } = useQuery({
     queryKey: ['dataAdminUsersList' + page],
     queryFn: () =>
       HandleFetch(
@@ -223,8 +197,7 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
         {
           page: page,
           limit: 15,
-          searchData: {},
-          // createSearchData(),
+          searchData: AdminUsersSearchService.createSearchData(searchState),
         },
         token,
         i18n.language,
@@ -243,6 +216,7 @@ export const AdminUsersListPrivider = ({ children, page, token, setState, i18n }
   const value = [
     dataAdminStatistics,
     setRefetch,
+    refetch,
     deleteUser,
     banUser,
     activateUser,
