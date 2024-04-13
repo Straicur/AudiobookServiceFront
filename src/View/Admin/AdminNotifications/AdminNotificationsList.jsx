@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
-import { useQuery } from '@tanstack/react-query';
-import { HandleFetch } from 'Util/HandleFetch';
-import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
 import AdminNotificationsAddModal from './AdminNotificationsAddModal';
@@ -10,12 +7,11 @@ import AdminNotificationsEditModal from './AdminNotificationsEditModal';
 import AdminNotificationsSearchOffCanvas from './AdminNotificationsSearchOffCanvas';
 import AdminNotificationsRenderList from './AdminNotificationsRenderList';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
-// import { useLastUserRolesStore } from 'Store/store';
 import AdminNotificationsService from 'Service/Admin/AdminNotificationsService';
+import { useAdminSystemRoles } from 'Providers/Admin/AdminSystemRolesProvider';
+import { useAdminNotificationsData } from 'Providers/Admin/AdminNotificationsProvider';
 
 export default function AdminNotificationsList(props) {
-  const { t, i18n } = useTranslation();
-
   const [state, setState] = useState({
     jsonModal: false,
     json: null,
@@ -25,19 +21,6 @@ export default function AdminNotificationsList(props) {
     searchModal: false,
     refresh: false,
     error: null,
-  });
-
-  const [searchState, setSearchState] = useState({
-    text: '',
-    type: 0,
-    deleted: null,
-    order: 0,
-  });
-
-  const [pageState, setPageState] = useState({
-    page: 0,
-    limit: 15,
-    maxPage: 0,
   });
 
   const [audiobooksState, setAudiobooksState] = useState({
@@ -58,50 +41,16 @@ export default function AdminNotificationsList(props) {
     fetch: false,
   });
 
-  // const roles = useLastUserRolesStore((state) => state.roles);
+  const [userRoles] = useAdminSystemRoles();
+  const [notifications] = useAdminNotificationsData();
 
   const adminService = new AdminNotificationsService(
     props,
-    searchState,
-    setSearchState,
+    props.searchState,
+    props.setSearchState,
     state,
     setState,
   );
-
-  const { refetch } = useQuery({
-    queryKey: ['dataAdminNotifications'],
-    queryFn: () =>
-      HandleFetch(
-        '/admin/user/notifications',
-        'POST',
-        {
-          page: pageState.page,
-          limit: pageState.limit,
-          searchData: adminService.formatData(),
-        },
-        props.token,
-        i18n.language,
-      ),
-    retry: 1,
-    retryDelay: 500,
-    refetchOnWindowFocus: false,
-    onError: (e) => {
-      props.setNotificationsState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
-    onSuccess: (data) => {
-      setState((prev) => ({
-        ...prev,
-        json: data,
-      }));
-      setPageState((prev) => ({
-        ...prev,
-        maxPage: data.maxPage,
-      }));
-    },
-  });
 
   useEffect(() => {
     if (state.refresh) {
@@ -109,7 +58,7 @@ export default function AdminNotificationsList(props) {
         ...prev,
         refresh: !state.refresh,
       }));
-      refetch();
+      // refetch();
     }
   }, [state.refresh]);
 
@@ -127,7 +76,7 @@ export default function AdminNotificationsList(props) {
         <div className='table-title my-2'>
           <div className='d-flex justify-content-end '>
             <div className='p-2 bd-highlight'>
-              <h2>{t('filters')}</h2>
+              <h2>{props.t('filters')}</h2>
             </div>
             <div className='p-2 bd-highlight'>
               <Button
@@ -137,25 +86,25 @@ export default function AdminNotificationsList(props) {
                 className=' btn button mt-2'
                 onClick={() => adminService.openSearchModal()}
               >
-                {t('search')}
+                {props.t('search')}
               </Button>
             </div>
           </div>
           <AdminNotificationsRenderList
             state={state}
             setState={setState}
-            t={t}
+            t={props.t}
             token={props.token}
-            pageState={pageState}
-            setPageState={setPageState}
-            // roles={roles}
+            notifications={notifications}
+            notificationsState={props.notificationsState}
+            setNotificationsState={props.setNotificationsState}
+            roles={userRoles}
           />
-          {state.json != null && pageState.maxPage > 1 ? (
+          {state.json != null && notifications.maxPage > 1 ? (
             <AdminRenderPageSwitches
-              state={state}
-              setState={setState}
-              pageState={pageState}
-              setPageState={setPageState}
+              page={props.notificationsState.page}
+              maxPage={notifications.maxPage}
+              setPageState={props.setNotificationsState}
             />
           ) : null}
         </div>
@@ -168,7 +117,7 @@ export default function AdminNotificationsList(props) {
               className=' btn button mt-2'
               onClick={() => adminService.openAddModal()}
             >
-              {t('addNotification')}
+              {props.t('addNotification')}
             </Button>
           </div>
           <div className='col-3 d-flex justify-content-center'>
@@ -184,7 +133,7 @@ export default function AdminNotificationsList(props) {
                 }))
               }
             >
-              {t('jsonData')}
+              {props.t('jsonData')}
             </Button>
           </div>
         </div>
@@ -195,11 +144,11 @@ export default function AdminNotificationsList(props) {
             setState={setState}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
-            t={t}
-            i18n={i18n}
+            t={props.t}
+            i18n={props.i18n}
             token={props.token}
             resetSearchStates={adminService.resetSearchStates}
-            // roles={roles}
+            roles={userRoles}
             audiobooksState={audiobooksState}
             setAudiobooksState={setAudiobooksState}
             categoriesState={categoriesState}
@@ -214,12 +163,10 @@ export default function AdminNotificationsList(props) {
             setState={setState}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
-            searchState={searchState}
-            setSearchState={setSearchState}
-            t={t}
+            searchState={props.searchState}
+            setSearchState={props.setSearchState}
+            t={props.t}
             token={props.token}
-            pageState={pageState}
-            setPageState={setPageState}
             resetSearchStates={adminService.resetSearchStates}
           />
         ) : null}
@@ -227,12 +174,12 @@ export default function AdminNotificationsList(props) {
           <AdminNotificationsEditModal
             state={state}
             setState={setState}
-            t={t}
-            i18n={i18n}
+            t={props.t}
+            i18n={props.i18n}
             token={props.token}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
-            // roles={roles}
+            roles={userRoles}
             audiobooksState={audiobooksState}
             setAudiobooksState={setAudiobooksState}
             categoriesState={categoriesState}
@@ -241,7 +188,9 @@ export default function AdminNotificationsList(props) {
             setUsersState={setUsersState}
           />
         ) : null}
-        {state.jsonModal ? <AdminJsonModal state={state} setState={setState} t={t} /> : null}
+        {state.jsonModal ? (
+          <AdminJsonModal state={state} setState={setState} json={notifications} t={props.t} />
+        ) : null}
       </div>
     </div>
   );

@@ -45,12 +45,7 @@ export default function AdminUsers() {
         setState={setUsersState}
         i18n={i18n}
       >
-        <AdminSystemRolesProvider
-          token={token}
-          page={usersState.page}
-          setState={setUsersState}
-          i18n={i18n}
-        >
+        <AdminSystemRolesProvider token={token} setState={setUsersState} i18n={i18n}>
           <AdminUsersList
             usersState={usersState}
             setUsersState={setUsersState}

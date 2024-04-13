@@ -14,8 +14,9 @@ export default function AdminNotificationsRenderList(props) {
 
   const createTable = () => {
     let renderArray = [];
-    if (props.state.json != null && props.state.json.systemNotifications != undefined) {
-      props.state.json.systemNotifications.forEach((element) => {
+
+    if (props.notifications != null) {
+      props.notifications.systemNotifications.forEach((element) => {
         renderArray.push(createColumn(element));
       });
     }
