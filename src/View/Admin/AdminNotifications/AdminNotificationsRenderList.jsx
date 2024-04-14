@@ -5,10 +5,16 @@ import CreateUtil from 'Util/CreateUtil';
 
 export default function AdminNotificationsRenderList(props) {
   const openDetailNotificationModal = (element) => {
-    props.setState((prev) => ({
+    props.setNotificationState((prev) => ({
       ...prev,
-      editNotificationkModal: !props.editNotificationkModal,
-      editNotificationElement: element,
+      editNotificationkModal: !props.notificationState.editNotificationkModal,
+      actionId: element.actionId != null ? element.actionId : '',
+      dateAdd: element.dateAdd,
+      delete: element.delete,
+      id: element.id,
+      notificationType: element.notificationType,
+      text: element.text,
+      userType: element.userType != null ? element.userType : 0,
     }));
   };
 

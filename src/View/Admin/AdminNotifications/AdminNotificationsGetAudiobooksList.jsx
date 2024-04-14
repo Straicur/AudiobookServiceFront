@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { HandleFetch } from 'Util/HandleFetch';
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
 
@@ -7,9 +6,11 @@ export default function AdminNotificationsGetAudiobooksList(props) {
   const createTable = () => {
     let renderArray = [];
 
-    props.audiobooksState.audiobooks.forEach((element) => {
-      renderArray.push(createColumn(element));
-    });
+    if (props.audiobooks != null) {
+      props.audiobooks.audiobooks.forEach((element) => {
+        renderArray.push(createColumn(element));
+      });
+    }
 
     return renderArray;
   };
@@ -63,38 +64,6 @@ export default function AdminNotificationsGetAudiobooksList(props) {
         return '18+';
     }
   };
-
-  useEffect(() => {
-    if (!props.audiobooksState.fetched) {
-      HandleFetch(
-        '/admin/audiobooks',
-        'POST',
-        {
-          page: 0,
-          limit: 30,
-          searchJson: {
-            order: 1,
-          },
-        },
-        props.token,
-        props.i18n.language,
-      )
-        .then((data) => {
-          props.setAudiobooksState((prev) => ({
-            ...prev,
-            audiobooks: data.audiobooks,
-            fetch: !props.audiobooksState.fetch,
-            fetched: !props.audiobooksState.fetched,
-          }));
-        })
-        .catch((e) => {
-          props.setNotificationsState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
-    }
-  }, [props]);
 
   return (
     <table className='table'>

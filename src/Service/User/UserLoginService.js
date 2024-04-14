@@ -37,7 +37,6 @@ export default class UserLoginService extends FormService {
         this.i18n.language,
       )
         .then((data) => {
-          console.log(data);
           this.tokenStore.setToken(data);
         })
         .catch((e) => {

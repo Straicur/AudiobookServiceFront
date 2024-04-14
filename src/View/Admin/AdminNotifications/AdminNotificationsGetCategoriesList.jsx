@@ -7,9 +7,11 @@ export default function GetCategoriesList(props) {
   const createTable = () => {
     let renderArray = [];
 
-    props.categoriesState.categories.forEach((element) => {
-      renderArray.push(createColumn(element));
-    });
+    if (props.categories != null) {
+      props.categories.categories.forEach((element) => {
+        renderArray.push(createColumn(element));
+      });
+    }
 
     return renderArray;
   };

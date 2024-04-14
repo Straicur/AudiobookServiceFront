@@ -8,7 +8,15 @@ import AdminUsersSearchService from 'Service/Admin/AdminUsersSearchService';
 
 const AdminUsersListContext = createContext(null);
 
-export const AdminUsersListPrivider = ({ children, page, token, searchState, setState, i18n }) => {
+export const AdminUsersListPrivider = ({
+  children,
+  page,
+  token,
+  searchState,
+  setState,
+  i18n,
+  limit = 15,
+}) => {
   const qc = useQueryClient();
 
   const { mutate: changeUserPassword } = useMutation({
@@ -196,7 +204,7 @@ export const AdminUsersListPrivider = ({ children, page, token, searchState, set
         'POST',
         {
           page: page,
-          limit: 15,
+          limit: limit,
           searchData: AdminUsersSearchService.createSearchData(searchState),
         },
         token,

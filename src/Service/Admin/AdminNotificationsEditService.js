@@ -22,9 +22,13 @@ export default class AdminNotificationsEditService extends FormService {
   }
 
   handleClose = () => {
+    this.setNotificationsState((prev) => ({
+      ...prev,
+      editNotificationkModal: !this.notificationsState.editNotificationkModal,
+    }));
+
     this.props.setState((prev) => ({
       ...prev,
-      editNotificationkModal: !this.props.state.editNotificationkModal,
       refresh: !this.props.state.refresh,
     }));
   };

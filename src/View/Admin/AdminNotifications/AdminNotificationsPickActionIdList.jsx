@@ -3,9 +3,16 @@ import Button from 'react-bootstrap/Button';
 import AdminNotificationsGetUsersList from './AdminNotificationsGetUsersList';
 import AdminNotificationsGetAudiobooksList from './AdminNotificationsGetAudiobooksList';
 import AdminNotificationsGetCategoriesList from './AdminNotificationsGetCategoriesList';
+import { useAdminAudiobooksData } from 'Providers/Admin/AdminAudiobooksProvider';
+import { useAdminUsersListData } from 'Providers/Admin/AdminUsersListPrivider';
+import { useAdminCategoriesListData } from 'Providers/Admin/AdminCategoriesListProvider';
 
 export default function AdminNotificationsPickActionIdList(props) {
   const [listState, setListState] = useState(1);
+
+  const [users] = useAdminUsersListData();
+  const [categories] = useAdminCategoriesListData();
+  const [audiobooks] = useAdminAudiobooksData();
 
   const getUsersList = () => {
     if (!props.usersState.fetched) {
@@ -52,6 +59,7 @@ export default function AdminNotificationsPickActionIdList(props) {
           <AdminNotificationsGetUsersList
             usersState={props.usersState}
             setUsersState={props.setUsersState}
+            users={users}
             state={props.state}
             setState={props.setState}
             notificationsState={props.notificationsState}
@@ -71,6 +79,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
             goBack={goBack}
+            audiobooks={audiobooks}
             token={props.token}
             i18n={props.i18n}
             t={props.t}
@@ -85,6 +94,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
             goBack={goBack}
+            categories={categories}
             token={props.token}
             t={props.t}
             i18n={props.i18n}

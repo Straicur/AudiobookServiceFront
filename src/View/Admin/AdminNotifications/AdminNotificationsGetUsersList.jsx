@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { HandleFetch } from 'Util/HandleFetch';
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
 
@@ -7,9 +6,11 @@ export default function AdminNotificationsGetUsersList(props) {
   const createTable = () => {
     let renderArray = [];
 
-    props.usersState.users.forEach((element) => {
-      renderArray.push(createColumn(element));
-    });
+    if (props.users != null) {
+      props.users.users.forEach((element) => {
+        renderArray.push(createColumn(element));
+      });
+    }
 
     return renderArray;
   };
@@ -52,37 +53,6 @@ export default function AdminNotificationsGetUsersList(props) {
       </tr>
     );
   };
-  useEffect(() => {
-    if (!props.usersState.fetched) {
-      HandleFetch(
-        '/admin/users',
-        'POST',
-        {
-          page: 0,
-          limit: 30,
-          searchJson: {
-            order: 1,
-          },
-        },
-        props.token,
-        props.i18n.language,
-      )
-        .then((data) => {
-          props.setUsersState((prev) => ({
-            ...prev,
-            users: data.users,
-            fetch: !props.usersState.fetch,
-            fetched: !props.usersState.fetched,
-          }));
-        })
-        .catch((e) => {
-          props.setNotificationsState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
-    }
-  }, [props]);
 
   return (
     <table className='table'>

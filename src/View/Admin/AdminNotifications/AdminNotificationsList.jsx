@@ -16,7 +16,6 @@ export default function AdminNotificationsList(props) {
     jsonModal: false,
     json: null,
     addNotificationModal: false,
-    editNotificationkModal: false,
     editNotificationElement: null,
     searchModal: false,
     refresh: false,
@@ -39,6 +38,17 @@ export default function AdminNotificationsList(props) {
     users: [],
     fetched: false,
     fetch: false,
+  });
+
+  const [notificationState, setNotificationState] = useState({
+    actionId: '',
+    dateAdd: 0,
+    delete: false,
+    id: '',
+    notificationType: 0,
+    text: '',
+    userType: 0,
+    editNotificationkModal: false,
   });
 
   const [userRoles] = useAdminSystemRoles();
@@ -98,6 +108,8 @@ export default function AdminNotificationsList(props) {
             notifications={notifications}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
+            notificationState={notificationState}
+            setNotificationState={setNotificationState}
             roles={userRoles}
           />
           {state.json != null && notifications.maxPage > 1 ? (
@@ -170,7 +182,7 @@ export default function AdminNotificationsList(props) {
             resetSearchStates={adminService.resetSearchStates}
           />
         ) : null}
-        {state.editNotificationkModal && state.editNotificationElement != null ? (
+        {notificationState.editNotificationkModal ? (
           <AdminNotificationsEditModal
             state={state}
             setState={setState}
@@ -179,6 +191,8 @@ export default function AdminNotificationsList(props) {
             token={props.token}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
+            notificationState={notificationState}
+            setNotificationState={setNotificationState}
             roles={userRoles}
             audiobooksState={audiobooksState}
             setAudiobooksState={setAudiobooksState}

@@ -38,7 +38,7 @@ export const AdminUsersDeletedProvider = ({ children, page, token, setState, i18
   });
 
   const value = [dataAdminUsersDeleted, setRefetch];
-  console.log(dataAdminUsersDeleted);
+
   return (
     <AdminUsersDeletedContext.Provider value={value}>{children}</AdminUsersDeletedContext.Provider>
   );

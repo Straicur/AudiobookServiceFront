@@ -2,8 +2,15 @@ import React from 'react';
 import AdminNotificationsGetUsersList from './AdminNotificationsGetUsersList';
 import AdminNotificationsGetAudiobooksList from './AdminNotificationsGetAudiobooksList';
 import AdminNotificationsGetCategoriesList from './AdminNotificationsGetCategoriesList';
+import { useAdminAudiobooksData } from 'Providers/Admin/AdminAudiobooksProvider';
+import { useAdminUsersListData } from 'Providers/Admin/AdminUsersListPrivider';
+import { useAdminCategoriesListData } from 'Providers/Admin/AdminCategoriesListProvider';
 
 export default function AdminNotificationsPickActionIdAddList(props) {
+  const [users] = useAdminUsersListData();
+  const [categories] = useAdminCategoriesListData();
+  const [audiobooks] = useAdminAudiobooksData();
+
   const goBack = () => {
     props.setActionState((prev) => ({
       ...prev,
@@ -23,6 +30,7 @@ export default function AdminNotificationsPickActionIdAddList(props) {
             setState={props.setState}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
+            users={users}
             goBack={goBack}
             token={props.token}
             t={props.t}
@@ -37,6 +45,7 @@ export default function AdminNotificationsPickActionIdAddList(props) {
             setState={props.setState}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
+            audiobooks={audiobooks}
             goBack={goBack}
             token={props.token}
             t={props.t}
@@ -51,6 +60,7 @@ export default function AdminNotificationsPickActionIdAddList(props) {
             setState={props.setState}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
+            categories={categories}
             goBack={goBack}
             token={props.token}
             t={props.t}

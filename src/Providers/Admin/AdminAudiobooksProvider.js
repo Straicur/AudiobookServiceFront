@@ -7,7 +7,15 @@ import AdminAudiobooksSearchService from 'Service/Admin/AdminAudiobooksSearchSer
 
 const AdminAudiobooksContext = createContext(null);
 
-export const AdminAudiobooksProvider = ({ children, token, page, searchState, setState, i18n }) => {
+export const AdminAudiobooksProvider = ({
+  children,
+  token,
+  page,
+  searchState,
+  setState,
+  i18n,
+  limit = 15,
+}) => {
   const qc = useQueryClient();
 
   const { mutate: activate } = useMutation({
@@ -75,7 +83,7 @@ export const AdminAudiobooksProvider = ({ children, token, page, searchState, se
         'POST',
         {
           page: page,
-          limit: 15,
+          limit: limit,
           searchData: AdminAudiobooksSearchService.createSearchData(searchState),
         },
         token,
