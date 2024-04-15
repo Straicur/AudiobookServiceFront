@@ -167,6 +167,10 @@ export default function AdminNotificationsList(props) {
             setCategoriesState={setCategoriesState}
             usersState={usersState}
             setUsersState={setUsersState}
+            setNotificationsUsersState={props.setNotificationsUsersState}
+            setNotificationsAudiobooksState={props.setNotificationsAudiobooksState}
+            notificationsUsersState={props.notificationsUsersState}
+            notificationsAudiobooksState={props.notificationsAudiobooksState}
           />
         ) : null}
         {state.searchModal ? (
@@ -200,6 +204,10 @@ export default function AdminNotificationsList(props) {
             setCategoriesState={setCategoriesState}
             usersState={usersState}
             setUsersState={setUsersState}
+            setNotificationsUsersState={props.setNotificationsUsersState}
+            setNotificationsAudiobooksState={props.setNotificationsAudiobooksState}
+            notificationsUsersState={props.notificationsUsersState}
+            notificationsAudiobooksState={props.notificationsAudiobooksState}
           />
         ) : null}
         {state.jsonModal ? (

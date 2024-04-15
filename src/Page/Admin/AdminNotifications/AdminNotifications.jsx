@@ -70,7 +70,7 @@ export default function AdminNotifications() {
             }}
             setState={setNotificationsState}
             i18n={i18n}
-            limit={30}
+            limit={25}
           >
             <AdminAudiobooksProvider
               token={token}
@@ -88,7 +88,7 @@ export default function AdminNotifications() {
               }}
               setState={setNotificationsState}
               i18n={i18n}
-              limit={30}
+              limit={25}
             >
               <AdminCategoriesListProvider
                 token={token}
@@ -101,6 +101,8 @@ export default function AdminNotifications() {
                   searchState={searchState}
                   setSearchState={setSearchState}
                   setNotificationsUsersState={setNotificationsUsersState}
+                  notificationsUsersState={notificationsUsersState}
+                  notificationsAudiobooksState={notificationsAudiobooksState}
                   setNotificationsAudiobooksState={setNotificationsAudiobooksState}
                   token={token}
                   t={t}

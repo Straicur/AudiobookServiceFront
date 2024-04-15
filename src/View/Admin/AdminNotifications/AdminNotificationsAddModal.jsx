@@ -52,6 +52,10 @@ export default function AdminNotificationsAddModal(props) {
             setCategoriesState={props.setCategoriesState}
             usersState={props.usersState}
             setUsersState={props.setUsersState}
+            notificationsUsersState={props.notificationsUsersState}
+            setNotificationsUsersState={props.setNotificationsUsersState}
+            notificationsAudiobooksState={props.notificationsAudiobooksState}
+            setNotificationsAudiobooksState={props.setNotificationsAudiobooksState}
             t={props.t}
             i18n={props.i18n}
             token={props.token}

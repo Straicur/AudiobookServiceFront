@@ -5,6 +5,7 @@ import AdminNotificationsGetCategoriesList from './AdminNotificationsGetCategori
 import { useAdminAudiobooksData } from 'Providers/Admin/AdminAudiobooksProvider';
 import { useAdminUsersListData } from 'Providers/Admin/AdminUsersListPrivider';
 import { useAdminCategoriesListData } from 'Providers/Admin/AdminCategoriesListProvider';
+import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 
 export default function AdminNotificationsPickActionIdAddList(props) {
   const [users] = useAdminUsersListData();
@@ -21,36 +22,54 @@ export default function AdminNotificationsPickActionIdAddList(props) {
 
   return (
     <div className='row'>
-      <div className='row'>
+      <div className='row overflow-scroll pick_height'>
         {props.state.notificationType == 2 ? (
-          <AdminNotificationsGetUsersList
-            usersState={props.usersState}
-            setUsersState={props.setUsersState}
-            state={props.state}
-            setState={props.setState}
-            notificationsState={props.notificationsState}
-            setNotificationsState={props.setNotificationsState}
-            users={users}
-            goBack={goBack}
-            token={props.token}
-            t={props.t}
-            i18n={props.i18n}
-          />
+          <div>
+            <AdminNotificationsGetUsersList
+              usersState={props.usersState}
+              setUsersState={props.setUsersState}
+              state={props.state}
+              setState={props.setState}
+              notificationsState={props.notificationsState}
+              setNotificationsState={props.setNotificationsState}
+              users={users}
+              goBack={goBack}
+              token={props.token}
+              t={props.t}
+              i18n={props.i18n}
+            />
+            {users != null && users.maxPage > 1 ? (
+              <AdminRenderPageSwitches
+                page={props.notificationsUsersState.page}
+                maxPage={users.maxPage}
+                setPageState={props.setNotificationsUsersState}
+              />
+            ) : null}
+          </div>
         ) : null}
         {props.state.notificationType == 5 ? (
-          <AdminNotificationsGetAudiobooksList
-            audiobooksState={props.audiobooksState}
-            setAudiobooksState={props.setAudiobooksState}
-            state={props.state}
-            setState={props.setState}
-            notificationsState={props.notificationsState}
-            setNotificationsState={props.setNotificationsState}
-            audiobooks={audiobooks}
-            goBack={goBack}
-            token={props.token}
-            t={props.t}
-            i18n={props.i18n}
-          />
+          <div>
+            <AdminNotificationsGetAudiobooksList
+              audiobooksState={props.audiobooksState}
+              setAudiobooksState={props.setAudiobooksState}
+              state={props.state}
+              setState={props.setState}
+              notificationsState={props.notificationsState}
+              setNotificationsState={props.setNotificationsState}
+              audiobooks={audiobooks}
+              goBack={goBack}
+              token={props.token}
+              t={props.t}
+              i18n={props.i18n}
+            />
+            {audiobooks != null && audiobooks.maxPage > 1 ? (
+              <AdminRenderPageSwitches
+                page={props.notificationsAudiobooksState.page}
+                maxPage={audiobooks.maxPage}
+                setPageState={props.setNotificationsAudiobooksState}
+              />
+            ) : null}
+          </div>
         ) : null}
         {props.state.notificationType == 4 ? (
           <AdminNotificationsGetCategoriesList
