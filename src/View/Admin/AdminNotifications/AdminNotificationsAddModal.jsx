@@ -125,7 +125,13 @@ export default function AdminNotificationsAddModal(props) {
                     size='sm'
                     className='btn button button_notification'
                     disabled={modalState.notificationType == 0 || modalState.userType == 0}
-                    onClick={(e) => adminService.addNotification(e)}
+                    onClick={() =>
+                      props.addNotification({
+                        modalState: modalState,
+                        addNotificationModal: props.state.addNotificationModal,
+                        setState: props.setState,
+                      })
+                    }
                   >
                     {props.t('save')}
                   </Button>

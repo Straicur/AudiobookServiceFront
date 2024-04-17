@@ -12,18 +12,12 @@ export default function AdminNotificationsEditModal(props) {
     actionIdChanged: false,
   });
 
-  const [deleteState, setDelteteState] = useState({
-    sure: false,
-  });
-
   const adminService = new AdminNotificationsEditService(
     props.notificationState,
     props.setNotificationState,
     props,
     actionState,
     setActionState,
-    deleteState,
-    setDelteteState,
   );
 
   return (
@@ -132,43 +126,49 @@ export default function AdminNotificationsEditModal(props) {
                   disabled
                   value={props.notificationState.delete ? props.t('yes') : props.t('no')}
                 />
-                {deleteState.sure ? (
+                {props.notificationState.sure ? (
                   <Button
                     name='en'
                     size='sm'
                     className='btn button'
                     variant='outline-danger'
-                    onClick={(e) => adminService.deleteNotification(e)}
+                    onClick={() => {
+                      props.setNotificationState((prev) => ({
+                        ...prev,
+                        sure: !props.notificationState.sure,
+                        doDeleteOrUpdate: true,
+                      }));
+                    }}
                   >
                     {props.t('yes')}
                   </Button>
                 ) : null}
-                {deleteState.sure ? (
+                {props.notificationState.sure ? (
                   <Button
                     name='en'
                     size='sm'
                     className='btn button'
                     variant='outline-success'
                     onClick={() =>
-                      setDelteteState((prev) => ({
+                      props.setNotificationState((prev) => ({
                         ...prev,
-                        sure: !deleteState.sure,
+                        sure: !props.notificationState.sure,
                       }))
                     }
                   >
                     {props.t('no')}
                   </Button>
                 ) : null}
-                {!deleteState.sure ? (
+                {!props.notificationState.sure ? (
                   <Button
                     name='en'
                     variant={props.notificationState.delete ? 'outline-success' : 'outline-danger'}
                     size='sm'
                     className='btn button mx-2'
                     onClick={() =>
-                      setDelteteState((prev) => ({
+                      props.setNotificationState((prev) => ({
                         ...prev,
-                        sure: !deleteState.sure,
+                        sure: !props.notificationState.sure,
                       }))
                     }
                   >
@@ -184,7 +184,20 @@ export default function AdminNotificationsEditModal(props) {
                   variant='success'
                   size='sm'
                   className='btn button button_notification'
-                  onClick={(e) => adminService.saveChanges(e)}
+                  onClick={() => {
+                    if (props.notificationState.doDeleteOrUpdate !== null) {
+                      console.log(props.notificationState);
+                      props.deleteNotification({
+                        notificationId: props.notificationState.id,
+                        delete: props.notificationState.delete,
+                      });
+                    }
+
+                    props.editNotification({
+                      setNotificationState: props.setNotificationState,
+                      notificationState: props.notificationState,
+                    });
+                  }}
                 >
                   {props.t('save')}
                 </Button>

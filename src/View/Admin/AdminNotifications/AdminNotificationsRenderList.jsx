@@ -15,6 +15,8 @@ export default function AdminNotificationsRenderList(props) {
       notificationType: element.notificationType,
       text: element.text,
       userType: element.userType != null ? element.userType : 0,
+      sure: false,
+      doDeleteOrUpdate: null,
     }));
   };
 

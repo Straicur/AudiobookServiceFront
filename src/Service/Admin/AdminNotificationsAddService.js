@@ -1,4 +1,3 @@
-import { HandleFetch } from 'Util/HandleFetch';
 import FormService from 'Service/Common/FormService';
 
 export default class AdminNotificationsAddService extends FormService {
@@ -33,49 +32,22 @@ export default class AdminNotificationsAddService extends FormService {
     }));
   };
 
-  createAdditionalData = () => {
+  static createAdditionalData = (modalState) => {
     let additionalData = {};
 
-    if (this.modalState.notificationType == 4) {
-      additionalData.categoryKey = this.modalState.actionId;
+    if (modalState.notificationType == 4) {
+      additionalData.categoryKey = modalState.actionId;
     }
-    if (this.modalState.notificationType == 5) {
-      additionalData.actionId = this.modalState.actionId;
+    if (modalState.notificationType == 5) {
+      additionalData.actionId = modalState.actionId;
     }
-    if (this.modalState.notificationType == 2) {
-      additionalData.userId = this.modalState.actionId;
+    if (modalState.notificationType == 2) {
+      additionalData.userId = modalState.actionId;
     }
-    if (this.modalState.text != '') {
-      additionalData.text = this.modalState.text;
+    if (modalState.text != '') {
+      additionalData.text = modalState.text;
     }
 
     return additionalData;
-  };
-
-  addNotification = () => {
-    HandleFetch(
-      '/admin/user/notification',
-      'PUT',
-      {
-        notificationType: this.modalState.notificationType,
-        notificationUserType: this.modalState.userType,
-        additionalData: this.createAdditionalData(),
-      },
-      this.props.token,
-      this.props.i18n.language,
-    )
-      .then(() => {
-        this.props.setState((prev) => ({
-          ...prev,
-          addNotificationModal: !this.props.state.addNotificationModal,
-          refresh: !this.props.state.refresh,
-        }));
-      })
-      .catch((e) => {
-        this.props.setNotificationsState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
   };
 }

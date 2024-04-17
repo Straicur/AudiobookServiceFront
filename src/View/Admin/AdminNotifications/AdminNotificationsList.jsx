@@ -16,7 +16,6 @@ export default function AdminNotificationsList(props) {
     jsonModal: false,
     json: null,
     addNotificationModal: false,
-    editNotificationElement: null,
     searchModal: false,
     refresh: false,
     error: null,
@@ -49,10 +48,13 @@ export default function AdminNotificationsList(props) {
     text: '',
     userType: 0,
     editNotificationkModal: false,
+    sure: false,
+    doDeleteOrUpdate: null,
   });
 
   const [userRoles] = useAdminSystemRoles();
-  const [notifications] = useAdminNotificationsData();
+  const [notifications, refetch, editNotification, addNotification, deleteNotification] =
+    useAdminNotificationsData();
 
   const adminService = new AdminNotificationsService(
     props,
@@ -61,16 +63,6 @@ export default function AdminNotificationsList(props) {
     state,
     setState,
   );
-
-  useEffect(() => {
-    if (state.refresh) {
-      setState((prev) => ({
-        ...prev,
-        refresh: !state.refresh,
-      }));
-      // refetch();
-    }
-  }, [state.refresh]);
 
   useEffect(() => {
     if (props.notificationsState.error != null) {
@@ -112,7 +104,7 @@ export default function AdminNotificationsList(props) {
             setNotificationState={setNotificationState}
             roles={userRoles}
           />
-          {state.json != null && notifications.maxPage > 1 ? (
+          {notifications != null && notifications.maxPage > 1 ? (
             <AdminRenderPageSwitches
               page={props.notificationsState.page}
               maxPage={notifications.maxPage}
@@ -161,6 +153,8 @@ export default function AdminNotificationsList(props) {
             token={props.token}
             resetSearchStates={adminService.resetSearchStates}
             roles={userRoles}
+            addNotification={addNotification}
+            refetch={refetch}
             audiobooksState={audiobooksState}
             setAudiobooksState={setAudiobooksState}
             categoriesState={categoriesState}
@@ -198,6 +192,9 @@ export default function AdminNotificationsList(props) {
             notificationState={notificationState}
             setNotificationState={setNotificationState}
             roles={userRoles}
+            editNotification={editNotification}
+            deleteNotification={deleteNotification}
+            refetch={refetch}
             audiobooksState={audiobooksState}
             setAudiobooksState={setAudiobooksState}
             categoriesState={categoriesState}
