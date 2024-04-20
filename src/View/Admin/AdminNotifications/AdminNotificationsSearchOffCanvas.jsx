@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -6,8 +6,6 @@ import Form from 'react-bootstrap/Form';
 import FormService from 'Service/Common/FormService';
 
 export default function AdminNotificationsSearchOffCanvas(props) {
-  const [show, setShow] = useState(true);
-
   const adminService = new FormService(props.setSearchState);
 
   const handleClose = () => {
@@ -15,7 +13,6 @@ export default function AdminNotificationsSearchOffCanvas(props) {
       ...prev,
       searchModal: !props.state.searchModal,
     }));
-    setShow(false);
   };
 
   const changeDeleted = (element) => {
@@ -47,9 +44,10 @@ export default function AdminNotificationsSearchOffCanvas(props) {
   };
 
   const searchAgain = () => {
-    props.setPageState((prev) => ({
+    props.setNotificationsState((prev) => ({
       ...prev,
       page: 0,
+      refresh: true,
     }));
 
     props.setState((prev) => ({
@@ -57,12 +55,13 @@ export default function AdminNotificationsSearchOffCanvas(props) {
       searchModal: !props.state.searchModal,
       refresh: !props.state.refresh,
     }));
-    setShow(false);
+
+    props.refetch();
   };
 
   return (
     <Offcanvas
-      show={show}
+      show={props.state.searchModal}
       onHide={handleClose}
       className='bg-dark text-light off_canvas_with'
       backdrop='static'

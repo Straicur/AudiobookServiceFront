@@ -136,7 +136,8 @@ export default function AdminNotificationsEditModal(props) {
                       props.setNotificationState((prev) => ({
                         ...prev,
                         sure: !props.notificationState.sure,
-                        doDeleteOrUpdate: true,
+                        delete: !props.notificationState.delete,
+                        doDeleteOrUpdate: !props.notificationState.doDeleteOrUpdate,
                       }));
                     }}
                   >
@@ -186,7 +187,6 @@ export default function AdminNotificationsEditModal(props) {
                   className='btn button button_notification'
                   onClick={() => {
                     if (props.notificationState.doDeleteOrUpdate !== null) {
-                      console.log(props.notificationState);
                       props.deleteNotification({
                         notificationId: props.notificationState.id,
                         delete: props.notificationState.delete,

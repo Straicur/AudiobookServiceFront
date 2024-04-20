@@ -4,6 +4,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import AdminNotificationsAddService from 'Service/Admin/AdminNotificationsAddService';
+import AdminNotificationsService from 'Service/Admin/AdminNotificationsService';
 
 const AdminNotificationsContext = createContext(null);
 
@@ -11,7 +12,7 @@ export const AdminNotificationsProvider = ({
   children,
   page,
   token,
-  //   searchState,
+  searchState,
   setState,
   i18n,
 }) => {
@@ -28,7 +29,7 @@ export const AdminNotificationsProvider = ({
         'PATCH',
         {
           notificationId: data.notificationId,
-          delete: !data.delete,
+          delete: data.delete,
         },
         token,
         i18n.language,
@@ -116,7 +117,7 @@ export const AdminNotificationsProvider = ({
     },
   });
 
-  const { data: dataAdminStatistics = null } = useQuery({
+  const { data: dataAdminStatistics = null, refetch } = useQuery({
     queryKey: ['dataAdminNotifications' + page],
     queryFn: () =>
       HandleFetch(
@@ -125,8 +126,7 @@ export const AdminNotificationsProvider = ({
         {
           page: page,
           limit: 15,
-          searchData: {},
-          // AdminNotificationsService  adminService.formatData()
+          searchData: AdminNotificationsService.createSearchData(searchState),
         },
         token,
         i18n.language,
@@ -145,6 +145,7 @@ export const AdminNotificationsProvider = ({
   const value = [
     dataAdminStatistics,
     setRefetch,
+    refetch,
     editNotification,
     addNotification,
     deleteNotification,

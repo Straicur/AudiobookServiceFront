@@ -53,8 +53,14 @@ export default function AdminNotificationsList(props) {
   });
 
   const [userRoles] = useAdminSystemRoles();
-  const [notifications, refetch, editNotification, addNotification, deleteNotification] =
-    useAdminNotificationsData();
+  const [
+    notifications,
+    refetch,
+    forceRefetch,
+    editNotification,
+    addNotification,
+    deleteNotification,
+  ] = useAdminNotificationsData();
 
   const adminService = new AdminNotificationsService(
     props,
@@ -63,6 +69,16 @@ export default function AdminNotificationsList(props) {
     state,
     setState,
   );
+
+  useEffect(() => {
+    if (state.refresh) {
+      setState((prev) => ({
+        ...prev,
+        refresh: !state.refresh,
+      }));
+      forceRefetch();
+    }
+  }, [state.refresh]);
 
   useEffect(() => {
     if (props.notificationsState.error != null) {
@@ -86,7 +102,12 @@ export default function AdminNotificationsList(props) {
                 size='sm'
                 color='dark'
                 className=' btn button mt-2'
-                onClick={() => adminService.openSearchModal()}
+                onClick={() =>
+                  setState((prev) => ({
+                    ...prev,
+                    searchModal: !state.searchModal,
+                  }))
+                }
               >
                 {props.t('search')}
               </Button>
@@ -171,6 +192,7 @@ export default function AdminNotificationsList(props) {
           <AdminNotificationsSearchOffCanvas
             state={state}
             setState={setState}
+            refetch={refetch}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
             searchState={props.searchState}
