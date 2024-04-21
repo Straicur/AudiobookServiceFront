@@ -15,7 +15,6 @@ import { useAdminCategoryAudiobooks } from 'Providers/Admin/AdminCategoryAudiobo
 export default function AdminCategoryAudiobooksList(props) {
   const [state, setState] = useState({
     jsonModal: false,
-    json: null,
     category: null,
     addAudiobookModal: false,
     addAudiobookParent: null,
@@ -25,10 +24,10 @@ export default function AdminCategoryAudiobooksList(props) {
     part: 0,
     addAudiobook: false,
     addAudiobookSeconds: 3000,
-    refresh: false,
   });
 
   const [categoryDetail] = useAdminCategoryDetail();
+
   const [
     categoryAudiobooks,
     refetchAudiobooks,

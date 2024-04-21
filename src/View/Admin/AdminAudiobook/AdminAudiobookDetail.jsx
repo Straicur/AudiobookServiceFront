@@ -123,14 +123,15 @@ export default function AdminAudiobookDetail(props) {
                   state={props.audiobookState}
                   t={props.t}
                 />
-              ) : null}
-              <Alert
-                show={props.audiobookState.errorPart != ''}
-                className='dangerAllert mt-1 text-center'
-                variant='danger'
-              >
-                {props.audiobookState.errorPart}
-              </Alert>
+              ) : (
+                <Alert
+                  show={audiobookPart === null}
+                  className='dangerAllert mt-1 text-center'
+                  variant='danger'
+                >
+                  {props.t('cantFindAnyParts')}
+                </Alert>
+              )}
             </div>
           </div>
           <div className='col-3'>

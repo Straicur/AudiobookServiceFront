@@ -53,7 +53,6 @@ export default function AdminNotificationsSearchOffCanvas(props) {
     props.setState((prev) => ({
       ...prev,
       searchModal: !props.state.searchModal,
-      refresh: !props.state.refresh,
     }));
 
     props.refetch();

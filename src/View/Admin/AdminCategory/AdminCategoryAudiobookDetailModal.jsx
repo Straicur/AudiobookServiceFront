@@ -27,14 +27,12 @@ export default function AdminCategoryAudiobookDetailModal(props) {
   const handleClose = () => {
     props.setAudiobooksState({
       ...props.audiobooksState,
-      errorPart: '',
       errorCover: '',
     });
     props.setState({
       ...props.state,
       detailAudiobookModal: !props.state.detailAudiobookModal,
       detailAudiobookElement: null,
-      refresh: !props.state.refresh,
     });
   };
 
@@ -262,14 +260,15 @@ export default function AdminCategoryAudiobookDetailModal(props) {
               state={props.state}
               t={props.t}
             />
-          ) : null}
-          <Alert
-            show={props.audiobooksState.errorPart != ''}
-            className='dangerAllert mt-1 text-center'
-            variant='danger'
-          >
-            {props.audiobooksState.errorPart}
-          </Alert>
+          ) : (
+            <Alert
+              show={audiobookPart === null}
+              className='dangerAllert mt-1 text-center'
+              variant='danger'
+            >
+              {props.t('cantFindAnyParts')}
+            </Alert>
+          )}
         </div>
       </Modal.Body>
     </Modal>

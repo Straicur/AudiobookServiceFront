@@ -23,7 +23,7 @@ export default function AdminNotificationsEditModal(props) {
   return (
     <Modal
       size='lg'
-      show={props.notificationState.editNotificationkModal}
+      show={props.notificationState.editNotificationModal}
       onHide={adminService.handleClose}
       backdrop='static'
     >
@@ -197,6 +197,8 @@ export default function AdminNotificationsEditModal(props) {
                       setNotificationState: props.setNotificationState,
                       notificationState: props.notificationState,
                     });
+
+                    adminService.handleClose();
                   }}
                 >
                   {props.t('save')}

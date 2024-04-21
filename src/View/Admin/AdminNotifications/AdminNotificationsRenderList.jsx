@@ -7,7 +7,7 @@ export default function AdminNotificationsRenderList(props) {
   const openDetailNotificationModal = (element) => {
     props.setNotificationState((prev) => ({
       ...prev,
-      editNotificationkModal: !props.notificationState.editNotificationkModal,
+      editNotificationModal: !props.notificationState.editNotificationModal,
       actionId: element.actionId != null ? element.actionId : '',
       dateAdd: element.dateAdd,
       delete: element.delete,

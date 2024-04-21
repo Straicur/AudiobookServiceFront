@@ -15,7 +15,6 @@ export default function AdminCategoriesAddModal(props) {
     props.setState((prev) => ({
       ...prev,
       addCategoryModal: !props.state.addCategoryModal,
-      refresh: !props.state.refresh,
       addCategoryParent: null,
     }));
   };

@@ -13,6 +13,7 @@ import './AdminNotifications.css';
 
 export default function AdminNotifications() {
   const token = useTokenStore((state) => state.token);
+
   const { t, i18n } = useTranslation();
 
   const [notificationsState, setNotificationsState] = useState({

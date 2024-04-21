@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
@@ -17,13 +17,11 @@ export default function AdminAudiobooksList(props) {
 
   const [state, setState] = useState({
     jsonModal: false,
-    json: null,
     addAudiobookModal: false,
     addAudiobookParent: null,
     detailCommentsAudiobookModal: false,
     detailAudiobookElement: null,
     searchModal: false,
-    refresh: false,
     addAudiobook: false,
     addAudiobookSeconds: 3000,
     error: null,
@@ -32,7 +30,7 @@ export default function AdminAudiobooksList(props) {
   const [audiobooks, refetch, activate, forceRefetch] = useAdminAudiobooksData();
   const [categories] = useAdminCategoriesListData();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (state.addAudiobook) {
       setState((prev) => ({
         ...prev,
@@ -45,7 +43,7 @@ export default function AdminAudiobooksList(props) {
     }
   }, [state.addAudiobook]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.audiobooksState.refresh) {
       forceRefetch();
 

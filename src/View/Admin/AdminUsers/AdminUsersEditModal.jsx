@@ -9,7 +9,11 @@ export default function AdminUsersEditModal(props) {
     props.setState((prev) => ({
       ...prev,
       editUserModal: !props.state.editUserModal,
-      refresh: !props.state.refresh,
+    }));
+
+    props.setUsersState((prev) => ({
+      ...prev,
+      refresh: true,
     }));
   };
 

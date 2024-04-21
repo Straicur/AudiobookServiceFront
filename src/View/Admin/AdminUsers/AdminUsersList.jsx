@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 
 import Button from 'react-bootstrap/Button';
@@ -14,14 +14,12 @@ import { useAdminSystemRoles } from 'Providers/Admin/AdminSystemRolesProvider';
 
 export default function AdminUsersList(props) {
   const [state, setState] = useState({
-    json: null,
     jsonModal: false,
     deleteUsersModal: false,
     deletedUsersModal: false,
     editUserModal: false,
     editUserElement: null,
     searchModal: false,
-    refresh: false,
     error: null,
   });
 
@@ -56,15 +54,15 @@ export default function AdminUsersList(props) {
     }));
   };
 
-  useEffect(() => {
-    if (state.refresh) {
-      setState((prev) => ({
+  useLayoutEffect(() => {
+    if (props.usersState.refresh) {
+      props.setUsersState((prev) => ({
         ...prev,
-        refresh: !state.refresh,
+        refresh: !props.usersState.refresh,
       }));
       forceRefetch();
     }
-  }, [state.refresh]);
+  }, [props.usersState.refresh]);
 
   useEffect(() => {
     if (props.usersState.error != null) {
@@ -179,6 +177,7 @@ export default function AdminUsersList(props) {
           <AdminUsersEditModal
             state={state}
             setState={setState}
+            setUsersState={props.setUsersState}
             t={props.t}
             i18n={props.i18n}
             removeUserRole={removeUserRole}

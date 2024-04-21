@@ -1,24 +1,24 @@
 import FormService from 'Service/Common/FormService';
 
 export default class AdminNotificationsEditService extends FormService {
-  constructor(notificationsState, setNotificationsState, props, actionState, setActionState) {
-    super(setNotificationsState);
-    this.notificationsState = notificationsState;
-    this.setNotificationsState = setNotificationsState;
+  constructor(notificationState, setNotificationState, props, actionState, setActionState) {
+    super(setNotificationState);
+    this.notificationState = notificationState;
+    this.setNotificationState = setNotificationState;
     this.props = props;
     this.actionState = actionState;
     this.setActionState = setActionState;
   }
 
   handleClose = () => {
-    this.setNotificationsState((prev) => ({
+    this.setNotificationState((prev) => ({
       ...prev,
-      editNotificationkModal: !this.notificationsState.editNotificationkModal,
+      editNotificationModal: !this.notificationState.editNotificationModal,
     }));
 
-    this.props.setState((prev) => ({
+    this.props.setNotificationsAudiobooksState((prev) => ({
       ...prev,
-      refresh: !this.props.state.refresh,
+      refresh: true,
     }));
   };
 

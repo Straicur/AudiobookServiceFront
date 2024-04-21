@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import Button from 'react-bootstrap/Button';
 import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
@@ -14,10 +14,8 @@ import { useAdminNotificationsData } from 'Providers/Admin/AdminNotificationsPro
 export default function AdminNotificationsList(props) {
   const [state, setState] = useState({
     jsonModal: false,
-    json: null,
     addNotificationModal: false,
     searchModal: false,
-    refresh: false,
     error: null,
   });
 
@@ -47,12 +45,13 @@ export default function AdminNotificationsList(props) {
     notificationType: 0,
     text: '',
     userType: 0,
-    editNotificationkModal: false,
+    editNotificationModal: false,
     sure: false,
     doDeleteOrUpdate: null,
   });
 
   const [userRoles] = useAdminSystemRoles();
+
   const [
     notifications,
     refetch,
@@ -70,15 +69,15 @@ export default function AdminNotificationsList(props) {
     setState,
   );
 
-  useEffect(() => {
-    if (state.refresh) {
-      setState((prev) => ({
+  useLayoutEffect(() => {
+    if (props.notificationsState.refresh) {
+      props.setNotificationsState((prev) => ({
         ...prev,
-        refresh: !state.refresh,
+        refresh: !props.notificationsState.refresh,
       }));
       forceRefetch();
     }
-  }, [state.refresh]);
+  }, [props.notificationsState.refresh]);
 
   useEffect(() => {
     if (props.notificationsState.error != null) {
@@ -202,7 +201,7 @@ export default function AdminNotificationsList(props) {
             resetSearchStates={adminService.resetSearchStates}
           />
         ) : null}
-        {notificationState.editNotificationkModal ? (
+        {notificationState.editNotificationModal ? (
           <AdminNotificationsEditModal
             state={state}
             setState={setState}

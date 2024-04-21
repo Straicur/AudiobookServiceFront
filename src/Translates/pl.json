@@ -192,6 +192,7 @@
   "selectNotificationType": "Wybierz typ notyfikacji",
   "deleteAudiobookComments": "Usuń aktualne komentarze audiobooka",
   "deleteAudiobookNotifications": "Usuń aktualne powiadomienia audiobooka",
+  "cantFindAnyParts": "Nie można znaleźć żadnych części audiobooka",
   "changed": "Zmieniony",
   "optional": "Opcjonalny",
   "loadMore": "Załaduj więcej",

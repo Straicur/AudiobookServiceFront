@@ -29,7 +29,7 @@ export default function AdminCategoryAudiobookAddModal(props) {
     currentPart,
     seconds,
   );
-
+  //TODO tu popraw te dodawanie(chodzi że ten loading i działanie )
   useEffect(() => {
     if (stateModal.author.trim() && stateModal.title.trim()) {
       setStateModal((prev) => ({

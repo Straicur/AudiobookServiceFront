@@ -20,7 +20,6 @@ export default function AdminCategoriesEditModal(props) {
       ...prev,
       editCategoryModal: !props.state.editCategoryModal,
       editCategoryElement: null,
-      refresh: !props.state.refresh,
     }));
   };
 

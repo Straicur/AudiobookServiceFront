@@ -47,7 +47,7 @@ export default class AdminUsersSearchService extends FormService {
       page: 0,
       refresh: true,
     }));
-    this.props.setState({ ...this.props.state, refresh: !this.props.state.refresh });
+
     this.props.refetch();
 
     this.handleClose();

@@ -52,6 +52,11 @@ export default function AdminAudiobookCover(props) {
               .catch((e) => {
                 props.setAudiobookState((prev) => ({
                   ...prev,
+                  errorCover: e,
+                }));
+
+                props.setAudiobookState((prev) => ({
+                  ...prev,
                   error: e,
                 }));
               });

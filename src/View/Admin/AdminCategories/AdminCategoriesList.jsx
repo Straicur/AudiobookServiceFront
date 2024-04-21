@@ -10,12 +10,10 @@ import { useAdminCategoriesTree } from 'Providers/Admin/AdminCategoriesTreeProvi
 export default function AdminCategoriesList(props) {
   const [state, setState] = useState({
     jsonModal: false,
-    json: null,
     addCategoryModal: false,
     addCategoryParent: null,
     editCategoryModal: false,
     editCategoryElement: null,
-    refresh: false,
     error: null,
   });
 

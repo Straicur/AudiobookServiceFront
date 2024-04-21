@@ -33,7 +33,7 @@ export default function AdminUsersRenderDeletedUsersList(props) {
           {element.banned ? (
             <i className='bi bi-shield-fill-exclamation'></i>
           ) : (
-            <i className='bi bi-shield-fill-check'></i>
+            <i className='bi bi-bookmark-dash'></i>
           )}
         </td>
       </tr>

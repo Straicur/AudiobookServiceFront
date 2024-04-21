@@ -9,6 +9,7 @@ import './AdminAudiobook.css';
 
 export default function AdminAudiobook() {
   const token = useTokenStore((state) => state.token);
+
   const { t, i18n } = useTranslation();
 
   const { audiobookId } = useParams();
@@ -24,7 +25,6 @@ export default function AdminAudiobook() {
     refresh: false,
     addAudiobookSeconds: 3000,
     part: 0,
-    errorPart: '',
     errorCover: '',
     error: null,
   });

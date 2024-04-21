@@ -14,7 +14,11 @@ export default class AdminNotificationsAddService extends FormService {
     this.props.setState((prev) => ({
       ...prev,
       addNotificationModal: !this.props.state.addNotificationModal,
-      refresh: !this.props.state.refresh,
+    }));
+
+    this.props.setNotificationsAudiobooksState((prev) => ({
+      ...prev,
+      refresh: true,
     }));
   };
 

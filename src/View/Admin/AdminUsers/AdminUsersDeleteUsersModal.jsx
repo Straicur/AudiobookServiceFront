@@ -15,7 +15,11 @@ export default function AdminUsersDeleteUsersModal(props) {
     props.setState((prev) => ({
       ...prev,
       deleteUsersModal: !props.state.deleteUsersModal,
-      refresh: !props.state.refresh,
+    }));
+
+    props.setUsersState((prev) => ({
+      ...prev,
+      refresh: true,
     }));
   };
 
