@@ -22,19 +22,6 @@ export default function UserMainRenderCarousel(props, category) {
       items: 3,
     },
   };
-  const getImgUrl = (audiobook) => {
-    if (props.coversState != undefined && props.coversState.length > 0) {
-      let url = props.coversState.filter((obj) => obj.id == audiobook.id);
-
-      if (url.length > 0 && url[0].url != '') {
-        return process.env.REACT_APP_API_URL + url[0].url;
-      } else {
-        return '/noImg.jpg';
-      }
-    } else {
-      return '/noImg.jpg';
-    }
-  };
 
   const showAudiobookModal = (audiobook, imgUrl) => {
     props.setState((prev) => ({
@@ -51,7 +38,10 @@ export default function UserMainRenderCarousel(props, category) {
 
     audiobooksArray.push(
       category.audiobooks.map((audiobook) => {
-        let imgUrl = getImgUrl(audiobook);
+        let imgUrl =
+          audiobook.imgFile === null
+            ? '/noImg.jpg'
+            : process.env.REACT_APP_API_URL + audiobook.imgFile;
         return (
           <div
             className='card mx-3 carousel-card'
@@ -96,9 +86,5 @@ export default function UserMainRenderCarousel(props, category) {
     );
   };
 
-  return (
-    <div key={uuidv4()}>
-      {props.coversState != undefined && props.coversState.length > 0 ? render() : null}
-    </div>
-  );
+  return <div key={uuidv4()}>{render()}</div>;
 }

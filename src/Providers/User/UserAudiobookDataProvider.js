@@ -1,57 +1,43 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
+import { useQueryClient } from '@tanstack/react-query';
 
 const UserAudiobookDataContext = createContext(null);
-//TODO to sprawdź czy nie będzie działać jak myList
+
 export const UserAudiobookDataProvider = ({ children, token, page, limit, setState, i18n }) => {
-  const [audiobooks, setAudiobooks] = useState(null);
-  const [refetchState, setRefetchState] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(false);
+  const qc = useQueryClient();
 
-  const fetchData = () => {
-    setLoading(true);
-    HandleFetch(
-      '/user/audiobooks',
-      'POST',
-      {
-        page: page,
-        limit: limit,
-      },
-      token,
-      i18n.language,
-    )
-      .then((data) => {
-        setHasMore(data.maxPage > page + 1);
-        setLoading(false);
-
-        if (audiobooks == null) {
-          setAudiobooks(data);
-        } else if (audiobooks.categories != undefined) {
-          setAudiobooks((prev) => ({
-            ...prev,
-            categories: [...audiobooks.categories, ...data.categories.map((category) => category)],
-            page: data.page,
-          }));
-        }
-      })
-      .catch((e) => {
-        setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+  const setRefetch = () => {
+    qc.invalidateQueries(['dataAdminAudiobooks']);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [page, refetchState]);
+  const { data: dataUserAudiooboks = null, isLoading } = useQuery({
+    queryKey: ['dataUserAudiooboks' + page],
+    queryFn: () =>
+      HandleFetch(
+        '/user/audiobooks',
+        'POST',
+        {
+          page: page,
+          limit: limit,
+        },
+        token,
+        i18n.language,
+      ),
+    retry: 1,
+    retryDelay: 500,
+    refetchOnWindowFocus: false,
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+  // categories: [...audiobooks.categories, ...data.categories.map((category) => category)],
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const value = [audiobooks, loading, hasMore, setAudiobooks, setRefetchState];
+  const value = [dataUserAudiooboks, setRefetch, isLoading];
 
   return (
     <UserAudiobookDataContext.Provider value={value}>{children}</UserAudiobookDataContext.Provider>

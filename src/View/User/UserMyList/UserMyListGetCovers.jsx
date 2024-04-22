@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useUserAudiobookMyList } from 'Providers/User/UserAudiobookMyListProvider';
 import UserMyListRender from './UserMyListRender';
 import { HandleFetch } from 'Util/HandleFetch';
-import { useCoverListStore } from 'Store/store';
+// import { useCoverListStore } from 'Store/store';
 
 const ChildMemo = React.memo(UserMyListRender);
 
@@ -11,10 +11,10 @@ export default function UserMyListGetCovers(props) {
 
   const [loadstate, setLoadState] = useState(true);
 
-  const coversStore = useCoverListStore();
+  // const coversStore = useCoverListStore();
 
-  const covers = useCoverListStore((state) => state.covers);
-  const dateUpdate = useCoverListStore((state) => state.dateUpdate);
+  // const covers = useCoverListStore((state) => state.covers);
+  // const dateUpdate = useCoverListStore((state) => state.dateUpdate);
 
   const getAudiobooksImages = () => {
     if (audiobooks != null) {
@@ -35,25 +35,26 @@ export default function UserMyListGetCovers(props) {
           props.token,
           props.i18n.language,
         )
-          .then((data) => {
-            if (data.audiobookCoversModels != undefined) {
-              let updatedCovers = covers;
+          .then(() => {
+            // .then((data) => {
+            // if (data.audiobookCoversModels != undefined) {
+            //   let updatedCovers = covers;
 
-              data.audiobookCoversModels.forEach((cover) => {
-                if (!covers.some((x) => x.id == cover.id)) {
-                  updatedCovers.push(cover);
-                } else {
-                  if (dateUpdate < Date.now() && dateUpdate != 0) {
-                    coversStore.updateCover(cover.id, cover.url);
-                  }
-                }
-              });
+            //   data.audiobookCoversModels.forEach((cover) => {
+            //     if (!covers.some((x) => x.id == cover.id)) {
+            //       updatedCovers.push(cover);
+            //     } else {
+            //       if (dateUpdate < Date.now() && dateUpdate != 0) {
+            //         coversStore.updateCover(cover.id, cover.url);
+            //       }
+            //     }
+            //   });
 
-              coversStore.addCovers(updatedCovers);
-              setLoadState(false);
-            } else {
-              setLoadState(false);
-            }
+            //   coversStore.addCovers(updatedCovers);
+            setLoadState(false);
+            // } else {
+            //   setLoadState(false);
+            // }
           })
           .catch((e) => {
             props.setState((prev) => ({
@@ -83,7 +84,7 @@ export default function UserMyListGetCovers(props) {
           setState={props.setState}
           token={props.token}
           t={props.t}
-          coversState={covers}
+          // coversState={covers}
           loading={loading}
           audiobooks={audiobooks}
         />

@@ -29,7 +29,6 @@ export default function AdminAudiobookDetail(props) {
     audiobookAddCategory,
     deleteAudiobook,
   ] = useAdminAudiobookData();
-
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
   const [categoriesTree] = useAdminCategoriesTree();
   const [categories] = useAdminCategoriesListData();

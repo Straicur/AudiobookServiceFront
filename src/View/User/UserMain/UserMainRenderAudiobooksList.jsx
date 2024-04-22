@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import UserMainRenderCarousel from './UserMainRenderCarousel';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -36,7 +36,7 @@ export default function UserMainRenderAudiobooksList(props) {
   const renderColumns = () => {
     let renderCategories = [];
 
-    if (props.audiobooks != null && props.coversState.length > 0) {
+    if (props.audiobooks != null) {
       props.audiobooks.categories.forEach((category, index) => {
         let renderAudiobooks = [];
 
@@ -87,7 +87,7 @@ export default function UserMainRenderAudiobooksList(props) {
     return renderCategories;
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       lastItemRef.current !== null &&
       lastItemOffsetTopRef.current !== null &&
@@ -105,7 +105,7 @@ export default function UserMainRenderAudiobooksList(props) {
     }
   }, [props.audiobooks]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (lastItemRef.current && lastItemOffsetTopRef.current === null && props.hasMore) {
       lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
     }
