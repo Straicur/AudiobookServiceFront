@@ -2,6 +2,7 @@ import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 const UserAudiobookDetailContext = createContext(null);
 
@@ -14,6 +15,43 @@ export const UserAudiobookDetailProvider = ({
   i18n,
 }) => {
   const qc = useQueryClient();
+
+  const { mutate: addToMyList } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/user/audiobook/like',
+        'PATCH',
+        {
+          audiobookId: data.props.state.detailModalAudiobook.id,
+          categoryKey: data.props.state.detailModalCategory.categoryKey,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+
+      variables.setAudiobookDetail({ inList: !variables.audiobookDetail.inList });
+
+      variables.props.setAudiobookState((prev) => ({
+        ...prev,
+        renderAudiobookPlayer: true,
+      }));
+
+      variables.element.target.classList.remove('disabled');
+
+      qc.invalidateQueries(['dataMyAudiobooksUserData']);
+    },
+    onError: (e) => {
+      qc.invalidateQueries(['dataAudiobookUserDetail' + audiobookId]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
 
   const setAudiobookDetail = (variables) => {
     let copy = dataAudiobookDetail;
@@ -54,7 +92,7 @@ export const UserAudiobookDetailProvider = ({
     },
   });
 
-  const value = [dataAudiobookDetail, setAudiobookDetail, setRefetch];
+  const value = [dataAudiobookDetail, setAudiobookDetail, addToMyList, setRefetch];
 
   return (
     <UserAudiobookDetailContext.Provider value={value}>

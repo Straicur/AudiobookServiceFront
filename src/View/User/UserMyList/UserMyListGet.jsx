@@ -1,7 +1,6 @@
 import React from 'react';
-import UserMyListGetCovers from './UserMyListGetCovers';
 import { UserAudiobookMyListProvider } from 'Providers/User/UserAudiobookMyListProvider';
-import UserMyListAudiobookDetailProviders from './UserMyListAudiobookDetailProviders';
+import UserMyListRender from './UserMyListRender';
 
 export default function UserMyListGet(props) {
   return (
@@ -11,24 +10,12 @@ export default function UserMyListGet(props) {
       token={props.token}
       i18n={props.i18n}
     >
-      <UserMyListGetCovers
-        state={props.myListState}
-        setState={props.setMyListState}
+      <UserMyListRender
+        state={props.state}
+        setState={props.setState}
         token={props.token}
         t={props.t}
-        i18n={props.i18n}
       />
-      {props.myListState.detailModal &&
-      props.myListState.detailModalAudiobook != null &&
-      props.myListState.detailModalCategory != null ? (
-        <UserMyListAudiobookDetailProviders
-          state={props.myListState}
-          setState={props.setMyListState}
-          token={props.token}
-          t={props.t}
-          i18n={props.i18n}
-        />
-      ) : null}
     </UserAudiobookMyListProvider>
   );
 }

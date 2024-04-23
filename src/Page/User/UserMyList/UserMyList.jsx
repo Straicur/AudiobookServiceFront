@@ -7,6 +7,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import UserMyListGet from 'View/User/UserMyList/UserMyListGet';
 import { UserFooter } from 'View/User/Common/UserFooter';
+import UserMyListAudiobookDetailProviders from 'View/User/UserMyList/UserMyListAudiobookDetailProviders';
 import './UserMyList.css';
 
 export default function MyList() {
@@ -49,6 +50,17 @@ export default function MyList() {
               t={t}
               i18n={i18n}
             />
+            {myListState.detailModal &&
+            myListState.detailModalAudiobook != null &&
+            myListState.detailModalCategory != null ? (
+              <UserMyListAudiobookDetailProviders
+                state={myListState}
+                setState={setMyListState}
+                token={token}
+                t={t}
+                i18n={i18n}
+              />
+            ) : null}
             <div className='p-5'>
               <div className='p-3'></div>
             </div>

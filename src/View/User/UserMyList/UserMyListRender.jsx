@@ -1,20 +1,9 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useUserAudiobookMyList } from 'Providers/User/UserAudiobookMyListProvider';
 
 export default function UserMyListRender(props) {
-  const getImgUrl = (audiobook) => {
-    if (props.coversState != undefined && props.coversState.length > 0) {
-      let url = props.coversState.filter((obj) => obj.id == audiobook.id);
-
-      if (url.length > 0 && url[0].url != '') {
-        return process.env.REACT_APP_API_URL + url[0].url;
-      } else {
-        return '/noImg.jpg';
-      }
-    } else {
-      return '/noImg.jpg';
-    }
-  };
+  const [audiobooks, loading] = useUserAudiobookMyList();
 
   const showAudiobookModal = (audiobook, imgUrl) => {
     props.setState((prev) => ({
@@ -30,8 +19,11 @@ export default function UserMyListRender(props) {
     let audiobooksArray = [];
 
     audiobooksArray.push(
-      props.audiobooks.map((audiobook) => {
-        let imgUrl = getImgUrl(audiobook);
+      audiobooks.audiobooks.map((audiobook) => {
+        let imgUrl =
+          audiobook.imgFile === null
+            ? '/noImg.jpg'
+            : process.env.REACT_APP_API_URL + audiobook.imgFile;
         return (
           <div className='col-2' key={uuidv4()}>
             <div
@@ -67,12 +59,14 @@ export default function UserMyListRender(props) {
     );
     return audiobooksArray;
   };
-
+  console.log(audiobooks);
   return (
     <div key={uuidv4()} className='row min_container_height'>
-      {props.coversState != undefined &&
-      props.coversState.length > 0 &&
-      props.audiobooks.length > 0 ? (
+      {loading ? (
+        <div className='text-center'>
+          <div className='spinner-border text-info spinner my-5' role='status'></div>
+        </div>
+      ) : audiobooks !== null && audiobooks.audiobooks.length > 0 ? (
         returnAudioboks()
       ) : (
         <div className='text-white center_text fs-2'>{props.t('emptyMyList')}</div>

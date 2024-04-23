@@ -1,14 +1,18 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
+import { useQueryClient } from '@tanstack/react-query';
 
 const UserAudiobookMyListContext = createContext(null);
 
 export const UserAudiobookMyListProvider = ({ children, token, setState, i18n }) => {
-  const [audiobooks, setAudiobooks] = useState(null);
-  const [refetchState, setRefetchState] = useState(false);
+  const qc = useQueryClient();
 
-  const { refetch: refetchMyListData, isLoading: isLoadingMyList } = useQuery({
+  const setRefetch = () => {
+    qc.invalidateQueries(['dataMyAudiobooksUserData']);
+  };
+
+  const { data: dataMyAudiobooksUserData = null, isLoading } = useQuery({
     queryKey: ['dataMyAudiobooksUserData'],
     queryFn: () => HandleFetch('/user/myList/audiobooks', 'GET', null, token, i18n.language),
     retry: 1,
@@ -20,19 +24,9 @@ export const UserAudiobookMyListProvider = ({ children, token, setState, i18n })
         error: e,
       }));
     },
-    onSuccess: (data) => {
-      setAudiobooks(data.audiobooks);
-    },
   });
 
-  useEffect(() => {
-    if (refetchState) {
-      refetchMyListData();
-      setRefetchState(!refetchState);
-    }
-  }, [refetchState]);
-
-  const value = [audiobooks, isLoadingMyList, setAudiobooks, setRefetchState];
+  const value = [dataMyAudiobooksUserData, isLoading, setRefetch];
 
   return (
     <UserAudiobookMyListContext.Provider value={value}>

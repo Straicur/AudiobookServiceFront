@@ -3,9 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 
-const UserAudiobookDataContext = createContext(null);
+const UserAudiobooksContext = createContext(null);
 
-export const UserAudiobookDataProvider = ({ children, token, page, limit, setState, i18n }) => {
+export const UserAudiobooksProvider = ({ children, token, page, limit, setState, i18n }) => {
   const qc = useQueryClient();
 
   const setRefetch = () => {
@@ -35,13 +35,10 @@ export const UserAudiobookDataProvider = ({ children, token, page, limit, setSta
       }));
     },
   });
-  // categories: [...audiobooks.categories, ...data.categories.map((category) => category)],
 
   const value = [dataUserAudiooboks, setRefetch, isLoading];
 
-  return (
-    <UserAudiobookDataContext.Provider value={value}>{children}</UserAudiobookDataContext.Provider>
-  );
+  return <UserAudiobooksContext.Provider value={value}>{children}</UserAudiobooksContext.Provider>;
 };
 
-export const useUserAudiobookData = () => useContext(UserAudiobookDataContext);
+export const useUserAudiobookData = () => useContext(UserAudiobooksContext);

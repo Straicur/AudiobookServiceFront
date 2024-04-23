@@ -6,7 +6,6 @@ import { useUserAudiobookDetail } from 'Providers/User/UserAudiobookDetailProvid
 import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
 import { useUserAudiobookComments } from 'Providers/User/UserAudiobookCommentsProvider';
 import UserAudiobookPlayer from '../Common/UserAudiobookPlayer';
-import { HandleFetch } from 'Util/HandleFetch';
 import UserStarRating from '../Common/UserStarRating';
 import UserRenderCommentsList from '../Common/UserRenderCommentsList';
 import CreateUtil from 'Util/CreateUtil';
@@ -16,7 +15,7 @@ export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
 
-  const [audiobookDetail, setAudiobookDetail] = useUserAudiobookDetail();
+  const [audiobookDetail, setAudiobookDetail, addToMyListFetch] = useUserAudiobookDetail();
   const [audiobookRating] = useUserAudiobookRating();
   const [audiobookPart] = useAudiobookPart();
   const [audiobookInfo, setAudiobookInfo] = useUserAudiobookInfo();
@@ -35,32 +34,13 @@ export default function UserMainAudiobookDetailModal(props) {
 
   const addToMyList = (element) => {
     element.target.classList.add('disabled');
-    HandleFetch(
-      '/user/audiobook/like',
-      'PATCH',
-      {
-        audiobookId: props.state.detailModalAudiobook.id,
-        categoryKey: props.state.detailModalCategory.categoryKey,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        setAudiobookDetail({ inList: !audiobookDetail.inList });
 
-        props.setAudiobookState((prev) => ({
-          ...prev,
-          renderAudiobookPlayer: true,
-        }));
-
-        element.target.classList.remove('disabled');
-      })
-      .catch((e) => {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+    addToMyListFetch({
+      props: props,
+      setAudiobookDetail: setAudiobookDetail,
+      audiobookDetail: audiobookDetail,
+      element: element,
+    });
   };
 
   const addInfo = () => {
