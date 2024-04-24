@@ -67,7 +67,7 @@ export default function UserMyListRender(props) {
           <div className='spinner-border text-info spinner my-5' role='status'></div>
         </div>
       ) : audiobooks !== null && audiobooks.audiobooks.length > 0 ? (
-        returnAudioboks()
+        <div className='my-5 row'>{returnAudioboks()}</div>
       ) : (
         <div className='text-white center_text fs-2'>{props.t('emptyMyList')}</div>
       )}

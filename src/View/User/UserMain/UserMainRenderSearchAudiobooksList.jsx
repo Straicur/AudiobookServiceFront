@@ -29,12 +29,24 @@ export default function UserMainRenderSearchAudiobooksList(props) {
                 showAudiobookModal(audiobook, imgUrl);
               }}
             >
-              <div className='card-search-img-sm'>
+              <div
+                className={
+                  audiobook.title.length > 17
+                    ? audiobook.title.length > 46
+                      ? 'card-img-sm-ext-lg-title '
+                      : 'card-img-sm-lg-title'
+                    : 'card-img-sm-sm-title'
+                }
+              >
                 <img src={imgUrl == null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
               </div>
 
               <div className='card-body'>
-                <h5 className='card-title'>{audiobook.title}</h5>
+                {audiobook.title.length > 17 ? (
+                  <h6 className='card-title'>{audiobook.title}</h6>
+                ) : (
+                  <h5 className='card-title'>{audiobook.title}</h5>
+                )}
                 <p className='card-text'>{audiobook.author}</p>
               </div>
             </div>
@@ -46,7 +58,7 @@ export default function UserMainRenderSearchAudiobooksList(props) {
   };
 
   return (
-    <div key={uuidv4()} className='row'>
+    <div key={uuidv4()} className='row mt-4'>
       {props.audiobooks != null ? returnAudioboks() : null}
     </div>
   );
