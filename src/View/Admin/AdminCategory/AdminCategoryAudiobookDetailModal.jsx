@@ -257,7 +257,6 @@ export default function AdminCategoryAudiobookDetailModal(props) {
               audiobookPart={audiobookPart}
               parts={props.state.detailAudiobookElement.parts}
               setState={props.setState}
-              state={props.state}
               t={props.t}
             />
           ) : (

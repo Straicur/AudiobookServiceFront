@@ -571,8 +571,8 @@ export default function UserRenderCommentsList(props) {
   const renderTree = () => {
     let renderArray = [];
 
-    if (props.comments != undefined) {
-      createTree(props.comments, renderArray);
+    if (props.comments.comments != undefined) {
+      createTree(props.comments.comments, renderArray);
     }
 
     return renderArray;

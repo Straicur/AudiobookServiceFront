@@ -59,7 +59,7 @@ export default function UserMyListRender(props) {
     );
     return audiobooksArray;
   };
-  console.log(audiobooks);
+
   return (
     <div key={uuidv4()} className='row min_container_height'>
       {loading ? (

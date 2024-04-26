@@ -23,7 +23,7 @@ export default function AdminAudiobookPlayer(props) {
   };
 
   const prevPart = () => {
-    let prevPart = props.state.part - 1;
+    let prevPart = props.part - 1;
 
     if (prevPart >= 0) {
       timeAudio.current = 0;

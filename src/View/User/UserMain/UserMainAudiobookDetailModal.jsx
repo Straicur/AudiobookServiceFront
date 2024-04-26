@@ -186,24 +186,25 @@ export default function UserMainAudiobookDetailModal(props) {
                 X
               </Button>
             </div>
+            <div className='row mt-4 justify-content-center'>
+              <div className='col'>
+                <UserAudiobookPlayer
+                  audiobookPart={audiobookPart}
+                  setAudiobookState={props.setAudiobookState}
+                  audiobookState={props.audiobookState}
+                  audiobookInfo={audiobookInfo}
+                  part={props.audiobookState.part}
+                  parts={audiobookDetail.parts}
+                  setState={props.setAudiobookState}
+                  timeAudio={timeAudio}
+                  audioDuration={audioDuration}
+                  addInfo={addInfo}
+                  t={props.t}
+                />
+              </div>
+            </div>
           </div>
         ) : null}
-
-        <div className='row mt-4 justify-content-center'>
-          <div className='col'>
-            <UserAudiobookPlayer
-              audiobookPart={audiobookPart}
-              setAudiobookState={props.setAudiobookState}
-              audiobookState={props.audiobookState}
-              audiobookInfo={audiobookInfo}
-              state={props.state}
-              timeAudio={timeAudio}
-              audioDuration={audioDuration}
-              addInfo={addInfo}
-              t={props.t}
-            />
-          </div>
-        </div>
         <div className='row mt-3 justify-content-center'>
           <div className='col-7  align-self-center'>
             <Button variant='dark' onClick={handleClose} className='detail-button text-center'>

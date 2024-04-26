@@ -119,7 +119,6 @@ export default function AdminAudiobookDetail(props) {
                   audiobookPart={audiobookPart}
                   parts={audiobookDetail.parts}
                   setState={props.setAudiobookState}
-                  state={props.audiobookState}
                   t={props.t}
                 />
               ) : (

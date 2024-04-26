@@ -9,7 +9,7 @@ import UserAudiobookPlayer from '../Common/UserAudiobookPlayer';
 import { HandleFetch } from 'Util/HandleFetch';
 import UserStarRating from '../Common/UserStarRating';
 import UserRenderCommentsList from '../Common/UserRenderCommentsList';
-import { useUserAudiobookMyList } from 'Providers/User/UserAudiobookMyListProvider';
+// import { useUserAudiobookMyList } from 'Providers/User/UserAudiobookMyListProvider';
 
 export default function UserMyListAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
@@ -18,7 +18,7 @@ export default function UserMyListAudiobookDetailModal(props) {
   const [audiobookDetail, setAudiobookDetail] = useUserAudiobookDetail();
   const [audiobookRating] = useUserAudiobookRating();
   const [audiobookPart] = useAudiobookPart();
-  const [audiobooks, setAudiobooks] = useUserAudiobookMyList();
+  // const [audiobooks, setAudiobooks] = useUserAudiobookMyList();
 
   const [audiobookUserComments, setAudiobookUserComments, setAudiobookCommnetsRefetchState] =
     useUserAudiobookComments();
@@ -33,13 +33,13 @@ export default function UserMyListAudiobookDetailModal(props) {
     }));
   };
 
-  const removeFromMyList = () => {
-    if (audiobookDetail.inList) {
-      let newArr = audiobooks.filter((element) => element.id != audiobookDetail.id);
+  // const removeFromMyList = () => {
+  //   if (audiobookDetail.inList) {
+  //     let newArr = audiobooks.filter((element) => element.id != audiobookDetail.id);
 
-      setAudiobooks(newArr);
-    }
-  };
+  //     setAudiobooks(newArr);
+  //   }
+  // };
 
   const addToMyList = (element) => {
     element.target.classList.add('disabled');
@@ -59,7 +59,7 @@ export default function UserMyListAudiobookDetailModal(props) {
           inList: !audiobookDetail.inList,
         }));
 
-        removeFromMyList();
+        // removeFromMyList();
 
         element.target.classList.remove('disabled');
         handleClose();
@@ -232,23 +232,25 @@ export default function UserMyListAudiobookDetailModal(props) {
                 X
               </Button>
             </div>
+            <div className='row mt-4 justify-content-center'>
+              <div className='col'>
+                <UserAudiobookPlayer
+                  audiobookPart={audiobookPart}
+                  setAudiobookState={props.setAudiobookState}
+                  audiobookState={props.audiobookState}
+                  part={props.audiobookState.part}
+                  parts={props.state.detailModalAudiobook.parts}
+                  setState={props.setAudiobookState}
+                  timeAudio={timeAudio}
+                  audioDuration={audioDuration}
+                  addInfo={addInfo}
+                  t={props.t}
+                />
+              </div>
+            </div>
           </div>
         ) : null}
 
-        <div className='row mt-4 justify-content-center'>
-          <div className='col'>
-            <UserAudiobookPlayer
-              audiobookPart={audiobookPart}
-              setAudiobookState={props.setAudiobookState}
-              audiobookState={props.audiobookState}
-              state={props.state}
-              timeAudio={timeAudio}
-              audioDuration={audioDuration}
-              addInfo={addInfo}
-              t={props.t}
-            />
-          </div>
-        </div>
         <div className='row mt-3 justify-content-center'>
           <div className='col-7  align-self-center'>
             <Button variant='dark' onClick={handleClose} className='detail-button text-center'>

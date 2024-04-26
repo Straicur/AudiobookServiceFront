@@ -11,8 +11,8 @@ export default function UserMyListGet(props) {
       i18n={props.i18n}
     >
       <UserMyListRender
-        state={props.state}
-        setState={props.setState}
+        state={props.myListState}
+        setState={props.setMyListState}
         token={props.token}
         t={props.t}
       />
