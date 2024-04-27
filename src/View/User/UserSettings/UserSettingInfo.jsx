@@ -3,37 +3,46 @@ import CreateUtil from 'Util/CreateUtil';
 
 export default function UserSettingInfo(props) {
   return (
-    <div className='text-white fs-4'>
-      <div className='row fs-1'>{props.t('yourUserData')}: </div>
-      <div className='row ms-1'>
-        <div className='col'>{props.t('email')}: </div>
-        <div className='col'>{props.state.email}</div>
-      </div>
-      <div className='row ms-1'>
-        <div className='col'>{props.t('firstname')}: </div>
-        <div className='col'>{props.state.firstname}</div>
-      </div>
-      <div className='row ms-1'>
-        <div className='col'>{props.t('lastname')}: </div>
-        <div className='col'>{props.state.lastname}</div>
-      </div>
-      <div className='row ms-1'>
-        <div className='col'>{props.t('phoneNumber')}: </div>
-        <div className='col'>{props.state.phoneNumber}</div>
-      </div>
-      <div className='row ms-1'>
-        <div className='col'>{props.t('edited')}: </div>
-        <div className='col'>
-          {props.state.edited ? (
-            <div>
-              <i className='bi bi-calendar-check'></i>{' '}
-              {CreateUtil.createDate(props.state.editableDate)}
-            </div>
-          ) : (
-            <i className='bi bi-calendar-minus'></i>
-          )}
+    <div className='text-white fs-4 mx-4'>
+      <div className='row fs-1 mb-4'>{props.t('yourUserData')}: </div>
+
+      {props.isLoading || props.userDetail === null ? (
+        <div className='text-center'>
+          <div className='spinner-border text-info spinner my-5' role='status'></div>
         </div>
-      </div>
+      ) : (
+        <div>
+          <div className='row ms-1'>
+            <div className='col-4'>{props.t('email')}: </div>
+            <div className='col-8'>{props.userDetail.email}</div>
+          </div>
+          <div className='row ms-1'>
+            <div className='col-4'>{props.t('firstname')}: </div>
+            <div className='col-8'>{props.userDetail.firstname}</div>
+          </div>
+          <div className='row ms-1'>
+            <div className='col-4'>{props.t('lastname')}: </div>
+            <div className='col-8'>{props.userDetail.lastname}</div>
+          </div>
+          <div className='row ms-1'>
+            <div className='col-4'>{props.t('phoneNumber')}: </div>
+            <div className='col-8'>{props.userDetail.phoneNumber}</div>
+          </div>
+          <div className='row ms-1'>
+            <div className='col-4'>{props.t('edited')}: </div>
+            <div className='col-8'>
+              {props.userDetail.edited ? (
+                <div>
+                  <i className='bi bi-calendar-check'></i>{' '}
+                  {CreateUtil.createDate(props.userDetail.editableDate)}
+                </div>
+              ) : (
+                <i className='bi bi-calendar-minus'></i>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

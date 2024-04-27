@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import UserSettingsContainer from 'View/User/UserSettings/UserSettingsContainer';
 import { UserFooter } from 'View/User/Common/UserFooter';
+import { UserSettingsProvider } from 'Providers/User/UserSettingsProvider';
 import './UserSettings.css';
 
 export default function Settings() {
@@ -17,12 +18,6 @@ export default function Settings() {
   const { t, i18n } = useTranslation();
 
   const [state, setState] = useState({
-    phoneNumber: '',
-    firstname: '',
-    lastname: '',
-    email: '',
-    edited: false,
-    editableDate: 0,
     buttonEmail: false,
     buttonPassword: false,
     buttonDelete: false,
@@ -50,14 +45,16 @@ export default function Settings() {
         <div className='container-fluid main-container mt-3'>
           <div className='card position-relative p-3 bg-dark shadow'>
             <UserNavBarPrividers token={token} />
-            <UserSettingsContainer
-              state={state}
-              setState={setState}
-              t={t}
-              i18n={i18n}
-              token={token}
-              navigate={navigate}
-            />
+            <UserSettingsProvider token={token} setState={setState} i18n={i18n}>
+              <UserSettingsContainer
+                state={state}
+                setState={setState}
+                t={t}
+                i18n={i18n}
+                token={token}
+                navigate={navigate}
+              />
+            </UserSettingsProvider>
           </div>
         </div>
         <UserFooter />

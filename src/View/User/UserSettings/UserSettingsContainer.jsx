@@ -1,38 +1,22 @@
 import React from 'react';
-import { HandleFetch } from 'Util/HandleFetch';
-import { useQuery } from '@tanstack/react-query';
 import UserSettingsEditEmailModal from './UserSettingsEditEmailModal';
 import UserSettingsEditPasswordModal from './UserSettingsEditPasswordModal';
 import UserSettingsEditUserDataModal from './UserSettingsEditUserDataModal';
 import UserSettingsDeleteUserModal from './UserSettingsDeleteUserModal';
 import UserSettingsForm from './UserSettingsForm';
 import UserSettingInfo from './UserSettingInfo';
+import { useUserSettingsData } from 'Providers/User/UserSettingsProvider';
 
 export default function UserSettingsContainer(props) {
-  const { refetch } = useQuery({
-    queryKey: ['dataUserSettings'],
-    queryFn: () => HandleFetch('/user/settings', 'GET', null, props.token, props.i18n.language),
-    retry: 1,
-    retryDelay: 500,
-    refetchOnWindowFocus: false,
-    onError: (e) => {
-      props.setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
-    onSuccess: (data) => {
-      props.setState((prev) => ({
-        ...prev,
-        phoneNumber: data.phoneNumber,
-        firstname: data.firstname,
-        lastname: data.lastname,
-        email: data.email,
-        edited: data.edited,
-        editableDate: data.editableDate,
-      }));
-    },
-  });
+  const [
+    userDetail,
+    refetch,
+    isLoading,
+    userEmailChange,
+    userPasswordChange,
+    userDelete,
+    userDataChange,
+  ] = useUserSettingsData();
 
   return (
     <div className='row my-5 min_container_height'>
@@ -40,15 +24,18 @@ export default function UserSettingsContainer(props) {
         <UserSettingsForm
           state={props.state}
           setState={props.setState}
+          userDetail={userDetail}
           t={props.t}
           token={props.token}
           i18n={props.i18n}
         />
       </div>
-      <div className='col-4'>
+      <div className='col-7'>
         <UserSettingInfo
           state={props.state}
           setState={props.setState}
+          userDetail={userDetail}
+          isLoading={isLoading}
           t={props.t}
           i18n={props.i18n}
         />
@@ -57,6 +44,8 @@ export default function UserSettingsContainer(props) {
         <UserSettingsEditEmailModal
           state={props.state}
           setState={props.setState}
+          userDetail={userDetail}
+          userEmailChange={userEmailChange}
           t={props.t}
           token={props.token}
           i18n={props.i18n}
@@ -66,6 +55,8 @@ export default function UserSettingsContainer(props) {
         <UserSettingsEditPasswordModal
           state={props.state}
           setState={props.setState}
+          userDetail={userDetail}
+          userPasswordChange={userPasswordChange}
           t={props.t}
           token={props.token}
           i18n={props.i18n}
@@ -75,6 +66,8 @@ export default function UserSettingsContainer(props) {
         <UserSettingsEditUserDataModal
           state={props.state}
           setState={props.setState}
+          userDetail={userDetail}
+          userDataChange={userDataChange}
           t={props.t}
           i18n={props.i18n}
           token={props.token}
@@ -85,6 +78,8 @@ export default function UserSettingsContainer(props) {
         <UserSettingsDeleteUserModal
           state={props.state}
           setState={props.setState}
+          userDetail={userDetail}
+          userDelete={userDelete}
           t={props.t}
           i18n={props.i18n}
           navigate={props.navigate}

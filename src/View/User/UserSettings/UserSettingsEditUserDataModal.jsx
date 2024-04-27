@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
 import ValidateUtil from 'Util/ValidateUtil';
 import FormService from 'Service/Common/FormService';
@@ -33,34 +32,14 @@ export default function UserSettingsEditUserDataModal(props) {
   const changeUserData = (element) => {
     element.target.classList.add('disabled');
 
-    HandleFetch(
-      '/user/settings/change',
-      'PATCH',
-      {
-        phoneNumber: state.phoneNumber,
-        firstName: state.firstname,
-        lastName: state.lastname,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        element.target.classList.remove('disabled');
-        setState((prev) => ({
-          ...prev,
-          checkChanges: !state.checkChanges,
-          sure: !state.sure,
-        }));
-      })
-      .catch((e) => {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+    props.userDataChange({
+      state: state,
+      setState: setState,
+      element: element,
+    });
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (state.firstname.length == 0) {
       setState((prev) => ({
         ...prev,
@@ -79,7 +58,7 @@ export default function UserSettingsEditUserDataModal(props) {
     }
   }, [state.firstname]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (state.lastname.length == 0) {
       setState((prev) => ({
         ...prev,
@@ -98,7 +77,7 @@ export default function UserSettingsEditUserDataModal(props) {
     }
   }, [state.lastname]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (state.phoneNumber.length == 0) {
       setState((prev) => ({
         ...prev,
@@ -117,18 +96,18 @@ export default function UserSettingsEditUserDataModal(props) {
     }
   }, [state.phoneNumber]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.state.error != null) {
       throw props.state.error;
     }
   }, [props.state.error]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setState((prev) => ({
       ...prev,
-      phoneNumber: props.state.phoneNumber,
-      firstname: props.state.firstname,
-      lastname: props.state.lastname,
+      phoneNumber: props.userDetail.phoneNumber,
+      firstname: props.userDetail.firstname,
+      lastname: props.userDetail.lastname,
     }));
   }, [props.state]);
 
@@ -196,7 +175,7 @@ export default function UserSettingsEditUserDataModal(props) {
                 <Form.Label>{props.t('phoneNumber')}</Form.Label>
                 <Form.Control
                   type='tel'
-                  typnamee='phoneNumber'
+                  name='phoneNumber'
                   isValid={
                     state.phoneNumber.length > 1 &&
                     ValidateUtil.validatePhoneNumber(state.phoneNumber)

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
 import md5 from 'md5';
 import ValidateUtil from 'Util/ValidateUtil';
@@ -32,29 +31,13 @@ export default function UserSettingsEditPasswordModal(props) {
     element.target.classList.add('disabled');
 
     if (state.oldPassword != state.newPassword && state.newPassword == state.newConfirmPassword) {
-      HandleFetch(
-        '/user/settings/password',
-        'PATCH',
-        {
-          oldPassword: md5(state.oldPassword),
-          newPassword: md5(state.newPassword),
-        },
-        props.token,
-        props.i18n.language,
-      )
-        .then(() => {
-          element.target.classList.remove('disabled');
-          setState((prev) => ({
-            ...prev,
-            checkPassword: !state.checkPassword,
-          }));
-        })
-        .catch((e) => {
-          props.setState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
+      props.userPasswordChange({
+        oldPassword: md5(state.oldPassword),
+        newPassword: md5(state.newPassword),
+        element: element,
+        setState: setState,
+        state: state,
+      });
     } else {
       setState((prev) => ({
         ...prev,

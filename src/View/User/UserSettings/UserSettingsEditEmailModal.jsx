@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { HandleFetch } from 'Util/HandleFetch';
 import Alert from 'react-bootstrap/Alert';
 import ValidateUtil from 'Util/ValidateUtil';
 import FormService from 'Service/Common/FormService';
@@ -28,30 +27,11 @@ export default function UserSettingsEditEmailModal(props) {
   const changeEmail = (element) => {
     if (state.newEmail != state.oldEmail) {
       element.target.classList.add('disabled');
-
-      HandleFetch(
-        '/user/settings/email',
-        'POST',
-        {
-          newEmail: state.newEmail,
-          oldEmail: state.oldEmail,
-        },
-        props.token,
-        props.i18n.language,
-      )
-        .then(() => {
-          element.target.classList.remove('disabled');
-          setState((prev) => ({
-            ...prev,
-            checkEmail: !state.checkEmail,
-          }));
-        })
-        .catch((e) => {
-          props.setState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
+      props.userEmailChange({
+        element: element,
+        setState: setState,
+        state: state,
+      });
     } else {
       setState((prev) => ({
         ...prev,

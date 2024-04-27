@@ -1,35 +1,13 @@
 import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { HandleFetch } from 'Util/HandleFetch';
-import { useTokenStore } from 'Store/store';
-import { useNavigate } from 'react-router-dom';
 
 export default function UserSettingsDeleteUserModal(props) {
-  const tokenStore = useTokenStore();
-  const navigate = useNavigate();
-
   const handleClose = () => {
     props.setState((prev) => ({
       ...prev,
       buttonDelete: !props.state.buttonDelete,
     }));
-  };
-
-  const deleteAccount = (element) => {
-    element.target.classList.add('disabled');
-
-    HandleFetch('/user/settings/delete', 'PATCH', null, props.token, props.i18n.language)
-      .then(() => {
-        tokenStore.removeToken();
-        navigate('/login');
-      })
-      .catch((e) => {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
   };
 
   useEffect(() => {
@@ -60,7 +38,7 @@ export default function UserSettingsDeleteUserModal(props) {
                 name='en'
                 size='sm'
                 className='btn button success_button settings-button fs-5 sure_button'
-                onClick={() => deleteAccount()}
+                onClick={() => props.userDelete()}
               >
                 {props.t('yes')}
               </Button>
