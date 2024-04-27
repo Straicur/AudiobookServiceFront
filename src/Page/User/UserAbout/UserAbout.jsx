@@ -54,7 +54,7 @@ export default function About() {
           <div className='fs-4 text-break'>
             <p>{t('aboutDesc4')}</p>
           </div>
-          <div className='fs-5'>
+          <div className='fs-5 row'>
             <img
               className='small_img_stack'
               src='https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white'

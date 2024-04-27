@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -46,7 +46,7 @@ export default function UserSettingsEditPasswordModal(props) {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (state.oldPassword.length == 0) {
       setState((prev) => ({
         ...prev,
@@ -65,7 +65,7 @@ export default function UserSettingsEditPasswordModal(props) {
     }
   }, [state.oldPassword]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (state.newPassword.length == 0) {
       setState((prev) => ({
         ...prev,
@@ -84,7 +84,7 @@ export default function UserSettingsEditPasswordModal(props) {
     }
   }, [state.newPassword]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (state.newConfirmPassword.length == 0) {
       setState((prev) => ({
         ...prev,
@@ -106,7 +106,7 @@ export default function UserSettingsEditPasswordModal(props) {
     }
   }, [state.newConfirmPassword]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.state.error != null) {
       throw props.state.error;
     }

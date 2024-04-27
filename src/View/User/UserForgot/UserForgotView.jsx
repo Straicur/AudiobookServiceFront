@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { HandleFetch } from 'Util/HandleFetch';
 import md5 from 'md5';
 import Button from 'react-bootstrap/Button';
@@ -77,7 +77,7 @@ export default function UserForgotView(props) {
     }));
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       props.state.password.trim() != '' &&
       props.state.confirmPassword.trim() != '' &&
@@ -96,13 +96,13 @@ export default function UserForgotView(props) {
     }
   }, [props.state.password, props.state.confirmPassword]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.state.changeLang != null) {
       props.i18n.changeLanguage(props.state.changeLang);
     }
   }, [props.state.changeLang]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.state.error != null) {
       throw props.state.error;
     }

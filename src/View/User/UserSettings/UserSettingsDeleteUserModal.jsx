@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -10,7 +10,7 @@ export default function UserSettingsDeleteUserModal(props) {
     }));
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.state.error != null) {
       throw props.state.error;
     }
