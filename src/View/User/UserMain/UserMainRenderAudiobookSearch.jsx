@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import UserMainGetAllSearchAudiobooks from './UserMainGetAllSearchAudiobooks';
 import { UserAudiobookSearchProvider } from 'Providers/User/UserAudiobookSearchProvider';
 
 export default function UserMainRenderAudiobookSearch(props) {
+  useEffect(() => {
+    if (props.audiobooksState.error != null) {
+      throw props.audiobooksState.error;
+    }
+  }, [props.audiobooksState.error]);
+
   return (
     <UserAudiobookSearchProvider
       state={props.audiobooksState}

@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import UserMainRenderAudiobooksList from './UserMainRenderAudiobooksList';
 import { useUserAudiobookData } from 'Providers/User/UserAudiobooksProvider';
 import UserMainRenderProposedList from './UserMainRenderProposedList';
 import { useUserAudiobookProposed } from 'Providers/User/UserAudiobookProposedProvider';
 
 export default function GetAllAudiobooks(props) {
-  const [audiobooks, refreshAudiooks, loadingAudiobooks, hasMore] = useUserAudiobookData();
+  const [audiobooks, refreshAudiooks, loadingAudiobooks] = useUserAudiobookData();
   const [audiobookProposed, refreshProposed, loadingProposed] = useUserAudiobookProposed();
+
+  useLayoutEffect(() => {
+    if (props.state.refresh) {
+      props.setState((prev) => ({
+        ...prev,
+        refresh: true,
+      }));
+
+      refreshAudiooks();
+    }
+  }, [props.state.refresh]);
 
   return (
     <div>
@@ -23,7 +34,6 @@ export default function GetAllAudiobooks(props) {
             t={props.t}
             audiobookProposed={audiobookProposed}
             refresh={refreshProposed}
-            hasMore={hasMore}
           />
           <UserMainRenderAudiobooksList
             state={props.state}
@@ -33,7 +43,6 @@ export default function GetAllAudiobooks(props) {
             audiobooks={audiobooks}
             audiobookProposed={audiobookProposed}
             refresh={refreshAudiooks}
-            hasMore={hasMore}
           />
         </div>
       )}

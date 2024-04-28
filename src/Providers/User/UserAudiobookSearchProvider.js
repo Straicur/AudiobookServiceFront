@@ -1,18 +1,15 @@
 import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
-import { useQueryClient } from '@tanstack/react-query';
 
 const UserAudiobookSearchContext = createContext(null);
 
 export const UserAudiobookSearchProvider = ({ children, token, title, setState, i18n }) => {
-  const qc = useQueryClient();
-
-  const setRefetch = () => {
-    qc.invalidateQueries(['dataAudiobookUserSearch']);
-  };
-
-  const { data: dataAudiobookUserSearch = null, isLoading } = useQuery({
+  const {
+    data: dataAudiobookUserSearch = null,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ['dataAudiobookUserSearch'],
     queryFn: () =>
       HandleFetch(
@@ -35,7 +32,7 @@ export const UserAudiobookSearchProvider = ({ children, token, title, setState, 
     },
   });
 
-  const value = [dataAudiobookUserSearch, setRefetch, isLoading];
+  const value = [dataAudiobookUserSearch, refetch, isLoading];
 
   return (
     <UserAudiobookSearchContext.Provider value={value}>

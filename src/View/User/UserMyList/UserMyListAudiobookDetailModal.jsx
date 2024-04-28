@@ -6,18 +6,19 @@ import { useUserAudiobookDetail } from 'Providers/User/UserAudiobookDetailProvid
 import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
 import { useUserAudiobookComments } from 'Providers/User/UserAudiobookCommentsProvider';
 import UserAudiobookPlayer from '../Common/UserAudiobookPlayer';
-import { HandleFetch } from 'Util/HandleFetch';
 import UserStarRating from '../Common/UserStarRating';
 import UserRenderCommentsList from '../Common/UserRenderCommentsList';
+import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
 
 export default function UserMyListAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
 
-  const [audiobookDetail, addToMyList, addAudiobookRating] = useUserAudiobookDetail();
+  const [audiobookDetail, addToMyListFetch, addAudiobookRating, setRefresh] =
+    useUserAudiobookDetail();
   const [audiobookRating] = useUserAudiobookRating();
   const [audiobookPart] = useAudiobookPart();
-
+  const [audiobookInfo, setAudiobookInfo] = useUserAudiobookInfo();
   const [
     audiobookUserComments,
     setAudiobookCommnetsRefetchState,
@@ -34,6 +35,22 @@ export default function UserMyListAudiobookDetailModal(props) {
       detailModalAudiobook: null,
       detailModalCover: null,
     }));
+
+    if (props.audiobookState.myListChanged) {
+      setRefresh();
+    }
+  };
+
+  const addToMyList = (element) => {
+    element.target.classList.add('disabled');
+
+    addToMyListFetch({
+      props: props,
+      setAudiobookState: props.setAudiobookState,
+      audiobookState: props.audiobookState,
+      audiobookDetail: audiobookDetail,
+      element: element,
+    });
   };
 
   const addInfo = () => {
@@ -44,26 +61,7 @@ export default function UserMyListAudiobookDetailModal(props) {
       watched = true;
     }
     if (procent >= 20) {
-      HandleFetch(
-        '/user/audiobook/info/add',
-        'PUT',
-        {
-          audiobookId: props.state.detailModalAudiobook.id,
-          categoryKey: props.state.detailModalCategory.categoryKey,
-          part: props.audiobookState.part,
-          endedTime: timeAudio.current,
-          watched: watched,
-        },
-        props.token,
-        props.i18n.language,
-      )
-        .then(() => {})
-        .catch((e) => {
-          props.setState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
+      setAudiobookInfo({ props: props, timeAudio: timeAudio, watched: watched });
     }
 
     timeAudio.current = 0;
@@ -129,7 +127,7 @@ export default function UserMyListAudiobookDetailModal(props) {
               <div className='row justify-content-center mb-2'>
                 <div className='col-6'>
                   <Button
-                    onClick={(e) => addToMyList({ props: props, element: e })}
+                    onClick={(e) => addToMyList(e)}
                     className={audiobookDetail.inList ? 'danger_button' : 'success_button'}
                   >
                     {props.t('myList')}{' '}
@@ -206,6 +204,7 @@ export default function UserMyListAudiobookDetailModal(props) {
                   audiobookPart={audiobookPart}
                   setAudiobookState={props.setAudiobookState}
                   audiobookState={props.audiobookState}
+                  audiobookInfo={audiobookInfo}
                   part={props.audiobookState.part}
                   parts={props.state.detailModalAudiobook.parts}
                   setState={props.setAudiobookState}

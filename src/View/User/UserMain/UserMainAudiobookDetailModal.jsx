@@ -15,7 +15,8 @@ export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
 
-  const [audiobookDetail, addToMyListFetch, addAudiobookRating] = useUserAudiobookDetail();
+  const [audiobookDetail, addToMyListFetch, addAudiobookRating, setRefresh] =
+    useUserAudiobookDetail();
   const [audiobookRating] = useUserAudiobookRating();
   const [audiobookPart] = useAudiobookPart();
   const [audiobookInfo, setAudiobookInfo] = useUserAudiobookInfo();
@@ -35,6 +36,10 @@ export default function UserMainAudiobookDetailModal(props) {
       detailModalAudiobook: null,
       detailModalCover: null,
     }));
+
+    if (props.audiobookState.myListChanged) {
+      setRefresh();
+    }
   };
 
   const addToMyList = (element) => {
@@ -42,7 +47,8 @@ export default function UserMainAudiobookDetailModal(props) {
 
     addToMyListFetch({
       props: props,
-      // setAudiobookDetail: setAudiobookDetail,
+      setAudiobookState: props.setAudiobookState,
+      audiobookState: props.audiobookState,
       audiobookDetail: audiobookDetail,
       element: element,
     });

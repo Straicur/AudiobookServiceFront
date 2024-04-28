@@ -92,11 +92,10 @@ export const UserAudiobookDetailProvider = ({
       variables.props.setAudiobookState((prev) => ({
         ...prev,
         renderAudiobookPlayer: true,
+        myListChanged: !variables.audiobookState.inList,
       }));
 
       variables.element.target.classList.remove('disabled');
-
-      // qc.invalidateQueries(['dataMyAudiobooksUserData']);
     },
     onError: (e) => {
       qc.invalidateQueries(['dataAudiobookUserDetail' + audiobookId]);
@@ -109,7 +108,7 @@ export const UserAudiobookDetailProvider = ({
   });
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAudiobookUserDetail' + audiobookId]);
+    qc.invalidateQueries(['dataMyAudiobooksUserData']);
   };
 
   const { data: dataAudiobookUserDetail = null } = useQuery({

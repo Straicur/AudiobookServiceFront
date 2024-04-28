@@ -37,6 +37,7 @@
   "system": "System",
   "myList": "My List",
   "emptyMyList": "Add your favorite audiobooks for faster access",
+  "emptySearch": "We don't have such an audiobook in our collection",
   "administrationPage": "Administration page",
   "chooseNabOptions": "Select the appropriate topic in the navigation bar",
   "currentApp": "The application currently has:",

@@ -59,7 +59,11 @@ export default function UserMainRenderSearchAudiobooksList(props) {
 
   return (
     <div key={uuidv4()} className='row mt-4'>
-      {props.audiobooks != null ? returnAudioboks() : null}
+      {props.audiobooks != null && props.audiobooks.audiobooks.length !== 0 ? (
+        returnAudioboks()
+      ) : (
+        <div className='text-white center_text fs-2'>{props.t('emptySearch')}</div>
+      )}
     </div>
   );
 }

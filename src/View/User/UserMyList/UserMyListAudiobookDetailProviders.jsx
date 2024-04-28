@@ -4,7 +4,7 @@ import { UserAudiobookDetailProvider } from '../../../Providers/User/UserAudiobo
 import { AudiobookPartProvider } from '../../../Providers/Common/AudiobookPartProvider'; // '../../../Providers/Common/AudiobookPartProvider'
 import { UserAudiobookRatingProvider } from '../../../Providers/User/UserAudiobookRatingProvider';
 import { UserAudiobookCommentsProvider } from '../../../Providers/User/UserAudiobookCommentsProvider';
-import DataNotFoundError from '../../../Errors/Errors/DataNotFoundError';
+import { UserAudiobookInfoProvider } from 'Providers/User/UserAudiobookInfoProvider';
 import UserMyListAudiobookDetailModal from './UserMyListAudiobookDetailModal';
 
 export default function UserMyListAudiobookDetailProviders(props) {
@@ -14,6 +14,7 @@ export default function UserMyListAudiobookDetailProviders(props) {
     datailEndedTime: null,
     renderAudiobookPlayer: false,
     newPart: false,
+    myListChanged: false,
     info: false,
   });
 
@@ -38,17 +39,10 @@ export default function UserMyListAudiobookDetailProviders(props) {
         }));
       })
       .catch((e) => {
-        if (e instanceof DataNotFoundError) {
-          setAudiobookState((prev) => ({
-            ...prev,
-            info: true,
-          }));
-        } else {
-          props.setState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        }
+        props.setState((prev) => ({
+          ...prev,
+          error: e,
+        }));
       });
   };
 
@@ -65,7 +59,7 @@ export default function UserMyListAudiobookDetailProviders(props) {
   return (
     <div>
       {audiobookState.info ? (
-        <UserAudiobookDetailProvider
+        <UserAudiobookInfoProvider
           state={props.state}
           setState={props.setState}
           token={props.token}
@@ -73,25 +67,25 @@ export default function UserMyListAudiobookDetailProviders(props) {
           categoryKey={props.state.detailModalCategory.categoryKey}
           i18n={props.i18n}
         >
-          <AudiobookPartProvider
+          <UserAudiobookDetailProvider
             state={props.state}
             setState={props.setState}
             token={props.token}
             audiobookId={props.state.detailModalAudiobook.id}
-            part={audiobookState.part}
-            setAudiobookState={setAudiobookState}
-            audiobookState={audiobookState}
+            categoryKey={props.state.detailModalCategory.categoryKey}
             i18n={props.i18n}
           >
-            <UserAudiobookRatingProvider
+            <AudiobookPartProvider
               state={props.state}
               setState={props.setState}
               token={props.token}
               audiobookId={props.state.detailModalAudiobook.id}
-              categoryKey={props.state.detailModalCategory.categoryKey}
+              part={audiobookState.part}
+              setAudiobookState={setAudiobookState}
+              audiobookState={audiobookState}
               i18n={props.i18n}
             >
-              <UserAudiobookCommentsProvider
+              <UserAudiobookRatingProvider
                 state={props.state}
                 setState={props.setState}
                 token={props.token}
@@ -99,19 +93,28 @@ export default function UserMyListAudiobookDetailProviders(props) {
                 categoryKey={props.state.detailModalCategory.categoryKey}
                 i18n={props.i18n}
               >
-                <UserMyListAudiobookDetailModal
+                <UserAudiobookCommentsProvider
                   state={props.state}
                   setState={props.setState}
-                  audiobookState={audiobookState}
-                  setAudiobookState={setAudiobookState}
-                  t={props.t}
-                  i18n={props.i18n}
                   token={props.token}
-                />
-              </UserAudiobookCommentsProvider>
-            </UserAudiobookRatingProvider>
-          </AudiobookPartProvider>
-        </UserAudiobookDetailProvider>
+                  audiobookId={props.state.detailModalAudiobook.id}
+                  categoryKey={props.state.detailModalCategory.categoryKey}
+                  i18n={props.i18n}
+                >
+                  <UserMyListAudiobookDetailModal
+                    state={props.state}
+                    setState={props.setState}
+                    audiobookState={audiobookState}
+                    setAudiobookState={setAudiobookState}
+                    t={props.t}
+                    i18n={props.i18n}
+                    token={props.token}
+                  />
+                </UserAudiobookCommentsProvider>
+              </UserAudiobookRatingProvider>
+            </AudiobookPartProvider>
+          </UserAudiobookDetailProvider>
+        </UserAudiobookInfoProvider>
       ) : null}
     </div>
   );

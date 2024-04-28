@@ -7,14 +7,17 @@ export default function UserMainRenderAudiobooksList(props) {
   const lastItemRef = useRef(null);
   const lastItemOffsetTopRef = useRef(null);
 
+  let hasMore = props.audiobooks.page < props.audiobooks.maxPage;
+
   const renderNewPage = () => {
-    if (props.hasMore) {
+    if (hasMore) {
       lastPageChangeRef.current = true;
 
       props.setState((prev) => ({
         ...prev,
         page: props.state.page + 1,
         wasSearch: false,
+        refresh: true,
       }));
     }
   };
@@ -51,7 +54,7 @@ export default function UserMainRenderAudiobooksList(props) {
               key={uuidv4()}
               ref={lastItemRef}
               // onLoad={() => {
-              //   if (lastItemRef.current && lastItemOffsetTopRef.current == null && props.hasMore) {
+              //   if (lastItemRef.current && lastItemOffsetTopRef.current == null && hasMore) {
               //     lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
               //   }
               // }}
@@ -59,7 +62,7 @@ export default function UserMainRenderAudiobooksList(props) {
               <div className='fw-bold fs-1 ms-2 mb-2 text-light'>{category.name}</div>
               {renderAudiobooks}
               <hr className=' text-light'></hr>
-              {props.hasMore ? (
+              {hasMore ? (
                 <div className='row justify-content-center text-light'>
                   <div
                     className='col-2 fs-3 align-self-center load_more'
@@ -106,7 +109,7 @@ export default function UserMainRenderAudiobooksList(props) {
   }, [props.audiobooks]);
 
   useLayoutEffect(() => {
-    if (lastItemRef.current && lastItemOffsetTopRef.current === null && props.hasMore) {
+    if (lastItemRef.current && lastItemOffsetTopRef.current === null && hasMore) {
       lastItemOffsetTopRef.current = lastItemRef.current.offsetTop;
     }
   }, []);

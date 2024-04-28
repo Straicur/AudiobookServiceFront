@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { UserAudiobooksProvider } from 'Providers/User/UserAudiobooksProvider';
 import { UserAudiobookProposedProvider } from 'Providers/User/UserAudiobookProposedProvider';
 import UserMainGetAllAudiobooks from './UserMainGetAllAudiobooks';
 
 export default function UserMainGetAudiobooksProviders(props) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.audiobooksState.error != null) {
       throw props.audiobooksState.error;
     }

@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useUserAudiobookSearch } from 'Providers/User/UserAudiobookSearchProvider';
 import UserMainRenderSearchAudiobooksList from './UserMainRenderSearchAudiobooksList';
 
 export default function UserMainGetAllSearchAudiobooks(props) {
   const [audiobooks, setRefetchState, loading] = useUserAudiobookSearch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.state.search) {
-      setRefetchState(true);
+      setRefetchState();
     }
   }, [props.state.searching]);
 

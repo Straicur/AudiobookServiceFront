@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
-import DataNotFoundError from 'Errors/Errors/DataNotFoundError';
 
 const UserAudiobookInfoContext = createContext(null);
 
@@ -74,17 +73,10 @@ export const UserAudiobookInfoProvider = ({
     retryDelay: 500,
     refetchOnWindowFocus: false,
     onError: (e) => {
-      if (e instanceof DataNotFoundError) {
-        setState((prev) => ({
-          ...prev,
-          info: true,
-        }));
-      } else {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      }
+      props.setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
     },
   });
   const value = [dataAudiobookUserInfo, mutate];
