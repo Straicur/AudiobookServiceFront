@@ -9,19 +9,22 @@ import UserAudiobookPlayer from '../Common/UserAudiobookPlayer';
 import { HandleFetch } from 'Util/HandleFetch';
 import UserStarRating from '../Common/UserStarRating';
 import UserRenderCommentsList from '../Common/UserRenderCommentsList';
-// import { useUserAudiobookMyList } from 'Providers/User/UserAudiobookMyListProvider';
 
 export default function UserMyListAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
 
-  const [audiobookDetail, setAudiobookDetail] = useUserAudiobookDetail();
+  const [audiobookDetail, addToMyList, addAudiobookRating] = useUserAudiobookDetail();
   const [audiobookRating] = useUserAudiobookRating();
   const [audiobookPart] = useAudiobookPart();
-  // const [audiobooks, setAudiobooks] = useUserAudiobookMyList();
 
-  const [audiobookUserComments, setAudiobookUserComments, setAudiobookCommnetsRefetchState] =
-    useUserAudiobookComments();
+  const [
+    audiobookUserComments,
+    setAudiobookCommnetsRefetchState,
+    likeComment,
+    addComment,
+    editComment,
+  ] = useUserAudiobookComments();
 
   const handleClose = () => {
     addInfo();
@@ -31,45 +34,6 @@ export default function UserMyListAudiobookDetailModal(props) {
       detailModalAudiobook: null,
       detailModalCover: null,
     }));
-  };
-
-  // const removeFromMyList = () => {
-  //   if (audiobookDetail.inList) {
-  //     let newArr = audiobooks.filter((element) => element.id != audiobookDetail.id);
-
-  //     setAudiobooks(newArr);
-  //   }
-  // };
-
-  const addToMyList = (element) => {
-    element.target.classList.add('disabled');
-    HandleFetch(
-      '/user/audiobook/like',
-      'PATCH',
-      {
-        audiobookId: props.state.detailModalAudiobook.id,
-        categoryKey: props.state.detailModalCategory.categoryKey,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        setAudiobookDetail((prev) => ({
-          ...prev,
-          inList: !audiobookDetail.inList,
-        }));
-
-        // removeFromMyList();
-
-        element.target.classList.remove('disabled');
-        handleClose();
-      })
-      .catch((e) => {
-        props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
   };
 
   const addInfo = () => {
@@ -165,7 +129,7 @@ export default function UserMyListAudiobookDetailModal(props) {
               <div className='row justify-content-center mb-2'>
                 <div className='col-6'>
                   <Button
-                    onClick={(e) => addToMyList(e)}
+                    onClick={(e) => addToMyList({ props: props, element: e })}
                     className={audiobookDetail.inList ? 'danger_button' : 'success_button'}
                   >
                     {props.t('myList')}{' '}
@@ -198,6 +162,7 @@ export default function UserMyListAudiobookDetailModal(props) {
                     count={5}
                     audiobookDetail={audiobookDetail}
                     audiobookRating={audiobookRating}
+                    addAudiobookRating={addAudiobookRating}
                     token={props.token}
                     categoryKey={props.state.detailModalCategory.categoryKey}
                     t={props.t}
@@ -212,8 +177,11 @@ export default function UserMyListAudiobookDetailModal(props) {
               </div>
               <div className='row my-1'>
                 <UserRenderCommentsList
-                  comments={audiobookUserComments}
-                  setAudiobookUserComments={setAudiobookUserComments}
+                  comments={audiobookUserComments.comments}
+                  audiobookDetail={audiobookDetail}
+                  likeComment={likeComment}
+                  addComment={addComment}
+                  editComment={editComment}
                   state={props.state}
                   setState={props.setState}
                   t={props.t}

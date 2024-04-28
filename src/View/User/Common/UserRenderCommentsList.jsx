@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
-import { HandleFetch } from 'Util/HandleFetch';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
@@ -49,7 +48,7 @@ export default function UserRenderCommentsList(props) {
     data.bool = bool;
 
     element.target.classList.add('disabled');
-    props.mutate(data);
+    props.likeComment(data);
   }
 
   function editComment(element) {
@@ -69,16 +68,11 @@ export default function UserRenderCommentsList(props) {
         parentId: commentState.parentId,
       };
     }
-
-    HandleFetch('/user/audiobook/comment/edit', 'PATCH', jsonData, props.token, props.i18n.language)
-      .then(() => {
-        element.target.classList.remove('disabled');
-        props.refetch();
-        decline();
-      })
-      .catch(() => {
-        element.target.classList.remove('disabled');
-      });
+    props.editComment({
+      jsonData: jsonData,
+      element: element,
+      decline: decline,
+    });
   }
 
   function addComment(element) {
@@ -96,41 +90,28 @@ export default function UserRenderCommentsList(props) {
         parentId: commentState.parentId,
       };
     }
-
-    HandleFetch('/user/audiobook/comment/add', 'PUT', jsonData, props.token, props.i18n.language)
-      .then(() => {
-        element.target.classList.remove('disabled');
-        props.refetch();
-        decline();
-      })
-      .catch(() => {
-        element.target.classList.remove('disabled');
-      });
+    props.addComment({
+      jsonData: jsonData,
+      element: element,
+      decline: decline,
+    });
   }
   function deleteComment(comment, element) {
     element.target.classList.add('disabled');
 
-    HandleFetch(
-      '/user/audiobook/comment/edit',
-      'PATCH',
-      {
-        audiobookId: props.state.detailModalAudiobook.id,
-        categoryKey: props.state.detailModalCategory.categoryKey,
-        audiobookCommentId: comment.id,
-        comment: comment.comment,
-        deleted: true,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        element.target.classList.remove('disabled');
-        props.refetch();
-        decline();
-      })
-      .catch(() => {
-        element.target.classList.remove('disabled');
-      });
+    let jsonData = {
+      audiobookId: props.state.detailModalAudiobook.id,
+      categoryKey: props.state.detailModalCategory.categoryKey,
+      audiobookCommentId: comment.id,
+      comment: comment.comment,
+      deleted: true,
+    };
+
+    props.editComment({
+      jsonData: jsonData,
+      element: element,
+      decline: decline,
+    });
   }
 
   //--------------------------------------------------------------------------------------------------------------------------------
@@ -149,6 +130,18 @@ export default function UserRenderCommentsList(props) {
     }));
   }
 
+  function decline() {
+    lastOpenComment.current = null;
+    setCommentState((prev) => ({
+      ...prev,
+      parentId: null,
+      commentId: null,
+      comment: '',
+      add: true,
+      edit: false,
+    }));
+  }
+
   function addChildComment(comment) {
     lastOpenComment.current = comment.id;
 
@@ -159,18 +152,6 @@ export default function UserRenderCommentsList(props) {
       comment: '',
       edit: false,
       add: true,
-    }));
-  }
-
-  function decline() {
-    lastOpenComment.current = null;
-    setCommentState((prev) => ({
-      ...prev,
-      parentId: null,
-      commentId: null,
-      comment: '',
-      add: true,
-      edit: false,
     }));
   }
 
@@ -571,8 +552,8 @@ export default function UserRenderCommentsList(props) {
   const renderTree = () => {
     let renderArray = [];
 
-    if (props.comments.comments != undefined) {
-      createTree(props.comments.comments, renderArray);
+    if (props.comments != undefined) {
+      createTree(props.comments, renderArray);
     }
 
     return renderArray;

@@ -16,6 +16,37 @@ export const UserAudiobookDetailProvider = ({
 }) => {
   const qc = useQueryClient();
 
+  const { mutate: addAudiobookRating } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch(
+        '/user/audiobook/rating/add',
+        'PUT',
+        {
+          audiobookId: data.audiobookId,
+          categoryKey: data.categoryKey,
+          rating: data.rating,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+
+      variables.setUserRate(false);
+      variables.setSure(false);
+
+      qc.invalidateQueries(['dataAudiobookUserDetail' + audiobookId]);
+    },
+    onError: (e, variables) => {
+      variables.doubleClickRating();
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
   const { mutate: addToMyList } = useMutation({
     mutationFn: (data) => {
       HandleFetch(
@@ -32,7 +63,31 @@ export const UserAudiobookDetailProvider = ({
     onSuccess: (data, variables) => {
       data = [];
 
-      variables.setAudiobookDetail({ inList: !variables.audiobookDetail.inList });
+      let json = {
+        id: dataAudiobookUserDetail.id,
+        title: dataAudiobookUserDetail.title,
+        author: dataAudiobookUserDetail.author,
+        version: dataAudiobookUserDetail.version,
+        album: dataAudiobookUserDetail.album,
+        year: dataAudiobookUserDetail.year,
+        duration: dataAudiobookUserDetail.duration,
+        size: dataAudiobookUserDetail.size,
+        parts: dataAudiobookUserDetail.parts,
+        description: dataAudiobookUserDetail.description,
+        age: dataAudiobookUserDetail.age,
+        categories: dataAudiobookUserDetail.categories,
+        avgRating: dataAudiobookUserDetail.avgRating,
+        ratingAmount: dataAudiobookUserDetail.ratingAmount,
+        canComment: dataAudiobookUserDetail.canComment,
+        canRate: dataAudiobookUserDetail.canRate,
+        comments: dataAudiobookUserDetail.comments,
+        imgFile: dataAudiobookUserDetail.imgFile,
+        inList: !dataAudiobookUserDetail.inList,
+      };
+
+      const copy = Object.assign(json, data);
+
+      qc.setQueryData(['dataAudiobookUserDetail' + audiobookId], copy);
 
       variables.props.setAudiobookState((prev) => ({
         ...prev,
@@ -41,7 +96,7 @@ export const UserAudiobookDetailProvider = ({
 
       variables.element.target.classList.remove('disabled');
 
-      qc.invalidateQueries(['dataMyAudiobooksUserData']);
+      // qc.invalidateQueries(['dataMyAudiobooksUserData']);
     },
     onError: (e) => {
       qc.invalidateQueries(['dataAudiobookUserDetail' + audiobookId]);
@@ -53,21 +108,11 @@ export const UserAudiobookDetailProvider = ({
     },
   });
 
-  const setAudiobookDetail = (variables) => {
-    let copy = dataAudiobookDetail;
-
-    for (var key in variables) {
-      copy[key] = variables[key];
-    }
-
-    qc.setQueryData(['dataAudiobookUserDetail' + audiobookId], copy);
-  };
-
   const setRefetch = () => {
     qc.invalidateQueries(['dataAudiobookUserDetail' + audiobookId]);
   };
 
-  const { data: dataAudiobookDetail = null } = useQuery({
+  const { data: dataAudiobookUserDetail = null } = useQuery({
     queryKey: ['dataAudiobookUserDetail' + audiobookId],
     queryFn: () => {
       return HandleFetch(
@@ -92,7 +137,7 @@ export const UserAudiobookDetailProvider = ({
     },
   });
 
-  const value = [dataAudiobookDetail, setAudiobookDetail, addToMyList, setRefetch];
+  const value = [dataAudiobookUserDetail, addToMyList, addAudiobookRating, setRefetch];
 
   return (
     <UserAudiobookDetailContext.Provider value={value}>

@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { v4 as uuidv4 } from 'uuid';
-import { HandleFetch } from 'Util/HandleFetch';
 
 export default function UserStarRating(props) {
   const [rating, setRating] = useState(0);
@@ -19,27 +18,6 @@ export default function UserStarRating(props) {
 
   const clickRating = (idx) => {
     setRating(idx);
-  };
-
-  const fetchData = () => {
-    HandleFetch(
-      '/user/audiobook/rating/add',
-      'PUT',
-      {
-        audiobookId: props.audiobookDetail.id,
-        categoryKey: props.categoryKey,
-        rating: rating,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        setUserRate(false);
-        setSure(false);
-      })
-      .catch(() => {
-        doubleClickRating();
-      });
   };
 
   const clearBoard = () => {
@@ -90,7 +68,20 @@ export default function UserStarRating(props) {
             <div className='col-3 '>
               <div className='row justify-content-center'>
                 <div className='col-6'>
-                  <Button onClick={() => fetchData()} variant='success' size='sm'>
+                  <Button
+                    onClick={() =>
+                      props.addAudiobookRating({
+                        audiobookId: props.audiobookDetail.id,
+                        categoryKey: props.categoryKey,
+                        rating: rating,
+                        setUserRate: setUserRate(),
+                        setSure: setSure(),
+                        doubleClickRating: doubleClickRating(),
+                      })
+                    }
+                    variant='success'
+                    size='sm'
+                  >
                     {props.t('yes')}
                   </Button>
                 </div>

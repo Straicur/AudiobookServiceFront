@@ -15,12 +15,17 @@ export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
 
-  const [audiobookDetail, setAudiobookDetail, addToMyListFetch] = useUserAudiobookDetail();
+  const [audiobookDetail, addToMyListFetch, addAudiobookRating] = useUserAudiobookDetail();
   const [audiobookRating] = useUserAudiobookRating();
   const [audiobookPart] = useAudiobookPart();
   const [audiobookInfo, setAudiobookInfo] = useUserAudiobookInfo();
-  const [audiobookUserComments, setAudiobookCommnetsRefetchState, mutate] =
-    useUserAudiobookComments();
+  const [
+    audiobookUserComments,
+    setAudiobookCommnetsRefetchState,
+    likeComment,
+    addComment,
+    editComment,
+  ] = useUserAudiobookComments();
 
   const handleClose = () => {
     addInfo();
@@ -37,7 +42,7 @@ export default function UserMainAudiobookDetailModal(props) {
 
     addToMyListFetch({
       props: props,
-      setAudiobookDetail: setAudiobookDetail,
+      // setAudiobookDetail: setAudiobookDetail,
       audiobookDetail: audiobookDetail,
       element: element,
     });
@@ -151,6 +156,7 @@ export default function UserMainAudiobookDetailModal(props) {
                     count={5}
                     audiobookDetail={audiobookDetail}
                     audiobookRating={audiobookRating}
+                    addAudiobookRating={addAudiobookRating}
                     token={props.token}
                     categoryKey={props.state.detailModalCategory.categoryKey}
                     t={props.t}
@@ -167,7 +173,9 @@ export default function UserMainAudiobookDetailModal(props) {
                 <UserRenderCommentsList
                   comments={audiobookUserComments.comments}
                   audiobookDetail={audiobookDetail}
-                  mutate={mutate}
+                  likeComment={likeComment}
+                  addComment={addComment}
+                  editComment={editComment}
                   state={props.state}
                   setState={props.setState}
                   t={props.t}

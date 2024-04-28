@@ -132,7 +132,7 @@ export const UserAudiobookCommentsProvider = ({
 
     return newComments;
   }
-  const { mutate } = useMutation({
+  const { mutate: likeComment } = useMutation({
     mutationFn: (data) => {
       HandleFetch(data.url, data.method, data.jsonData, data.props.token, data.props.i18n.language)
         .then(() => {
@@ -162,11 +162,58 @@ export const UserAudiobookCommentsProvider = ({
     },
   });
 
+  const { mutate: editComment } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch('/user/audiobook/comment/edit', 'PATCH', data.jsonData, token, i18n.language);
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+
+      variables.element.target.classList.remove('disabled');
+      variables.decline();
+
+      qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
+    },
+    onError: (e, variables) => {
+      variables.element.target.classList.remove('disabled');
+      qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
+  const { mutate: addComment } = useMutation({
+    mutationFn: (data) => {
+      HandleFetch('/user/audiobook/comment/add', 'PUT', data.jsonData, token, i18n.language);
+    },
+    onSuccess: (data, variables) => {
+      data = [];
+
+      variables.element.target.classList.remove('disabled');
+      variables.decline();
+
+      qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
+      refetch();
+    },
+    onError: (e, variables) => {
+      variables.element.target.classList.remove('disabled');
+      qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
+
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
   const setRefetch = () => {
     qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
   };
 
-  const { data: dataAudiobookUserComments = null } = useQuery({
+  const { data: dataAudiobookUserComments = null, refetch } = useQuery({
     queryKey: ['dataAudiobookUserComments' + audiobookId],
     queryFn: () => {
       return HandleFetch(
@@ -191,7 +238,7 @@ export const UserAudiobookCommentsProvider = ({
     },
   });
 
-  const value = [dataAudiobookUserComments, setRefetch, mutate];
+  const value = [dataAudiobookUserComments, setRefetch, likeComment, addComment, editComment];
 
   return (
     <UserAudiobookCommentsContext.Provider value={value}>
