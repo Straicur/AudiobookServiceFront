@@ -7,7 +7,7 @@ export default function UserMainRenderAudiobooksList(props) {
   const lastItemRef = useRef(null);
   const lastItemOffsetTopRef = useRef(null);
 
-  let hasMore = props.audiobooks.page < props.audiobooks.maxPage;
+  let hasMore = props.audiobooks !== null && props.audiobooks.page < props.audiobooks.maxPage;
 
   const renderNewPage = () => {
     if (hasMore) {
