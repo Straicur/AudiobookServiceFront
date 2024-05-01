@@ -1,12 +1,19 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import UserMainRenderAudiobooksList from './UserMainRenderAudiobooksList';
 import { useUserAudiobookData } from 'Providers/User/UserAudiobooksProvider';
 import UserMainRenderProposedList from './UserMainRenderProposedList';
 import { useUserAudiobookProposed } from 'Providers/User/UserAudiobookProposedProvider';
+import { useUserAudiobooksListStore } from 'Store/store';
 
 export default function GetAllAudiobooks(props) {
   const [audiobooks, refreshAudiooks, loadingAudiobooks] = useUserAudiobookData();
-  const [audiobookProposed, refreshProposed, loadingProposed] = useUserAudiobookProposed();
+  const [audiobooksProposed, refreshProposed, loadingProposed] = useUserAudiobookProposed();
+
+  const audiobooksListStore = useUserAudiobooksListStore();
+  const dateUpdates = useUserAudiobooksListStore((state) => state.dateUpdate);
+  const maxPage = useUserAudiobooksListStore((state) => state.maxPage);
+
+  const audiobooksList = useRef(useUserAudiobooksListStore((state) => state.audiobooks));
 
   useLayoutEffect(() => {
     if (props.state.refresh) {
@@ -18,6 +25,15 @@ export default function GetAllAudiobooks(props) {
       refreshAudiooks();
     }
   }, [props.state.refresh]);
+
+  useLayoutEffect(() => {
+    if (
+      audiobooks !== null &&
+      (dateUpdates[props.state.page] === undefined || dateUpdates[props.state.page] <= Date.now())
+    ) {
+      audiobooksListStore.addAudiobooks(props.state.page, audiobooks);
+    }
+  }, [audiobooks]);
 
   return (
     <div>
@@ -32,7 +48,7 @@ export default function GetAllAudiobooks(props) {
             setState={props.setState}
             token={props.token}
             t={props.t}
-            audiobookProposed={audiobookProposed}
+            audiobooksProposed={audiobooksProposed}
             refresh={refreshProposed}
           />
           <UserMainRenderAudiobooksList
@@ -40,8 +56,8 @@ export default function GetAllAudiobooks(props) {
             setState={props.setState}
             token={props.token}
             t={props.t}
-            audiobooks={audiobooks}
-            audiobookProposed={audiobookProposed}
+            audiobooksList={audiobooksList}
+            maxPage={maxPage}
             refresh={refreshAudiooks}
           />
         </div>

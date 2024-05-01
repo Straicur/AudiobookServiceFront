@@ -6,11 +6,11 @@ export default function UserMainRenderProposedList(props) {
   const renderColumns = () => {
     let renderCategories = [];
 
-    if (props.audiobookProposed != null && props.audiobookProposed.audiobooks.length > 0) {
+    if (props.audiobooksProposed != null && props.audiobooksProposed.audiobooks.length > 0) {
       renderCategories.push(
         <div key={uuidv4()}>
           <div className='fw-bold fs-1 ms-2 mb-2 text-light'>{props.t('proposed')}</div>
-          {UserMainRenderProposedCarousel(props, props.audiobookProposed.audiobooks)}
+          {UserMainRenderProposedCarousel(props, props.audiobooksProposed.audiobooks)}
           <hr className=' text-light'></hr>
         </div>,
       );

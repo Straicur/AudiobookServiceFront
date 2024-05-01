@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import AdminAudiobookPlayer from '../Common/AdminAudiobookPlayer';
 import 'react-h5-audio-player/lib/styles.css';
 import { useAdminAudiobookData } from 'Providers/Admin/AdminAudiobookDataProvider';
-import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
+import { useAudiobookPart } from 'Providers/Admin/AdminAudiobookPartProvider';
 import AdminCategoryEditForm from './AdminCategoryEditForm';
 import AdminCategoryAudiobookCategoryList from './AdminCategoryAudiobookCategoryList';
 import AdminCategoryAudiobookCover from './AdminCategoryAudiobookCover';

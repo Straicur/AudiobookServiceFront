@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAdminAudiobookData } from 'Providers/Admin/AdminAudiobookDataProvider';
-import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
+import { useAudiobookPart } from 'Providers/Admin/AdminAudiobookPartProvider';
 import { useAdminAudiobookComments } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import AdminAudiobookEditForm from './AdminAudiobookEditForm';

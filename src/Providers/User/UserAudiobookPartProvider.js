@@ -2,10 +2,11 @@ import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
+import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
 
 const AudiobookPartContext = createContext(null);
 
-export const AudiobookPartProvider = ({
+export const UserAudiobookPartProvider = ({
   children,
   token,
   audiobookId,
@@ -13,9 +14,10 @@ export const AudiobookPartProvider = ({
   setState,
   audiobookState,
   setAudiobookState,
-  audiobookInfo,
   i18n,
 }) => {
+  const [audiobookInfo] = useUserAudiobookInfo();
+
   const qc = useQueryClient();
 
   const setAudiobookPart = (variables) => {
@@ -68,9 +70,6 @@ export const AudiobookPartProvider = ({
         error: e,
       }));
     },
-    // onSuccess: (data) => {
-    //   setAudiobookPart(process.env.REACT_APP_API_URL + data.url);
-    // },
   });
 
   const value = [dataAudiobookPart, setRefetch, setAudiobookPart];

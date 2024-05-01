@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useRef } from 'react';
 import { useUserAudiobookRating } from 'Providers/User/UserAudiobookRatingProvider';
 import { useUserAudiobookDetail } from 'Providers/User/UserAudiobookDetailProvider';
-import { useAudiobookPart } from 'Providers/Common/AudiobookPartProvider';
+import { useAudiobookPart } from 'Providers/User/UserAudiobookPartProvider';
 import { useUserAudiobookComments } from 'Providers/User/UserAudiobookCommentsProvider';
 import UserAudiobookPlayer from '../Common/UserAudiobookPlayer';
 import UserStarRating from '../Common/UserStarRating';
@@ -198,6 +198,7 @@ export default function UserMyListAudiobookDetailModal(props) {
                 X
               </Button>
             </div>
+            {console.log(props)}
             <div className='row mt-4 justify-content-center'>
               <div className='col'>
                 <UserAudiobookPlayer
@@ -206,7 +207,7 @@ export default function UserMyListAudiobookDetailModal(props) {
                   audiobookState={props.audiobookState}
                   audiobookInfo={audiobookInfo}
                   part={props.audiobookState.part}
-                  parts={props.state.detailModalAudiobook.parts}
+                  parts={audiobookDetail.parts}
                   setState={props.setAudiobookState}
                   timeAudio={timeAudio}
                   audioDuration={audioDuration}

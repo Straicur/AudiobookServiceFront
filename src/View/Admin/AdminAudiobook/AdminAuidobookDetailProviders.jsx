@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { AdminAudiobookDataProvider } from 'Providers/Admin/AdminAudiobookDataProvider';
-import { AudiobookPartProvider } from 'Providers/Common/AudiobookPartProvider';
+import { AdminAudiobookPartProvider } from 'Providers/Admin/AdminAudiobookPartProvider';
 import { AdminAudiobookCommentsProvider } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 import AdminAudiobookDetail from './AdminAudiobookDetail';
 import { AdminCategoriesTreeProvider } from 'Providers/Admin/AdminCategoriesTreeProvider';
@@ -21,7 +21,7 @@ export default function AdminAuidobookDetailProviders(props) {
       t={props.t}
       i18n={props.i18n}
     >
-      <AudiobookPartProvider
+      <AdminAudiobookPartProvider
         state={props.audiobookState}
         setState={props.setAudiobookState}
         token={props.token}
@@ -57,7 +57,7 @@ export default function AdminAuidobookDetailProviders(props) {
             </AdminCategoriesListProvider>
           </AdminCategoriesTreeProvider>
         </AdminAudiobookCommentsProvider>
-      </AudiobookPartProvider>
+      </AdminAudiobookPartProvider>
     </AdminAudiobookDataProvider>
   );
 }

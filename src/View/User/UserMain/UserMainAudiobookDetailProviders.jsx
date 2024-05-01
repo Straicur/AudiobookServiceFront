@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { UserAudiobookDetailProvider } from 'Providers/User/UserAudiobookDetailProvider';
-import { AudiobookPartProvider } from 'Providers/Common/AudiobookPartProvider';
+import { UserAudiobookPartProvider } from 'Providers/User/UserAudiobookPartProvider';
 import { UserAudiobookRatingProvider } from 'Providers/User/UserAudiobookRatingProvider';
 import { UserAudiobookCommentsProvider } from 'Providers/User/UserAudiobookCommentsProvider';
-import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
 import { UserAudiobookInfoProvider } from 'Providers/User/UserAudiobookInfoProvider';
 import UserMainAudiobookDetailModal from './UserMainAudiobookDetailModal';
 
 export default function UserMainAudiobookDetailProviders(props) {
-  const [audiobookInfo] = useUserAudiobookInfo();
   const [audiobookState, setAudiobookState] = useState({
     part: 0,
     renderAudiobookPlayer: false,
@@ -40,14 +38,13 @@ export default function UserMainAudiobookDetailProviders(props) {
           categoryKey={props.state.detailModalCategory.categoryKey}
           i18n={props.i18n}
         >
-          <AudiobookPartProvider
+          <UserAudiobookPartProvider
             state={props.state}
             setState={props.setState}
             token={props.token}
             audiobookId={props.state.detailModalAudiobook.id}
             audiobookState={audiobookState}
             setAudiobookState={setAudiobookState}
-            audiobookInfo={audiobookInfo}
             part={audiobookState.part}
             i18n={props.i18n}
           >
@@ -78,7 +75,7 @@ export default function UserMainAudiobookDetailProviders(props) {
                 />
               </UserAudiobookCommentsProvider>
             </UserAudiobookRatingProvider>
-          </AudiobookPartProvider>
+          </UserAudiobookPartProvider>
         </UserAudiobookDetailProvider>
       </UserAudiobookInfoProvider>
     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AdminAudiobookDataProvider } from 'Providers/Admin/AdminAudiobookDataProvider';
-import { AudiobookPartProvider } from 'Providers/Common/AudiobookPartProvider';
+import { AdminAudiobookPartProvider } from 'Providers/Admin/AdminAudiobookPartProvider';
 import AdminCategoryAudiobookDetailModal from './AdminCategoryAudiobookDetailModal';
 
 export default function AdminCategoryDetailProviders(props) {
@@ -12,7 +12,7 @@ export default function AdminCategoryDetailProviders(props) {
       audiobookId={props.state.detailAudiobookElement.id}
       i18n={props.i18n}
     >
-      <AudiobookPartProvider
+      <AdminAudiobookPartProvider
         state={props.audiobooksState}
         setState={props.setAudiobooksState}
         token={props.token}
@@ -33,7 +33,7 @@ export default function AdminCategoryDetailProviders(props) {
           setAudiobooksState={props.setAudiobooksState}
           i18n={props.i18n}
         />
-      </AudiobookPartProvider>
+      </AdminAudiobookPartProvider>
     </AdminAudiobookDataProvider>
   );
 }

@@ -66,7 +66,7 @@ export const UserAudiobookInfoProvider = ({
           categoryKey: categoryKey,
         },
         token,
-        i18n,
+        i18n.language,
       );
     },
     retry: 1,
