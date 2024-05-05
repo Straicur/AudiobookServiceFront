@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useTokenStore } from 'Store/store';
 import { v4 as uuidv4 } from 'uuid';
+import InvalidJsonDataError from './Errors/InvalidJsonDataError';
+import AuthenticationError from './Errors/AuthenticationError';
+import InvalidDataError from './Errors/InvalidDataError';
+import DataNotFoundError from './Errors/DataNotFoundError';
+import PermissionError from './Errors/PermissionError';
+import ServiceUnaviableError from './Errors/ServiceUnaviableError';
+import SystemError from './Errors/SystemError';
+import ValidationError from './Errors/ValidationError';
 
 export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
   const { t } = useTranslation();
@@ -35,55 +43,55 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
     window.location.reload(false);
   }
 
-  useEffect(() => {
-    switch (error.name) {
-      case 'InvalidJsonDataError':
+  useLayoutEffect(() => {
+    switch (error) {
+      case error instanceof InvalidJsonDataError:
         setState((prev) => ({
           ...prev,
           data: error.data,
           message: error.message,
         }));
         break;
-      case 'ValidationError':
+      case error instanceof ValidationError:
         setState((prev) => ({
           ...prev,
           data: error.data,
           message: error.message,
         }));
         break;
-      case 'SystemError':
+      case error instanceof SystemError:
         setState((prev) => ({
           ...prev,
           message: error.message,
         }));
         break;
-      case 'ServiceUnaviableError':
+      case error instanceof ServiceUnaviableError:
         setState((prev) => ({
           ...prev,
           message: error.message,
         }));
         break;
-      case 'PermissionError':
+      case error instanceof PermissionError:
         setState((prev) => ({
           ...prev,
           message: error.message,
         }));
         break;
-      case 'DataNotFoundError':
-        setState((prev) => ({
-          ...prev,
-          data: error.data,
-          message: error.message,
-        }));
-        break;
-      case 'InvalidDataError':
+      case error instanceof DataNotFoundError:
         setState((prev) => ({
           ...prev,
           data: error.data,
           message: error.message,
         }));
         break;
-      case 'AuthenticationError':
+      case error instanceof InvalidDataError:
+        setState((prev) => ({
+          ...prev,
+          data: error.data,
+          message: error.message,
+        }));
+        break;
+      case error instanceof AuthenticationError:
         setState((prev) => ({
           ...prev,
           message: error.message,
