@@ -5,12 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useTokenStore } from 'Store/store';
 import { v4 as uuidv4 } from 'uuid';
-import InvalidJsonDataError from './Errors/InvalidJsonDataError';
-import AuthenticationError from './Errors/AuthenticationError';
 import InvalidDataError from './Errors/InvalidDataError';
-import DataNotFoundError from './Errors/DataNotFoundError';
-import PermissionError from './Errors/PermissionError';
-import ServiceUnaviableError from './Errors/ServiceUnaviableError';
 import SystemError from './Errors/SystemError';
 import ValidationError from './Errors/ValidationError';
 
@@ -45,13 +40,6 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
 
   useLayoutEffect(() => {
     switch (error) {
-      case error instanceof InvalidJsonDataError:
-        setState((prev) => ({
-          ...prev,
-          data: error.data,
-          message: error.message,
-        }));
-        break;
       case error instanceof ValidationError:
         setState((prev) => ({
           ...prev,
@@ -65,37 +53,11 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
           message: error.message,
         }));
         break;
-      case error instanceof ServiceUnaviableError:
-        setState((prev) => ({
-          ...prev,
-          message: error.message,
-        }));
-        break;
-      case error instanceof PermissionError:
-        setState((prev) => ({
-          ...prev,
-          message: error.message,
-        }));
-        break;
-      case error instanceof DataNotFoundError:
-        setState((prev) => ({
-          ...prev,
-          data: error.data,
-          message: error.message,
-        }));
-        break;
       case error instanceof InvalidDataError:
         setState((prev) => ({
           ...prev,
           data: error.data,
           message: error.message,
-        }));
-        break;
-      case error instanceof AuthenticationError:
-        setState((prev) => ({
-          ...prev,
-          message: error.message,
-          notAuthenticated: true,
         }));
         break;
       default: {
