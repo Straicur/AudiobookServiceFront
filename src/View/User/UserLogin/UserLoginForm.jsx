@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import UserLoginService from 'Service/User/UserLoginService';
 import ValidateUtil from 'Util/ValidateUtil';
+import { UserFooter } from 'View/User/Common/UserFooter';
 
 export default function UserLoginForm(props) {
   const [formState, setFormState] = useState({
@@ -26,8 +27,8 @@ export default function UserLoginForm(props) {
   }, [props.state.error]);
 
   return (
-    <section className='vh-100 '>
-      <div className='container py-5 h-100'>
+    <section className='vh-100'>
+      <div className='container h-100'>
         <div className='row d-flex justify-content-center align-items-center h-100'>
           <div className='col-12 col-md-8 col-lg-6 col-xl-5'>
             <div className='card shadow rounded-auth'>
@@ -168,6 +169,7 @@ export default function UserLoginForm(props) {
           </div>
         </div>
       </div>
+      <UserFooter />
     </section>
   );
 }

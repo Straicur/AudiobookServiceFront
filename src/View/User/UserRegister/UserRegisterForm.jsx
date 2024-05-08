@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import UserRegisterService from 'Service/User/UserRegisterService';
 import ValidateUtil from 'Util/ValidateUtil';
+import { UserFooter } from 'View/User/Common/UserFooter';
 
 export default function UserRegisterForm(props) {
   const { t, i18n } = useTranslation();
@@ -41,12 +42,12 @@ export default function UserRegisterForm(props) {
 
   return (
     <section className='vh-100'>
-      <div className='container py-5 h-100'>
+      <div className='container h-100'>
         <div className='row d-flex justify-content-center align-items-center h-100'>
           <div className='col-12 col-md-8 col-lg-6 col-xl-5'>
             <div className='card rounded-auth'>
-              <div className='card-body p-5 text-center'>
-                <div className='mt-md-1 pb-2'>
+              <div className='card-body p-1 text-center'>
+                <div className='mt-md-1 p-1 mx-5'>
                   <div>
                     <Button
                       name='pl'
@@ -303,6 +304,7 @@ export default function UserRegisterForm(props) {
           </div>
         </div>
       </div>
+      <UserFooter />
       {formState.modal ? <UserRegisterNotificationModal /> : null}
     </section>
   );
