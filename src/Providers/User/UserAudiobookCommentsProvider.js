@@ -18,32 +18,32 @@ export const UserAudiobookCommentsProvider = ({
 
   function setComment(comment, bool) {
     let newComments = dataAudiobookUserComments.comments.map((element) => {
-      let like = element.audiobookCommentLike;
-      let unlike = element.audiobookCommentUnlike;
-
-      if (bool) {
-        if (comment.liked == bool) {
-          like = like - 1;
-          bool = null;
-        } else if (comment.liked != null && comment.liked != bool) {
-          like = like + 1;
-          unlike = unlike - 1;
-        } else {
-          like = like + 1;
-        }
-      } else {
-        if (comment.liked == bool) {
-          unlike = unlike - 1;
-          bool = null;
-        } else if (comment.liked != null && comment.liked != bool) {
-          unlike = unlike + 1;
-          like = like - 1;
-        } else {
-          unlike = unlike + 1;
-        }
-      }
-
       if (element.id == comment.id) {
+        let like = element.audiobookCommentLike;
+        let unlike = element.audiobookCommentUnlike;
+
+        if (bool) {
+          if (comment.liked == bool) {
+            like = like - 1;
+            bool = null;
+          } else if (comment.liked != null && comment.liked != bool) {
+            like = like + 1;
+            unlike = unlike - 1;
+          } else {
+            like = like + 1;
+          }
+        } else {
+          if (comment.liked == bool) {
+            unlike = unlike - 1;
+            bool = null;
+          } else if (comment.liked != null && comment.liked != bool) {
+            unlike = unlike + 1;
+            like = like - 1;
+          } else {
+            unlike = unlike + 1;
+          }
+        }
+
         return {
           audiobookCommentLike: like,
           audiobookCommentUnlike: unlike,
