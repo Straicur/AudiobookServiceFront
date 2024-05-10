@@ -21,7 +21,7 @@ export const AdminAudiobookCommentsProvider = ({
 
   const { mutate: deleteComment } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/audiobook/comment/delete',
         'DELETE',
         {

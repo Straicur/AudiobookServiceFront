@@ -34,6 +34,7 @@ export default function AdminCategoryAudiobooksList(props) {
     activate,
     deleteAudiobook,
     deleteAudiobookFromCategory,
+    addAudiobook,
   ] = useAdminCategoryAudiobooks();
 
   useEffect(() => {
@@ -58,7 +59,7 @@ export default function AdminCategoryAudiobooksList(props) {
   return (
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 mb-5  shadow'>
-        <AdminNavBarProviders token={props.token} />
+        <AdminNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
         <hr className='line' />
         <div className='table-title my-2'>
           <h1>{state.category == null ? null : state.category.name}</h1>
@@ -118,6 +119,7 @@ export default function AdminCategoryAudiobooksList(props) {
             i18n={props.i18n}
             token={props.token}
             categoryDetail={categoryDetail}
+            addAudiobook={addAudiobook}
             setAudiobooksState={props.setAudiobooksState}
             audiobooksState={props.audiobooksState}
           />

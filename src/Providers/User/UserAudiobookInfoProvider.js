@@ -19,7 +19,7 @@ export const UserAudiobookInfoProvider = ({
 
   const { mutate } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/user/audiobook/info/add',
         'PUT',
         {
@@ -31,12 +31,7 @@ export const UserAudiobookInfoProvider = ({
         },
         data.props.token,
         data.props.i18n.language,
-      ).catch((e) => {
-        data.props.setState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+      );
     },
     onMutate: (variables) => {
       qc.setQueryData(['dataAudiobookUserInfo' + audiobookId], {

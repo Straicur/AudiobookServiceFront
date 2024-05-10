@@ -28,6 +28,7 @@ export default function AdminAudiobookDetail(props) {
     audiobookDeleteCategory,
     audiobookAddCategory,
     deleteAudiobook,
+    audiobookReAdd,
   ] = useAdminAudiobookData();
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
   const [categoriesTree] = useAdminCategoriesTree();
@@ -74,7 +75,7 @@ export default function AdminAudiobookDetail(props) {
   return (
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 mb-5  shadow'>
-        <AdminNavBarProviders token={props.token} />
+        <AdminNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
         <hr className='line' />
         <div className='row '>
           <div className='col-4'>
@@ -243,6 +244,7 @@ export default function AdminAudiobookDetail(props) {
           audiobookState={props.audiobookState}
           setAudiobookState={props.setAudiobookState}
           categories={categories.categories}
+          audiobookReAdd={audiobookReAdd}
           t={props.t}
           token={props.token}
           i18n={props.i18n}

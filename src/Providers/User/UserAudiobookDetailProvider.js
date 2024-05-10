@@ -18,7 +18,7 @@ export const UserAudiobookDetailProvider = ({
 
   const { mutate: addAudiobookRating } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/user/audiobook/rating/add',
         'PUT',
         {
@@ -49,7 +49,7 @@ export const UserAudiobookDetailProvider = ({
 
   const { mutate: addToMyList } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/user/audiobook/like',
         'PATCH',
         {

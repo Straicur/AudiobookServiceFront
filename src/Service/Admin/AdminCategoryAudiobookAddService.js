@@ -1,4 +1,3 @@
-import { HandleFetch } from 'Util/HandleFetch';
 import sha256 from 'crypto-js/sha256';
 import { Buffer } from 'buffer';
 import FormService from 'Service/Common/FormService';
@@ -53,14 +52,11 @@ export default class AdminCategoryAudiobookAddService extends FormService {
   };
 
   addNewAudiobook = () => {
-    const url = '/admin/audiobook/add';
-    const method = 'PUT';
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
     const fileName = this.stateModal.title + '_' + this.stateModal.author;
     const hashName = sha256(fileName).toString();
-    const token = this.props.token;
-    const language = this.props.i18n.language;
+
     // const setAudiobooksState = setAudiobooksState;
     let categoriesArray = [this.props.categoryDetail.id];
 
@@ -103,31 +99,13 @@ export default class AdminCategoryAudiobookAddService extends FormService {
           this.maxParts.current = part;
           this.currentPart.current = part;
 
-          HandleFetch(url, method, jsonData, token, language)
-            .then((data) => {
-              if (
-                this.currentPart.current == this.maxParts.current ||
-                Object.keys(data).length !== 0
-              ) {
-                this.setStateModal({
-                  author: '',
-                  title: '',
-                  modal: 3,
-                  fileAdded: true,
-                  isNextButtonDisabled: false,
-                  uploadEnded: false,
-                });
-              }
-
-              this.maxParts.current = part;
-              this.currentPart.current = this.currentPart.current + 1;
-            })
-            .catch(() => {
-              // setAudiobooksState((prev) => ({
-              //   ...prev,
-              //   error: e,
-              // }));
-            });
+          this.props.addAudiobook({
+            jsonData: jsonData,
+            currentPart: this.currentPart,
+            maxParts: this.maxParts,
+            setStateModal: this.setStateModal,
+            part: part,
+          });
         } else {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
             allparts = allparts + 1;
@@ -155,29 +133,13 @@ export default class AdminCategoryAudiobookAddService extends FormService {
               },
             };
 
-            HandleFetch(url, method, jsonData, token, language)
-              .then((data) => {
-                if (
-                  this.currentPart.current == this.maxParts.current ||
-                  Object.keys(data).length !== 0
-                ) {
-                  this.setStateModal({
-                    author: '',
-                    title: '',
-                    modal: 3,
-                    fileAdded: true,
-                    isNextButtonDisabled: false,
-                    uploadEnded: false,
-                  });
-                }
-                this.currentPart.current = this.currentPart.current + 1;
-              })
-              .catch(() => {
-                // setAudiobooksState((prev) => ({
-                //   ...prev,
-                //   error: e,
-                // }));
-              });
+            this.props.addAudiobook({
+              jsonData: jsonData,
+              currentPart: this.currentPart,
+              maxParts: this.maxParts,
+              setStateModal: this.setStateModal,
+              part: null,
+            });
 
             part = part + 1;
             // }, 1000);

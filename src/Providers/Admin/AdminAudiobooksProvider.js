@@ -18,9 +18,36 @@ export const AdminAudiobooksProvider = ({
 }) => {
   const qc = useQueryClient();
 
+  const { mutate: addAudiobook } = useMutation({
+    mutationFn: (data) => {
+      return HandleFetch('/admin/audiobook/add', 'PUT', data.json, token, i18n.language);
+    },
+    onSuccess: (data, variables) => {
+      if (
+        variables.currentPart.current == this.maxParts.current ||
+        Object.keys(data).length !== 0
+      ) {
+        variables.setStateModal({
+          author: '',
+          title: '',
+          modal: 3,
+          fileAdded: true,
+          isNextButtonDisabled: false,
+          uploadEnded: false,
+        });
+      }
+
+      if (variables.part !== null) {
+        variables.maxParts.current = variables.part;
+      }
+
+      variables.currentPart.current = variables.currentPart.current + 1;
+    },
+  });
+
   const { mutate: activate } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/audiobook/active',
         'PATCH',
         {
@@ -100,7 +127,7 @@ export const AdminAudiobooksProvider = ({
     },
   });
 
-  const value = [dataAdminAudiobooks, setRefetch, activate, refetch];
+  const value = [dataAdminAudiobooks, setRefetch, activate, refetch, addAudiobook];
 
   return (
     <AdminAudiobooksContext.Provider value={value}>{children}</AdminAudiobooksContext.Provider>

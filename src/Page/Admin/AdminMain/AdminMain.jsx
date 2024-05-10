@@ -26,7 +26,7 @@ export default function AdminMain() {
       }}
     >
       <AdminMainDataPrivider token={token} setState={setInfoState} i18n={i18n}>
-        <AdminMainContainer infoState={infoState} setInfoState={setInfoState} t={t} />
+        <AdminMainContainer infoState={infoState} setInfoState={setInfoState} t={t} i18n={i18n} />
       </AdminMainDataPrivider>
     </ErrorBoundary>
   );

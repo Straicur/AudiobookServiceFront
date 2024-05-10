@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { useTranslation } from 'react-i18next';
-import { HandleFetch } from 'Util/HandleFetch';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import { NotificationsProvider } from 'Providers/Common/NotificationsProvider';
@@ -10,17 +8,14 @@ import { useNewNotifications } from 'Providers/Common/NewNotificationsProvider';
 import AdminNotificationOffCanvas from '../AdminNotificationBar/AdminNotificationOffCanvas';
 import Badge from 'react-bootstrap/Badge';
 import './AdminNavBar.css';
+import { useUserAuthorizeData } from 'Providers/User/UserAuthorizeProvider';
 
-export const AdminNavBar = () => {
+export const AdminNavBar = (props) => {
   const [state, setState] = useState({
     page: 0,
     notificationsOffCanvas: false,
     error: null,
   });
-
-  const { t, i18n } = useTranslation();
-
-  const tokenStore = useTokenStore();
 
   const token = useTokenStore((state) => state.token);
 
@@ -28,16 +23,7 @@ export const AdminNavBar = () => {
 
   const navigate = useNavigate();
 
-  const logout = async () => {
-    const url = '/logout';
-    const jsonData = {};
-    const method = 'POST';
-
-    HandleFetch(url, method, jsonData, token, i18n.language).finally(() => {
-      tokenStore.removeToken();
-      navigate('/login');
-    });
-  };
+  const logout = useUserAuthorizeData()[0];
 
   const openNotificationsList = () => {
     setState((prev) => ({
@@ -68,7 +54,7 @@ export const AdminNavBar = () => {
           className=' btn button mt-2 mx-2'
           onClick={() => navigate('/admin')}
         >
-          {t('mainPage')}
+          {props.t('mainPage')}
         </Button>
         <Button
           variant='dark'
@@ -77,7 +63,7 @@ export const AdminNavBar = () => {
           className=' btn button mt-2 mx-2'
           onClick={() => navigate('/admin/categories')}
         >
-          {t('categories')}
+          {props.t('categories')}
         </Button>
         <Button
           variant='dark'
@@ -86,7 +72,7 @@ export const AdminNavBar = () => {
           className=' btn button mt-2 mx-2'
           onClick={() => navigate('/admin/audiobooks')}
         >
-          {t('audiobooks')}
+          {props.t('audiobooks')}
         </Button>
         <Button
           variant='dark'
@@ -95,7 +81,7 @@ export const AdminNavBar = () => {
           className=' btn button mt-2 mx-2'
           onClick={() => navigate('/admin/users')}
         >
-          {t('users')}
+          {props.t('users')}
         </Button>
         <Button
           variant='dark'
@@ -104,7 +90,7 @@ export const AdminNavBar = () => {
           className=' btn button mt-2 mx-2'
           onClick={() => navigate('/admin/notifications')}
         >
-          {t('notifications')}
+          {props.t('notifications')}
         </Button>
         <Button
           variant='dark'
@@ -113,7 +99,7 @@ export const AdminNavBar = () => {
           className=' btn button mt-2 mx-2'
           onClick={() => navigate('/main')}
         >
-          {t('userPanel')}
+          {props.t('userPanel')}
         </Button>
       </div>
       <div className='col-4 d-flex justify-content-end  align-items-center'>
@@ -122,9 +108,11 @@ export const AdminNavBar = () => {
             name='pl'
             size='sm'
             className={
-              i18n.language == 'pl' ? 'btn  m-1 admin_button_dark' : 'btn  m-1 admin_button_light'
+              props.i18n.language == 'pl'
+                ? 'btn  m-1 admin_button_dark'
+                : 'btn  m-1 admin_button_light'
             }
-            onClick={() => i18n.changeLanguage('pl')}
+            onClick={() => props.i18n.changeLanguage('pl')}
           >
             PL
           </Button>
@@ -132,9 +120,11 @@ export const AdminNavBar = () => {
             name='en'
             size='sm'
             className={
-              i18n.language == 'en' ? 'btn  m-1 admin_button_dark' : 'btn  m-1 admin_button_light'
+              props.i18n.language == 'en'
+                ? 'btn  m-1 admin_button_dark'
+                : 'btn  m-1 admin_button_light'
             }
-            onClick={() => i18n.changeLanguage('en')}
+            onClick={() => props.i18n.changeLanguage('en')}
           >
             EN
           </Button>
@@ -144,7 +134,7 @@ export const AdminNavBar = () => {
           onClick={() => openNotificationsList()}
         >
           <div className='col nav-col justify-content-end  align-items-center pe-2'>
-            <h6> {t('notifications')}</h6>
+            <h6> {props.t('notifications')}</h6>
           </div>
           <div className='col nav-col justify-content-end  align-items-center'>
             <h6>
@@ -153,16 +143,16 @@ export const AdminNavBar = () => {
           </div>
         </div>
         <Button name='logout' variant='dark' size='sm' className='btn button' onClick={logout}>
-          {t('logout')}
+          {props.t('logout')}
         </Button>
         {state.notificationsOffCanvas ? (
-          <NotificationsProvider token={token} page={state.page} i18n={i18n}>
+          <NotificationsProvider token={token} page={state.page} i18n={props.i18n}>
             <AdminNotificationOffCanvas
               state={state}
               setState={setState}
-              t={t}
+              t={props.t}
               token={token}
-              i18n={i18n}
+              i18n={props.i18n}
             />
           </NotificationsProvider>
         ) : null}

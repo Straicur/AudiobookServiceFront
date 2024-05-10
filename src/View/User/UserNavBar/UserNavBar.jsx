@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { useTranslation } from 'react-i18next';
-import { HandleFetch } from 'Util/HandleFetch';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import { NotificationsProvider } from 'Providers/Common/NotificationsProvider';
@@ -10,8 +8,9 @@ import { useNewNotifications } from 'Providers/Common/NewNotificationsProvider';
 import UserNotificationOffCanvas from '../UserNotification/UserNotificationOffCanvas';
 import Badge from 'react-bootstrap/Badge';
 import './UserNavBar.css';
+import { useUserAuthorizeData } from 'Providers/User/UserAuthorizeProvider';
 
-export const UserNavBar = () => {
+export const UserNavBar = (props) => {
   const [state, setState] = useState({
     page: 0,
     notificationsOffCanvas: false,
@@ -20,26 +19,13 @@ export const UserNavBar = () => {
 
   const [newNotificationsData] = useNewNotifications();
 
-  const { t, i18n } = useTranslation();
-
-  const tokenStore = useTokenStore();
+  const logout = useUserAuthorizeData()[0];
 
   const token = useTokenStore((state) => state.token);
 
   const admin = useTokenStore((state) => state.admin);
 
   const navigate = useNavigate();
-
-  const logout = async () => {
-    const url = '/logout';
-    const jsonData = {};
-    const method = 'POST';
-
-    HandleFetch(url, method, jsonData, token, i18n.language).finally(() => {
-      tokenStore.removeToken();
-      navigate('/login');
-    });
-  };
 
   const openNotificationsList = () => {
     setState((prev) => ({
@@ -71,7 +57,7 @@ export const UserNavBar = () => {
             className=' btn button  mt-2'
             onClick={() => navigate('/main')}
           >
-            {t('mainPage')}
+            {props.t('mainPage')}
           </Button>
           <Button
             variant='dark'
@@ -80,7 +66,7 @@ export const UserNavBar = () => {
             className=' btn button  mt-2'
             onClick={() => navigate('/myList')}
           >
-            {t('myList')}
+            {props.t('myList')}
           </Button>
           {admin ? (
             <Button
@@ -90,7 +76,7 @@ export const UserNavBar = () => {
               className=' btn button  mt-2'
               onClick={() => navigate('/admin')}
             >
-              {t('administration')}
+              {props.t('administration')}
             </Button>
           ) : null}
         </div>
@@ -99,16 +85,20 @@ export const UserNavBar = () => {
             <Button
               name='pl'
               size='sm'
-              className={i18n.language == 'pl' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'}
-              onClick={() => i18n.changeLanguage('pl')}
+              className={
+                props.i18n.language == 'pl' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'
+              }
+              onClick={() => props.i18n.changeLanguage('pl')}
             >
               PL
             </Button>
             <Button
               name='en'
               size='sm'
-              className={i18n.language == 'en' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'}
-              onClick={() => i18n.changeLanguage('en')}
+              className={
+                props.i18n.language == 'en' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'
+              }
+              onClick={() => props.i18n.changeLanguage('en')}
             >
               EN
             </Button>
@@ -119,7 +109,7 @@ export const UserNavBar = () => {
             onClick={() => openNotificationsList()}
           >
             <div className='col nav-col justify-content-end  align-items-center pe-2'>
-              <h6> {t('notifications')}</h6>
+              <h6> {props.t('notifications')}</h6>
             </div>
             <div className='col nav-col justify-content-end  align-items-center'>
               <h6>
@@ -138,27 +128,27 @@ export const UserNavBar = () => {
                   aria-label='Default select example'
                 >
                   <option value={'DEFAULT'} hidden={true}>
-                    {t('settings')}
+                    {props.t('settings')}
                   </option>
                   <option value='1' onClick={() => navigate('/user/settings')}>
-                    {t('accountSettings')}
+                    {props.t('accountSettings')}
                   </option>
                   <option value='1' onClick={() => navigate('/help')}>
-                    {t('help')}
+                    {props.t('help')}
                   </option>
                   <option value='3' onClick={() => logout()}>
-                    {t('logout')}
+                    {props.t('logout')}
                   </option>
                 </select>
               </div>
               {state.notificationsOffCanvas ? (
-                <NotificationsProvider token={token} page={state.page} i18n={i18n}>
+                <NotificationsProvider token={token} page={state.page} i18n={props.i18n}>
                   <UserNotificationOffCanvas
                     state={state}
                     setState={setState}
-                    t={t}
+                    t={props.t}
                     token={token}
-                    i18n={i18n}
+                    i18n={props.i18n}
                   />
                 </NotificationsProvider>
               ) : null}

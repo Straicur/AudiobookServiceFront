@@ -1,16 +1,15 @@
-import { HandleFetch } from 'Util/HandleFetch';
 import md5 from 'md5';
 import CreateUtil from 'Util/CreateUtil';
 import ValidateUtil from 'Util/ValidateUtil';
 import FormService from 'Service/Common/FormService';
 
 export default class UserRegisterService extends FormService {
-  constructor(formState, setFormState, props, i18n) {
+  constructor(formState, setFormState, props, register) {
     super(props.setState);
     this.formState = formState;
     this.setFormState = setFormState;
     this.props = props;
-    this.i18n = i18n;
+    this.register = register;
   }
 
   handlePasswordChange = (event) => {
@@ -56,7 +55,6 @@ export default class UserRegisterService extends FormService {
       ValidateUtil.validateEmail(this.props.state.email) &&
       ValidateUtil.validatePassword(this.props.state.password)
     ) {
-      const url = '/register';
       const jsonData = {
         email: this.props.state.email,
         phoneNumber: this.props.state.phoneNumber,
@@ -71,21 +69,10 @@ export default class UserRegisterService extends FormService {
         };
       }
 
-      const method = 'PUT';
-
-      HandleFetch(url, method, jsonData, null, this.i18n.language)
-        .then(() => {
-          this.setFormState((prev) => ({
-            ...prev,
-            modal: true,
-          }));
-        })
-        .catch((e) => {
-          this.props.setState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
+      this.register({
+        jsonData: jsonData,
+        setFormState: this.setFormState,
+      });
     }
   };
 }

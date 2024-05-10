@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { HandleFetch } from 'Util/HandleFetch';
 import ValidateUtil from 'Util/ValidateUtil';
 import FormService from 'Service/Common/FormService';
 
@@ -16,30 +15,12 @@ export const UserLoginForgotPasswordModal = (props) => {
 
   const handleSend = async () => {
     if (state.email) {
-      const url = '/user/reset/password';
-      const jsonData = { email: state.email };
-      const method = 'POST';
-
-      HandleFetch(url, method, jsonData, props.i18n.language)
-        .then((data) => {
-          if (data) {
-            setState((prev) => ({
-              ...prev,
-              send: !state.send,
-            }));
-
-            setTimeout(function () {
-              handleClose();
-            }, 3000);
-          }
-        })
-        .catch((e) => {
-          props.setState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-          handleClose();
-        });
+      props.resetPassword({
+        jsonData: { email: state.email },
+        setState: setState,
+        state: state,
+        handleClose: handleClose,
+      });
     }
   };
 

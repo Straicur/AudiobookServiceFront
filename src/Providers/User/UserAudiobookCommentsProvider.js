@@ -134,16 +134,18 @@ export const UserAudiobookCommentsProvider = ({
   }
   const { mutate: likeComment } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(data.url, data.method, data.jsonData, data.props.token, data.props.i18n.language)
-        .then(() => {
-          data.element.target.classList.remove('disabled');
-        })
-        .catch(() => {
-          data.element.target.classList.remove('disabled');
-        });
+      return HandleFetch(
+        data.url,
+        data.method,
+        data.jsonData,
+        data.props.token,
+        data.props.i18n.language,
+      );
     },
     onMutate: (variables) => {
       let copy;
+      variables.element.target.classList.remove('disabled');
+
       if (variables.comment.parentId != null) {
         copy = setChildComment(variables.comment.parentId, variables.comment, variables.bool);
       } else {
@@ -164,7 +166,13 @@ export const UserAudiobookCommentsProvider = ({
 
   const { mutate: editComment } = useMutation({
     mutationFn: (data) => {
-      HandleFetch('/user/audiobook/comment/edit', 'PATCH', data.jsonData, token, i18n.language);
+      return HandleFetch(
+        '/user/audiobook/comment/edit',
+        'PATCH',
+        data.jsonData,
+        token,
+        i18n.language,
+      );
     },
     onSuccess: (data, variables) => {
       data = [];
@@ -187,7 +195,7 @@ export const UserAudiobookCommentsProvider = ({
 
   const { mutate: addComment } = useMutation({
     mutationFn: (data) => {
-      HandleFetch('/user/audiobook/comment/add', 'PUT', data.jsonData, token, i18n.language);
+      return HandleFetch('/user/audiobook/comment/add', 'PUT', data.jsonData, token, i18n.language);
     },
     onSuccess: (data, variables) => {
       data = [];

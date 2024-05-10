@@ -97,12 +97,6 @@ export default function UserSettingsEditUserDataModal(props) {
   }, [state.phoneNumber]);
 
   useLayoutEffect(() => {
-    if (props.state.error != null) {
-      throw props.state.error;
-    }
-  }, [props.state.error]);
-
-  useLayoutEffect(() => {
     setState((prev) => ({
       ...prev,
       phoneNumber: props.userDetail.phoneNumber,

@@ -5,9 +5,13 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import UserForgotView from 'View/User/UserForgot/UserForgotView';
 import DataNotFoundError from 'Errors/Errors/DataNotFoundError';
+import { UserAuthorizeProvider } from 'Providers/User/UserAuthorizeProvider';
+import { useTokenStore } from 'Store/store';
 
 export default function UserForgot() {
   const { t, i18n } = useTranslation();
+
+  const token = useTokenStore((state) => state.token);
 
   const { id } = useParams();
 
@@ -38,14 +42,16 @@ export default function UserForgot() {
         }));
       }}
     >
-      <UserForgotView
-        state={state}
-        setState={setState}
-        id={id}
-        t={t}
-        i18n={i18n}
-        navigate={navigate}
-      />
+      <UserAuthorizeProvider token={token} i18n={i18n}>
+        <UserForgotView
+          state={state}
+          setState={setState}
+          id={id}
+          t={t}
+          i18n={i18n}
+          navigate={navigate}
+        />
+      </UserAuthorizeProvider>
     </ErrorBoundary>
   );
 }

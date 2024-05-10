@@ -1,4 +1,3 @@
-import { HandleFetch } from 'Util/HandleFetch';
 import sha256 from 'crypto-js/sha256';
 import { Buffer } from 'buffer';
 import FormService from 'Service/Common/FormService';
@@ -79,14 +78,11 @@ export default class AdminAudiobookReAddingService extends FormService {
   };
 
   reAddAudiobook = () => {
-    const url = '/admin/audiobook/reAdding';
-    const method = 'PATCH';
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
     const fileName = this.stateModal.title + '_' + this.stateModal.author;
     const hashName = sha256(fileName).toString();
-    const token = this.props.token;
-    const language = this.props.i18n.language;
+
     //todo to jest do rozkminy bo przeszkadza
     // Nie wykonuje się po i nie mogę zmienić stanu
     this.setStateModal((prev) => ({
@@ -125,31 +121,12 @@ export default class AdminAudiobookReAddingService extends FormService {
           this.maxParts.current = part;
           this.currentPart.current = 0;
 
-          HandleFetch(url, method, jsonData, token, language)
-            .then((data) => {
-              if (
-                this.currentPart.current == this.maxParts.current ||
-                Object.keys(data).length !== 0
-              ) {
-                this.setStateModal({
-                  author: '',
-                  title: '',
-                  modal: 3,
-                  fileAdded: true,
-                  isNextButtonDisabled: false,
-                  uploadEnded: false,
-                });
-              }
-
-              this.currentPart.current = this.currentPart.current + 1;
-            })
-            .catch((e) => {
-              console.log(e);
-              // this.props.setAudiobookState((prev) => ({
-              //   ...prev,
-              //   error: e,
-              // }));
-            });
+          this.props.audiobookReAdd({
+            jsonData: jsonData,
+            currentPart: this.currentPart,
+            maxParts: this.maxParts,
+            setStateModal: this.setStateModal,
+          });
         } else {
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
             allparts = allparts + 1;
@@ -179,31 +156,12 @@ export default class AdminAudiobookReAddingService extends FormService {
               },
             };
 
-            HandleFetch(url, method, jsonData, token, language)
-              .then((data) => {
-                if (
-                  this.currentPart.current == this.maxParts.current ||
-                  Object.keys(data).length !== 0
-                ) {
-                  this.setStateModal({
-                    author: '',
-                    title: '',
-                    modal: 3,
-                    fileAdded: true,
-                    isNextButtonDisabled: false,
-                    uploadEnded: false,
-                  });
-                }
-
-                this.currentPart.current = this.currentPart.current + 1;
-              })
-              .catch((e) => {
-                console.log(e);
-                // this.props.setAudiobookState((prev) => ({
-                //   ...prev,
-                //   error: e,
-                // }));
-              });
+            this.props.audiobookReAdd({
+              jsonData: jsonData,
+              currentPart: this.currentPart,
+              maxParts: this.maxParts,
+              setStateModal: this.setStateModal,
+            });
 
             part = part + 1;
           }

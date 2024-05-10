@@ -21,7 +21,7 @@ export const AdminUsersListPrivider = ({
 
   const { mutate: changeUserPassword } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/change/password',
         'PATCH',
         {
@@ -52,7 +52,7 @@ export const AdminUsersListPrivider = ({
 
   const { mutate: changeUserPhone } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/change/phone',
         'PATCH',
         {
@@ -83,7 +83,7 @@ export const AdminUsersListPrivider = ({
 
   const { mutate: activateUser } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/activate',
         'PATCH',
         {
@@ -124,7 +124,7 @@ export const AdminUsersListPrivider = ({
 
   const { mutate: banUser } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/ban',
         'PATCH',
         {
@@ -167,7 +167,7 @@ export const AdminUsersListPrivider = ({
 
   const { mutate: deleteUser } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/delete',
         'DELETE',
         {

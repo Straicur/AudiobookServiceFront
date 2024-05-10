@@ -69,7 +69,9 @@ export const HandleFetch = async (
         error = new ServiceUnaviableError(errJson.error);
         break;
     }
+    //TODO sprawdź czy tu może być jeszcze ten return
+    //return Promise.reject(error);
 
-    return Promise.reject(error);
+    throw error;
   }
 };

@@ -2,12 +2,10 @@ import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
 
 const NewNotificationsContext = createContext(null);
 
-export const NewNotificationsProvider = ({ children, token }) => {
-  const { i18n } = useTranslation();
+export const NewNotificationsProvider = ({ children, token, i18n }) => {
   const qc = useQueryClient();
 
   const setRefetch = () => {

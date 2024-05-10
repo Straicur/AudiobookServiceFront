@@ -9,6 +9,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import UserRegisterService from 'Service/User/UserRegisterService';
 import ValidateUtil from 'Util/ValidateUtil';
 import { UserFooter } from 'View/User/Common/UserFooter';
+import { useUserRegisterData } from 'Providers/User/UserRegisterProvider';
 
 export default function UserRegisterForm(props) {
   const { t, i18n } = useTranslation();
@@ -18,8 +19,8 @@ export default function UserRegisterForm(props) {
   const [formState, setFormState] = useState({
     modal: false,
   });
-
-  const userService = new UserRegisterService(formState, setFormState, props, i18n);
+  const [register] = useUserRegisterData();
+  const userService = new UserRegisterService(formState, setFormState, props, register);
 
   function getPasswordStrenghtText(passStr) {
     switch (passStr) {

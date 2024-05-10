@@ -24,7 +24,7 @@ export const AdminNotificationsProvider = ({
 
   const { mutate: deleteNotification } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/notification/delete',
         'PATCH',
         {
@@ -47,7 +47,7 @@ export const AdminNotificationsProvider = ({
 
   const { mutate: addNotification } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/notification',
         'PUT',
         {
@@ -81,7 +81,7 @@ export const AdminNotificationsProvider = ({
 
   const { mutate: editNotification } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/notification',
         'PATCH',
         {

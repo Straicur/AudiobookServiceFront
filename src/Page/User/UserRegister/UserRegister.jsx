@@ -4,8 +4,12 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import ValidateUtil from 'Util/ValidateUtil';
 import './UserRegister.css';
+import { UserRegisterProvider } from 'Providers/User/UserRegisterProvider';
+import { useTranslation } from 'react-i18next';
 
 export default function Register() {
+  const { i18n } = useTranslation();
+
   const [state, setState] = useState({
     email: '',
     password: '',
@@ -67,7 +71,9 @@ export default function Register() {
         }));
       }}
     >
-      <UserRegisterForm state={state} setState={setState} />
+      <UserRegisterProvider i18n={i18n}>
+        <UserRegisterForm state={state} setState={setState} />
+      </UserRegisterProvider>
     </ErrorBoundary>
   );
 }

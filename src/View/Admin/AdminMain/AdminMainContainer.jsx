@@ -15,7 +15,7 @@ export default function AdminMainContainer(props) {
   return (
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 mb-5 shadow'>
-        <AdminNavBarProviders token={props.token} />
+        <AdminNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
         <div className='p-5'>
           <div className='p-3'>
             <div className='p-3'>

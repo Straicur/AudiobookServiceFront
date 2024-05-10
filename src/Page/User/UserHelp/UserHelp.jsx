@@ -7,7 +7,7 @@ import { useTokenStore } from 'Store/store';
 import './UserHelp.css';
 
 export default function Help() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const token = useTokenStore((state) => state.token);
 
@@ -19,7 +19,7 @@ export default function Help() {
 
       <div className='container-fluid main-container mt-3'>
         <div className='card position-relative p-3 bg-dark shadow'>
-          <UserNavBarPrividers token={token} />
+          <UserNavBarPrividers token={token} t={t} i18n={i18n} />
           <div className='row justify-content-center fs-2 fw-bold text-white mt-4'>
             {t('helpTitle')}
           </div>

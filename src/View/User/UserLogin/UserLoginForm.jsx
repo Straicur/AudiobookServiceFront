@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { UserLoginForgotPasswordModal } from './UserLoginForgotPasswordModal';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import UserLoginService from 'Service/User/UserLoginService';
 import ValidateUtil from 'Util/ValidateUtil';
 import { UserFooter } from 'View/User/Common/UserFooter';
+import { useUserAuthorizeData } from 'Providers/User/UserAuthorizeProvider';
 
 export default function UserLoginForm(props) {
   const [formState, setFormState] = useState({
     modal: false,
   });
 
-  const { t, i18n } = useTranslation();
-
   const navigate = useNavigate();
 
-  const userService = new UserLoginService(formState, setFormState, props, i18n);
+  const login = useUserAuthorizeData()[1];
+  const resetPassword = useUserAuthorizeData()[2];
+  const userService = new UserLoginService(formState, setFormState, props, login);
 
   useEffect(() => {
     if (props.state.error != null) {
@@ -34,18 +34,18 @@ export default function UserLoginForm(props) {
             <div className='card shadow rounded-auth'>
               <div className='card-body p-5 text-center'>
                 <div className='mb-md-1 mt-md-2 pb-1'>
-                  <p className='mb-2 fs-2'>{t('welcome')}</p>
+                  <p className='mb-2 fs-2'>{props.t('welcome')}</p>
                   <div className='row mb-2 justify-content-center'>
                     <div className='col-3 align-self-center'>
                       <Button
                         name='pl'
                         size='sm'
                         className={
-                          i18n.language == 'pl'
+                          props.i18n.language == 'pl'
                             ? 'btn  m-1 admin_button_dark'
                             : 'btn  m-1 admin_button_light'
                         }
-                        onClick={() => i18n.changeLanguage('pl')}
+                        onClick={() => props.i18n.changeLanguage('pl')}
                       >
                         PL
                       </Button>
@@ -53,17 +53,17 @@ export default function UserLoginForm(props) {
                         name='en'
                         size='sm'
                         className={
-                          i18n.language == 'en'
+                          props.i18n.language == 'en'
                             ? 'btn  m-1 admin_button_dark'
                             : 'btn  m-1 admin_button_light'
                         }
-                        onClick={() => i18n.changeLanguage('en')}
+                        onClick={() => props.i18n.changeLanguage('en')}
                       >
                         EN
                       </Button>
                     </div>
                   </div>
-                  <p className='fs-4'>{t('audiobookService')}</p>
+                  <p className='fs-4'>{props.t('audiobookService')}</p>
                   <Form
                     noValidate
                     validated={props.state.validated}
@@ -79,7 +79,7 @@ export default function UserLoginForm(props) {
                           required
                           type='email'
                           name='email'
-                          placeholder={t('insertEmail')}
+                          placeholder={props.t('insertEmail')}
                           value={props.state.email}
                           className='form-control form-control-lg'
                           isValid={
@@ -93,7 +93,7 @@ export default function UserLoginForm(props) {
                           onChange={(event) => userService.handleChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
-                          {t('enterValidEmail')}
+                          {props.t('enterValidEmail')}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
@@ -106,7 +106,7 @@ export default function UserLoginForm(props) {
                           required
                           type='password'
                           name='password'
-                          placeholder={t('insertPassword')}
+                          placeholder={props.t('insertPassword')}
                           value={props.state.password}
                           isValid={props.state.password.length > 1}
                           isInvalid={
@@ -116,7 +116,7 @@ export default function UserLoginForm(props) {
                           onChange={(event) => userService.handleChange(event)}
                         />
                         <Form.Control.Feedback type='invalid'>
-                          {t('enterValidPassword')}
+                          {props.t('enterValidPassword')}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
@@ -128,7 +128,7 @@ export default function UserLoginForm(props) {
                       className=' mt-2 form-control'
                       disabled={props.state.isButtonDisabled}
                     >
-                      {t('login')}
+                      {props.t('login')}
                     </Button>
 
                     <hr className='line mt-4 mb-3' />
@@ -142,13 +142,13 @@ export default function UserLoginForm(props) {
                           }))
                         }
                       >
-                        {t('forgotPassword')}
+                        {props.t('forgotPassword')}
                       </a>
                     </p>
                     <p className='small pb-lg-2 fw-bold mb-0'>
-                      {t('dontHaveAccount')}{' '}
+                      {props.t('dontHaveAccount')}{' '}
                       <a className='link-info' onClick={() => navigate('/register')}>
-                        {t('registerAccount')}
+                        {props.t('registerAccount')}
                       </a>
                     </p>
                   </Form>
@@ -158,10 +158,11 @@ export default function UserLoginForm(props) {
                   <UserLoginForgotPasswordModal
                     formState={formState}
                     setFormState={setFormState}
+                    resetPassword={resetPassword}
                     state={props.state}
                     setState={props.setState}
-                    i18n={i18n}
-                    t={t}
+                    i18n={props.i18n}
+                    t={props.t}
                   />
                 ) : null}
               </div>

@@ -43,6 +43,7 @@ export default function AdminAudiobookCover(props) {
             )
               .then(() => {
                 props.setAudiobookCoverRefetch();
+
                 props.setAudiobookState((prev) => ({
                   ...prev,
                   file: null,
@@ -53,11 +54,6 @@ export default function AdminAudiobookCover(props) {
                 props.setAudiobookState((prev) => ({
                   ...prev,
                   errorCover: e,
-                }));
-
-                props.setAudiobookState((prev) => ({
-                  ...prev,
-                  error: e,
                 }));
               });
           }

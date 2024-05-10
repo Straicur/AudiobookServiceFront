@@ -13,6 +13,29 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
 
   const navigate = useNavigate();
 
+  const { mutate: audiobookReAdd } = useMutation({
+    mutationFn: (data) => {
+      return HandleFetch('/admin/audiobook/reAdding', 'PATCH', data.json, token, i18n.language);
+    },
+    onSuccess: (data, variables) => {
+      if (
+        variables.currentPart.current == this.maxParts.current ||
+        Object.keys(data).length !== 0
+      ) {
+        variables.setStateModal({
+          author: '',
+          title: '',
+          modal: 3,
+          fileAdded: true,
+          isNextButtonDisabled: false,
+          uploadEnded: false,
+        });
+      }
+
+      variables.currentPart.current = variables.currentPart.current + 1;
+    },
+  });
+
   const { mutate: audiobookDataEdit } = useMutation({
     mutationFn: () => {
       let json = {
@@ -30,7 +53,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
         encoded: dataAudiobookAdminData.encoded,
       };
 
-      HandleFetch('/admin/audiobook/edit', 'PATCH', json, token, i18n.language);
+      return HandleFetch('/admin/audiobook/edit', 'PATCH', json, token, i18n.language);
     },
     onSuccess: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
@@ -77,7 +100,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
 
   const { mutate: audiobookDeleteCategory } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/category/remove/audiobook',
         'DELETE',
         {
@@ -102,7 +125,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
   const { mutate: audiobookAddCategory } = useMutation({
     mutationFn: (data) => {
       data.element.stopPropagation();
-      HandleFetch(
+      return HandleFetch(
         '/admin/category/add/audiobook',
         'PUT',
         {
@@ -123,7 +146,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
 
   const { mutate: deleteAudiobook } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/audiobook/delete',
         'DELETE',
         {
@@ -184,6 +207,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
     audiobookDeleteCategory,
     audiobookAddCategory,
     deleteAudiobook,
+    audiobookReAdd,
   ];
 
   return (

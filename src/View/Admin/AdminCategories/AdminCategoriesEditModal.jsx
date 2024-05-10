@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { HandleFetch } from 'Util/HandleFetch';
 import FormService from 'Service/Common/FormService';
 
 export default function AdminCategoriesEditModal(props) {
@@ -42,25 +41,11 @@ export default function AdminCategoriesEditModal(props) {
   };
 
   const deleteCategory = () => {
-    HandleFetch(
-      '/admin/category/remove',
-      'DELETE',
-      {
-        categoryId: props.state.editCategoryElement.id,
-      },
-      props.token,
-      props.i18n.language,
-    )
-      .then(() => {
-        props.refetch();
-        handleClose();
-      })
-      .catch((e) => {
-        props.setCategoriesState((prev) => ({
-          ...prev,
-          error: e,
-        }));
-      });
+    props.categoryDelete({
+      categoryId: props.state.editCategoryElement.id,
+    });
+
+    handleClose();
   };
 
   useEffect(() => {

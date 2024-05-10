@@ -13,7 +13,7 @@ export const NotificationsProvider = ({ children, token, page, i18n }) => {
 
   const { mutate } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/notification/activate',
         'PUT',
         {

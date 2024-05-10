@@ -106,12 +106,6 @@ export default function UserSettingsEditPasswordModal(props) {
     }
   }, [state.newConfirmPassword]);
 
-  useLayoutEffect(() => {
-    if (props.state.error != null) {
-      throw props.state.error;
-    }
-  }, [props.state.error]);
-
   return (
     <Modal
       size='lg'

@@ -17,7 +17,7 @@ export default function AdminCategoriesList(props) {
     error: null,
   });
 
-  const [categoriesData, refetch, categoryChange, categoryActivate, categoryAdd] =
+  const [categoriesData, refetch, categoryChange, categoryActivate, categoryAdd, categoryDelete] =
     useAdminCategoriesTree();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function AdminCategoriesList(props) {
   return (
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 mb-5  shadow'>
-        <AdminNavBarProviders token={props.token} />
+        <AdminNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
         <hr className='line' />
         <div className='table-title my-2'>
           <h1>{props.t('categories')}</h1>
@@ -85,6 +85,7 @@ export default function AdminCategoriesList(props) {
               refetch={refetch}
               categoryChange={categoryChange}
               categoryActivate={categoryActivate}
+              categoryDelete={categoryDelete}
               setCategoriesState={props.setCategoriesState}
               t={props.t}
               i18n={props.i18n}

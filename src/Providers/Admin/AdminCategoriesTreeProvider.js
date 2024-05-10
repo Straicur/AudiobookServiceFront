@@ -93,6 +93,30 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
     },
   });
 
+  const { mutate: categoryDelete } = useMutation({
+    mutationFn: (data) => {
+      return HandleFetch(
+        '/admin/category/remove',
+        'DELETE',
+        {
+          categoryId: data.categoryId,
+        },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: () => {
+      qc.invalidateQueries(['dataAdminCategoriesList']);
+      qc.invalidateQueries(['dataAdminCategoriesTree']);
+    },
+    onError: (e) => {
+      setState((prev) => ({
+        ...prev,
+        error: e,
+      }));
+    },
+  });
+
   const setRefetch = () => {
     qc.invalidateQueries(['dataAdminCategoriesTree']);
   };
@@ -117,6 +141,7 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
     categoryChange,
     categoryActivate,
     categoryAdd,
+    categoryDelete,
   ];
 
   return (

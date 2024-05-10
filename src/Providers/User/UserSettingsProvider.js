@@ -19,7 +19,7 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
 
   const { mutate: userDelete } = useMutation({
     mutationFn: () => {
-      HandleFetch('/user/settings/delete', 'PATCH', null, token, i18n.language);
+      return HandleFetch('/user/settings/delete', 'PATCH', null, token, i18n.language);
     },
     onSuccess: () => {
       tokenStore.removeToken();
@@ -35,7 +35,7 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
 
   const { mutate: userPasswordChange } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/user/settings/password',
         'PATCH',
         {
@@ -65,7 +65,7 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
 
   const { mutate: userEmailChange } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/user/settings/email',
         'POST',
         {
@@ -107,7 +107,7 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
 
   const { mutate: userDataChange } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/user/settings/change',
         'PATCH',
         {
@@ -140,12 +140,7 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
       const copy = Object.assign(json, data);
       qc.setQueryData(['dataUserSettings'], copy);
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { data: dataUserSettings = null, isLoading } = useQuery({

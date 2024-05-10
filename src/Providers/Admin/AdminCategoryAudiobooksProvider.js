@@ -16,9 +16,36 @@ export const AdminCategoryAudiobooksProvider = ({
 }) => {
   const qc = useQueryClient();
 
+  const { mutate: addAudiobook } = useMutation({
+    mutationFn: (data) => {
+      return HandleFetch('/admin/audiobook/add', 'PUT', data.json, token, i18n.language);
+    },
+    onSuccess: (data, variables) => {
+      if (
+        variables.currentPart.current == this.maxParts.current ||
+        Object.keys(data).length !== 0
+      ) {
+        variables.setStateModal({
+          author: '',
+          title: '',
+          modal: 3,
+          fileAdded: true,
+          isNextButtonDisabled: false,
+          uploadEnded: false,
+        });
+      }
+
+      if (variables.part !== null) {
+        variables.maxParts.current = variables.part;
+      }
+
+      variables.currentPart.current = variables.currentPart.current + 1;
+    },
+  });
+
   const { mutate: activate } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/audiobook/active',
         'PATCH',
         {
@@ -71,7 +98,7 @@ export const AdminCategoryAudiobooksProvider = ({
 
   const { mutate: deleteAudiobookFromCategory } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/category/remove/audiobook',
         'DELETE',
         {
@@ -112,7 +139,7 @@ export const AdminCategoryAudiobooksProvider = ({
 
   const { mutate: deleteAudiobook } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/audiobook/delete',
         'DELETE',
         {
@@ -188,6 +215,7 @@ export const AdminCategoryAudiobooksProvider = ({
     activate,
     deleteAudiobook,
     deleteAudiobookFromCategory,
+    addAudiobook,
   ];
 
   return (

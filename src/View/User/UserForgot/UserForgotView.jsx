@@ -1,14 +1,16 @@
 import React, { useLayoutEffect } from 'react';
-import { HandleFetch } from 'Util/HandleFetch';
 import md5 from 'md5';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import ValidateUtil from 'Util/ValidateUtil';
 import FormService from 'Service/Common/FormService';
+import { useUserAuthorizeData } from 'Providers/User/UserAuthorizeProvider';
 
 export default function UserForgotView(props) {
   const userService = new FormService(props.setState);
+
+  const resetPasswordConfirm = useUserAuthorizeData()[3];
 
   function getPasswordStrenghtText(t, passStr) {
     switch (passStr) {
@@ -42,25 +44,14 @@ export default function UserForgotView(props) {
       ValidateUtil.validatePassword(props.state.confirmPassword) &&
       props.state.password == props.state.confirmPassword
     ) {
-      const url = '/user/reset/password/confirm';
       const jsonData = {
         userId: props.id,
         password: md5(props.state.password),
       };
-      const method = 'PATCH';
 
-      HandleFetch(url, method, jsonData, props.i18n.language)
-        .then((data) => {
-          if (data) {
-            props.navigate('/login');
-          }
-        })
-        .catch((e) => {
-          props.setState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
+      resetPasswordConfirm({
+        jsonData: jsonData,
+      });
     } else {
       props.setState((prev) => ({
         ...prev,

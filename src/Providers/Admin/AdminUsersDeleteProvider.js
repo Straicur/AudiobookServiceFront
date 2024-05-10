@@ -11,7 +11,7 @@ export const AdminUsersDeleteProvider = ({ children, page, token, setState, i18n
 
   const { mutate: declineDeleteUser } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/delete/decline',
         'PATCH',
         {
@@ -36,7 +36,7 @@ export const AdminUsersDeleteProvider = ({ children, page, token, setState, i18n
 
   const { mutate: deleteUser } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/delete/accept',
         'PATCH',
         {

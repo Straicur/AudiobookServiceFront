@@ -8,7 +8,7 @@ const AdminSystemRolesContext = createContext(null);
 export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) => {
   const { mutate: addUserRole } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/role/add',
         'PATCH',
         {
@@ -52,7 +52,7 @@ export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) =>
 
   const { mutate: removeUserRole } = useMutation({
     mutationFn: (data) => {
-      HandleFetch(
+      return HandleFetch(
         '/admin/user/role/remove',
         'PATCH',
         {

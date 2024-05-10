@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { HandleFetch } from 'Util/HandleFetch';
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
 
@@ -47,26 +46,6 @@ export default function GetCategoriesList(props) {
       </tr>
     );
   };
-
-  useEffect(() => {
-    if (!props.categoriesState.fetched) {
-      HandleFetch('/admin/categories', 'GET', null, props.token, props.i18n.language)
-        .then((data) => {
-          props.setCategoriesState((prev) => ({
-            ...prev,
-            categories: data.categories,
-            fetch: !props.categoriesState.fetch,
-            fetched: !props.categoriesState.fetched,
-          }));
-        })
-        .catch((e) => {
-          props.setNotificationsState((prev) => ({
-            ...prev,
-            error: e,
-          }));
-        });
-    }
-  }, [props]);
 
   return (
     <table className='table'>

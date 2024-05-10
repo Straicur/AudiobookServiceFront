@@ -27,7 +27,7 @@ export default function AdminAudiobooksList(props) {
     error: null,
   });
 
-  const [audiobooks, refetch, activate, forceRefetch] = useAdminAudiobooksData();
+  const [audiobooks, refetch, activate, forceRefetch, addAudiobook] = useAdminAudiobooksData();
   const [categories] = useAdminCategoriesListData();
 
   useLayoutEffect(() => {
@@ -63,7 +63,7 @@ export default function AdminAudiobooksList(props) {
   return (
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 mb-5  shadow'>
-        <AdminNavBarProviders token={props.token} />
+        <AdminNavBarProviders token={props.token} t={t} i18n={i18n} />
         <hr className='line' />
         <div className='table-title my-2'>
           <div className='d-flex justify-content-end '>
@@ -146,6 +146,7 @@ export default function AdminAudiobooksList(props) {
             audiobooksState={props.audiobooksState}
             setAudiobooksState={props.setAudiobooksState}
             categories={categories}
+            addAudiobook={addAudiobook}
             refetch={refetch}
             t={t}
             i18n={i18n}

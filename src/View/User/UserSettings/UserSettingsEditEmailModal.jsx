@@ -78,12 +78,6 @@ export default function UserSettingsEditEmailModal(props) {
     }
   }, [state.newEmail]);
 
-  useLayoutEffect(() => {
-    if (props.state.error != null) {
-      throw props.state.error;
-    }
-  }, [props.state.error]);
-
   return (
     <Modal size='lg' show={props.state.buttonEmail} onHide={handleClose} backdrop='static' centered>
       <Modal.Body

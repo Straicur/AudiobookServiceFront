@@ -4,10 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import UserLoginForm from 'View/User/UserLogin/UserLoginForm';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
+import { useTranslation } from 'react-i18next';
+import { UserAuthorizeProvider } from 'Providers/User/UserAuthorizeProvider';
 import './UserLogin.css';
 
 export default function UserLogin() {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const token = useTokenStore((state) => state.token);
 
   const [state, setState] = useState({
@@ -50,7 +53,9 @@ export default function UserLogin() {
         }));
       }}
     >
-      <UserLoginForm state={state} setState={setState} />
+      <UserAuthorizeProvider token={token} i18n={i18n}>
+        <UserLoginForm state={state} setState={setState} t={t} i18n={i18n} />
+      </UserAuthorizeProvider>
     </ErrorBoundary>
   );
 }
