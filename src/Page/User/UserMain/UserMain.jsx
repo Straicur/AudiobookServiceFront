@@ -29,7 +29,6 @@ export default function Main() {
     searching: false,
     wasSearch: false,
     searchText: '',
-    error: null,
   });
 
   return (
@@ -41,7 +40,6 @@ export default function Main() {
           detailModal: false,
           detailModalAudiobook: null,
           detailModalCover: null,
-          error: null,
         }));
       }}
     >

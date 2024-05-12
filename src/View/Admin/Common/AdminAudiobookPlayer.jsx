@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
@@ -34,7 +34,7 @@ export default function AdminAudiobookPlayer(props) {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (player.current && timeAudio.current) {
       player.current.audio.current.currentTime = timeAudio.current;
     }

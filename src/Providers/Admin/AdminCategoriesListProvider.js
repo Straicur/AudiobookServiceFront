@@ -4,19 +4,14 @@ import { HandleFetch } from 'Util/HandleFetch';
 
 const AdminCategoriesListContext = createContext(null);
 
-export const AdminCategoriesListProvider = ({ children, token, setState, i18n }) => {
+export const AdminCategoriesListProvider = ({ children, token, i18n }) => {
   const { data: dataAdminCategoriesList = null } = useQuery({
     queryKey: ['dataAdminCategoriesList'],
     queryFn: () => HandleFetch('/admin/categories', 'GET', null, token, i18n.language),
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAdminCategoriesList];

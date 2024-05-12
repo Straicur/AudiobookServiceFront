@@ -11,7 +11,6 @@ export const UserAudiobookDetailProvider = ({
   token,
   audiobookId,
   categoryKey,
-  setState,
   i18n,
 }) => {
   const qc = useQueryClient();
@@ -31,8 +30,6 @@ export const UserAudiobookDetailProvider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.setUserRate(false);
       variables.setSure(false);
 
@@ -40,11 +37,8 @@ export const UserAudiobookDetailProvider = ({
     },
     onError: (e, variables) => {
       variables.doubleClickRating();
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: addToMyList } = useMutation({
@@ -61,8 +55,6 @@ export const UserAudiobookDetailProvider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       let json = {
         id: dataAudiobookUserDetail.id,
         title: dataAudiobookUserDetail.title,
@@ -97,14 +89,10 @@ export const UserAudiobookDetailProvider = ({
 
       variables.element.target.classList.remove('disabled');
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAudiobookUserDetail' + audiobookId]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const setRefetch = () => {
@@ -128,12 +116,7 @@ export const UserAudiobookDetailProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAudiobookUserDetail, addToMyList, addAudiobookRating, setRefetch];

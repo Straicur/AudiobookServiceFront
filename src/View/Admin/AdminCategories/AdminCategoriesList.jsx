@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import Button from 'react-bootstrap/Button';
 import AdminCategoriesRenderList from './AdminCategoriesRenderList';
@@ -14,17 +14,10 @@ export default function AdminCategoriesList(props) {
     addCategoryParent: null,
     editCategoryModal: false,
     editCategoryElement: null,
-    error: null,
   });
 
   const [categoriesData, refetch, categoryChange, categoryActivate, categoryAdd, categoryDelete] =
     useAdminCategoriesTree();
-
-  useEffect(() => {
-    if (props.categoriesState.error != null) {
-      throw props.categoriesState.error;
-    }
-  }, [props.categoriesState.error]);
 
   return (
     <div className='container-fluid main-container mt-3'>

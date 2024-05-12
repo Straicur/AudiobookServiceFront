@@ -19,7 +19,6 @@ export default function AdminNotifications() {
   const [notificationsState, setNotificationsState] = useState({
     page: 0,
     refresh: false,
-    error: null,
   });
 
   const [notificationsUsersState, setNotificationsUsersState] = useState({
@@ -42,21 +41,20 @@ export default function AdminNotifications() {
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
-      onReset={() => {
-        setNotificationsState((prev) => ({
-          ...prev,
-          error: null,
-        }));
-      }}
+      // onReset={() => {
+      //   setNotificationsState((prev) => ({
+      //     ...prev,
+      //     error: null,
+      //   }));
+      // }}
     >
       <AdminNotificationsProvider
         token={token}
         page={notificationsState.page}
         searchState={searchState}
-        setState={setNotificationsState}
         i18n={i18n}
       >
-        <AdminSystemRolesProvider token={token} setState={setNotificationsState} i18n={i18n}>
+        <AdminSystemRolesProvider token={token} i18n={i18n}>
           <AdminUsersListPrivider
             token={token}
             page={notificationsUsersState.page}
@@ -69,7 +67,6 @@ export default function AdminNotifications() {
               banned: null,
               order: 1,
             }}
-            setState={setNotificationsState}
             i18n={i18n}
             limit={25}
           >
@@ -87,15 +84,10 @@ export default function AdminNotifications() {
                 year: 0,
                 duration: 0,
               }}
-              setState={setNotificationsState}
               i18n={i18n}
               limit={25}
             >
-              <AdminCategoriesListProvider
-                token={token}
-                setState={setNotificationsState}
-                i18n={i18n}
-              >
+              <AdminCategoriesListProvider token={token} i18n={i18n}>
                 <AdminNotificationsList
                   notificationsState={notificationsState}
                   setNotificationsState={setNotificationsState}

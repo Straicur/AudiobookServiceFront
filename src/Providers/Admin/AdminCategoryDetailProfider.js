@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const AdminCategoryDetailContext = createContext(null);
 
-export const AdminCategoryDetailProfider = ({ children, categoryKey, setState, token, i18n }) => {
+export const AdminCategoryDetailProfider = ({ children, categoryKey, token, i18n }) => {
   const qc = useQueryClient();
 
   const setRefetch = () => {
@@ -27,12 +27,7 @@ export const AdminCategoryDetailProfider = ({ children, categoryKey, setState, t
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAdminCategoryDetail, setRefetch];

@@ -1,16 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import Card from 'react-bootstrap/Card';
 import { useAdminMainData } from 'Providers/Admin/AdminMainDataPrivider';
 
 export default function AdminMainContainer(props) {
   const [dataAdminStatistics] = useAdminMainData();
-
-  useEffect(() => {
-    if (props.infoState.error != null) {
-      throw props.infoState.error;
-    }
-  }, [props.infoState.error]);
 
   return (
     <div className='container-fluid main-container mt-3'>

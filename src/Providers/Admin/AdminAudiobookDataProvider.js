@@ -8,10 +8,74 @@ import { useNavigate } from 'react-router-dom';
 
 const AdminAudiobookDataContext = createContext(null);
 
-export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setState, i18n }) => {
+export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n }) => {
   const qc = useQueryClient();
 
   const navigate = useNavigate();
+
+  const { mutate: changeAudiobookCover } = useMutation({
+    mutationFn: (data) => {
+      return HandleFetch(
+        '/admin/audiobook/change/cover',
+        'PATCH',
+        data.jsonData,
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      variables.setAudiobookCoverRefetch();
+
+      variables.setState((prev) => ({
+        ...prev,
+        file: null,
+        errorCover: '',
+      }));
+    },
+    onError: (error, variables) => {
+      variables.setState((prev) => ({
+        ...prev,
+        errorCover: error.message,
+      }));
+
+      if (variables.props.handleClose !== null) {
+        variables.props.handleClose();
+      }
+    },
+    throwOnError: true,
+  });
+
+  const { mutate: getAudiobookZip } = useMutation({
+    mutationFn: (data) => {
+      return HandleFetch(
+        '/admin/audiobook/zip',
+        'POST',
+        { audiobookId: data.audiobookId },
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      const url = window.URL.createObjectURL(new Blob([data]));
+
+      const link = document.createElement('a');
+
+      link.href = url;
+
+      link.setAttribute('download', variables.props.audiobookDetail.title + '.zip');
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.parentNode.removeChild(link);
+    },
+    onError: (error, variables) => {
+      error = [];
+      variables.props.handleClose();
+    },
+    throwOnError: true,
+  });
 
   const { mutate: audiobookReAdd } = useMutation({
     mutationFn: (data) => {
@@ -58,12 +122,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
     onSuccess: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: audiobookDataChange } = useMutation({
@@ -90,12 +149,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
       const copy = Object.assign(json, data);
       qc.setQueryData(['dataAudiobookAdminData' + audiobookId], copy);
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: audiobookDeleteCategory } = useMutation({
@@ -114,12 +168,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
     onSuccess: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: audiobookAddCategory } = useMutation({
@@ -136,12 +185,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
         i18n.language,
       );
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: deleteAudiobook } = useMutation({
@@ -162,19 +206,11 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
       qc.invalidateQueries(['dataAdminAudiobooks']);
       navigate(`/admin/audiobooks`);
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
-
-  // const setRefetch = () => {
-  //   qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
-  // };
 
   const { data: dataAudiobookAdminData, refetch } = useQuery({
     queryKey: ['dataAudiobookAdminData' + audiobookId],
@@ -191,12 +227,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [
@@ -208,6 +239,8 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, setSt
     audiobookAddCategory,
     deleteAudiobook,
     audiobookReAdd,
+    getAudiobookZip,
+    changeAudiobookCover,
   ];
 
   return (

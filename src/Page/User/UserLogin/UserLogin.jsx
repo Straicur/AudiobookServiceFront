@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import UserLoginForm from 'View/User/UserLogin/UserLoginForm';
@@ -18,10 +18,9 @@ export default function UserLogin() {
     password: '',
     validated: false,
     isButtonDisabled: true,
-    error: null,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (token != '') {
       navigate('/main');
     }
@@ -49,7 +48,6 @@ export default function UserLogin() {
           ...prev,
           isButtonDisabled: true,
           validated: false,
-          error: null,
         }));
       }}
     >

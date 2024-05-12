@@ -16,7 +16,6 @@ export default function AdminAudiobooks() {
   const [audiobooksState, setAudiobooksState] = useState({
     page: 0,
     refresh: false,
-    error: null,
   });
 
   const [searchState, setSearchState] = useState({
@@ -34,21 +33,20 @@ export default function AdminAudiobooks() {
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
-      onReset={() => {
-        setAudiobooksState((prev) => ({
-          ...prev,
-          error: null,
-        }));
-      }}
+      // onReset={() => {
+      //   setAudiobooksState((prev) => ({
+      //     ...prev,
+      //     error: null,
+      //   }));
+      // }}
     >
       <AdminAudiobooksProvider
         token={token}
         page={audiobooksState.page}
         searchState={searchState}
-        setState={setAudiobooksState}
         i18n={i18n}
       >
-        <AdminCategoriesListProvider token={token} setState={setAudiobooksState} i18n={i18n}>
+        <AdminCategoriesListProvider token={token} i18n={i18n}>
           <AdminAudiobooksList
             audiobooksState={audiobooksState}
             setAudiobooksState={setAudiobooksState}

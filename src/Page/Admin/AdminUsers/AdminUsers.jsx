@@ -16,7 +16,6 @@ export default function AdminUsers() {
   const [usersState, setUsersState] = useState({
     page: 0,
     refresh: false,
-    error: null,
   });
 
   const [searchState, setSearchState] = useState({
@@ -32,21 +31,20 @@ export default function AdminUsers() {
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
-      onReset={() => {
-        setUsersState((prev) => ({
-          ...prev,
-          error: null,
-        }));
-      }}
+      // onReset={() => {
+      //   setUsersState((prev) => ({
+      //     ...prev,
+      //     error: null,
+      //   }));
+      // }}
     >
       <AdminUsersListPrivider
         token={token}
         page={usersState.page}
         searchState={searchState}
-        setState={setUsersState}
         i18n={i18n}
       >
-        <AdminSystemRolesProvider token={token} setState={setUsersState} i18n={i18n}>
+        <AdminSystemRolesProvider token={token} i18n={i18n}>
           <AdminUsersList
             usersState={usersState}
             setUsersState={setUsersState}

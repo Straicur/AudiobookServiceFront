@@ -20,7 +20,6 @@ export default function MyList() {
     detailModalAudiobook: null,
     detailModalCover: null,
     detailModalCategory: null,
-    error: null,
   });
 
   return (
@@ -32,7 +31,6 @@ export default function MyList() {
           detailModal: false,
           detailModalAudiobook: null,
           detailModalCover: null,
-          error: null,
         }));
       }}
     >

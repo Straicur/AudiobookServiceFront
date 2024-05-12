@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { UserAudiobookDetailProvider } from 'Providers/User/UserAudiobookDetailProvider';
 import { UserAudiobookPartProvider } from 'Providers/User/UserAudiobookPartProvider';
 import { UserAudiobookRatingProvider } from 'Providers/User/UserAudiobookRatingProvider';
@@ -14,17 +14,10 @@ export default function UserMyListAudiobookDetailProviders(props) {
     myListChanged: false,
   });
 
-  useEffect(() => {
-    if (props.state.error != null) {
-      throw props.state.error;
-    }
-  }, [props.state.error]);
-
   return (
     <div>
       <UserAudiobookInfoProvider
         state={props.state}
-        setState={props.setState}
         token={props.token}
         audiobookId={props.state.detailModalAudiobook.id}
         categoryKey={props.state.detailModalCategory.categoryKey}
@@ -32,7 +25,6 @@ export default function UserMyListAudiobookDetailProviders(props) {
       >
         <UserAudiobookDetailProvider
           state={props.state}
-          setState={props.setState}
           token={props.token}
           audiobookId={props.state.detailModalAudiobook.id}
           categoryKey={props.state.detailModalCategory.categoryKey}
@@ -40,7 +32,6 @@ export default function UserMyListAudiobookDetailProviders(props) {
         >
           <UserAudiobookPartProvider
             state={props.state}
-            setState={props.setState}
             token={props.token}
             audiobookId={props.state.detailModalAudiobook.id}
             part={audiobookState.part}
@@ -50,7 +41,6 @@ export default function UserMyListAudiobookDetailProviders(props) {
           >
             <UserAudiobookRatingProvider
               state={props.state}
-              setState={props.setState}
               token={props.token}
               audiobookId={props.state.detailModalAudiobook.id}
               categoryKey={props.state.detailModalCategory.categoryKey}
@@ -58,7 +48,6 @@ export default function UserMyListAudiobookDetailProviders(props) {
             >
               <UserAudiobookCommentsProvider
                 state={props.state}
-                setState={props.setState}
                 token={props.token}
                 audiobookId={props.state.detailModalAudiobook.id}
                 categoryKey={props.state.detailModalCategory.categoryKey}

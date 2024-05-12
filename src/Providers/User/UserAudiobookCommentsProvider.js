@@ -11,7 +11,6 @@ export const UserAudiobookCommentsProvider = ({
   token,
   audiobookId,
   categoryKey,
-  setState,
   i18n,
 }) => {
   const qc = useQueryClient();
@@ -154,14 +153,10 @@ export const UserAudiobookCommentsProvider = ({
 
       qc.setQueryData(['dataAudiobookUserComments' + audiobookId], { comments: copy });
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: editComment } = useMutation({
@@ -175,8 +170,6 @@ export const UserAudiobookCommentsProvider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.element.target.classList.remove('disabled');
       variables.decline();
 
@@ -185,12 +178,8 @@ export const UserAudiobookCommentsProvider = ({
     onError: (e, variables) => {
       variables.element.target.classList.remove('disabled');
       qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: addComment } = useMutation({
@@ -198,8 +187,6 @@ export const UserAudiobookCommentsProvider = ({
       return HandleFetch('/user/audiobook/comment/add', 'PUT', data.jsonData, token, i18n.language);
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.element.target.classList.remove('disabled');
       variables.decline();
 
@@ -209,12 +196,8 @@ export const UserAudiobookCommentsProvider = ({
     onError: (e, variables) => {
       variables.element.target.classList.remove('disabled');
       qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const setRefetch = () => {
@@ -238,12 +221,7 @@ export const UserAudiobookCommentsProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAudiobookUserComments, setRefetch, likeComment, addComment, editComment];

@@ -9,7 +9,7 @@ export default function AdminCategoriesEditModal(props) {
   const [editModal, setEditModal] = useState({
     edit: 1,
     newName: '',
-    error: 0,
+    // error: 0,
   });
 
   const adminService = new FormService(setEditModal);

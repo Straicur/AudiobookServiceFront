@@ -10,7 +10,6 @@ export const UserAudiobookRatingProvider = ({
   token,
   audiobookId,
   categoryKey,
-  setState,
   i18n,
 }) => {
   const qc = useQueryClient();
@@ -46,12 +45,7 @@ export const UserAudiobookRatingProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAudiobookUserRating, setAudiobookRating, setRefetch];

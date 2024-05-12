@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useAdminAudiobookData } from 'Providers/Admin/AdminAudiobookDataProvider';
 import { useAudiobookPart } from 'Providers/Admin/AdminAudiobookPartProvider';
 import { useAdminAudiobookComments } from 'Providers/Admin/AdminAudiobookCommentsProvider';
@@ -29,6 +29,8 @@ export default function AdminAudiobookDetail(props) {
     audiobookAddCategory,
     deleteAudiobook,
     audiobookReAdd,
+    getAudiobookZip,
+    changeAudiobookCover,
   ] = useAdminAudiobookData();
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
   const [categoriesTree] = useAdminCategoriesTree();
@@ -62,7 +64,7 @@ export default function AdminAudiobookDetail(props) {
     return stars;
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.audiobookState.refresh) {
       setTimeout(function () {
         setAudiobookDetailRefetch();
@@ -85,6 +87,7 @@ export default function AdminAudiobookDetail(props) {
               t={props.t}
               setAudiobookCoverRefetch={setAudiobookDetailRefetch}
               audiobookDetail={audiobookDetail}
+              changeAudiobookCover={changeAudiobookCover}
               token={props.token}
               i18n={props.i18n}
             />
@@ -203,6 +206,7 @@ export default function AdminAudiobookDetail(props) {
                 state={props.audiobookState}
                 setState={props.setAudiobookState}
                 handleClose={null}
+                getAudiobookZip={getAudiobookZip}
                 cssData={'primary_button'}
                 t={props.t}
                 i18n={props.i18n}

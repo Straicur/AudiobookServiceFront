@@ -18,31 +18,23 @@ export default function AdminCategory() {
 
   const [audiobooksState, setAudiobooksState] = useState({
     page: 0,
-    errorCover: '',
-    error: null,
   });
 
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
-      onReset={() => {
-        setAudiobooksState((prev) => ({
-          ...prev,
-          error: null,
-        }));
-      }}
+      // onReset={() => {
+      //   setAudiobooksState((prev) => ({
+      //     ...prev,
+      //     error: null,
+      //   }));
+      // }}
     >
-      <AdminCategoryDetailProfider
-        categoryKey={categoryKey}
-        token={token}
-        setState={setAudiobooksState}
-        i18n={i18n}
-      >
+      <AdminCategoryDetailProfider categoryKey={categoryKey} token={token} i18n={i18n}>
         <AdminCategoryAudiobooksProvider
           categoryKey={categoryKey}
           page={audiobooksState.page}
           token={token}
-          setState={setAudiobooksState}
           i18n={i18n}
         >
           <AdminCategoryAudiobooksList

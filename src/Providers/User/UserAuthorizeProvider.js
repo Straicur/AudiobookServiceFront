@@ -27,6 +27,7 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
       tokenStore.setToken(data);
       navigate('/login');
     },
+    throwOnError: true,
   });
 
   const { mutate: logout } = useMutation({
@@ -37,6 +38,7 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
       tokenStore.removeToken();
       navigate('/login');
     },
+    throwOnError: true,
   });
 
   const { mutate: resetPassword } = useMutation({
@@ -44,8 +46,6 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
       return HandleFetch('/user/reset/password', 'POST', data.jsonData, null, i18n.language);
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.setState((prev) => ({
         ...prev,
         send: !variables.state.send,
@@ -70,6 +70,7 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
     onSuccess: () => {
       navigate('/login');
     },
+    throwOnError: true,
   });
 
   const value = [logout, login, resetPassword, resetPasswordConfirm];

@@ -24,13 +24,12 @@ export default function AdminAudiobooksList(props) {
     searchModal: false,
     addAudiobook: false,
     addAudiobookSeconds: 3000,
-    error: null,
   });
 
   const [audiobooks, refetch, activate, forceRefetch, addAudiobook] = useAdminAudiobooksData();
   const [categories] = useAdminCategoriesListData();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state.addAudiobook) {
       setState((prev) => ({
         ...prev,
@@ -53,12 +52,6 @@ export default function AdminAudiobooksList(props) {
       }));
     }
   }, [props.audiobooksState.refresh]);
-
-  useEffect(() => {
-    if (props.audiobooksState.error != null) {
-      throw props.audiobooksState.error;
-    }
-  }, [props.audiobooksState.error]);
 
   return (
     <div className='container-fluid main-container mt-3'>
@@ -171,7 +164,6 @@ export default function AdminAudiobooksList(props) {
         ) : null}
         {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (
           <AdminAudiobookCommentsProvider
-            setState={props.setAudiobooksState}
             token={props.token}
             audiobookId={state.detailAudiobookElement.id}
             t={props.t}

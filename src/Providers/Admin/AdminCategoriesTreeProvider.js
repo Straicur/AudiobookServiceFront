@@ -7,7 +7,7 @@ import ArrayUtil from 'Util/ArrayUtil';
 
 const AdminCategoriesTreeContext = createContext(null);
 
-export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n }) => {
+export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
   const qc = useQueryClient();
 
   const { mutate: categoryChange } = useMutation({
@@ -24,19 +24,12 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       let copy = dataAdminCategoriesTree.categories;
       copy[ArrayUtil.findIndexById(copy, variables.id)].name = variables.newName;
 
       qc.setQueryData(['dataAdminCategoriesTree'], { categories: copy });
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: categoryActivate } = useMutation({
@@ -53,19 +46,12 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       let copy = dataAdminCategoriesTree.categories;
       copy[ArrayUtil.findIndexById(copy, variables.id)].active = variables.active;
 
       qc.setQueryData(['dataAdminCategoriesTree'], { categories: copy });
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: categoryAdd } = useMutation({
@@ -85,12 +71,7 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
       qc.invalidateQueries(['dataAdminCategoriesList']);
       qc.invalidateQueries(['dataAdminCategoriesTree']);
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: categoryDelete } = useMutation({
@@ -109,12 +90,7 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
       qc.invalidateQueries(['dataAdminCategoriesList']);
       qc.invalidateQueries(['dataAdminCategoriesTree']);
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const setRefetch = () => {
@@ -127,12 +103,7 @@ export const AdminCategoriesTreeProvider = ({ children, token, setState, i18n })
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [

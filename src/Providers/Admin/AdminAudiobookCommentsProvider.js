@@ -6,13 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 
 const AdminAudiobookCommentsContext = createContext(null);
 
-export const AdminAudiobookCommentsProvider = ({
-  children,
-  token,
-  audiobookId,
-  setState,
-  i18n,
-}) => {
+export const AdminAudiobookCommentsProvider = ({ children, token, audiobookId, i18n }) => {
   const qc = useQueryClient();
 
   const setRefetch = () => {
@@ -32,8 +26,6 @@ export const AdminAudiobookCommentsProvider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       let copy = dataAudiobookAdminComments.comments.map((comment) => {
         if (comment.id == variables.id) {
           return {
@@ -58,14 +50,10 @@ export const AdminAudiobookCommentsProvider = ({
         comments: copy,
       });
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAudiobookAdminComments']);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { data: dataAudiobookAdminComments = null } = useQuery({
@@ -83,12 +71,7 @@ export const AdminAudiobookCommentsProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAudiobookAdminComments, setRefetch, deleteComment];

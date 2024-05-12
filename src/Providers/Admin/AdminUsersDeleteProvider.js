@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 
 const AdminUsersDeleteContext = createContext(null);
 
-export const AdminUsersDeleteProvider = ({ children, page, token, setState, i18n }) => {
+export const AdminUsersDeleteProvider = ({ children, page, token, i18n }) => {
   const qc = useQueryClient();
 
   const { mutate: declineDeleteUser } = useMutation({
@@ -24,14 +24,10 @@ export const AdminUsersDeleteProvider = ({ children, page, token, setState, i18n
     onSuccess: () => {
       qc.invalidateQueries(['dataAdminUsersDelete']);
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminUsersDelete']);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: deleteUser } = useMutation({
@@ -49,14 +45,10 @@ export const AdminUsersDeleteProvider = ({ children, page, token, setState, i18n
     onSuccess: () => {
       qc.invalidateQueries(['dataAdminUsersDelete']);
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminUsersDelete']);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { data: dataAdminUsersDelete = null } = useQuery({
@@ -75,12 +67,7 @@ export const AdminUsersDeleteProvider = ({ children, page, token, setState, i18n
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAdminUsersDelete, deleteUser, declineDeleteUser];

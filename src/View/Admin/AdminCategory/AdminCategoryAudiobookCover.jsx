@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { HandleFetch } from 'Util/HandleFetch';
 import { Buffer } from 'buffer';
 
 export default function AdminCategoryAudiobookCover(props) {
@@ -30,37 +29,16 @@ export default function AdminCategoryAudiobookCover(props) {
             let buf = new Uint8Array(e.target.result);
             let b64 = Buffer.from(buf).toString('base64');
 
-            HandleFetch(
-              '/admin/audiobook/change/cover',
-              'PATCH',
-              {
+            props.changeAudiobookCover({
+              jsonData: {
                 type: result[0],
                 base64: b64,
                 audiobookId: props.audiobookDetail.id,
               },
-              props.token,
-              props.i18n.language,
-            )
-              .then(() => {
-                props.setAudiobookCoverRefetch();
-
-                props.setStateModal((prev) => ({
-                  ...prev,
-                  file: null,
-                }));
-
-                props.setAudiobooksState((prev) => ({
-                  ...prev,
-                  errorCover: '',
-                }));
-              })
-              .catch((e) => {
-                props.setAudiobooksState((prev) => ({
-                  ...prev,
-                  errorCover: e,
-                }));
-                props.handleClose();
-              });
+              setAudiobookCoverRefetch: props.setAudiobookCoverRefetch,
+              setStateModal: props.setStateModal,
+              handleClose: props.handleClose,
+            });
           }
         }
       };

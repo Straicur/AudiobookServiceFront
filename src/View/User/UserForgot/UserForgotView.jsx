@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useEffect } from 'react';
 import md5 from 'md5';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -68,7 +68,7 @@ export default function UserForgotView(props) {
     }));
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (
       props.state.password.trim() != '' &&
       props.state.confirmPassword.trim() != '' &&
@@ -92,12 +92,6 @@ export default function UserForgotView(props) {
       props.i18n.changeLanguage(props.state.changeLang);
     }
   }, [props.state.changeLang]);
-
-  useLayoutEffect(() => {
-    if (props.state.error != null) {
-      throw props.state.error;
-    }
-  }, [props.state.error]);
 
   return (
     <div className='container d-flex align-items-center justify-content-center mt-3 '>

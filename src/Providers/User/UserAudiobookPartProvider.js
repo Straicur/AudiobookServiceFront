@@ -11,7 +11,6 @@ export const UserAudiobookPartProvider = ({
   token,
   audiobookId,
   part,
-  setState,
   audiobookState,
   setAudiobookState,
   i18n,
@@ -64,12 +63,7 @@ export const UserAudiobookPartProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAudiobookPart, setRefetch, setAudiobookPart];

@@ -12,7 +12,6 @@ export const AdminAudiobooksProvider = ({
   token,
   page,
   searchState,
-  setState,
   i18n,
   limit = 15,
 }) => {
@@ -43,6 +42,7 @@ export const AdminAudiobooksProvider = ({
 
       variables.currentPart.current = variables.currentPart.current + 1;
     },
+    throwOnError: true,
   });
 
   const { mutate: activate } = useMutation({
@@ -59,8 +59,6 @@ export const AdminAudiobooksProvider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.element.target.classList.remove('disabled');
 
       let copy = dataAdminAudiobooks.audiobooks.map((audiobook) => {
@@ -88,14 +86,10 @@ export const AdminAudiobooksProvider = ({
         audiobooks: copy,
       });
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminAudiobooks' + page]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const setRefetch = () => {
@@ -119,12 +113,7 @@ export const AdminAudiobooksProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAdminAudiobooks, setRefetch, activate, refetch, addAudiobook];

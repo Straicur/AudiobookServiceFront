@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -40,7 +40,7 @@ export default function UserSettingsEditEmailModal(props) {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state.oldEmail.length == 0) {
       setState((prev) => ({
         ...prev,
@@ -59,7 +59,7 @@ export default function UserSettingsEditEmailModal(props) {
     }
   }, [state.oldEmail]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state.newEmail.length == 0) {
       setState((prev) => ({
         ...prev,

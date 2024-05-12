@@ -22,7 +22,6 @@ export default function Register() {
     parentalControl: false,
     birthdayDate: '',
     isButtonDisabled: true,
-    error: null,
   });
 
   useEffect(() => {
@@ -67,7 +66,6 @@ export default function Register() {
         setState((prev) => ({
           ...prev,
           isButtonDisabled: true,
-          error: null,
         }));
       }}
     >

@@ -22,12 +22,7 @@ export default function AdminUsersDeletedUsersModal(props) {
         <Modal.Title>{props.t('deletedUsers')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <AdminUsersDeletedProvider
-          token={props.token}
-          page={pageState.page}
-          setState={props.setUsersState}
-          i18n={props.i18n}
-        >
+        <AdminUsersDeletedProvider token={props.token} page={pageState.page} i18n={props.i18n}>
           <AdminUsersRenderDeletedUsersList
             pageState={pageState}
             setPageState={setPageState}

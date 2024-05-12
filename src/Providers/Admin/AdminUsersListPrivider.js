@@ -13,7 +13,6 @@ export const AdminUsersListPrivider = ({
   page,
   token,
   searchState,
-  setState,
   i18n,
   limit = 15,
 }) => {
@@ -33,21 +32,15 @@ export const AdminUsersListPrivider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.setPasswordState((prev) => ({
         ...prev,
         sure: !variables.passwordState.sure,
       }));
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: changeUserPhone } = useMutation({
@@ -64,21 +57,15 @@ export const AdminUsersListPrivider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.setPhoneNumberState((prev) => ({
         ...prev,
         sure: !variables.phoneNumberState.sure,
       }));
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: activateUser } = useMutation({
@@ -94,8 +81,6 @@ export const AdminUsersListPrivider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       const newSelcetedUser = {
         active: !variables.state.editUserElement.active,
         banned: variables.state.editUserElement.banned,
@@ -112,14 +97,10 @@ export const AdminUsersListPrivider = ({
         editUserElement: newSelcetedUser,
       }));
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: banUser } = useMutation({
@@ -136,7 +117,6 @@ export const AdminUsersListPrivider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
       variables.e.target.classList.remove('disabled');
 
       const newSelcetedUser = {
@@ -155,14 +135,10 @@ export const AdminUsersListPrivider = ({
         editUserElement: newSelcetedUser,
       }));
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: deleteUser } = useMutation({
@@ -178,18 +154,13 @@ export const AdminUsersListPrivider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
       variables.element.target.classList.remove('disabled');
       qc.invalidateQueries(['dataAdminUsersList']);
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const setRefetch = () => {
@@ -213,12 +184,7 @@ export const AdminUsersListPrivider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [

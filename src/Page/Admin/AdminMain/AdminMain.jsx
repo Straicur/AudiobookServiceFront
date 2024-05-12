@@ -12,20 +12,20 @@ export default function AdminMain() {
   const { t, i18n } = useTranslation();
 
   const [infoState, setInfoState] = useState({
-    error: null,
+    // error: null,
   });
 
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
-      onReset={() => {
-        setInfoState((prev) => ({
-          ...prev,
-          error: null,
-        }));
-      }}
+      // onReset={() => {
+      //   setInfoState((prev) => ({
+      //     ...prev,
+      //     error: null,
+      //   }));
+      // }}
     >
-      <AdminMainDataPrivider token={token} setState={setInfoState} i18n={i18n}>
+      <AdminMainDataPrivider token={token} i18n={i18n}>
         <AdminMainContainer infoState={infoState} setInfoState={setInfoState} t={t} i18n={i18n} />
       </AdminMainDataPrivider>
     </ErrorBoundary>

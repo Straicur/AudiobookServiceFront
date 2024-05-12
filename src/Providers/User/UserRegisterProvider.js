@@ -10,13 +10,12 @@ export const UserRegisterProvider = ({ children, i18n }) => {
       return HandleFetch('/register', 'PUT', data.jsonData, null, i18n.language);
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.setFormState((prev) => ({
         ...prev,
         modal: true,
       }));
     },
+    throwOnError: true,
   });
 
   const value = [register];

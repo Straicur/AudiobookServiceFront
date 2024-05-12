@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { UserLoginForgotPasswordModal } from './UserLoginForgotPasswordModal';
@@ -19,12 +19,6 @@ export default function UserLoginForm(props) {
   const login = useUserAuthorizeData()[1];
   const resetPassword = useUserAuthorizeData()[2];
   const userService = new UserLoginService(formState, setFormState, props, login);
-
-  useEffect(() => {
-    if (props.state.error != null) {
-      throw props.state.error;
-    }
-  }, [props.state.error]);
 
   return (
     <section className='vh-100'>

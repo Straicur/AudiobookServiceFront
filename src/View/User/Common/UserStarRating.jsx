@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useLayoutEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -27,7 +27,7 @@ export default function UserStarRating(props) {
     setUserRate(true);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setRating(props.audiobookRating);
     setHover(props.audiobookRating);
   }, [props.audiobookRating]);

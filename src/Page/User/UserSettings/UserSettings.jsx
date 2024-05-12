@@ -22,7 +22,6 @@ export default function Settings() {
     buttonPassword: false,
     buttonDelete: false,
     buttonUserData: false,
-    error: null,
   });
 
   return (
@@ -33,7 +32,6 @@ export default function Settings() {
           ...prev,
           isButtonDisabled: true,
           validated: false,
-          error: null,
         }));
       }}
     >
@@ -45,7 +43,7 @@ export default function Settings() {
         <div className='container-fluid main-container mt-3'>
           <div className='card position-relative p-3 bg-dark shadow'>
             <UserNavBarPrividers token={token} t={t} i18n={i18n} />
-            <UserSettingsProvider token={token} setState={setState} i18n={i18n}>
+            <UserSettingsProvider token={token} i18n={i18n}>
               <UserSettingsContainer
                 state={state}
                 setState={setState}

@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 const AdminSystemRolesContext = createContext(null);
 
-export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) => {
+export const AdminSystemRolesProvider = ({ children, token, i18n }) => {
   const { mutate: addUserRole } = useMutation({
     mutationFn: (data) => {
       return HandleFetch(
@@ -20,7 +20,6 @@ export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) =>
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
       variables.e.target.classList.remove('disabled');
 
       let newUserSelectedRoles = variables.state.editUserElement.roles;
@@ -42,12 +41,7 @@ export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) =>
         editUserElement: newSelcetedUser,
       }));
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: removeUserRole } = useMutation({
@@ -64,7 +58,6 @@ export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) =>
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
       variables.e.target.classList.remove('disabled');
 
       let newUserSelectedRoles = variables.state.editUserElement.roles.filter(
@@ -86,12 +79,7 @@ export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) =>
         editUserElement: newSelcetedUser,
       }));
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { data: dataAdminUsersRoles = null } = useQuery({
@@ -101,12 +89,7 @@ export const AdminSystemRolesProvider = ({ children, token, setState, i18n }) =>
     retryDelay: 500,
     refetchOnWindowFocus: false,
     gcTime: 21600000,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAdminUsersRoles, removeUserRole, addUserRole];

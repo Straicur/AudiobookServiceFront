@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const AdminMainDataContext = createContext(null);
 
-export const AdminMainDataPrivider = ({ children, token, setState, i18n }) => {
+export const AdminMainDataPrivider = ({ children, token, i18n }) => {
   const qc = useQueryClient();
 
   const setRefetch = () => {
@@ -18,12 +18,7 @@ export const AdminMainDataPrivider = ({ children, token, setState, i18n }) => {
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAdminStatistics, setRefetch];

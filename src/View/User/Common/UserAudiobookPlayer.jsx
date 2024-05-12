@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
@@ -41,7 +41,7 @@ export default function UserAudiobookPlayer(props) {
     props.audioDuration.current = parseInt(event.target.duration);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       player.current &&
       props.audiobookInfo &&
@@ -55,7 +55,7 @@ export default function UserAudiobookPlayer(props) {
 
   //TODO to jest do przetestowania i znalezienia błędu jeszcze
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       player.current &&
       props.timeAudio.current &&
@@ -77,7 +77,7 @@ export default function UserAudiobookPlayer(props) {
     }
   }, [props.renderAudiobookPlayer]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       props.newPart &&
       player.current &&

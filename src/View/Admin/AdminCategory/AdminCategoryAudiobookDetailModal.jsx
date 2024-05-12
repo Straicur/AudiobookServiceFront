@@ -16,12 +16,17 @@ export default function AdminCategoryAudiobookDetailModal(props) {
   const [stateModal, setStateModal] = useState({
     file: null,
     edit: false,
+    errorCover: '',
     deleteFromCategory: false,
     deleteEntarly: false,
   });
 
   const [audiobookDetail, setAudiobookDetailRefetch, setAudiobookDetail, audiobookDataEdit] =
     useAdminAudiobookData();
+
+  const getAudiobookZip = useAdminAudiobookData()[8];
+  const changeAudiobookCover = useAdminAudiobookData()[9];
+
   const [audiobookPart] = useAudiobookPart();
 
   const handleClose = () => {
@@ -92,6 +97,7 @@ export default function AdminCategoryAudiobookDetailModal(props) {
           audiobookDetail={audiobookDetail}
           state={props.audiobooksState}
           setState={props.setAudiobooksState}
+          getAudiobookZip={getAudiobookZip}
           handleClose={handleClose}
           cssData={'primary_button'}
           t={props.t}
@@ -112,14 +118,15 @@ export default function AdminCategoryAudiobookDetailModal(props) {
               setStateModal={setStateModal}
               handleClose={handleClose}
               audiobookDetail={audiobookDetail}
+              changeAudiobookCover={changeAudiobookCover}
               token={props.token}
             />
             <Alert
-              show={props.audiobooksState.errorCover != ''}
+              show={stateModal.errorCover != ''}
               className='dangerAllert mt-1 text-center'
               variant='danger'
             >
-              {props.audiobooksState.errorCover}
+              {stateModal.errorCover}
             </Alert>
             {audiobookDetail != undefined ? (
               <div className='row d-flex justify-content-center text-light text-center'>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import UserMainRenderCarousel from './UserMainRenderCarousel';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -69,7 +69,7 @@ export default function UserMainRenderAudiobooksList(props) {
     return renderCategories;
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (lastItemOffsetTopRef.current !== null) {
       setTimeout(function () {
         window.scrollTo({

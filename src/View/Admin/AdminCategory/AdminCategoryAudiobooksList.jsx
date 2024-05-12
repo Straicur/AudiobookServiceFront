@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
-
 import Button from 'react-bootstrap/Button';
 import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
 import AdminCategoryAudiobookAddModal from './AdminCategoryAudiobookAddModal';
@@ -49,12 +48,6 @@ export default function AdminCategoryAudiobooksList(props) {
       }, state.addAudiobookSeconds);
     }
   }, [state.addAudiobook]);
-
-  useEffect(() => {
-    if (props.audiobooksState.error != null) {
-      throw props.audiobooksState.error;
-    }
-  }, [props.audiobooksState.error]);
 
   return (
     <div className='container-fluid main-container mt-3'>
@@ -141,7 +134,6 @@ export default function AdminCategoryAudiobooksList(props) {
         ) : null}
         {state.detailCommentsAudiobookModal && state.detailAudiobookElement != null ? (
           <AdminAudiobookCommentsProvider
-            setState={props.setAudiobooksState}
             token={props.token}
             audiobookId={state.detailAudiobookElement.id}
             t={props.t}

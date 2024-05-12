@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { networkErrorAtom } from 'App';
 import { useAtom } from 'jotai';
 import { NetworkErrorBoundryModal } from './NetworkErrorBoundryModal';
@@ -14,7 +14,7 @@ export const NetworkErrorBoundry = ({ children }) => {
     showModal: false,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (errorAtomState !== null) {
       if (
         errorAtomState instanceof AuthenticationError ||

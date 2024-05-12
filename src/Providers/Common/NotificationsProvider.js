@@ -29,6 +29,7 @@ export const NotificationsProvider = ({ children, token, page, i18n }) => {
         qc.invalidateQueries(['dataNotifications' + i]);
       }
     },
+    throwOnError: true,
   });
 
   const { data: dataNotifications = null, refetch } = useQuery({
@@ -49,6 +50,7 @@ export const NotificationsProvider = ({ children, token, page, i18n }) => {
     retryDelay: 500,
     refetchOnWindowFocus: false,
     enabled: dateUpdate[page] == undefined || dateUpdate[page] <= Date.now(),
+    throwOnError: true,
   });
 
   const value = [dataNotifications, refetch, mutate];

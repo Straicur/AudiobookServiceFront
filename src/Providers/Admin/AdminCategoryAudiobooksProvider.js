@@ -6,14 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 
 const AdminCategoryAudiobooksContext = createContext(null);
 
-export const AdminCategoryAudiobooksProvider = ({
-  children,
-  categoryKey,
-  page,
-  token,
-  setState,
-  i18n,
-}) => {
+export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, token, i18n }) => {
   const qc = useQueryClient();
 
   const { mutate: addAudiobook } = useMutation({
@@ -41,6 +34,7 @@ export const AdminCategoryAudiobooksProvider = ({
 
       variables.currentPart.current = variables.currentPart.current + 1;
     },
+    throwOnError: true,
   });
 
   const { mutate: activate } = useMutation({
@@ -57,8 +51,6 @@ export const AdminCategoryAudiobooksProvider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.element.target.classList.remove('disabled');
 
       let copy = dataAdminCategoryAudiobooks.audiobooks.map((audiobook) => {
@@ -86,14 +78,10 @@ export const AdminCategoryAudiobooksProvider = ({
         audiobooks: copy,
       });
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: deleteAudiobookFromCategory } = useMutation({
@@ -110,8 +98,6 @@ export const AdminCategoryAudiobooksProvider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       let copy = dataAdminCategoryAudiobooks.audiobooks.map((audiobook) => {
         if (audiobook.id != variables.audiobookId) {
           return audiobook;
@@ -127,14 +113,10 @@ export const AdminCategoryAudiobooksProvider = ({
 
       qc.invalidateQueries(['dataAdminCategoriesTree']);
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: deleteAudiobook } = useMutation({
@@ -150,8 +132,6 @@ export const AdminCategoryAudiobooksProvider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       let copy = dataAdminCategoryAudiobooks.audiobooks.map((audiobook) => {
         if (audiobook.id != variables.audiobookId) {
           return audiobook;
@@ -169,14 +149,10 @@ export const AdminCategoryAudiobooksProvider = ({
       qc.invalidateQueries(['dataAudiobookAdminData']);
       qc.invalidateQueries(['dataAdminAudiobooks']);
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const setRefetch = () => {
@@ -201,12 +177,7 @@ export const AdminCategoryAudiobooksProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [

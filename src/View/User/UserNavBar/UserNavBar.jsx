@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useTokenStore } from 'Store/store';
@@ -14,7 +14,6 @@ export const UserNavBar = (props) => {
   const [state, setState] = useState({
     page: 0,
     notificationsOffCanvas: false,
-    error: null,
   });
 
   const [newNotificationsData] = useNewNotifications();
@@ -40,7 +39,7 @@ export const UserNavBar = (props) => {
     } else return 0;
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (token === '') {
       navigate('/login');
     }

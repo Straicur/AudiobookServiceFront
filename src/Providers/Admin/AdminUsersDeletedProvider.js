@@ -2,11 +2,10 @@ import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
-// import { useMutation } from '@tanstack/react-query';
 
 const AdminUsersDeletedContext = createContext(null);
 
-export const AdminUsersDeletedProvider = ({ children, page, token, setState, i18n }) => {
+export const AdminUsersDeletedProvider = ({ children, page, token, i18n }) => {
   const qc = useQueryClient();
 
   const setRefetch = () => {
@@ -29,12 +28,7 @@ export const AdminUsersDeletedProvider = ({ children, page, token, setState, i18
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAdminUsersDeleted, setRefetch];

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import UserForgotView from 'View/User/UserForgot/UserForgotView';
-import DataNotFoundError from 'Errors/Errors/DataNotFoundError';
 import { UserAuthorizeProvider } from 'Providers/User/UserAuthorizeProvider';
 import { useTokenStore } from 'Store/store';
 
@@ -21,7 +20,6 @@ export default function UserForgot() {
     password: '',
     confirmPassword: '',
     passwordStrength: 10,
-    error: null,
     wrongPassword: false,
     changeLang: i18n.language,
     modal: false,
@@ -32,13 +30,14 @@ export default function UserForgot() {
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
       onReset={() => {
-        if (state.error instanceof DataNotFoundError) {
-          navigate('/login');
-        }
-
-        setState((prev) => ({
-          ...prev,
-          error: null,
+        setState(() => ({
+          password: '',
+          confirmPassword: '',
+          passwordStrength: 10,
+          wrongPassword: false,
+          changeLang: i18n.language,
+          modal: false,
+          isButtonDisabled: false,
         }));
       }}
     >

@@ -4,7 +4,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 
 const UserAudiobooksContext = createContext(null);
 
-export const UserAudiobooksProvider = ({ children, token, page, limit, setState, i18n }) => {
+export const UserAudiobooksProvider = ({ children, token, page, limit, i18n }) => {
   const {
     data: dataUserAudiooboks = null,
     isLoading,
@@ -25,12 +25,7 @@ export const UserAudiobooksProvider = ({ children, token, page, limit, setState,
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataUserAudiooboks, refetch, isLoading];

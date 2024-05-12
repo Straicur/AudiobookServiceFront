@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const UserAudiobookMyListContext = createContext(null);
 
-export const UserAudiobookMyListProvider = ({ children, token, setState, i18n }) => {
+export const UserAudiobookMyListProvider = ({ children, token, i18n }) => {
   const qc = useQueryClient();
 
   const setRefetch = () => {
@@ -18,12 +18,7 @@ export const UserAudiobookMyListProvider = ({ children, token, setState, i18n })
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataMyAudiobooksUserData, isLoading, setRefetch];

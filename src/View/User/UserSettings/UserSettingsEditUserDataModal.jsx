@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -39,7 +39,7 @@ export default function UserSettingsEditUserDataModal(props) {
     });
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state.firstname.length == 0) {
       setState((prev) => ({
         ...prev,
@@ -58,7 +58,7 @@ export default function UserSettingsEditUserDataModal(props) {
     }
   }, [state.firstname]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state.lastname.length == 0) {
       setState((prev) => ({
         ...prev,
@@ -77,7 +77,7 @@ export default function UserSettingsEditUserDataModal(props) {
     }
   }, [state.lastname]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state.phoneNumber.length == 0) {
       setState((prev) => ({
         ...prev,
@@ -96,7 +96,7 @@ export default function UserSettingsEditUserDataModal(props) {
     }
   }, [state.phoneNumber]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setState((prev) => ({
       ...prev,
       phoneNumber: props.userDetail.phoneNumber,

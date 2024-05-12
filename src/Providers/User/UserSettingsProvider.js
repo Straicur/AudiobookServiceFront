@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const UserSettingsContext = createContext(null);
 
-export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
+export const UserSettingsProvider = ({ children, token, i18n }) => {
   const qc = useQueryClient();
   const tokenStore = useTokenStore();
   const navigate = useNavigate();
@@ -25,12 +25,7 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
       tokenStore.removeToken();
       navigate('/login');
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: userPasswordChange } = useMutation({
@@ -47,20 +42,13 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.element.target.classList.remove('disabled');
       variables.setState((prev) => ({
         ...prev,
         checkPassword: !variables.state.checkPassword,
       }));
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: userEmailChange } = useMutation({
@@ -77,8 +65,6 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.element.target.classList.remove('disabled');
       variables.setState((prev) => ({
         ...prev,
@@ -97,12 +83,7 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
       const copy = Object.assign(json, data);
       qc.setQueryData(['dataUserSettings'], copy);
     },
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const { mutate: userDataChange } = useMutation({
@@ -120,7 +101,6 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
       variables.element.target.classList.remove('disabled');
       variables.setState((prev) => ({
         ...prev,
@@ -149,12 +129,7 @@ export const UserSettingsProvider = ({ children, token, setState, i18n }) => {
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [

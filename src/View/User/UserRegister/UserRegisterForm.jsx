@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -34,12 +34,6 @@ export default function UserRegisterForm(props) {
         return <p className='text-center text-info'>{t('extraStrongPassword')}</p>;
     }
   }
-
-  useEffect(() => {
-    if (props.state.error != null) {
-      throw props.state.error;
-    }
-  }, [props.state.error]);
 
   return (
     <section className='vh-100'>

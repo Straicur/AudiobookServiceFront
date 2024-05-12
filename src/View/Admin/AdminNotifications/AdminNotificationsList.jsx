@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import Button from 'react-bootstrap/Button';
 import AdminJsonModal from '../AdminJsonModal/AdminJsonModal';
@@ -16,7 +16,6 @@ export default function AdminNotificationsList(props) {
     jsonModal: false,
     addNotificationModal: false,
     searchModal: false,
-    error: null,
   });
 
   const [audiobooksState, setAudiobooksState] = useState({
@@ -78,12 +77,6 @@ export default function AdminNotificationsList(props) {
       forceRefetch();
     }
   }, [props.notificationsState.refresh]);
-
-  useEffect(() => {
-    if (props.notificationsState.error != null) {
-      throw props.notificationsState.error;
-    }
-  }, [props.notificationsState.error]);
 
   return (
     <div className='container-fluid main-container mt-3'>

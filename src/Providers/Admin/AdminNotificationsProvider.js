@@ -8,14 +8,7 @@ import AdminNotificationsService from 'Service/Admin/AdminNotificationsService';
 
 const AdminNotificationsContext = createContext(null);
 
-export const AdminNotificationsProvider = ({
-  children,
-  page,
-  token,
-  searchState,
-  setState,
-  i18n,
-}) => {
+export const AdminNotificationsProvider = ({ children, page, token, searchState, i18n }) => {
   const qc = useQueryClient();
 
   const setRefetch = () => {
@@ -35,14 +28,10 @@ export const AdminNotificationsProvider = ({
         i18n.language,
       );
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminNotifications' + page]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: addNotification } = useMutation({
@@ -60,8 +49,6 @@ export const AdminNotificationsProvider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       qc.invalidateQueries(['dataAdminNotifications']);
 
       variables.setState((prev) => ({
@@ -69,14 +56,10 @@ export const AdminNotificationsProvider = ({
         addNotificationModal: !variables.addNotificationModal,
       }));
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminNotifications' + page]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { mutate: editNotification } = useMutation({
@@ -98,8 +81,6 @@ export const AdminNotificationsProvider = ({
       );
     },
     onSuccess: (data, variables) => {
-      data = [];
-
       variables.setNotificationState((prev) => ({
         ...prev,
         editNotificationkModal: !variables.notificationState.editNotificationkModal,
@@ -107,14 +88,10 @@ export const AdminNotificationsProvider = ({
 
       qc.invalidateQueries(['dataAdminNotifications']);
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAdminNotifications' + page]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { data: dataAdminStatistics = null, refetch } = useQuery({
@@ -134,12 +111,7 @@ export const AdminNotificationsProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [

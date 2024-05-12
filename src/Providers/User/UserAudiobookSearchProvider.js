@@ -4,7 +4,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 
 const UserAudiobookSearchContext = createContext(null);
 
-export const UserAudiobookSearchProvider = ({ children, token, title, setState, i18n }) => {
+export const UserAudiobookSearchProvider = ({ children, token, title, i18n }) => {
   const {
     data: dataAudiobookUserSearch = null,
     isLoading,
@@ -24,12 +24,7 @@ export const UserAudiobookSearchProvider = ({ children, token, title, setState, 
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
 
   const value = [dataAudiobookUserSearch, refetch, isLoading];

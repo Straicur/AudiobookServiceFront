@@ -7,14 +7,12 @@ export default function AdminCategoryDetailProviders(props) {
   return (
     <AdminAudiobookDataProvider
       state={props.audiobooksState}
-      setState={props.setAudiobooksState}
       token={props.token}
       audiobookId={props.state.detailAudiobookElement.id}
       i18n={props.i18n}
     >
       <AdminAudiobookPartProvider
         state={props.audiobooksState}
-        setState={props.setAudiobooksState}
         token={props.token}
         audiobookId={props.state.detailAudiobookElement.id}
         part={props.state.part}

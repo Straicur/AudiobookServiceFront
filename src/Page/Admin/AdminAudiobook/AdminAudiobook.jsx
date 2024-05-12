@@ -26,18 +26,17 @@ export default function AdminAudiobook() {
     addAudiobookSeconds: 3000,
     part: 0,
     errorCover: '',
-    error: null,
   });
 
   return (
     <ErrorBoundary
       FallbackComponent={ErrorHandlerModal}
-      onReset={() => {
-        setAudiobookState((prev) => ({
-          ...prev,
-          error: null,
-        }));
-      }}
+      // onReset={() => {
+      //   setAudiobookState((prev) => ({
+      //     ...prev,
+      //     error: null,
+      //   }));
+      // }}
     >
       <AdminAuidobookDetailProviders
         audiobookState={audiobookState}

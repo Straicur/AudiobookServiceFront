@@ -8,6 +8,11 @@ import { v4 as uuidv4 } from 'uuid';
 import InvalidDataError from './Errors/InvalidDataError';
 import SystemError from './Errors/SystemError';
 import ValidationError from './Errors/ValidationError';
+import InvalidJsonDataError from './Errors/InvalidJsonDataError';
+import ServiceUnaviableError from './Errors/ServiceUnaviableError';
+import PermissionError from './Errors/PermissionError';
+import DataNotFoundError from './Errors/DataNotFoundError';
+import AuthenticationError from './Errors/AuthenticationError';
 
 export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
   const { t } = useTranslation();
@@ -40,31 +45,32 @@ export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
 
   useLayoutEffect(() => {
     switch (error) {
+      case error instanceof InvalidJsonDataError:
+        setState({ ...state, data: error.data, message: error.message });
+        break;
       case error instanceof ValidationError:
-        setState((prev) => ({
-          ...prev,
-          data: error.data,
-          message: error.message,
-        }));
+        setState({ ...state, data: error.data, message: error.message });
         break;
       case error instanceof SystemError:
-        setState((prev) => ({
-          ...prev,
-          message: error.message,
-        }));
+        setState({ ...state, message: error.message });
+        break;
+      case error instanceof ServiceUnaviableError:
+        setState({ ...state, message: error.message });
+        break;
+      case error instanceof PermissionError:
+        setState({ ...state, message: error.message });
+        break;
+      case error instanceof DataNotFoundError:
+        setState({ ...state, data: error.data, message: error.message });
         break;
       case error instanceof InvalidDataError:
-        setState((prev) => ({
-          ...prev,
-          data: error.data,
-          message: error.message,
-        }));
+        setState({ ...state, data: error.data, message: error.message });
+        break;
+      case error instanceof AuthenticationError:
+        setState({ ...state, message: error.message, notAuthenticated: true });
         break;
       default: {
-        setState((prev) => ({
-          ...prev,
-          message: t('systemError'),
-        }));
+        setState({ ...state, message: t('systemError') });
         break;
       }
     }

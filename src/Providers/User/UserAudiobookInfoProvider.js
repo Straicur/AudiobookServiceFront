@@ -6,15 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const UserAudiobookInfoContext = createContext(null);
 
-export const UserAudiobookInfoProvider = ({
-  children,
-  token,
-  audiobookId,
-  categoryKey,
-  setState,
-  props,
-  i18n,
-}) => {
+export const UserAudiobookInfoProvider = ({ children, token, audiobookId, categoryKey, i18n }) => {
   const qc = useQueryClient();
 
   const { mutate } = useMutation({
@@ -40,14 +32,10 @@ export const UserAudiobookInfoProvider = ({
         watchingDate: null,
       });
     },
-    onError: (e) => {
+    onError: () => {
       qc.invalidateQueries(['dataAudiobookUserInfo' + audiobookId]);
-
-      setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
     },
+    throwOnError: true,
   });
 
   const { data: dataAudiobookUserInfo = null } = useQuery({
@@ -67,12 +55,7 @@ export const UserAudiobookInfoProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    onError: (e) => {
-      props.setState((prev) => ({
-        ...prev,
-        error: e,
-      }));
-    },
+    throwOnError: true,
   });
   const value = [dataAudiobookUserInfo, mutate];
 

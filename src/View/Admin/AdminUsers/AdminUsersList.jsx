@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 
 import Button from 'react-bootstrap/Button';
@@ -20,7 +20,6 @@ export default function AdminUsersList(props) {
     editUserModal: false,
     editUserElement: null,
     searchModal: false,
-    error: null,
   });
 
   const [
@@ -63,12 +62,6 @@ export default function AdminUsersList(props) {
       forceRefetch();
     }
   }, [props.usersState.refresh]);
-
-  useEffect(() => {
-    if (props.usersState.error != null) {
-      throw props.usersState.error;
-    }
-  }, [props.usersState.error]);
 
   return (
     <div className='container-fluid main-container mt-3'>
