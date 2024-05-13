@@ -1,6 +1,6 @@
-export default class InvalidJsonDataError extends Error {
+export default class ServiceUnaviableError extends Error {
   constructor(message) {
     super(message);
-    this.name = "ServiceUnaviableError";
+    this.name = 'ServiceUnaviableError';
   }
 }

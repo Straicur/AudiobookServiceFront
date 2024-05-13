@@ -1,0 +1,177 @@
+.react-multiple-carousel__arrow {
+  background-color: #a5a5a5;
+  min-width: 3.25rem;
+  min-height: 3.25rem;
+}
+
+.detail-button {
+  width: 27.2rem !important;
+}
+
+.comments-button {
+  width: 13.2rem !important;
+}
+
+.comments-show-button {
+  width: 8.2rem !important;
+}
+
+.carousel-card {
+  min-height: 27rem;
+  max-height: 27rem;
+}
+
+.card-img-sm-sm-title {
+  min-height: 21rem;
+  max-height: 21rem;
+  overflow: hidden;
+}
+
+.card-img-sm-lg-title {
+  min-height: 20rem;
+  max-height: 20rem;
+  overflow: hidden;
+}
+
+.card-img-sm-ext-lg-title {
+  min-height: 19rem;
+  max-height: 19rem;
+  overflow: hidden;
+}
+
+.button-star {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.on {
+  color: #f8cb05;
+}
+
+.off {
+  color: #ccc;
+}
+
+.comments-heigth {
+  max-height: 25rem !important;
+  min-height: 3rem;
+}
+
+.accordion {
+  --bs-accordion-btn-padding-y: 0.4rem !important;
+}
+
+.comment-button {
+  width: 4rem;
+  height: 2.75rem;
+}
+
+.add-parent-comment-button {
+  width: 20rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+.comment {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.comment-input {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.comment-pill {
+  border-radius: 2.1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.comments-pill {
+  border-radius: 2.1rem;
+}
+
+.primary_button {
+  background-color: #001057 !important;
+  border-color: #001057 !important;
+}
+
+.danger_button {
+  background-color: #530019 !important;
+  border-color: #530019 !important;
+}
+
+.danger_button:hover {
+  background-color: #6b102b !important;
+  border-color: #6b102b !important;
+}
+
+.exit_audiobook {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.success_button {
+  background-color: #005331 !important;
+  border-color: #005331 !important;
+}
+
+.warning_button {
+  background-color: #575100 !important;
+  border-color: #696200 !important;
+}
+
+.show-more {
+  font-size: 0.8rem;
+}
+
+.small-text {
+  font-size: 0.8rem !important;
+}
+
+.medium-text {
+  font-size: 0.9rem !important;
+  padding-top: 0.2rem;
+}
+
+.show-more:hover {
+  color: #777777;
+  cursor: pointer;
+}
+
+.comment-button-small {
+  width: 3.5rem !important;
+  height: 1.7rem !important;
+  font-size: 0.8rem !important;
+  padding: 0.2rem !important;
+}
+
+.min_container_height {
+  min-height: 41rem !important;
+}
+
+.load_more:hover {
+  color: #005331;
+  cursor: pointer;
+}
+
+.load_more {
+  padding: 1rem !important;
+}
+
+.spinner {
+  width: 4rem !important;
+  height: 4rem !important;
+}
+
+.carousel-search-card {
+}

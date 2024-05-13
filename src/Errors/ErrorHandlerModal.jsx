@@ -1,0 +1,109 @@
+import React, { useLayoutEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useTokenStore } from 'Store/store';
+import { v4 as uuidv4 } from 'uuid';
+import InvalidDataError from './Errors/InvalidDataError';
+import SystemError from './Errors/SystemError';
+import ValidationError from './Errors/ValidationError';
+import InvalidJsonDataError from './Errors/InvalidJsonDataError';
+import ServiceUnaviableError from './Errors/ServiceUnaviableError';
+import PermissionError from './Errors/PermissionError';
+import DataNotFoundError from './Errors/DataNotFoundError';
+import AuthenticationError from './Errors/AuthenticationError';
+
+export const ErrorHandlerModal = ({ error, resetErrorBoundary }) => {
+  const { t } = useTranslation();
+
+  const tokenStore = useTokenStore();
+  const navigate = useNavigate();
+
+  const [state, setState] = useState({
+    message: '',
+    data: [],
+    show: true,
+    notAuthenticated: false,
+  });
+
+  const handleClose = () =>
+    setState((prev) => ({
+      ...prev,
+      show: !state.show,
+    }));
+
+  function logout() {
+    tokenStore.removeToken();
+
+    navigate('/login');
+  }
+
+  function reloadFunction() {
+    window.location.reload(false);
+  }
+
+  useLayoutEffect(() => {
+    switch (error) {
+      case error instanceof InvalidJsonDataError:
+        setState({ ...state, data: error.data, message: error.message });
+        break;
+      case error instanceof ValidationError:
+        setState({ ...state, data: error.data, message: error.message });
+        break;
+      case error instanceof SystemError:
+        setState({ ...state, message: error.message });
+        break;
+      case error instanceof ServiceUnaviableError:
+        setState({ ...state, message: error.message });
+        break;
+      case error instanceof PermissionError:
+        setState({ ...state, message: error.message });
+        break;
+      case error instanceof DataNotFoundError:
+        setState({ ...state, data: error.data, message: error.message });
+        break;
+      case error instanceof InvalidDataError:
+        setState({ ...state, data: error.data, message: error.message });
+        break;
+      case error instanceof AuthenticationError:
+        setState({ ...state, message: error.message, notAuthenticated: true });
+        break;
+      default: {
+        setState({ ...state, message: t('systemError') });
+        break;
+      }
+    }
+  }, [error]);
+
+  return (
+    <Modal show={state.show} onHide={handleClose} backdrop='static'>
+      <Modal.Body>
+        <h3 className='text-center fw-bold py-3'> {t('errorOccurred')}</h3>
+        {state.data != undefined
+          ? state.data.map((element) => {
+              return (
+                <p key={uuidv4()} className='text-center pb-1 fs-5'>
+                  {element}
+                </p>
+              );
+            })
+          : null}
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          variant='dark'
+          onClick={
+            state.notAuthenticated
+              ? logout()
+              : resetErrorBoundary != null
+              ? resetErrorBoundary
+              : reloadFunction()
+          }
+        >
+          {t('accept')}
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
