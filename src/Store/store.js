@@ -9,7 +9,7 @@ export const useTokenStore = create(
       setToken: (data) => {
         set(() => ({
           token: data.token,
-          roles: data.roles.authorizationRoleModels.map((role) => role.name),
+          roles: data.roles?.authorizationRoleModels.map((role) => role.name),
           admin: data.admin,
         }));
       },
