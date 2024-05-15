@@ -24,7 +24,6 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
       );
     },
     onSuccess: (data) => {
-      console.log(data);
       tokenStore.setToken(data);
       navigate('/login');
     },
