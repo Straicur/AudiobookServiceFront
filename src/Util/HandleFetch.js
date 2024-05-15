@@ -36,11 +36,19 @@ export const HandleFetch = async (
   const response = await fetch(url, content);
 
   if (response.ok) {
-    if (response.headers.get('content-type') != 'application/json') {
-      return response.blob();
+    let responseBody = '';
+    for await (const chunk of response.body) {
+      responseBody += new TextDecoder().decode(chunk);
     }
+    if (responseBody.trim()) {
+      if (response.headers.get('content-type') != 'application/json') {
+        return response.blob();
+      }
 
-    return response.json();
+      return JSON.parse(responseBody);
+    } else {
+      return {};
+    }
   } else {
     const errJson = await response.json();
 
