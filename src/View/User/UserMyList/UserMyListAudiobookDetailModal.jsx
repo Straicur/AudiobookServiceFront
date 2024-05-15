@@ -198,7 +198,6 @@ export default function UserMyListAudiobookDetailModal(props) {
                 X
               </Button>
             </div>
-            {console.log(props)}
             <div className='row mt-4 justify-content-center'>
               <div className='col'>
                 <UserAudiobookPlayer
