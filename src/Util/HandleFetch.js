@@ -43,6 +43,7 @@ export const HandleFetch = async (
       if (response.headers.get('content-type') != 'application/json') {
         return response.blob();
       }
+      console.log(response);
       return response.json();
     } else {
       return {};
