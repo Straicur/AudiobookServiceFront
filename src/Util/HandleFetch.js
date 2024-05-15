@@ -32,7 +32,7 @@ export const HandleFetch = async (
   }
 
   url = process.env.REACT_APP_API_URL + '/api' + url;
-
+  console.log(content);
   const response = await fetch(url, content);
 
   if (response.ok) {
