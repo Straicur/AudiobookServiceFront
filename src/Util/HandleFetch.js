@@ -38,18 +38,18 @@ export const HandleFetch = async (
   console.log('response');
   console.log(response);
   if (response.ok) {
-    if (
-      response.headers.has('content-length') &&
-      parseInt(response.headers.get('content-length')) != 0
-    ) {
-      if (response.headers.get('content-type') != 'application/json') {
-        return response.blob();
-      }
-      console.log(response);
-      return response.json();
-    } else {
-      return {};
+    // if (
+    //   response.headers.has('content-length') &&
+    //   parseInt(response.headers.get('content-length')) != 0
+    // ) {
+    if (response.headers.get('content-type') != 'application/json') {
+      return response.blob();
     }
+    console.log(response);
+    return response.json();
+    // } else {
+    //   return {};
+    // }
   } else {
     const errJson = await response.json();
 
