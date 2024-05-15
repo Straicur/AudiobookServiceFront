@@ -35,6 +35,7 @@ export const HandleFetch = async (
   console.log('content');
   console.log(content);
   const response = await fetch(url, content);
+  console.log('response');
   console.log(response);
   if (response.ok) {
     if (
