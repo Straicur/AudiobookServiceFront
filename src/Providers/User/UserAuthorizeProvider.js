@@ -12,7 +12,7 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
 
   const { mutate: login } = useMutation({
     mutationFn: (data) => {
-      return HandleFetch(
+      HandleFetch(
         '/authorize',
         'POST',
         {
