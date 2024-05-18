@@ -100,13 +100,21 @@ export default function AdminCategoriesEditModal(props) {
             </h3>
 
             <div className='col'>
-              <Button variant='danger' onClick={activateCategory} className='form-control mt-2'>
+              <Button
+                variant={props.state.editCategoryElement.active ? 'danger' : 'success'}
+                onClick={activateCategory}
+                className='form-control mt-2'
+              >
                 {props.t('yes')}
               </Button>
             </div>
 
             <div className='col'>
-              <Button variant='success' onClick={handleClose} className='form-control mt-2'>
+              <Button
+                variant={props.state.editCategoryElement.active ? 'success' : 'danger'}
+                onClick={handleClose}
+                className='form-control mt-2'
+              >
                 {props.t('no')}
               </Button>
             </div>

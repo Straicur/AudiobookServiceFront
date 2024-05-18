@@ -136,12 +136,13 @@ export default function AdminAudiobooksAudiobookAddModal(props) {
         <Modal.Footer>
           {stateModal.upload == false ? (
             <div>
-              <Button variant='dark' onClick={adminService.handleBack}>
+              <Button className='me-1' variant='dark' onClick={adminService.handleBack}>
                 {props.t('back')}
               </Button>
               <Button
                 disabled={!stateModal.file}
                 variant='dark'
+                className='ms-1'
                 onClick={() => {
                   adminService.addAudiobook();
                 }}
