@@ -50,7 +50,7 @@ export default function AdminAudiobookPlayer(props) {
         </div>
       }
       autoPlay={false}
-      src={props.audiobookPart.url}
+      src={process.env.REACT_APP_API_URL + props.audiobookPart.url}
       onListen={(e) => timeCur(e)}
       autoPlayAfterSrcChange={false}
       showSkipControls={true}
