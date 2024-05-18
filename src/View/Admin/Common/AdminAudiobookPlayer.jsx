@@ -39,7 +39,7 @@ export default function AdminAudiobookPlayer(props) {
       player.current.audio.current.currentTime = timeAudio.current;
     }
   }, [props]);
-
+  console.log(props.audiobookPart);
   return (
     <AudioPlayer
       header={
@@ -50,7 +50,7 @@ export default function AdminAudiobookPlayer(props) {
         </div>
       }
       autoPlay={false}
-      src={props.audiobookPart}
+      src={props.audiobookPart.url}
       onListen={(e) => timeCur(e)}
       autoPlayAfterSrcChange={false}
       showSkipControls={true}
