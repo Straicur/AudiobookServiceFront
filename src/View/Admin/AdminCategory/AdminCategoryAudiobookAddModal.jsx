@@ -72,7 +72,7 @@ export default function AdminCategoryAudiobookAddModal(props) {
             className='form-control mt-2'
             onChange={(e) => adminService.handleChange(e)}
           />
-          {props.categoryDetail.parentCategoryId != null ? (
+          {props.categoryDetail.parentCategoryId !== '' ? (
             <div className='mt-3'>
               <Form.Check
                 type='switch'
@@ -126,12 +126,13 @@ export default function AdminCategoryAudiobookAddModal(props) {
         <Modal.Footer>
           {stateModal.upload == false ? (
             <div>
-              <Button variant='dark' onClick={adminService.handleBack}>
+              <Button className='me-1' variant='dark' onClick={adminService.handleBack}>
                 {props.t('back')}
               </Button>
               <Button
                 disabled={!stateModal.fileAdded}
                 variant='dark'
+                className='ms-1'
                 onClick={() => {
                   adminService.addNewAudiobook();
                 }}
