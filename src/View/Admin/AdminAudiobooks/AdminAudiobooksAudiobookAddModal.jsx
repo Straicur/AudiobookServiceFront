@@ -114,7 +114,7 @@ export default function AdminAudiobooksAudiobookAddModal(props) {
               type='file'
               name='name'
               className='form-control mt-2'
-              onInput={adminService.handleOnFileChange}
+              onInput={(e) => adminService.handleOnFileChange(e)}
             />
           )}
         </Modal.Body>
