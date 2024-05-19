@@ -19,7 +19,7 @@ export default function Help() {
 
       <div className='container-fluid main-container mt-3'>
         <div className='card position-relative p-3 bg-dark shadow'>
-          <UserNavBarPrividers token={token} t={t} i18n={i18n} />
+          {token ? <UserNavBarPrividers token={token} t={t} i18n={i18n} /> : null}
           <div className='row justify-content-center fs-2 fw-bold text-white mt-4'>
             {t('helpTitle')}
           </div>

@@ -180,6 +180,7 @@ export default function AdminAudiobookReAddingModal(props) {
               <Button
                 disabled={!stateModal.file}
                 variant='dark'
+                className='ms-1'
                 onClick={() => {
                   adminService.reAddAudiobook();
                 }}

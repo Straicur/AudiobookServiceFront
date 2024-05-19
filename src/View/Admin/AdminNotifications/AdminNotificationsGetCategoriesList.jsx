@@ -34,7 +34,8 @@ export default function GetCategoriesList(props) {
             onClick={() => {
               props.setState((prev) => ({
                 ...prev,
-                actionId: element.categoryKey,
+                categoryKey: element.categoryKey,
+                actionId: element.id,
               }));
 
               props.goBack();

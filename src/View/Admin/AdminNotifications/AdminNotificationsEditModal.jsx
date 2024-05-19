@@ -193,8 +193,23 @@ export default function AdminNotificationsEditModal(props) {
                       });
                     }
 
+                    let jsonData = {
+                      notificationId: props.notificationState.id,
+                      notificationType: props.notificationState.notificationType,
+                      notificationUserType: props.notificationState.userType,
+                      actionId: props.notificationState.actionId,
+                      additionalData: {
+                        text: props.notificationState.text,
+                      },
+                    };
+
+                    if (props.notificationState.categoryKey) {
+                      jsonData.additionalData.categoryKey = props.notificationState.categoryKey;
+                    }
+
                     props.editNotification({
                       setNotificationState: props.setNotificationState,
+                      jsonData: jsonData,
                       notificationState: props.notificationState,
                     });
 
