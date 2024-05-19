@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 export default function UserSettingsForm(props) {
   return (
     <div className='row mt-4'>
-      <div className='row align-items-center justify-content-center '>
+      <div className='row align-items-center justify-content-center my-2'>
         <Button
           name='en'
           size='sm'
@@ -19,7 +19,7 @@ export default function UserSettingsForm(props) {
           {props.t('editEmail')}
         </Button>
       </div>
-      <div className='row align-items-center justify-content-center '>
+      <div className='row align-items-center justify-content-center my-2'>
         <Button
           name='en'
           size='sm'
@@ -34,7 +34,7 @@ export default function UserSettingsForm(props) {
           {props.t('editPassword')}
         </Button>
       </div>
-      <div className='row align-items-center justify-content-center '>
+      <div className='row align-items-center justify-content-center my-2'>
         <Button
           name='en'
           size='sm'
@@ -49,7 +49,7 @@ export default function UserSettingsForm(props) {
           {props.t('changeAccountData')}
         </Button>
       </div>
-      <div className='row align-items-center justify-content-center '>
+      <div className='row align-items-center justify-content-center my-2'>
         <Button
           name='en'
           size='sm'

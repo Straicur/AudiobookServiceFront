@@ -6,10 +6,12 @@
 }
 
 .settings_button {
-  margin: 0.75rem !important;
   max-width: 20rem !important;
-  max-height: 2rem !important;
-  min-height: 2rem !important;
+  max-height: 2.75rem !important;
+  min-height: 2.75rem !important;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
   padding: 0 !important;
 }
 

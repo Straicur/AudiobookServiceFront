@@ -38,6 +38,7 @@ export default function AdminNotificationsList(props) {
 
   const [notificationState, setNotificationState] = useState({
     actionId: '',
+    categoryKey: '',
     dateAdd: 0,
     delete: false,
     id: '',

@@ -64,21 +64,7 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
 
   const { mutate: editNotification } = useMutation({
     mutationFn: (data) => {
-      return HandleFetch(
-        '/admin/user/notification',
-        'PATCH',
-        {
-          notificationId: data.notificationState.id,
-          notificationType: data.notificationState.notificationType,
-          notificationUserType: data.notificationState.userType,
-          actionId: data.notificationState.actionId,
-          additionalData: {
-            text: data.notificationState.text,
-          },
-        },
-        token,
-        i18n.language,
-      );
+      return HandleFetch('/admin/user/notification', 'PATCH', data.jsonData, token, i18n.language);
     },
     onSuccess: (data, variables) => {
       variables.setNotificationState((prev) => ({
