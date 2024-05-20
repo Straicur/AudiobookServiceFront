@@ -5,15 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const AudiobookPartContext = createContext(null);
 
-export const AdminAudiobookPartProvider = ({
-  children,
-  token,
-  audiobookId,
-  part,
-  audiobookState,
-  setAudiobookState,
-  i18n,
-}) => {
+export const AdminAudiobookPartProvider = ({ children, token, audiobookId, part, i18n }) => {
   const qc = useQueryClient();
 
   const setAudiobookPart = (variables) => {
@@ -27,13 +19,6 @@ export const AdminAudiobookPartProvider = ({
   };
 
   const setRefetch = () => {
-    setAudiobookState({
-      ...audiobookState,
-      newPart: true,
-      detailWatchingDate: null,
-      datailEndedTime: null,
-    });
-
     qc.invalidateQueries(['dataAudiobookPart' + audiobookId]);
   };
 
