@@ -39,7 +39,7 @@ export const NetworkErrorBoundryModal = ({ error }) => {
   }
 
   function reloadFunction() {
-    window.location.reload(false);
+    window.location.reload();
   }
 
   useLayoutEffect(() => {
