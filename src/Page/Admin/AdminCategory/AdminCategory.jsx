@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'Errors/ErrorBoundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminCategoryAudiobooksList from 'View/Admin/AdminCategory/AdminCategoryAudiobooksList';
 import { AdminCategoryDetailProfider } from 'Providers/Admin/AdminCategoryDetailProfider';

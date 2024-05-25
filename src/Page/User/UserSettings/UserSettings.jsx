@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import UserNavBarPrividers from 'View/User/UserNavBar/UserNavBarPrividers';
 import { useTokenStore } from 'Store/store';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'Errors/ErrorBoundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

@@ -80,11 +80,11 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
 
   const { mutate: audiobookReAdd } = useMutation({
     mutationFn: (data) => {
-      return HandleFetch('/admin/audiobook/reAdding', 'PATCH', data.json, token, i18n.language);
+      return HandleFetch('/admin/audiobook/reAdding', 'PATCH', data.jsonData, token, i18n.language);
     },
     onSuccess: (data, variables) => {
       if (
-        variables.currentPart.current == this.maxParts.current ||
+        variables.currentPart.current == variables.maxParts.current ||
         Object.keys(data).length !== 0
       ) {
         variables.setStateModal({

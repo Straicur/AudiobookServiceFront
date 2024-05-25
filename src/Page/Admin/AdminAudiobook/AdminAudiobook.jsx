@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
-import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminAuidobookDetailProviders from 'View/Admin/AdminAudiobook/AdminAuidobookDetailProviders';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './AdminAudiobook.css';
+import { ErrorBoundary } from 'Errors/ErrorBoundary';
 
 export default function AdminAudiobook() {
   const token = useTokenStore((state) => state.token);
@@ -29,15 +29,7 @@ export default function AdminAudiobook() {
   });
 
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorHandlerModal}
-      // onReset={() => {
-      //   setAudiobookState((prev) => ({
-      //     ...prev,
-      //     error: null,
-      //   }));
-      // }}
-    >
+    <ErrorBoundary FallbackComponent={ErrorHandlerModal}>
       <AdminAuidobookDetailProviders
         audiobookState={audiobookState}
         setAudiobookState={setAudiobookState}

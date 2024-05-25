@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'Errors/ErrorBoundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminMainContainer from 'View/Admin/AdminMain/AdminMainContainer';
 import { useTranslation } from 'react-i18next';

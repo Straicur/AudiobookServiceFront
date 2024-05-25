@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useTokenStore } from 'Store/store';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import UserNavBarPrividers from 'View/User/UserNavBar/UserNavBarPrividers';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'Errors/ErrorBoundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import UserMyListGet from 'View/User/UserMyList/UserMyListGet';
 import { UserFooter } from 'View/User/Common/UserFooter';
