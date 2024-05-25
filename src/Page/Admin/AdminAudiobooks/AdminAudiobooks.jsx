@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'Errors/ErrorBoundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminAudiobooksList from 'View/Admin/AdminAudiobooks/AdminAudiobooksList';
 import { useTranslation } from 'react-i18next';

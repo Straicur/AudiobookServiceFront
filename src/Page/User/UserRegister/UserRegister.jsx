@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import UserRegisterForm from 'View/User/UserRegister/UserRegisterForm';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'Errors/ErrorBoundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import ValidateUtil from 'Util/ValidateUtil';
 import './UserRegister.css';

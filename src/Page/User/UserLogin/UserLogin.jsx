@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import UserLoginForm from 'View/User/UserLogin/UserLoginForm';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'Errors/ErrorBoundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import { useTranslation } from 'react-i18next';
 import { UserAuthorizeProvider } from 'Providers/User/UserAuthorizeProvider';

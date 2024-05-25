@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'Errors/ErrorBoundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminCategoriesList from 'View/Admin/AdminCategories/AdminCategoriesList';
 import { AdminCategoriesTreeProvider } from 'Providers/Admin/AdminCategoriesTreeProvider';
