@@ -89,7 +89,6 @@ export const AdminSystemRolesProvider = ({ children, token, i18n }) => {
     retryDelay: 500,
     refetchOnWindowFocus: false,
     gcTime: 21600000,
-    throwOnError: true,
   });
 
   const value = [dataAdminUsersRoles, removeUserRole, addUserRole];

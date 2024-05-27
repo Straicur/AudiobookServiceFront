@@ -148,6 +148,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
       };
 
       const copy = Object.assign(json, data);
+
       qc.setQueryData(['dataAudiobookAdminData' + audiobookId], copy);
     },
     throwOnError: true,
@@ -202,10 +203,10 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
       );
     },
     onSuccess: () => {
-      qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
-      qc.invalidateQueries(['dataAdminCategoriesTree']);
-      qc.invalidateQueries(['dataAdminAudiobooks']);
+      qc.invalidateQueries(['dataAdminCategoriesTree', 'dataAdminAudiobooks']);
+      // setTimeout(function () {
       navigate(`/admin/audiobooks`);
+      // }, 400);
     },
     onError: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
@@ -228,7 +229,6 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [

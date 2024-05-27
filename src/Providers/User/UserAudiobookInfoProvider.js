@@ -55,7 +55,6 @@ export const UserAudiobookInfoProvider = ({ children, token, audiobookId, catego
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
   const value = [dataAudiobookUserInfo, mutate];
 

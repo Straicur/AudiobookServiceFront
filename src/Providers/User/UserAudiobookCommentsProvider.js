@@ -221,7 +221,6 @@ export const UserAudiobookCommentsProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [dataAudiobookUserComments, setRefetch, likeComment, addComment, editComment];

@@ -1,66 +1,72 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useTokenStore } from 'Store/store';
 import { v4 as uuidv4 } from 'uuid';
-import { networkErrorAtom } from 'App';
 import AuthenticationError from './Errors/AuthenticationError';
-import { useAtom } from 'jotai';
+import InvalidJsonDataError from './Errors/InvalidJsonDataError';
+import ServiceUnaviableError from './Errors/ServiceUnaviableError';
+import DataNotFoundError from './Errors/DataNotFoundError';
 
-export const NetworkErrorBoundryModal = ({ error }) => {
+export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
   const { t } = useTranslation();
-  const [errorAtomState, setErrorAtomState] = useAtom(networkErrorAtom);
   const tokenStore = useTokenStore();
   const navigate = useNavigate();
 
   const [state, setState] = useState({
-    message: '',
-    data: [],
     show: true,
-    notAuthenticated: false,
   });
 
-  const handleClose = () =>
+  const handleClose = () => {
+    if (onReset !== undefined) {
+      onReset();
+    }
+
+    setError(null);
+
     setState((prev) => ({
       ...prev,
       show: !state.show,
     }));
+  };
 
   function logout() {
     tokenStore.removeToken();
-
-    if (errorAtomState !== null) {
-      setErrorAtomState(null);
-    }
+    setError(null);
 
     navigate('/login');
   }
 
-  function reloadFunction() {
-    window.location.reload();
+  let errorMessage = '';
+  let errorData = [];
+
+  switch (true) {
+    case error instanceof AuthenticationError:
+      logout();
+      break;
+    case error instanceof InvalidJsonDataError:
+      errorData = error.data;
+      errorMessage = error.message;
+      break;
+    case error instanceof ServiceUnaviableError:
+      errorMessage = error.message;
+      break;
+    case error instanceof DataNotFoundError:
+      errorData = error.data;
+      errorMessage = error.message;
+      break;
+    default:
+      errorMessage = t('systemError');
   }
 
-  useLayoutEffect(() => {
-    if (error instanceof AuthenticationError) {
-      logout();
-    } else {
-      setState((prev) => ({
-        ...prev,
-        data: error.data,
-        message: error.message,
-      }));
-    }
-    //TODO TU dorób reportowanie potem
-  }, [error]);
-
   return (
-    <Modal show={state.show} onHide={handleClose} backdrop='static'>
+    <Modal show={state.show} backdrop='static'>
       <Modal.Body>
-        <h3 className='text-center fw-bold py-3'> {t('errorOccurred')}</h3>
-        {state.data != undefined
-          ? state.data.map((element) => {
+        <h3 className='text-center fw-bold py-3'> {errorMessage}</h3>
+        {errorData != undefined
+          ? errorData.map((element) => {
               return (
                 <p key={uuidv4()} className='text-center pb-1 fs-5'>
                   {element}
@@ -73,7 +79,7 @@ export const NetworkErrorBoundryModal = ({ error }) => {
         <Button
           variant='dark'
           onClick={() => {
-            reloadFunction();
+            handleClose();
           }}
         >
           {t('accept')}

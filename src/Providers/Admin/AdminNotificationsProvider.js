@@ -97,7 +97,6 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [

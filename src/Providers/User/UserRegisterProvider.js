@@ -15,7 +15,6 @@ export const UserRegisterProvider = ({ children, i18n }) => {
         modal: true,
       }));
     },
-    throwOnError: true,
   });
 
   const value = [register];

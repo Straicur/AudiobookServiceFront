@@ -45,7 +45,6 @@ export const UserAudiobookRatingProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [dataAudiobookUserRating, setAudiobookRating, setRefetch];

@@ -18,7 +18,6 @@ export const AdminMainDataPrivider = ({ children, token, i18n }) => {
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [dataAdminStatistics, setRefetch];

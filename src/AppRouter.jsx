@@ -22,7 +22,6 @@ import UserSettings from 'Page/User/UserSettings/UserSettings';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
 
 function AppRouter() {
   const token = useTokenStore((state) => state.token);
@@ -31,74 +30,36 @@ function AppRouter() {
     <Router>
       <Routes>
         {/*Admin*/}
-        <Route
-          exact
-          path='/admin'
-          element={
-            <NetworkErrorBoundry>
-              <AdminMain />
-            </NetworkErrorBoundry>
-          }
-          errorElement={<Page404 />}
-        />
+        <Route exact path='/admin' element={<AdminMain />} errorElement={<Page404 />} />
         <Route
           exact
           path='/admin/audiobooks'
-          element={
-            <NetworkErrorBoundry>
-              <AdminAudiobooks />
-            </NetworkErrorBoundry>
-          }
+          element={<AdminAudiobooks />}
           errorElement={<Page404 />}
         />
         <Route
           exact
           path='/admin/audiobook/:audiobookId'
-          element={
-            <NetworkErrorBoundry>
-              <AdminAudiobook />
-            </NetworkErrorBoundry>
-          }
+          element={<AdminAudiobook />}
           errorElement={<Page404 />}
         />
         <Route
           exact
           path='/admin/categories'
-          element={
-            <NetworkErrorBoundry>
-              <AdminCategories />
-            </NetworkErrorBoundry>
-          }
+          element={<AdminCategories />}
           errorElement={<Page404 />}
         />
         <Route
           exact
           path='/admin/notifications'
-          element={
-            <NetworkErrorBoundry>
-              <AdminNotifications />
-            </NetworkErrorBoundry>
-          }
+          element={<AdminNotifications />}
           errorElement={<Page404 />}
         />
-        <Route
-          exact
-          path='/admin/users'
-          element={
-            <NetworkErrorBoundry>
-              <AdminUsers />
-            </NetworkErrorBoundry>
-          }
-          errorElement={<Page404 />}
-        />
+        <Route exact path='/admin/users' element={<AdminUsers />} errorElement={<Page404 />} />
         <Route
           exact
           path='/admin/category/:categoryKey'
-          element={
-            <NetworkErrorBoundry>
-              <AdminCategory />
-            </NetworkErrorBoundry>
-          }
+          element={<AdminCategory />}
           errorElement={<Page404 />}
         />
 
@@ -116,39 +77,12 @@ function AppRouter() {
         />
         <Route exact path='/login' element={<UserLogin />} errorElement={<Page404 />} />
         <Route exact path='/register' element={<UserRegister />} errorElement={<Page404 />} />
-        <Route
-          exact
-          path='/main'
-          element={
-            <NetworkErrorBoundry>
-              <UserMain />
-            </NetworkErrorBoundry>
-          }
-          errorElement={<Page404 />}
-        />
-        <Route
-          exact
-          path='/myList'
-          element={
-            <NetworkErrorBoundry>
-              <UserMyList />
-            </NetworkErrorBoundry>
-          }
-          errorElement={<Page404 />}
-        />
+        <Route exact path='/main' element={<UserMain />} errorElement={<Page404 />} />
+        <Route exact path='/myList' element={<UserMyList />} errorElement={<Page404 />} />
         <Route exact path='/help' element={<UserHelp />} errorElement={<Page404 />} />
         <Route exact path='/about' element={<UserAbout />} errorElement={<Page404 />} />
         <Route exact path='/policy' element={<UserPolicy />} errorElement={<Page404 />} />
-        <Route
-          exact
-          path='/user/settings'
-          element={
-            <NetworkErrorBoundry>
-              <UserSettings />
-            </NetworkErrorBoundry>
-          }
-          errorElement={<Page404 />}
-        />
+        <Route exact path='/user/settings' element={<UserSettings />} errorElement={<Page404 />} />
         <Route
           exact
           path='/user/reset/password/:id'

@@ -10,7 +10,7 @@ import InvalidJsonDataError from './Errors/InvalidJsonDataError';
 import ServiceUnaviableError from './Errors/ServiceUnaviableError';
 import DataNotFoundError from './Errors/DataNotFoundError';
 
-export const ErrorHandlerModal = ({ error, setError, onReset }) => {
+export const ErrorHandlerModal = ({ error }) => {
   const { t } = useTranslation();
 
   const [state, setState] = useState({
@@ -18,15 +18,12 @@ export const ErrorHandlerModal = ({ error, setError, onReset }) => {
   });
 
   const handleClose = () => {
-    if (onReset !== undefined) {
-      onReset();
-    }
-
-    setError(null);
     setState((prev) => ({
       ...prev,
       show: !state.show,
     }));
+
+    window.location.reload();
   };
 
   let errorMessage = '';

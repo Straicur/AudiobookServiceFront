@@ -113,7 +113,6 @@ export const AdminAudiobooksProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [dataAdminAudiobooks, setRefetch, activate, refetch, addAudiobook];

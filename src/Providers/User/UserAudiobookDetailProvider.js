@@ -116,7 +116,6 @@ export const UserAudiobookDetailProvider = ({
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [dataAudiobookUserDetail, addToMyList, addAudiobookRating, setRefetch];
