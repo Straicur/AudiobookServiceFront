@@ -36,6 +36,7 @@ export default function AdminAuidobookDetailProviders(props) {
                 t={props.t}
                 token={props.token}
                 i18n={props.i18n}
+                deleted={props.deleted}
               />
             </AdminCategoriesListProvider>
           </AdminCategoriesTreeProvider>

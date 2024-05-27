@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTokenStore } from 'Store/store';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminAuidobookDetailProviders from 'View/Admin/AdminAudiobook/AdminAuidobookDetailProviders';
@@ -16,6 +16,8 @@ export default function AdminAudiobook() {
 
   const { audiobookId } = useParams();
 
+  const deleted = useRef(true);
+
   const [audiobookState, setAudiobookState] = useState({
     file: null,
     edit: false,
@@ -31,7 +33,7 @@ export default function AdminAudiobook() {
   });
 
   return (
-    <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal}>
+    <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal} showModal={deleted}>
       <ErrorBoundary FallbackComponent={ErrorHandlerModal}>
         <AdminAuidobookDetailProviders
           audiobookState={audiobookState}
@@ -40,6 +42,7 @@ export default function AdminAudiobook() {
           token={token}
           t={t}
           i18n={i18n}
+          deleted={deleted}
         />
       </ErrorBoundary>
     </NetworkErrorBoundry>

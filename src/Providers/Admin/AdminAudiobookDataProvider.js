@@ -202,11 +202,14 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
         i18n.language,
       );
     },
+    onMutate: (variables) => {
+      variables.deleted.current = false;
+    },
     onSuccess: () => {
       qc.invalidateQueries(['dataAdminCategoriesTree', 'dataAdminAudiobooks']);
-      // setTimeout(function () {
-      navigate(`/admin/audiobooks`);
-      // }, 400);
+      setTimeout(function () {
+        navigate(`/admin/audiobooks`);
+      }, 400);
     },
     onError: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);

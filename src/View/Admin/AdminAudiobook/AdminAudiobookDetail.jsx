@@ -185,6 +185,7 @@ export default function AdminAudiobookDetail(props) {
             <AdminAudiobookDeleteEntarlyButton
               audiobookDetail={audiobookDetail}
               deleteAudiobook={deleteAudiobook}
+              deleted={props.deleted}
               audiobookState={props.audiobookState}
               setAudiobookState={props.setAudiobookState}
               token={props.token}

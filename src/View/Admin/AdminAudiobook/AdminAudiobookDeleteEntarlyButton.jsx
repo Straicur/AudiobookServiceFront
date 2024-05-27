@@ -12,6 +12,7 @@ export default function AdminAudiobookDeleteEntarlyButton(props) {
           onClick={() =>
             props.deleteAudiobook({
               audiobookId: props.audiobookDetail.id,
+              deleted: props.deleted,
             })
           }
         >

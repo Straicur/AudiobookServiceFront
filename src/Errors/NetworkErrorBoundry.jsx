@@ -7,7 +7,7 @@ import ServiceUnaviableError from './Errors/ServiceUnaviableError';
 import DataNotFoundError from './Errors/DataNotFoundError';
 import InvalidJsonDataError from './Errors/InvalidJsonDataError';
 
-export const NetworkErrorBoundry = ({ children, FallbackComponent, onReset }) => {
+export const NetworkErrorBoundry = ({ children, FallbackComponent, onReset, showModal }) => {
   const [errorAtomState, setErrorAtomState] = useAtom(networkErrorAtom);
   const [errorModalState, setErrorModalState] = useState({
     showModal: false,
@@ -32,9 +32,11 @@ export const NetworkErrorBoundry = ({ children, FallbackComponent, onReset }) =>
 
   return (
     <>
-      {errorModalState.showModal === true && FallbackComponent !== undefined ? (
+      {errorModalState.showModal === true && FallbackComponent !== undefined && showModal ? (
         <FallbackComponent error={errorAtomState} setError={setErrorAtomState} onReset={onReset} />
-      ) : null}
+      ) : (
+        setErrorAtomState(null)
+      )}
       {children}
     </>
   );
