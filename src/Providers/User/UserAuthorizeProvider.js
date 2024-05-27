@@ -27,7 +27,6 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
       tokenStore.setToken(data);
       navigate('/login');
     },
-    throwOnError: true,
   });
 
   const { mutate: logout } = useMutation({

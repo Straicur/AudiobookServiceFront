@@ -145,9 +145,11 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
         audiobooks: copy,
       });
 
-      qc.invalidateQueries(['dataAdminCategoriesTree']);
-      qc.invalidateQueries(['dataAudiobookAdminData']);
-      qc.invalidateQueries(['dataAdminAudiobooks']);
+      qc.invalidateQueries([
+        'dataAdminCategoriesTree',
+        'dataAudiobookAdminData',
+        'dataAdminAudiobooks',
+      ]);
     },
     onError: () => {
       qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
@@ -156,8 +158,7 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
   });
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAdminCategoriesTree']);
-    qc.invalidateQueries(['dataAdminCategoryAudiobooks']);
+    qc.invalidateQueries(['dataAdminCategoriesTree', 'dataAdminCategoryAudiobooks']);
   };
 
   const { data: dataAdminCategoryAudiobooks = null } = useQuery({
@@ -177,7 +178,6 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [

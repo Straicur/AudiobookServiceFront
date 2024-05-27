@@ -68,8 +68,7 @@ export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
       );
     },
     onSuccess: () => {
-      qc.invalidateQueries(['dataAdminCategoriesList']);
-      qc.invalidateQueries(['dataAdminCategoriesTree']);
+      qc.invalidateQueries(['dataAdminCategoriesList', 'dataAdminCategoriesTree']);
     },
     throwOnError: true,
   });
@@ -87,8 +86,7 @@ export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
       );
     },
     onSuccess: () => {
-      qc.invalidateQueries(['dataAdminCategoriesList']);
-      qc.invalidateQueries(['dataAdminCategoriesTree']);
+      qc.invalidateQueries(['dataAdminCategoriesList', 'dataAdminCategoriesTree']);
     },
     throwOnError: true,
   });
@@ -103,7 +101,6 @@ export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [

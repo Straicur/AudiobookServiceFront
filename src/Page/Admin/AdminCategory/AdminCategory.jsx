@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
-import { ErrorBoundary } from 'Errors/ErrorBoundary';
+import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminCategoryAudiobooksList from 'View/Admin/AdminCategory/AdminCategoryAudiobooksList';
 import { AdminCategoryDetailProfider } from 'Providers/Admin/AdminCategoryDetailProfider';
 import { AdminCategoryAudiobooksProvider } from 'Providers/Admin/AdminCategoryAudiobooksProvider';
+import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
+import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import './AdminCategory.css';
@@ -21,32 +23,34 @@ export default function AdminCategory() {
   });
 
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorHandlerModal}
-      // onReset={() => {
-      //   setAudiobooksState((prev) => ({
-      //     ...prev,
-      //     error: null,
-      //   }));
-      // }}
-    >
-      <AdminCategoryDetailProfider categoryKey={categoryKey} token={token} i18n={i18n}>
-        <AdminCategoryAudiobooksProvider
-          categoryKey={categoryKey}
-          page={audiobooksState.page}
-          token={token}
-          i18n={i18n}
-        >
-          <AdminCategoryAudiobooksList
-            audiobooksState={audiobooksState}
-            setAudiobooksState={setAudiobooksState}
-            token={token}
+    <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal}>
+      <ErrorBoundary
+        FallbackComponent={ErrorHandlerModal}
+        // onReset={() => {
+        //   setAudiobooksState((prev) => ({
+        //     ...prev,
+        //     error: null,
+        //   }));
+        // }}
+      >
+        <AdminCategoryDetailProfider categoryKey={categoryKey} token={token} i18n={i18n}>
+          <AdminCategoryAudiobooksProvider
             categoryKey={categoryKey}
-            t={t}
+            page={audiobooksState.page}
+            token={token}
             i18n={i18n}
-          />
-        </AdminCategoryAudiobooksProvider>
-      </AdminCategoryDetailProfider>
-    </ErrorBoundary>
+          >
+            <AdminCategoryAudiobooksList
+              audiobooksState={audiobooksState}
+              setAudiobooksState={setAudiobooksState}
+              token={token}
+              categoryKey={categoryKey}
+              t={t}
+              i18n={i18n}
+            />
+          </AdminCategoryAudiobooksProvider>
+        </AdminCategoryDetailProfider>
+      </ErrorBoundary>
+    </NetworkErrorBoundry>
   );
 }

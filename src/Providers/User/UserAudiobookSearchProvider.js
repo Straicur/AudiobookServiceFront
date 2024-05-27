@@ -24,7 +24,6 @@ export const UserAudiobookSearchProvider = ({ children, token, title, i18n }) =>
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [dataAudiobookUserSearch, refetch, isLoading];

@@ -5,7 +5,9 @@ import AdminAuidobookDetailProviders from 'View/Admin/AdminAudiobook/AdminAuidob
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './AdminAudiobook.css';
-import { ErrorBoundary } from 'Errors/ErrorBoundary';
+import { ErrorBoundary } from 'react-error-boundary';
+import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
+import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 
 export default function AdminAudiobook() {
   const token = useTokenStore((state) => state.token);
@@ -29,15 +31,17 @@ export default function AdminAudiobook() {
   });
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorHandlerModal}>
-      <AdminAuidobookDetailProviders
-        audiobookState={audiobookState}
-        setAudiobookState={setAudiobookState}
-        audiobookId={audiobookId}
-        token={token}
-        t={t}
-        i18n={i18n}
-      />
-    </ErrorBoundary>
+    <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal}>
+      <ErrorBoundary FallbackComponent={ErrorHandlerModal}>
+        <AdminAuidobookDetailProviders
+          audiobookState={audiobookState}
+          setAudiobookState={setAudiobookState}
+          audiobookId={audiobookId}
+          token={token}
+          t={t}
+          i18n={i18n}
+        />
+      </ErrorBoundary>
+    </NetworkErrorBoundry>
   );
 }

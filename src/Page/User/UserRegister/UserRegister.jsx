@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import UserRegisterForm from 'View/User/UserRegister/UserRegisterForm';
-import { ErrorBoundary } from 'Errors/ErrorBoundary';
+import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import ValidateUtil from 'Util/ValidateUtil';
 import './UserRegister.css';
 import { UserRegisterProvider } from 'Providers/User/UserRegisterProvider';
 import { useTranslation } from 'react-i18next';
+import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
+import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 
 export default function Register() {
   const { i18n } = useTranslation();
@@ -60,18 +62,20 @@ export default function Register() {
   ]);
 
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorHandlerModal}
-      onReset={() => {
-        setState((prev) => ({
-          ...prev,
-          isButtonDisabled: true,
-        }));
-      }}
-    >
-      <UserRegisterProvider i18n={i18n}>
-        <UserRegisterForm state={state} setState={setState} />
-      </UserRegisterProvider>
-    </ErrorBoundary>
+    <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal}>
+      <ErrorBoundary
+        FallbackComponent={ErrorHandlerModal}
+        onReset={() => {
+          setState((prev) => ({
+            ...prev,
+            isButtonDisabled: true,
+          }));
+        }}
+      >
+        <UserRegisterProvider i18n={i18n}>
+          <UserRegisterForm state={state} setState={setState} />
+        </UserRegisterProvider>
+      </ErrorBoundary>
+    </NetworkErrorBoundry>
   );
 }

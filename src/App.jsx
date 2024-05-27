@@ -3,7 +3,7 @@ import AppRouter from 'AppRouter';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { QueryCache, QueryClient } from '@tanstack/react-query';
+import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 import { useAtom } from 'jotai';
@@ -24,6 +24,11 @@ function App() {
       },
     },
     queryCache: new QueryCache({
+      onError: (error) => {
+        setErrorAtomState(error);
+      },
+    }),
+    mutationCache: new MutationCache({
       onError: (error) => {
         setErrorAtomState(error);
       },

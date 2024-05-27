@@ -25,7 +25,6 @@ export const UserAudiobooksProvider = ({ children, token, page, limit, i18n }) =
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [dataUserAudiooboks, refetch, isLoading];

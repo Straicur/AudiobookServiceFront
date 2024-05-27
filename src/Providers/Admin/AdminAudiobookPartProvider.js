@@ -43,7 +43,6 @@ export const AdminAudiobookPartProvider = ({ children, token, audiobookId, part,
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    throwOnError: true,
   });
 
   const value = [dataAudiobookPart, setRefetch, setAudiobookPart];

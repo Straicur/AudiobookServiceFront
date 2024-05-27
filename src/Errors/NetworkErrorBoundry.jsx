@@ -1,13 +1,14 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { networkErrorAtom } from 'App';
 import { useAtom } from 'jotai';
-import { NetworkErrorBoundryModal } from './NetworkErrorBoundryModal';
 import AuthenticationError from './Errors/AuthenticationError';
 import PermissionError from './Errors/PermissionError';
-
 import ServiceUnaviableError from './Errors/ServiceUnaviableError';
-export const NetworkErrorBoundry = ({ children }) => {
-  const [errorAtomState] = useAtom(networkErrorAtom);
+import DataNotFoundError from './Errors/DataNotFoundError';
+import InvalidJsonDataError from './Errors/InvalidJsonDataError';
+
+export const NetworkErrorBoundry = ({ children, FallbackComponent, onReset }) => {
+  const [errorAtomState, setErrorAtomState] = useAtom(networkErrorAtom);
   const [errorModalState, setErrorModalState] = useState({
     showModal: false,
   });
@@ -17,6 +18,8 @@ export const NetworkErrorBoundry = ({ children }) => {
       if (
         errorAtomState instanceof AuthenticationError ||
         errorAtomState instanceof PermissionError ||
+        errorAtomState instanceof DataNotFoundError ||
+        errorAtomState instanceof InvalidJsonDataError ||
         errorAtomState instanceof ServiceUnaviableError
       ) {
         setErrorModalState((prev) => ({
@@ -29,8 +32,8 @@ export const NetworkErrorBoundry = ({ children }) => {
 
   return (
     <>
-      {errorModalState.showModal === true ? (
-        <NetworkErrorBoundryModal error={errorAtomState} />
+      {errorModalState.showModal === true && FallbackComponent !== undefined ? (
+        <FallbackComponent error={errorAtomState} setError={setErrorAtomState} onReset={onReset} />
       ) : null}
       {children}
     </>

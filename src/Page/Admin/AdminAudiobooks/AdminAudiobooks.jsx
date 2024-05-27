@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useTokenStore } from 'Store/store';
-import { ErrorBoundary } from 'Errors/ErrorBoundary';
+import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminAudiobooksList from 'View/Admin/AdminAudiobooks/AdminAudiobooksList';
 import { useTranslation } from 'react-i18next';
 import { AdminAudiobooksProvider } from 'Providers/Admin/AdminAudiobooksProvider';
 import { AdminCategoriesListProvider } from 'Providers/Admin/AdminCategoriesListProvider';
+import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
+import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 import './AdminAudiobooks.css';
 
 export default function AdminAudiobooks() {
@@ -31,33 +33,35 @@ export default function AdminAudiobooks() {
   });
 
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorHandlerModal}
-      // onReset={() => {
-      //   setAudiobooksState((prev) => ({
-      //     ...prev,
-      //     error: null,
-      //   }));
-      // }}
-    >
-      <AdminAudiobooksProvider
-        token={token}
-        page={audiobooksState.page}
-        searchState={searchState}
-        i18n={i18n}
+    <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal}>
+      <ErrorBoundary
+        FallbackComponent={ErrorHandlerModal}
+        // onReset={() => {
+        //   setAudiobooksState((prev) => ({
+        //     ...prev,
+        //     error: null,
+        //   }));
+        // }}
       >
-        <AdminCategoriesListProvider token={token} i18n={i18n}>
-          <AdminAudiobooksList
-            audiobooksState={audiobooksState}
-            setAudiobooksState={setAudiobooksState}
-            t={t}
-            i18n={i18n}
-            searchState={searchState}
-            setSearchState={setSearchState}
-            token={token}
-          />
-        </AdminCategoriesListProvider>
-      </AdminAudiobooksProvider>
-    </ErrorBoundary>
+        <AdminAudiobooksProvider
+          token={token}
+          page={audiobooksState.page}
+          searchState={searchState}
+          i18n={i18n}
+        >
+          <AdminCategoriesListProvider token={token} i18n={i18n}>
+            <AdminAudiobooksList
+              audiobooksState={audiobooksState}
+              setAudiobooksState={setAudiobooksState}
+              t={t}
+              i18n={i18n}
+              searchState={searchState}
+              setSearchState={setSearchState}
+              token={token}
+            />
+          </AdminCategoriesListProvider>
+        </AdminAudiobooksProvider>
+      </ErrorBoundary>
+    </NetworkErrorBoundry>
   );
 }
