@@ -123,7 +123,6 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
     onSuccess: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
     },
-    throwOnError: true,
   });
 
   const { mutate: audiobookDataChange } = useMutation({
@@ -202,14 +201,11 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
         i18n.language,
       );
     },
-    onMutate: (variables) => {
-      variables.deleted.current = false;
-    },
     onSuccess: () => {
       qc.invalidateQueries(['dataAdminCategoriesTree', 'dataAdminAudiobooks']);
       setTimeout(function () {
         navigate(`/admin/audiobooks`);
-      }, 400);
+      }, 1000);
     },
     onError: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);

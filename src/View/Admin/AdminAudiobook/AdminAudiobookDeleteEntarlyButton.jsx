@@ -9,12 +9,12 @@ export default function AdminAudiobookDeleteEntarlyButton(props) {
           name='en'
           size='sm'
           className='btn button px-4 my-1 question_button success_button'
-          onClick={() =>
+          onClick={() => {
+            props.deleted.current = false;
             props.deleteAudiobook({
               audiobookId: props.audiobookDetail.id,
-              deleted: props.deleted,
-            })
-          }
+            });
+          }}
         >
           {props.t('yes')}
         </Button>

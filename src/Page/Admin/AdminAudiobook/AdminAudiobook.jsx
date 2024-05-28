@@ -33,7 +33,7 @@ export default function AdminAudiobook() {
   });
 
   return (
-    <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal} showModal={deleted}>
+    <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal} showModal={deleted.current}>
       <ErrorBoundary FallbackComponent={ErrorHandlerModal}>
         <AdminAuidobookDetailProviders
           audiobookState={audiobookState}
