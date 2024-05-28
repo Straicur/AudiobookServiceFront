@@ -36,7 +36,7 @@ export const useNotificationsListStore = create(
       addNotifications: (page, notifications) => {
         set((state) => {
           const updatedDateUpdate = [...state.dateUpdate];
-          updatedDateUpdate[page] = Date.now() + 300000;
+          updatedDateUpdate[page] = Date.now() + 30000;
 
           return {
             notifications: notifications,

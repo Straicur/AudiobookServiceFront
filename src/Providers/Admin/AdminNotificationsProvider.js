@@ -29,7 +29,11 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
       );
     },
     onError: () => {
-      qc.invalidateQueries(['dataAdminNotifications' + page]);
+      qc.invalidateQueries([
+        'dataAdminNotifications' + page,
+        'dataNotifications',
+        'dataNewNotifications',
+      ]);
     },
     throwOnError: true,
   });
@@ -49,7 +53,7 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
       );
     },
     onSuccess: (data, variables) => {
-      qc.invalidateQueries(['dataAdminNotifications']);
+      qc.invalidateQueries(['dataAdminNotifications', 'dataNotifications', 'dataNewNotifications']);
 
       variables.setState((prev) => ({
         ...prev,
@@ -72,7 +76,7 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
         editNotificationkModal: !variables.notificationState.editNotificationkModal,
       }));
 
-      qc.invalidateQueries(['dataAdminNotifications']);
+      qc.invalidateQueries(['dataAdminNotifications', 'dataNotifications', 'dataNewNotifications']);
     },
     onError: () => {
       qc.invalidateQueries(['dataAdminNotifications' + page]);
