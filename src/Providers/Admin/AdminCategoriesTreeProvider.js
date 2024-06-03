@@ -29,7 +29,6 @@ export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
 
       qc.setQueryData(['dataAdminCategoriesTree'], { categories: copy });
     },
-    throwOnError: true,
   });
 
   const { mutate: categoryActivate } = useMutation({
@@ -51,7 +50,6 @@ export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
 
       qc.setQueryData(['dataAdminCategoriesTree'], { categories: copy });
     },
-    throwOnError: true,
   });
 
   const { mutate: categoryAdd } = useMutation({
@@ -70,7 +68,6 @@ export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
     onSuccess: () => {
       qc.invalidateQueries(['dataAdminCategoriesList', 'dataAdminCategoriesTree']);
     },
-    throwOnError: true,
   });
 
   const { mutate: categoryDelete } = useMutation({
@@ -88,7 +85,6 @@ export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
     onSuccess: () => {
       qc.invalidateQueries(['dataAdminCategoriesList', 'dataAdminCategoriesTree']);
     },
-    throwOnError: true,
   });
 
   const setRefetch = () => {

@@ -29,7 +29,6 @@ export const NotificationsProvider = ({ children, token, page, i18n }) => {
         qc.invalidateQueries(['dataNotifications' + i]);
       }
     },
-    throwOnError: true,
   });
 
   const { data: dataNotifications = null, refetch } = useQuery({

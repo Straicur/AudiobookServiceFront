@@ -41,7 +41,6 @@ export const AdminSystemRolesProvider = ({ children, token, i18n }) => {
         editUserElement: newSelcetedUser,
       }));
     },
-    throwOnError: true,
   });
 
   const { mutate: removeUserRole } = useMutation({
@@ -79,7 +78,6 @@ export const AdminSystemRolesProvider = ({ children, token, i18n }) => {
         editUserElement: newSelcetedUser,
       }));
     },
-    throwOnError: true,
   });
 
   const { data: dataAdminUsersRoles = null } = useQuery({

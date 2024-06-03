@@ -37,7 +37,6 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
       tokenStore.removeToken();
       navigate('/login');
     },
-    throwOnError: true,
   });
 
   const { mutate: resetPassword } = useMutation({
@@ -69,7 +68,6 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
     onSuccess: () => {
       navigate('/login');
     },
-    throwOnError: true,
   });
 
   const value = [logout, login, resetPassword, resetPasswordConfirm];

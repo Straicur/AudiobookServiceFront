@@ -53,7 +53,6 @@ export const AdminAudiobookCommentsProvider = ({ children, token, audiobookId, i
     onError: () => {
       qc.invalidateQueries(['dataAudiobookAdminComments']);
     },
-    throwOnError: true,
   });
 
   const { data: dataAudiobookAdminComments = null } = useQuery({

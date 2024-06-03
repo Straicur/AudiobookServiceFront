@@ -25,7 +25,6 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
       tokenStore.removeToken();
       navigate('/login');
     },
-    throwOnError: true,
   });
 
   const { mutate: userPasswordChange } = useMutation({
@@ -48,7 +47,6 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
         checkPassword: !variables.state.checkPassword,
       }));
     },
-    throwOnError: true,
   });
 
   const { mutate: userEmailChange } = useMutation({
@@ -83,7 +81,6 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
       const copy = Object.assign(json, data);
       qc.setQueryData(['dataUserSettings'], copy);
     },
-    throwOnError: true,
   });
 
   const { mutate: userDataChange } = useMutation({
@@ -120,7 +117,6 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
       const copy = Object.assign(json, data);
       qc.setQueryData(['dataUserSettings'], copy);
     },
-    throwOnError: true,
   });
 
   const { data: dataUserSettings = null, isLoading } = useQuery({

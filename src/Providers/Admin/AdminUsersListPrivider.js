@@ -40,7 +40,6 @@ export const AdminUsersListPrivider = ({
     onError: () => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
     },
-    throwOnError: true,
   });
 
   const { mutate: changeUserPhone } = useMutation({
@@ -65,7 +64,6 @@ export const AdminUsersListPrivider = ({
     onError: () => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
     },
-    throwOnError: true,
   });
 
   const { mutate: activateUser } = useMutation({
@@ -100,7 +98,6 @@ export const AdminUsersListPrivider = ({
     onError: () => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
     },
-    throwOnError: true,
   });
 
   const { mutate: banUser } = useMutation({
@@ -138,7 +135,6 @@ export const AdminUsersListPrivider = ({
     onError: () => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
     },
-    throwOnError: true,
   });
 
   const { mutate: deleteUser } = useMutation({
@@ -160,7 +156,6 @@ export const AdminUsersListPrivider = ({
     onError: () => {
       qc.invalidateQueries(['dataAdminUsersList' + page]);
     },
-    throwOnError: true,
   });
 
   const setRefetch = () => {

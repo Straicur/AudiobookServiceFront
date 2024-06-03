@@ -25,7 +25,10 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
     },
     onSuccess: (data, variables) => {
       data = [];
-      variables.setAudiobookCoverRefetch();
+
+      setTimeout(() => {
+        variables.setAudiobookCoverRefetch();
+      }, '1000');
 
       variables.setState((prev) => ({
         ...prev,
@@ -43,7 +46,6 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
         variables.props.handleClose();
       }
     },
-    throwOnError: true,
   });
 
   const { mutate: getAudiobookZip } = useMutation({
@@ -75,7 +77,6 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
       error = [];
       variables.props.handleClose();
     },
-    throwOnError: true,
   });
 
   const { mutate: audiobookReAdd } = useMutation({
@@ -150,7 +151,6 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
 
       qc.setQueryData(['dataAudiobookAdminData' + audiobookId], copy);
     },
-    throwOnError: true,
   });
 
   const { mutate: audiobookDeleteCategory } = useMutation({
@@ -169,7 +169,6 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
     onSuccess: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
     },
-    throwOnError: true,
   });
 
   const { mutate: audiobookAddCategory } = useMutation({
@@ -186,7 +185,6 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
         i18n.language,
       );
     },
-    throwOnError: true,
   });
 
   const { mutate: deleteAudiobook } = useMutation({
@@ -210,7 +208,6 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
     onError: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
     },
-    throwOnError: true,
   });
 
   const { data: dataAudiobookAdminData, refetch } = useQuery({

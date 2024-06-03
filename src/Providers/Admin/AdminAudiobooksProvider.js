@@ -42,7 +42,6 @@ export const AdminAudiobooksProvider = ({
 
       variables.currentPart.current = variables.currentPart.current + 1;
     },
-    throwOnError: true,
   });
 
   const { mutate: activate } = useMutation({
@@ -89,7 +88,6 @@ export const AdminAudiobooksProvider = ({
     onError: () => {
       qc.invalidateQueries(['dataAdminAudiobooks' + page]);
     },
-    throwOnError: true,
   });
 
   const setRefetch = () => {

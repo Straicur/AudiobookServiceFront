@@ -27,7 +27,6 @@ export const AdminUsersDeleteProvider = ({ children, page, token, i18n }) => {
     onError: () => {
       qc.invalidateQueries(['dataAdminUsersDelete']);
     },
-    throwOnError: true,
   });
 
   const { mutate: deleteUser } = useMutation({
@@ -48,7 +47,6 @@ export const AdminUsersDeleteProvider = ({ children, page, token, i18n }) => {
     onError: () => {
       qc.invalidateQueries(['dataAdminUsersDelete']);
     },
-    throwOnError: true,
   });
 
   const { data: dataAdminUsersDelete = null } = useQuery({
