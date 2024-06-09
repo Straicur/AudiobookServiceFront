@@ -38,7 +38,6 @@ export const UserAudiobookDetailProvider = ({
     onError: (e, variables) => {
       variables.doubleClickRating();
     },
-    throwOnError: true,
   });
 
   const { mutate: addToMyList } = useMutation({
@@ -92,7 +91,6 @@ export const UserAudiobookDetailProvider = ({
     onError: () => {
       qc.invalidateQueries(['dataAudiobookUserDetail' + audiobookId]);
     },
-    throwOnError: true,
   });
 
   const setRefetch = () => {

@@ -35,11 +35,15 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
         'dataNewNotifications',
       ]);
     },
-    throwOnError: true,
   });
 
   const { mutate: addNotification } = useMutation({
     mutationFn: (data) => {
+      console.log({
+        notificationType: data.modalState.notificationType,
+        notificationUserType: data.modalState.userType,
+        additionalData: AdminNotificationsAddService.createAdditionalData(data.modalState),
+      });
       return HandleFetch(
         '/admin/user/notification',
         'PUT',
@@ -63,7 +67,6 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
     onError: () => {
       qc.invalidateQueries(['dataAdminNotifications' + page]);
     },
-    throwOnError: true,
   });
 
   const { mutate: editNotification } = useMutation({
@@ -81,7 +84,6 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
     onError: () => {
       qc.invalidateQueries(['dataAdminNotifications' + page]);
     },
-    throwOnError: true,
   });
 
   const { data: dataAdminStatistics = null, refetch } = useQuery({

@@ -36,7 +36,7 @@ export default function AdminCategoryAudiobookCover(props) {
                 audiobookId: props.audiobookDetail.id,
               },
               setAudiobookCoverRefetch: props.setAudiobookCoverRefetch,
-              setStateModal: props.setStateModal,
+              setState: props.setStateModal,
               handleClose: props.handleClose,
             });
           }

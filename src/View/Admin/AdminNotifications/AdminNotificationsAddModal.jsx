@@ -9,6 +9,7 @@ import AdminNotificationsAddService from 'Service/Admin/AdminNotificationsAddSer
 export default function AdminNotificationsAddModal(props) {
   const [modalState, setModalState] = useState({
     actionId: '',
+    categoryKey: '',
     notificationType: 0,
     text: '',
     userType: 0,

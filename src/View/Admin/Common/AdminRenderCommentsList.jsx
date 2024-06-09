@@ -3,12 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
 
 export default function AdminRenderCommentsList(props) {
-  function deleteCommnet(element) {
-    props.deleteComment({
-      id: element.id,
-    });
-  }
-
   const renderTree = () => {
     let renderArray = [];
 
@@ -104,8 +98,10 @@ export default function AdminRenderCommentsList(props) {
               variant='dark'
               size='sm'
               className='btn button'
-              onClick={() => {
-                deleteCommnet(element);
+              onClick={(element) => {
+                props.deleteComment({
+                  id: element.id,
+                });
               }}
             >
               {element.deleted ? props.t('restore') : props.t('delete')}
@@ -150,8 +146,10 @@ export default function AdminRenderCommentsList(props) {
               variant='dark'
               size='sm'
               className='btn button'
-              onClick={() => {
-                deleteCommnet(element);
+              onClick={(element) => {
+                props.deleteComment({
+                  id: element.id,
+                });
               }}
             >
               {props.t('delete')}

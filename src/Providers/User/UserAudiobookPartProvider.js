@@ -47,6 +47,7 @@ export const UserAudiobookPartProvider = ({
 
     if (audiobookInfo != null && audiobookInfo.part != null) {
       part = audiobookInfo.part;
+      json.part = part;
     } else if (part == undefined || isNaN(part)) {
       json.part = 0;
     } else {

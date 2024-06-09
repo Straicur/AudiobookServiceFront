@@ -156,7 +156,6 @@ export const UserAudiobookCommentsProvider = ({
     onError: () => {
       qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
     },
-    throwOnError: true,
   });
 
   const { mutate: editComment } = useMutation({
@@ -179,7 +178,6 @@ export const UserAudiobookCommentsProvider = ({
       variables.element.target.classList.remove('disabled');
       qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
     },
-    throwOnError: true,
   });
 
   const { mutate: addComment } = useMutation({
@@ -197,7 +195,6 @@ export const UserAudiobookCommentsProvider = ({
       variables.element.target.classList.remove('disabled');
       qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
     },
-    throwOnError: true,
   });
 
   const setRefetch = () => {

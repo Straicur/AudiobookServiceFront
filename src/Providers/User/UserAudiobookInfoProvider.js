@@ -35,7 +35,6 @@ export const UserAudiobookInfoProvider = ({ children, token, audiobookId, catego
     onError: () => {
       qc.invalidateQueries(['dataAudiobookUserInfo' + audiobookId]);
     },
-    throwOnError: true,
   });
 
   const { data: dataAudiobookUserInfo = null } = useQuery({

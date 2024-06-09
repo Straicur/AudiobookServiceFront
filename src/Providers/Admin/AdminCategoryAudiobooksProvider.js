@@ -34,7 +34,6 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
 
       variables.currentPart.current = variables.currentPart.current + 1;
     },
-    throwOnError: true,
   });
 
   const { mutate: activate } = useMutation({
@@ -81,7 +80,6 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
     onError: () => {
       qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
     },
-    throwOnError: true,
   });
 
   const { mutate: deleteAudiobookFromCategory } = useMutation({
@@ -116,7 +114,6 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
     onError: () => {
       qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
     },
-    throwOnError: true,
   });
 
   const { mutate: deleteAudiobook } = useMutation({
@@ -154,7 +151,6 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
     onError: () => {
       qc.invalidateQueries(['dataAdminCategoryAudiobooks' + page + categoryKey]);
     },
-    throwOnError: true,
   });
 
   const setRefetch = () => {
