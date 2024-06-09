@@ -3,12 +3,15 @@ import { HandleFetch } from 'Util/HandleFetch';
 import { useMutation } from '@tanstack/react-query';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
+import { exact } from 'prop-types';
 
 const UserAuthorizeContext = createContext(null);
 
 export const UserAuthorizeProvider = ({ children, token, i18n }) => {
   const tokenStore = useTokenStore();
   const navigate = useNavigate();
+  const qc = useQueryClient();
 
   const { mutate: login } = useMutation({
     mutationFn: (data) => {
@@ -35,6 +38,25 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
     },
     onSettled: () => {
       tokenStore.removeToken();
+      qc.invalidateQueries({
+        queryKey: [
+          'dataUserSettings',
+          'dataUserAudiooboks',
+          'dataAudiobookUserSearch',
+          'dataAudiobookUserRating',
+          'dataAudiobookUserProposed',
+          'dataAudiobookPart',
+          'dataMyAudiobooksUserData',
+          'dataAudiobookUserInfo',
+          'dataAudiobookUserDetail',
+          'dataAudiobookUserComments',
+          'dataNotifications',
+          'dataNewNotifications',
+          'dataNewNotifications',
+        ],
+        exact: exact,
+        refetchType: 'none',
+      });
       navigate('/login');
     },
   });
