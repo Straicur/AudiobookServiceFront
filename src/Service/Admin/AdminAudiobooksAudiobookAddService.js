@@ -1,6 +1,7 @@
 import sha256 from 'crypto-js/sha256';
 import { Buffer } from 'buffer';
 import FormService from 'Service/Common/FormService';
+import CreateUtil from 'Util/CreateUtil';
 
 export default class AdminAudiobooksAudiobookAddService extends FormService {
   constructor(stateModal, setStateModal, props, seconds, currentPart, maxParts) {
@@ -115,6 +116,14 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
             },
           };
 
+          if (this.stateModal.age !== 0) {
+            jsonData.additionalData.age = this.stateModal.age;
+          }
+
+          if (this.stateModal.year !== '') {
+            jsonData.additionalData.year = CreateUtil.createJsonFormatDate(this.stateModal.year);
+          }
+
           this.maxParts.current = part;
           this.currentPart.current = 0;
 
@@ -150,6 +159,14 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
                 author: this.stateModal.author,
               },
             };
+
+            if (this.stateModal.age !== 0) {
+              jsonData.additionalData.age = this.stateModal.age;
+            }
+
+            if (this.stateModal.year !== '') {
+              jsonData.additionalData.year = CreateUtil.createJsonFormatDate(this.stateModal.year);
+            }
 
             this.props.addAudiobook({
               jsonData: jsonData,
