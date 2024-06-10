@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import AdminAudiobookEditService from 'Service/Admin/AdminAudiobookEditService';
 import Alert from 'react-bootstrap/Alert';
+import CreateUtil from 'Util/CreateUtil';
 
 export default function AdminAudiobookEditForm(props) {
   const [wrongState, setWrongState] = useState(0);
@@ -69,7 +70,9 @@ export default function AdminAudiobookEditForm(props) {
           <Form.Control
             type='date'
             name='year'
-            value={props.audiobookDetail != null ? props.audiobookDetail.year : ''}
+            value={
+              props.audiobookDetail != null ? CreateUtil.createDate(props.audiobookDetail.year) : ''
+            }
             onChange={(event) => {
               adminService.handleProviderChange(event);
             }}
@@ -179,37 +182,25 @@ export default function AdminAudiobookEditForm(props) {
               <Dropdown.Toggle className=' text-start' variant='success' id='dropdown-basic'>
                 {props.t('age')}
               </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                {props.audiobookDetail != null ? (
+              {props.audiobookDetail != null ? (
+                <Dropdown.Menu>
                   <Dropdown.Item eventKey={1} active={props.audiobookDetail.age == 1}>
                     3-7
                   </Dropdown.Item>
-                ) : null}
-                {props.audiobookDetail != null ? (
                   <Dropdown.Item eventKey={2} active={props.audiobookDetail.age == 2}>
                     7-12
                   </Dropdown.Item>
-                ) : null}
-
-                {props.audiobookDetail != null ? (
                   <Dropdown.Item eventKey={3} active={props.audiobookDetail.age == 3}>
                     12-16
                   </Dropdown.Item>
-                ) : null}
-
-                {props.audiobookDetail != null ? (
                   <Dropdown.Item eventKey={4} active={props.audiobookDetail.age == 4}>
                     16-18
                   </Dropdown.Item>
-                ) : null}
-
-                {props.audiobookDetail != null ? (
                   <Dropdown.Item eventKey={5} active={props.audiobookDetail.age == 5}>
                     18+
                   </Dropdown.Item>
-                ) : null}
-              </Dropdown.Menu>
+                </Dropdown.Menu>
+              ) : null}
               <InputGroup.Text id='inputGroup-sizing-default'>
                 {props.audiobookDetail != null
                   ? props.audiobookDetail.age == 1

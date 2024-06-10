@@ -195,6 +195,7 @@
   "cantFindAnyParts": "No parts of the audiobook could be found",
   "changed": "Changed",
   "optional": "Optional",
+  "optionalFields": "Optional fields",
   "loadMore": "Load more",
   "look": "Look",
   "part": "Part",

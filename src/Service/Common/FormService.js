@@ -30,9 +30,10 @@ export default class FormService {
 
   handleProviderChangeDropDown(eventKey, name) {
     if (eventKey != undefined) {
-      this.setState({
+      this.setState((prev) => ({
+        ...prev,
         [name]: parseInt(eventKey),
-      });
+      }));
     }
   }
 
