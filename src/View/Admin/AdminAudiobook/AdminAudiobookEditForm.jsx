@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import AdminAudiobookEditService from 'Service/Admin/AdminAudiobookEditService';
 import Alert from 'react-bootstrap/Alert';
+import CreateUtil from 'Util/CreateUtil';
 
 export default function AdminAudiobookEditForm(props) {
   const [wrongState, setWrongState] = useState(0);
@@ -69,7 +70,9 @@ export default function AdminAudiobookEditForm(props) {
           <Form.Control
             type='date'
             name='year'
-            value={props.audiobookDetail != null ? props.audiobookDetail.year : ''}
+            value={
+              props.audiobookDetail != null ? CreateUtil.createDate(props.audiobookDetail.year) : ''
+            }
             onChange={(event) => {
               adminService.handleProviderChange(event);
             }}

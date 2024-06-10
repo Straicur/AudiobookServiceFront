@@ -6,12 +6,15 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import DropdownMultiselect from 'react-multiselect-dropdown-bootstrap';
 import Form from 'react-bootstrap/Form';
 import AdminAudiobookReAddingService from 'Service/Admin/AdminAudiobookReAddingService';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export default function AdminAudiobookReAddingModal(props) {
   const [stateModal, setStateModal] = useState({
     author: '',
     title: '',
     modal: 1,
+    age: 0,
+    year: '',
     categories: [],
     file: null,
     fileAdded: false,
@@ -135,6 +138,61 @@ export default function AdminAudiobookReAddingModal(props) {
                 })
               }
             />
+          </InputGroup>
+          <hr />
+          <p className='pt-1'> {props.t('optionalFields')}:</p>
+          <InputGroup className='mb-1 input_modal'>
+            <InputGroup.Text className='input-group-text-new text-light'>
+              {props.t('year')}
+            </InputGroup.Text>
+            <Form.Control
+              type='date'
+              name='year'
+              value={stateModal.year}
+              onChange={(e) => {
+                adminService.handleChange(e);
+              }}
+            />
+          </InputGroup>
+          <InputGroup className='mb-1'>
+            <Dropdown
+              name='age'
+              onSelect={(eventKey) => adminService.handleProviderChangeDropDown(eventKey, 'age')}
+            >
+              <Dropdown.Toggle className=' text-start' variant='success' id='dropdown-basic'>
+                {props.t('age')}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item eventKey={1} active={stateModal.age == 1}>
+                  3-7
+                </Dropdown.Item>
+                <Dropdown.Item eventKey={2} active={stateModal.age == 2}>
+                  7-12
+                </Dropdown.Item>
+                <Dropdown.Item eventKey={3} active={stateModal.age == 3}>
+                  12-16
+                </Dropdown.Item>
+                <Dropdown.Item eventKey={4} active={stateModal.age == 4}>
+                  16-18
+                </Dropdown.Item>
+                <Dropdown.Item eventKey={5} active={stateModal.age == 5}>
+                  18+
+                </Dropdown.Item>
+              </Dropdown.Menu>
+              <InputGroup.Text id='inputGroup-sizing-default'>
+                {stateModal.age == 1
+                  ? '3-7'
+                  : stateModal.age == 2
+                  ? '7-12'
+                  : stateModal.age == 3
+                  ? '12-16'
+                  : stateModal.age == 4
+                  ? '16-18'
+                  : stateModal.age == 5
+                  ? '18+'
+                  : null}
+              </InputGroup.Text>
+            </Dropdown>
           </InputGroup>
         </Modal.Body>
       ) : (
