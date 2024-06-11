@@ -83,7 +83,7 @@ export default class AdminCategoryAudiobookAddService extends FormService {
         let allparts = 0;
         let part = 1;
 
-        this.seconds.current = buf.length / 10000;
+        this.seconds.current = this.seconds.current + buf.length / 10000;
 
         if (buf.length < CHUNK_SIZE) {
           let b64 = Buffer.from(buf).toString('base64');
@@ -125,7 +125,6 @@ export default class AdminCategoryAudiobookAddService extends FormService {
           }
 
           for (let i = 0; i < buf.length; i += CHUNK_SIZE) {
-            // setTimeout(() => {
             const arr = new Uint8Array(buf).subarray(i, i + CHUNK_SIZE);
 
             this.maxParts.current = allparts;
@@ -163,7 +162,6 @@ export default class AdminCategoryAudiobookAddService extends FormService {
             });
 
             part = part + 1;
-            // }, 1000);
           }
         }
       }

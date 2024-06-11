@@ -22,7 +22,7 @@ export default function AdminCategoryAudiobookAddModal(props) {
 
   const maxParts = useRef(0);
   const currentPart = useRef(0);
-  const seconds = useRef(3000);
+  const seconds = useRef(2000);
 
   const adminService = new AdminCategoryAudiobookAddService(
     stateModal,
