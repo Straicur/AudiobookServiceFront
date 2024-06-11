@@ -98,7 +98,7 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
         let allparts = 0;
         let part = 1;
 
-        this.seconds.current = buf.length / 10000;
+        this.seconds.current = this.seconds.current + buf.length / 10000;
 
         if (buf.length < CHUNK_SIZE) {
           let b64 = Buffer.from(buf).toString('base64');
@@ -125,7 +125,7 @@ export default class AdminAudiobooksAudiobookAddService extends FormService {
           }
 
           this.maxParts.current = part;
-          this.currentPart.current = 0;
+          this.currentPart.current = part;
 
           this.props.addAudiobook({
             jsonData: jsonData,

@@ -24,7 +24,7 @@ export default function AdminAudiobooksAudiobookAddModal(props) {
 
   const maxParts = useRef(0);
   const currentPart = useRef(0);
-  const seconds = useRef(3000);
+  const seconds = useRef(2000);
 
   const adminService = new AdminAudiobooksAudiobookAddService(
     stateModal,
@@ -164,7 +164,7 @@ export default function AdminAudiobooksAudiobookAddModal(props) {
               animated
               variant='info'
               max={maxParts.current}
-              now={maxParts.current == 1 ? undefined : currentPart.current}
+              now={maxParts.current == 1 ? 1 : currentPart.current}
             />
           ) : (
             <input

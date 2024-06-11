@@ -4,6 +4,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import AdminAudiobooksSearchService from 'Service/Admin/AdminAudiobooksSearchService';
+import { exact } from 'prop-types';
 
 const AdminAudiobooksContext = createContext(null);
 
@@ -19,7 +20,9 @@ export const AdminAudiobooksProvider = ({
 
   const { mutate: addAudiobook } = useMutation({
     mutationFn: (data) => {
-      return HandleFetch('/admin/audiobook/add', 'PUT', data.jsonData, token, i18n.language);
+      return setTimeout(function () {
+        return HandleFetch('/admin/audiobook/add', 'PUT', data.jsonData, token, i18n.language);
+      }, 400);
     },
     onSuccess: (data, variables) => {
       if (
@@ -91,7 +94,13 @@ export const AdminAudiobooksProvider = ({
   });
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAdminAudiobooks' + page]);
+    qc.invalidateQueries({
+      queryKey: ['dataAdminCategoriesTree', 'dataAdminCategoryAudiobooks', 'dataAdminAudiobooks'],
+      exact: exact,
+      refetchType: 'all',
+    });
+
+    refetch();
   };
 
   const { data: dataAdminAudiobooks = null, refetch } = useQuery({

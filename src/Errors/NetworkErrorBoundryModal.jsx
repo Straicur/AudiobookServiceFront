@@ -58,7 +58,8 @@ export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
       errorMessage = error.message;
       break;
     default:
-      errorMessage = t('systemError');
+      errorData = error.data;
+      errorMessage = error.message;
   }
 
   return (

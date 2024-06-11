@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
+import { exact } from 'prop-types';
 
 const AdminCategoryAudiobooksContext = createContext(null);
 
@@ -11,7 +12,9 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
 
   const { mutate: addAudiobook } = useMutation({
     mutationFn: (data) => {
-      return HandleFetch('/admin/audiobook/add', 'PUT', data.jsonData, token, i18n.language);
+      return setTimeout(function () {
+        return HandleFetch('/admin/audiobook/add', 'PUT', data.jsonData, token, i18n.language);
+      }, 400);
     },
     onSuccess: (data, variables) => {
       if (
@@ -154,10 +157,16 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
   });
 
   const setRefetch = () => {
-    qc.invalidateQueries(['dataAdminCategoriesTree', 'dataAdminCategoryAudiobooks']);
+    qc.invalidateQueries({
+      queryKey: ['dataAdminCategoriesTree', 'dataAdminCategoryAudiobooks'],
+      exact: exact,
+      refetchType: 'all',
+    });
+
+    refetch();
   };
 
-  const { data: dataAdminCategoryAudiobooks = null } = useQuery({
+  const { data: dataAdminCategoryAudiobooks = null, refetch } = useQuery({
     queryKey: ['dataAdminCategoryAudiobooks' + page + categoryKey],
     queryFn: () =>
       HandleFetch(
