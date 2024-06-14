@@ -1,8 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTokenStore } from 'Store/store';
 
 export const UserFooter = () => {
   const { t } = useTranslation();
+
+  const token = useTokenStore((state) => state.token);
 
   return (
     <div className='footer-basic'>
@@ -14,9 +17,11 @@ export const UserFooter = () => {
           <li className='list-inline-item'>
             <p className='copyright'> © 2024 Audiobooks</p>
           </li>
-          <li className='list-inline-item'>
-            <a href='/main'>{t('home')}</a>
-          </li>
+          {token !== undefined && token !== null && token !== '' ? (
+            <li className='list-inline-item'>
+              <a href='/main'>{t('home')}</a>
+            </li>
+          ) : null}
           <li className='list-inline-item'>
             <a href='/about'>{t('about')}</a>
           </li>

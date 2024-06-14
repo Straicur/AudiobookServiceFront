@@ -31,13 +31,11 @@ export const UserLoginForgotPasswordModal = (props) => {
     }));
 
   useEffect(() => {
-    if (state.email.trim()) {
-      if (ValidateUtil.validateEmail(state.email)) {
-        setState((prev) => ({
-          ...prev,
-          isButtonDisabled: false,
-        }));
-      }
+    if (state.email.trim() !== '' && ValidateUtil.validateEmail(state.email)) {
+      setState((prev) => ({
+        ...prev,
+        isButtonDisabled: false,
+      }));
     } else {
       setState((prev) => ({
         ...prev,
