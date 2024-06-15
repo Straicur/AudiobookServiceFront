@@ -141,7 +141,13 @@ export const AdminNavBar = (props) => {
             </h6>
           </div>
         </div>
-        <Button name='logout' variant='dark' size='sm' className='btn button' onClick={logout}>
+        <Button
+          name='logout'
+          variant='dark'
+          size='sm'
+          className='btn button'
+          onClick={() => logout()}
+        >
           {props.t('logout')}
         </Button>
         {state.notificationsOffCanvas ? (
