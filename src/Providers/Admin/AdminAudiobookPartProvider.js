@@ -36,7 +36,7 @@ export const AdminAudiobookPartProvider = ({ children, token, audiobookId, part,
   };
 
   const { data: dataAudiobookPart = null } = useQuery({
-    queryKey: ['dataAudiobookPart' + audiobookId],
+    queryKey: ['dataAudiobookPart' + part + audiobookId],
     queryFn: () => {
       return HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language);
     },

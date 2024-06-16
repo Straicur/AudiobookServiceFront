@@ -14,7 +14,7 @@ import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 import { UserFooter } from 'View/User/Common/UserFooter';
 import './UserMain.css';
 
-export default function Main() {
+export default function UserMain() {
   const { t, i18n } = useTranslation();
 
   const token = useTokenStore((state) => state.token);
