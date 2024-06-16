@@ -13,6 +13,7 @@ import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
 export default function UserMyListAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
+  const lastOpenComment = useRef(null);
 
   const [audiobookDetail, addToMyListFetch, addAudiobookRating, setRefresh] =
     useUserAudiobookDetail();
@@ -178,6 +179,7 @@ export default function UserMyListAudiobookDetailModal(props) {
                   comments={audiobookUserComments.comments}
                   audiobookDetail={audiobookDetail}
                   likeComment={likeComment}
+                  lastOpenComment={lastOpenComment}
                   addComment={addComment}
                   editComment={editComment}
                   state={props.state}

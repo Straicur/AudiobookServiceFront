@@ -14,6 +14,7 @@ import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
 export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
+  const lastOpenComment = useRef(null);
 
   const [audiobookDetail, addToMyListFetch, addAudiobookRating, setRefresh] =
     useUserAudiobookDetail();
@@ -180,6 +181,7 @@ export default function UserMainAudiobookDetailModal(props) {
                   comments={audiobookUserComments.comments}
                   audiobookDetail={audiobookDetail}
                   likeComment={likeComment}
+                  lastOpenComment={lastOpenComment}
                   addComment={addComment}
                   editComment={editComment}
                   state={props.state}
@@ -202,19 +204,21 @@ export default function UserMainAudiobookDetailModal(props) {
             </div>
             <div className='row mt-4 justify-content-center'>
               <div className='col'>
-                <UserAudiobookPlayer
-                  audiobookPart={audiobookPart}
-                  setAudiobookState={props.setAudiobookState}
-                  audiobookState={props.audiobookState}
-                  audiobookInfo={audiobookInfo}
-                  part={props.audiobookState.part}
-                  parts={audiobookDetail.parts}
-                  setState={props.setAudiobookState}
-                  timeAudio={timeAudio}
-                  audioDuration={audioDuration}
-                  addInfo={addInfo}
-                  t={props.t}
-                />
+                {audiobookPart !== null ? (
+                  <UserAudiobookPlayer
+                    audiobookPart={audiobookPart}
+                    setAudiobookState={props.setAudiobookState}
+                    audiobookState={props.audiobookState}
+                    audiobookInfo={audiobookInfo}
+                    part={props.audiobookState.part}
+                    parts={audiobookDetail.parts}
+                    setState={props.setAudiobookState}
+                    timeAudio={timeAudio}
+                    audioDuration={audioDuration}
+                    addInfo={addInfo}
+                    t={props.t}
+                  />
+                ) : null}
               </div>
             </div>
           </div>

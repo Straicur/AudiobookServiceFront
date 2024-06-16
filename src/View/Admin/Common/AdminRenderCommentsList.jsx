@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
 
 export default function AdminRenderCommentsList(props) {
+  const lastOpenComment = useRef(null);
+
   const renderTree = () => {
     let renderArray = [];
 
@@ -23,12 +25,15 @@ export default function AdminRenderCommentsList(props) {
     return renderArray;
   };
 
-  const oparateParentList = (element) => {
-    element.stopPropagation();
-    if (element.currentTarget.attributes['data-clicable'].value == 'true') {
-      openParentList(element);
-    } else {
-      closeParentList(element);
+  const oparateParentList = (element, comment, child) => {
+    if (child.length > 0) {
+      lastOpenComment.current = comment.id;
+      element.stopPropagation();
+      if (element.currentTarget.attributes['data-clicable'].value == 'true') {
+        openParentList(element);
+      } else {
+        closeParentList(element);
+      }
     }
   };
 
@@ -73,14 +78,20 @@ export default function AdminRenderCommentsList(props) {
       <li
         key={uuidv4()}
         className='border border-1 border-dark list-group-item'
-        onClick={child.length > 0 ? oparateParentList : undefined}
-        data-clicable={true}
+        onClick={(e) => oparateParentList(e, element, child)}
+        data-clicable={element.id === lastOpenComment.current ? false : true}
       >
         <div className='row p-1 bd-highlight comment_list_height'>
           {child.length > 0 ? (
-            <div className='col-1'>
-              <i className='p-2 bi bi-arrow-right-square '></i>
-            </div>
+            element.id === lastOpenComment.current ? (
+              <div className='col-1'>
+                <i className='p-2 bi bi-arrow-down-square '></i>
+              </div>
+            ) : (
+              <div className='col-1'>
+                <i className='p-2 bi bi-arrow-right-square '></i>
+              </div>
+            )
           ) : null}
 
           <div className='col-2 fw-bold'>{props.t('owner')}:</div>
@@ -98,7 +109,7 @@ export default function AdminRenderCommentsList(props) {
               variant='dark'
               size='sm'
               className='btn button'
-              onClick={(element) => {
+              onClick={() => {
                 props.deleteComment({
                   id: element.id,
                 });
@@ -123,9 +134,15 @@ export default function AdminRenderCommentsList(props) {
         key={uuidv4()}
         className={
           arrayLength == 1
-            ? 'd-none p-2 border border-1 border-secondary list-group-item'
+            ? element.parentId === lastOpenComment.current
+              ? 'p-2 border border-1 border-secondary list-group-item'
+              : 'd-none p-2 border border-1 border-secondary list-group-item'
             : index + 1 == arrayLength
-            ? 'd-none p-2 border border-1 border-secondary list-group-item'
+            ? element.parentId === lastOpenComment.current
+              ? 'p-2 border border-1 border-secondary list-group-item'
+              : 'd-none p-2 border border-1 border-secondary list-group-item'
+            : element.parentId === lastOpenComment.current
+            ? 'p-2 border border-1 border-bottom-0 border-secondary list-group-item'
             : 'd-none p-2 border border-1 border-bottom-0 border-secondary list-group-item'
         }
         id={element.id}
@@ -146,13 +163,13 @@ export default function AdminRenderCommentsList(props) {
               variant='dark'
               size='sm'
               className='btn button'
-              onClick={(element) => {
+              onClick={() => {
                 props.deleteComment({
                   id: element.id,
                 });
               }}
             >
-              {props.t('delete')}
+              {element.deleted ? props.t('restore') : props.t('delete')}
             </Button>
           </div>
           <div className='col-4 fw-bold'>{props.t('comment')}:</div>
