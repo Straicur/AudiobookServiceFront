@@ -74,9 +74,9 @@ export default function UserStarRating(props) {
                         audiobookId: props.audiobookDetail.id,
                         categoryKey: props.categoryKey,
                         rating: rating,
-                        setUserRate: setUserRate(),
-                        setSure: setSure(),
-                        doubleClickRating: doubleClickRating(),
+                        setUserRate: setUserRate,
+                        setSure: setSure,
+                        doubleClickRating: doubleClickRating,
                       })
                     }
                     variant='success'

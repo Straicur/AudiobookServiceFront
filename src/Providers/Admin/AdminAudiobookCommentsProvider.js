@@ -15,9 +15,10 @@ export const AdminAudiobookCommentsProvider = ({ children, token, audiobookId, i
 
   const { mutate: deleteComment } = useMutation({
     mutationFn: (data) => {
+      console.log(data);
       return HandleFetch(
         '/admin/audiobook/comment/delete',
-        'DELETE',
+        'PATCH',
         {
           audiobookCommentId: data.id,
         },
@@ -25,37 +26,16 @@ export const AdminAudiobookCommentsProvider = ({ children, token, audiobookId, i
         i18n.language,
       );
     },
-    onSuccess: (data, variables) => {
-      let copy = dataAudiobookAdminComments.comments.map((comment) => {
-        if (comment.id == variables.id) {
-          return {
-            id: comment.id,
-            audiobookCommentLike: comment.audiobookCommentLike,
-            audiobookCommentUnlike: comment.audiobookCommentUnlike,
-            children: comment.children,
-            comment: comment.comment,
-            deleted: !comment.deleted,
-            edited: comment.edited,
-            liked: comment.liked,
-            myComment: comment.myComment,
-            parentId: comment.parentId,
-            userModel: comment.userModel,
-          };
-        } else {
-          return comment;
-        }
-      });
-
-      qc.setQueryData(['dataAudiobookAdminComments' + audiobookId], {
-        comments: copy,
-      });
+    onSuccess: () => {
+      console.log('dasdas');
+      refetch();
     },
     onError: () => {
       qc.invalidateQueries(['dataAudiobookAdminComments']);
     },
   });
 
-  const { data: dataAudiobookAdminComments = null } = useQuery({
+  const { data: dataAudiobookAdminComments = null, refetch } = useQuery({
     queryKey: ['dataAudiobookAdminComments' + audiobookId],
     queryFn: () =>
       HandleFetch(

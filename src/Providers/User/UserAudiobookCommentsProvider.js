@@ -170,9 +170,11 @@ export const UserAudiobookCommentsProvider = ({
     },
     onSuccess: (data, variables) => {
       variables.element.target.classList.remove('disabled');
-      variables.decline();
+      if (variables.lastOpenComment === null) {
+        variables.decline();
+      }
 
-      qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
+      refetch();
     },
     onError: (e, variables) => {
       variables.element.target.classList.remove('disabled');
@@ -186,7 +188,9 @@ export const UserAudiobookCommentsProvider = ({
     },
     onSuccess: (data, variables) => {
       variables.element.target.classList.remove('disabled');
-      variables.decline();
+      if (variables.lastOpenComment === null) {
+        variables.decline();
+      }
 
       qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
       refetch();

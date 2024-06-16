@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -13,16 +13,15 @@ export default function UserRenderCommentsList(props) {
     edit: false,
   });
 
-  const lastOpenComment = useRef(null);
   //todo dodaj do rozwijania komentarzy jakieś lepsze przejście
-
   //--------------------------------------------------------------------------------------------------------------------------------
   //Changing comments functions
   function likeComment(comment, element, bool) {
     if (comment.children.length == 0) {
-      lastOpenComment.current = comment.parentId;
+      props.lastOpenComment.current = comment.parentId;
     }
-    let data;
+
+    let data = {};
     if (comment.liked == bool) {
       data = {
         url: '/user/audiobook/comment/like/delete',
@@ -62,7 +61,7 @@ export default function UserRenderCommentsList(props) {
     };
 
     if (commentState.parentId != null) {
-      lastOpenComment.current = commentState.parentId;
+      props.lastOpenComment.current = commentState.parentId;
 
       jsonData.additionalData = {
         parentId: commentState.parentId,
@@ -72,6 +71,7 @@ export default function UserRenderCommentsList(props) {
       jsonData: jsonData,
       element: element,
       decline: decline,
+      lastOpenComment: props.lastOpenComment.current,
     });
   }
 
@@ -84,7 +84,7 @@ export default function UserRenderCommentsList(props) {
     };
 
     if (commentState.parentId != null) {
-      lastOpenComment.current = commentState.parentId;
+      props.lastOpenComment.current = commentState.parentId;
 
       jsonData.additionalData = {
         parentId: commentState.parentId,
@@ -94,6 +94,7 @@ export default function UserRenderCommentsList(props) {
       jsonData: jsonData,
       element: element,
       decline: decline,
+      lastOpenComment: props.lastOpenComment.current,
     });
   }
   function deleteComment(comment, element) {
@@ -111,6 +112,7 @@ export default function UserRenderCommentsList(props) {
       jsonData: jsonData,
       element: element,
       decline: decline,
+      lastOpenComment: props.lastOpenComment.current,
     });
   }
 
@@ -118,7 +120,7 @@ export default function UserRenderCommentsList(props) {
   //Small state functions
   function startEditComment(comment) {
     if (comment.parentId != null) {
-      lastOpenComment.current = comment.parentId;
+      props.lastOpenComment.current = comment.parentId;
     }
 
     setCommentState((prev) => ({
@@ -131,7 +133,7 @@ export default function UserRenderCommentsList(props) {
   }
 
   function decline() {
-    lastOpenComment.current = null;
+    props.lastOpenComment.current = null;
     setCommentState((prev) => ({
       ...prev,
       parentId: null,
@@ -143,7 +145,7 @@ export default function UserRenderCommentsList(props) {
   }
 
   function addChildComment(comment) {
-    lastOpenComment.current = comment.id;
+    props.lastOpenComment.current = comment.id;
 
     setCommentState((prev) => ({
       ...prev,
@@ -237,10 +239,10 @@ export default function UserRenderCommentsList(props) {
         key={uuidv4()}
         className={
           commentState.commentId == element.id
-            ? element.id == lastOpenComment.current
+            ? element.id == props.lastOpenComment.current
               ? 'border border-6 border-warning border comment comments-pill px-3 py-1'
               : 'border border-6 border-warning border comment comment-pill ps-3 py-1'
-            : element.id == lastOpenComment.current
+            : element.id == props.lastOpenComment.current
             ? 'border border-6 border-secondary border comment comments-pill px-3 py-1'
             : 'border border-6 border-secondary border comment comment-pill ps-3 py-1'
         }
@@ -254,7 +256,7 @@ export default function UserRenderCommentsList(props) {
             <div className='row'>
               <div className='col-1 cs'>
                 {child.length > 0 ? (
-                  element.id == lastOpenComment.current ? (
+                  element.id == props.lastOpenComment.current ? (
                     <i className='p-2 bi bi-arrow-down-square '></i>
                   ) : (
                     <i className='p-2 bi bi-arrow-right-square '></i>
@@ -392,7 +394,7 @@ export default function UserRenderCommentsList(props) {
             {child}
             <div
               className={
-                lastOpenComment.current == element.id
+                props.lastOpenComment.current == element.id
                   ? 'row mt-2 justify-content-center'
                   : 'row mt-2 d-none justify-content-center'
               }
@@ -421,7 +423,7 @@ export default function UserRenderCommentsList(props) {
       <li
         key={uuidv4()}
         className={
-          lastOpenComment.current == element.parentId
+          props.lastOpenComment.current == element.parentId
             ? commentState.commentId == element.id
               ? 'px-3 py-1 my-1 comment-pill border border-warning'
               : 'px-3 py-1 my-1 border comment-pill'
@@ -538,7 +540,7 @@ export default function UserRenderCommentsList(props) {
         children.push(
           <hr
             key={uuidv4()}
-            className={element.id == lastOpenComment.current ? null : 'd-none'}
+            className={element.id == props.lastOpenComment.current ? null : 'd-none'}
           ></hr>,
         );
         for (const child of element['children']) {
@@ -602,7 +604,7 @@ export default function UserRenderCommentsList(props) {
                 ? false
                 : commentState.comment.length <= 0)
             }
-            onClick={decline}
+            onClick={() => decline()}
           >
             {props.t('cancel')}
           </Button>
