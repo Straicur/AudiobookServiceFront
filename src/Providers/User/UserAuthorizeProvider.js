@@ -37,7 +37,6 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
       return HandleFetch('/logout', 'PATCH', null, token, i18n.language);
     },
     onSettled: () => {
-      tokenStore.removeToken();
       qc.invalidateQueries({
         queryKey: [
           'dataUserSettings',
@@ -57,6 +56,7 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
         exact: exact,
         refetchType: 'none',
       });
+      tokenStore.removeToken();
       navigate('/login');
     },
   });
