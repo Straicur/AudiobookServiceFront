@@ -154,7 +154,7 @@ export default function AdminNotificationOffCanvas(props) {
                       </div>
                     )}
                   </div>
-                  {notification.text != undefined ? (
+                  {notification.text !== undefined && notification.text !== null ? (
                     <div className='row'>
                       <div className='col'>
                         {props.t('text')}

@@ -15,7 +15,6 @@ export const AdminAudiobookCommentsProvider = ({ children, token, audiobookId, i
 
   const { mutate: deleteComment } = useMutation({
     mutationFn: (data) => {
-      console.log(data);
       return HandleFetch(
         '/admin/audiobook/comment/delete',
         'PATCH',
@@ -27,7 +26,6 @@ export const AdminAudiobookCommentsProvider = ({ children, token, audiobookId, i
       );
     },
     onSuccess: () => {
-      console.log('dasdas');
       refetch();
     },
     onError: () => {

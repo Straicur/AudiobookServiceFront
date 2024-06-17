@@ -39,11 +39,6 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
 
   const { mutate: addNotification } = useMutation({
     mutationFn: (data) => {
-      console.log({
-        notificationType: data.modalState.notificationType,
-        notificationUserType: data.modalState.userType,
-        additionalData: AdminNotificationsAddService.createAdditionalData(data.modalState),
-      });
       return HandleFetch(
         '/admin/user/notification',
         'PUT',
