@@ -56,6 +56,7 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
         exact: exact,
         refetchType: 'none',
       });
+      // qc.clear();
       tokenStore.removeToken();
       navigate('/login');
     },
