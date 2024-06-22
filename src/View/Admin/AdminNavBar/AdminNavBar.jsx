@@ -45,63 +45,90 @@ export const AdminNavBar = (props) => {
 
   return (
     <div className='row navbar'>
-      <div className='col-8'>
+      <div className='col-9'>
         <Button
           variant='dark'
-          size='lg'
+          size='sm'
           color='dark'
-          className=' btn button mt-2 mx-2'
+          className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
           onClick={() => navigate('/admin')}
         >
           {props.t('mainPage')}
         </Button>
         <Button
           variant='dark'
-          size='lg'
+          size='sm'
           color='dark'
-          className=' btn button mt-2 mx-2'
+          className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
           onClick={() => navigate('/admin/categories')}
         >
           {props.t('categories')}
         </Button>
         <Button
           variant='dark'
-          size='lg'
+          size='sm'
           color='dark'
-          className=' btn button mt-2 mx-2'
+          className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
           onClick={() => navigate('/admin/audiobooks')}
         >
           {props.t('audiobooks')}
         </Button>
         <Button
           variant='dark'
-          size='lg'
+          size='sm'
           color='dark'
-          className=' btn button mt-2 mx-2'
+          className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
           onClick={() => navigate('/admin/users')}
         >
           {props.t('users')}
         </Button>
         <Button
           variant='dark'
-          size='lg'
+          size='sm'
           color='dark'
-          className=' btn button mt-2 mx-2'
+          className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
           onClick={() => navigate('/admin/notifications')}
         >
           {props.t('notifications')}
         </Button>
         <Button
           variant='dark'
-          size='lg'
+          size='sm'
           color='dark'
-          className=' btn button mt-2 mx-2'
+          className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
+          onClick={() => navigate('/admin/technical_breaks')}
+        >
+          {props.t('technicalBreaks')}
+        </Button>
+        <Button
+          variant='dark'
+          size='sm'
+          color='dark'
+          className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
+          onClick={() => navigate('/admin/reports')}
+        >
+          {props.t('reports')}
+        </Button>
+        <Button
+          variant='dark'
+          size='sm'
+          color='dark'
+          className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
+          onClick={() => navigate('/admin/cache')}
+        >
+          {props.t('cache')}
+        </Button>
+        <Button
+          variant='dark'
+          size='sm'
+          color='dark'
+          className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
           onClick={() => navigate('/main')}
         >
           {props.t('userPanel')}
         </Button>
       </div>
-      <div className='col-4 d-flex justify-content-end  align-items-center'>
+      <div className='col-3 d-flex justify-content-end  align-items-center'>
         <ButtonGroup className='ps-3 me-3'>
           <Button
             name='pl'
@@ -151,7 +178,12 @@ export const AdminNavBar = (props) => {
           {props.t('logout')}
         </Button>
         {state.notificationsOffCanvas ? (
-          <NotificationsProvider token={token} page={state.page} i18n={props.i18n}>
+          <NotificationsProvider
+            token={token}
+            page={state.page}
+            i18n={props.i18n}
+            newNotifications={newNotificationsData.newNotifications}
+          >
             <AdminNotificationOffCanvas
               state={state}
               setState={setState}

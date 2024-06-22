@@ -7,7 +7,7 @@ import { useNotificationsListStore } from 'Store/store';
 
 const NotificationsContext = createContext(null);
 
-export const NotificationsProvider = ({ children, token, page, i18n }) => {
+export const NotificationsProvider = ({ children, token, page, i18n, newNotifications }) => {
   const qc = useQueryClient();
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
@@ -48,7 +48,8 @@ export const NotificationsProvider = ({ children, token, page, i18n }) => {
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
-    enabled: dateUpdate[page] == undefined || dateUpdate[page] <= Date.now(),
+    enabled:
+      dateUpdate[page] == undefined || dateUpdate[page] <= Date.now() || newNotifications !== 0,
   });
 
   const value = [dataNotifications, refetch, mutate];

@@ -10,6 +10,9 @@ import AdminCategory from 'Page/Admin/AdminCategory/AdminCategory';
 import AdminCategories from 'Page/Admin/AdminCategories/AdminCategories';
 import AdminNotifications from 'Page/Admin/AdminNotifications/AdminNotifications';
 import AdminUsers from 'Page/Admin/AdminUsers/AdminUsers';
+import AdminReports from 'Page/Admin/AdminReports/AdminReports';
+import AdminCache from 'Page/Admin/AdminCache/AdminCache';
+import AdminTechnicalBreaks from 'Page/Admin/AdminTechnicalBreaks/AdminTechnicalBreaks';
 import UserForgot from 'Page/User/UserForgot/UserForgot';
 import UserHelp from 'Page/User/UserHelp/UserHelp';
 import UserAbout from 'Page/User/UserAbout/UserAbout';
@@ -56,6 +59,14 @@ function AppRouter() {
           errorElement={<Page404 />}
         />
         <Route exact path='/admin/users' element={<AdminUsers />} errorElement={<Page404 />} />
+        <Route exact path='/admin/cache' element={<AdminCache />} errorElement={<Page404 />} />
+        <Route
+          exact
+          path='/admin/technical_breaks'
+          element={<AdminTechnicalBreaks />}
+          errorElement={<Page404 />}
+        />
+        <Route exact path='/admin/reports' element={<AdminReports />} errorElement={<Page404 />} />
         <Route
           exact
           path='/admin/category/:categoryKey'
