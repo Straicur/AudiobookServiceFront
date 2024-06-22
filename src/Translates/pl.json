@@ -190,6 +190,8 @@
   "actionId": "Id akcji",
   "type": "Typ",
   "selectType": "Wybierz typ",
+  "clearCachePools": "Wyczyść cache",
+  "cachePools": "Klucze cache",
   "addNotification": "Dodaj powiadomienie",
   "notificationDetail": "Detale powiadomienia",
   "select": "Wybierz",
