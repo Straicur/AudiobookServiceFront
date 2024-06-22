@@ -71,6 +71,8 @@ export default function UserMainAudiobookDetailModal(props) {
     audioDuration.current = 0;
   };
   console.log(audiobookInfo);
+  console.log(audiobookPart);
+  console.log(props.setAudiobookState);
   return (
     <Modal size='lg' show={props.state.detailModal} onHide={handleClose} backdrop='static'>
       <Modal.Body
