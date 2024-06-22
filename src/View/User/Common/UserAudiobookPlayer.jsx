@@ -20,8 +20,9 @@ export default function UserAudiobookPlayer(props) {
   };
   const prevPart = () => {
     let prevPart = props.part - 1;
-
+    console.log('cofka');
     if (prevPart >= 0) {
+      console.log(prevPart);
       props.setState((prev) => ({
         ...prev,
         part: prevPart,
