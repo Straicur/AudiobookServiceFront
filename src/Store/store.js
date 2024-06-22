@@ -96,6 +96,25 @@ export const useUserAudiobooksListStore = create(
           };
         });
       },
+      removePageAudiobooks: (page) => {
+        set((state) => {
+          let copy = state.audiobooks;
+          copy[page] = null;
+
+          return {
+            audiobooks: copy,
+          };
+        });
+      },
+      removeAudiobooks: () => {
+        set(() => {
+          return {
+            audiobooks: [],
+            dateUpdate: [],
+            maxPage: 0,
+          };
+        });
+      },
       setUpdatedMaxPage: (page, newDate) => {
         set((state) => {
           let updatedDateUpdate = state.dateUpdate;

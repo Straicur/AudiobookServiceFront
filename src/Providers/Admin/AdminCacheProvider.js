@@ -3,26 +3,27 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
+import { useUserAudiobooksListStore } from 'Store/store';
 
 const AdminCacheDataContext = createContext(null);
 
 export const AdminCacheProvider = ({ children, token, i18n }) => {
   const qc = useQueryClient();
+  const audiobooksListStore = useUserAudiobooksListStore();
 
   const { mutate: clearCache } = useMutation({
     mutationFn: (data) => {
       return HandleFetch(
         '/admin/technical/cache/clear',
         'PATCH',
-        { cacheData: data.cacheData },
+        { cacheData: data },
         token,
         i18n.language,
       );
     },
     onSettled: () => {
-      console.log('Poszło');
+      audiobooksListStore.removeAudiobooks();
       qc.clear();
-      qc.invalidateQueries();
     },
   });
 

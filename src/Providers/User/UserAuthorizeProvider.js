@@ -4,7 +4,6 @@ import { useMutation } from '@tanstack/react-query';
 import { useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import { exact } from 'prop-types';
 
 const UserAuthorizeContext = createContext(null);
 
@@ -37,26 +36,7 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
       return HandleFetch('/logout', 'PATCH', null, token, i18n.language);
     },
     onSettled: () => {
-      qc.invalidateQueries({
-        queryKey: [
-          'dataUserSettings',
-          'dataUserAudiooboks',
-          'dataAudiobookUserSearch',
-          'dataAudiobookUserRating',
-          'dataAudiobookUserProposed',
-          'dataAudiobookPart',
-          'dataMyAudiobooksUserData',
-          'dataAudiobookUserInfo',
-          'dataAudiobookUserDetail',
-          'dataAudiobookUserComments',
-          'dataNotifications',
-          'dataNewNotifications',
-          'dataNewNotifications',
-        ],
-        exact: exact,
-        refetchType: 'none',
-      });
-      // qc.clear();
+      qc.clear();
       tokenStore.removeToken();
       navigate('/login');
     },

@@ -38,7 +38,7 @@ export default function UserMainRenderAudiobooksList(props) {
     let renderCategories = [];
     if (props.audiobooksList.current != null) {
       props.audiobooksList.current.forEach((pageData, listIndex) => {
-        if (listIndex <= props.state.page) {
+        if (pageData !== null && listIndex <= props.state.page) {
           pageData.categories.forEach((category, index) => {
             let renderAudiobooks = [];
 

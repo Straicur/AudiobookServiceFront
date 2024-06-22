@@ -105,18 +105,18 @@ export const AdminNavBar = (props) => {
           size='sm'
           color='dark'
           className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
-          onClick={() => navigate('/admin/cache')}
+          onClick={() => navigate('/admin/reports')}
         >
-          {props.t('cache')}
+          {props.t('reports')}
         </Button>
         <Button
           variant='dark'
           size='sm'
           color='dark'
           className=' btn button fs-6 p-2 mt-2 mx-2 rounded-3'
-          onClick={() => navigate('/admin/reports')}
+          onClick={() => navigate('/admin/cache')}
         >
-          {props.t('reports')}
+          {props.t('cache')}
         </Button>
         <Button
           variant='dark'

@@ -31,6 +31,7 @@ export default function GetAllAudiobooks(props) {
       audiobooks !== null &&
       (dateUpdates[props.state.page] === undefined || dateUpdates[props.state.page] <= Date.now())
     ) {
+      audiobooksListStore.removePageAudiobooks(props.state.page);
       audiobooksListStore.addAudiobooks(props.state.page, audiobooks);
     }
   }, [audiobooks]);
