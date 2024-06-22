@@ -94,7 +94,7 @@ export default function UserAudiobookPlayer(props) {
       }));
     }
   }, [props.newPart]);
-
+  console.log(process.env.REACT_APP_API_URL + props.audiobookPart.url);
   return (
     <AudioPlayer
       header={
