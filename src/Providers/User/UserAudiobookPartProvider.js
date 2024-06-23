@@ -56,6 +56,7 @@ export const UserAudiobookPartProvider = ({
     return json;
   };
   console.log('dataAudiobookPart' + part + audiobookId);
+  console.log(createContext());
   const { data: dataAudiobookPart = null } = useQuery({
     queryKey: ['dataAudiobookPart' + part + audiobookId],
     queryFn: () => {
