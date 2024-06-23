@@ -45,8 +45,15 @@ export const UserAudiobookPartProvider = ({
       audiobookId: audiobookId,
     };
 
-    if (audiobookInfo != null && audiobookInfo.part != null) {
+    if (audiobookInfo != null && audiobookInfo.part != null && !audiobookState.infoFirstRender) {
       part = audiobookInfo.part;
+
+      setAudiobookState({
+        ...audiobookState,
+        part: part,
+        infoFirstRender: true,
+      });
+
       json.part = part;
     } else if (part == undefined || isNaN(part)) {
       json.part = 0;
