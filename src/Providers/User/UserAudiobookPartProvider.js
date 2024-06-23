@@ -46,7 +46,7 @@ export const UserAudiobookPartProvider = ({
     };
 
     if (audiobookInfo != null && audiobookInfo.part != null && !audiobookState.infoFirstRender) {
-      part = audiobookInfo.part;
+      part = audiobookInfo.part - 1;
 
       setAudiobookState({
         ...audiobookState,
@@ -62,8 +62,7 @@ export const UserAudiobookPartProvider = ({
     }
     return json;
   };
-  console.log('dataAudiobookPart' + part + audiobookId);
-  console.log(createContext());
+
   const { data: dataAudiobookPart = null } = useQuery({
     queryKey: ['dataAudiobookPart' + part + audiobookId],
     queryFn: () => {
