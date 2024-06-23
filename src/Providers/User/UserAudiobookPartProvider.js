@@ -44,6 +44,9 @@ export const UserAudiobookPartProvider = ({
     let json = {
       audiobookId: audiobookId,
     };
+    console.log(audiobookInfo);
+    console.log(audiobookState.infoFirstRender);
+    console.log(part);
 
     if (audiobookInfo != null && audiobookInfo.part != null && !audiobookState.infoFirstRender) {
       part = audiobookInfo.part;
