@@ -46,11 +46,11 @@ export const UserAudiobookPartProvider = ({
     };
 
     if (audiobookInfo != null && audiobookInfo.part != null && !audiobookState.infoFirstRender) {
-      part = audiobookInfo.part - 1;
+      part = audiobookInfo.part;
 
       setAudiobookState({
         ...audiobookState,
-        part: part,
+        part: part - 1,
         infoFirstRender: true,
       });
 
@@ -66,6 +66,7 @@ export const UserAudiobookPartProvider = ({
   const { data: dataAudiobookPart = null } = useQuery({
     queryKey: ['dataAudiobookPart' + part + audiobookId],
     queryFn: () => {
+      console.log(createContext());
       return HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language);
     },
     retry: 1,

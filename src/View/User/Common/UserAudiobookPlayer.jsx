@@ -42,6 +42,7 @@ export default function UserAudiobookPlayer(props) {
   };
 
   useLayoutEffect(() => {
+    console.log(player.current.audio.current.currentTime);
     if (
       player.current &&
       props.audiobookInfo &&
@@ -49,6 +50,7 @@ export default function UserAudiobookPlayer(props) {
       !props.timeAudio.current &&
       !props.newPart
     ) {
+      console.log('DAS');
       player.current.audio.current.currentTime = props.audiobookInfo.endedTime;
     }
   }, []);
