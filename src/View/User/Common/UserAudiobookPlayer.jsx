@@ -43,7 +43,7 @@ export default function UserAudiobookPlayer(props) {
   console.log('1111');
   useLayoutEffect(() => {
     console.log(player.current.audio.current.currentTime);
-    console.log(props.audiobookInfo.endedTime);
+    if (props.audiobookInfo !== null) console.log(props.audiobookInfo.endedTime);
     console.log('dsadsadasdsadsa');
     if (
       player.current &&
