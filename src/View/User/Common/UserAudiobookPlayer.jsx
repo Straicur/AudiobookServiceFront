@@ -41,17 +41,17 @@ export default function UserAudiobookPlayer(props) {
     props.audioDuration.current = parseInt(event.target.duration);
   };
 
-  useLayoutEffect(() => {
-    if (
-      player.current &&
-      props.audiobookInfo &&
-      props.audiobookInfo.endedTime != null &&
-      !props.timeAudio.current &&
-      !props.newPart
-    ) {
-      player.current.audio.current.currentTime = props.audiobookInfo.endedTime;
-    }
-  }, []);
+  // useLayoutEffect(() => {
+  //   if (
+  //     player.current &&
+  //     props.audiobookInfo &&
+  //     props.audiobookInfo.endedTime != null &&
+  //     !props.timeAudio.current &&
+  //     !props.newPart
+  //   ) {
+  //     player.current.audio.current.currentTime = props.audiobookInfo.endedTime;
+  //   }
+  // }, []);
 
   //TODO to jest do przetestowania i znalezienia błędu jeszcze
 
@@ -77,22 +77,22 @@ export default function UserAudiobookPlayer(props) {
     }
   }, [props.renderAudiobookPlayer]);
 
-  useLayoutEffect(() => {
-    if (
-      props.newPart &&
-      player.current &&
-      (props.audiobookInfo || props.audiobookInfo.endedTime == null)
-    ) {
-      player.current.progressBar.current.setAttribute('aria-valuenow', '0%');
-      player.current.progressBar.current.childNodes[0].childNodes[0].style.left = '0%';
-      player.current.progressBar.current.childNodes[0].childNodes[1].style.width = '0%';
+  // useLayoutEffect(() => {
+  //   if (
+  //     props.newPart &&
+  //     player.current &&
+  //     (props.audiobookInfo || props.audiobookInfo.endedTime == null)
+  //   ) {
+  //     player.current.progressBar.current.setAttribute('aria-valuenow', '0%');
+  //     player.current.progressBar.current.childNodes[0].childNodes[0].style.left = '0%';
+  //     player.current.progressBar.current.childNodes[0].childNodes[1].style.width = '0%';
 
-      props.setState((prev) => ({
-        ...prev,
-        newPart: false,
-      }));
-    }
-  }, [props.newPart]);
+  //     props.setState((prev) => ({
+  //       ...prev,
+  //       newPart: false,
+  //     }));
+  //   }
+  // }, [props.newPart]);
 
   return (
     <AudioPlayer
