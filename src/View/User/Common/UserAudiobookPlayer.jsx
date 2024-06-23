@@ -40,7 +40,7 @@ export default function UserAudiobookPlayer(props) {
   const setDuration = (event) => {
     props.audioDuration.current = parseInt(event.target.duration);
   };
-
+  console.log('1111');
   useLayoutEffect(() => {
     console.log(player.current.audio.current.currentTime);
     console.log(props.audiobookInfo.endedTime);
