@@ -204,7 +204,15 @@ export default function UserMainAudiobookDetailModal(props) {
             </div>
             <div className='row mt-4 justify-content-center'>
               <div className='col'>
-                {audiobookPart !== null ? (
+                {console.log(audiobookInfo)}
+                {audiobookInfo !== null && audiobookInfo.part !== undefined ? (
+                  // && !props.audiobookState.infoFirstRender
+                  <div>
+                    <p>Czy chesz zacząć od ostatnio słuchanej części: {audiobookInfo.part} ?</p>
+                    <></>
+                    {/* //TODO tu zrób Pytanie się o to właśnie czy chce odsłuchać */}
+                  </div>
+                ) : audiobookPart !== null ? (
                   <UserAudiobookPlayer
                     audiobookPart={audiobookPart}
                     setAudiobookState={props.setAudiobookState}

@@ -136,4 +136,45 @@ export const useUserAudiobooksListStore = create(
   ),
 );
 
+export const useUserFirstRenderAudiobooksListStore = create(
+  persist(
+    (set) => ({
+      audiobooks: [],
+      addFirstRenderAudiobook: (key) => {
+        set((state) => {
+          let copy = state.audiobooks;
+
+          if (copy[key] !== undefined) {
+            copy[key] = Date.now() + 86400000;
+          }
+
+          return {
+            audiobooks: copy,
+          };
+        });
+      },
+      removeFirstRenderKeyAudiobook: (key) => {
+        set((state) => {
+          let copy = state.audiobooks;
+          copy[key] = null;
+
+          return {
+            audiobooks: copy,
+          };
+        });
+      },
+      removeFirstRenderAudiobook: () => {
+        set(() => {
+          return {
+            audiobooks: [],
+          };
+        });
+      },
+    }),
+    {
+      name: 'user-first-render-audiobooks',
+    },
+  ),
+);
+
 //todo tu jeszcze moge trzymać te ustawienia języka i likalizację (jeśli nie pl to na eng ustawiam i tyle)

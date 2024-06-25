@@ -12,7 +12,6 @@ export default function UserMainAudiobookDetailProviders(props) {
     renderAudiobookPlayer: false,
     myListChanged: false,
     newPart: false,
-    infoFirstRender: false,
   });
 
   return (
