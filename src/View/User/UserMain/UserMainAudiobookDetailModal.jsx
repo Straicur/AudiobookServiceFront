@@ -10,6 +10,7 @@ import UserStarRating from '../Common/UserStarRating';
 import UserRenderCommentsList from '../Common/UserRenderCommentsList';
 import CreateUtil from 'Util/CreateUtil';
 import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
+import { useUserFirstRenderAudiobooksListStore } from 'Store/store';
 
 export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
@@ -29,6 +30,11 @@ export default function UserMainAudiobookDetailModal(props) {
     editComment,
   ] = useUserAudiobookComments();
 
+  const userFirstRenderAudiobooksListStore = useUserFirstRenderAudiobooksListStore();
+  const audiobooksList = useUserFirstRenderAudiobooksListStore((state) => state.audiobooks);
+  const inList = audiobooksList[props.state.detailModalAudiobook.id];
+  console.log(inList);
+  console.log(audiobooksList);
   const handleClose = () => {
     addInfo();
     props.setState((prev) => ({
@@ -204,12 +210,45 @@ export default function UserMainAudiobookDetailModal(props) {
             </div>
             <div className='row mt-4 justify-content-center'>
               <div className='col'>
-                {console.log(audiobookInfo)}
-                {audiobookInfo !== null && audiobookInfo.part !== undefined ? (
-                  // && !props.audiobookState.infoFirstRender
-                  <div>
-                    <p>Czy chesz zacząć od ostatnio słuchanej części: {audiobookInfo.part} ?</p>
-                    <></>
+                {audiobookInfo !== null &&
+                audiobookInfo.part !== undefined &&
+                (inList === undefined || inList < Date.now()) ? (
+                  <div className='row'>
+                    <p className='text-center'>
+                      Czy chesz zacząć od ostatnio słuchanej części: {audiobookInfo.part} ?
+                    </p>
+                    <div className='row'>
+                      <div className='col-2'></div>
+                      <div className='col-4 d-flex justify-content-end'>
+                        <Button
+                          variant='success'
+                          onClick={() => {
+                            //TODO tu teraz muszę ustawić te dane z audiobookInfo
+                            userFirstRenderAudiobooksListStore.addFirstRenderAudiobook(
+                              props.state.detailModalAudiobook.id,
+                            );
+                          }}
+                          className='text-center'
+                        >
+                          {props.t('yes')}
+                        </Button>
+                      </div>
+                      <div className='col-4'>
+                        <Button
+                          variant='danger'
+                          onClick={() => {
+                            userFirstRenderAudiobooksListStore.addFirstRenderAudiobook(
+                              props.state.detailModalAudiobook.id,
+                            );
+                          }}
+                          className='text-center'
+                        >
+                          {props.t('no')}
+                        </Button>
+                      </div>
+                      <div className='col-2'></div>
+                    </div>
+
                     {/* //TODO tu zrób Pytanie się o to właśnie czy chce odsłuchać */}
                   </div>
                 ) : audiobookPart !== null ? (

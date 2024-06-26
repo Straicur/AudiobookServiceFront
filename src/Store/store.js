@@ -144,9 +144,7 @@ export const useUserFirstRenderAudiobooksListStore = create(
         set((state) => {
           let copy = state.audiobooks;
 
-          if (copy[key] !== undefined) {
-            copy[key] = Date.now() + 86400000;
-          }
+          copy[key] = Date.now() + 86400000;
 
           return {
             audiobooks: copy,
