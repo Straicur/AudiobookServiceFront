@@ -10,7 +10,6 @@ import UserStarRating from '../Common/UserStarRating';
 import UserRenderCommentsList from '../Common/UserRenderCommentsList';
 import CreateUtil from 'Util/CreateUtil';
 import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
-import { useUserFirstRenderAudiobooksListStore } from 'Store/store';
 
 export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
@@ -30,11 +29,6 @@ export default function UserMainAudiobookDetailModal(props) {
     editComment,
   ] = useUserAudiobookComments();
 
-  const userFirstRenderAudiobooksListStore = useUserFirstRenderAudiobooksListStore();
-  const audiobooksList = useUserFirstRenderAudiobooksListStore((state) => state.audiobooks);
-  const inList = audiobooksList[props.state.detailModalAudiobook.id];
-  console.log(inList);
-  console.log(audiobooksList);
   const handleClose = () => {
     addInfo();
     props.setState((prev) => ({
@@ -212,7 +206,7 @@ export default function UserMainAudiobookDetailModal(props) {
               <div className='col'>
                 {audiobookInfo !== null &&
                 audiobookInfo.part !== undefined &&
-                (inList === undefined || inList < Date.now()) ? (
+                !props.audiobookState.firstRenderInfo ? (
                   <div className='row'>
                     <p className='text-center'>
                       Czy chesz zacząć od ostatnio słuchanej części: {audiobookInfo.part} ?
@@ -224,9 +218,7 @@ export default function UserMainAudiobookDetailModal(props) {
                           variant='success'
                           onClick={() => {
                             //TODO tu teraz muszę ustawić te dane z audiobookInfo
-                            userFirstRenderAudiobooksListStore.addFirstRenderAudiobook(
-                              props.state.detailModalAudiobook.id,
-                            );
+                            //Tylko to jest chyba do state
                           }}
                           className='text-center'
                         >
@@ -237,9 +229,10 @@ export default function UserMainAudiobookDetailModal(props) {
                         <Button
                           variant='danger'
                           onClick={() => {
-                            userFirstRenderAudiobooksListStore.addFirstRenderAudiobook(
-                              props.state.detailModalAudiobook.id,
-                            );
+                            props.setAudiobookState((prev) => ({
+                              ...prev,
+                              firstRenderInfo: true,
+                            }));
                           }}
                           className='text-center'
                         >
