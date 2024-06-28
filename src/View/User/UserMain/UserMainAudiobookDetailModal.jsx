@@ -72,7 +72,7 @@ export default function UserMainAudiobookDetailModal(props) {
   };
 
   return (
-    <Modal size='lg' show={props.state.detailModal} onHide={handleClose} backdrop='static'>
+    <Modal size='lg' show={props.state.detailModal} backdrop='static'>
       <Modal.Body
         className='text-white'
         style={{
@@ -196,7 +196,7 @@ export default function UserMainAudiobookDetailModal(props) {
             <div className='col-3 d-flex justify-content-end align-items-start pe-3'>
               <Button
                 variant='danger'
-                onClick={handleClose}
+                onClick={() => handleClose()}
                 className='text-center danger_button opacity-75 exit_audiobook fw-bold'
               >
                 X
@@ -222,7 +222,7 @@ export default function UserMainAudiobookDetailModal(props) {
 
                             props.setAudiobookState((prev) => ({
                               ...prev,
-                              part: audiobookInfo.part - 1,
+                              part: audiobookInfo.part,
                               firstRenderInfo: true,
                               renderAudiobookPlayer: true,
                               firstRenderAudiobookInfo: true,
@@ -273,7 +273,11 @@ export default function UserMainAudiobookDetailModal(props) {
         ) : null}
         <div className='row mt-3 justify-content-center'>
           <div className='col-7  align-self-center'>
-            <Button variant='dark' onClick={handleClose} className='detail-button text-center'>
+            <Button
+              variant='dark'
+              onClick={() => handleClose()}
+              className='detail-button text-center'
+            >
               {props.t('close')}
             </Button>
           </div>
