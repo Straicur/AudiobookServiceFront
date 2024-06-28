@@ -11,6 +11,13 @@ export const UserAudiobookInfoProvider = ({ children, token, audiobookId, catego
 
   const { mutate } = useMutation({
     mutationFn: (data) => {
+      console.log({
+        audiobookId: data.props.state.detailModalAudiobook.id,
+        categoryKey: data.props.state.detailModalCategory.categoryKey,
+        part: data.props.audiobookState.part + 1,
+        endedTime: data.timeAudio.current,
+        watched: data.watched,
+      });
       return HandleFetch(
         '/user/audiobook/info/add',
         'PUT',
