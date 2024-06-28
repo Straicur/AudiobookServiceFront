@@ -25,19 +25,15 @@ export const UserAudiobookInfoProvider = ({ children, token, audiobookId, catego
         data.props.i18n.language,
       );
     },
-    onMutate: (variables) => {
-      qc.setQueryData(['dataAudiobookUserInfo' + audiobookId], {
-        part: variables.props.audiobookState.part + 1,
-        endedTime: variables.timeAudio.current,
-        watchingDate: null,
-      });
+    onMutate: () => {
+      refetch();
     },
     onError: () => {
       qc.invalidateQueries(['dataAudiobookUserInfo' + audiobookId]);
     },
   });
 
-  const { data: dataAudiobookUserInfo = null } = useQuery({
+  const { data: dataAudiobookUserInfo = null, refetch } = useQuery({
     queryKey: ['dataAudiobookUserInfo' + audiobookId],
     queryFn: () => {
       return HandleFetch(
