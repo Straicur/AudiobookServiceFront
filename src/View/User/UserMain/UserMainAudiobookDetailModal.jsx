@@ -64,7 +64,12 @@ export default function UserMainAudiobookDetailModal(props) {
     }
 
     if (procent >= 20) {
-      setAudiobookInfo({ props: props, timeAudio: timeAudio, watched: watched });
+      setAudiobookInfo({
+        props: props,
+        timeAudio: timeAudio,
+        watched: watched,
+        audioDuration: audioDuration,
+      });
     }
   };
 
