@@ -223,7 +223,7 @@ export default function UserMainAudiobookDetailModal(props) {
 
                             props.setAudiobookState((prev) => ({
                               ...prev,
-                              part: audiobookInfo.part,
+                              part: audiobookInfo.part - 1,
                               firstRenderInfo: true,
                               renderAudiobookPlayer: true,
                               firstRenderAudiobookInfo: true,

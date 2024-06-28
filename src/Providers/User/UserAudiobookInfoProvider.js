@@ -27,7 +27,7 @@ export const UserAudiobookInfoProvider = ({ children, token, audiobookId, catego
     },
     onMutate: (variables) => {
       qc.setQueryData(['dataAudiobookUserInfo' + audiobookId], {
-        part: variables.props.audiobookState.part,
+        part: variables.props.audiobookState.part + 1,
         endedTime: variables.timeAudio.current,
         watchingDate: null,
       });
