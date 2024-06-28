@@ -17,7 +17,7 @@ export const UserAudiobookInfoProvider = ({ children, token, audiobookId, catego
         {
           audiobookId: data.props.state.detailModalAudiobook.id,
           categoryKey: data.props.state.detailModalCategory.categoryKey,
-          part: data.props.audiobookState.part,
+          part: data.props.audiobookState.part + 1,
           endedTime: data.timeAudio.current,
           watched: data.watched,
         },
