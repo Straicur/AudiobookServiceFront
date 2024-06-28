@@ -2,7 +2,6 @@ import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
-import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
 
 const AudiobookPartContext = createContext(null);
 
@@ -15,8 +14,6 @@ export const UserAudiobookPartProvider = ({
   setAudiobookState,
   i18n,
 }) => {
-  const [audiobookInfo] = useUserAudiobookInfo();
-
   const qc = useQueryClient();
 
   const setAudiobookPart = (variables) => {
@@ -44,21 +41,8 @@ export const UserAudiobookPartProvider = ({
     let json = {
       audiobookId: audiobookId,
     };
-    console.log(audiobookInfo);
-    console.log(audiobookState.infoFirstRender);
-    console.log(part);
 
-    if (audiobookInfo != null && audiobookInfo.part != null && !audiobookState.infoFirstRender) {
-      part = audiobookInfo.part;
-
-      setAudiobookState({
-        ...audiobookState,
-        part: part - 1,
-        infoFirstRender: true,
-      });
-
-      json.part = part;
-    } else if (part == undefined || isNaN(part)) {
+    if (part == undefined || isNaN(part)) {
       json.part = 0;
     } else {
       json.part = part;
@@ -69,7 +53,6 @@ export const UserAudiobookPartProvider = ({
   const { data: dataAudiobookPart = null } = useQuery({
     queryKey: ['dataAudiobookPart' + part + audiobookId],
     queryFn: () => {
-      console.log(createContext());
       return HandleFetch('/audiobook/part', 'POST', createContext(), token, i18n.language);
     },
     retry: 1,

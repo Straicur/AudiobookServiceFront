@@ -46,12 +46,12 @@ export default function UserAudiobookPlayer(props) {
       player.current &&
       props.audiobookInfo &&
       props.audiobookInfo.endedTime != null &&
-      !props.timeAudio.current &&
-      !props.newPart
+      props.timeAudio.current &&
+      props.audiobookState.firstRenderAudiobookInfo
     ) {
-      player.current.audio.current.currentTime = props.audiobookInfo.endedTime;
+      player.current.audio.current.currentTime = props.timeAudio.current;
     }
-  }, []);
+  }, [props.audiobookState.firstRenderAudiobookInfo]);
 
   //TODO to jest do przetestowania i znalezienia błędu jeszcze
 
@@ -59,8 +59,8 @@ export default function UserAudiobookPlayer(props) {
     if (
       player.current &&
       props.timeAudio.current &&
-      !props.newPart &&
-      props.renderAudiobookPlayer
+      props.audiobookState.firstRenderAudiobookInfo &&
+      props.audiobookState.renderAudiobookPlayer
     ) {
       let procent = ((props.timeAudio.current / duration.current) * 100).toFixed(2) + '%';
 
@@ -75,24 +75,24 @@ export default function UserAudiobookPlayer(props) {
         renderAudiobookPlayer: false,
       }));
     }
-  }, [props.renderAudiobookPlayer]);
+  }, [props.audiobookState.renderAudiobookPlayer]);
 
-  useLayoutEffect(() => {
-    if (
-      props.newPart &&
-      player.current &&
-      (props.audiobookInfo || props.audiobookInfo.endedTime == null)
-    ) {
-      player.current.progressBar.current.setAttribute('aria-valuenow', '0%');
-      player.current.progressBar.current.childNodes[0].childNodes[0].style.left = '0%';
-      player.current.progressBar.current.childNodes[0].childNodes[1].style.width = '0%';
+  // useLayoutEffect(() => {
+  //   if (
+  //     props.newPart &&
+  //     player.current &&
+  //     (props.audiobookInfo || props.audiobookInfo.endedTime == null)
+  //   ) {
+  //     player.current.progressBar.current.setAttribute('aria-valuenow', '0%');
+  //     player.current.progressBar.current.childNodes[0].childNodes[0].style.left = '0%';
+  //     player.current.progressBar.current.childNodes[0].childNodes[1].style.width = '0%';
 
-      props.setState((prev) => ({
-        ...prev,
-        newPart: false,
-      }));
-    }
-  }, [props.newPart]);
+  //     props.setState((prev) => ({
+  //       ...prev,
+  //       newPart: false,
+  //     }));
+  //   }
+  // }, [props.newPart]);
 
   return (
     <AudioPlayer

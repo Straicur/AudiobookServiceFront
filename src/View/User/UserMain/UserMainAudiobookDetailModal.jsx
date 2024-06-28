@@ -70,7 +70,6 @@ export default function UserMainAudiobookDetailModal(props) {
     timeAudio.current = 0;
     audioDuration.current = 0;
   };
-  console.log(audiobookInfo);
 
   return (
     <Modal size='lg' show={props.state.detailModal} onHide={handleClose} backdrop='static'>
@@ -205,7 +204,55 @@ export default function UserMainAudiobookDetailModal(props) {
             </div>
             <div className='row mt-4 justify-content-center'>
               <div className='col'>
-                {audiobookPart !== null ? (
+                {audiobookInfo !== null &&
+                audiobookInfo.part !== undefined &&
+                !props.audiobookState.firstRenderInfo ? (
+                  <div className='row'>
+                    <p className='text-center'>
+                      Czy chesz zacząć od ostatnio słuchanej części: {audiobookInfo.part} ?
+                    </p>
+                    <div className='row'>
+                      <div className='col-2'></div>
+                      <div className='col-4 d-flex justify-content-end'>
+                        <Button
+                          variant='success'
+                          onClick={() => {
+                            timeAudio.current =
+                              audiobookInfo.endedTime !== null ? audiobookInfo.endedTime : 0;
+
+                            props.setAudiobookState((prev) => ({
+                              ...prev,
+                              part: audiobookInfo.part - 1,
+                              firstRenderInfo: true,
+                              renderAudiobookPlayer: true,
+                              firstRenderAudiobookInfo: true,
+                            }));
+                          }}
+                          className='text-center'
+                        >
+                          {props.t('yes')}
+                        </Button>
+                      </div>
+                      <div className='col-4'>
+                        <Button
+                          variant='danger'
+                          onClick={() => {
+                            props.setAudiobookState((prev) => ({
+                              ...prev,
+                              firstRenderInfo: true,
+                            }));
+                          }}
+                          className='text-center'
+                        >
+                          {props.t('no')}
+                        </Button>
+                      </div>
+                      <div className='col-2'></div>
+                    </div>
+
+                    {/* //TODO tu zrób Pytanie się o to właśnie czy chce odsłuchać */}
+                  </div>
+                ) : audiobookPart !== null ? (
                   <UserAudiobookPlayer
                     audiobookPart={audiobookPart}
                     setAudiobookState={props.setAudiobookState}
