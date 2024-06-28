@@ -32,11 +32,8 @@ export const UserAudiobookInfoProvider = ({ children, token, audiobookId, catego
         data.props.i18n.language,
       );
     },
-    onMutate: (variables) => {
+    onMutate: () => {
       refetch();
-
-      variables.timeAudio.current = 0;
-      variables.audioDuration.current = 0;
     },
     onError: () => {
       qc.invalidateQueries(['dataAudiobookUserInfo' + audiobookId]);
