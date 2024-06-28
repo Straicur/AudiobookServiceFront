@@ -13,6 +13,7 @@ import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
 export default function UserMyListAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
+  const audiobookInfoPartToSave = useRef(null);
   const lastOpenComment = useRef(null);
 
   const [audiobookDetail, addToMyListFetch, addAudiobookRating, setRefresh] =
@@ -62,7 +63,12 @@ export default function UserMyListAudiobookDetailModal(props) {
       watched = true;
     }
     if (procent >= 20) {
-      setAudiobookInfo({ props: props, timeAudio: timeAudio, watched: watched });
+      setAudiobookInfo({
+        props: props,
+        audiobookInfoPartToSave: audiobookInfoPartToSave,
+        timeAudio: timeAudio,
+        watched: watched,
+      });
     }
   };
 
@@ -256,6 +262,7 @@ export default function UserMyListAudiobookDetailModal(props) {
                     setState={props.setAudiobookState}
                     timeAudio={timeAudio}
                     audioDuration={audioDuration}
+                    audiobookInfoPartToSave={audiobookInfoPartToSave}
                     addInfo={addInfo}
                     t={props.t}
                   />
