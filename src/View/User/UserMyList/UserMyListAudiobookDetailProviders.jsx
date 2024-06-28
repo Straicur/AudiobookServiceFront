@@ -10,8 +10,9 @@ export default function UserMyListAudiobookDetailProviders(props) {
   const [audiobookState, setAudiobookState] = useState({
     part: 0,
     renderAudiobookPlayer: false,
-    newPart: false,
     myListChanged: false,
+    firstRenderAudiobookInfo: false,
+    firstRenderInfo: false,
   });
 
   return (

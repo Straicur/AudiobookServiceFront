@@ -64,9 +64,6 @@ export default function UserMyListAudiobookDetailModal(props) {
     if (procent >= 20) {
       setAudiobookInfo({ props: props, timeAudio: timeAudio, watched: watched });
     }
-
-    timeAudio.current = 0;
-    audioDuration.current = 0;
   };
 
   return (
