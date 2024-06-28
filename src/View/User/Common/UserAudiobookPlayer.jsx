@@ -37,6 +37,7 @@ export default function UserAudiobookPlayer(props) {
       props.audiobookInfoPartToSave.current === null ||
       props.audiobookInfoPartToSave.current !== props.part
     ) {
+      console.log(props.part);
       props.audiobookInfoPartToSave.current = props.part;
     }
 
