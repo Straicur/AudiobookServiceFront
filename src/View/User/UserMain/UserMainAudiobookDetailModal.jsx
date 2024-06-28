@@ -59,6 +59,7 @@ export default function UserMainAudiobookDetailModal(props) {
     let procent = (timeAudio.current / audioDuration.current) * 100;
     let watched = false;
     console.log(procent);
+    console.log(props);
     if (procent >= 70) {
       watched = true;
     }
