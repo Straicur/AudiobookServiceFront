@@ -54,8 +54,6 @@ export default function UserAudiobookPlayer(props) {
     }
   }, [props.audiobookState.firstRenderAudiobookInfo]);
 
-  //TODO to jest do przetestowania i znalezienia błędu jeszcze
-
   useLayoutEffect(() => {
     if (
       player.current &&
@@ -78,25 +76,6 @@ export default function UserAudiobookPlayer(props) {
     }
   }, [props.audiobookState.renderAudiobookPlayer]);
 
-  // useLayoutEffect(() => {
-  //   if (
-  //     props.newPart &&
-  //     player.current &&
-  //     (props.audiobookInfo || props.audiobookInfo.endedTime == null)
-  //   ) {
-  //     player.current.progressBar.current.setAttribute('aria-valuenow', '0%');
-  //     player.current.progressBar.current.childNodes[0].childNodes[0].style.left = '0%';
-  //     player.current.progressBar.current.childNodes[0].childNodes[1].style.width = '0%';
-
-  //     props.setState((prev) => ({
-  //       ...prev,
-  //       newPart: false,
-  //     }));
-  //   }
-  // }, [props.newPart]);
-  console.log(props.timeAudio.current);
-  console.log(props.audiobookInfo);
-  console.log(props.part);
   return (
     <AudioPlayer
       header={
