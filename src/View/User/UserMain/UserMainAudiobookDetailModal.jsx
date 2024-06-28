@@ -210,7 +210,7 @@ export default function UserMainAudiobookDetailModal(props) {
                 !props.audiobookState.firstRenderInfo ? (
                   <div className='row'>
                     <p className='text-center'>
-                      Czy chesz zacząć od ostatnio słuchanej części: {audiobookInfo.part} ?
+                      {props.t('audiobookInfoModalQuestion')} {audiobookInfo.part} ?
                     </p>
                     <div className='row'>
                       <div className='col-2'></div>
@@ -250,8 +250,6 @@ export default function UserMainAudiobookDetailModal(props) {
                       </div>
                       <div className='col-2'></div>
                     </div>
-
-                    {/* //TODO tu zrób Pytanie się o to właśnie czy chce odsłuchać */}
                   </div>
                 ) : audiobookPart !== null ? (
                   <UserAudiobookPlayer

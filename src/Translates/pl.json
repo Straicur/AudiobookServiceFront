@@ -190,6 +190,7 @@
   "actionId": "Id akcji",
   "type": "Typ",
   "selectType": "Wybierz typ",
+  "audiobookInfoModalQuestion": "Czy chesz zacząć od ostatnio słuchanej części: ",
   "clearCachePools": "Wyczyść cache",
   "cachePools": "Klucze cache",
   "addNotification": "Dodaj powiadomienie",
