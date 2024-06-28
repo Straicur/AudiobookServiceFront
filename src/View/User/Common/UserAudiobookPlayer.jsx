@@ -32,6 +32,7 @@ export default function UserAudiobookPlayer(props) {
 
   const timeCur = (audio) => {
     props.timeAudio.current = parseInt(audio.target.currentTime);
+    console.log(parseInt(audio.target.currentTime));
     if (duration.current == 0) {
       duration.current = audio.target.duration;
     }
