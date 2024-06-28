@@ -217,8 +217,16 @@ export default function UserMainAudiobookDetailModal(props) {
                         <Button
                           variant='success'
                           onClick={() => {
-                            //TODO tu teraz muszę ustawić te dane z audiobookInfo
-                            //Tylko to jest chyba do state
+                            timeAudio.current =
+                              audiobookInfo.endedTime !== null ? audiobookInfo.endedTime : 0;
+
+                            props.setAudiobookState((prev) => ({
+                              ...prev,
+                              part: audiobookInfo.part - 1,
+                              firstRenderInfo: true,
+                              renderAudiobookPlayer: true,
+                              firstRenderAudiobookInfo: true,
+                            }));
                           }}
                           className='text-center'
                         >

@@ -41,17 +41,17 @@ export default function UserAudiobookPlayer(props) {
     props.audioDuration.current = parseInt(event.target.duration);
   };
 
-  // useLayoutEffect(() => {
-  //   if (
-  //     player.current &&
-  //     props.audiobookInfo &&
-  //     props.audiobookInfo.endedTime != null &&
-  //     !props.timeAudio.current &&
-  //     !props.newPart
-  //   ) {
-  //     player.current.audio.current.currentTime = props.audiobookInfo.endedTime;
-  //   }
-  // }, []);
+  useLayoutEffect(() => {
+    if (
+      player.current &&
+      props.audiobookInfo &&
+      props.audiobookInfo.endedTime != null &&
+      props.timeAudio.current &&
+      props.audiobookState.firstRenderAudiobookInfo
+    ) {
+      player.current.audio.current.currentTime = props.timeAudio.current;
+    }
+  }, [props.audiobookState.firstRenderAudiobookInfo]);
 
   //TODO to jest do przetestowania i znalezienia błędu jeszcze
 
@@ -59,8 +59,8 @@ export default function UserAudiobookPlayer(props) {
     if (
       player.current &&
       props.timeAudio.current &&
-      !props.newPart &&
-      props.renderAudiobookPlayer
+      props.audiobookState.firstRenderAudiobookInfo &&
+      props.audiobookState.renderAudiobookPlayer
     ) {
       let procent = ((props.timeAudio.current / duration.current) * 100).toFixed(2) + '%';
 
@@ -75,7 +75,7 @@ export default function UserAudiobookPlayer(props) {
         renderAudiobookPlayer: false,
       }));
     }
-  }, [props.renderAudiobookPlayer]);
+  }, [props.audiobookState.renderAudiobookPlayer]);
 
   // useLayoutEffect(() => {
   //   if (
