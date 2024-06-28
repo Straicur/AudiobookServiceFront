@@ -14,6 +14,7 @@ import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
 export default function UserMainAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
   const audioDuration = useRef(0);
+  const audiobookInfoPartToSave = useRef(null);
   const lastOpenComment = useRef(null);
 
   const [audiobookDetail, addToMyListFetch, addAudiobookRating, setRefresh] =
@@ -67,6 +68,7 @@ export default function UserMainAudiobookDetailModal(props) {
       setAudiobookInfo({
         props: props,
         timeAudio: timeAudio,
+        audiobookInfoPartToSave: audiobookInfoPartToSave,
         watched: watched,
       });
     }
@@ -262,6 +264,7 @@ export default function UserMainAudiobookDetailModal(props) {
                     setState={props.setAudiobookState}
                     timeAudio={timeAudio}
                     audioDuration={audioDuration}
+                    audiobookInfoPartToSave={audiobookInfoPartToSave}
                     addInfo={addInfo}
                     t={props.t}
                   />
