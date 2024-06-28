@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
+import { Variable } from 'lucide-react';
 
 const UserAudiobookInfoContext = createContext(null);
 
@@ -32,8 +33,11 @@ export const UserAudiobookInfoProvider = ({ children, token, audiobookId, catego
         data.props.i18n.language,
       );
     },
-    onMutate: () => {
+    onMutate: (data, variable) => {
       refetch();
+
+      variable.timeAudio.current = 0;
+      variable.audioDuration.current = 0;
     },
     onError: () => {
       qc.invalidateQueries(['dataAudiobookUserInfo' + audiobookId]);
