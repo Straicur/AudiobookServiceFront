@@ -93,7 +93,8 @@ export default function UserAudiobookPlayer(props) {
   //     }));
   //   }
   // }, [props.newPart]);
-
+  console.log(props.timeAudio.current);
+  console.log(props.audiobookInfo);
   return (
     <AudioPlayer
       header={
