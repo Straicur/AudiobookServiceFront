@@ -189,6 +189,7 @@
   "actionId": "Action id",
   "type": "Type",
   "selectType": "Select type",
+  "audiobookInfoModalQuestion": "Do you want to start with the last part you listened to: ",
   "clearCachePools": "Clear cache",
   "cachePools": "Cache keys",
   "addNotification": "Add notification",

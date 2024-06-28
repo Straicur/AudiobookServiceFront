@@ -199,19 +199,67 @@ export default function UserMyListAudiobookDetailModal(props) {
             </div>
             <div className='row mt-4 justify-content-center'>
               <div className='col'>
-                <UserAudiobookPlayer
-                  audiobookPart={audiobookPart}
-                  setAudiobookState={props.setAudiobookState}
-                  audiobookState={props.audiobookState}
-                  audiobookInfo={audiobookInfo}
-                  part={props.audiobookState.part}
-                  parts={audiobookDetail.parts}
-                  setState={props.setAudiobookState}
-                  timeAudio={timeAudio}
-                  audioDuration={audioDuration}
-                  addInfo={addInfo}
-                  t={props.t}
-                />
+                {audiobookInfo !== null &&
+                audiobookInfo.part !== undefined &&
+                !props.audiobookState.firstRenderInfo ? (
+                  <div className='row'>
+                    <p className='text-center'>
+                      {props.t('audiobookInfoModalQuestion')} {audiobookInfo.part} ?
+                    </p>
+                    <div className='row'>
+                      <div className='col-2'></div>
+                      <div className='col-4 d-flex justify-content-end'>
+                        <Button
+                          variant='success'
+                          onClick={() => {
+                            timeAudio.current =
+                              audiobookInfo.endedTime !== null ? audiobookInfo.endedTime : 0;
+
+                            props.setAudiobookState((prev) => ({
+                              ...prev,
+                              part: audiobookInfo.part - 1,
+                              firstRenderInfo: true,
+                              renderAudiobookPlayer: true,
+                              firstRenderAudiobookInfo: true,
+                            }));
+                          }}
+                          className='text-center'
+                        >
+                          {props.t('yes')}
+                        </Button>
+                      </div>
+                      <div className='col-4'>
+                        <Button
+                          variant='danger'
+                          onClick={() => {
+                            props.setAudiobookState((prev) => ({
+                              ...prev,
+                              firstRenderInfo: true,
+                            }));
+                          }}
+                          className='text-center'
+                        >
+                          {props.t('no')}
+                        </Button>
+                      </div>
+                      <div className='col-2'></div>
+                    </div>
+                  </div>
+                ) : audiobookPart !== null ? (
+                  <UserAudiobookPlayer
+                    audiobookPart={audiobookPart}
+                    setAudiobookState={props.setAudiobookState}
+                    audiobookState={props.audiobookState}
+                    audiobookInfo={audiobookInfo}
+                    part={props.audiobookState.part}
+                    parts={audiobookDetail.parts}
+                    setState={props.setAudiobookState}
+                    timeAudio={timeAudio}
+                    audioDuration={audioDuration}
+                    addInfo={addInfo}
+                    t={props.t}
+                  />
+                ) : null}
               </div>
             </div>
           </div>
