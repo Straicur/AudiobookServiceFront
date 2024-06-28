@@ -68,7 +68,6 @@ export default function UserMainAudiobookDetailModal(props) {
         props: props,
         timeAudio: timeAudio,
         watched: watched,
-        audioDuration: audioDuration,
       });
     }
   };
