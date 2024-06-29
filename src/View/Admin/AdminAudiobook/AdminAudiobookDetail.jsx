@@ -23,7 +23,6 @@ export default function AdminAudiobookDetail(props) {
   const [
     audiobookDetail,
     setAudiobookDetailRefetch,
-    setAudiobookDetail,
     audiobookDataEdit,
     audiobookDeleteCategory,
     audiobookAddCategory,
@@ -65,6 +64,29 @@ export default function AdminAudiobookDetail(props) {
   };
 
   useLayoutEffect(() => {
+    if (audiobookDetail !== undefined && audiobookDetail !== null) {
+      props.setAudiobookDetailState(() => ({
+        id: audiobookDetail.id,
+        title: audiobookDetail.title,
+        author: audiobookDetail.author,
+        version: audiobookDetail.version,
+        album: audiobookDetail.album,
+        year: audiobookDetail.year,
+        duration: audiobookDetail.duration,
+        size: audiobookDetail.size,
+        parts: audiobookDetail.parts,
+        description: audiobookDetail.description,
+        age: audiobookDetail.age,
+        encoded: audiobookDetail.encoded,
+        categories: audiobookDetail.categories,
+        active: audiobookDetail.active,
+        avgRating: audiobookDetail.avgRating,
+        ratingAmount: audiobookDetail.ratingAmount,
+      }));
+    }
+  }, [audiobookDetail]);
+
+  useLayoutEffect(() => {
     if (props.audiobookState.refresh) {
       setTimeout(function () {
         setAudiobookDetailRefetch();
@@ -103,11 +125,12 @@ export default function AdminAudiobookDetail(props) {
           <div className='col-5'>
             <AdminAudiobookEditForm
               audiobookDetail={audiobookDetail}
-              setAudiobookDetail={setAudiobookDetail}
               audiobookDataEdit={audiobookDataEdit}
               setAudiobookDetailRefetch={setAudiobookDetailRefetch}
               setAudiobookState={props.setAudiobookState}
               audiobookState={props.audiobookState}
+              audiobookDetailState={props.audiobookDetailState}
+              setAudiobookDetailState={props.setAudiobookDetailState}
               i18n={props.i18n}
               t={props.t}
               token={props.token}

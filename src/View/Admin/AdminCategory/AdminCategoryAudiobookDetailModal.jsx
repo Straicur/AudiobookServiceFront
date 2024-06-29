@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import AdminAudiobookPlayer from '../Common/AdminAudiobookPlayer';
@@ -21,8 +21,26 @@ export default function AdminCategoryAudiobookDetailModal(props) {
     deleteEntarly: false,
   });
 
-  const [audiobookDetail, setAudiobookDetailRefetch, setAudiobookDetail, audiobookDataEdit] =
-    useAdminAudiobookData();
+  const [audiobookDetailState, setAudiobookDetailState] = useState({
+    id: '',
+    title: '',
+    author: '',
+    version: '',
+    album: '',
+    year: 0,
+    duration: 0,
+    size: '',
+    parts: 0,
+    description: '',
+    age: 0,
+    encoded: '',
+    categories: [],
+    active: false,
+    avgRating: 0,
+    ratingAmount: 0,
+  });
+
+  const [audiobookDetail, setAudiobookDetailRefetch, audiobookDataEdit] = useAdminAudiobookData();
 
   const getAudiobookZip = useAdminAudiobookData()[8];
   const changeAudiobookCover = useAdminAudiobookData()[9];
@@ -83,6 +101,29 @@ export default function AdminCategoryAudiobookDetailModal(props) {
 
     return stars;
   };
+
+  useLayoutEffect(() => {
+    if (audiobookDetail !== undefined && audiobookDetail !== null) {
+      setAudiobookDetailState(() => ({
+        id: audiobookDetail.id,
+        title: audiobookDetail.title,
+        author: audiobookDetail.author,
+        version: audiobookDetail.version,
+        album: audiobookDetail.album,
+        year: audiobookDetail.year,
+        duration: audiobookDetail.duration,
+        size: audiobookDetail.size,
+        parts: audiobookDetail.parts,
+        description: audiobookDetail.description,
+        age: audiobookDetail.age,
+        encoded: audiobookDetail.encoded,
+        categories: audiobookDetail.categories,
+        active: audiobookDetail.active,
+        avgRating: audiobookDetail.avgRating,
+        ratingAmount: audiobookDetail.ratingAmount,
+      }));
+    }
+  }, [audiobookDetail]);
 
   return (
     <Modal
@@ -151,11 +192,12 @@ export default function AdminCategoryAudiobookDetailModal(props) {
           <div className='col'>
             <AdminCategoryEditForm
               audiobookDetail={audiobookDetail}
-              setAudiobookDetail={setAudiobookDetail}
               audiobookDataEdit={audiobookDataEdit}
               stateModal={stateModal}
               setStateModal={setStateModal}
               setAudiobookDetailRefetch={setAudiobookDetailRefetch}
+              audiobookDetailState={audiobookDetailState}
+              setAudiobookDetailState={setAudiobookDetailState}
               handleClose={handleClose}
               setState={props.setState}
               state={props.state}

@@ -32,6 +32,25 @@ export default function AdminAudiobook() {
     errorCover: '',
   });
 
+  const [audiobookDetailState, setAudiobookDetailState] = useState({
+    id: '',
+    title: '',
+    author: '',
+    version: '',
+    album: '',
+    year: 0,
+    duration: 0,
+    size: '',
+    parts: 0,
+    description: '',
+    age: 0,
+    encoded: '',
+    categories: [],
+    active: false,
+    avgRating: 0,
+    ratingAmount: 0,
+  });
+
   return (
     <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal} showModal={deleted.current}>
       <ErrorBoundary FallbackComponent={ErrorHandlerModal}>
@@ -39,6 +58,8 @@ export default function AdminAudiobook() {
           audiobookState={audiobookState}
           setAudiobookState={setAudiobookState}
           audiobookId={audiobookId}
+          audiobookDetailState={audiobookDetailState}
+          setAudiobookDetailState={setAudiobookDetailState}
           token={token}
           t={t}
           i18n={i18n}

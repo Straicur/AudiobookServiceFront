@@ -13,10 +13,10 @@ export default function AdminCategoryEditForm(props) {
   const adminService = new AdminAudiobookEditService(props, wrongState, setWrongState);
 
   useEffect(() => {
-    if (props.audiobookDetail != null) {
+    if (props.audiobookDetailState != null) {
       adminService.validateFields();
     }
-  }, [props.audiobookDetail]);
+  }, [props.audiobookDetailState]);
 
   return (
     <div className='row'>
@@ -27,9 +27,9 @@ export default function AdminCategoryEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             name='title'
-            value={props.audiobookDetail != null ? props.audiobookDetail.title : ''}
+            value={props.audiobookDetailState != null ? props.audiobookDetailState.title : ''}
             onChange={(event) => {
-              adminService.handleProviderChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -41,9 +41,9 @@ export default function AdminCategoryEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             name='author'
-            value={props.audiobookDetail != null ? props.audiobookDetail.author : ''}
+            value={props.audiobookDetailState != null ? props.audiobookDetailState.author : ''}
             onChange={(event) => {
-              adminService.handleProviderChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -55,9 +55,9 @@ export default function AdminCategoryEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             name='album'
-            value={props.audiobookDetail != null ? props.audiobookDetail.album : ''}
+            value={props.audiobookDetailState != null ? props.audiobookDetailState.album : ''}
             onChange={(event) => {
-              adminService.handleProviderChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -71,10 +71,12 @@ export default function AdminCategoryEditForm(props) {
             type='date'
             name='year'
             value={
-              props.audiobookDetail != null ? CreateUtil.createDate(props.audiobookDetail.year) : ''
+              props.audiobookDetailState != null
+                ? CreateUtil.createDate(props.audiobookDetailState.year)
+                : ''
             }
             onChange={(event) => {
-              adminService.handleProviderChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -87,9 +89,9 @@ export default function AdminCategoryEditForm(props) {
           <Form.Control
             type='number'
             name='parts'
-            value={props.audiobookDetail != null ? props.audiobookDetail.parts : ''}
+            value={props.audiobookDetailState != null ? props.audiobookDetailState.parts : ''}
             onChange={(event) => {
-              adminService.handleProviderChangeInt(event);
+              adminService.handleChangeInt(event);
             }}
           />
         </InputGroup>
@@ -102,12 +104,12 @@ export default function AdminCategoryEditForm(props) {
           <Form.Control
             name='duration'
             value={
-              props.audiobookDetail != null
-                ? CreateUtil.createTime(props.audiobookDetail.duration)
+              props.audiobookDetailState != null
+                ? CreateUtil.createTime(props.audiobookDetailState.duration)
                 : ''
             }
             onChange={(event) => {
-              adminService.handleProviderChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -121,9 +123,9 @@ export default function AdminCategoryEditForm(props) {
             as='textarea'
             name='description'
             rows={4}
-            value={props.audiobookDetail != null ? props.audiobookDetail.description : ''}
+            value={props.audiobookDetailState != null ? props.audiobookDetailState.description : ''}
             onChange={(event) => {
-              adminService.handleProviderChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -136,14 +138,14 @@ export default function AdminCategoryEditForm(props) {
           <Form.Control
             name='encoded'
             value={
-              props.audiobookDetail != null
-                ? props.audiobookDetail.encoded != undefined
-                  ? props.audiobookDetail.encoded
+              props.audiobookDetailState != null
+                ? props.audiobookDetailState.encoded != undefined
+                  ? props.audiobookDetailState.encoded
                   : ''
                 : ''
             }
             onChange={(event) => {
-              adminService.handleProviderChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -155,9 +157,9 @@ export default function AdminCategoryEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             name='size'
-            value={props.audiobookDetail != null ? props.audiobookDetail.size : ''}
+            value={props.audiobookDetailState != null ? props.audiobookDetailState.size : ''}
             onChange={(event) => {
-              adminService.handleProviderChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
@@ -169,63 +171,61 @@ export default function AdminCategoryEditForm(props) {
           </InputGroup.Text>
           <Form.Control
             name='version'
-            value={props.audiobookDetail != null ? props.audiobookDetail.version : ''}
+            value={props.audiobookDetailState != null ? props.audiobookDetailState.version : ''}
             onChange={(event) => {
-              adminService.handleProviderChange(event);
+              adminService.handleChange(event);
             }}
           />
         </InputGroup>
       </div>
       <div className='row text-light pe-0 input_modal'>
         <InputGroup className='mb-1'>
-          <Dropdown
-            onSelect={(eventKey) => adminService.handleProviderChangeDropDown(eventKey, 'age')}
-          >
+          <Dropdown onSelect={(eventKey) => adminService.handleChangeDropdown(eventKey, 'age')}>
             <Dropdown.Toggle className=' text-start' variant='success' id='dropdown-basic'>
               {props.t('age')}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              {props.audiobookDetail != null ? (
-                <Dropdown.Item eventKey={1} active={props.audiobookDetail.age == 1}>
+              {props.audiobookDetailState != null ? (
+                <Dropdown.Item eventKey={1} active={props.audiobookDetailState.age == 1}>
                   3-7
                 </Dropdown.Item>
               ) : null}
-              {props.audiobookDetail != null ? (
-                <Dropdown.Item eventKey={2} active={props.audiobookDetail.age == 2}>
+              {props.audiobookDetailState != null ? (
+                <Dropdown.Item eventKey={2} active={props.audiobookDetailState.age == 2}>
                   7-12
                 </Dropdown.Item>
               ) : null}
 
-              {props.audiobookDetail != null ? (
-                <Dropdown.Item eventKey={3} active={props.audiobookDetail.age == 3}>
+              {props.audiobookDetailState != null ? (
+                <Dropdown.Item eventKey={3} active={props.audiobookDetailState.age == 3}>
                   12-16
                 </Dropdown.Item>
               ) : null}
 
-              {props.audiobookDetail != null ? (
-                <Dropdown.Item eventKey={4} active={props.audiobookDetail.age == 4}>
+              {props.audiobookDetailState != null ? (
+                <Dropdown.Item eventKey={4} active={props.audiobookDetailState.age == 4}>
                   16-18
                 </Dropdown.Item>
               ) : null}
 
-              {props.audiobookDetail != null ? (
-                <Dropdown.Item eventKey={5} active={props.audiobookDetail.age == 5}>
+              {props.audiobookDetailState != null ? (
+                <Dropdown.Item eventKey={5} active={props.audiobookDetailState.age == 5}>
                   18+
                 </Dropdown.Item>
               ) : null}
             </Dropdown.Menu>
             <InputGroup.Text id='inputGroup-sizing-default'>
-              {props.audiobookDetail != null
-                ? props.audiobookDetail.age == 1
+              {props.audiobookDetailState != null
+                ? props.audiobookDetailState.age == 1
                   ? '3-7'
-                  : props.audiobookDetail.age == 2
+                  : props.audiobookDetailState.age == 2
                   ? '7-12'
-                  : props.audiobookDetail.age == 3
+                  : props.audiobookDetailState.age == 3
                   ? '12-16'
-                  : props.audiobookDetail.age == 4
+                  : props.audiobookDetailState.age == 4
                   ? '16-18'
-                  : props.audiobookDetail.age == 5
+                  : props.audiobookDetailState.age == 5
                   ? '18+'
                   : null
                 : null}
@@ -254,7 +254,7 @@ export default function AdminCategoryEditForm(props) {
                   ...prev,
                   edit: !props.stateModal.edit,
                 }));
-                props.audiobookDataEdit();
+                props.audiobookDataEdit(props.audiobookDetailState);
               }}
             >
               {props.t('yes')}

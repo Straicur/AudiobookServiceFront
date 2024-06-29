@@ -157,7 +157,7 @@ export default function AdminAudiobookReAddingModal(props) {
           <InputGroup className='mb-1'>
             <Dropdown
               name='age'
-              onSelect={(eventKey) => adminService.handleProviderChangeDropDown(eventKey, 'age')}
+              onSelect={(eventKey) => adminService.handleChangeDropdown(eventKey, 'age')}
             >
               <Dropdown.Toggle className=' text-start' variant='success' id='dropdown-basic'>
                 {props.t('age')}
