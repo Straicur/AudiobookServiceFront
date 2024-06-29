@@ -33,6 +33,8 @@ export default function AdminAuidobookDetailProviders(props) {
               <AdminAudiobookDetail
                 audiobookState={props.audiobookState}
                 setAudiobookState={props.setAudiobookState}
+                audiobookDetailState={props.audiobookDetailState}
+                setAudiobookDetailState={props.setAudiobookDetailState}
                 t={props.t}
                 token={props.token}
                 i18n={props.i18n}

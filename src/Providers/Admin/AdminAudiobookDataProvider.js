@@ -103,53 +103,26 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
   });
 
   const { mutate: audiobookDataEdit } = useMutation({
-    mutationFn: () => {
+    mutationFn: (data) => {
       let json = {
-        audiobookId: dataAudiobookAdminData.id,
-        title: dataAudiobookAdminData.title,
-        author: dataAudiobookAdminData.author,
-        version: dataAudiobookAdminData.version,
-        album: dataAudiobookAdminData.album,
-        year: CreateUtil.createJsonFormatDate(dataAudiobookAdminData.year),
-        duration: dataAudiobookAdminData.duration,
-        size: dataAudiobookAdminData.size,
-        parts: dataAudiobookAdminData.parts,
-        description: dataAudiobookAdminData.description,
-        age: dataAudiobookAdminData.age,
-        encoded: dataAudiobookAdminData.encoded,
+        audiobookId: data.id,
+        title: data.title,
+        author: data.author,
+        version: data.version,
+        album: data.album,
+        year: CreateUtil.createJsonFormatDate(data.year),
+        duration: data.duration,
+        size: data.size,
+        parts: data.parts,
+        description: data.description,
+        age: data.age,
+        encoded: data.encoded,
       };
 
       return HandleFetch('/admin/audiobook/edit', 'PATCH', json, token, i18n.language);
     },
     onSuccess: () => {
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
-    },
-  });
-
-  const { mutate: audiobookDataChange } = useMutation({
-    mutationFn: (data) => {
-      let json = {
-        id: dataAudiobookAdminData.id,
-        title: dataAudiobookAdminData.title,
-        author: dataAudiobookAdminData.author,
-        version: dataAudiobookAdminData.version,
-        album: dataAudiobookAdminData.album,
-        year: dataAudiobookAdminData.year,
-        duration: dataAudiobookAdminData.duration,
-        size: dataAudiobookAdminData.size,
-        parts: dataAudiobookAdminData.parts,
-        description: dataAudiobookAdminData.description,
-        age: dataAudiobookAdminData.age,
-        encoded: dataAudiobookAdminData.encoded,
-        categories: dataAudiobookAdminData.categories,
-        active: dataAudiobookAdminData.active,
-        avgRating: dataAudiobookAdminData.avgRating,
-        ratingAmount: dataAudiobookAdminData.ratingAmount,
-      };
-
-      const copy = Object.assign(json, data);
-
-      qc.setQueryData(['dataAudiobookAdminData' + audiobookId], copy);
     },
   });
 
@@ -230,7 +203,6 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
   const value = [
     dataAudiobookAdminData,
     refetch,
-    audiobookDataChange,
     audiobookDataEdit,
     audiobookDeleteCategory,
     audiobookAddCategory,
