@@ -18,7 +18,6 @@ export default function UserNotificationOffCanvas(props) {
   const notifications = useNotificationsListStore((state) => state.notifications);
   const maxPage = useNotificationsListStore((state) => state.maxPage);
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
-  const trigerTable = useNotificationsListStore((state) => state.trigerTable);
 
   const navigate = useNavigate();
 
@@ -53,14 +52,10 @@ export default function UserNotificationOffCanvas(props) {
     }
   };
 
-  const activateNotification = (notification) => {
+  const activateNotification = (notification, page, index) => {
     if (notification.active == undefined) {
-      let hasRole = trigerTable.filter((x) => x == notification.id);
-      //TODO to jest do testów i do tego jeszcze nwm czy nie update tego cache bo zostaje powiadomienie na nowe
-      if (hasRole.length == 0) {
-        notificationsListStore.addTrigerTable(notification.id);
-        mutate(notification.id);
-      }
+      notificationsListStore.changeAudobookStatus(page, index);
+      mutate({ id: notification.id, page: page });
     }
   };
 
@@ -72,30 +67,17 @@ export default function UserNotificationOffCanvas(props) {
   };
 
   const renderNotifications = () => {
-    if (dateUpdate[props.state.page] <= Date.now() || dateUpdate[props.state.page] === undefined) {
-      let copy = [];
-      if (notifications !== undefined && notifications != null) {
-        copy = notifications;
-      }
-      if (notificationsData != null) {
-        copy[props.state.page] = notificationsData.systemNotifications;
-
-        notificationsListStore.addNotifications(props.state.page, copy);
-        notificationsListStore.setMaxPage(notificationsData.maxPage);
-      }
-    }
-
     let returnArray = [];
     if (notifications !== undefined && notifications !== null) {
-      notifications.map((notifications, index) => {
-        if (index <= props.state.page) {
+      notifications.map((pageNotifications, page) => {
+        if (page <= props.state.page && pageNotifications !== null) {
           returnArray.push(
-            notifications.map((notification) => {
+            pageNotifications.systemNotifications.map((notification, index) => {
               return (
                 <div
                   key={uuidv4()}
                   className='border border-light border-1 rounded-4 text-white p-3 my-3'
-                  onMouseEnter={() => activateNotification(notification)}
+                  onMouseEnter={() => activateNotification(notification, page, index)}
                 >
                   <div className='row mb-1'>
                     <div className='col'>
@@ -150,6 +132,17 @@ export default function UserNotificationOffCanvas(props) {
 
     return returnArray;
   };
+
+  useLayoutEffect(() => {
+    if (
+      notificationsData !== null &&
+      (dateUpdate[props.state.page] === undefined || dateUpdate[props.state.page] <= Date.now())
+    ) {
+      notificationsListStore.removePageNotifications(props.state.page);
+      notificationsListStore.addNotifications(props.state.page, notificationsData);
+      notificationsListStore.setMaxPage(notificationsData.maxPage);
+    }
+  }, [notificationsData]);
 
   useLayoutEffect(() => {
     if (props.state.page !== 0) {

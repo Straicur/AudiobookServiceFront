@@ -17,17 +17,14 @@ export const NotificationsProvider = ({ children, token, page, i18n, newNotifica
         '/notification/activate',
         'PUT',
         {
-          notificationId: data,
+          notificationId: data.id,
         },
         token,
         i18n.language,
       );
     },
-    onSuccess: () => {
-      for (let i = 0; i <= page; i++) {
-        //TODO trzeba pomyśleć czy nie ma lepszego rozwiązania
-        qc.invalidateQueries(['dataNotifications' + i]);
-      }
+    onSuccess: (data, variables) => {
+      qc.invalidateQueries(['dataNotifications' + variables.page]);
     },
   });
 

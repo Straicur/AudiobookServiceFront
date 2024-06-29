@@ -52,7 +52,11 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
       );
     },
     onSuccess: (data, variables) => {
-      qc.invalidateQueries(['dataAdminNotifications', 'dataNotifications', 'dataNewNotifications']);
+      qc.invalidateQueries([
+        'dataAdminNotifications',
+        'dataNotifications1',
+        'dataNewNotifications',
+      ]);
 
       variables.setState((prev) => ({
         ...prev,

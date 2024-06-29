@@ -32,14 +32,23 @@ export const useNotificationsListStore = create(
       notifications: [],
       maxPage: 0,
       dateUpdate: [],
-      trigerTable: [],
       addNotifications: (page, notifications) => {
         set((state) => {
-          const updatedDateUpdate = [...state.dateUpdate];
-          updatedDateUpdate[page] = Date.now() + 30000;
+          let copy = state.notifications;
+          let updatedDateUpdate = state.dateUpdate;
+
+          if (page + 1 <= notifications.maxPage) {
+            if (copy[page] !== undefined) {
+              copy.splice(page, 1, notifications);
+              updatedDateUpdate.splice(page, 1, Date.now() + 30000);
+            } else {
+              copy.push(notifications);
+              updatedDateUpdate.push(Date.now() + 30000);
+            }
+          }
 
           return {
-            notifications: notifications,
+            notifications: copy,
             dateUpdate: updatedDateUpdate,
           };
         });
@@ -49,14 +58,26 @@ export const useNotificationsListStore = create(
           maxPage: maxPage,
         }));
       },
-      addTrigerTable: (notification) => {
+      removePageNotifications: (page) => {
         set((state) => {
-          const addNotification = [...state.trigerTable];
-          addNotification.push(notification);
+          let copy = state.notifications;
+          let updatedDateUpdate = state.dateUpdate;
+
+          copy[page] = null;
+          updatedDateUpdate[page] = 0;
 
           return {
-            trigerTable: addNotification,
+            notifications: copy,
+            dateUpdate: updatedDateUpdate,
           };
+        });
+      },
+      changeAudobookStatus: (page, index) => {
+        set((state) => {
+          let copy = state.notifications;
+
+          copy[page].systemNotifications[index].active = Date.now();
+          return { notifications: copy };
         });
       },
     }),
@@ -99,10 +120,14 @@ export const useUserAudiobooksListStore = create(
       removePageAudiobooks: (page) => {
         set((state) => {
           let copy = state.audiobooks;
+          let updatedDateUpdate = state.dateUpdate;
+
           copy[page] = null;
+          updatedDateUpdate[page] = 0;
 
           return {
             audiobooks: copy,
+            dateUpdate: updatedDateUpdate,
           };
         });
       },
