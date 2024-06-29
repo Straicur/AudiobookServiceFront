@@ -53,8 +53,8 @@ export default function UserAudiobookPlayer(props) {
     if (
       player.current &&
       props.audiobookInfo &&
-      props.audiobookInfo.endedTime != null &&
       props.timeAudio.current &&
+      props.audiobookInfo.endedTime !== null &&
       props.audiobookState.firstRenderAudiobookInfo
     ) {
       player.current.audio.current.currentTime = props.timeAudio.current;
@@ -64,6 +64,8 @@ export default function UserAudiobookPlayer(props) {
   useLayoutEffect(() => {
     if (
       player.current &&
+      props.audiobookInfo &&
+      props.audiobookInfo.endedTime !== null &&
       props.timeAudio.current &&
       props.audiobookState.firstRenderAudiobookInfo &&
       props.audiobookState.renderAudiobookPlayer
