@@ -72,12 +72,13 @@ export const useNotificationsListStore = create(
           };
         });
       },
-      changeAudobookStatus: (page, index) => {
-        set((state) => {
-          let copy = state.notifications;
-
-          copy[page].systemNotifications[index].active = Date.now();
-          return { notifications: copy };
+      removeNotifications: () => {
+        set(() => {
+          return {
+            notifications: [],
+            dateUpdate: [],
+            maxPage: 0,
+          };
         });
       },
     }),
