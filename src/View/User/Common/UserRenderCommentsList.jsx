@@ -163,6 +163,7 @@ export default function UserRenderCommentsList(props) {
       comment: event.target.value,
     }));
   }
+
   function showText(comment, element) {
     element.currentTarget.parentElement.innerHTML = comment;
   }
