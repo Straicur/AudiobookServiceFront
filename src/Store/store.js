@@ -72,6 +72,14 @@ export const useNotificationsListStore = create(
           };
         });
       },
+      changeNotificationStatus: (page, index) => {
+        set((state) => {
+          let copy = state.notifications;
+
+          copy[page].systemNotifications[index].active = Date.now();
+          return { notifications: copy };
+        });
+      },
       removeNotifications: () => {
         set(() => {
           return {

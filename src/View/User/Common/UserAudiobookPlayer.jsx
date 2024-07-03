@@ -40,7 +40,7 @@ export default function UserAudiobookPlayer(props) {
       props.audiobookInfoPartToSave.current = props.part;
     }
 
-    if (duration.current == 0) {
+    if (duration.current === 0) {
       duration.current = audio.target.duration;
     }
   };

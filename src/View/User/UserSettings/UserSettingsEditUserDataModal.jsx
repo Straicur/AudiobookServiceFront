@@ -40,7 +40,7 @@ export default function UserSettingsEditUserDataModal(props) {
   };
 
   useEffect(() => {
-    if (state.firstname.length == 0) {
+    if (state.firstname.length === 0) {
       setState((prev) => ({
         ...prev,
         wrongFirstname: false,
@@ -59,7 +59,7 @@ export default function UserSettingsEditUserDataModal(props) {
   }, [state.firstname]);
 
   useEffect(() => {
-    if (state.lastname.length == 0) {
+    if (state.lastname.length === 0) {
       setState((prev) => ({
         ...prev,
         wrongLastname: false,
@@ -78,7 +78,7 @@ export default function UserSettingsEditUserDataModal(props) {
   }, [state.lastname]);
 
   useEffect(() => {
-    if (state.phoneNumber.length == 0) {
+    if (state.phoneNumber.length === 0) {
       setState((prev) => ({
         ...prev,
         wrongPhoneNumber: false,
@@ -214,9 +214,9 @@ export default function UserSettingsEditUserDataModal(props) {
                           state.wrongFirstname ||
                           state.wrongLastname ||
                           state.wrongPhoneNumber ||
-                          state.firstname.length == 0 ||
-                          state.lastname.length == 0 ||
-                          state.phoneNumber.length == 0
+                          state.firstname.length === 0 ||
+                          state.lastname.length === 0 ||
+                          state.phoneNumber.length === 0
                         }
                         className='btn button success_button settings-button fs-5 sure_button'
                         onClick={(e) => changeUserData(e)}
@@ -249,9 +249,9 @@ export default function UserSettingsEditUserDataModal(props) {
                       state.wrongFirstname ||
                       state.wrongLastname ||
                       state.wrongPhoneNumber ||
-                      state.firstname.length == 0 ||
-                      state.lastname.length == 0 ||
-                      state.phoneNumber.length == 0
+                      state.firstname.length === 0 ||
+                      state.lastname.length === 0 ||
+                      state.phoneNumber.length === 0
                     }
                     className='btn button success_button settings-button fs-5'
                     onClick={() =>

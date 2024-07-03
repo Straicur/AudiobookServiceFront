@@ -17,12 +17,12 @@ export default function UserRenderCommentsList(props) {
   //--------------------------------------------------------------------------------------------------------------------------------
   //Changing comments functions
   function likeComment(comment, element, bool) {
-    if (comment.children.length == 0) {
+    if (comment.children.length === 0) {
       props.lastOpenComment.current = comment.parentId;
     }
 
     let data = {};
-    if (comment.liked == bool) {
+    if (comment.liked === bool) {
       data = {
         url: '/user/audiobook/comment/like/delete',
         method: 'DELETE',
@@ -173,7 +173,7 @@ export default function UserRenderCommentsList(props) {
 
   const oparateParentList = (element) => {
     element.stopPropagation();
-    if (element.currentTarget.attributes['data-clicable'].value == 'true') {
+    if (element.currentTarget.attributes['data-clicable'].value === 'true') {
       openParentList(element);
     } else {
       closeParentList(element);
@@ -195,7 +195,7 @@ export default function UserRenderCommentsList(props) {
         el.classList.remove('d-none');
       }
       if (
-        element.children[0].nodeName == 'DIV' &&
+        element.children[0].nodeName === 'DIV' &&
         element.children[0].attributes['data-clicable'] != undefined
       ) {
         let icon = element.children[0].children[0].children[0].children[0];
@@ -216,13 +216,13 @@ export default function UserRenderCommentsList(props) {
     element.currentTarget.attributes['data-clicable'].value = 'true';
 
     for (const element of children) {
-      if (element.nodeName == 'UL') {
+      if (element.nodeName === 'UL') {
         for (const el of element.children) {
           el.classList.add('d-none');
         }
       }
       if (
-        element.children[0].nodeName == 'DIV' &&
+        element.children[0].nodeName === 'DIV' &&
         element.children[0].attributes['data-clicable'] != undefined
       ) {
         let icon = element.children[0].children[0].children[0].children[0];
@@ -239,11 +239,11 @@ export default function UserRenderCommentsList(props) {
       <li
         key={uuidv4()}
         className={
-          commentState.commentId == element.id
-            ? element.id == props.lastOpenComment.current
+          commentState.commentId === element.id
+            ? element.id === props.lastOpenComment.current
               ? 'border border-6 border-warning border comment comments-pill px-3 py-1'
               : 'border border-6 border-warning border comment comment-pill ps-3 py-1'
-            : element.id == props.lastOpenComment.current
+            : element.id === props.lastOpenComment.current
             ? 'border border-6 border-secondary border comment comments-pill px-3 py-1'
             : 'border border-6 border-secondary border comment comment-pill ps-3 py-1'
         }
@@ -257,7 +257,7 @@ export default function UserRenderCommentsList(props) {
             <div className='row'>
               <div className='col-1 cs'>
                 {child.length > 0 ? (
-                  element.id == props.lastOpenComment.current ? (
+                  element.id === props.lastOpenComment.current ? (
                     <i className='p-2 bi bi-arrow-down-square '></i>
                   ) : (
                     <i className='p-2 bi bi-arrow-right-square '></i>
@@ -279,10 +279,10 @@ export default function UserRenderCommentsList(props) {
                 <div className='col-3'>
                   <Button
                     name='en'
-                    variant={element.liked == null || !element.liked ? 'dark' : 'success'}
+                    variant={element.liked === null || !element.liked ? 'dark' : 'success'}
                     size='sm'
                     className={
-                      element.liked == null || !element.liked
+                      element.liked === null || !element.liked
                         ? 'btn button rounded-3 primary_button'
                         : 'btn button rounded-3 success_button'
                     }
@@ -296,10 +296,10 @@ export default function UserRenderCommentsList(props) {
                 <div className='col-3'>
                   <Button
                     name='en'
-                    variant={element.liked == null || element.liked ? 'dark' : 'danger'}
+                    variant={element.liked === null || element.liked ? 'dark' : 'danger'}
                     size='sm'
                     className={
-                      element.liked == null || element.liked
+                      element.liked === null || element.liked
                         ? 'btn button rounded-3 primary_button'
                         : 'btn button rounded-3 danger_button'
                     }
@@ -395,7 +395,7 @@ export default function UserRenderCommentsList(props) {
             {child}
             <div
               className={
-                props.lastOpenComment.current == element.id
+                props.lastOpenComment.current === element.id
                   ? 'row mt-2 justify-content-center'
                   : 'row mt-2 d-none justify-content-center'
               }
@@ -424,8 +424,8 @@ export default function UserRenderCommentsList(props) {
       <li
         key={uuidv4()}
         className={
-          props.lastOpenComment.current == element.parentId
-            ? commentState.commentId == element.id
+          props.lastOpenComment.current === element.parentId
+            ? commentState.commentId === element.id
               ? 'px-3 py-1 my-1 comment-pill border border-warning'
               : 'px-3 py-1 my-1 border comment-pill'
             : 'd-none px-3 py-1 my-1 border comment-pill'
@@ -443,10 +443,10 @@ export default function UserRenderCommentsList(props) {
                 <div className='col-3'>
                   <Button
                     name='en'
-                    variant={element.liked == null || !element.liked ? 'dark' : 'success'}
+                    variant={element.liked === null || !element.liked ? 'dark' : 'success'}
                     size='sm'
                     className={
-                      element.liked == null || !element.liked
+                      element.liked === null || !element.liked
                         ? 'btn button rounded-3 primary_button'
                         : 'btn button rounded-3 success_button'
                     }
@@ -460,10 +460,10 @@ export default function UserRenderCommentsList(props) {
                 <div className='col-3'>
                   <Button
                     name='en'
-                    variant={element.liked == null || element.liked ? 'dark' : 'danger'}
+                    variant={element.liked === null || element.liked ? 'dark' : 'danger'}
                     size='sm'
                     className={
-                      element.liked == null || element.liked
+                      element.liked === null || element.liked
                         ? 'btn button rounded-3 primary_button'
                         : 'btn button rounded-3 danger_button'
                     }
@@ -541,7 +541,7 @@ export default function UserRenderCommentsList(props) {
         children.push(
           <hr
             key={uuidv4()}
-            className={element.id == props.lastOpenComment.current ? null : 'd-none'}
+            className={element.id === props.lastOpenComment.current ? null : 'd-none'}
           ></hr>,
         );
         for (const child of element['children']) {
@@ -618,7 +618,7 @@ export default function UserRenderCommentsList(props) {
             className='btn button rounded-3 comment-button primary_button'
             disabled={
               (props.audiobookDetail && !props.audiobookDetail.canComment) ||
-              commentState.comment.length == 0
+              commentState.comment.length === 0
             }
             onClick={
               commentState.add

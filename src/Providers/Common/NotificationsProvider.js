@@ -46,7 +46,7 @@ export const NotificationsProvider = ({ children, token, page, i18n, newNotifica
     retryDelay: 500,
     refetchOnWindowFocus: false,
     enabled:
-      dateUpdate[page] == undefined || dateUpdate[page] <= Date.now() || newNotifications !== 0,
+      dateUpdate[page] === undefined || dateUpdate[page] <= Date.now() || newNotifications !== 0,
   });
 
   const value = [dataNotifications, refetch, mutate];

@@ -66,7 +66,7 @@ export default function AdminCategoriesEditModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {editModal.edit == 1 ? (
+        {editModal.edit === 1 ? (
           <div className='row'>
             <h3>{props.t('youChangeName')}</h3>
             <div className='col'>
@@ -91,7 +91,7 @@ export default function AdminCategoriesEditModal(props) {
             </div>
           </div>
         ) : null}
-        {editModal.edit == 2 ? (
+        {editModal.edit === 2 ? (
           <div className='row'>
             <h3>
               {props.state.editCategoryElement.active
@@ -120,7 +120,7 @@ export default function AdminCategoriesEditModal(props) {
             </div>
           </div>
         ) : null}
-        {editModal.edit == 3 ? (
+        {editModal.edit === 3 ? (
           <div className='row'>
             <h3>{props.t('youDelete')}</h3>
             <div className='col'>

@@ -79,7 +79,7 @@ function AppRouter() {
           exact
           path='/'
           element={
-            token == '' || token == undefined ? (
+            token === '' || token === undefined ? (
               <Navigate to='/login' replace={true} />
             ) : (
               <Navigate to='/main' replace={true} />

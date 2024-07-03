@@ -51,7 +51,7 @@ export default class UserRegisterService extends FormService {
     }));
 
     if (
-      this.props.state.password == this.props.state.confirmPassword &&
+      this.props.state.password === this.props.state.confirmPassword &&
       ValidateUtil.validateEmail(this.props.state.email) &&
       ValidateUtil.validatePassword(this.props.state.password)
     ) {

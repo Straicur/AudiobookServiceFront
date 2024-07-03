@@ -53,7 +53,7 @@ export default function AdminAudiobookCategoryList(props) {
       });
     }
 
-    if (props.audiobookDetail != null && props.audiobookDetail.categories == 0) {
+    if (props.audiobookDetail != null && props.audiobookDetail.categories === 0) {
       categories.push(
         <div key={uuidv4()} className='row d-flex justify-content-center text-center'>
           <h5>{props.t('empty')}</h5>

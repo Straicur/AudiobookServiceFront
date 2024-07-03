@@ -18,7 +18,7 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
     },
     onSuccess: (data, variables) => {
       if (
-        variables.currentPart.current == variables.maxParts.current ||
+        variables.currentPart.current === variables.maxParts.current ||
         Object.keys(data).length !== 0
       ) {
         variables.setStateModal({
@@ -56,7 +56,7 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
       variables.element.target.classList.remove('disabled');
 
       let copy = dataAdminCategoryAudiobooks.audiobooks.map((audiobook) => {
-        if (audiobook.id == variables.selectedAudiobook.id) {
+        if (audiobook.id === variables.selectedAudiobook.id) {
           return {
             id: audiobook.id,
             title: audiobook.title,

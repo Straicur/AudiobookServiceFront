@@ -36,12 +36,12 @@ export default function AdminCategoriesRenderList(props) {
           let childElement = [createListElement(index, value.push, returnedChildren.length)];
 
           if (kids[element.id] != undefined) {
-            let ul = kids[element.id].filter((x) => x.type == 'li');
+            let ul = kids[element.id].filter((x) => x.type === 'li');
 
             if (
               !ul.some((cat) =>
                 cat.props.children[1] != undefined
-                  ? cat.props.children[1].props['data-name'] == value.push.name
+                  ? cat.props.children[1].props['data-name'] === value.push.name
                   : false,
               )
             ) {
@@ -54,13 +54,13 @@ export default function AdminCategoriesRenderList(props) {
           elementArray['child'] = value;
         }
 
-        if (Object.keys(kids).some((key) => key == element.id)) {
+        if (Object.keys(kids).some((key) => key === element.id)) {
           for (const iterator of kids[element.id]) {
             children.push(iterator);
           }
         }
 
-        if (element.parentCategoryKey == null || element.parentCategoryKey == '') {
+        if (element.parentCategoryKey === null || element.parentCategoryKey === '') {
           renderArray.push(listParent(element, children, parent));
         } else {
           let parentElement = [listParent(element, children, parent)];
@@ -72,7 +72,7 @@ export default function AdminCategoriesRenderList(props) {
           }
         }
       } else {
-        if (element.parentCategoryKey == null || element.parentCategoryKey == '') {
+        if (element.parentCategoryKey === null || element.parentCategoryKey === '') {
           renderArray.push(listParent(element, children, parent));
         }
       }
@@ -193,9 +193,9 @@ export default function AdminCategoriesRenderList(props) {
       <li
         key={uuidv4()}
         className={
-          arrayLength == 1
+          arrayLength === 1
             ? 'd-none p-2 border border-1 border-warning list-group-item'
-            : index + 1 == arrayLength
+            : index + 1 === arrayLength
             ? 'd-none p-2 border border-1 border-info list-group-item'
             : 'd-none p-2 border border-1 border-bottom-0 border-info list-group-item'
         }

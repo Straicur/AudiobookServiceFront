@@ -85,7 +85,7 @@ export default function UserMyListAudiobookDetailModal(props) {
             className='row '
             style={{
               backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.7) 47%, rgba(255,255,255,0.1) 82%), url(${
-                props.state.detailModalCover == null ? '/noImg.jpg' : props.state.detailModalCover
+                props.state.detailModalCover === null ? '/noImg.jpg' : props.state.detailModalCover
               })`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: '60%',

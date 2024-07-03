@@ -48,7 +48,7 @@ export default function UserRegisterForm(props) {
                       name='pl'
                       size='sm'
                       className={
-                        i18n.language == 'pl'
+                        i18n.language === 'pl'
                           ? 'btn  m-1 admin_button_dark'
                           : 'btn  m-1 admin_button_light'
                       }
@@ -60,7 +60,7 @@ export default function UserRegisterForm(props) {
                       name='en'
                       size='sm'
                       className={
-                        i18n.language == 'en'
+                        i18n.language === 'en'
                           ? 'btn  m-1 admin_button_dark'
                           : 'btn  m-1 admin_button_light'
                       }
@@ -119,7 +119,7 @@ export default function UserRegisterForm(props) {
                           isValid={
                             props.state.password.length > 1 &&
                             ValidateUtil.validatePassword(props.state.password) &&
-                            props.state.password.trim() == props.state.confirmPassword.trim()
+                            props.state.password.trim() === props.state.confirmPassword.trim()
                           }
                           isInvalid={
                             props.state.password.length >= 1 &&
@@ -161,7 +161,7 @@ export default function UserRegisterForm(props) {
                           isValid={
                             props.state.confirmPassword.length > 1 &&
                             ValidateUtil.validatePassword(props.state.confirmPassword) &&
-                            props.state.password.trim() == props.state.confirmPassword.trim()
+                            props.state.password.trim() === props.state.confirmPassword.trim()
                           }
                           isInvalid={
                             props.state.confirmPassword.length > 1 &&

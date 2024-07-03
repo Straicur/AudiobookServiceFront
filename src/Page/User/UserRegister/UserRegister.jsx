@@ -34,8 +34,8 @@ export default function Register() {
       state.firstname.trim() != '' &&
       state.lastname.trim() != '' &&
       state.phoneNumber.trim() != '' &&
-      state.password.trim() == state.confirmPassword.trim() &&
-      state.password == state.confirmPassword &&
+      state.password.trim() === state.confirmPassword.trim() &&
+      state.password === state.confirmPassword &&
       ValidateUtil.validateEmail(state.email) &&
       ValidateUtil.validatePassword(state.password) &&
       ValidateUtil.validateBirthday(state.parentalControl, state.birthdayDate)

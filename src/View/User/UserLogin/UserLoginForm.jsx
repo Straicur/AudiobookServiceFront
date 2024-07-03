@@ -35,7 +35,7 @@ export default function UserLoginForm(props) {
                         name='pl'
                         size='sm'
                         className={
-                          props.i18n.language == 'pl'
+                          props.i18n.language === 'pl'
                             ? 'btn  m-1 admin_button_dark'
                             : 'btn  m-1 admin_button_light'
                         }
@@ -47,7 +47,7 @@ export default function UserLoginForm(props) {
                         name='en'
                         size='sm'
                         className={
-                          props.i18n.language == 'en'
+                          props.i18n.language === 'en'
                             ? 'btn  m-1 admin_button_dark'
                             : 'btn  m-1 admin_button_light'
                         }

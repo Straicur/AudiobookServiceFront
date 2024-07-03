@@ -85,7 +85,7 @@ export const UserNavBar = (props) => {
               name='pl'
               size='sm'
               className={
-                props.i18n.language == 'pl' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'
+                props.i18n.language === 'pl' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'
               }
               onClick={() => props.i18n.changeLanguage('pl')}
             >
@@ -95,7 +95,7 @@ export const UserNavBar = (props) => {
               name='en'
               size='sm'
               className={
-                props.i18n.language == 'en' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'
+                props.i18n.language === 'en' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'
               }
               onClick={() => props.i18n.changeLanguage('en')}
             >

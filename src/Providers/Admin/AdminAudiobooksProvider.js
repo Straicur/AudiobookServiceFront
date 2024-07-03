@@ -26,7 +26,7 @@ export const AdminAudiobooksProvider = ({
     },
     onSuccess: (data, variables) => {
       if (
-        variables.currentPart.current == variables.maxParts.current ||
+        variables.currentPart.current === variables.maxParts.current ||
         Object.keys(data).length !== 0
       ) {
         variables.setStateModal({
@@ -64,7 +64,7 @@ export const AdminAudiobooksProvider = ({
       variables.element.target.classList.remove('disabled');
 
       let copy = dataAdminAudiobooks.audiobooks.map((audiobook) => {
-        if (audiobook.id == variables.selectedAudiobook.id) {
+        if (audiobook.id === variables.selectedAudiobook.id) {
           return {
             id: audiobook.id,
             title: audiobook.title,

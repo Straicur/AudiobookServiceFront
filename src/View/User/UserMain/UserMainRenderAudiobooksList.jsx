@@ -46,7 +46,7 @@ export default function UserMainRenderAudiobooksList(props) {
               renderAudiobooks.push(UserMainRenderCarousel(props, category));
             }
 
-            if (pageData.categories.length == index + 1 && listIndex == props.state.page) {
+            if (pageData.categories.length === index + 1 && listIndex === props.state.page) {
               renderCategories.push(
                 <div id={category.categoryKey} key={uuidv4()}>
                   <div className='fw-bold fs-1 ms-2 mb-2 text-light'>{category.name}</div>

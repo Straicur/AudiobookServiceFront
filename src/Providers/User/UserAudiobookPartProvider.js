@@ -42,7 +42,7 @@ export const UserAudiobookPartProvider = ({
       audiobookId: audiobookId,
     };
 
-    if (part == undefined || isNaN(part)) {
+    if (part === undefined || isNaN(part)) {
       json.part = 0;
     } else {
       json.part = part;

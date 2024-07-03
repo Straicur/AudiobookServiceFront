@@ -8,7 +8,7 @@ export default function AdminCategoryAudiobookCover(props) {
     if (e.target.files) {
       let file = e.target.files[0];
 
-      if (file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg') {
+      if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg') {
         props.setStateModal((prev) => ({
           ...prev,
           file: file,
@@ -54,8 +54,8 @@ export default function AdminCategoryAudiobookCover(props) {
         <img
           src={
             props.audiobookDetail === undefined ||
-            props.audiobookDetail.imgFile == null ||
-            props.audiobookDetail.imgFile == ''
+            props.audiobookDetail.imgFile === null ||
+            props.audiobookDetail.imgFile === ''
               ? '/noImg.jpg'
               : process.env.REACT_APP_API_URL + props.audiobookDetail.imgFile
           }
@@ -72,7 +72,7 @@ export default function AdminCategoryAudiobookCover(props) {
           variant='secondary'
           size='sm'
           className='btn button px-4 my-2 modal_img_button'
-          disabled={props.stateModal.file == null}
+          disabled={props.stateModal.file === null}
           onClick={editCover}
         >
           {props.t('editCover')}

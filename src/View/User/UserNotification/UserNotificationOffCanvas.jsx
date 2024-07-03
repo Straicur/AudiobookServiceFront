@@ -53,8 +53,8 @@ export default function UserNotificationOffCanvas(props) {
   };
 
   const activateNotification = (notification, page, index) => {
-    if (notification.active == undefined) {
-      notificationsListStore.changeAudobookStatus(page, index);
+    if (notification.active === undefined) {
+      notificationsListStore.changeNotificationStatus(page, index);
       mutate({ id: notification.id, page: page });
     }
   };
@@ -98,8 +98,8 @@ export default function UserNotificationOffCanvas(props) {
                       {': '}
                       {createNotificationType(notification.notificationType)}
                     </div>
-                    {notification.notificationType == 1 ||
-                    notification.notificationType == 2 ? null : (
+                    {notification.notificationType === 1 ||
+                    notification.notificationType === 2 ? null : (
                       <div className='col'>
                         <Button
                           name='logout'

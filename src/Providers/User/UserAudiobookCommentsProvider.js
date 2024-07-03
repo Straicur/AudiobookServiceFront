@@ -17,12 +17,12 @@ export const UserAudiobookCommentsProvider = ({
 
   function setComment(comment, bool) {
     let newComments = dataAudiobookUserComments.comments.map((element) => {
-      if (element.id == comment.id) {
+      if (element.id === comment.id) {
         let like = element.audiobookCommentLike;
         let unlike = element.audiobookCommentUnlike;
 
         if (bool) {
-          if (comment.liked == bool) {
+          if (comment.liked === bool) {
             like = like - 1;
             bool = null;
           } else if (comment.liked != null && comment.liked != bool) {
@@ -32,7 +32,7 @@ export const UserAudiobookCommentsProvider = ({
             like = like + 1;
           }
         } else {
-          if (comment.liked == bool) {
+          if (comment.liked === bool) {
             unlike = unlike - 1;
             bool = null;
           } else if (comment.liked != null && comment.liked != bool) {
@@ -64,14 +64,14 @@ export const UserAudiobookCommentsProvider = ({
   }
 
   function setChildComment(parentId, comment, bool) {
-    let parent = dataAudiobookUserComments.comments.find((element) => element.id == parentId);
+    let parent = dataAudiobookUserComments.comments.find((element) => element.id === parentId);
 
     let children = parent.children.map((element) => {
       let like = element.audiobookCommentLike;
       let unlike = element.audiobookCommentUnlike;
 
       if (bool) {
-        if (comment.liked == bool) {
+        if (comment.liked === bool) {
           like = like - 1;
           bool = null;
         } else if (comment.liked != null && comment.liked != bool) {
@@ -81,7 +81,7 @@ export const UserAudiobookCommentsProvider = ({
           like = like + 1;
         }
       } else {
-        if (comment.liked == bool) {
+        if (comment.liked === bool) {
           unlike = unlike - 1;
           bool = null;
         } else if (comment.liked != null && comment.liked != bool) {
@@ -92,7 +92,7 @@ export const UserAudiobookCommentsProvider = ({
         }
       }
 
-      if (element.id == comment.id) {
+      if (element.id === comment.id) {
         return {
           audiobookCommentLike: like,
           audiobookCommentUnlike: unlike,
@@ -111,7 +111,7 @@ export const UserAudiobookCommentsProvider = ({
     });
 
     let newComments = dataAudiobookUserComments.comments.map((element) => {
-      if (element.id == parent.id) {
+      if (element.id === parent.id) {
         return {
           audiobookCommentLike: element.audiobookCommentLike,
           audiobookCommentUnlike: element.audiobookCommentUnlike,

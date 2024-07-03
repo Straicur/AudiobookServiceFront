@@ -41,7 +41,7 @@ export default function UserSettingsEditEmailModal(props) {
   };
 
   useEffect(() => {
-    if (state.oldEmail.length == 0) {
+    if (state.oldEmail.length === 0) {
       setState((prev) => ({
         ...prev,
         wrongEmail: false,
@@ -60,7 +60,7 @@ export default function UserSettingsEditEmailModal(props) {
   }, [state.oldEmail]);
 
   useEffect(() => {
-    if (state.newEmail.length == 0) {
+    if (state.newEmail.length === 0) {
       setState((prev) => ({
         ...prev,
         wrongNewEmail: false,
@@ -152,8 +152,8 @@ export default function UserSettingsEditEmailModal(props) {
                   disabled={
                     state.wrongNewEmail ||
                     state.wrongEmail ||
-                    state.oldEmail.length == 0 ||
-                    state.newEmail.length == 0
+                    state.oldEmail.length === 0 ||
+                    state.newEmail.length === 0
                   }
                   className='btn button success_button settings-button fs-5'
                   onClick={(e) => changeEmail(e)}

@@ -10,7 +10,7 @@ export default function AdminAudiobookRenderCommentsList(props) {
       element.stopPropagation();
       lastOpenComment.current = comment.id;
 
-      if (element.currentTarget.attributes['data-clicable'].value == 'true') {
+      if (element.currentTarget.attributes['data-clicable'].value === 'true') {
         openParentList(element);
       } else {
         closeParentList(element);
@@ -24,12 +24,12 @@ export default function AdminAudiobookRenderCommentsList(props) {
     element.currentTarget.attributes['data-clicable'].value = 'false';
 
     for (const element of children) {
-      if (element.nodeName == 'UL') {
+      if (element.nodeName === 'UL') {
         for (const el of element.children) {
           el.classList.remove('d-none');
         }
       }
-      if (element.nodeName == 'DIV') {
+      if (element.nodeName === 'DIV') {
         element.children[0].children[0].classList.remove('bi-arrow-right-square');
         element.children[0].children[0].classList.add('bi-arrow-down-square');
       }
@@ -42,12 +42,12 @@ export default function AdminAudiobookRenderCommentsList(props) {
     element.currentTarget.attributes['data-clicable'].value = 'true';
 
     for (const element of children) {
-      if (element.nodeName == 'UL') {
+      if (element.nodeName === 'UL') {
         for (const el of element.children) {
           el.classList.add('d-none');
         }
       }
-      if (element.nodeName == 'DIV') {
+      if (element.nodeName === 'DIV') {
         element.children[0].children[0].classList.remove('bi-arrow-down-square');
         element.children[0].children[0].classList.add('bi-arrow-right-square');
       }
@@ -61,7 +61,7 @@ export default function AdminAudiobookRenderCommentsList(props) {
       createTree(props.audiobookCommnets.comments, renderArray);
     }
 
-    if (props.audiobookCommnets != null && props.audiobookCommnets.comments.length == 0) {
+    if (props.audiobookCommnets != null && props.audiobookCommnets.comments.length === 0) {
       renderArray.push(
         <div key={uuidv4()} className='row text-center'>
           <div className='col-md-6 offset-md-3 '>
@@ -133,11 +133,11 @@ export default function AdminAudiobookRenderCommentsList(props) {
       <li
         key={uuidv4()}
         className={
-          arrayLength == 1
+          arrayLength === 1
             ? element.parentId === lastOpenComment.current
               ? 'p-2 border border-1 border-secondary list-group-item'
               : 'd-none p-2 border border-1 border-secondary list-group-item'
-            : index + 1 == arrayLength
+            : index + 1 === arrayLength
             ? element.parentId === lastOpenComment.current
               ? 'p-2 border border-1 border-secondary list-group-item'
               : 'd-none p-2 border border-1 border-secondary list-group-item'
