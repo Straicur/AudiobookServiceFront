@@ -46,6 +46,7 @@ export const AdminTechnicalBreaksProvider = ({ children, token, i18n, page }) =>
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
+    gcTime: 1000,
   });
 
   const value = [dataAdminTechnicalBreaks, refetch, addTechnicalBreak, endTechnicalBreak];

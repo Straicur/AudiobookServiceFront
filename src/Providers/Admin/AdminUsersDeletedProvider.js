@@ -28,6 +28,7 @@ export const AdminUsersDeletedProvider = ({ children, page, token, i18n }) => {
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
+    gcTime: 1000,
   });
 
   const value = [dataAdminUsersDeleted, setRefetch];

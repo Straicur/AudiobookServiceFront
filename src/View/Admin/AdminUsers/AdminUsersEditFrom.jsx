@@ -65,9 +65,9 @@ export default function AdminUsersEditFrom(props) {
         <div className='col-2'>{props.t('banned')}:</div>
         <div className='col-2'>
           {props.state.editUserElement.banned ? (
-            <i className='bi bi-bookmark-dash'></i>
+            <i className='bi bi-bookmark-check-fill'></i>
           ) : (
-            <i className='bi bi-shield-fill-exclamation'></i>
+            <i className='bi bi-bookmark-dash'></i>
           )}
         </div>
         <div className='col-4 align-self-center'>

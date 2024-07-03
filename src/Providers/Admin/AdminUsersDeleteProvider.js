@@ -65,6 +65,7 @@ export const AdminUsersDeleteProvider = ({ children, page, token, i18n }) => {
     retry: 1,
     retryDelay: 500,
     refetchOnWindowFocus: false,
+    gcTime: 1000,
   });
 
   const value = [dataAdminUsersDelete, deleteUser, declineDeleteUser];

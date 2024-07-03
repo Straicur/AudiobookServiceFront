@@ -39,7 +39,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <InputGroup className='mb-1 input_modal py-1'>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('sort')}
           </InputGroup.Text>
           <Form.Select
@@ -61,24 +61,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
           </Form.Select>
         </InputGroup>
         <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
-            {props.t('categories')}
-          </InputGroup.Text>
-          <DropdownMultiselect
-            placeholder={props.t('selectCategories')}
-            placeholderMultipleChecked={props.t('slectedMultiCategories')}
-            selectDeselectLabel={props.t('slectedAll')}
-            options={adminService.generateCategoriesList()}
-            name='categories'
-            handleOnChange={(e) => {
-              adminService.changeCategories(e);
-            }}
-            selected={props.searchState.categories}
-            className={'dropdown_multiselect'}
-          />
-        </InputGroup>
-        <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('title')}
           </InputGroup.Text>
           <Form.Control
@@ -91,7 +74,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
         </InputGroup>
 
         <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('author')}
           </InputGroup.Text>
           <Form.Control
@@ -103,7 +86,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
           />
         </InputGroup>
         <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('album')}
           </InputGroup.Text>
           <Form.Control
@@ -116,7 +99,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
         </InputGroup>
 
         <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('parts')}
           </InputGroup.Text>
           <Form.Control
@@ -128,9 +111,8 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             value={props.searchState.parts}
           />
         </InputGroup>
-
         <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('age')}
           </InputGroup.Text>
           <Form.Select
@@ -150,7 +132,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
         </InputGroup>
 
         <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('year')}
           </InputGroup.Text>
           <Form.Control
@@ -173,6 +155,23 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             max={86399}
             step={1}
             value={props.searchState.duration}
+          />
+        </InputGroup>
+        <InputGroup className='mb-1 input_modal py-1 '>
+          <InputGroup.Text className='input-group-text-new text-light'>
+            {props.t('categories')}
+          </InputGroup.Text>
+          <DropdownMultiselect
+            placeholder={props.t('selectCategories')}
+            placeholderMultipleChecked={props.t('slectedMultiCategories')}
+            selectDeselectLabel={props.t('slectedAll')}
+            options={adminService.generateCategoriesList()}
+            name='categories'
+            handleOnChange={(e) => {
+              adminService.changeCategories(e);
+            }}
+            selected={props.searchState.categories}
+            className={'dropdown_multiselect'}
           />
         </InputGroup>
         <div className='row mx-1'>
