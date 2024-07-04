@@ -174,27 +174,6 @@ export default function UserMainAudiobookDetailModal(props) {
                   />
                 </div>
               </div>
-              <div className='row my-1'>
-                <div className='col-5 fs-5'>
-                  {props.t('comments')}: {audiobookDetail.comments}
-                </div>
-              </div>
-              <div className='row my-1'>
-                <UserRenderCommentsList
-                  comments={audiobookUserComments.comments}
-                  audiobookDetail={audiobookDetail}
-                  likeComment={likeComment}
-                  lastOpenComment={lastOpenComment}
-                  addComment={addComment}
-                  editComment={editComment}
-                  state={props.state}
-                  setState={props.setState}
-                  t={props.t}
-                  i18n={props.i18n}
-                  token={props.token}
-                  refetch={setAudiobookCommnetsRefetchState}
-                />
-              </div>
             </div>
             <div className='col-3 d-flex justify-content-end align-items-start pe-3'>
               <Button
@@ -270,6 +249,27 @@ export default function UserMainAudiobookDetailModal(props) {
                   />
                 ) : null}
               </div>
+            </div>
+            <div className='row mt-4'>
+              <div className='col-5 fs-5'>
+                {props.t('comments')}: {audiobookDetail.comments}
+              </div>
+            </div>
+            <div className='row my-1'>
+              <UserRenderCommentsList
+                comments={audiobookUserComments.comments}
+                audiobookDetail={audiobookDetail}
+                likeComment={likeComment}
+                lastOpenComment={lastOpenComment}
+                addComment={addComment}
+                editComment={editComment}
+                state={props.state}
+                setState={props.setState}
+                t={props.t}
+                i18n={props.i18n}
+                token={props.token}
+                refetch={setAudiobookCommnetsRefetchState}
+              />
             </div>
           </div>
         ) : null}

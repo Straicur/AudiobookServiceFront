@@ -18,7 +18,7 @@
 .vertivcal_border {
   background: linear-gradient(#212529, #212529) 50% 50% / calc(100% - 4px) calc(100% - 4px)
       no-repeat,
-    linear-gradient(90deg, transparent 0%, #585858 100%) no-repeat -7% 1%/104% 40%;
+    linear-gradient(90deg, transparent 0%, #585858 100%) no-repeat -7% 1%/104% 65%;
   border-radius: 0px;
   box-sizing: border-box;
   margin-right: 1rem;
@@ -29,5 +29,5 @@
 }
 
 .sure_button {
-  min-width: 6.25rem !important;
+  min-width: 5rem !important;
 }

@@ -78,6 +78,14 @@ export default function UserSettingsEditEmailModal(props) {
     }
   }, [state.newEmail]);
 
+  useEffect(() => {
+    if (state.checkEmail) {
+      setTimeout(function () {
+        handleClose();
+      }, 3000);
+    }
+  }, [state.checkEmail]);
+
   return (
     <Modal size='lg' show={props.state.buttonEmail} onHide={handleClose} backdrop='static' centered>
       <Modal.Body
@@ -91,7 +99,7 @@ export default function UserSettingsEditEmailModal(props) {
           ) : (
             <Form>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('oldEmail')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('oldEmail')}</Form.Label>
                 <Form.Control
                   type='email'
                   name='oldEmail'
@@ -111,7 +119,7 @@ export default function UserSettingsEditEmailModal(props) {
                 </Alert>
               </Form.Group>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('newEmail')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('newEmail')}</Form.Label>
                 <Form.Control
                   type='email'
                   name='newEmail'

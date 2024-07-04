@@ -105,6 +105,14 @@ export default function UserSettingsEditUserDataModal(props) {
     }));
   }, [props.state]);
 
+  useEffect(() => {
+    if (state.checkChanges) {
+      setTimeout(function () {
+        handleClose();
+      }, 1200);
+    }
+  }, [state.checkChanges]);
+
   return (
     <Modal
       size='lg'
@@ -124,7 +132,7 @@ export default function UserSettingsEditUserDataModal(props) {
           ) : (
             <Form>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('firstname')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('firstname')}</Form.Label>
                 <Form.Control
                   type='text'
                   name='firstname'
@@ -144,7 +152,7 @@ export default function UserSettingsEditUserDataModal(props) {
                 </Alert>
               </Form.Group>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('lastname')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('lastname')}</Form.Label>
                 <Form.Control
                   type='text'
                   name='lastname'
@@ -166,7 +174,7 @@ export default function UserSettingsEditUserDataModal(props) {
                 </Alert>
               </Form.Group>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('phoneNumber')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('phoneNumber')}</Form.Label>
                 <Form.Control
                   type='tel'
                   name='phoneNumber'

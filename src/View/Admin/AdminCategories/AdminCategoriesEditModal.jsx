@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import FormService from 'Service/Common/FormService';
@@ -9,7 +9,6 @@ export default function AdminCategoriesEditModal(props) {
   const [editModal, setEditModal] = useState({
     edit: 1,
     newName: '',
-    // error: 0,
   });
 
   const adminService = new FormService(setEditModal);
@@ -47,6 +46,13 @@ export default function AdminCategoriesEditModal(props) {
 
     handleClose();
   };
+
+  useLayoutEffect(() => {
+    setEditModal((prev) => ({
+      ...prev,
+      newName: props.state.editCategoryElement.name,
+    }));
+  }, [props]);
 
   useEffect(() => {
     if (editModal.newName != '') {

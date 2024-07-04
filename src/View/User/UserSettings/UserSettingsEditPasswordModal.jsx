@@ -106,6 +106,14 @@ export default function UserSettingsEditPasswordModal(props) {
     }
   }, [state.newConfirmPassword]);
 
+  useEffect(() => {
+    if (state.checkPassword) {
+      setTimeout(function () {
+        handleClose();
+      }, 1000);
+    }
+  }, [state.checkPassword]);
+
   return (
     <Modal
       size='lg'
@@ -125,7 +133,7 @@ export default function UserSettingsEditPasswordModal(props) {
           ) : (
             <Form>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('oldPassword')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('oldPassword')}</Form.Label>
                 <Form.Control
                   type='password'
                   name='oldPassword'
@@ -149,7 +157,7 @@ export default function UserSettingsEditPasswordModal(props) {
                 </Alert>
               </Form.Group>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('newPassword')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('newPassword')}</Form.Label>
                 <Form.Control
                   type='password'
                   name='newPassword'
@@ -175,7 +183,7 @@ export default function UserSettingsEditPasswordModal(props) {
                 </Alert>
               </Form.Group>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('newPassword')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('newPassword')}</Form.Label>
                 <Form.Control
                   type='password'
                   name='newConfirmPassword'
