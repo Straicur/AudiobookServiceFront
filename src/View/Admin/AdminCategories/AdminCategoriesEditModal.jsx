@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import FormService from 'Service/Common/FormService';
@@ -9,7 +9,6 @@ export default function AdminCategoriesEditModal(props) {
   const [editModal, setEditModal] = useState({
     edit: 1,
     newName: '',
-    // error: 0,
   });
 
   const adminService = new FormService(setEditModal);
@@ -48,6 +47,13 @@ export default function AdminCategoriesEditModal(props) {
     handleClose();
   };
 
+  useLayoutEffect(() => {
+    setEditModal((prev) => ({
+      ...prev,
+      newName: props.state.editCategoryElement.name,
+    }));
+  }, [props]);
+
   useEffect(() => {
     if (editModal.newName != '') {
       setStateEditButton(false);
@@ -66,7 +72,7 @@ export default function AdminCategoriesEditModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {editModal.edit == 1 ? (
+        {editModal.edit === 1 ? (
           <div className='row'>
             <h3>{props.t('youChangeName')}</h3>
             <div className='col'>
@@ -91,7 +97,7 @@ export default function AdminCategoriesEditModal(props) {
             </div>
           </div>
         ) : null}
-        {editModal.edit == 2 ? (
+        {editModal.edit === 2 ? (
           <div className='row'>
             <h3>
               {props.state.editCategoryElement.active
@@ -120,7 +126,7 @@ export default function AdminCategoriesEditModal(props) {
             </div>
           </div>
         ) : null}
-        {editModal.edit == 3 ? (
+        {editModal.edit === 3 ? (
           <div className='row'>
             <h3>{props.t('youDelete')}</h3>
             <div className='col'>

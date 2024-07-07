@@ -5,7 +5,7 @@ export default class AdminCategoriesRenderService {
 
   oparateParentList = (element) => {
     element.stopPropagation();
-    if (element.currentTarget.attributes['data-clicable'].value == 'true') {
+    if (element.currentTarget.attributes['data-clicable'].value === 'true') {
       this.openParentList(element);
     } else {
       this.closeParentList(element);
@@ -18,14 +18,14 @@ export default class AdminCategoriesRenderService {
     element.currentTarget.attributes['data-clicable'].value = 'false';
 
     for (const element of children) {
-      if (element.nodeName == 'UL') {
+      if (element.nodeName === 'UL') {
         for (const el of element.children) {
           el.classList.remove('d-none');
         }
       }
-      if (element.nodeName == 'DIV') {
+      if (element.nodeName === 'DIV') {
         for (const el of element.children) {
-          if (el.nodeName == 'I') {
+          if (el.nodeName === 'I') {
             el.classList.remove('bi-arrow-right-square');
             el.classList.add('bi-arrow-down-square');
           }
@@ -40,14 +40,14 @@ export default class AdminCategoriesRenderService {
     element.currentTarget.attributes['data-clicable'].value = 'true';
 
     for (const element of children) {
-      if (element.nodeName == 'UL') {
+      if (element.nodeName === 'UL') {
         for (const el of element.children) {
           el.classList.add('d-none');
         }
       }
-      if (element.nodeName == 'DIV') {
+      if (element.nodeName === 'DIV') {
         for (const el of element.children) {
-          if (el.nodeName == 'I') {
+          if (el.nodeName === 'I') {
             el.classList.remove('bi-arrow-down-square');
             el.classList.add('bi-arrow-right-square');
           }

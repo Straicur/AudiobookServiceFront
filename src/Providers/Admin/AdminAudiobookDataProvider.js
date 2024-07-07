@@ -85,7 +85,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
     },
     onSuccess: (data, variables) => {
       if (
-        variables.currentPart.current == variables.maxParts.current ||
+        variables.currentPart.current === variables.maxParts.current ||
         Object.keys(data).length !== 0
       ) {
         variables.setStateModal({

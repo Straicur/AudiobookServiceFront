@@ -38,7 +38,7 @@ export default function AdminUsersSearchOffCanvas(props) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <InputGroup className='mb-1 input_modal py-1'>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('sort')}
           </InputGroup.Text>
           <Form.Select
@@ -56,7 +56,7 @@ export default function AdminUsersSearchOffCanvas(props) {
           </Form.Select>
         </InputGroup>
         <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('email')}
           </InputGroup.Text>
           <Form.Control
@@ -69,7 +69,7 @@ export default function AdminUsersSearchOffCanvas(props) {
         </InputGroup>
 
         <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('phoneNumber')}
           </InputGroup.Text>
           <Form.Control
@@ -82,7 +82,7 @@ export default function AdminUsersSearchOffCanvas(props) {
           />
         </InputGroup>
         <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('firstname')}
           </InputGroup.Text>
           <Form.Control
@@ -95,7 +95,7 @@ export default function AdminUsersSearchOffCanvas(props) {
         </InputGroup>
 
         <InputGroup className='mb-1 input_modal py-1 '>
-          <InputGroup.Text className='input-group-text-new text-light'>
+          <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('lastname')}
           </InputGroup.Text>
           <Form.Control

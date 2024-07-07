@@ -42,7 +42,7 @@ export default function UserForgotView(props) {
     if (
       ValidateUtil.validatePassword(props.state.password) &&
       ValidateUtil.validatePassword(props.state.confirmPassword) &&
-      props.state.password == props.state.confirmPassword
+      props.state.password === props.state.confirmPassword
     ) {
       const jsonData = {
         userId: props.id,
@@ -72,7 +72,7 @@ export default function UserForgotView(props) {
     if (
       props.state.password.trim() != '' &&
       props.state.confirmPassword.trim() != '' &&
-      props.state.password == props.state.confirmPassword
+      props.state.password === props.state.confirmPassword
     ) {
       props.setState((prev) => ({
         ...prev,

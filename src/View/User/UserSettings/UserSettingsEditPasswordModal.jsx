@@ -30,7 +30,7 @@ export default function UserSettingsEditPasswordModal(props) {
   const changePassword = (element) => {
     element.target.classList.add('disabled');
 
-    if (state.oldPassword != state.newPassword && state.newPassword == state.newConfirmPassword) {
+    if (state.oldPassword != state.newPassword && state.newPassword === state.newConfirmPassword) {
       props.userPasswordChange({
         oldPassword: md5(state.oldPassword),
         newPassword: md5(state.newPassword),
@@ -47,12 +47,12 @@ export default function UserSettingsEditPasswordModal(props) {
   };
 
   useEffect(() => {
-    if (state.oldPassword.length == 0) {
+    if (state.oldPassword.length === 0) {
       setState((prev) => ({
         ...prev,
         wrongOldPassword: false,
       }));
-    } else if (state.oldPassword == state.newPassword) {
+    } else if (state.oldPassword === state.newPassword) {
       setState((prev) => ({
         ...prev,
         wrongOldPassword: true,
@@ -66,7 +66,7 @@ export default function UserSettingsEditPasswordModal(props) {
   }, [state.oldPassword]);
 
   useEffect(() => {
-    if (state.newPassword.length == 0) {
+    if (state.newPassword.length === 0) {
       setState((prev) => ({
         ...prev,
         wrongNewPassword: false,
@@ -85,7 +85,7 @@ export default function UserSettingsEditPasswordModal(props) {
   }, [state.newPassword]);
 
   useEffect(() => {
-    if (state.newConfirmPassword.length == 0) {
+    if (state.newConfirmPassword.length === 0) {
       setState((prev) => ({
         ...prev,
         wrongNewConfirmPassword: false,
@@ -106,6 +106,14 @@ export default function UserSettingsEditPasswordModal(props) {
     }
   }, [state.newConfirmPassword]);
 
+  useEffect(() => {
+    if (state.checkPassword) {
+      setTimeout(function () {
+        handleClose();
+      }, 1000);
+    }
+  }, [state.checkPassword]);
+
   return (
     <Modal
       size='lg'
@@ -125,7 +133,7 @@ export default function UserSettingsEditPasswordModal(props) {
           ) : (
             <Form>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('oldPassword')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('oldPassword')}</Form.Label>
                 <Form.Control
                   type='password'
                   name='oldPassword'
@@ -136,7 +144,7 @@ export default function UserSettingsEditPasswordModal(props) {
                   }
                   isInvalid={
                     state.oldPassword.length > 1 &&
-                    state.oldPassword.trim() == state.newPassword.trim()
+                    state.oldPassword.trim() === state.newPassword.trim()
                   }
                   onChange={(event) => userService.handleChange(event)}
                 />
@@ -149,7 +157,7 @@ export default function UserSettingsEditPasswordModal(props) {
                 </Alert>
               </Form.Group>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('newPassword')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('newPassword')}</Form.Label>
                 <Form.Control
                   type='password'
                   name='newPassword'
@@ -162,7 +170,7 @@ export default function UserSettingsEditPasswordModal(props) {
                   isInvalid={
                     state.newPassword.length > 1 &&
                     !ValidateUtil.validatePassword(state.newPassword) &&
-                    state.oldPassword.trim() == state.newPassword.trim()
+                    state.oldPassword.trim() === state.newPassword.trim()
                   }
                   onChange={(event) => userService.handleChange(event)}
                 />
@@ -175,7 +183,7 @@ export default function UserSettingsEditPasswordModal(props) {
                 </Alert>
               </Form.Group>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('newPassword')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('newPassword')}</Form.Label>
                 <Form.Control
                   type='password'
                   name='newConfirmPassword'
@@ -183,7 +191,7 @@ export default function UserSettingsEditPasswordModal(props) {
                   isValid={
                     state.newConfirmPassword.length > 1 &&
                     ValidateUtil.validatePassword(state.newConfirmPassword) &&
-                    state.newConfirmPassword.trim() == state.newPassword.trim()
+                    state.newConfirmPassword.trim() === state.newPassword.trim()
                   }
                   isInvalid={
                     state.newConfirmPassword.length > 1 &&
@@ -223,9 +231,9 @@ export default function UserSettingsEditPasswordModal(props) {
                     state.wrongOldPassword ||
                     state.wrongNewPassword ||
                     state.wrongNewConfirmPassword ||
-                    state.oldPassword.length == 0 ||
-                    state.newPassword.length == 0 ||
-                    state.newConfirmPassword.length == 0
+                    state.oldPassword.length === 0 ||
+                    state.newPassword.length === 0 ||
+                    state.newConfirmPassword.length === 0
                   }
                   onClick={(e) => changePassword(e)}
                 >

@@ -20,7 +20,7 @@ export default class UserLoginService extends FormService {
 
     const form = e.currentTarget;
 
-    if (form.checkValidity() == true && ValidateUtil.validateEmail(form[0].value)) {
+    if (form.checkValidity() === true && ValidateUtil.validateEmail(form[0].value)) {
       this.props.setState((prev) => ({
         ...prev,
         validated: true,

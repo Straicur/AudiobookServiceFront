@@ -56,7 +56,7 @@ export default function AdminCategoryAudiobookAddModal(props) {
           </h3>
         </Modal.Title>
       </Modal.Header>
-      {stateModal.modal == 1 ? (
+      {stateModal.modal === 1 ? (
         <Modal.Body>
           <h5>{props.t('title')}</h5>
           <InputGroup className='mb-1 input_modal py-1 '>
@@ -123,32 +123,32 @@ export default function AdminCategoryAudiobookAddModal(props) {
                 {props.t('age')}
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item eventKey={1} active={stateModal.age == 1}>
+                <Dropdown.Item eventKey={1} active={stateModal.age === 1}>
                   3-7
                 </Dropdown.Item>
-                <Dropdown.Item eventKey={2} active={stateModal.age == 2}>
+                <Dropdown.Item eventKey={2} active={stateModal.age === 2}>
                   7-12
                 </Dropdown.Item>
-                <Dropdown.Item eventKey={3} active={stateModal.age == 3}>
+                <Dropdown.Item eventKey={3} active={stateModal.age === 3}>
                   12-16
                 </Dropdown.Item>
-                <Dropdown.Item eventKey={4} active={stateModal.age == 4}>
+                <Dropdown.Item eventKey={4} active={stateModal.age === 4}>
                   16-18
                 </Dropdown.Item>
-                <Dropdown.Item eventKey={5} active={stateModal.age == 5}>
+                <Dropdown.Item eventKey={5} active={stateModal.age === 5}>
                   18+
                 </Dropdown.Item>
               </Dropdown.Menu>
               <InputGroup.Text id='inputGroup-sizing-default'>
-                {stateModal.age == 1
+                {stateModal.age === 1
                   ? '3-7'
-                  : stateModal.age == 2
+                  : stateModal.age === 2
                   ? '7-12'
-                  : stateModal.age == 3
+                  : stateModal.age === 3
                   ? '12-16'
-                  : stateModal.age == 4
+                  : stateModal.age === 4
                   ? '16-18'
-                  : stateModal.age == 5
+                  : stateModal.age === 5
                   ? '18+'
                   : null}
               </InputGroup.Text>
@@ -157,12 +157,12 @@ export default function AdminCategoryAudiobookAddModal(props) {
         </Modal.Body>
       ) : (
         <Modal.Body>
-          {stateModal.modal == 3 ? (
+          {stateModal.modal === 3 ? (
             <ProgressBar
               animated
               variant='info'
               max={maxParts.current}
-              now={maxParts.current == 1 ? undefined : currentPart.current}
+              now={maxParts.current === 1 ? undefined : currentPart.current}
             />
           ) : (
             <input
@@ -175,7 +175,7 @@ export default function AdminCategoryAudiobookAddModal(props) {
           )}
         </Modal.Body>
       )}
-      {stateModal.modal == 1 ? (
+      {stateModal.modal === 1 ? (
         <Modal.Footer>
           <Button variant='dark' onClick={adminService.handleClose}>
             {props.t('close')}
@@ -190,7 +190,7 @@ export default function AdminCategoryAudiobookAddModal(props) {
         </Modal.Footer>
       ) : (
         <Modal.Footer>
-          {stateModal.upload == false ? (
+          {stateModal.upload === false ? (
             <div>
               <Button className='me-1' variant='dark' onClick={adminService.handleBack}>
                 {props.t('back')}

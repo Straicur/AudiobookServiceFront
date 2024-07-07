@@ -187,45 +187,45 @@ export default function AdminCategoryEditForm(props) {
 
             <Dropdown.Menu>
               {props.audiobookDetailState != null ? (
-                <Dropdown.Item eventKey={1} active={props.audiobookDetailState.age == 1}>
+                <Dropdown.Item eventKey={1} active={props.audiobookDetailState.age === 1}>
                   3-7
                 </Dropdown.Item>
               ) : null}
               {props.audiobookDetailState != null ? (
-                <Dropdown.Item eventKey={2} active={props.audiobookDetailState.age == 2}>
+                <Dropdown.Item eventKey={2} active={props.audiobookDetailState.age === 2}>
                   7-12
                 </Dropdown.Item>
               ) : null}
 
               {props.audiobookDetailState != null ? (
-                <Dropdown.Item eventKey={3} active={props.audiobookDetailState.age == 3}>
+                <Dropdown.Item eventKey={3} active={props.audiobookDetailState.age === 3}>
                   12-16
                 </Dropdown.Item>
               ) : null}
 
               {props.audiobookDetailState != null ? (
-                <Dropdown.Item eventKey={4} active={props.audiobookDetailState.age == 4}>
+                <Dropdown.Item eventKey={4} active={props.audiobookDetailState.age === 4}>
                   16-18
                 </Dropdown.Item>
               ) : null}
 
               {props.audiobookDetailState != null ? (
-                <Dropdown.Item eventKey={5} active={props.audiobookDetailState.age == 5}>
+                <Dropdown.Item eventKey={5} active={props.audiobookDetailState.age === 5}>
                   18+
                 </Dropdown.Item>
               ) : null}
             </Dropdown.Menu>
             <InputGroup.Text id='inputGroup-sizing-default'>
               {props.audiobookDetailState != null
-                ? props.audiobookDetailState.age == 1
+                ? props.audiobookDetailState.age === 1
                   ? '3-7'
-                  : props.audiobookDetailState.age == 2
+                  : props.audiobookDetailState.age === 2
                   ? '7-12'
-                  : props.audiobookDetailState.age == 3
+                  : props.audiobookDetailState.age === 3
                   ? '12-16'
-                  : props.audiobookDetailState.age == 4
+                  : props.audiobookDetailState.age === 4
                   ? '16-18'
-                  : props.audiobookDetailState.age == 5
+                  : props.audiobookDetailState.age === 5
                   ? '18+'
                   : null
                 : null}

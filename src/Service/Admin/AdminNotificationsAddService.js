@@ -39,13 +39,13 @@ export default class AdminNotificationsAddService extends FormService {
   static createAdditionalData = (modalState) => {
     let additionalData = {};
 
-    if (modalState.notificationType == 4) {
+    if (modalState.notificationType === 4) {
       additionalData.categoryKey = modalState.categoryKey;
     }
-    if (modalState.notificationType == 5) {
+    if (modalState.notificationType === 5) {
       additionalData.actionId = modalState.actionId;
     }
-    if (modalState.notificationType == 2) {
+    if (modalState.notificationType === 2) {
       additionalData.userId = modalState.actionId;
     }
     if (modalState.text != '') {

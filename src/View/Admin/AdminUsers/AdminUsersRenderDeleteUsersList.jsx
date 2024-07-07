@@ -11,6 +11,7 @@ export default function AdminUsersRenderDeleteUsersList(props) {
     let renderArray = [];
 
     if (usersList != null) {
+      console.log(usersList.users);
       usersList.users.forEach((element) => {
         renderArray.push(createColumn(element));
       });
@@ -33,7 +34,7 @@ export default function AdminUsersRenderDeleteUsersList(props) {
         </td>
         <td>
           {element.banned ? (
-            <i className='bi bi-shield-fill-exclamation'></i>
+            <i className='bi bi-bookmark-check-fill'></i>
           ) : (
             <i className='bi bi-bookmark-dash'></i>
           )}

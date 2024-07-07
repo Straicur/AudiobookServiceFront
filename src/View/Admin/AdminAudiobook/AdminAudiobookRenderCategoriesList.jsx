@@ -18,16 +18,16 @@ export default function AdminAudiobookRenderCategoriesList(props) {
   };
 
   function listParent(element, child, parent) {
-    const usedInRefCategory = props.categoriesId.current.filter((x) => x == element.id).length;
+    const usedInRefCategory = props.categoriesId.current.filter((x) => x === element.id).length;
     const usedInitialCategory = props.audiobookDetail.categories.filter(
-      (x) => x.id == element.id,
+      (x) => x.id === element.id,
     ).length;
 
     return (
       <li
         key={uuidv4()}
         className={
-          parent == null
+          parent === null
             ? 'visible border border-4 border-secondary list-group-item'
             : 'd-none border list-group-item'
         }
@@ -93,9 +93,9 @@ export default function AdminAudiobookRenderCategoriesList(props) {
   }
 
   function createListElement(element) {
-    const usedInRefCategory = props.categoriesId.current.filter((x) => x == element.id).length;
+    const usedInRefCategory = props.categoriesId.current.filter((x) => x === element.id).length;
     const usedInitialCategory = props.audiobookDetail.categories.filter(
-      (x) => x.id == element.id,
+      (x) => x.id === element.id,
     ).length;
 
     return (
@@ -166,12 +166,12 @@ export default function AdminAudiobookRenderCategoriesList(props) {
           let childElement = [createListElement(value.push)];
 
           if (kids[element.id] != undefined) {
-            let ul = kids[element.id].filter((x) => x.type == 'li');
+            let ul = kids[element.id].filter((x) => x.type === 'li');
 
             if (
               !ul.some((cat) =>
                 cat.props.children[1] != undefined
-                  ? cat.props.children[1].props['data-name'] == value.push.name
+                  ? cat.props.children[1].props['data-name'] === value.push.name
                   : false,
               )
             ) {
@@ -184,13 +184,13 @@ export default function AdminAudiobookRenderCategoriesList(props) {
           elementArray['child'] = value;
         }
 
-        if (Object.keys(kids).some((key) => key == element.id)) {
+        if (Object.keys(kids).some((key) => key === element.id)) {
           for (const iterator of kids[element.id]) {
             children.push(iterator);
           }
         }
 
-        if (element.parentCategoryKey == null || element.parentCategoryKey === '') {
+        if (element.parentCategoryKey === null || element.parentCategoryKey === '') {
           renderArray.push(listParent(element, children, parent));
         } else {
           let parentElement = [listParent(element, children, parent)];
@@ -202,7 +202,7 @@ export default function AdminAudiobookRenderCategoriesList(props) {
           }
         }
       } else {
-        if (element.parentCategoryKey == null || element.parentCategoryKey === '') {
+        if (element.parentCategoryKey === null || element.parentCategoryKey === '') {
           renderArray.push(listParent(element, children, parent));
         }
       }

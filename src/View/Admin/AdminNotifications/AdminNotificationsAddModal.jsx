@@ -117,7 +117,7 @@ export default function AdminNotificationsAddModal(props) {
                 <Form.Control disabled className='text-success' value={modalState.actionId} />
               </InputGroup>
             </div>
-            {actionState.actionIdChanged || modalState.notificationType == 1 ? (
+            {actionState.actionIdChanged || modalState.notificationType === 1 ? (
               <div className='row justify-content-center mx-5 mt-3'>
                 <div className='col-7'>
                   <Button
@@ -125,7 +125,7 @@ export default function AdminNotificationsAddModal(props) {
                     variant='success'
                     size='sm'
                     className='btn button button_notification'
-                    disabled={modalState.notificationType == 0 || modalState.userType == 0}
+                    disabled={modalState.notificationType === 0 || modalState.userType === 0}
                     onClick={() =>
                       props.addNotification({
                         modalState: modalState,
@@ -144,7 +144,7 @@ export default function AdminNotificationsAddModal(props) {
                   <Button
                     name='en'
                     variant='dark'
-                    disabled={modalState.notificationType == 0 || modalState.userType == 0}
+                    disabled={modalState.notificationType === 0 || modalState.userType === 0}
                     size='sm'
                     className='btn button button_notification'
                     onClick={(e) => adminService.selectActionId(e)}

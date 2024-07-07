@@ -41,7 +41,7 @@ export default function UserSettingsEditEmailModal(props) {
   };
 
   useEffect(() => {
-    if (state.oldEmail.length == 0) {
+    if (state.oldEmail.length === 0) {
       setState((prev) => ({
         ...prev,
         wrongEmail: false,
@@ -60,7 +60,7 @@ export default function UserSettingsEditEmailModal(props) {
   }, [state.oldEmail]);
 
   useEffect(() => {
-    if (state.newEmail.length == 0) {
+    if (state.newEmail.length === 0) {
       setState((prev) => ({
         ...prev,
         wrongNewEmail: false,
@@ -78,6 +78,14 @@ export default function UserSettingsEditEmailModal(props) {
     }
   }, [state.newEmail]);
 
+  useEffect(() => {
+    if (state.checkEmail) {
+      setTimeout(function () {
+        handleClose();
+      }, 3000);
+    }
+  }, [state.checkEmail]);
+
   return (
     <Modal size='lg' show={props.state.buttonEmail} onHide={handleClose} backdrop='static' centered>
       <Modal.Body
@@ -91,7 +99,7 @@ export default function UserSettingsEditEmailModal(props) {
           ) : (
             <Form>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('oldEmail')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('oldEmail')}</Form.Label>
                 <Form.Control
                   type='email'
                   name='oldEmail'
@@ -111,7 +119,7 @@ export default function UserSettingsEditEmailModal(props) {
                 </Alert>
               </Form.Group>
               <Form.Group className='mb-3'>
-                <Form.Label>{props.t('newEmail')}</Form.Label>
+                <Form.Label className='fs-3'>{props.t('newEmail')}</Form.Label>
                 <Form.Control
                   type='email'
                   name='newEmail'
@@ -152,8 +160,8 @@ export default function UserSettingsEditEmailModal(props) {
                   disabled={
                     state.wrongNewEmail ||
                     state.wrongEmail ||
-                    state.oldEmail.length == 0 ||
-                    state.newEmail.length == 0
+                    state.oldEmail.length === 0 ||
+                    state.newEmail.length === 0
                   }
                   className='btn button success_button settings-button fs-5'
                   onClick={(e) => changeEmail(e)}

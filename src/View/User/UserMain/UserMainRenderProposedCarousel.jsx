@@ -61,7 +61,7 @@ export default function UserMainRenderProposedCarousel(props, audiobooks) {
               key={uuidv4()}
             >
               <img
-                src={imgUrl == null ? '/noImg.jpg' : imgUrl}
+                src={imgUrl === null ? '/noImg.jpg' : imgUrl}
                 className='card-img-top'
                 alt='...'
               />

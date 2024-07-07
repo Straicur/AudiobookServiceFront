@@ -29,7 +29,7 @@ export default function AdminUsersRoles(props) {
     let roles = [];
     if (props.userRoles != null) {
       props.userRoles.roles.forEach((element) => {
-        let hasRole = props.state.editUserElement.roles.filter((x) => x == element.type);
+        let hasRole = props.state.editUserElement.roles.filter((x) => x === element.type);
 
         roles.push(
           <div className='row align-items-center mt-2' key={uuidv4()}>

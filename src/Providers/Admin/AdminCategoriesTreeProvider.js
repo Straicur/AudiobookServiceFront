@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
-import ArrayUtil from 'Util/ArrayUtil';
 
 const AdminCategoriesTreeContext = createContext(null);
 
@@ -23,11 +22,8 @@ export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
         i18n.language,
       );
     },
-    onSuccess: (data, variables) => {
-      let copy = dataAdminCategoriesTree.categories;
-      copy[ArrayUtil.findIndexById(copy, variables.id)].name = variables.newName;
-
-      qc.setQueryData(['dataAdminCategoriesTree'], { categories: copy });
+    onSuccess: () => {
+      refetch();
     },
   });
 
@@ -44,11 +40,8 @@ export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
         i18n.language,
       );
     },
-    onSuccess: (data, variables) => {
-      let copy = dataAdminCategoriesTree.categories;
-      copy[ArrayUtil.findIndexById(copy, variables.id)].active = variables.active;
-
-      qc.setQueryData(['dataAdminCategoriesTree'], { categories: copy });
+    onSuccess: () => {
+      refetch();
     },
   });
 
@@ -91,7 +84,7 @@ export const AdminCategoriesTreeProvider = ({ children, token, i18n }) => {
     qc.invalidateQueries(['dataAdminCategoriesTree']);
   };
 
-  const { data: dataAdminCategoriesTree = null } = useQuery({
+  const { data: dataAdminCategoriesTree = null, refetch } = useQuery({
     queryKey: ['dataAdminCategoriesTree'],
     queryFn: () => HandleFetch('/admin/categories/tree', 'GET', null, token, i18n.language),
     retry: 1,

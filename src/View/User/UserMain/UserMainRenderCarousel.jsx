@@ -28,7 +28,7 @@ export default function UserMainRenderCarousel(props, category) {
       ...prev,
       detailModal: !props.detailModal,
       detailModalAudiobook: audiobook,
-      detailModalCover: imgUrl == null ? '/noImg.jpg' : imgUrl,
+      detailModalCover: imgUrl === null ? '/noImg.jpg' : imgUrl,
       detailModalCategory: category,
     }));
   };
@@ -60,7 +60,7 @@ export default function UserMainRenderCarousel(props, category) {
               }
               key={uuidv4()}
             >
-              <img src={imgUrl == null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
+              <img src={imgUrl === null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
             </div>
 
             <div className='card-body'>

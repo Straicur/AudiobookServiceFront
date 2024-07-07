@@ -23,7 +23,7 @@ export default function About() {
                   name='pl'
                   size='sm'
                   className={
-                    i18n.language == 'pl' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'
+                    i18n.language === 'pl' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'
                   }
                   onClick={() => i18n.changeLanguage('pl')}
                 >
@@ -33,7 +33,7 @@ export default function About() {
                   name='en'
                   size='sm'
                   className={
-                    i18n.language == 'en' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'
+                    i18n.language === 'en' ? 'btn  m-1 button_light' : 'btn  m-1 button_dark'
                   }
                   onClick={() => i18n.changeLanguage('en')}
                 >

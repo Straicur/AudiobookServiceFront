@@ -41,9 +41,9 @@ export default function AdminUsersRenderList(props) {
         </td>
         <td>
           {element.banned ? (
-            <i className='bi bi-bookmark-dash'></i>
+            <i className='bi bi-bookmark-check-fill'></i>
           ) : (
-            <i className='bi bi-shield-fill-exclamation'></i>
+            <i className='bi bi-bookmark-dash'></i>
           )}
         </td>
         <td className='table_buttons_with'>

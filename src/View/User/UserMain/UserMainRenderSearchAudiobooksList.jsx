@@ -38,7 +38,7 @@ export default function UserMainRenderSearchAudiobooksList(props) {
                     : 'card-img-sm-sm-title'
                 }
               >
-                <img src={imgUrl == null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
+                <img src={imgUrl === null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
               </div>
 
               <div className='card-body'>

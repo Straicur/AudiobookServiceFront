@@ -27,7 +27,7 @@ export const AdminAudiobookPartProvider = ({ children, token, audiobookId, part,
       audiobookId: audiobookId,
     };
 
-    if (part == undefined || isNaN(part)) {
+    if (part === undefined || isNaN(part)) {
       json.part = 0;
     } else {
       json.part = part;

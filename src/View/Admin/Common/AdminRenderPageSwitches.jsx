@@ -28,7 +28,7 @@ export default function AdminRenderPageSwitches(props) {
           size='sm'
           color='dark'
           className=' btn button mt-2 rounded_left_button'
-          disabled={props.page == 0}
+          disabled={props.page === 0}
           onClick={() => prevPage()}
         >
           <i className='bi bi-chevron-left'></i>
@@ -43,7 +43,7 @@ export default function AdminRenderPageSwitches(props) {
           size='sm'
           color='dark'
           className=' btn button mt-2 rounded_right_button'
-          disabled={props.page + 1 == props.maxPage}
+          disabled={props.page + 1 === props.maxPage}
           onClick={() => nextPage()}
         >
           <i className='bi bi-chevron-right'></i>

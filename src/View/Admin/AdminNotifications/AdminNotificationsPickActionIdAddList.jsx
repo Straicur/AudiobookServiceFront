@@ -23,7 +23,7 @@ export default function AdminNotificationsPickActionIdAddList(props) {
   return (
     <div className='row'>
       <div className='row overflow-scroll pick_height'>
-        {props.state.notificationType == 2 ? (
+        {props.state.notificationType === 2 ? (
           <div>
             <AdminNotificationsGetUsersList
               usersState={props.usersState}
@@ -47,7 +47,7 @@ export default function AdminNotificationsPickActionIdAddList(props) {
             ) : null}
           </div>
         ) : null}
-        {props.state.notificationType == 5 ? (
+        {props.state.notificationType === 5 ? (
           <div>
             <AdminNotificationsGetAudiobooksList
               audiobooksState={props.audiobooksState}
@@ -71,7 +71,7 @@ export default function AdminNotificationsPickActionIdAddList(props) {
             ) : null}
           </div>
         ) : null}
-        {props.state.notificationType == 4 ? (
+        {props.state.notificationType === 4 ? (
           <AdminNotificationsGetCategoriesList
             categoriesState={props.categoriesState}
             setCategoriesState={props.setCategoriesState}

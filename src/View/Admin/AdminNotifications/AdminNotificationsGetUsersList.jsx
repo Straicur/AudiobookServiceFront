@@ -29,7 +29,7 @@ export default function AdminNotificationsGetUsersList(props) {
         </td>
         <td>
           {element.banned ? (
-            <i className='bi bi-shield-fill-exclamation'></i>
+            <i className='bi bi-bookmark-check-fill'></i>
           ) : (
             <i className='bi bi-bookmark-dash'></i>
           )}

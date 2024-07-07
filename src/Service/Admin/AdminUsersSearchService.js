@@ -14,7 +14,7 @@ export default class AdminUsersSearchService extends FormService {
   };
 
   changeActive = (element) => {
-    if (this.props.searchState.active == null) {
+    if (this.props.searchState.active === null) {
       this.props.setSearchState({
         ...this.props.searchState,
         active: element.target.checked,
@@ -28,7 +28,7 @@ export default class AdminUsersSearchService extends FormService {
   };
 
   changeBanned = (element) => {
-    if (this.props.searchState.banned == null) {
+    if (this.props.searchState.banned === null) {
       this.props.setSearchState({
         ...this.props.searchState,
         banned: element.target.checked,

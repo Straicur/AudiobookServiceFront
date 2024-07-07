@@ -30,7 +30,7 @@ export default class AdminAudiobookEditService extends FormService {
       this.setWrongState(6);
     }
     if (
-      this.props.audiobookDetailState.encoded == undefined ||
+      this.props.audiobookDetailState.encoded === undefined ||
       this.props.audiobookDetailState.encoded.length < 1
     ) {
       this.setWrongState(7);

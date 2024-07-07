@@ -56,7 +56,7 @@ export default function AdminNotificationsPickActionIdList(props) {
   return (
     <div className='row'>
       <div className='row overflow-scroll pick_height'>
-        {listState == 1 ? (
+        {listState === 1 ? (
           <div>
             <AdminNotificationsGetUsersList
               usersState={props.usersState}
@@ -80,7 +80,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             ) : null}
           </div>
         ) : null}
-        {listState == 2 ? (
+        {listState === 2 ? (
           <div>
             <AdminNotificationsGetAudiobooksList
               audiobooksState={props.audiobooksState}
@@ -104,7 +104,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             ) : null}
           </div>
         ) : null}
-        {listState == 3 ? (
+        {listState === 3 ? (
           <AdminNotificationsGetCategoriesList
             categoriesState={props.categoriesState}
             setCategoriesState={props.setCategoriesState}
@@ -126,7 +126,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             name='en'
             variant='dark'
             size='sm'
-            disabled={listState == 1}
+            disabled={listState === 1}
             className='btn button mx-2'
             onClick={getUsersList}
           >
@@ -138,7 +138,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             name='en'
             variant='dark'
             size='sm'
-            disabled={listState == 2}
+            disabled={listState === 2}
             className='btn button mx-2'
             onClick={getAudiobooksList}
           >
@@ -150,7 +150,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             name='en'
             variant='dark'
             size='sm'
-            disabled={listState == 3}
+            disabled={listState === 3}
             className='btn button mx-2'
             onClick={getCategriesList}
           >
