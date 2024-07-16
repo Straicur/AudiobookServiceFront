@@ -3,6 +3,16 @@ export default class AdminCategoriesRenderService {
     this.props = props;
   }
 
+  //TODO tu musi dojść logika związana z usuwaniem
+  // Klucz to id klikniętej kategorii, przekazuje też do tego uuid parenta, WIĘC [key element => parent element]
+  // Usuwanie
+  // Jeśli znajdę id które przekazuję jako parent gdzieś w tablicy to sprawdzam następnie czy
+  // przypadkiem te nie są parentami i tak długo aż w końcu nie znajdę żadnych idków, wszystkie razem z ojcem mają zostać usunięte
+  // Dodawanie
+  // Dodaje po prostu klucz i wartość i tyle
+
+  //this.props.lastOpenedCategories
+
   oparateParentList = (element) => {
     element.stopPropagation();
     if (element.currentTarget.attributes['data-clicable'].value === 'true') {

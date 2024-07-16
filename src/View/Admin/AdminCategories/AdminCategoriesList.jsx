@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import Button from 'react-bootstrap/Button';
 import AdminCategoriesRenderList from './AdminCategoriesRenderList';
@@ -16,6 +16,8 @@ export default function AdminCategoriesList(props) {
     editCategoryElement: null,
   });
 
+  const lastOpenedCategories = useRef([]);
+
   const [categoriesData, refetch, categoryChange, categoryActivate, categoryAdd, categoryDelete] =
     useAdminCategoriesTree();
 
@@ -31,6 +33,7 @@ export default function AdminCategoriesList(props) {
           state={state}
           setState={setState}
           categories={categoriesData}
+          lastOpenedCategories={lastOpenedCategories}
           categoriesState={props.categoriesState}
           setCategoriesState={props.setCategoriesState}
           t={props.t}
