@@ -33,7 +33,9 @@ export default function AdminCategoriesRenderList(props) {
         let returnedChildren = recursiveTree(element['children'], renderArray, kids, element);
 
         for (const [index, value] of returnedChildren.entries()) {
-          let childElement = [createListElement(index, value.push, returnedChildren.length)];
+          let childElement = [
+            createListElement(index, value.push, returnedChildren.length, element),
+          ];
 
           if (kids[element.id] != undefined) {
             let ul = kids[element.id].filter((x) => x.type === 'li');
@@ -82,105 +84,124 @@ export default function AdminCategoriesRenderList(props) {
   }
 
   function listParent(element, child, parent) {
+    let inReloadArray = props.lastOpenedCategories.current[element.id] !== undefined;
+    let parentInArray =
+      parent !== null && props.lastOpenedCategories.current[parent.id] !== undefined;
+
     return (
       <li
         key={uuidv4()}
         className={
-          parent === null
+          parent === null || inReloadArray || parentInArray
             ? 'visible border border-1 border-dark list-group-item'
-            : 'd-none border border-1 border-info list-group-item'
+            : 'd-none border border-1 border-dark list-group-item'
         }
-        onClick={child.length > 0 ? adminService.oparateParentList : undefined}
-        data-clicable={true}
+        data-clicable={inReloadArray ? false : true}
       >
         <div className='d-flex align-items-center flex-row bd-highlight'>
-          {child.length > 0 ? <i className='p-2 bi bi-arrow-right-square '></i> : null}
-          <div className='p-2 bd-highlight'>
-            <h5>{props.t('categoryName')}:</h5>
+          <div
+            className='d-flex align-items-center flex-row'
+            onClick={(e) => adminService.oparateParentList(e, child.length, element, parent)}
+          >
+            {child.length > 0 ? (
+              <i
+                className={
+                  inReloadArray
+                    ? 'fs-3 p-1 bi bi-arrow-down-square'
+                    : 'fs-3 p-1 bi bi-arrow-right-square'
+                }
+              ></i>
+            ) : null}
+            <div className='p-2 bd-highlight'>
+              <h5>{props.t('categoryName')}:</h5>
+            </div>
+            <div className='p-1 bd-highlight name_color fs-5'>
+              <h5>{element.name}</h5>
+            </div>
+            <div className='p-2 bd-highlight'>
+              <h5>{props.t('categoryActive')}:</h5>
+            </div>
+            <div className='p-2 bd-highlight'>
+              {element.active ? (
+                <h5>
+                  <i className='bi bi-bookmark-check-fill'></i>
+                </h5>
+              ) : (
+                <h5>
+                  <i className='bi bi-bookmark-dash'></i>
+                </h5>
+              )}
+            </div>
+            <div className='p-2 bd-highlight'>
+              <h5>{props.t('categoryKey')}:</h5>
+            </div>
+            <div className='p-2 bd-highlight fs-5'>
+              <h5 className='fw-normal'>{element.categoryKey}</h5>
+            </div>
+            <div className='p-2 bd-highlight'>
+              <h5>{props.t('categoryChilds')}:</h5>
+            </div>
+            <div className='p-2 bd-highlight'>
+              <h5 className='fw-normal'>{element.children.length}</h5>
+            </div>
+            <div className='p-2 bd-highlight'>
+              <h5>{props.t('audiobooksAmount')}:</h5>
+            </div>
+            <div className='p-2 bd-highlight'>
+              <h5 className='fw-normal'>{element.audiobooks}</h5>
+            </div>
           </div>
-          <div className='p-1 bd-highlight name_color fs-5'>
-            <h5>{element.name}</h5>
-          </div>
-          <div className='p-2 bd-highlight'>
-            <h5>{props.t('categoryActive')}:</h5>
-          </div>
-          <div className='p-2 bd-highlight'>
-            {element.active ? (
-              <h5>
-                <i className='bi bi-bookmark-check-fill'></i>
-              </h5>
-            ) : (
-              <h5>
-                <i className='bi bi-bookmark-dash'></i>
-              </h5>
-            )}
-          </div>
-          <div className='p-2 bd-highlight'>
-            <h5>{props.t('categoryKey')}:</h5>
-          </div>
-          <div className='p-2 bd-highlight fs-5'>
-            <h5 className='fw-normal'>{element.categoryKey}</h5>
-          </div>
-          <div className='p-2 bd-highlight'>
-            <h5>{props.t('categoryChilds')}:</h5>
-          </div>
-          <div className='p-2 bd-highlight'>
-            <h5 className='fw-normal'>{element.children.length}</h5>
-          </div>
-          <div className='p-2 bd-highlight'>
-            <h5>{props.t('audiobooksAmount')}:</h5>
-          </div>
-          <div className='p-2 bd-highlight'>
-            <h5 className='fw-normal'>{element.audiobooks}</h5>
-          </div>
-          <div className='p-2 bd-highlight ms-3'>
-            <Button
-              name='en'
-              variant='warning'
-              size='lg'
-              className='btn button'
-              onClick={() => {
-                props.setState((prev) => ({
-                  ...prev,
-                  editCategoryModal: !props.state.editCategoryModal,
-                  editCategoryElement: element,
-                }));
-              }}
-            >
-              {props.t('edit')}
-            </Button>
-          </div>
-          <div className='p-2 bd-highlight ms-3'>
-            <Button
-              name='en'
-              variant='dark'
-              size='lg'
-              className='btn button'
-              onClick={() => {
-                navigate(`/admin/category/${element.categoryKey}`);
-              }}
-            >
-              {props.t('audiobooks')}
-            </Button>
-          </div>
-          <div className='p-2 bd-highlight ms-3'>
-            <Button
-              name='en'
-              variant='success'
-              size='lg'
-              className='btn button'
-              onClick={() =>
-                props.setState((prev) => ({
-                  ...prev,
-                  addCategoryModal: !props.state.addCategoryModal,
-                  addCategoryParent: element,
-                }))
-              }
-            >
-              {props.t('addChildCategory')}
-            </Button>
+          <div className='d-flex align-items-center flex-row'>
+            <div className='p-2 bd-highlight ms-3'>
+              <Button
+                name='en'
+                variant='warning'
+                size='lg'
+                className='btn button'
+                onClick={() => {
+                  props.setState((prev) => ({
+                    ...prev,
+                    editCategoryModal: !props.state.editCategoryModal,
+                    editCategoryElement: element,
+                  }));
+                }}
+              >
+                {props.t('edit')}
+              </Button>
+            </div>
+            <div className='p-2 bd-highlight ms-3'>
+              <Button
+                name='en'
+                variant='dark'
+                size='lg'
+                className='btn button'
+                onClick={() => {
+                  navigate(`/admin/category/${element.categoryKey}`);
+                }}
+              >
+                {props.t('audiobooks')}
+              </Button>
+            </div>
+            <div className='p-2 bd-highlight ms-3'>
+              <Button
+                name='en'
+                variant='success'
+                size='lg'
+                className='btn button'
+                onClick={() =>
+                  props.setState((prev) => ({
+                    ...prev,
+                    addCategoryModal: !props.state.addCategoryModal,
+                    addCategoryParent: element,
+                  }))
+                }
+              >
+                {props.t('addChildCategory')}
+              </Button>
+            </div>
           </div>
         </div>
+
         <ul className='list-group' data-name={element.name}>
           {child}
         </ul>
@@ -188,19 +209,33 @@ export default function AdminCategoriesRenderList(props) {
     );
   }
 
-  function createListElement(index, element, arrayLength) {
+  function createListElement(index, element, arrayLength, parent) {
+    let inReloadArray =
+      parent != null && props.lastOpenedCategories.current[parent.id] !== undefined;
+
+    let css = '';
+    if (arrayLength === 1) {
+      if (inReloadArray) {
+        css = 'p-2 border border-1 border-warning list-group-item';
+      } else {
+        css = 'd-none p-2 border border-1 border-warning list-group-item';
+      }
+    } else if (index + 1 === arrayLength) {
+      if (inReloadArray) {
+        css = 'p-2 border border-1 border-info list-group-item';
+      } else {
+        css = 'd-none p-2 border border-1 border-info list-group-item';
+      }
+    } else {
+      if (inReloadArray) {
+        css = 'p-2 border border-1 border-bottom-0 border-info list-group-item';
+      } else {
+        css = 'd-none p-2 border border-1 border-bottom-0 border-info list-group-item';
+      }
+    }
+
     return (
-      <li
-        key={uuidv4()}
-        className={
-          arrayLength === 1
-            ? 'd-none p-2 border border-1 border-warning list-group-item'
-            : index + 1 === arrayLength
-            ? 'd-none p-2 border border-1 border-info list-group-item'
-            : 'd-none p-2 border border-1 border-bottom-0 border-info list-group-item'
-        }
-        id={element.id}
-      >
+      <li key={uuidv4()} className={css} id={element.id}>
         <div className='d-flex flex-row align-items-center bd-highlight'>
           <div className='p-2 bd-highlight'>
             <h5>{props.t('categoryName')}:</h5>
