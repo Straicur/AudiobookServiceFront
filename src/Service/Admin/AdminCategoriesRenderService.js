@@ -52,21 +52,6 @@ export default class AdminCategoriesRenderService {
         el.classList.add('bi-arrow-down-square');
       }
     }
-    // for (const element of children) {
-    //   if (element.nodeName === 'UL') {
-    //     for (const el of element.children) {
-    //       el.classList.remove('d-none');
-    //     }
-    //   }
-    //   if (element.nodeName === 'DIV') {
-    //     for (const el of element.children) {
-    //       if (el.nodeName === 'I') {
-    //         el.classList.remove('bi-arrow-right-square');
-    //         el.classList.add('bi-arrow-down-square');
-    //       }
-    //     }
-    //   }
-    // }
   }
 
   closeParentList(element, liParent) {

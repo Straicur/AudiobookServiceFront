@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 
 export default function AdminAudiobookAddCategoriesModal(props) {
   const categoriesId = useRef([]);
+  const lastOpenedCategories = useRef([]);
 
   const handleClose = () => {
     props.setAudiobookDetailRefetch();
@@ -29,6 +30,7 @@ export default function AdminAudiobookAddCategoriesModal(props) {
           audiobookAddCategory={props.audiobookAddCategory}
           audiobookDetail={props.audiobookDetail}
           categoriesId={categoriesId}
+          lastOpenedCategories={lastOpenedCategories}
           t={props.t}
           i18n={props.i18n}
           token={props.token}

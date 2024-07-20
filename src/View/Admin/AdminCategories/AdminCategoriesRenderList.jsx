@@ -84,8 +84,8 @@ export default function AdminCategoriesRenderList(props) {
   }
 
   function listParent(element, child, parent) {
-    let inReloadArray = props.lastOpenedCategories.current[element.id] !== undefined;
-    let parentInArray =
+    const inReloadArray = props.lastOpenedCategories.current[element.id] !== undefined;
+    const parentInArray =
       parent !== null && props.lastOpenedCategories.current[parent.id] !== undefined;
 
     return (
@@ -210,7 +210,7 @@ export default function AdminCategoriesRenderList(props) {
   }
 
   function createListElement(index, element, arrayLength, parent) {
-    let inReloadArray =
+    const inReloadArray =
       parent != null && props.lastOpenedCategories.current[parent.id] !== undefined;
 
     let css = '';

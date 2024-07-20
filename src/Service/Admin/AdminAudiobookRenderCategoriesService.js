@@ -2,62 +2,77 @@ export default class AdminAudiobookRenderCategoriesService {
   constructor(props) {
     this.props = props;
   }
+  deleteCommentFromRef = (comment) => {
+    for (const [key, value] of Object.entries(this.props.lastOpenedCategories.current)) {
+      if (value === comment) {
+        delete this.props.lastOpenedCategories.current[key];
+        this.deleteCommentFromRef(value);
+      }
+    }
 
-  oparateParentList = (element) => {
+    delete this.props.lastOpenedCategories.current[comment];
+  };
+
+  oparateParentList = (element, childrenAmount, comment, parent) => {
+    if (childrenAmount === 0) {
+      return;
+    }
+
     element.stopPropagation();
-    if (element.currentTarget.attributes['data-clicable'].value === 'true') {
-      this.openParentList(element);
+
+    let liParent = element.currentTarget.parentElement.parentElement;
+
+    if (liParent.attributes['data-clicable'].value === 'true') {
+      this.props.lastOpenedCategories.current[comment.id] = parent !== null ? parent.id : null;
+      this.openParentList(element, liParent);
     } else {
-      this.closeParentList(element);
+      this.deleteCommentFromRef(comment.id);
+      this.closeParentList(element, liParent);
     }
   };
 
-  openParentList(element) {
-    let children = element.currentTarget.children;
+  openParentList(element, liParent) {
+    let liParentChildren = element.currentTarget.parentElement.parentElement.children;
 
-    element.currentTarget.attributes['data-clicable'].value = 'false';
+    liParent.attributes['data-clicable'].value = 'false';
 
-    for (const element of children) {
+    for (const element of liParentChildren) {
       if (element.nodeName === 'UL') {
         for (const el of element.children) {
           el.classList.remove('d-none');
         }
       }
-      if (element.nodeName === 'DIV') {
-        const divfirst = element.children[0];
-        const divsecond = divfirst.children[0];
+    }
 
-        for (const el of divsecond.children) {
-          if (el.nodeName === 'I') {
-            el.classList.remove('bi-arrow-right-square');
-            el.classList.add('bi-arrow-down-square');
-          }
-        }
+    const divfirst = element.currentTarget.children[0];
+
+    for (const el of divfirst.children) {
+      if (el.nodeName === 'I') {
+        el.classList.remove('bi-arrow-right-square');
+        el.classList.add('bi-arrow-down-square');
       }
     }
   }
 
-  closeParentList(element) {
-    let children = element.currentTarget.children;
+  closeParentList(element, liParent) {
+    let liParentChildren = element.currentTarget.parentElement.parentElement.children;
 
-    element.currentTarget.attributes['data-clicable'].value = 'true';
+    liParent.attributes['data-clicable'].value = 'true';
 
-    for (const element of children) {
+    for (const element of liParentChildren) {
       if (element.nodeName === 'UL') {
         for (const el of element.children) {
           el.classList.add('d-none');
         }
       }
-      if (element.nodeName === 'DIV') {
-        const divfirst = element.children[0];
-        const divsecond = divfirst.children[0];
+    }
 
-        for (const el of divsecond.children) {
-          if (el.nodeName === 'I') {
-            el.classList.remove('bi-arrow-down-square');
-            el.classList.add('bi-arrow-right-square');
-          }
-        }
+    const divfirst = element.currentTarget.children[0];
+
+    for (const el of divfirst.children) {
+      if (el.nodeName === 'I') {
+        el.classList.remove('bi-arrow-down-square');
+        el.classList.add('bi-arrow-right-square');
       }
     }
   }
