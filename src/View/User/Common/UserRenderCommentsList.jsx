@@ -566,7 +566,9 @@ export default function UserRenderCommentsList(props) {
 
   return (
     <div className='row'>
-      <ul className='comments-heigth overflow-auto '>{renderTree()}</ul>
+      {props.comments.length > 0 ? (
+        <ul className='comments-height overflow-auto '>{renderTree()}</ul>
+      ) : null}
       <div className='row mt-2 justify-content-center align-items-center'>
         <div className='col-8'>
           <InputGroup>
@@ -593,12 +595,12 @@ export default function UserRenderCommentsList(props) {
             />
           </InputGroup>
         </div>
-        <div className='col-2'>
+        <div className='col-2 align-self-center'>
           <Button
             name='en'
             variant='secondary'
             size='sm'
-            className='btn button rounded-3 comment-button warning_button'
+            className='btn button rounded-3 comment-button warning_button float-right'
             disabled={
               (props.audiobookDetail && !props.audiobookDetail.canComment) ||
               (commentState.comment.length <= 0 &&
@@ -612,7 +614,7 @@ export default function UserRenderCommentsList(props) {
             {props.t('cancel')}
           </Button>
         </div>
-        <div className='col-2'>
+        <div className='col-2 align-self-center'>
           <Button
             name='en'
             variant='secondary'

@@ -54,8 +54,8 @@
   color: #ccc;
 }
 
-.comments-heigth {
-  max-height: 25rem !important;
+.comments-height {
+  max-height: 21.5rem !important;
   min-height: 3rem;
 }
 
