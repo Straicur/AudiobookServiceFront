@@ -95,6 +95,7 @@ export default function UserRenderCommentsList(props) {
       element: element,
       decline: decline,
       lastOpenComment: props.lastOpenComment.current,
+      setAudiobookDetailRefresh: props.setAudiobookDetailRefresh,
     });
   }
   function deleteComment(comment, element) {
@@ -113,6 +114,7 @@ export default function UserRenderCommentsList(props) {
       element: element,
       decline: decline,
       lastOpenComment: props.lastOpenComment.current,
+      setAudiobookDetailRefresh: props.setAudiobookDetailRefresh,
     });
   }
 

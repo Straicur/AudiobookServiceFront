@@ -11,7 +11,6 @@ export default function AdminUsersRenderDeleteUsersList(props) {
     let renderArray = [];
 
     if (usersList != null) {
-      console.log(usersList.users);
       usersList.users.forEach((element) => {
         renderArray.push(createColumn(element));
       });

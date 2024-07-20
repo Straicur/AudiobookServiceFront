@@ -17,7 +17,7 @@ export default function UserMainAudiobookDetailModal(props) {
   const audiobookInfoPartToSave = useRef(null);
   const lastOpenComment = useRef(null);
 
-  const [audiobookDetail, addToMyListFetch, addAudiobookRating, setRefresh] =
+  const [audiobookDetail, addToMyListFetch, addAudiobookRating, setAudiobookDetailRefresh] =
     useUserAudiobookDetail();
   const [audiobookRating] = useUserAudiobookRating();
   const [audiobookPart] = useAudiobookPart();
@@ -40,7 +40,7 @@ export default function UserMainAudiobookDetailModal(props) {
     }));
 
     if (props.audiobookState.myListChanged) {
-      setRefresh();
+      setAudiobookDetailRefresh();
     }
   };
 
@@ -263,6 +263,7 @@ export default function UserMainAudiobookDetailModal(props) {
                 lastOpenComment={lastOpenComment}
                 addComment={addComment}
                 editComment={editComment}
+                setAudiobookDetailRefresh={setAudiobookDetailRefresh}
                 state={props.state}
                 setState={props.setState}
                 t={props.t}
