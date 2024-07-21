@@ -23,6 +23,7 @@ export default function AdminCacheContainer(props) {
       <div className='card position-relative p-3 mb-5  shadow'>
         <AdminNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
         <hr className='line' />
+        Aktualnie pracuję nad tą stroną
         <Button onClick={() => clearAppCache()}>{props.t('clearCachePools')}</Button>
         <div className='table-title my-2'>
           <h1>{props.t('cachePools')}</h1>

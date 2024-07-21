@@ -174,6 +174,10 @@ export const UserAudiobookCommentsProvider = ({
         variables.decline();
       }
 
+      if (variables.setAudiobookDetailRefresh !== undefined) {
+        variables.setAudiobookDetailRefresh();
+      }
+
       refetch();
     },
     onError: (e, variables) => {
@@ -194,6 +198,7 @@ export const UserAudiobookCommentsProvider = ({
 
       qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);
       refetch();
+      variables.setAudiobookDetailRefresh();
     },
     onError: (e, variables) => {
       variables.element.target.classList.remove('disabled');

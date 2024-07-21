@@ -22,23 +22,34 @@ export default function AdminAudiobookRenderCategoriesList(props) {
     const usedInitialCategory = props.audiobookDetail.categories.filter(
       (x) => x.id === element.id,
     ).length;
+    const inReloadArray = props.lastOpenedCategories.current[element.id] !== undefined;
+    const parentInArray =
+      parent !== null && props.lastOpenedCategories.current[parent.id] !== undefined;
 
     return (
       <li
         key={uuidv4()}
         className={
-          parent === null
+          parent === null || inReloadArray || parentInArray
             ? 'visible border border-4 border-secondary list-group-item'
-            : 'd-none border list-group-item'
+            : 'd-none border border-4 border-secondary list-group-item'
         }
-        onClick={child.length > 0 ? adminService.oparateParentList : undefined}
         data-clicable={true}
       >
         <div className='d-flex flex-row bd-highlight mb-2'>
-          <div className='d-flex flex-column bd-highlight mb-3'>
+          <div
+            className='d-flex flex-column bd-highlight mb-3'
+            onClick={(e) => adminService.oparateParentList(e, child.length, element, parent)}
+          >
             <div className='d-flex flex-row bd-highlight mb-2'>
               {child.length > 0 ? (
-                <i className='p-2 bi bi-arrow-right-square '></i>
+                <i
+                  className={
+                    inReloadArray
+                      ? 'fs-4 p-2 bi bi-arrow-down-square'
+                      : 'fs-4 p-2 bi bi-arrow-right-square'
+                  }
+                ></i>
               ) : (
                 <div className=''></div>
               )}
@@ -92,14 +103,24 @@ export default function AdminAudiobookRenderCategoriesList(props) {
     );
   }
 
-  function createListElement(element) {
+  function createListElement(element, parent) {
     const usedInRefCategory = props.categoriesId.current.filter((x) => x === element.id).length;
     const usedInitialCategory = props.audiobookDetail.categories.filter(
       (x) => x.id === element.id,
     ).length;
+    const inReloadArray =
+      parent != null && props.lastOpenedCategories.current[parent.id] !== undefined;
+
+    let css = '';
+
+    if (inReloadArray) {
+      css = 'p-2 border list-group-item';
+    } else {
+      css = 'd-none p-2 border list-group-item';
+    }
 
     return (
-      <li key={uuidv4()} className='d-none p-2 border list-group-item' id={element.id}>
+      <li key={uuidv4()} className={css} id={element.id}>
         <div className='d-flex flex-row bd-highlight mb-2'>
           <div className='d-flex flex-column bd-highlight mb-3'>
             <div className='d-flex flex-row bd-highlight mb-2'>
@@ -163,7 +184,7 @@ export default function AdminAudiobookRenderCategoriesList(props) {
         let returnedChildren = recursiveTree(element['children'], renderArray, kids, element);
 
         for (const value of returnedChildren) {
-          let childElement = [createListElement(value.push)];
+          let childElement = [createListElement(value.push, element)];
 
           if (kids[element.id] != undefined) {
             let ul = kids[element.id].filter((x) => x.type === 'li');

@@ -93,11 +93,7 @@ export const UserAudiobookDetailProvider = ({
     },
   });
 
-  const setRefetch = () => {
-    qc.invalidateQueries(['dataMyAudiobooksUserData']);
-  };
-
-  const { data: dataAudiobookUserDetail = null } = useQuery({
+  const { data: dataAudiobookUserDetail = null, refetch } = useQuery({
     queryKey: ['dataAudiobookUserDetail' + audiobookId],
     queryFn: () => {
       return HandleFetch(
@@ -116,7 +112,7 @@ export const UserAudiobookDetailProvider = ({
     refetchOnWindowFocus: false,
   });
 
-  const value = [dataAudiobookUserDetail, addToMyList, addAudiobookRating, setRefetch];
+  const value = [dataAudiobookUserDetail, addToMyList, addAudiobookRating, refetch];
 
   return (
     <UserAudiobookDetailContext.Provider value={value}>
