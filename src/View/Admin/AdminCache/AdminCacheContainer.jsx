@@ -11,6 +11,7 @@ export default function AdminCacheContainer(props) {
   const notificationsListStore = useNotificationsListStore();
 
   console.log(pools);
+  console.log('pools');
 
   const clearAppCache = () => {
     clearCache({ all: true });
