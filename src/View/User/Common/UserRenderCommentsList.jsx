@@ -557,16 +557,14 @@ export default function UserRenderCommentsList(props) {
   const renderTree = () => {
     let renderArray = [];
 
-    if (props.comments != undefined) {
-      createTree(props.comments, renderArray);
-    }
+    createTree(props.comments, renderArray);
 
     return renderArray;
   };
 
   return (
     <div className='row'>
-      {props.comments !== null && props.comments.length > 0 ? (
+      {props.comments != undefined && props.comments !== null && props.comments.length > 0 ? (
         <ul className='comments-height overflow-auto '>{renderTree()}</ul>
       ) : null}
       <div className='row mt-2 justify-content-center align-items-center'>
@@ -602,7 +600,9 @@ export default function UserRenderCommentsList(props) {
             size='sm'
             className='btn button rounded-3 comment-button warning_button float-right'
             disabled={
-              (props.audiobookDetail && !props.audiobookDetail.canComment) ||
+              (props.audiobookDetail !== undefined &&
+                props.audiobookDetail !== null &&
+                !props.audiobookDetail.canComment) ||
               (commentState.comment.length <= 0 &&
               (commentState.add || commentState.edit) &&
               commentState.commentId != null
@@ -621,7 +621,7 @@ export default function UserRenderCommentsList(props) {
             size='sm'
             className='btn button rounded-3 comment-button primary_button'
             disabled={
-              (props.audiobookDetail && !props.audiobookDetail.canComment) ||
+              (props.audiobookDetail !== null && !props.audiobookDetail.canComment) ||
               commentState.comment.length === 0
             }
             onClick={
