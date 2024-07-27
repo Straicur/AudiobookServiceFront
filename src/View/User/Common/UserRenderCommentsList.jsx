@@ -566,7 +566,7 @@ export default function UserRenderCommentsList(props) {
 
   return (
     <div className='row'>
-      {props.comments.length > 0 ? (
+      {props.comments !== null && props.comments.length > 0 ? (
         <ul className='comments-height overflow-auto '>{renderTree()}</ul>
       ) : null}
       <div className='row mt-2 justify-content-center align-items-center'>
