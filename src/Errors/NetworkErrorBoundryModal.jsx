@@ -15,7 +15,7 @@ export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
   const tokenStore = useTokenStore();
   const navigate = useNavigate();
 
-  const [state, setState] = useState({
+  const [stateErrorBoundry, setErrorBoundryState] = useState({
     show: true,
   });
 
@@ -26,9 +26,9 @@ export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
 
     setError(null);
 
-    setState((prev) => ({
+    setErrorBoundryState((prev) => ({
       ...prev,
-      show: !state.show,
+      show: !stateErrorBoundry.show,
     }));
   };
 
@@ -63,7 +63,7 @@ export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
   }
 
   return (
-    <Modal show={state.show} backdrop='static'>
+    <Modal show={stateErrorBoundry.show} backdrop='static'>
       <Modal.Body>
         <h3 className='text-center fw-bold py-3'> {errorMessage}</h3>
         {errorData != undefined
