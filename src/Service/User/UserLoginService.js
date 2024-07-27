@@ -1,6 +1,5 @@
 import md5 from 'md5';
 import FormService from 'Service/Common/FormService';
-import { useTokenStore } from 'Store/store';
 import ValidateUtil from 'Util/ValidateUtil';
 
 export default class UserLoginService extends FormService {
@@ -11,8 +10,6 @@ export default class UserLoginService extends FormService {
     this.props = props;
     this.login = login;
   }
-
-  tokenStore = useTokenStore();
 
   fetchToken = (e) => {
     e.preventDefault();
