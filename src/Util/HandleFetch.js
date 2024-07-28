@@ -4,6 +4,7 @@ import InvalidJsonDataError from 'Errors/Errors/InvalidJsonDataError';
 import ServiceUnaviableError from 'Errors/Errors/ServiceUnaviableError';
 import PermissionError from 'Errors/Errors/PermissionError';
 import SystemError from 'Errors/Errors/SystemError';
+import UserDeletedError from 'Errors/Errors/UserDeletedError';
 
 export const HandleFetch = async (
   url,
@@ -69,6 +70,9 @@ export const HandleFetch = async (
         break;
       case 404:
         error = new DataNotFoundError(errJson.error, errJson.data);
+        break;
+      case 409:
+        error = new UserDeletedError(errJson.error, errJson.data);
         break;
       case 500:
         error = new SystemError(errJson.error);

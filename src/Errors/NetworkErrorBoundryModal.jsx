@@ -9,6 +9,7 @@ import AuthenticationError from './Errors/AuthenticationError';
 import InvalidJsonDataError from './Errors/InvalidJsonDataError';
 import ServiceUnaviableError from './Errors/ServiceUnaviableError';
 import DataNotFoundError from './Errors/DataNotFoundError';
+import UserDeletedError from './Errors/UserDeletedError';
 
 export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
   const { t } = useTranslation();
@@ -43,18 +44,14 @@ export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
   let errorData = [];
 
   switch (true) {
-    case error instanceof AuthenticationError:
+    case error instanceof AuthenticationError || error instanceof UserDeletedError:
       logout();
       break;
-    case error instanceof InvalidJsonDataError:
+    case error instanceof InvalidJsonDataError || error instanceof DataNotFoundError:
       errorData = error.data;
       errorMessage = error.message;
       break;
     case error instanceof ServiceUnaviableError:
-      errorMessage = error.message;
-      break;
-    case error instanceof DataNotFoundError:
-      errorData = error.data;
       errorMessage = error.message;
       break;
     default:
