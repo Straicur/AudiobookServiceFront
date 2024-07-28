@@ -125,19 +125,27 @@ export const UserNavBar = (props) => {
                 <select
                   className='form-select bg-dark text-light'
                   aria-label='Default select example'
+                  onChange={(event) => {
+                    const selectedValue = event.target.value;
+                    switch (selectedValue) {
+                      case '1':
+                        navigate('/user/settings');
+                        break;
+                      case '2':
+                        navigate('/help');
+                        break;
+                      case '3':
+                        logout();
+                        break;
+                    }
+                  }}
                 >
                   <option value={'DEFAULT'} hidden={true}>
                     {props.t('settings')}
                   </option>
-                  <option value='1' onClick={() => navigate('/user/settings')}>
-                    {props.t('accountSettings')}
-                  </option>
-                  <option value='1' onClick={() => navigate('/help')}>
-                    {props.t('help')}
-                  </option>
-                  <option value='3' onClick={() => logout()}>
-                    {props.t('logout')}
-                  </option>
+                  <option value='1'>{props.t('accountSettings')}</option>
+                  <option value='2'>{props.t('help')}</option>
+                  <option value='3'>{props.t('logout')}</option>
                 </select>
               </div>
               {state.notificationsOffCanvas ? (
