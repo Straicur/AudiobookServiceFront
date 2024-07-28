@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { UserFooter } from 'View/User/Common/UserFooter';
+import ValidateUtil from 'Util/ValidateUtil';
+import { useNavigate } from 'react-router-dom';
 import './UserAbout.css';
 
 export default function About() {
+  const [state, setState] = useState({
+    email: '',
+    myEmail: false,
+    send: false,
+  });
+
   const { t, i18n } = useTranslation();
+
+  const navigate = useNavigate();
+
+  const myEmail = 'mosinskidamian';
+  let emailValidity = ValidateUtil.validateEmail(state.email) && !state.email.includes(myEmail);
 
   return (
     <HelmetProvider>
@@ -16,7 +29,7 @@ export default function About() {
       </Helmet>
       <div className='container-fluid main-container about_page_container mt-3'>
         <div className='card position-relative p-3 bg-dark shadow about_page text-center text-white'>
-          <div className='row justify-content-end  align-items-center mt-5'>
+          <div className='row justify-content-end  align-items-center mt-1'>
             <div className='col-2'>
               <ButtonGroup className='ps-5 ms-5'>
                 <Button
@@ -51,7 +64,7 @@ export default function About() {
           <div className='fs-4 text-break'>
             <p>{t('aboutDesc3')}</p>
           </div>
-          <div className='fs-4 text-break'>
+          <div className='fs-4 text-break mt-2'>
             <p>{t('aboutDesc4')}</p>
           </div>
           <div className='fs-5 row'>
@@ -155,6 +168,63 @@ export default function About() {
               className='small_img_stack'
               src='https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white'
             />
+          </div>
+          <div className='row mt-5'>
+            <div className='fs-5 col-6'>Aby zalogować się jako Administrator podaj swój email:</div>
+            <div className='col-6'>
+              <div className='fs-5 row'>
+                <div className='col-9'>
+                  <input
+                    id='email'
+                    type='text'
+                    name='email'
+                    disabled={state.send}
+                    className='form-control mt-2'
+                    onChange={(e) => {
+                      setState((prev) => ({
+                        ...prev,
+                        email: e.target.value,
+                      }));
+                    }}
+                  />
+                  {state.email !== '' ? (
+                    emailValidity ? (
+                      <div className='fs-5 text-center text-danger'>dobry</div>
+                    ) : (
+                      <div className='fs-5 text-center text-danger'>zły</div>
+                    )
+                  ) : null}
+                </div>
+                <div className='col-2'>
+                  {!state.send ? (
+                    <Button
+                      name='pl'
+                      size='sm'
+                      className={'btn  m-1 admin_button_dark'}
+                      disabled={!emailValidity}
+                      onClick={() => {
+                        setState((prev) => ({
+                          ...prev,
+                          send: true,
+                        }));
+                      }}
+                    >
+                      Zaloguj
+                    </Button>
+                  ) : (
+                    <Button
+                      name='pl'
+                      size='sm'
+                      className={'btn  m-1 admin_button_dark'}
+                      disabled={!emailValidity}
+                      onClick={() => navigate('/main')}
+                    >
+                      Przejdź do strony głównej
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
