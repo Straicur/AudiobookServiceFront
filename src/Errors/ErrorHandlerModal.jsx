@@ -30,15 +30,14 @@ export const ErrorHandlerModal = ({ error }) => {
   let errorData = [];
 
   switch (true) {
-    case error instanceof InvalidJsonDataError || error instanceof ValidationError:
+    case error instanceof InvalidJsonDataError ||
+      error instanceof ValidationError ||
+      error instanceof DataNotFoundError ||
+      error instanceof InvalidDataError:
       errorData = error.data;
       errorMessage = error.message;
       break;
     case error instanceof SystemError || error instanceof ServiceUnaviableError:
-      errorMessage = error.message;
-      break;
-    case error instanceof DataNotFoundError || error instanceof InvalidDataError:
-      errorData = error.data;
       errorMessage = error.message;
       break;
     default:

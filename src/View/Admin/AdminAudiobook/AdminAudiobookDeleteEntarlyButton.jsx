@@ -13,6 +13,7 @@ export default function AdminAudiobookDeleteEntarlyButton(props) {
             props.deleted.current = false;
             props.deleteAudiobook({
               audiobookId: props.audiobookDetail.id,
+              deleted: props.deleted,
             });
           }}
         >

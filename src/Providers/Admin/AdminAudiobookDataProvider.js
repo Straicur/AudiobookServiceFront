@@ -178,7 +178,8 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
         navigate(`/admin/audiobooks`);
       }, 1000);
     },
-    onError: () => {
+    onError: (error, variables) => {
+      variables.deleted.current = true;
       qc.invalidateQueries(['dataAudiobookAdminData' + audiobookId]);
     },
   });

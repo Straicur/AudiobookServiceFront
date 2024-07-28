@@ -9,13 +9,14 @@ import AuthenticationError from './Errors/AuthenticationError';
 import InvalidJsonDataError from './Errors/InvalidJsonDataError';
 import ServiceUnaviableError from './Errors/ServiceUnaviableError';
 import DataNotFoundError from './Errors/DataNotFoundError';
+import UserDeletedError from './Errors/UserDeletedError';
 
 export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
   const { t } = useTranslation();
   const tokenStore = useTokenStore();
   const navigate = useNavigate();
 
-  const [state, setState] = useState({
+  const [stateErrorBoundry, setErrorBoundryState] = useState({
     show: true,
   });
 
@@ -26,9 +27,9 @@ export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
 
     setError(null);
 
-    setState((prev) => ({
+    setErrorBoundryState((prev) => ({
       ...prev,
-      show: !state.show,
+      show: !stateErrorBoundry.show,
     }));
   };
 
@@ -43,18 +44,14 @@ export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
   let errorData = [];
 
   switch (true) {
-    case error instanceof AuthenticationError:
+    case error instanceof AuthenticationError || error instanceof UserDeletedError:
       logout();
       break;
-    case error instanceof InvalidJsonDataError:
+    case error instanceof InvalidJsonDataError || error instanceof DataNotFoundError:
       errorData = error.data;
       errorMessage = error.message;
       break;
     case error instanceof ServiceUnaviableError:
-      errorMessage = error.message;
-      break;
-    case error instanceof DataNotFoundError:
-      errorData = error.data;
       errorMessage = error.message;
       break;
     default:
@@ -63,7 +60,7 @@ export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
   }
 
   return (
-    <Modal show={state.show} backdrop='static'>
+    <Modal show={stateErrorBoundry.show} backdrop='static'>
       <Modal.Body>
         <h3 className='text-center fw-bold py-3'> {errorMessage}</h3>
         {errorData != undefined
