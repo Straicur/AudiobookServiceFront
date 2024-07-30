@@ -28,7 +28,17 @@ export const UserAuthorizeProvider = ({ children, token, i18n }) => {
     },
     onSuccess: (data) => {
       tokenStore.setToken(data);
-      navigate('/login');
+
+      if (data.methodAfter !== undefined) {
+        data.methodAfter();
+      } else {
+        navigate('/main');
+      }
+    },
+    onError: (error, variables) => {
+      if (variables.methodAfter !== undefined) {
+        variables.errorMethodAfter();
+      }
     },
   });
 
