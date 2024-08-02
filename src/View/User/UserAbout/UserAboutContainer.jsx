@@ -78,13 +78,14 @@ export default function UserAboutContainer(props) {
           <div className='fs-4 text-break'>
             <p>{props.t('aboutDesc2')}</p>
           </div>
-          <div className='fs-4 text-break'>
+          <div className='fs-4 text-break mb-3'>
             <p>{props.t('aboutDesc3')}</p>
           </div>
-          <div className='fs-4 text-break mt-2'>
+
+          <div className='fs-4 text-break mt-4'>
             <p>{props.t('aboutDesc4')}</p>
           </div>
-          <div className='fs-5 row'>
+          <div className='fs-5 row mx-2 d-flex justify-content-center'>
             <img
               className='small_img_stack'
               src='https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white'
@@ -186,6 +187,100 @@ export default function UserAboutContainer(props) {
               src='https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white'
             />
           </div>
+          <p className='fs-3 text-center mt-4'>Doświadczenie zawodowe</p>
+          <div className='list-group text-start my-1'>
+            <a
+              href='#'
+              className='list-group-item list-group-item-action desc-background-black flex-column align-items-start active p-4 desc-border-black'
+            >
+              <div className='d-flex w-100 justify-content-between'>
+                <h5 className='mb-1'>Asuri Solutions </h5>
+              </div>
+              <p className='mb-1'>wrz 2021 – lis 2022</p>
+              <p className='mb-1 text-break'>
+                Mały softwarehouse, w którym stawiałem pierwsze kroki w web-developmentcie.
+                Opanowałem język php oraz zostałem wdrożony w Symfony5. W pracy byłem zaangażowany w
+                3 projekty:
+                <p className='mb-1 text-break'>
+                  1. Pojekt wewnętrzny firmy, którego celem było stworzenie aplikacji do zarządzania
+                  audiobookami. Projekt ten stał się inspiracją do tematu mojej pracy inżynierskiej.
+                  Tworząc swoje portfolio, wzorowałem się także na tej koncepcji. Mój system do
+                  zarządzania audiobookami można zobaczyć, logując się poprzez podanie swojemu
+                  adresu mailowy na końcu tej strony.
+                </p>
+                <p className='mb-1 text-break'>
+                  2.FlatApp to aplikacja stworzona do zarządzania nieruchomościami. W swoim
+                  działaniu nawiązywała do strony otodom, umożliwiała sprzedaż lub wynajem
+                  nieruchomości, ale dodatkowo rozszerzała możliwosci właściciela do zarządzania
+                  swoim mieszkaniem. Od strony wynajmujących możliwe było płacenie czynszu czy też
+                  zgłaszanie usterek, niedogodnień lub uwag. Dodatkowo firmy zewnętrzne miały
+                  możliwość oferowania swoich usług w postaci napraw czy wykończeń wnętrz. Aplikacja
+                  posiadała system oceny mieszkań, właścicieli i lokatorów. Dzięki udziałowi w
+                  projekcie nauczyłem się tworzyć rest api, testy funkcjonalne oraz integracyjne.
+                  Poznałem dogłebnie, jak implementować logikę biznesową. Był to główny projekt, w
+                  którym brałem udział i opierał się on w większości na napisanym przeze mnie
+                  kodzie.
+                </p>
+                <p className='mb-1 text-break'>
+                  3.Omnidev był projektem skierowany do deweloperów, którzy chcieli sprzedać
+                  mieszkania ze swojej inwestycji, nawet takich, które jeszcze nie postały. Kupujący
+                  mieli możliwość wyboru i kupna konkretnych mieszkać z planu budowy, wskazany przez
+                  siebie miejsc parkingowych czy też komórek lokatorskich oraz pakietów wykończeń
+                  mieszkań. Zewnętrzne firmy również oferowały swoje usługi związane z naprawami,
+                  wykończeniem i remontem mieszkań. Aplikacjia FlatApp była moim pobocznym projektem
+                  w pracy, ale zająłem się jej rozwojem w firmie, do której następnie przeszedłem.
+                </p>
+              </p>
+            </a>
+          </div>
+          <div className='list-group text-start my-2 desc-background-black'>
+            <a
+              href='#'
+              className='list-group-item list-group-item-action desc-background-black flex-column align-items-start p-4 active desc-border-black'
+            >
+              <div className='d-flex w-100 justify-content-between'>
+                <h5 className='mb-1'>Vobacom </h5>
+              </div>
+              <p className='mb-1'>lis 2022 – mar 2023 / maj 2023 – sie 2023 </p>
+              <p className='mb-1 text-break'>
+                W firmie Vobacom kontynuowałem rozwój aplikacji Omnidev, jednak dużą częścią pracy
+                nad tą aplikacją stanowił jej refaktor. Podniosłem w niej wersje symfony, php oraz
+                wszystkich pakietów przez wielką ilość deprekacji. Przepisywałem również samą
+                podstawę projektową, która nie korzystała prawie wcale z udogodnień Symfony i była
+                napisana w czystym php. Po usunięciu wszystkich błędów związanych z refaktorem oraz
+                naprawą wszcześniejszych zaniedbań, aplikacja została rozwinięta i ukończona.
+              </p>
+              <p className='mb-1 text-break'>
+                Po zakończeniu pracy nad Omnidev, zostałem przerzucony na pracę z Drupalem.
+                Zajmowałem się mniejszymi zadaniami związanymi z błędami, poprawkami oraz zmianami w
+                działaniu różnych aplikacji, głównie stron internetowych gmin czy też firm.
+                Uczestniczyłem również w większym wdrożeniu związanym z firmą ubezpieczeniową i jej
+                ofertami ubezpieczeń. Niestety nie zostałem w żaden sposób wprowadzony w Drupala,
+                przez co zraziłem się do tego crm.
+              </p>
+            </a>
+          </div>
+          <div className='list-group text-start my-2 desc-background-black'>
+            <a
+              href='#'
+              className='list-group-item list-group-item-action desc-background-black flex-column align-items-start p-4 active desc-border-black'
+            >
+              <div className='d-flex w-100 justify-content-between'>
+                <h5 className='mb-1'>Primesoft </h5>
+              </div>
+              <p className='mb-1'>wrz 2023 – Teraz</p>
+              <p className='mb-1 text-break'>
+                W firmie aktualnie zajmuje się pracą nad rozwojem wdrożeń aplikacji V-desk. Jest to
+                aplikacja dla księgowych, która umożliwia cyfryzację procesów obiegu dokumentów,
+                takich jak faktury, delegacje, umowy i ewidencje. Każde wdrożenie różni się od
+                siebie i polega na nadbudowaniu silnika aplikacji, w zależności od potrzeb klienta.
+                Pracowałem już nad kilkunastoma wdrożeniami od początku do końca. W przerwach
+                pomiędzy pracą nad aplikacją V-desk, zajmuję się utrzymywaniem różnych aplikacji na
+                podstawie zadań, które zgłasza dział support.
+              </p>
+            </a>
+          </div>
+
           <div className='row mt-5'>
             <div className='fs-5 col-6'>Aby zalogować się jako Administrator podaj swój email:</div>
             <div className='col-6'>
