@@ -72,17 +72,16 @@ export default function UserAboutContainer(props) {
               </ButtonGroup>
             </div>
           </div>
-          <div className='fs-2 fw-bold'>
+          <div className='fs-2 fw-bold mx-3'>
             <p>{props.t('aboutDesc1')}</p>
           </div>
-          <div className='fs-4 text-break'>
+          <div className='fs-4 text-break mx-3'>
             <p>{props.t('aboutDesc2')}</p>
           </div>
-          <div className='fs-4 text-break mb-3'>
+          <div className='fs-4 text-break mb-2 mx-3'>
             <p>{props.t('aboutDesc3')}</p>
           </div>
-
-          <div className='fs-4 text-break mt-4'>
+          <div className='fs-4 text-break mt-1 mx-3'>
             <p>{props.t('aboutDesc4')}</p>
           </div>
           <div className='fs-5 row mx-2 d-flex justify-content-center'>
@@ -187,50 +186,24 @@ export default function UserAboutContainer(props) {
               src='https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white'
             />
           </div>
-          <p className='fs-3 text-center mt-4'>Doświadczenie zawodowe</p>
+          <p className='fs-3 text-center mt-4'>{props.t('workExperience')}</p>
           <div className='list-group text-start my-1'>
             <a
               href='#'
               className='list-group-item list-group-item-action desc-background-black flex-column align-items-start active p-4 desc-border-black'
             >
               <div className='d-flex w-100 justify-content-between'>
-                <h5 className='mb-1'>Asuri Solutions </h5>
+                <h5 className='mb-3'>Asuri Solutions</h5>
               </div>
-              <p className='mb-1'>wrz 2021 – lis 2022</p>
-              <p className='mb-1 text-break'>
-                Mały softwarehouse, w którym stawiałem pierwsze kroki w web-developmentcie.
-                Opanowałem język php oraz zostałem wdrożony w Symfony5. W pracy byłem zaangażowany w
-                3 projekty:
-                <p className='mb-1 text-break'>
-                  1. Pojekt wewnętrzny firmy, którego celem było stworzenie aplikacji do zarządzania
-                  audiobookami. Projekt ten stał się inspiracją do tematu mojej pracy inżynierskiej.
-                  Tworząc swoje portfolio, wzorowałem się także na tej koncepcji. Mój system do
-                  zarządzania audiobookami można zobaczyć, logując się poprzez podanie swojemu
-                  adresu mailowy na końcu tej strony.
-                </p>
-                <p className='mb-1 text-break'>
-                  2.FlatApp to aplikacja stworzona do zarządzania nieruchomościami. W swoim
-                  działaniu nawiązywała do strony otodom, umożliwiała sprzedaż lub wynajem
-                  nieruchomości, ale dodatkowo rozszerzała możliwosci właściciela do zarządzania
-                  swoim mieszkaniem. Od strony wynajmujących możliwe było płacenie czynszu czy też
-                  zgłaszanie usterek, niedogodnień lub uwag. Dodatkowo firmy zewnętrzne miały
-                  możliwość oferowania swoich usług w postaci napraw czy wykończeń wnętrz. Aplikacja
-                  posiadała system oceny mieszkań, właścicieli i lokatorów. Dzięki udziałowi w
-                  projekcie nauczyłem się tworzyć rest api, testy funkcjonalne oraz integracyjne.
-                  Poznałem dogłebnie, jak implementować logikę biznesową. Był to główny projekt, w
-                  którym brałem udział i opierał się on w większości na napisanym przeze mnie
-                  kodzie.
-                </p>
-                <p className='mb-1 text-break'>
-                  3.Omnidev był projektem skierowany do deweloperów, którzy chcieli sprzedać
-                  mieszkania ze swojej inwestycji, nawet takich, które jeszcze nie postały. Kupujący
-                  mieli możliwość wyboru i kupna konkretnych mieszkać z planu budowy, wskazany przez
-                  siebie miejsc parkingowych czy też komórek lokatorskich oraz pakietów wykończeń
-                  mieszkań. Zewnętrzne firmy również oferowały swoje usługi związane z naprawami,
-                  wykończeniem i remontem mieszkań. Aplikacjia FlatApp była moim pobocznym projektem
-                  w pracy, ale zająłem się jej rozwojem w firmie, do której następnie przeszedłem.
-                </p>
+              <p className='mb-2'>
+                {props.t('september')} 2021 – {props.t('november')} 2022
               </p>
+              <div className='mb-1 text-break'>
+                {props.t('work1Desc1')}
+                <p className='mb-1 text-break'>{props.t('work1Desc2')}</p>
+                <p className='mb-1 text-break'>{props.t('work1Desc3')}</p>
+                <p className='mb-1 text-break'>{props.t('work1Desc4')}</p>
+              </div>
             </a>
           </div>
           <div className='list-group text-start my-2 desc-background-black'>
@@ -239,25 +212,14 @@ export default function UserAboutContainer(props) {
               className='list-group-item list-group-item-action desc-background-black flex-column align-items-start p-4 active desc-border-black'
             >
               <div className='d-flex w-100 justify-content-between'>
-                <h5 className='mb-1'>Vobacom </h5>
+                <h5 className='mb-3'>Vobacom</h5>
               </div>
-              <p className='mb-1'>lis 2022 – mar 2023 / maj 2023 – sie 2023 </p>
-              <p className='mb-1 text-break'>
-                W firmie Vobacom kontynuowałem rozwój aplikacji Omnidev, jednak dużą częścią pracy
-                nad tą aplikacją stanowił jej refaktor. Podniosłem w niej wersje symfony, php oraz
-                wszystkich pakietów przez wielką ilość deprekacji. Przepisywałem również samą
-                podstawę projektową, która nie korzystała prawie wcale z udogodnień Symfony i była
-                napisana w czystym php. Po usunięciu wszystkich błędów związanych z refaktorem oraz
-                naprawą wszcześniejszych zaniedbań, aplikacja została rozwinięta i ukończona.
+              <p className='mb-2'>
+                {props.t('november')} 2022 – {props.t('march')} 2023 / {props.t('may')} 2023 –{' '}
+                {props.t('august')} 2023{' '}
               </p>
-              <p className='mb-1 text-break'>
-                Po zakończeniu pracy nad Omnidev, zostałem przerzucony na pracę z Drupalem.
-                Zajmowałem się mniejszymi zadaniami związanymi z błędami, poprawkami oraz zmianami w
-                działaniu różnych aplikacji, głównie stron internetowych gmin czy też firm.
-                Uczestniczyłem również w większym wdrożeniu związanym z firmą ubezpieczeniową i jej
-                ofertami ubezpieczeń. Niestety nie zostałem w żaden sposób wprowadzony w Drupala,
-                przez co zraziłem się do tego crm.
-              </p>
+              <p className='mb-1 text-break'>{props.t('work2Desc1')}</p>
+              <p className='mb-1 text-break'>{props.t('work2Desc2')}</p>
             </a>
           </div>
           <div className='list-group text-start my-2 desc-background-black'>
@@ -266,32 +228,26 @@ export default function UserAboutContainer(props) {
               className='list-group-item list-group-item-action desc-background-black flex-column align-items-start p-4 active desc-border-black'
             >
               <div className='d-flex w-100 justify-content-between'>
-                <h5 className='mb-1'>Primesoft </h5>
+                <h5 className='mb-3'>Primesoft</h5>
               </div>
-              <p className='mb-1'>wrz 2023 – Teraz</p>
-              <p className='mb-1 text-break'>
-                W firmie aktualnie zajmuje się pracą nad rozwojem wdrożeń aplikacji V-desk. Jest to
-                aplikacja dla księgowych, która umożliwia cyfryzację procesów obiegu dokumentów,
-                takich jak faktury, delegacje, umowy i ewidencje. Każde wdrożenie różni się od
-                siebie i polega na nadbudowaniu silnika aplikacji, w zależności od potrzeb klienta.
-                Pracowałem już nad kilkunastoma wdrożeniami od początku do końca. W przerwach
-                pomiędzy pracą nad aplikacją V-desk, zajmuję się utrzymywaniem różnych aplikacji na
-                podstawie zadań, które zgłasza dział support.
+              <p className='mb-2'>
+                {props.t('september')} 2023 – {props.t('now')}
               </p>
+              <p className='mb-1 text-break'>{props.t('work3Desc1')}</p>
             </a>
           </div>
 
-          <div className='row mt-5'>
-            <div className='fs-5 col-6'>Aby zalogować się jako Administrator podaj swój email:</div>
-            <div className='col-6'>
-              <div className='fs-5 row'>
+          <div className='row mt-4 mb-1 mx-2'>
+            <div className='fs-5 col-6 text-end'>{props.t('toEnterAsAnAdmin')}</div>
+            <div className='col-5'>
+              <div className='fs-5 row d-flex align-items-start'>
                 <div className='col-9'>
                   <input
                     id='email'
                     type='text'
                     name='email'
                     disabled={props.state.send}
-                    className='form-control mt-2'
+                    className='form-control'
                     onChange={(e) => {
                       props.setState((prev) => ({
                         ...prev,
@@ -299,46 +255,35 @@ export default function UserAboutContainer(props) {
                       }));
                     }}
                   />
-                  {props.state.email !== '' && !emailValidity ? (
-                    <div className='fs-5 text-center text-danger'>zły</div>
-                  ) : null}
+                  <div className='text-center text-danger text-about-danger'>
+                    {props.state.email !== '' && !emailValidity && props.state.email.length > 4
+                      ? props.t('enterValidEmail')
+                      : null}
+                  </div>
                 </div>
                 <div className='col-2'>
-                  {!props.state.send ? (
-                    <Button
-                      name='pl'
-                      size='sm'
-                      className={'btn  m-1 admin_button_dark'}
-                      disabled={!emailValidity}
-                      onClick={() => {
-                        sendRecrutationReq();
-                        props.setState((prev) => ({
-                          ...prev,
-                          send: true,
-                        }));
-                      }}
-                    >
-                      Zaloguj
-                    </Button>
-                  ) : (
-                    <Button
-                      name='pl'
-                      size='sm'
-                      className={'btn  m-1 admin_button_dark'}
-                      disabled={!emailValidity}
-                      onClick={() => {
-                        setTimeout(function () {
-                          login({
-                            email: process.env.REACT_APP_RECRUTATION_EMAIL,
-                            password: md5(process.env.REACT_APP_RECRUTATION_PASSWORD),
-                            errorMethodAfter: setErrorAtomState(null),
-                          });
-                        }, 1000);
-                      }}
-                    >
-                      Przejdź do strony głównej
-                    </Button>
-                  )}
+                  <Button
+                    name='pl'
+                    size='sm'
+                    className='btn admin_button_dark p-2'
+                    disabled={!emailValidity}
+                    onClick={() => {
+                      sendRecrutationReq();
+                      props.setState((prev) => ({
+                        ...prev,
+                        send: true,
+                      }));
+                      setTimeout(function () {
+                        login({
+                          email: process.env.REACT_APP_RECRUTATION_EMAIL,
+                          password: md5(process.env.REACT_APP_RECRUTATION_PASSWORD),
+                          errorMethodAfter: setErrorAtomState(null),
+                        });
+                      }, 1000);
+                    }}
+                  >
+                    {props.t('login')}
+                  </Button>
                 </div>
               </div>
             </div>

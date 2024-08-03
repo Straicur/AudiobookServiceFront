@@ -10,7 +10,6 @@ export default function About() {
   const [state, setState] = useState({
     email: '',
     myEmail: false,
-    send: false,
   });
 
   const { t, i18n } = useTranslation();
