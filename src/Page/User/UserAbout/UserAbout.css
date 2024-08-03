@@ -17,3 +17,16 @@
   padding-left: 0.24rem !important;
   padding-right: 0.24rem !important;
 }
+
+.desc-background-black {
+  background-color: rgb(37, 37, 37) !important;
+}
+.desc-border-black {
+  border-color: rgb(28, 129, 107) !important;
+  border-radius: 2rem !important;
+  border-width: 0.15rem !important;
+}
+.text-about-danger {
+  min-height: 2rem;
+  font-size: 1rem;
+}
