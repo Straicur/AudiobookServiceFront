@@ -81,7 +81,59 @@ export default function UserAboutContainer(props) {
           <div className='fs-4 text-break mb-2 mx-3'>
             <p>{props.t('aboutDesc3')}</p>
           </div>
-          <div className='fs-4 text-break mt-1 mx-3'>
+          <div className='row mt-4 mb-1 mx-2'>
+            <div className='fs-5 col-5 text-end mx-4'>{props.t('toEnterAsAnAdmin')}</div>
+            <div className='col-5'>
+              <div className='fs-5 row d-flex align-items-start'>
+                <div className='col-9'>
+                  <input
+                    id='email'
+                    type='text'
+                    name='email'
+                    disabled={props.state.send}
+                    className='form-control'
+                    placeholder={props.t('insertEmail')}
+                    onChange={(e) => {
+                      props.setState((prev) => ({
+                        ...prev,
+                        email: e.target.value,
+                      }));
+                    }}
+                  />
+                  <div className='text-center text-danger text-about-danger'>
+                    {props.state.email !== '' && !emailValidity && props.state.email.length > 4
+                      ? props.t('enterValidEmail')
+                      : null}
+                  </div>
+                </div>
+                <div className='col-2'>
+                  <Button
+                    name='pl'
+                    size='sm'
+                    className='btn admin_button_dark p-2'
+                    disabled={!emailValidity}
+                    onClick={() => {
+                      sendRecrutationReq();
+                      props.setState((prev) => ({
+                        ...prev,
+                        send: true,
+                      }));
+                      setTimeout(function () {
+                        login({
+                          email: process.env.REACT_APP_RECRUTATION_EMAIL,
+                          password: md5(process.env.REACT_APP_RECRUTATION_PASSWORD),
+                          errorMethodAfter: setErrorAtomState(null),
+                        });
+                      }, 1000);
+                    }}
+                  >
+                    {props.t('login')}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='fs-4 text-break mx-3'>
             <p>{props.t('aboutDesc4')}</p>
           </div>
           <div className='fs-5 row mx-2 d-flex justify-content-center'>
@@ -235,58 +287,6 @@ export default function UserAboutContainer(props) {
               </p>
               <p className='mb-1 text-break'>{props.t('work3Desc1')}</p>
             </a>
-          </div>
-
-          <div className='row mt-4 mb-1 mx-2'>
-            <div className='fs-5 col-6 text-end'>{props.t('toEnterAsAnAdmin')}</div>
-            <div className='col-5'>
-              <div className='fs-5 row d-flex align-items-start'>
-                <div className='col-9'>
-                  <input
-                    id='email'
-                    type='text'
-                    name='email'
-                    disabled={props.state.send}
-                    className='form-control'
-                    onChange={(e) => {
-                      props.setState((prev) => ({
-                        ...prev,
-                        email: e.target.value,
-                      }));
-                    }}
-                  />
-                  <div className='text-center text-danger text-about-danger'>
-                    {props.state.email !== '' && !emailValidity && props.state.email.length > 4
-                      ? props.t('enterValidEmail')
-                      : null}
-                  </div>
-                </div>
-                <div className='col-2'>
-                  <Button
-                    name='pl'
-                    size='sm'
-                    className='btn admin_button_dark p-2'
-                    disabled={!emailValidity}
-                    onClick={() => {
-                      sendRecrutationReq();
-                      props.setState((prev) => ({
-                        ...prev,
-                        send: true,
-                      }));
-                      setTimeout(function () {
-                        login({
-                          email: process.env.REACT_APP_RECRUTATION_EMAIL,
-                          password: md5(process.env.REACT_APP_RECRUTATION_PASSWORD),
-                          errorMethodAfter: setErrorAtomState(null),
-                        });
-                      }, 1000);
-                    }}
-                  >
-                    {props.t('login')}
-                  </Button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
