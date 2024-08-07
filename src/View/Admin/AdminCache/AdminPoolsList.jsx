@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'react-bootstrap';
 
 export default function AdminPoolsList(props) {
   const createUserCacheTable = () => {
@@ -13,16 +14,30 @@ export default function AdminPoolsList(props) {
     return renderArray;
   };
 
+  const addOrDelatePool = (poolValue, checked) => {
+    let copy = props.poolsState;
+
+    if (checked && !copy.includes(poolValue)) {
+      copy.push(poolValue);
+      props.setPoolsState(copy);
+    } else if (!checked && copy.includes(poolValue)) {
+      const index = copy.indexOf(poolValue);
+      copy.splice(index, 1);
+      props.setPoolsState(copy);
+    }
+  };
+
   const createColumn = (element) => {
     return (
-      <li>
-        <div className='row'>
-          <div className='col-1'>
-            <input type='checkbox' id='scales' name='scales' />
-          </div>
-          <div className='col-6'>{element.value}</div>
-        </div>
-      </li>
+      <Form.Check
+        inline
+        label={element.value}
+        name='group1'
+        type='checkbox'
+        className='mx-4'
+        key={`inline-checkbox-${element.value}`}
+        onChange={(e) => addOrDelatePool(element.value, e.target.checked)}
+      />
     );
   };
 
@@ -39,19 +54,17 @@ export default function AdminPoolsList(props) {
   };
 
   return (
-    <div className='mx-3 row fs-5'>
-      <div className='row'>
-        <p>
-          <h3>UserCache</h3>
-        </p>
-        <ul className='mx-4'>{createAdminCacheTable()}</ul>
+    <Form>
+      <div className='mx-3 row fs-5'>
+        <div className='row mb-2'>
+          <h3 className='mb-3'>UserCache</h3>
+          {createAdminCacheTable()}
+        </div>
+        <div className='row'>
+          <h3 className='mb-3'>AdminCache</h3>
+          {createUserCacheTable()}
+        </div>
       </div>
-      <div className='row'>
-        <p>
-          <h3>AdminCache</h3>
-        </p>
-        <ul className='mx-4'>{createUserCacheTable()}</ul>
-      </div>
-    </div>
+    </Form>
   );
 }
