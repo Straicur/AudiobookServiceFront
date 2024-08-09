@@ -161,6 +161,7 @@
   "notBanned": "Nie zbanowany",
   "firstname": "Imię",
   "lastname": "Nazwisko",
+  "nameAndLastname": "Imię i nazwisko",
   "dateRegister": "Data rejestracji",
   "email": "Email",
   "toDelete": "Do usunięcia",

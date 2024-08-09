@@ -9,7 +9,6 @@ export default function AdminRenderTechnicalBreaksList(props) {
 
     if (props.technicalBreaks !== undefined && props.technicalBreaks !== null) {
       props.technicalBreaks.technicalBreaks.forEach((element) => {
-        console.log(element);
         renderArray.push(createColumn(element));
       });
     }

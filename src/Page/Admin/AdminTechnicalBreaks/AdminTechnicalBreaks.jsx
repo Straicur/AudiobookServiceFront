@@ -16,11 +16,11 @@ export default function AdminTechnicalBreaks() {
   });
 
   const [searchState, setSearchState] = useState({
-    userId: '',
+    nameOrLastname: '',
     active: null,
     order: 0,
-    dateFrom: null,
-    dateTo: null,
+    dateFrom: 0,
+    dateTo: 0,
   });
 
   const token = useTokenStore((state) => state.token);

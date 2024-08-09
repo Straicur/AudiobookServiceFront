@@ -5,6 +5,7 @@ import { useAdminTechnicalBreaksContextData } from 'Providers/Admin/AdminTechnic
 import Button from 'react-bootstrap/Button';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import AdminRenderTechnicalBreaksList from './AdminRenderTechnicalBreaksList';
+import AdminTechnicalBreaksSearchOffCanvas from './AdminTechnicalBreaksSearchOffCanvas';
 
 export default function AdminTechnicalBreaksContainer(props) {
   const [state, setState] = useState({
@@ -16,15 +17,15 @@ export default function AdminTechnicalBreaksContainer(props) {
   const [technicalBreaks, forceRefetch, addTechnicalBreak, endTechnicalBreak] =
     useAdminTechnicalBreaksContextData();
 
-  // const resetSearchStates = () => {
-  //   props.setSearchState({
-  // userId: '',
-  // active: null,
-  // order: 0,
-  // dateFrom: null,
-  // dateTo: null,
-  //   });
-  // };
+  const resetSearchStates = () => {
+    props.setSearchState({
+      nameOrLastname: '',
+      active: null,
+      order: 0,
+      dateFrom: 0,
+      dateTo: 0,
+    });
+  };
 
   const openSearchModal = () => {
     setState((prev) => ({
@@ -96,6 +97,18 @@ export default function AdminTechnicalBreaksContainer(props) {
             />
           ) : null}
         </div>
+        {state.searchModal ? (
+          <AdminTechnicalBreaksSearchOffCanvas
+            state={state}
+            setState={setState}
+            resetSearchStates={resetSearchStates}
+            setTechnicalBreaks={props.setTechnicalBreaks}
+            refetch={forceRefetch}
+            searchState={props.searchState}
+            setSearchState={props.setSearchState}
+            t={props.t}
+          />
+        ) : null}
       </div>
     </div>
   );

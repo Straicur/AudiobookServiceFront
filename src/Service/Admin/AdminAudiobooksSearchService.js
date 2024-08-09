@@ -87,7 +87,7 @@ export default class AdminAudiobooksSearchService extends FormService {
     if (searchState.age != 0) {
       searchJson.age = parseInt(searchState.age);
     }
-    if (searchState.year != 0) {
+    if (searchState.year !== null && searchState.year != 0) {
       let date = new Date(searchState.year);
       searchJson.year = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
     }
