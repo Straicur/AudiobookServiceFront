@@ -25,6 +25,7 @@ import UserSettings from 'Page/User/UserSettings/UserSettings';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import UserTechnicalBreak from 'Page/User/UserTechnicalBreak/UserTechnicalBreak';
 
 function AppRouter() {
   const token = useTokenStore((state) => state.token);
@@ -94,6 +95,12 @@ function AppRouter() {
         <Route exact path='/about' element={<UserAbout />} errorElement={<Page404 />} />
         <Route exact path='/policy' element={<UserPolicy />} errorElement={<Page404 />} />
         <Route exact path='/user/settings' element={<UserSettings />} errorElement={<Page404 />} />
+        <Route
+          exact
+          path='/technicalBreak'
+          element={<UserTechnicalBreak />}
+          errorElement={<Page404 />}
+        />
         <Route
           exact
           path='/user/reset/password/:id'

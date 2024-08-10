@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { useTokenStore } from 'Store/store';
+import { useTechnicalBreakStore, useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import { NotificationsProvider } from 'Providers/Common/NotificationsProvider';
 import { useNewNotifications } from 'Providers/Common/NewNotificationsProvider';
@@ -15,6 +15,8 @@ export const UserNavBar = (props) => {
     page: 0,
     notificationsOffCanvas: false,
   });
+
+  const isAdminTechnicalBreak = useTechnicalBreakStore((state) => state.admin);
 
   const [newNotificationsData] = useNewNotifications();
 
@@ -162,6 +164,13 @@ export const UserNavBar = (props) => {
             </div>
           </div>
         </div>
+        {isAdminTechnicalBreak ? (
+          <div className='row mx-1 mt-2'>
+            <div className='col technical-break-banner me-3 ms-2 text-center'>
+              {props.t('technicalBreak')}
+            </div>{' '}
+          </div>
+        ) : null}
       </div>
     </>
   );

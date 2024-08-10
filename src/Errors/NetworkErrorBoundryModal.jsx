@@ -40,6 +40,13 @@ export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
     navigate('/login');
   }
 
+  function technicalBreak() {
+    tokenStore.removeToken();
+    setError(null);
+
+    navigate('/technicalBreak');
+  }
+
   let errorMessage = '';
   let errorData = [];
 
@@ -53,6 +60,7 @@ export const NetworkErrorBoundryModal = ({ error, setError, onReset }) => {
       break;
     case error instanceof ServiceUnaviableError:
       errorMessage = error.message;
+      technicalBreak();
       break;
     default:
       errorData = error.data;

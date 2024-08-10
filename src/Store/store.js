@@ -6,6 +6,7 @@ export const useTokenStore = create(
     (set) => ({
       token: '',
       roles: [],
+      admin: false,
       setToken: (data) => {
         set(() => ({
           token: data.token,
@@ -22,6 +23,27 @@ export const useTokenStore = create(
     }),
     {
       name: 'api-token',
+    },
+  ),
+);
+
+export const useTechnicalBreakStore = create(
+  persist(
+    (set) => ({
+      admin: false,
+      user: false,
+      setAdminTechnicalBreak: () => {
+        set(() => ({
+          admin: true,
+        }));
+      },
+      removeAdminTechnicalBreak: () =>
+        set(() => ({
+          admin: false,
+        })),
+    }),
+    {
+      name: 'technical-break',
     },
   ),
 );
