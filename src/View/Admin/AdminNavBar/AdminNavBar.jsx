@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { useTokenStore } from 'Store/store';
+import { useTechnicalBreakStore, useTokenStore } from 'Store/store';
 import { useNavigate } from 'react-router-dom';
 import { NotificationsProvider } from 'Providers/Common/NotificationsProvider';
 import { useNewNotifications } from 'Providers/Common/NewNotificationsProvider';
@@ -17,6 +17,8 @@ export const AdminNavBar = (props) => {
   });
 
   const token = useTokenStore((state) => state.token);
+
+  const isAdminTechnicalBreak = useTechnicalBreakStore((state) => state.admin);
 
   const [newNotificationsData] = useNewNotifications();
 
@@ -162,7 +164,7 @@ export const AdminNavBar = (props) => {
           <div className='col nav-col justify-content-end  align-items-center pe-2'>
             <h6> {props.t('notifications')}</h6>
           </div>
-          <div className='col nav-col justify-content-end  align-items-center'>
+          <div className='col nav-col justify-content-end  align-items-center ms-1'>
             <h6>
               <Badge bg='secondary'>{getNewNotifications()}</Badge>
             </h6>
@@ -194,6 +196,13 @@ export const AdminNavBar = (props) => {
           </NotificationsProvider>
         ) : null}
       </div>
+      {isAdminTechnicalBreak ? (
+        <div className='row mx-1 mt-2'>
+          <div className='col technical-break-banner me-3 text-center'>
+            {props.t('technicalBreak')}
+          </div>{' '}
+        </div>
+      ) : null}
     </div>
   );
 };

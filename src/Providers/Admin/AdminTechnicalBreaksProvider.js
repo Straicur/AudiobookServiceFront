@@ -3,10 +3,18 @@ import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 // import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
+import AdminTechnicalBreaksService from 'Service/Admin/AdminTechnicalBreaksService';
 
 const AdminTechnicalBreaksDataContext = createContext(null);
 
-export const AdminTechnicalBreaksProvider = ({ children, token, i18n, page }) => {
+export const AdminTechnicalBreaksProvider = ({
+  children,
+  token,
+  searchState,
+  i18n,
+  page,
+  limit = 15,
+}) => {
   //   const qc = useQueryClient();
 
   const { mutate: addTechnicalBreak } = useMutation({
@@ -38,8 +46,12 @@ export const AdminTechnicalBreaksProvider = ({ children, token, i18n, page }) =>
     queryFn: () =>
       HandleFetch(
         '/admin/technical/break/list',
-        'GET',
-        { page: page, limit: 15, searchData: [] },
+        'POST',
+        {
+          page: page,
+          limit: limit,
+          searchData: AdminTechnicalBreaksService.createSearchData(searchState),
+        },
         token,
         i18n.language,
       ),

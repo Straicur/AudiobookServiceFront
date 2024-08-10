@@ -1,0 +1,20 @@
+.technical-background {
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-clip: content-box;
+  background-color: rgb(0, 0, 0);
+  min-height: 60rem;
+}
+
+.technical-background-en {
+  background-image: url('../../../../public/technicalBreakEng.webp');
+}
+
+.technical-background-en-US {
+  background-image: url('../../../../public/technicalBreakEng.webp');
+}
+
+.technical-background-pl {
+  background-image: url('../../../../public/technicalBreakPl.webp');
+}

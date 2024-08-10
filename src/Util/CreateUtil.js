@@ -10,6 +10,20 @@ export default class CreateUtil {
     return year + '-' + month + '-' + day;
   };
 
+  static createDateTime = (timeStamp) => {
+    const dateFormat = new Date(timeStamp);
+
+    const day = String(dateFormat.getDate()).padStart(2, '0');
+    const month = String(dateFormat.getMonth() + 1).padStart(2, '0');
+    const year = dateFormat.getFullYear();
+
+    const hours = String(dateFormat.getHours()).padStart(2, '0');
+    const minutes = String(dateFormat.getMinutes()).padStart(2, '0');
+    const seconds = String(dateFormat.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
   static createJsonFormatDate = (date) => {
     const dateFormat = new Date(date);
 

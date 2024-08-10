@@ -11,10 +11,6 @@ import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 import './AdminUsers.css';
 
 export default function AdminUsers() {
-  const { t, i18n } = useTranslation();
-
-  const token = useTokenStore((state) => state.token);
-
   const [usersState, setUsersState] = useState({
     page: 0,
     refresh: false,
@@ -30,17 +26,13 @@ export default function AdminUsers() {
     order: 0,
   });
 
+  const { t, i18n } = useTranslation();
+
+  const token = useTokenStore((state) => state.token);
+
   return (
     <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal}>
-      <ErrorBoundary
-        FallbackComponent={ErrorHandlerModal}
-        // onReset={() => {
-        //   setUsersState((prev) => ({
-        //     ...prev,
-        //     error: null,
-        //   }));
-        // }}
-      >
+      <ErrorBoundary FallbackComponent={ErrorHandlerModal}>
         <AdminUsersListPrivider
           token={token}
           page={usersState.page}

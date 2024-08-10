@@ -32,3 +32,8 @@
 .admin-notification-row:hover {
   background-color: rgb(150, 150, 150) !important;
 }
+
+.technical-break-banner {
+  border-radius: 2rem;
+  background-color: rgb(209, 209, 209);
+}

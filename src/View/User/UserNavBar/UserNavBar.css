@@ -32,3 +32,8 @@
 .notification-row:hover {
   background-color: rgb(53, 53, 53) !important;
 }
+
+.technical-break-banner {
+  border-radius: 2rem;
+  background-color: rgb(209, 209, 209);
+}

@@ -5,6 +5,7 @@ import ServiceUnaviableError from 'Errors/Errors/ServiceUnaviableError';
 import PermissionError from 'Errors/Errors/PermissionError';
 import SystemError from 'Errors/Errors/SystemError';
 import UserDeletedError from 'Errors/Errors/UserDeletedError';
+// import { useTechnicalBreakStore, useTokenStore } from 'Store/store';
 
 export const HandleFetch = async (
   url,
@@ -38,6 +39,8 @@ export const HandleFetch = async (
   const response = await fetch(url, content);
 
   if (response.ok) {
+    let technicalBreak = response.headers.get('technical-break');
+
     if (response.headers.get('content-type') != 'application/json') {
       return await response.blob();
     }
@@ -49,7 +52,13 @@ export const HandleFetch = async (
     }
 
     if (responseBody.trim()) {
-      return JSON.parse(responseBody);
+      let json = JSON.parse(responseBody);
+
+      if (technicalBreak !== undefined && technicalBreak !== null) {
+        json.technicalBreak = true;
+      }
+
+      return json;
     } else {
       return {};
     }
