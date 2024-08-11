@@ -66,7 +66,6 @@ export default function AdminTechnicalBreaksSearchOffCanvas(props) {
             }}
           />
         </InputGroup>
-
         <InputGroup className='mb-1 input_modal py-1 '>
           <InputGroup.Text className='input-group-text-new-off-canvas text-light'>
             {props.t('dateFrom')}

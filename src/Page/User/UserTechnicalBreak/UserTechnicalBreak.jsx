@@ -6,7 +6,7 @@ import './UserTechnicalBreak.css';
 
 export default function UserTechnicalBreak() {
   const { i18n } = useTranslation();
-  console.log(i18n.language);
+
   return (
     <HelmetProvider>
       <Helmet>

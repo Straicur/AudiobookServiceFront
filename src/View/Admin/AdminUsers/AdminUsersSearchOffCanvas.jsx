@@ -110,11 +110,7 @@ export default function AdminUsersSearchOffCanvas(props) {
           <Form.Check
             type='switch'
             id='custom-switch'
-            label={
-              props.searchState.active != null && props.searchState.active
-                ? props.t('active')
-                : props.t('notActive')
-            }
+            label={props.t('active')}
             checked={props.searchState.active != null && props.searchState.active}
             onChange={(e) => adminService.changeActive(e)}
           />
@@ -123,13 +119,27 @@ export default function AdminUsersSearchOffCanvas(props) {
           <Form.Check
             type='switch'
             id='custom-switch'
-            label={
-              props.searchState.banned != null && props.searchState.banned
-                ? props.t('banned')
-                : props.t('notBanned')
-            }
+            label={props.t('notActive')}
+            checked={props.searchState.active != null && !props.searchState.active}
+            onChange={(e) => adminService.changeNotActive(e)}
+          />
+        </InputGroup>
+        <InputGroup className='mb-1 input_modal py-1 '>
+          <Form.Check
+            type='switch'
+            id='custom-switch'
+            label={props.t('banned')}
             checked={props.searchState.banned != null && props.searchState.banned}
             onChange={(e) => adminService.changeBanned(e)}
+          />
+        </InputGroup>
+        <InputGroup className='mb-1 input_modal py-1 '>
+          <Form.Check
+            type='switch'
+            id='custom-switch'
+            label={props.t('notBanned')}
+            checked={props.searchState.banned != null && !props.searchState.banned}
+            onChange={(e) => adminService.changeNotBanned(e)}
           />
         </InputGroup>
         <div className='row mx-1'>
