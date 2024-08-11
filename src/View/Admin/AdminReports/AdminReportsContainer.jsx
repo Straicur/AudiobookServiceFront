@@ -25,6 +25,7 @@ export default function AdminReportsContainer(props) {
     description: '',
     answer: '',
     user: null,
+    banned: null,
     ip: '',
     type: 0,
     sure: false,

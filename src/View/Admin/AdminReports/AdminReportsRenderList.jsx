@@ -18,6 +18,7 @@ export default function AdminReportsRenderList(props) {
       description: element.description,
       answer: element.answer,
       user: element.user,
+      banned: element.banned,
       ip: element.ip,
       type: element.type,
     }));

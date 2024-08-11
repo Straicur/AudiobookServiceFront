@@ -99,7 +99,7 @@ export default function AdminReportDeatailModal(props) {
               </div>
             </div>
             <div className='row'>
-              Detale użytkownika
+              Detale użytkownika:
               <div className='row'>
                 {props.reportState.user === null ? (
                   'Nie jest w systemie'
@@ -131,6 +131,15 @@ export default function AdminReportDeatailModal(props) {
                 )}
               </div>
             </div>
+            {props.reportState.user.banned !== null ? (
+              <div className='row'>
+                Użytkowni został zbanowany:
+                <div className='col'>{props.reportState.user.dateFrom}</div>
+                <div className='col'>{props.reportState.user.dateTo}</div>
+                <div className='col'>{props.reportState.user.type}</div>
+              </div>
+            ) : null}
+
             <InputGroup className='mt-2 input_modal'>
               <InputGroup.Text>
                 {props.t('answer')} ({props.t('optional')})
