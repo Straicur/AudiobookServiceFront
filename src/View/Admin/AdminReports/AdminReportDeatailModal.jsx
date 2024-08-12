@@ -40,6 +40,20 @@ export default function AdminReportDeatailModal(props) {
     }
   };
 
+  const createBanType = (element) => {
+    switch (element) {
+      case 1: {
+        return props.t('banTypeSpam');
+      }
+      case 2: {
+        return props.t('banTypeComment');
+      }
+      case 3: {
+        return props.t('banTypeStrangeBehavior');
+      }
+    }
+  };
+
   const handleClose = () => {
     props.setReportState((prev) => ({
       ...prev,
@@ -66,84 +80,150 @@ export default function AdminReportDeatailModal(props) {
       <Modal.Body>
         <div className='container'>
           <div className='row'>
-            <div className='col'>
-              <div>{props.reportState.id}</div>
-              <div>{props.reportState.email}</div>
-              <div>{props.reportState.actionId}</div>
-              <div>{props.reportState.description}</div>
-              <div>{props.reportState.ip}</div>
-              <div>{CreateUtil.createDateTime(props.reportState.dateAdd)}</div>
-            </div>
-            <div className='col'>
-              {createReportType(props.reportState.type)}
-              <div>
-                {props.reportState.accepted ? (
-                  <i className='bi bi-bookmark-check-fill'></i>
-                ) : (
-                  <i className='bi bi-bookmark-dash'></i>
-                )}
-              </div>
-              <div>
-                {props.reportState.denied ? (
-                  <i className='bi bi-bookmark-check-fill'></i>
-                ) : (
-                  <i className='bi bi-bookmark-dash'></i>
-                )}
-              </div>
-              <div>
-                {props.reportState.user ? (
-                  <i className='bi bi-bookmark-check-fill'></i>
-                ) : (
-                  <i className='bi bi-bookmark-dash'></i>
-                )}
-              </div>
-            </div>
-            <div className='row'>
-              Detale użytkownika:
+            <div className='col-7'>
               <div className='row'>
-                {props.reportState.user === null ? (
-                  'Nie jest w systemie'
-                ) : (
+                <div className='col-1 fw-bold'>{props.t('id')}:</div>
+                <div className='col'> {props.reportState.id}</div>
+              </div>
+              <div className='row'>
+                {' '}
+                <div className='col-2 fw-bold'>{props.t('email')}:</div>
+                <div className='col'> {props.reportState.email}</div>
+              </div>
+              <div className='row'>
+                <div className='col-2 fw-bold'>{props.t('actionId')}:</div>
+                <div className='col'> {props.reportState.actionId}</div>
+              </div>
+              <div className='row'>
+                <div className='col-2 fw-bold'>{props.t('description')}:</div>
+                <div className='col'> {props.reportState.description}</div>
+              </div>
+              <div className='row'>
+                <div className='col-4 fw-bold'>{props.t('dateAdd')}:</div>
+                <div className='col'> {CreateUtil.createDateTime(props.reportState.dateAdd)}</div>
+              </div>
+            </div>
+            <div className='col'>
+              <div className='row'>
+                <div className='col-2 fw-bold'>{props.t('type')}:</div>
+                <div className='col-2'>{createReportType(props.reportState.type)}</div>
+              </div>
+
+              <div className='row'>
+                <div className='col-5 fw-bold'>{props.t('accepted')}:</div>
+                <div className='col-2'>
+                  {props.reportState.accepted ? (
+                    <i className='bi bi-bookmark-check-fill'></i>
+                  ) : (
+                    <i className='bi bi-bookmark-dash'></i>
+                  )}
+                </div>
+              </div>
+              <div className='row'>
+                <div className='col-4 fw-bold'>{props.t('denied')}:</div>
+                <div className='col-2'>
+                  {props.reportState.denied ? (
+                    <i className='bi bi-bookmark-check-fill'></i>
+                  ) : (
+                    <i className='bi bi-bookmark-dash'></i>
+                  )}
+                </div>
+              </div>
+              <div className='row'>
+                <div className='col-7 fw-bold'>{props.t('systemUser')}:</div>
+                <div className='col-2'>
+                  {props.reportState.user ? (
+                    <i className='bi bi-bookmark-check-fill'></i>
+                  ) : (
+                    <i className='bi bi-bookmark-dash'></i>
+                  )}
+                </div>
+              </div>
+              <div className='row'>
+                <div className='col-1 fw-bold'>{props.t('ip')}:</div>
+                <div className='col'> {props.reportState.ip}</div>
+              </div>
+            </div>
+            <div className='row mt-3'>
+              <hr />
+              <div className='col-4 fw-bold fs-5 mb-1'>Detale użytkownika: </div>
+              <div className='col-3'>
+                {props.reportState.user === null ? 'Nie jest w systemie' : null}
+              </div>
+              <div className='row'>
+                {props.reportState.user !== null ? (
                   <div className='row'>
                     <div className='col'>
                       <div className='row'>
-                        {props.reportState.user.active ? (
-                          <i className='bi bi-bookmark-check-fill'></i>
-                        ) : (
-                          <i className='bi bi-bookmark-dash'></i>
-                        )}
+                        <div className='col-4 fw-bold'>{props.t('active')}:</div>
+                        <div className='col'>
+                          {' '}
+                          {props.reportState.user.active ? (
+                            <i className='bi bi-bookmark-check-fill'></i>
+                          ) : (
+                            <i className='bi bi-bookmark-dash'></i>
+                          )}
+                        </div>
                       </div>
                       <div className='row'>
-                        {props.reportState.user.banned ? (
-                          <i className='bi bi-bookmark-check-fill'></i>
-                        ) : (
-                          <i className='bi bi-bookmark-dash'></i>
-                        )}
+                        <div className='col-4 fw-bold'>{props.t('banned')}:</div>
+                        <div className='col'>
+                          {props.reportState.user.banned ? (
+                            <i className='bi bi-bookmark-check-fill'></i>
+                          ) : (
+                            <i className='bi bi-bookmark-dash'></i>
+                          )}
+                        </div>
                       </div>
-                      <div className='row'>{props.reportState.user.email}</div>
+                      <div className='row'>
+                        <div className='col-4 fw-bold'>{props.t('email')}:</div>
+                        <div className='col'>{props.reportState.user.email}</div>
+                      </div>
                     </div>
-                    <div className='col'>
-                      <div className='row'>{props.reportState.user.firstname}</div>
-                      <div className='row'>{props.reportState.user.lastname}</div>
-                      <div className='row'>{props.reportState.user.id}</div>
+                    <div className='col-7'>
+                      <div className='row'>
+                        <div className='col-3 fw-bold'>{props.t('firstname')}:</div>
+                        <div className='col'>{props.reportState.user.firstname}</div>
+                      </div>
+                      <div className='row'>
+                        <div className='col-3 fw-bold'>{props.t('lastname')}:</div>
+                        <div className='col'>{props.reportState.user.lastname}</div>
+                      </div>
+                      <div className='row'>
+                        <div className='col-1 fw-bold'>{props.t('id')}:</div>
+                        <div className='col'>{props.reportState.user.id}</div>
+                      </div>
                     </div>
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
-            {props.reportState.user.banned !== null ? (
-              <div className='row'>
-                Użytkowni został zbanowany:
-                <div className='col'>{props.reportState.user.dateFrom}</div>
-                <div className='col'>{props.reportState.user.dateTo}</div>
-                <div className='col'>{props.reportState.user.type}</div>
+            {props.reportState.userBan !== null ? (
+              <div className='row mt-2'>
+                <hr />
+                <div className='row fw-bold fs-5'>Użytkowni został zbanowany:</div>
+                <div className='col'>
+                  <div className='col-4 fw-bold'>{props.t('dateFrom')}:</div>
+                  <div className='col'>{props.reportState.user.dateFrom}</div>
+                </div>
+                <div className='col'>
+                  <div className='col-4 fw-bold'>{props.t('dateTo')}:</div>
+                  <div className='col'>{props.reportState.user.dateTo}</div>
+                </div>
+                <div className='col'>
+                  <div className='col-4 fw-bold'>{props.t('type')}:</div>
+                  <div className='col'>{createBanType(props.reportState.user.type)}</div>
+                </div>
               </div>
             ) : null}
-
-            <InputGroup className='mt-2 input_modal'>
-              <InputGroup.Text>
-                {props.t('answer')} ({props.t('optional')})
-              </InputGroup.Text>
+            {props.reportState.comment !== null ? (
+              <div className='row mt-2'>
+                <hr />
+                <div className='row fw-bold fs-5'>Wyświetl komentarz:</div>
+              </div>
+            ) : null}
+            <InputGroup className='my-3 input_modal'>
+              <InputGroup.Text>{props.t('answer')}</InputGroup.Text>
               <Form.Control
                 as='textarea'
                 name='answer'

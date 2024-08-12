@@ -5,7 +5,6 @@ import CreateUtil from 'Util/CreateUtil';
 
 export default function AdminReportsRenderList(props) {
   const openDetailReportModal = (element) => {
-    console.log(element);
     props.setReportState((prev) => ({
       ...prev,
       detailReportModal: !props.reportState.detailReportModal,
@@ -18,7 +17,8 @@ export default function AdminReportsRenderList(props) {
       description: element.description,
       answer: element.answer,
       user: element.user,
-      banned: element.banned,
+      userBan: element.userBan,
+      comment: element.comment,
       ip: element.ip,
       type: element.type,
     }));
