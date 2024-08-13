@@ -4,6 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import CreateUtil from 'Util/CreateUtil';
+import Accordion from 'react-bootstrap/Accordion';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function AdminReportDeatailModal(props) {
   const [actionState, setActionState] = useState({
@@ -66,6 +68,89 @@ export default function AdminReportDeatailModal(props) {
     }));
   };
 
+  const createCheildrenComments = (parent, comments) => {
+    let renderArray = [];
+    console.log(parent);
+    if (comments != null) {
+      comments.forEach((element) => {
+        renderArray.push(
+          <li
+            key={uuidv4()}
+            className={
+              element.reportedComment
+                ? 'border border-2 border-danger px-4 py-2 rounded mt-1'
+                : 'border border-2 border-secondary px-4 py-2 rounded mt-1'
+            }
+          >
+            {element.reportedComment ? (
+              <div className='row fw-bold text-danger'>Zreportowany</div>
+            ) : null}
+            <div className='row'>
+              <div className='col-2'>{props.t('email')}:</div>
+              <div className='col'>{element.userModel.email}</div>
+            </div>
+            <div className='row'>
+              <div className='col-2'>{props.t('name')}:</div>
+              <div className='col'>{element.userModel.name}</div>
+            </div>
+            <div className='row'>
+              <div className='col-2'>{props.t('deleted')}:</div>
+              <div className='col'>
+                {element.deleted ? (
+                  <i className='bi bi-bookmark-check-fill'></i>
+                ) : (
+                  <i className='bi bi-bookmark-dash'></i>
+                )}
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-2'>{props.t('comment')}:</div>
+              <div className='col'>{element.comment}</div>
+            </div>
+          </li>,
+        );
+      });
+    }
+
+    return (
+      <li
+        className={
+          parent.reportedComment
+            ? 'border border-2 border-danger px-4 pt-2 rounded'
+            : 'border border-2 border-dark px-4 pt-2 rounded'
+        }
+      >
+        {parent.reportedComment ? (
+          <div className='row fw-bold text-danger'>Zreportowany</div>
+        ) : null}
+        <div className='row'>
+          <div className='col-2'>{props.t('email')}:</div>
+          <div className='col'>{parent.userModel.email}</div>
+        </div>
+        <div className='row'>
+          <div className='col-2'>{props.t('name')}:</div>
+          <div className='col'>{parent.userModel.name}</div>
+        </div>
+        <div className='row'>
+          <div className='col-2'>{props.t('deleted')}:</div>
+          <div className='col'>
+            {parent.deleted ? (
+              <i className='bi bi-bookmark-check-fill'></i>
+            ) : (
+              <i className='bi bi-bookmark-dash'></i>
+            )}
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-2'>{props.t('comment')}:</div>
+          <div className='col'>{parent.comment}</div>
+        </div>
+        <div className='row fw-bold mt-1'>Dzieci:</div>
+        <ul>{renderArray}</ul>
+      </li>
+    );
+  };
+
   return (
     <Modal
       size='lg'
@@ -91,7 +176,7 @@ export default function AdminReportDeatailModal(props) {
                 <div className='col'> {props.reportState.email}</div>
               </div>
               <div className='row'>
-                <div className='col-2 fw-bold'>{props.t('actionId')}:</div>
+                <div className='col-3 fw-bold'>{props.t('actionId')}:</div>
                 <div className='col'> {props.reportState.actionId}</div>
               </div>
               <div className='row'>
@@ -219,7 +304,21 @@ export default function AdminReportDeatailModal(props) {
             {props.reportState.comment !== null ? (
               <div className='row mt-2'>
                 <hr />
-                <div className='row fw-bold fs-5'>Wyświetl komentarz:</div>
+                <div className='row fw-bold fs-5'></div>
+                <Accordion>
+                  <Accordion.Item eventKey='0'>
+                    <Accordion.Header>Wyświetl komentarz:</Accordion.Header>
+                    <Accordion.Body>
+                      {props.reportState.comment.parentId === null &&
+                      props.reportState.comment.reportedComment === true
+                        ? props.reportState.comment.comment
+                        : createCheildrenComments(
+                            props.reportState.comment,
+                            props.reportState.comment.children,
+                          )}
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
               </div>
             ) : null}
             <InputGroup className='my-3 input_modal'>
