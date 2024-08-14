@@ -6,10 +6,12 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import CreateUtil from 'Util/CreateUtil';
 import Accordion from 'react-bootstrap/Accordion';
 import { v4 as uuidv4 } from 'uuid';
+import { Dropdown } from 'react-bootstrap';
 
 export default function AdminReportDeatailModal(props) {
   const [actionState, setActionState] = useState({
     banPeriod: null,
+    accepted: false,
     answer: '',
   });
 
@@ -70,7 +72,7 @@ export default function AdminReportDeatailModal(props) {
 
   const createCheildrenComments = (parent, comments) => {
     let renderArray = [];
-    console.log(parent);
+
     if (comments != null) {
       comments.forEach((element) => {
         renderArray.push(
@@ -113,41 +115,43 @@ export default function AdminReportDeatailModal(props) {
     }
 
     return (
-      <li
-        className={
-          parent.reportedComment
-            ? 'border border-2 border-danger px-4 pt-2 rounded'
-            : 'border border-2 border-dark px-4 pt-2 rounded'
-        }
-      >
-        {parent.reportedComment ? (
-          <div className='row fw-bold text-danger'>Zreportowany</div>
-        ) : null}
-        <div className='row'>
-          <div className='col-2'>{props.t('email')}:</div>
-          <div className='col'>{parent.userModel.email}</div>
-        </div>
-        <div className='row'>
-          <div className='col-2'>{props.t('name')}:</div>
-          <div className='col'>{parent.userModel.name}</div>
-        </div>
-        <div className='row'>
-          <div className='col-2'>{props.t('deleted')}:</div>
-          <div className='col'>
-            {parent.deleted ? (
-              <i className='bi bi-bookmark-check-fill'></i>
-            ) : (
-              <i className='bi bi-bookmark-dash'></i>
-            )}
+      <div className='row'>
+        <li
+          className={
+            parent.reportedComment
+              ? 'border border-2 border-danger px-4 pt-2 rounded'
+              : 'border border-2 border-dark px-4 pt-2 rounded'
+          }
+        >
+          {parent.reportedComment ? (
+            <div className='row fw-bold text-danger'>Zreportowany</div>
+          ) : null}
+          <div className='row'>
+            <div className='col-2'>{props.t('email')}:</div>
+            <div className='col'>{parent.userModel.email}</div>
           </div>
-        </div>
-        <div className='row'>
-          <div className='col-2'>{props.t('comment')}:</div>
-          <div className='col'>{parent.comment}</div>
-        </div>
-        <div className='row fw-bold mt-1'>Dzieci:</div>
-        <ul>{renderArray}</ul>
-      </li>
+          <div className='row'>
+            <div className='col-2'>{props.t('name')}:</div>
+            <div className='col'>{parent.userModel.name}</div>
+          </div>
+          <div className='row'>
+            <div className='col-2'>{props.t('deleted')}:</div>
+            <div className='col'>
+              {parent.deleted ? (
+                <i className='bi bi-bookmark-check-fill'></i>
+              ) : (
+                <i className='bi bi-bookmark-dash'></i>
+              )}
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-2'>{props.t('comment')}:</div>
+            <div className='col'>{parent.comment}</div>
+          </div>
+          <div className='row fw-bold mt-1'>Dzieci:</div>
+          <ul>{renderArray}</ul>
+        </li>
+      </div>
     );
   };
 
@@ -321,6 +325,87 @@ export default function AdminReportDeatailModal(props) {
                 </Accordion>
               </div>
             ) : null}
+            <div className='row mt-2 d-flex align-items-center'>
+              <div className='col-4 text-center fw-bold'>Wybierz długość bana:</div>
+              <div className='col'>
+                <InputGroup className='mb-1'>
+                  <Dropdown
+                    name='age'
+                    onSelect={(key) => {
+                      setActionState((prev) => ({
+                        ...prev,
+                        banPeriod: parseInt(key),
+                      }));
+                    }}
+                  >
+                    <Dropdown.Toggle className=' text-start' variant='success' id='dropdown-basic'>
+                      {props.t('banPeriod')}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item eventKey={1} active={actionState.banPeriod === 1}>
+                        Decyzja Systemu
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey={2} active={actionState.banPeriod === 2}>
+                        Not banned
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey={3} active={actionState.banPeriod === 3}>
+                        12 hour
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey={4} active={actionState.banPeriod === 4}>
+                        1 year
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey={5} active={actionState.banPeriod === 5}>
+                        5 day
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey={6} active={actionState.banPeriod === 6}>
+                        1 month
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey={7} active={actionState.banPeriod === 7}>
+                        3 month
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey={8} active={actionState.banPeriod === 8}>
+                        1 year
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                    <InputGroup.Text id='inputGroup-sizing-default'>
+                      {actionState.banPeriod === 1
+                        ? 'xxxx'
+                        : actionState.banPeriod === 2
+                        ? 'xxxx'
+                        : actionState.banPeriod === 3
+                        ? 'xxxx'
+                        : actionState.banPeriod === 4
+                        ? 'xxxx'
+                        : actionState.banPeriod === 5
+                        ? 'xxxx'
+                        : actionState.banPeriod === 6
+                        ? 'xxxx'
+                        : actionState.banPeriod === 7
+                        ? 'xxxx'
+                        : actionState.banPeriod === 8
+                        ? 'xxxx'
+                        : null}
+                    </InputGroup.Text>
+                  </Dropdown>
+                </InputGroup>
+              </div>
+              <div className='col-3'>
+                <Button
+                  name='en'
+                  variant='dark'
+                  size='sm'
+                  className='btn button p-2 px-3 fs-6'
+                  onClick={() =>
+                    setActionState((prev) => ({
+                      ...prev,
+                      accepted: true,
+                    }))
+                  }
+                >
+                  {props.t('add')}
+                </Button>
+              </div>
+            </div>
             <InputGroup className='my-3 input_modal'>
               <InputGroup.Text>{props.t('answer')}</InputGroup.Text>
               <Form.Control
@@ -353,14 +438,14 @@ export default function AdminReportDeatailModal(props) {
                 className='btn button p-2 px-5 fs-6'
                 disabled={props.reportState.accepted || props.reportState.denied}
                 onClick={() => {
-                  // {
-                  //   banPeriod: banPeriod,
-                  // },
-                  //TODO tu potrzeba logiki związanej z banami i odpowiedziami
                   let json = {
                     reportId: props.reportState.id,
                     answer: actionState.answer,
                   };
+
+                  if (actionState.banPeriod !== null && actionState.accepted) {
+                    json.banPeriod = actionState.banPeriod;
+                  }
 
                   props.acceptReport({
                     json: json,
