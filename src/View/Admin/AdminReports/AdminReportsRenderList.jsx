@@ -67,7 +67,14 @@ export default function AdminReportsRenderList(props) {
 
   const createColumn = (element) => {
     return (
-      <tr key={uuidv4()}>
+      <tr
+        className={
+          !element.accepted && !element.denied
+            ? 'border-top-0 border-2 border-danger'
+            : 'border border-2 border-light'
+        }
+        key={uuidv4()}
+      >
         <td scope='row'>{element.id}</td>
         <td>
           {element.accepted ? (
@@ -92,8 +99,8 @@ export default function AdminReportsRenderList(props) {
           )}
         </td>
         <td>{createReportType(element.type)}</td>
-        <td scope='row'>{element.ip !== undefined ? element.ip : ''}</td>
-        <td scope='row'>{element.email !== undefined ? element.email : ''}</td>
+        <td scope='row overflow-auto'>{element.ip !== undefined ? element.ip : ''}</td>
+        <td scope='row overflow-auto'>{element.email !== undefined ? element.email : ''}</td>
         <td className='table_buttons_with'>
           <div className='d-grid gap-2 d-md-block'>
             <Button
