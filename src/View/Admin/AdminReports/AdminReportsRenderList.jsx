@@ -101,6 +101,10 @@ export default function AdminReportsRenderList(props) {
         <td>{createReportType(element.type)}</td>
         <td scope='row overflow-auto'>{element.ip !== undefined ? element.ip : ''}</td>
         <td scope='row overflow-auto'>{element.email !== undefined ? element.email : ''}</td>
+        <td scope='row overflow-auto'>{element.actionId !== undefined ? element.actionId : ''}</td>
+        <td scope='row overflow-auto'>
+          {element.similarReports !== undefined ? element.similarReports : ''}
+        </td>
         <td className='table_buttons_with'>
           <div className='d-grid gap-2 d-md-block'>
             <Button
@@ -130,6 +134,10 @@ export default function AdminReportsRenderList(props) {
           <th scope='col'>{props.t('type')}</th>
           <th scope='col'>{props.t('ip')}</th>
           <th scope='col'>{props.t('email')}</th>
+          <th scope='col'>{props.t('actionId')}</th>
+          <th scope='col' className='widthest-table-col'>
+            {props.t('similarReports')}
+          </th>
           <th scope='col'></th>
         </tr>
       </thead>

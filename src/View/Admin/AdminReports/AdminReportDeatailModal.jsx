@@ -12,6 +12,10 @@ export default function AdminReportDeatailModal(props) {
   const [actionState, setActionState] = useState({
     banPeriod: 2,
     accepted: false,
+    rejectOthers: false,
+    rejectOthersQuestion: false,
+    acceptOthers: false,
+    acceptOthersQuestion: false,
     answer: '',
   });
 
@@ -444,69 +448,201 @@ export default function AdminReportDeatailModal(props) {
               />
             </InputGroup>
           </div>
-          <div className='row justify-content-center mx-5 mt-2'>
-            <div className='col-4'>
-              <Button
-                name='en'
-                variant='success'
-                size='sm'
-                className='btn button p-2 px-5 fs-6'
-                disabled={props.reportState.accepted || props.reportState.denied}
-                onClick={() => {
-                  let json = {
-                    reportId: props.reportState.id,
-                    answer: actionState.answer,
-                  };
-
-                  if (
-                    actionState.banPeriod === 2 ||
-                    (actionState.banPeriod !== null && actionState.accepted)
-                  ) {
-                    json.banPeriod = actionState.banPeriod;
-                  }
-
-                  props.acceptReport({
-                    json: json,
-                  });
-
-                  handleClose();
-                }}
-              >
-                {props.t('accept')}
-              </Button>
+          {console.log(actionState)}
+          {!actionState.acceptOthersQuestion && !actionState.rejectOthersQuestion ? (
+            <div className='row justify-content-center mx-5 mt-2'>
+              <div className='col-4'>
+                <Button
+                  name='en'
+                  variant='success'
+                  size='sm'
+                  className='btn button p-2 px-5 fs-6'
+                  disabled={props.reportState.accepted || props.reportState.denied}
+                  onClick={() => {
+                    setActionState((prev) => ({
+                      ...prev,
+                      acceptOthersQuestion: !actionState.acceptOthersQuestion,
+                    }));
+                  }}
+                >
+                  {props.t('accept')}
+                </Button>
+              </div>
+              <div className='col-4'>
+                <Button
+                  name='en'
+                  variant='danger'
+                  size='sm'
+                  className='btn button p-2 px-5 fs-6'
+                  disabled={props.reportState.accepted || props.reportState.denied}
+                  onClick={() => {
+                    setActionState((prev) => ({
+                      ...prev,
+                      rejectOthersQuestion: !actionState.rejectOthersQuestion,
+                    }));
+                  }}
+                >
+                  {props.t('reject')}
+                </Button>
+              </div>
+              <div className='col-4'>
+                <Button
+                  name='en'
+                  variant='dark'
+                  size='sm'
+                  className='btn button p-2 px-5 fs-6'
+                  onClick={() => {
+                    handleClose();
+                  }}
+                >
+                  {props.t('close')}
+                </Button>
+              </div>
             </div>
-            <div className='col-4'>
-              <Button
-                name='en'
-                variant='danger'
-                size='sm'
-                className='btn button p-2 px-5 fs-6'
-                disabled={props.reportState.accepted || props.reportState.denied}
-                onClick={() => {
-                  props.rejectReport({
-                    reportId: props.reportState.id,
-                    answer: actionState.answer,
-                  });
-                  handleClose();
-                }}
-              >
-                {props.t('reject')}
-              </Button>
+          ) : actionState.acceptOthersQuestion ? (
+            <div className='row justify-content-center mx-5 mt-2'>
+              <p className='text-center fs-4'>{props.t('actionIdAcceptSubmitMessage')}</p>
+              <div className='col-4'>
+                <Button
+                  name='en'
+                  variant='danger'
+                  size='sm'
+                  className='btn button p-2 px-5 fs-6'
+                  disabled={props.reportState.accepted || props.reportState.denied}
+                  onClick={() => {
+                    let json = {
+                      reportId: props.reportState.id,
+                      answer: actionState.answer,
+                      acceptOthers: !actionState.acceptOthers,
+                    };
+
+                    if (
+                      actionState.banPeriod === 2 ||
+                      (actionState.banPeriod !== null && actionState.accepted)
+                    ) {
+                      json.banPeriod = actionState.banPeriod;
+                    }
+
+                    props.acceptReport({
+                      json: json,
+                    });
+
+                    handleClose();
+                  }}
+                >
+                  {props.t('yes')}
+                </Button>
+              </div>
+              <div className='col-4'>
+                <Button
+                  name='en'
+                  variant='success'
+                  size='sm'
+                  className='btn button p-2 px-5 fs-6'
+                  disabled={props.reportState.accepted || props.reportState.denied}
+                  onClick={() => {
+                    let json = {
+                      reportId: props.reportState.id,
+                      answer: actionState.answer,
+                      acceptOthers: actionState.acceptOthers,
+                    };
+
+                    if (
+                      actionState.banPeriod === 2 ||
+                      (actionState.banPeriod !== null && actionState.accepted)
+                    ) {
+                      json.banPeriod = actionState.banPeriod;
+                    }
+
+                    props.acceptReport({
+                      json: json,
+                    });
+
+                    handleClose();
+                  }}
+                >
+                  {props.t('no')}
+                </Button>
+              </div>
+              <div className='col-4'>
+                <Button
+                  name='en'
+                  variant='dark'
+                  size='sm'
+                  className='btn button p-2 px-5 fs-6'
+                  onClick={() => {
+                    setActionState((prev) => ({
+                      ...prev,
+                      acceptOthersQuestion: false,
+                      rejectOthersQuestion: false,
+                    }));
+                  }}
+                >
+                  {props.t('cancel')}
+                </Button>
+              </div>
             </div>
-            <div className='col-4'>
-              <Button
-                name='en'
-                variant='dark'
-                size='sm'
-                className='btn button p-2 px-5 fs-6'
-                onClick={() => {
-                  handleClose();
-                }}
-              >
-                {props.t('close')}
-              </Button>
+          ) : (
+            <div className='row justify-content-center mx-5 mt-2'>
+              <p className='text-center fs-4'>{props.t('actionIdRejectSubmitMessage')}</p>
+              <div className='col-4'>
+                <Button
+                  name='en'
+                  variant='danger'
+                  size='sm'
+                  className='btn button p-2 px-5 fs-6'
+                  disabled={props.reportState.accepted || props.reportState.denied}
+                  onClick={() => {
+                    props.rejectReport({
+                      reportId: props.reportState.id,
+                      answer: actionState.answer,
+                      rejectOthers: !actionState.rejectOthers,
+                    });
+                    handleClose();
+                  }}
+                >
+                  {props.t('yes')}
+                </Button>
+              </div>
+
+              <div className='col-4'>
+                <Button
+                  name='en'
+                  variant='success'
+                  size='sm'
+                  className='btn button p-2 px-5 fs-6'
+                  disabled={props.reportState.accepted || props.reportState.denied}
+                  onClick={() => {
+                    props.rejectReport({
+                      reportId: props.reportState.id,
+                      answer: actionState.answer,
+                      rejectOthers: actionState.rejectOthers,
+                    });
+                    handleClose();
+                  }}
+                >
+                  {props.t('no')}
+                </Button>
+              </div>
+              <div className='col-4'>
+                <Button
+                  name='en'
+                  variant='dark'
+                  size='sm'
+                  className='btn button p-2 px-5 fs-6'
+                  onClick={() => {
+                    setActionState((prev) => ({
+                      ...prev,
+                      acceptOthersQuestion: false,
+                      rejectOthersQuestion: false,
+                    }));
+                  }}
+                >
+                  {props.t('cancel')}
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </Modal.Body>
     </Modal>

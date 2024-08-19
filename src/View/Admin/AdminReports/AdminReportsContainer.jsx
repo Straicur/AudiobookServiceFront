@@ -85,7 +85,7 @@ export default function AdminReportsContainer(props) {
             <AdminRenderPageSwitches
               page={props.reportsState.page}
               maxPage={reports.maxPage}
-              setPageState={props.setNotificationsState}
+              setPageState={props.setReportsState}
             />
           ) : null}
         </div>

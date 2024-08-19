@@ -27,6 +27,7 @@ export const AdminReportsProvider = ({ children, page, token, searchState, i18n 
         {
           reportId: data.reportId,
           answer: data.answer,
+          rejectOthers: data.rejectOthers,
         },
         token,
         i18n.language,
