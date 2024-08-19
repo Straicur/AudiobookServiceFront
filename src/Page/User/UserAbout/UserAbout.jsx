@@ -6,7 +6,7 @@ import { useTokenStore } from 'Store/store';
 import UserAboutContainer from 'View/User/UserAbout/UserAboutContainer';
 import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
 
-export default function About() {
+export default function UserAbout() {
   const [state, setState] = useState({
     email: '',
     myEmail: false,

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
 import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 
-export default function Register() {
+export default function UserRegister() {
   const { i18n } = useTranslation();
 
   const [state, setState] = useState({

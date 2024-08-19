@@ -12,7 +12,7 @@ import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
 import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 import './UserMyList.css';
 
-export default function MyList() {
+export default function UserMyList() {
   const { t, i18n } = useTranslation();
 
   const token = useTokenStore((state) => state.token);

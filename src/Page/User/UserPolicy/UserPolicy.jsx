@@ -6,7 +6,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { UserFooter } from 'View/User/Common/UserFooter';
 import './UserPolicy.css';
 
-export default function Policy() {
+export default function UserPolicy() {
   const { t, i18n } = useTranslation();
 
   return (

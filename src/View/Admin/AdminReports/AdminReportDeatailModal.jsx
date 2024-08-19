@@ -448,7 +448,6 @@ export default function AdminReportDeatailModal(props) {
               />
             </InputGroup>
           </div>
-          {console.log(actionState)}
           {!actionState.acceptOthersQuestion && !actionState.rejectOthersQuestion ? (
             <div className='row justify-content-center mx-5 mt-2'>
               <div className='col-4'>

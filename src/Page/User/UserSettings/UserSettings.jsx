@@ -13,7 +13,7 @@ import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
 import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 import './UserSettings.css';
 
-export default function Settings() {
+export default function UserSettings() {
   const navigate = useNavigate();
   const token = useTokenStore((state) => state.token);
 

@@ -6,7 +6,7 @@ import { UserFooter } from 'View/User/Common/UserFooter';
 import { useTokenStore } from 'Store/store';
 import './UserHelp.css';
 
-export default function Help() {
+export default function UserHelp() {
   const { t, i18n } = useTranslation();
 
   const token = useTokenStore((state) => state.token);
