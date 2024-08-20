@@ -167,7 +167,7 @@ export default function AdminReportDeatailModal(props) {
       backdrop='static'
       keyboard={false}
     >
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>{props.t('reportDetail')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>

@@ -35,7 +35,7 @@ export default function AdminNotificationsAddModal(props) {
       onHide={adminService.handleClose}
       backdrop='static'
     >
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>{props.t('addNotification')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>

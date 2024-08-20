@@ -18,7 +18,7 @@ export default function AdminUsersDeletedUsersModal(props) {
 
   return (
     <Modal size='lg' show={props.state.deletedUsersModal} onHide={handleClose} backdrop='static'>
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>{props.t('deletedUsers')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>

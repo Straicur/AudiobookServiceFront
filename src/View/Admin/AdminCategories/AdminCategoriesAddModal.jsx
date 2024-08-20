@@ -48,8 +48,13 @@ export default function AdminCategoriesAddModal(props) {
   }, [modalState.name]);
 
   return (
-    <Modal show={props.state.addCategoryModal} backdrop='static' keyboard={false}>
-      <Modal.Header>
+    <Modal
+      show={props.state.addCategoryModal}
+      onHide={handleClose}
+      backdrop='static'
+      keyboard={false}
+    >
+      <Modal.Header closeButton>
         <Modal.Title>
           <h3>
             <b>

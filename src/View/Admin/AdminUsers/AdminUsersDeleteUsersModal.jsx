@@ -25,7 +25,7 @@ export default function AdminUsersDeleteUsersModal(props) {
 
   return (
     <Modal size='lg' show={props.state.deleteUsersModal} onHide={handleClose} backdrop='static'>
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>{props.t('deleteUsers')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>

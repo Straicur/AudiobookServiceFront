@@ -14,6 +14,10 @@ export default function UserReport() {
     description: '',
     send: false,
     sure: false,
+    openCategoriesList: false,
+    openAudiobooksList: false,
+    choosenCategory: null,
+    choosenAudiobook: null,
   });
 
   const token = useTokenStore((state) => state.token);

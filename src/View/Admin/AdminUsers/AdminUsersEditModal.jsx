@@ -19,7 +19,7 @@ export default function AdminUsersEditModal(props) {
 
   return (
     <Modal size='lg' show={props.state.editUserModal} onHide={handleClose} backdrop='static'>
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>
           {props.t('editUser')}: {props.state.editUserElement.email}
         </Modal.Title>
