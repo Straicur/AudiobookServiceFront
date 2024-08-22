@@ -1,15 +1,15 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
-import AdminAudiobookRenderCategoriesService from 'Service/Admin/AdminAudiobookRenderCategoriesService';
+import UserAudiobookCategoriesService from 'Service/User/UserAudiobookCategoriesService';
 
 export default function UserRenderCategoriesList(props) {
-  const adminService = new AdminAudiobookRenderCategoriesService(props);
+  const userService = new UserAudiobookCategoriesService(props);
 
   const createTree = () => {
     let renderArray = [];
     let kids = [];
-
+    console.log(props.categories);
     if (props.categories !== null) {
       recursiveTree(props.categories.categories, renderArray, kids, null);
     }
@@ -18,28 +18,30 @@ export default function UserRenderCategoriesList(props) {
   };
 
   function listParent(element, child, parent) {
-    const usedInRefCategory = props.categoriesId.current.filter((x) => x === element.id).length;
-    const usedInitialCategory = props.audiobookDetail.categories.filter(
-      (x) => x.id === element.id,
-    ).length;
-    const inReloadArray = props.lastOpenedCategories.current[element.id] !== undefined;
+    const inReloadArray = props.lastOpenedCategories.current[element.categoryKey] !== undefined;
     const parentInArray =
-      parent !== null && props.lastOpenedCategories.current[parent.id] !== undefined;
+      parent !== null && props.lastOpenedCategories.current[parent.categoryKey] !== undefined;
 
     return (
       <li
         key={uuidv4()}
         className={
           parent === null || inReloadArray || parentInArray
-            ? 'visible border border-4 border-secondary list-group-item'
-            : 'd-none border border-4 border-secondary list-group-item'
+            ? 'visible list-group-item text-light'
+            : 'd-none list-group-item text-light'
         }
+        style={{
+          backgroundColor: '#525252',
+          border: '0.2rem',
+          borderStyle: 'solid',
+          borderColor: '#2a5740',
+        }}
         data-clicable={true}
       >
         <div className='d-flex flex-row bd-highlight mb-2'>
           <div
             className='d-flex flex-column bd-highlight mb-3'
-            onClick={(e) => adminService.oparateParentList(e, child.length, element, parent)}
+            onClick={(e) => userService.oparateParentList(e, child.length, element, parent)}
           >
             <div className='d-flex flex-row bd-highlight mb-2'>
               {child.length > 0 ? (
@@ -57,43 +59,23 @@ export default function UserRenderCategoriesList(props) {
                 <h5>{props.t('categoryName')}:</h5>
               </div>
               <div className='p-2 bd-highlight'> {element.name}</div>
-              <div className='p-2 bd-highlight'>
-                <h5>{props.t('categoryActive')}:</h5>
-              </div>
-              <div className='p-2 bd-highlight'>
-                {element.active ? (
-                  <i className='bi bi-bookmark-check-fill'></i>
-                ) : (
-                  <i className='bi bi-bookmark-dash'></i>
-                )}
-              </div>
+              <Button
+                name='en'
+                variant='dark'
+                size='lg'
+                className='btn button'
+                onClick={(e) => {
+                  console.log(e);
+                  // props.audiobookAddCategory({
+                  //   element: e,
+                  //   categoryId: element.id,
+                  //   audiobookId: props.audiobookDetail.id,
+                  // });
+                }}
+              >
+                {props.t('choose')}
+              </Button>
             </div>
-            <div className='d-flex flex-row bd-highlight mb-2'>
-              <div className='p-2 bd-highlight'>
-                <h5>{props.t('categoryKey')}:</h5>
-              </div>
-              <div className='p-2 bd-highlight'> {element.categoryKey}</div>
-            </div>
-          </div>
-
-          <div className='ms-5 p-2 bd-highlight align-self-center'>
-            <Button
-              name='en'
-              variant='dark'
-              size='lg'
-              className='btn button'
-              disabled={usedInRefCategory != 0 || usedInitialCategory}
-              onClick={(e) => {
-                props.categoriesId.current.push(element.id);
-                props.audiobookAddCategory({
-                  element: e,
-                  categoryId: element.id,
-                  audiobookId: props.audiobookDetail.id,
-                });
-              }}
-            >
-              {props.t('add')}
-            </Button>
           </div>
         </div>
         <ul className='list-group' data-name={element.name}>
@@ -104,23 +86,29 @@ export default function UserRenderCategoriesList(props) {
   }
 
   function createListElement(element, parent) {
-    const usedInRefCategory = props.categoriesId.current.filter((x) => x === element.id).length;
-    const usedInitialCategory = props.audiobookDetail.categories.filter(
-      (x) => x.id === element.id,
-    ).length;
     const inReloadArray =
-      parent != null && props.lastOpenedCategories.current[parent.id] !== undefined;
+      parent != null && props.lastOpenedCategories.current[parent.categoryKey] !== undefined;
 
     let css = '';
 
     if (inReloadArray) {
-      css = 'p-2 border list-group-item';
+      css = 'p-2 list-group-item text-light';
     } else {
-      css = 'd-none p-2 border list-group-item';
+      css = 'd-none p-2 list-group-item text-light';
     }
 
     return (
-      <li key={uuidv4()} className={css} id={element.id}>
+      <li
+        key={uuidv4()}
+        className={css}
+        id={element.categoryKey}
+        style={{
+          backgroundColor: '#525252',
+          border: '0.2rem',
+          borderStyle: 'solid',
+          borderColor: '#31694c',
+        }}
+      >
         <div className='d-flex flex-row bd-highlight mb-2'>
           <div className='d-flex flex-column bd-highlight mb-3'>
             <div className='d-flex flex-row bd-highlight mb-2'>
@@ -128,43 +116,25 @@ export default function UserRenderCategoriesList(props) {
                 <h5>{props.t('categoryName')}:</h5>
               </div>
               <div className='p-2 bd-highlight'> {element.name}</div>
-              <div className='p-2 bd-highlight'>
-                <h5>{props.t('categoryActive')}:</h5>
-              </div>
-              <div className='p-2 bd-highlight'>
-                {element.active ? (
-                  <i className='bi bi-bookmark-check-fill'></i>
-                ) : (
-                  <i className='bi bi-bookmark-dash'></i>
-                )}
-              </div>
+              <Button
+                name='en'
+                variant='dark'
+                size='lg'
+                className='btn button'
+                onClick={(e) => {
+                  props.categoriesId.current.push(element.categoryKey);
+                  console.log('dsadsa');
+                  console.log(e);
+                  // props.audiobookAddCategory({
+                  //   element: e,
+                  //   categoryId: element.id,
+                  //   audiobookId: props.audiobookDetail.id,
+                  // });
+                }}
+              >
+                {props.t('choose')}
+              </Button>
             </div>
-            <div className='d-flex flex-row bd-highlight mb-2'>
-              <div className='p-2 bd-highlight'>
-                <h5>{props.t('categoryKey')}:</h5>
-              </div>
-              <div className='p-2 bd-highlight'> {element.categoryKey}</div>
-            </div>
-          </div>
-
-          <div className='ms-5 p-2 bd-highlight align-self-center'>
-            <Button
-              name='en'
-              variant='dark'
-              size='lg'
-              className='btn button'
-              disabled={usedInRefCategory != 0 || usedInitialCategory}
-              onClick={(e) => {
-                props.categoriesId.current.push(element.id);
-                props.audiobookAddCategory({
-                  element: e,
-                  categoryId: element.id,
-                  audiobookId: props.audiobookDetail.id,
-                });
-              }}
-            >
-              {props.t('add')}
-            </Button>
           </div>
         </div>
       </li>
@@ -181,13 +151,14 @@ export default function UserRenderCategoriesList(props) {
       elementArray.push = element;
 
       if (element['children'].length != 0) {
+        console.log('dsa');
         let returnedChildren = recursiveTree(element['children'], renderArray, kids, element);
 
         for (const value of returnedChildren) {
           let childElement = [createListElement(value.push, element)];
 
-          if (kids[element.id] != undefined) {
-            let ul = kids[element.id].filter((x) => x.type === 'li');
+          if (kids[element.categoryKey] != undefined) {
+            let ul = kids[element.categoryKey].filter((x) => x.type === 'li');
 
             if (
               !ul.some((cat) =>
@@ -196,17 +167,17 @@ export default function UserRenderCategoriesList(props) {
                   : false,
               )
             ) {
-              kids[element.id] = kids[element.id].concat(childElement);
+              kids[element.categoryKey] = kids[element.categoryKey].concat(childElement);
             }
           } else {
-            kids[element.id] = childElement;
+            kids[element.categoryKey] = childElement;
           }
 
           elementArray['child'] = value;
         }
 
-        if (Object.keys(kids).some((key) => key === element.id)) {
-          for (const iterator of kids[element.id]) {
+        if (Object.keys(kids).some((key) => key === element.categoryKey)) {
+          for (const iterator of kids[element.categoryKey]) {
             children.push(iterator);
           }
         }
@@ -216,10 +187,10 @@ export default function UserRenderCategoriesList(props) {
         } else {
           let parentElement = [listParent(element, children, parent)];
 
-          if (kids[parent.id] != undefined) {
-            kids[parent.id] = kids[parent.id].concat(parentElement);
+          if (kids[parent.categoryKey] != undefined) {
+            kids[parent.categoryKey] = kids[parent.categoryKey].concat(parentElement);
           } else {
-            kids[parent.id] = parentElement;
+            kids[parent.categoryKey] = parentElement;
           }
         }
       } else {
@@ -234,7 +205,7 @@ export default function UserRenderCategoriesList(props) {
 
   return (
     <div>
-      <ul className='list-group categories_add_list overflow-auto'>{createTree()}</ul>
+      <ul className='list-group categories_add_list overflow-auto mx-5'>{createTree()}</ul>
     </div>
   );
 }

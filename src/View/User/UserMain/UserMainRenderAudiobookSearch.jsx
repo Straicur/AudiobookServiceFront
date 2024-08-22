@@ -7,6 +7,7 @@ export default function UserMainRenderAudiobookSearch(props) {
     <UserAudiobookSearchProvider
       state={props.audiobooksState}
       title={props.audiobooksState.searchText}
+      categoryKey={props.audiobooksState.categoryKey}
       token={props.token}
       i18n={props.i18n}
     >

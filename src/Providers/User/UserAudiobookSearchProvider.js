@@ -4,7 +4,7 @@ import { HandleFetch } from 'Util/HandleFetch';
 
 const UserAudiobookSearchContext = createContext(null);
 
-export const UserAudiobookSearchProvider = ({ children, token, title, i18n }) => {
+export const UserAudiobookSearchProvider = ({ children, token, title, categoryKey, i18n }) => {
   const {
     data: dataAudiobookUserSearch = null,
     isLoading,
@@ -17,6 +17,7 @@ export const UserAudiobookSearchProvider = ({ children, token, title, i18n }) =>
         'POST',
         {
           title: title,
+          categoryKey: categoryKey,
         },
         token,
         i18n.language,

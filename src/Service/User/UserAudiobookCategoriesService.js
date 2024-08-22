@@ -1,4 +1,4 @@
-export default class AdminAudiobookRenderCategoriesService {
+export default class UserAudiobookCategoriesService {
   constructor(props) {
     this.props = props;
   }

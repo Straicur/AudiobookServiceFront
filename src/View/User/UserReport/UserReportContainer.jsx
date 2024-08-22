@@ -1,25 +1,21 @@
 import React from 'react';
 import UserNavBarPrividers from '../UserNavBar/UserNavBarPrividers';
-// import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import UserCategoriesListModal from './UserCategoriesListModal';
-// import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-// import Tooltip from 'react-bootstrap/Tooltip';
+import { UserCategoriesTreeProvider } from 'Providers/User/UserCategoriesTreeProvider';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function UserReportContainer(props) {
-  //   const [state, setState] = useState({
-  //     jsonModal: false,
-  //     searchModal: false,
-  //   });
-
   const reportTypes = {
-    reportTypeAudiobook: 2,
-    reportTypeCategory: 3,
-    reportTypeSystem: 4,
-    reportTypeUser: 5,
-    reportTypeSettings: 6,
-    reportTypeOther: 8,
+    reportTypeAudiobook: { type: 2, tooltipMessage: 'reportTypeAudiobookTooltipMessage' },
+    reportTypeCategory: { type: 3, tooltipMessage: 'reportTypeCategoryTooltipMessage' },
+    reportTypeSystem: { type: 4, tooltipMessage: 'reportTypeSystemTooltipMessage' },
+    reportTypeUser: { type: 5, tooltipMessage: 'reportTypeUserTooltipMessage' },
+    reportTypeSettings: { type: 6, tooltipMessage: 'reportTypeSettingsTooltipMessage' },
+    reportTypeOther: { type: 28, tooltipMessage: 'reportTypeOtherTooltipMessage' },
   };
 
   const createReportTypeButtons = () => {
@@ -36,30 +32,29 @@ export default function UserReportContainer(props) {
 
   const createTypeButton = (typeName, typeValue) => {
     return (
-      <div className='col-1 report-type-col'>
-        <Button
-          name='en'
-          variant={typeValue === props.reportState.type ? 'success' : 'warning'}
-          size='sm'
-          className='btn button p-2 px-5 fs-6'
-          onClick={() => {
-            props.setReportState((prev) => ({
-              ...prev,
-              type: parseInt(typeValue),
-            }));
-          }}
+      <div className='col-1 report-type-col' key={uuidv4()}>
+        <OverlayTrigger
+          placement='bottom'
+          overlay={<Tooltip id='tooltip-bottom'> {props.t(typeValue.tooltipMessage)}</Tooltip>}
         >
-          {props.t(typeName)}
-        </Button>
+          <Button
+            name='en'
+            variant={typeValue.type === props.reportState.type ? 'success' : 'warning'}
+            size='sm'
+            className='btn button p-2 px-5 fs-6'
+            onClick={() => {
+              props.setReportState((prev) => ({
+                ...prev,
+                type: parseInt(typeValue.type),
+              }));
+            }}
+          >
+            {props.t(typeName)}
+          </Button>
+        </OverlayTrigger>
       </div>
     );
   };
-
-  //   const renderTooltip = (props) => (
-  //     <Tooltip id='button-tooltip' {...props}>
-  //       Simple tooltip
-  //     </Tooltip>
-  //   );
 
   return (
     <div className='container-fluid main-container mt-3'>
@@ -70,12 +65,11 @@ export default function UserReportContainer(props) {
         <div className='row d-flex justify-content-center fs-2 fw-bold text-white mt-4'>
           Chcesz coś zgłości ?
         </div>
-        <div className='row justify-content-center fs-3 text-white mt-1'>
+        <div className='row justify-content-center fs-3 text-white mb-3 mt-2'>
           Uzupełnij proszę odpowiednie pola w zależności od typu zgłoszenia.
         </div>
         <div className='row d-flex justify-content-center'>{createReportTypeButtons()}</div>
-
-        <div className='row  d-flex justify-content-center fs-2 fw-bold text-white mt-4'>
+        <div className='row  d-flex justify-content-center fs-2 fw-bold text-white mt-1'>
           {props.reportState.type === 3 || props.reportState.type === 2 ? (
             <div className='col-2 d-flex justify-content-center '>
               <Button
@@ -124,7 +118,11 @@ export default function UserReportContainer(props) {
               name='description'
               aria-label='With textarea'
               value={props.reportState.description}
-              className='report-desc-text'
+              className='report-desc-text text-white'
+              style={{
+                backgroundColor: '#2b2b2b',
+                borderColor: '#4f4f4f',
+              }}
               onChange={(e) => {
                 props.setReportState((prev) => ({
                   ...prev,
@@ -209,13 +207,15 @@ export default function UserReportContainer(props) {
         </div>
       </div>
       {props.reportState.openCategoriesList ? (
-        <UserCategoriesListModal
-          reportState={props.reportState}
-          setReportState={props.setReportState}
-          t={props.t}
-          i18n={props.i18n}
-          token={props.token}
-        />
+        <UserCategoriesTreeProvider token={props.token} i18n={props.i18n}>
+          <UserCategoriesListModal
+            reportState={props.reportState}
+            setReportState={props.setReportState}
+            t={props.t}
+            i18n={props.i18n}
+            token={props.token}
+          />
+        </UserCategoriesTreeProvider>
       ) : null}
     </div>
   );

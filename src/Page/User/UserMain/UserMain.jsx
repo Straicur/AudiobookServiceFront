@@ -31,6 +31,7 @@ export default function UserMain() {
     searching: false,
     wasSearch: false,
     searchText: '',
+    categoryKey: '',
   });
 
   return (
