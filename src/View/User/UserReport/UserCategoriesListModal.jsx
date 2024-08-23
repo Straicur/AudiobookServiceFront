@@ -29,10 +29,12 @@ export default function UserCategoriesListModal(props) {
           backgroundColor: '#2b2b2b',
         }}
       >
-        <p className='text-center fs-2'>{props.t('addCategory')}</p>
+        <p className='text-center fs-2'>{props.t('selectCategory')}</p>
         <UserRenderCategoriesList
           categories={categories}
           lastOpenedCategories={lastOpenedCategories}
+          reportState={props.reportState}
+          setReportState={props.setReportState}
           t={props.t}
           i18n={props.i18n}
           token={props.token}

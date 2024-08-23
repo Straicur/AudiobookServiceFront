@@ -9,7 +9,7 @@ export default function UserRenderCategoriesList(props) {
   const createTree = () => {
     let renderArray = [];
     let kids = [];
-    console.log(props.categories);
+
     if (props.categories !== null) {
       recursiveTree(props.categories.categories, renderArray, kids, null);
     }
@@ -38,43 +38,42 @@ export default function UserRenderCategoriesList(props) {
         }}
         data-clicable={true}
       >
-        <div className='d-flex flex-row bd-highlight mb-2'>
+        <div className='bd-highlight my-2'>
           <div
-            className='d-flex flex-column bd-highlight mb-3'
+            className='d-flex row'
             onClick={(e) => userService.oparateParentList(e, child.length, element, parent)}
           >
-            <div className='d-flex flex-row bd-highlight mb-2'>
+            <div className='d-flex row bd-highlight align-items-center'>
               {child.length > 0 ? (
                 <i
                   className={
                     inReloadArray
-                      ? 'fs-4 p-2 bi bi-arrow-down-square'
-                      : 'fs-4 p-2 bi bi-arrow-right-square'
+                      ? 'fs-3 bi bi-arrow-down-square col-1'
+                      : 'fs-3 bi bi-arrow-right-square col-1'
                   }
                 ></i>
               ) : (
                 <div className=''></div>
               )}
-              <div className='p-2 bd-highlight'>
-                <h5>{props.t('categoryName')}:</h5>
+              <div className='bd-highlight fs-4 col'> {element.name}</div>
+              <div className='col'>
+                <Button
+                  name='en'
+                  variant='dark'
+                  size='lg'
+                  className='btn button'
+                  onClick={() => {
+                    props.setReportState((prev) => ({
+                      ...prev,
+                      choosenCategory: element.categoryKey,
+                      choosenCategoryName: element.name,
+                      openCategoriesList: !props.reportState.openCategoriesList,
+                    }));
+                  }}
+                >
+                  {props.t('select')}
+                </Button>
               </div>
-              <div className='p-2 bd-highlight'> {element.name}</div>
-              <Button
-                name='en'
-                variant='dark'
-                size='lg'
-                className='btn button'
-                onClick={(e) => {
-                  console.log(e);
-                  // props.audiobookAddCategory({
-                  //   element: e,
-                  //   categoryId: element.id,
-                  //   audiobookId: props.audiobookDetail.id,
-                  // });
-                }}
-              >
-                {props.t('choose')}
-              </Button>
             </div>
           </div>
         </div>
@@ -92,9 +91,9 @@ export default function UserRenderCategoriesList(props) {
     let css = '';
 
     if (inReloadArray) {
-      css = 'p-2 list-group-item text-light';
+      css = 'list-group-item text-light';
     } else {
-      css = 'd-none p-2 list-group-item text-light';
+      css = 'd-none list-group-item text-light';
     }
 
     return (
@@ -109,31 +108,28 @@ export default function UserRenderCategoriesList(props) {
           borderColor: '#31694c',
         }}
       >
-        <div className='d-flex flex-row bd-highlight mb-2'>
-          <div className='d-flex flex-column bd-highlight mb-3'>
-            <div className='d-flex flex-row bd-highlight mb-2'>
-              <div className='p-2 bd-highlight'>
-                <h5>{props.t('categoryName')}:</h5>
+        <div className='bd-highlight my-2'>
+          <div className='d-flex row'>
+            <div className='d-flex row bd-highlight align-items-center'>
+              <div className='bd-highlight fs-4 col'> {element.name}</div>
+              <div className='col'>
+                <Button
+                  name='en'
+                  variant='dark'
+                  size='lg'
+                  className='btn button'
+                  onClick={() => {
+                    props.setReportState((prev) => ({
+                      ...prev,
+                      choosenCategory: element.categoryKey,
+                      choosenCategoryName: element.name,
+                      openCategoriesList: !props.reportState.openCategoriesList,
+                    }));
+                  }}
+                >
+                  {props.t('select')}
+                </Button>
               </div>
-              <div className='p-2 bd-highlight'> {element.name}</div>
-              <Button
-                name='en'
-                variant='dark'
-                size='lg'
-                className='btn button'
-                onClick={(e) => {
-                  props.categoriesId.current.push(element.categoryKey);
-                  console.log('dsadsa');
-                  console.log(e);
-                  // props.audiobookAddCategory({
-                  //   element: e,
-                  //   categoryId: element.id,
-                  //   audiobookId: props.audiobookDetail.id,
-                  // });
-                }}
-              >
-                {props.t('choose')}
-              </Button>
             </div>
           </div>
         </div>
@@ -151,7 +147,6 @@ export default function UserRenderCategoriesList(props) {
       elementArray.push = element;
 
       if (element['children'].length != 0) {
-        console.log('dsa');
         let returnedChildren = recursiveTree(element['children'], renderArray, kids, element);
 
         for (const value of returnedChildren) {
@@ -204,7 +199,7 @@ export default function UserRenderCategoriesList(props) {
   }
 
   return (
-    <div>
+    <div className='ms-1'>
       <ul className='list-group categories_add_list overflow-auto mx-5'>{createTree()}</ul>
     </div>
   );

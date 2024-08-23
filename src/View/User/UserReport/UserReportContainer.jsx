@@ -7,6 +7,8 @@ import { UserCategoriesTreeProvider } from 'Providers/User/UserCategoriesTreePro
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { v4 as uuidv4 } from 'uuid';
+import { UserAudiobookSearchProvider } from 'Providers/User/UserAudiobookSearchProvider';
+import UserAudiobooksListModal from './UserAudiobooksListModal';
 
 export default function UserReportContainer(props) {
   const reportTypes = {
@@ -46,6 +48,8 @@ export default function UserReportContainer(props) {
               props.setReportState((prev) => ({
                 ...prev,
                 type: parseInt(typeValue.type),
+                choosenCategory: null,
+                choosenAudiobook: null,
               }));
             }}
           >
@@ -69,8 +73,9 @@ export default function UserReportContainer(props) {
           Uzupełnij proszę odpowiednie pola w zależności od typu zgłoszenia.
         </div>
         <div className='row d-flex justify-content-center'>{createReportTypeButtons()}</div>
-        <div className='row  d-flex justify-content-center fs-2 fw-bold text-white mt-1'>
-          {props.reportState.type === 3 || props.reportState.type === 2 ? (
+
+        {props.reportState.type === 3 || props.reportState.type === 2 ? (
+          <div className='row d-flex justify-content-center fs-2 fw-bold text-white mt-1'>
             <div className='col-2 d-flex justify-content-center '>
               <Button
                 name='en'
@@ -87,17 +92,26 @@ export default function UserReportContainer(props) {
                 {props.t('chooseCategory')}
               </Button>
             </div>
-          ) : null}
-        </div>
-        <div className='row  d-flex justify-content-center fs-2 fw-bold text-white mt-4'>
-          {props.reportState.type === 2 ? (
+            {props.reportState.choosenCategory !== null ? (
+              <p className='fs-4 text-center mt-3'>
+                Wybrałeś kategorię: {props.reportState.choosenCategoryName}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
+
+        {props.reportState.type === 2 ? (
+          <div className='row  d-flex justify-content-center fs-2 fw-bold text-white mt-2'>
             <div className='col-2 d-flex justify-content-center '>
               <Button
                 name='en'
                 variant='success'
                 size='sm'
                 className='btn button p-2 px-5 fs-6'
-                disabled={props.reportState.choosenCategory === null}
+                disabled={
+                  props.reportState.choosenCategory === null &&
+                  props.reportState.choosenAudiobook === null
+                }
                 onClick={() => {
                   props.setReportState((prev) => ({
                     ...prev,
@@ -108,8 +122,9 @@ export default function UserReportContainer(props) {
                 {props.t('chooseAudiobook')}
               </Button>
             </div>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
+
         <div className='report-desc-text-container text-center'>
           <Form.Group className='my-3 input_modal'>
             <Form.Label className='text-light fs-3'>{props.t('description')}: </Form.Label>
@@ -216,6 +231,23 @@ export default function UserReportContainer(props) {
             token={props.token}
           />
         </UserCategoriesTreeProvider>
+      ) : null}
+
+      {props.reportState.openAudiobooksList ? (
+        <UserAudiobookSearchProvider
+          title={''}
+          categoryKey={props.reportState.choosenCategory}
+          token={props.token}
+          i18n={props.i18n}
+        >
+          <UserAudiobooksListModal
+            reportState={props.reportState}
+            setReportState={props.setReportState}
+            t={props.t}
+            i18n={props.i18n}
+            token={props.token}
+          />
+        </UserAudiobookSearchProvider>
       ) : null}
     </div>
   );

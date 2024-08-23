@@ -17,7 +17,9 @@ export default function UserReport() {
     openCategoriesList: false,
     openAudiobooksList: false,
     choosenCategory: null,
+    choosenCategoryName: null,
     choosenAudiobook: null,
+    choosenAudiobookName: null,
   });
 
   const token = useTokenStore((state) => state.token);
