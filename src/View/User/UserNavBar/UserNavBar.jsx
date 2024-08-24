@@ -172,7 +172,7 @@ export const UserNavBar = (props) => {
           <div className='row mx-1 mt-2'>
             <div className='col technical-break-banner me-3 ms-2 text-center'>
               {props.t('technicalBreak')}
-            </div>{' '}
+            </div>
           </div>
         ) : null}
       </div>

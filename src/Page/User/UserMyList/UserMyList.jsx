@@ -44,6 +44,7 @@ export default function UserMyList() {
           <div className='container-fluid main-container mt-3'>
             <div className='card position-relative p-3 bg-dark shadow'>
               <UserNavBarPrividers token={token} t={t} i18n={i18n} />
+              <hr className='text-white line' />
               <div className='row text-white'>
                 <div className='fw-bold fs-1 ms-3 mt-2'>
                   <h1> {t('myList')}</h1>

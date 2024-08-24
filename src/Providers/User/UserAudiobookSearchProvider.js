@@ -5,17 +5,12 @@ import { HandleFetch } from 'Util/HandleFetch';
 const UserAudiobookSearchContext = createContext(null);
 
 export const UserAudiobookSearchProvider = ({ children, token, title, categoryKey, i18n }) => {
-  console.log({
-    title: title,
-    categoryKey: categoryKey,
-  });
-
   const {
     data: dataAudiobookUserSearch = null,
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ['dataAudiobookUserSearch'],
+    queryKey: ['dataAudiobookUserSearch' + title + categoryKey],
     queryFn: () =>
       HandleFetch(
         '/user/audiobooks/search',

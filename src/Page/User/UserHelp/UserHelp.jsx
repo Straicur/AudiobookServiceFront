@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { UserFooter } from 'View/User/Common/UserFooter';
 import { useTokenStore } from 'Store/store';
 import './UserHelp.css';
+import { UserNotLoggedNavBar } from 'View/User/UserNavBar/UserNotLoggedNavBar';
 
 export default function UserHelp() {
   const { t, i18n } = useTranslation();
@@ -19,7 +20,12 @@ export default function UserHelp() {
 
       <div className='container-fluid main-container mt-3'>
         <div className='card position-relative p-3 bg-dark shadow'>
-          {token ? <UserNavBarPrividers token={token} t={t} i18n={i18n} /> : null}
+          {token ? (
+            <UserNavBarPrividers token={token} t={t} i18n={i18n} />
+          ) : (
+            <UserNotLoggedNavBar token={token} t={t} i18n={i18n} />
+          )}
+          <hr className='text-white line' />
           <div className='row justify-content-center fs-2 fw-bold text-white mt-4'>
             {t('helpTitle')}
           </div>

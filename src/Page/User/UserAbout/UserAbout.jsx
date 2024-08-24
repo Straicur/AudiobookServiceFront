@@ -5,6 +5,8 @@ import { UserAuthorizeProvider } from 'Providers/User/UserAuthorizeProvider';
 import { useTokenStore } from 'Store/store';
 import UserAboutContainer from 'View/User/UserAbout/UserAboutContainer';
 import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
+import { UserIpProvider } from 'Providers/User/UserIpProvider';
+import { UserReportProvider } from 'Providers/User/UserReportProvider';
 
 export default function UserAbout() {
   const [state, setState] = useState({
@@ -19,7 +21,11 @@ export default function UserAbout() {
   return (
     <NetworkErrorBoundry>
       <UserAuthorizeProvider token={token} i18n={i18n}>
-        <UserAboutContainer t={t} i18n={i18n} state={state} setState={setState} />
+        <UserReportProvider token={token} i18n={i18n}>
+          <UserIpProvider>
+            <UserAboutContainer t={t} i18n={i18n} state={state} setState={setState} token={token} />
+          </UserIpProvider>
+        </UserReportProvider>
       </UserAuthorizeProvider>
     </NetworkErrorBoundry>
   );

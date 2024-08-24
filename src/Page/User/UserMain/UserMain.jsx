@@ -55,6 +55,7 @@ export default function UserMain() {
           <div className='container-fluid main-container mt-3'>
             <div className='card position-relative p-3 bg-dark shadow'>
               <UserNavBarPrividers token={token} t={t} i18n={i18n} />
+              <hr className='text-white line' />
               <UserMainSearchAudiobooks
                 audiobooksState={audiobooksState}
                 setAudiobooksState={setAudiobooksState}
