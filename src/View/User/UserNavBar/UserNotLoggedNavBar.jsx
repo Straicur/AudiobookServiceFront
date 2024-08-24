@@ -15,24 +15,6 @@ export const UserNotLoggedNavBar = (props) => {
             size='lg'
             color='dark'
             className=' btn button  mt-1'
-            onClick={() => navigate('/help')}
-          >
-            {props.t('help')}
-          </Button>
-          <Button
-            variant='dark'
-            size='lg'
-            color='dark'
-            className=' btn button  mt-1'
-            onClick={() => navigate('/report')}
-          >
-            {props.t('report')}
-          </Button>
-          <Button
-            variant='dark'
-            size='lg'
-            color='dark'
-            className=' btn button  mt-1'
             onClick={() => navigate('/about')}
           >
             {props.t('about')}
@@ -45,6 +27,24 @@ export const UserNotLoggedNavBar = (props) => {
             onClick={() => navigate('/policy')}
           >
             {props.t('privacyPolicy')}
+          </Button>
+          <Button
+            variant='dark'
+            size='lg'
+            color='dark'
+            className=' btn button  mt-1'
+            onClick={() => navigate('/help')}
+          >
+            {props.t('help')}
+          </Button>
+          <Button
+            variant='dark'
+            size='lg'
+            color='dark'
+            className=' btn button  mt-1'
+            onClick={() => navigate('/report')}
+          >
+            {props.t('report')}
           </Button>
         </div>
         {!props.token ? (
