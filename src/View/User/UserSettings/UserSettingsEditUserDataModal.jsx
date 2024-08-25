@@ -121,11 +121,7 @@ export default function UserSettingsEditUserDataModal(props) {
       backdrop='static'
       centered
     >
-      <Modal.Body
-        style={{
-          backgroundColor: '#262626',
-        }}
-      >
+      <Modal.Body className='user-settings-modal-black-background'>
         <div className='text-white'>
           {state.checkChanges ? (
             <div className='fs-3 text-center my-3'>{props.t('checkUserData')}</div>

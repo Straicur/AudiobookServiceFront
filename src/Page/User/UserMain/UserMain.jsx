@@ -24,6 +24,8 @@ export default function UserMain() {
     limit: 3,
     refresh: false,
     detailModal: false,
+    reportDescModal: false,
+    reportCommentId: null,
     detailModalAudiobook: null,
     detailModalCover: null,
     detailModalCategory: null,

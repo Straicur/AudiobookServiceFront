@@ -19,6 +19,8 @@ export default function UserMyList() {
 
   const [myListState, setMyListState] = useState({
     detailModal: false,
+    reportDescModal: false,
+    reportCommentId: null,
     detailModalAudiobook: null,
     detailModalCover: null,
     detailModalCategory: null,

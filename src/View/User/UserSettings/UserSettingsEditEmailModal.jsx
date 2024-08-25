@@ -88,11 +88,7 @@ export default function UserSettingsEditEmailModal(props) {
 
   return (
     <Modal size='lg' show={props.state.buttonEmail} onHide={handleClose} backdrop='static' centered>
-      <Modal.Body
-        style={{
-          backgroundColor: '#262626',
-        }}
-      >
+      <Modal.Body className='user-settings-modal-black-background'>
         <div className='text-white'>
           {state.checkEmail ? (
             <div className='fs-3 text-center my-3'>{props.t('checkEmail')}</div>

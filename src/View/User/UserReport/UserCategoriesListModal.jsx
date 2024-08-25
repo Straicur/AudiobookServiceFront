@@ -23,12 +23,7 @@ export default function UserCategoriesListModal(props) {
       onHide={handleClose}
       backdrop='static'
     >
-      <Modal.Body
-        className='text-white'
-        style={{
-          backgroundColor: '#2b2b2b',
-        }}
-      >
+      <Modal.Body className='text-white report-modal-dark-backgrund'>
         <p className='text-center fs-2'>{props.t('selectCategory')}</p>
         <UserRenderCategoriesList
           categories={categories}

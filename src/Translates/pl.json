@@ -313,6 +313,8 @@
   "reportTypeUserTooltipMessage": "Wystąpił problem związany z twoim kontem na platformie. Porszę opisz go dokładnie.",
   "reportTypeSettingsTooltipMessage": "Wystąpił problem z ustawieniami twojego konta. Porszę opisz go dokładnie.",
   "reportTypeOtherTooltipMessage": "Żadna z kategorii nie jest odpowiednia, masz jakieś pytanie lub propozycję. Porszę o dokładny opis",
+  "userReportCommentQuestion": "Dlaczego chcesz zgłosić ten komentarz ?",
+  "userReportCommentDesc": "Proszę opisz dokładnie",
   "workExperience": "Doświadczenie zawodowe",
   "thanksForReport": "Dziękujemy za zgłoszenie",
   "fastReportResponse": "Odpowiemy na zgłoszenie najszybciej jak to będzie możliwe",

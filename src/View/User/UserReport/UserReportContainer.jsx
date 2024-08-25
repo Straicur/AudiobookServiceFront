@@ -195,11 +195,7 @@ export default function UserReportContainer(props) {
                   id='email'
                   type='text'
                   name='email'
-                  className='form-control text-white'
-                  style={{
-                    backgroundColor: '#2b2b2b',
-                    borderColor: '#4f4f4f',
-                  }}
+                  className='form-control text-white report-black-insert'
                   value={props.reportState.email}
                   onChange={(e) => {
                     props.setReportState((prev) => ({
@@ -225,11 +221,7 @@ export default function UserReportContainer(props) {
               name='description'
               aria-label='With textarea'
               value={props.reportState.description}
-              className='report-desc-text text-white'
-              style={{
-                backgroundColor: '#2b2b2b',
-                borderColor: '#4f4f4f',
-              }}
+              className='report-desc-text text-white report-black-insert'
               onChange={(e) => {
                 props.setReportState((prev) => ({
                   ...prev,

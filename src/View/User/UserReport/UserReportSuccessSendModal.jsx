@@ -17,12 +17,7 @@ export default function UserReportSuccessSendModal(props) {
       onHide={handleClose}
       backdrop='static'
     >
-      <Modal.Body
-        className='text-white'
-        style={{
-          backgroundColor: '#2b2b2b',
-        }}
-      >
+      <Modal.Body className='text-white report-modal-dark-backgrund'>
         <p className='text-center fs-3'>{props.t('thanksForReport')}</p>
         <hr />
         <p className='text-center fs-4'>{props.t('fastReportResponse')}</p>

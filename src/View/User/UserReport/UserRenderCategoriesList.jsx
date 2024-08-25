@@ -27,15 +27,9 @@ export default function UserRenderCategoriesList(props) {
         key={uuidv4()}
         className={
           parent === null || inReloadArray || parentInArray
-            ? 'visible list-group-item text-light'
-            : 'd-none list-group-item text-light'
+            ? 'visible list-group-item text-light report-categories-modal-list report-categories-modal-list-parent'
+            : 'd-none list-group-item text-light report-categories-modal-list report-categories-modal-list-parent'
         }
-        style={{
-          backgroundColor: '#525252',
-          border: '0.2rem',
-          borderStyle: 'solid',
-          borderColor: '#2a5740',
-        }}
         data-clicable={true}
       >
         <div className='bd-highlight my-2'>
@@ -91,23 +85,15 @@ export default function UserRenderCategoriesList(props) {
     let css = '';
 
     if (inReloadArray) {
-      css = 'list-group-item text-light';
+      css =
+        'list-group-item text-light report-categories-modal-list report-categories-modal-list-kid';
     } else {
-      css = 'd-none list-group-item text-light';
+      css =
+        'd-none list-group-item text-light report-categories-modal-list report-categories-modal-list-kid';
     }
 
     return (
-      <li
-        key={uuidv4()}
-        className={css}
-        id={element.categoryKey}
-        style={{
-          backgroundColor: '#525252',
-          border: '0.2rem',
-          borderStyle: 'solid',
-          borderColor: '#31694c',
-        }}
-      >
+      <li key={uuidv4()} className={css} id={element.categoryKey}>
         <div className='bd-highlight my-2'>
           <div className='d-flex row'>
             <div className='d-flex row bd-highlight align-items-center'>

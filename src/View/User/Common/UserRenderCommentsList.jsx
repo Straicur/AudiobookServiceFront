@@ -118,6 +118,13 @@ export default function UserRenderCommentsList(props) {
     });
   }
 
+  function reportComment(comment) {
+    props.setState((prev) => ({
+      ...prev,
+      reportDescModal: !props.state.reportDescModal,
+      reportCommentId: comment.id,
+    }));
+  }
   //--------------------------------------------------------------------------------------------------------------------------------
   //Small state functions
   function startEditComment(comment) {
@@ -243,11 +250,11 @@ export default function UserRenderCommentsList(props) {
         className={
           commentState.commentId === element.id
             ? element.id === props.lastOpenComment.current
-              ? 'border border-6 border-warning border comment comments-pill px-3 py-1'
-              : 'border border-6 border-warning border comment comment-pill ps-3 py-1'
+              ? 'border border-6 border-warning border comment comments-pill px-2 py-1'
+              : 'border border-6 border-warning border comment comment-pill ps-2 py-1'
             : element.id === props.lastOpenComment.current
-            ? 'border border-6 border-secondary border comment comments-pill px-3 py-1'
-            : 'border border-6 border-secondary border comment comment-pill ps-3 py-1'
+            ? 'border border-6 border-secondary border comment comments-pill px-2 py-1'
+            : 'border border-6 border-secondary border comment comment-pill ps-2 py-1'
         }
       >
         <div className='row p-1 bd-highlight'>
@@ -324,14 +331,48 @@ export default function UserRenderCommentsList(props) {
 
         <div className='row mx-1 small-text my-1'>
           {element.comment.length > 20 ? (
-            <div className='row text-break'>
-              <div className='col-8'>{element.comment.slice(0, 40)}</div>
-              <p className='col-4 show-more' onClick={(e) => showText(element.comment, e)}>
-                {props.t('showMore')}
-              </p>
+            <div className='row'>
+              <div className='col-10 text-break'>
+                <div className='row'>
+                  <div className='col-8'>{element.comment.slice(0, 40)}...</div>
+                  <p className='col-4 show-more' onClick={(e) => showText(element.comment, e)}>
+                    {props.t('showMore')}
+                  </p>
+                </div>
+              </div>
+              <div className='col-2 text-break d-flex justify-content-end'>
+                <Button
+                  name='en'
+                  variant='danger'
+                  size='sm'
+                  className='btn button rounded-3 danger_button comment-button-small text-center'
+                  onClick={() => {
+                    reportComment(element);
+                  }}
+                >
+                  {props.t('report')}
+                </Button>
+              </div>
             </div>
           ) : (
-            <div className='row'>{element.comment}</div>
+            <div className='row'>
+              <div className='col-10 text-break'>{element.comment}</div>
+              {!element.myComment ? (
+                <div className='col-2 text-break d-flex justify-content-end'>
+                  <Button
+                    name='en'
+                    variant='danger'
+                    size='sm'
+                    className='btn button rounded-3 danger_button comment-button-small text-center'
+                    onClick={() => {
+                      reportComment(element);
+                    }}
+                  >
+                    {props.t('report')}
+                  </Button>
+                </div>
+              ) : null}
+            </div>
           )}
         </div>
         {element.myComment ? (
@@ -428,9 +469,9 @@ export default function UserRenderCommentsList(props) {
         className={
           props.lastOpenComment.current === element.parentId
             ? commentState.commentId === element.id
-              ? 'px-3 py-1 my-1 comment-pill border border-warning'
-              : 'px-3 py-1 my-1 border comment-pill'
-            : 'd-none px-3 py-1 my-1 border comment-pill'
+              ? 'px-2 py-1 my-1 comment-pill border border-warning'
+              : 'px-2 py-1 my-1 border comment-pill'
+            : 'd-none px-2 py-1 my-1 border comment-pill'
         }
         id={element.id}
       >
@@ -488,14 +529,48 @@ export default function UserRenderCommentsList(props) {
 
         <div className='row mx-2 small-text my-1'>
           {element.comment.length > 20 ? (
-            <div className='row text-break'>
-              <div className='col-8'>{element.comment.slice(0, 40)}</div>
-              <p className='col-4 show-more' onClick={(e) => showText(element.comment, e)}>
-                {props.t('showMore')}
-              </p>
+            <div className='row'>
+              <div className='col-10 text-break'>
+                <div className='row'>
+                  <div className='col-8'>{element.comment.slice(0, 40)}</div>
+                  <p className='col-4 show-more' onClick={(e) => showText(element.comment, e)}>
+                    {props.t('showMore')}
+                  </p>
+                </div>
+              </div>
+              <div className='col-2 text-break d-flex justify-content-end'>
+                <Button
+                  name='en'
+                  variant='danger'
+                  size='sm'
+                  className='btn button rounded-3 danger_button comment-button-small text-center'
+                  onClick={() => {
+                    reportComment(element);
+                  }}
+                >
+                  {props.t('report')}
+                </Button>
+              </div>
             </div>
           ) : (
-            <div className='row'>{element.comment}</div>
+            <div className='row'>
+              <div className='col-10 text-break'>{element.comment}</div>
+              {!element.myComment ? (
+                <div className='col-2 text-break d-flex justify-content-end'>
+                  <Button
+                    name='en'
+                    variant='danger'
+                    size='sm'
+                    className='btn button rounded-3 danger_button comment-button-small text-center'
+                    onClick={() => {
+                      reportComment(element);
+                    }}
+                  >
+                    {props.t('report')}
+                  </Button>
+                </div>
+              ) : null}
+            </div>
           )}
         </div>
         {element.myComment ? (

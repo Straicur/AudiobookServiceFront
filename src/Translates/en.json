@@ -312,6 +312,8 @@
   "reportTypeUserTooltipMessage": "There was a problem related to your platform account. Please describe it in detail.",
   "reportTypeSettingsTooltipMessage": "There was a problem with your account settings. Please describe it in detail.",
   "reportTypeOtherTooltipMessage": "None of the categories are appropriate, you have a question or suggestion. Please describe it in detail.",
+  "userReportCommentQuestion": "Why do you want to report this comment ?",
+  "userReportCommentDesc": "Please describe in detail",
   "workExperience": "Work experience",
   "thanksForReport": "Thank you for your submission",
   "fastReportResponse": "We will respond to your application as soon as possible",

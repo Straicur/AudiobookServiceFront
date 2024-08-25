@@ -31,3 +31,7 @@
 .sure_button {
   min-width: 5rem !important;
 }
+
+.user-settings-modal-black-background {
+  background-color: #262626;
+}

@@ -20,11 +20,7 @@ export default function UserSettingsDeleteUserModal(props) {
       backdrop='static'
       centered
     >
-      <Modal.Body
-        style={{
-          backgroundColor: '#262626',
-        }}
-      >
+      <Modal.Body className='user-settings-modal-black-background'>
         <div className='text-white my-5'>
           <p className='fs-3 text-center'>{props.t('deleteMessage')}</p>
           <div className='row align-items-center row justify-content-center'>

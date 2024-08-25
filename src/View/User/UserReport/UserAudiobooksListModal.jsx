@@ -21,12 +21,7 @@ export default function UserAudiobooksListModal(props) {
       onHide={handleClose}
       backdrop='static'
     >
-      <Modal.Body
-        className='text-white'
-        style={{
-          backgroundColor: '#2b2b2b',
-        }}
-      >
+      <Modal.Body className='text-white report-modal-dark-backgrund'>
         <p className='text-center fs-2'>{props.t('selectAudibook')}</p>
         <UserRenderAudiobooksList
           audiobooks={audiobooks}

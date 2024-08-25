@@ -9,6 +9,8 @@ import UserAudiobookPlayer from '../Common/UserAudiobookPlayer';
 import UserStarRating from '../Common/UserStarRating';
 import UserRenderCommentsList from '../Common/UserRenderCommentsList';
 import { useUserAudiobookInfo } from 'Providers/User/UserAudiobookInfoProvider';
+import { useUserReport } from 'Providers/User/UserReportProvider';
+import UserReportDescModal from '../Common/UserReportDescModal';
 
 export default function UserMyListAudiobookDetailModal(props) {
   const timeAudio = useRef(0);
@@ -28,6 +30,7 @@ export default function UserMyListAudiobookDetailModal(props) {
     addComment,
     editComment,
   ] = useUserAudiobookComments();
+  const [sendLoggedUserReport] = useUserReport();
 
   const handleClose = () => {
     addInfo();
@@ -74,12 +77,7 @@ export default function UserMyListAudiobookDetailModal(props) {
 
   return (
     <Modal size='lg' show={props.state.detailModal} onHide={handleClose} backdrop='static'>
-      <Modal.Body
-        className='text-white'
-        style={{
-          backgroundColor: '#000000',
-        }}
-      >
+      <Modal.Body className='text-white user-my-list-modal-background-dark'>
         {audiobookDetail != null ? (
           <div>
             <div
@@ -275,7 +273,16 @@ export default function UserMyListAudiobookDetailModal(props) {
             </div>
           </div>
         ) : null}
-
+        {props.state.reportDescModal ? (
+          <UserReportDescModal
+            state={props.state}
+            setState={props.setState}
+            token={props.token}
+            t={props.t}
+            i18n={props.i18n}
+            sendLoggedUserReport={sendLoggedUserReport}
+          />
+        ) : null}
         <div className='row mt-3 justify-content-center'>
           <div className='col-7  align-self-center'>
             <Button variant='dark' onClick={handleClose} className='detail-button text-center'>
