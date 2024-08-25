@@ -87,6 +87,8 @@ export const UserAudiobookDetailProvider = ({
       }));
 
       variables.element.target.classList.remove('disabled');
+
+      qc.invalidateQueries(['dataMyAudiobooksUserData']);
     },
     onError: () => {
       qc.invalidateQueries(['dataAudiobookUserDetail' + audiobookId]);

@@ -12,13 +12,15 @@ import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
 import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 import './UserMyList.css';
 
-export default function MyList() {
+export default function UserMyList() {
   const { t, i18n } = useTranslation();
 
   const token = useTokenStore((state) => state.token);
 
   const [myListState, setMyListState] = useState({
     detailModal: false,
+    reportDescModal: false,
+    reportCommentId: null,
     detailModalAudiobook: null,
     detailModalCover: null,
     detailModalCategory: null,
@@ -44,6 +46,7 @@ export default function MyList() {
           <div className='container-fluid main-container mt-3'>
             <div className='card position-relative p-3 bg-dark shadow'>
               <UserNavBarPrividers token={token} t={t} i18n={i18n} />
+              <hr className='text-white line' />
               <div className='row text-white'>
                 <div className='fw-bold fs-1 ms-3 mt-2'>
                   <h1> {t('myList')}</h1>

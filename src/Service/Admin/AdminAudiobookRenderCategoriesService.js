@@ -2,11 +2,11 @@ export default class AdminAudiobookRenderCategoriesService {
   constructor(props) {
     this.props = props;
   }
-  deleteCommentFromRef = (comment) => {
+  deleteCategoryFromRef = (comment) => {
     for (const [key, value] of Object.entries(this.props.lastOpenedCategories.current)) {
       if (value === comment) {
         delete this.props.lastOpenedCategories.current[key];
-        this.deleteCommentFromRef(value);
+        this.deleteCategoryFromRef(value);
       }
     }
 
@@ -26,7 +26,7 @@ export default class AdminAudiobookRenderCategoriesService {
       this.props.lastOpenedCategories.current[comment.id] = parent !== null ? parent.id : null;
       this.openParentList(element, liParent);
     } else {
-      this.deleteCommentFromRef(comment.id);
+      this.deleteCategoryFromRef(comment.id);
       this.closeParentList(element, liParent);
     }
   };

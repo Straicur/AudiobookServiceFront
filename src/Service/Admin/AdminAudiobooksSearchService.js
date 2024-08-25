@@ -1,4 +1,5 @@
 import FormService from 'Service/Common/FormService';
+import CreateUtil from 'Util/CreateUtil';
 
 export default class AdminAudiobooksSearchService extends FormService {
   constructor(props) {
@@ -88,8 +89,7 @@ export default class AdminAudiobooksSearchService extends FormService {
       searchJson.age = parseInt(searchState.age);
     }
     if (searchState.year !== null && searchState.year != 0) {
-      let date = new Date(searchState.year);
-      searchJson.year = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
+      searchJson.year = CreateUtil.createJsonFormatDate(searchState.year);
     }
     if (searchState.duration != 0) {
       searchJson.duration = parseInt(searchState.duration);

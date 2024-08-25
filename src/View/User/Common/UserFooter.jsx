@@ -34,6 +34,12 @@ export const UserFooter = () => {
           <li className='list-inline-item'>
             <a href='/policy'>{t('privacyPolicy')}</a>
           </li>
+          <li className='list-inline-item'>
+            <a href='/help'>{t('help')}</a>
+          </li>
+          <li className='list-inline-item'>
+            <a href='/report'>{t('report')}</a>
+          </li>
         </ul>
       </footer>
     </div>

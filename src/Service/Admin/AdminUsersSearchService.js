@@ -14,30 +14,58 @@ export default class AdminUsersSearchService extends FormService {
   };
 
   changeActive = (element) => {
-    if (this.props.searchState.active === null) {
+    if (element.target.checked) {
       this.props.setSearchState({
         ...this.props.searchState,
         active: element.target.checked,
       });
     } else {
+      this.props.setSearchState((prev) => ({
+        ...prev,
+        active: null,
+      }));
+    }
+  };
+
+  changeNotActive = (element) => {
+    if (element.target.checked) {
       this.props.setSearchState({
         ...this.props.searchState,
-        active: !this.props.searchState.active,
+        active: !element.target.checked,
       });
+    } else {
+      this.props.setSearchState((prev) => ({
+        ...prev,
+        active: null,
+      }));
     }
   };
 
   changeBanned = (element) => {
-    if (this.props.searchState.banned === null) {
+    if (element.target.checked) {
       this.props.setSearchState({
         ...this.props.searchState,
         banned: element.target.checked,
       });
     } else {
+      this.props.setSearchState((prev) => ({
+        ...prev,
+        banned: null,
+      }));
+    }
+  };
+
+  changeNotBanned = (element) => {
+    if (element.target.checked) {
       this.props.setSearchState({
         ...this.props.searchState,
-        banned: !this.props.searchState.banned,
+        banned: !element.target.checked,
       });
+    } else {
+      this.props.setSearchState((prev) => ({
+        ...prev,
+        banned: null,
+      }));
     }
   };
 

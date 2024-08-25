@@ -63,8 +63,13 @@ export default function AdminCategoriesEditModal(props) {
   }, [editModal.newName]);
 
   return (
-    <Modal show={props.state.editCategoryModal} backdrop='static' keyboard={false}>
-      <Modal.Header>
+    <Modal
+      show={props.state.editCategoryModal}
+      onHide={handleClose}
+      backdrop='static'
+      keyboard={false}
+    >
+      <Modal.Header closeButton>
         <Modal.Title>
           <h3>
             <b>{props.t('editCategory')}</b>

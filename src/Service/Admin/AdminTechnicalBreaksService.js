@@ -1,4 +1,5 @@
 import FormService from 'Service/Common/FormService';
+import CreateUtil from 'Util/CreateUtil';
 
 export default class AdminTechnicalBreaksService extends FormService {
   constructor(props) {
@@ -50,13 +51,11 @@ export default class AdminTechnicalBreaksService extends FormService {
     }
 
     if (searchState.dateFrom != null && searchState.dateFrom != 0) {
-      let date = new Date(searchState.dateFrom);
-      searchJson.dateFrom = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
+      searchJson.dateFrom = CreateUtil.createJsonFormatDate(searchState.dateFrom);
     }
 
     if (searchState.dateTo != null && searchState.dateTo != 0) {
-      let date = new Date(searchState.dateTo);
-      searchJson.dateTo = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
+      searchJson.dateTo = CreateUtil.createJsonFormatDate(searchState.dateTo);
     }
 
     if (searchState.order != 0) {

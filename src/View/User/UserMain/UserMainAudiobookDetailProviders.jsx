@@ -5,6 +5,7 @@ import { UserAudiobookRatingProvider } from 'Providers/User/UserAudiobookRatingP
 import { UserAudiobookCommentsProvider } from 'Providers/User/UserAudiobookCommentsProvider';
 import { UserAudiobookInfoProvider } from 'Providers/User/UserAudiobookInfoProvider';
 import UserMainAudiobookDetailModal from './UserMainAudiobookDetailModal';
+import { UserReportProvider } from 'Providers/User/UserReportProvider';
 
 export default function UserMainAudiobookDetailProviders(props) {
   const [audiobookState, setAudiobookState] = useState({
@@ -54,15 +55,17 @@ export default function UserMainAudiobookDetailProviders(props) {
                 categoryKey={props.state.detailModalCategory.categoryKey}
                 i18n={props.i18n}
               >
-                <UserMainAudiobookDetailModal
-                  state={props.state}
-                  setState={props.setState}
-                  audiobookState={audiobookState}
-                  setAudiobookState={setAudiobookState}
-                  t={props.t}
-                  token={props.token}
-                  i18n={props.i18n}
-                />
+                <UserReportProvider token={props.token} i18n={props.i18n}>
+                  <UserMainAudiobookDetailModal
+                    state={props.state}
+                    setState={props.setState}
+                    audiobookState={audiobookState}
+                    setAudiobookState={setAudiobookState}
+                    t={props.t}
+                    token={props.token}
+                    i18n={props.i18n}
+                  />
+                </UserReportProvider>
               </UserAudiobookCommentsProvider>
             </UserAudiobookRatingProvider>
           </UserAudiobookPartProvider>

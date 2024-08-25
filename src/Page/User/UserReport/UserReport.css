@@ -1,0 +1,33 @@
+.report-type-col {
+  margin: 1rem;
+  min-width: 13rem;
+}
+.report-desc-text {
+  min-height: 20rem !important;
+}
+.report-desc-text-container {
+  margin-left: 8rem;
+  margin-right: 8rem;
+}
+.report-modal-dark-backgrund {
+  background-color: #2b2b2b;
+}
+.report-black-insert {
+  background-color: #2b2b2b;
+  border-color: #4f4f4f;
+}
+.report-black-insert:focus {
+  background-color: #2b2b2b;
+  border-color: #4f4f4f;
+}
+.report-categories-modal-list {
+  background-color: #525252;
+  border: 0.2rem;
+  border-style: solid;
+}
+.report-categories-modal-list-parent {
+  border-color: #2a5740;
+}
+.report-categories-modal-list-kid {
+  border-color: #31694c;
+}

@@ -137,6 +137,9 @@ export const UserNavBar = (props) => {
                         navigate('/help');
                         break;
                       case '3':
+                        navigate('/report');
+                        break;
+                      case '4':
                         logout();
                         break;
                     }
@@ -147,7 +150,8 @@ export const UserNavBar = (props) => {
                   </option>
                   <option value='1'>{props.t('accountSettings')}</option>
                   <option value='2'>{props.t('help')}</option>
-                  <option value='3'>{props.t('logout')}</option>
+                  <option value='3'>{props.t('report')}</option>
+                  <option value='4'>{props.t('logout')}</option>
                 </select>
               </div>
               {state.notificationsOffCanvas ? (
@@ -168,7 +172,7 @@ export const UserNavBar = (props) => {
           <div className='row mx-1 mt-2'>
             <div className='col technical-break-banner me-3 ms-2 text-center'>
               {props.t('technicalBreak')}
-            </div>{' '}
+            </div>
           </div>
         ) : null}
       </div>

@@ -24,6 +24,8 @@ export default function UserMain() {
     limit: 3,
     refresh: false,
     detailModal: false,
+    reportDescModal: false,
+    reportCommentId: null,
     detailModalAudiobook: null,
     detailModalCover: null,
     detailModalCategory: null,
@@ -31,6 +33,7 @@ export default function UserMain() {
     searching: false,
     wasSearch: false,
     searchText: '',
+    categoryKey: '',
   });
 
   return (
@@ -54,6 +57,7 @@ export default function UserMain() {
           <div className='container-fluid main-container mt-3'>
             <div className='card position-relative p-3 bg-dark shadow'>
               <UserNavBarPrividers token={token} t={t} i18n={i18n} />
+              <hr className='text-white line' />
               <UserMainSearchAudiobooks
                 audiobooksState={audiobooksState}
                 setAudiobooksState={setAudiobooksState}

@@ -122,11 +122,7 @@ export default function UserSettingsEditPasswordModal(props) {
       backdrop='static'
       centered
     >
-      <Modal.Body
-        style={{
-          backgroundColor: '#262626',
-        }}
-      >
+      <Modal.Body className='user-settings-modal-black-background'>
         <div className='text-white'>
           {state.checkPassword ? (
             <div className='fs-3 text-center my-3'>{props.t('checkPassword')}</div>

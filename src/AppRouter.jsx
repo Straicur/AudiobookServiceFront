@@ -26,6 +26,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import UserTechnicalBreak from 'Page/User/UserTechnicalBreak/UserTechnicalBreak';
+import UserReport from 'Page/User/UserReport/UserReport';
 
 function AppRouter() {
   const token = useTokenStore((state) => state.token);
@@ -93,6 +94,7 @@ function AppRouter() {
         <Route exact path='/myList' element={<UserMyList />} errorElement={<Page404 />} />
         <Route exact path='/help' element={<UserHelp />} errorElement={<Page404 />} />
         <Route exact path='/about' element={<UserAbout />} errorElement={<Page404 />} />
+        <Route exact path='/report' element={<UserReport />} errorElement={<Page404 />} />
         <Route exact path='/policy' element={<UserPolicy />} errorElement={<Page404 />} />
         <Route exact path='/user/settings' element={<UserSettings />} errorElement={<Page404 />} />
         <Route
