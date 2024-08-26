@@ -2,20 +2,17 @@ import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
 import { useMutation } from '@tanstack/react-query';
-import { useQueryClient } from '@tanstack/react-query';
 import AdminReportsService from 'Service/Admin/AdminReportsService';
 
 const AdminReportsContext = createContext(null);
 
 export const AdminReportsProvider = ({ children, page, token, searchState, i18n }) => {
-  const qc = useQueryClient();
-
   const { mutate: acceptReport } = useMutation({
     mutationFn: (data) => {
       return HandleFetch('/admin/report/accept', 'PATCH', data.json, token, i18n.language);
     },
     onSettled: () => {
-      qc.invalidateQueries(['dataAdminNotifications' + page]);
+      refetch();
     },
   });
 
@@ -34,7 +31,7 @@ export const AdminReportsProvider = ({ children, page, token, searchState, i18n 
       );
     },
     onSettled: () => {
-      qc.invalidateQueries(['dataAdminNotifications' + page]);
+      refetch();
     },
   });
 

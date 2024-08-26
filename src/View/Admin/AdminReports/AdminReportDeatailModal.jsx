@@ -507,7 +507,11 @@ export default function AdminReportDeatailModal(props) {
                   variant='danger'
                   size='sm'
                   className='btn button p-2 px-5 fs-6'
-                  disabled={props.reportState.accepted || props.reportState.denied}
+                  disabled={
+                    props.reportState.accepted ||
+                    props.reportState.denied ||
+                    actionState.answer.length < 10
+                  }
                   onClick={() => {
                     let json = {
                       reportId: props.reportState.id,
@@ -540,24 +544,11 @@ export default function AdminReportDeatailModal(props) {
                   className='btn button p-2 px-5 fs-6'
                   disabled={props.reportState.accepted || props.reportState.denied}
                   onClick={() => {
-                    let json = {
-                      reportId: props.reportState.id,
-                      answer: actionState.answer,
-                      acceptOthers: actionState.acceptOthers,
-                    };
-
-                    if (
-                      actionState.banPeriod === 2 ||
-                      (actionState.banPeriod !== null && actionState.accepted)
-                    ) {
-                      json.banPeriod = actionState.banPeriod;
-                    }
-
-                    props.acceptReport({
-                      json: json,
-                    });
-
-                    handleClose();
+                    setActionState((prev) => ({
+                      ...prev,
+                      acceptOthersQuestion: false,
+                      rejectOthersQuestion: false,
+                    }));
                   }}
                 >
                   {props.t('no')}
@@ -590,7 +581,11 @@ export default function AdminReportDeatailModal(props) {
                   variant='danger'
                   size='sm'
                   className='btn button p-2 px-5 fs-6'
-                  disabled={props.reportState.accepted || props.reportState.denied}
+                  disabled={
+                    props.reportState.accepted ||
+                    props.reportState.denied ||
+                    actionState.answer.length < 10
+                  }
                   onClick={() => {
                     props.rejectReport({
                       reportId: props.reportState.id,
@@ -603,7 +598,6 @@ export default function AdminReportDeatailModal(props) {
                   {props.t('yes')}
                 </Button>
               </div>
-
               <div className='col-4'>
                 <Button
                   name='en'
@@ -612,12 +606,11 @@ export default function AdminReportDeatailModal(props) {
                   className='btn button p-2 px-5 fs-6'
                   disabled={props.reportState.accepted || props.reportState.denied}
                   onClick={() => {
-                    props.rejectReport({
-                      reportId: props.reportState.id,
-                      answer: actionState.answer,
-                      rejectOthers: actionState.rejectOthers,
-                    });
-                    handleClose();
+                    setActionState((prev) => ({
+                      ...prev,
+                      acceptOthersQuestion: false,
+                      rejectOthersQuestion: false,
+                    }));
                   }}
                 >
                   {props.t('no')}
