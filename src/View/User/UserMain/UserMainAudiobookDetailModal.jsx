@@ -93,7 +93,7 @@ export default function UserMainAudiobookDetailModal(props) {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '60%',
                 backgroundPosition: '95% 15%',
-                paddingBottom: '3rem',
+                paddingBottom: '2rem',
               }}
             >
               <div className='col-9'>
@@ -185,7 +185,7 @@ export default function UserMainAudiobookDetailModal(props) {
                   X
                 </Button>
               </div>
-              <div className='row mt-4 justify-content-center'>
+              <div className='row mt-4 justify-content-center d-flex align-items-end'>
                 <div className='col'>
                   {audiobookInfo !== null &&
                   audiobookInfo.part !== undefined &&

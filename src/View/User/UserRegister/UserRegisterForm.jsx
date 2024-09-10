@@ -249,7 +249,7 @@ export default function UserRegisterForm(props) {
                     </Row>
                     <Row className='mb-3'>
                       <Form.Group
-                        controlId='validationCustom06'
+                        controlId='validationCustom07'
                         className='form-outline form-white mb-3'
                       >
                         <Form.Check

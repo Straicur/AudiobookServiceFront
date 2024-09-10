@@ -2,28 +2,33 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
-import FormService from 'Service/Common/FormService';
 
 export default function UserMainSearchAudiobooks(props) {
-  const userService = new FormService(props.setAudiobooksState);
-
   const searchAudiobooks = () => {
     if (props.audiobooksState.searchText.length > 0) {
       props.setAudiobooksState((prev) => ({
         ...prev,
         search: true,
-        wasSearch: false,
         searching: !props.audiobooksState.searching,
         page: 0,
       }));
+      props.searchAllowed.current = true;
     } else {
       props.setAudiobooksState((prev) => ({
         ...prev,
         search: false,
-        wasSearch: true,
         page: 0,
       }));
     }
+  };
+
+  const changeSearchText = (e) => {
+    props.setAudiobooksState((prev) => ({
+      ...prev,
+      searchText: e.target.value,
+    }));
+
+    props.searchAllowed.current = false;
   };
 
   return (
@@ -36,7 +41,7 @@ export default function UserMainSearchAudiobooks(props) {
           <Form.Control
             name='searchText'
             placeholder={props.t('title')}
-            onChange={(e) => userService.handleChange(e)}
+            onChange={(e) => changeSearchText(e)}
             value={props.audiobooksState.searchText}
           />
           <Button className={'success_button'} onClick={searchAudiobooks}>

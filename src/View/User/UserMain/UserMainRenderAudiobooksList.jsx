@@ -14,7 +14,6 @@ export default function UserMainRenderAudiobooksList(props) {
       props.setState((prev) => ({
         ...prev,
         page: props.state.page + 1,
-        wasSearch: false,
         refresh: true,
       }));
     }
