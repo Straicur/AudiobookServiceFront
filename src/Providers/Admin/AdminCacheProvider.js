@@ -25,7 +25,7 @@ export const AdminCacheProvider = ({ children, token, i18n }) => {
       }
     },
     onSuccess: (data, variables) => {
-      variables.setModalState(!variables.modalState);
+      variables.setModalState({ show: !variables.modalState.show, text: variables.text });
     },
   });
 

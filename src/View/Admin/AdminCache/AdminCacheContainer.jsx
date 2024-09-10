@@ -10,7 +10,7 @@ import { AdminCacheClearModal } from './AdminCacheClearModal';
 
 export default function AdminCacheContainer(props) {
   const [poolsState, setPoolsState] = useState([]);
-  const [modalState, setModalState] = useState(false);
+  const [modalState, setModalState] = useState({ show: false, text: '' });
 
   const [pools, clearCache] = useAdminCacheContextData();
   const audiobooksListStore = useUserAudiobooksListStore();
@@ -23,6 +23,7 @@ export default function AdminCacheContainer(props) {
       clearQuery: true,
       setModalState: setModalState,
       modalState: modalState,
+      text: 'cacheClearedSuccesfuly',
     });
     notificationsListStore.removeNotifications();
     audiobooksListStore.removeAudiobooks();
@@ -38,6 +39,7 @@ export default function AdminCacheContainer(props) {
       clearQuery: false,
       setModalState: setModalState,
       modalState: modalState,
+      text: 'adminCacheClearedSuccesfuly',
     });
   };
 
@@ -47,6 +49,32 @@ export default function AdminCacheContainer(props) {
       clearQuery: false,
       setModalState: setModalState,
       modalState: modalState,
+      text: 'userCacheClearedSuccesfuly',
+    });
+  };
+
+  const clearUseQueryCache = () => {
+    clearQueryCache();
+    setModalState({
+      show: true,
+      text: 'queryCacheClearedSuccesfuly',
+    });
+  };
+
+  const clearAudiobookZustandMemory = () => {
+    audiobooksListStore.removeAudiobooks();
+    setModalState({
+      show: true,
+      text: 'audiobooksMemoryClearedSuccesfuly',
+    });
+  };
+
+  const clearNorificationZustandMemory = () => {
+    notificationsListStore.removeNotifications();
+
+    setModalState({
+      show: true,
+      text: 'anotificationsMemoryClearedSuccesfuly',
     });
   };
 
@@ -60,7 +88,7 @@ export default function AdminCacheContainer(props) {
             <div className='my-2 mx-3'>
               <div className='row mx-3 my-3'>
                 <Button variant='success' className='p-2 fs-4' onClick={() => clearAppCache()}>
-                  {props.t('clearCachePools')}
+                  {props.t('clearAll')}
                 </Button>
               </div>
               <h1>{props.t('serverCache')}</h1>
@@ -86,7 +114,7 @@ export default function AdminCacheContainer(props) {
               <h1>{props.t('browserCache')}</h1>
               <hr className='line' />
               <div className='row mx-3 my-3'>
-                <Button variant='warning' className='p-2 fs-4' onClick={() => clearQueryCache()}>
+                <Button variant='warning' className='p-2 fs-4' onClick={() => clearUseQueryCache()}>
                   {props.t('clearQueryCache')}
                 </Button>
               </div>
@@ -96,7 +124,7 @@ export default function AdminCacheContainer(props) {
                 <Button
                   variant='warning'
                   className='p-2 fs-4'
-                  onClick={() => audiobooksListStore.removeAudiobooks()}
+                  onClick={() => clearAudiobookZustandMemory()}
                 >
                   {props.t('clearZustandUserAudiobooksCache')}
                 </Button>
@@ -105,7 +133,7 @@ export default function AdminCacheContainer(props) {
                 <Button
                   variant='warning'
                   className='p-2 fs-4'
-                  onClick={() => notificationsListStore.removeNotifications()}
+                  onClick={() => clearNorificationZustandMemory()}
                 >
                   {props.t('clearZustandNotificationsCache')}
                 </Button>
@@ -122,14 +150,15 @@ export default function AdminCacheContainer(props) {
                   <Button
                     variant='success'
                     className='p-2 fs-4'
-                    onClick={() =>
+                    onClick={() => {
                       clearCache({
                         json: { pools: poolsState },
                         clearQuery: false,
                         setModalState: setModalState,
                         modalState: modalState,
-                      })
-                    }
+                        text: 'poolsCacheClearedSuccesfuly',
+                      });
+                    }}
                   >
                     {props.t('clearChosenCachePools')}
                   </Button>
@@ -143,7 +172,7 @@ export default function AdminCacheContainer(props) {
               />
             </div>
           </div>
-          {modalState ? (
+          {modalState.show ? (
             <AdminCacheClearModal modalState={modalState} setModalState={setModalState} />
           ) : null}
         </div>
