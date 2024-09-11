@@ -92,7 +92,7 @@ export default function UserSettingsEditPasswordModal(props) {
       }));
     } else if (
       !ValidateUtil.validatePassword(state.newConfirmPassword) ||
-      state.newConfirmPassword != state.newPassword
+      state.newConfirmPassword !== state.newPassword
     ) {
       setState((prev) => ({
         ...prev,

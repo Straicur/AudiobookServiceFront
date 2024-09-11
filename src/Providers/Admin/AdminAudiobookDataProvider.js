@@ -28,7 +28,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
 
       setTimeout(() => {
         variables.setAudiobookCoverRefetch();
-      }, 1000);
+      }, 1500);
 
       variables.setState((prev) => ({
         ...prev,

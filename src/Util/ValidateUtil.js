@@ -15,7 +15,7 @@ export default class ValidateUtil {
       return true;
     }
 
-    return parentalControl && birthdayDate != '';
+    return parentalControl && birthdayDate !== '';
   }
 
   static validatePhoneNumber(phoneNumber) {

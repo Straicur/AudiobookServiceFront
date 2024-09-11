@@ -23,6 +23,7 @@ export default function UserForgot() {
     confirmPassword: '',
     passwordStrength: 10,
     wrongPassword: false,
+    wrongConfirmPassword: false,
     changeLang: i18n.language,
     modal: false,
     isButtonDisabled: false,

@@ -28,12 +28,12 @@ export default function UserRegister() {
 
   useEffect(() => {
     if (
-      state.email.trim() != '' &&
-      state.password.trim() != '' &&
-      state.confirmPassword.trim() != '' &&
-      state.firstname.trim() != '' &&
-      state.lastname.trim() != '' &&
-      state.phoneNumber.trim() != '' &&
+      state.email.trim() !== '' &&
+      state.password.trim() !== '' &&
+      state.confirmPassword.trim() !== '' &&
+      state.firstname.trim() !== '' &&
+      state.lastname.trim() !== '' &&
+      state.phoneNumber.trim() !== '' &&
       state.password.trim() === state.confirmPassword.trim() &&
       state.password === state.confirmPassword &&
       ValidateUtil.validateEmail(state.email) &&

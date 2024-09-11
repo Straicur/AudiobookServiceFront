@@ -12,7 +12,7 @@ export default function UserForgotView(props) {
 
   const resetPasswordConfirm = useUserAuthorizeData()[3];
 
-  function getPasswordStrenghtText(t, passStr) {
+  function getPasswordStrengthText(t, passStr) {
     switch (passStr) {
       case 10:
         return <p className='text-center text-danger'>{t('weakPassword')}</p>;
@@ -25,7 +25,7 @@ export default function UserForgotView(props) {
     }
   }
 
-  function getPasswordStrenghtProgressColor(passStr) {
+  function getPasswordStrengthProgressColor(passStr) {
     switch (passStr) {
       case 10:
         return 'danger';
@@ -56,6 +56,7 @@ export default function UserForgotView(props) {
       props.setState((prev) => ({
         ...prev,
         wrongPassword: true,
+        isButtonDisabled: true,
       }));
     }
   };
@@ -68,23 +69,49 @@ export default function UserForgotView(props) {
     }));
   };
 
-  useEffect(() => {
-    if (
-      props.state.password.trim() != '' &&
-      props.state.confirmPassword.trim() != '' &&
-      props.state.password === props.state.confirmPassword
-    ) {
-      props.setState((prev) => ({
-        ...prev,
-        isButtonDisabled: false,
-        wrongPassword: false,
-      }));
-    } else {
+  const validateFields = () => {
+    if (props.state.password.trim() !== '' && props.state.passwordStrength <= 25) {
       props.setState((prev) => ({
         ...prev,
         isButtonDisabled: true,
+        wrongPassword: true,
       }));
+
+      return;
     }
+
+    if (props.state.password !== props.state.confirmPassword) {
+      props.setState((prev) => ({
+        ...prev,
+        wrongConfirmPassword: true,
+        wrongPassword: false,
+        isButtonDisabled: true,
+      }));
+
+      return;
+    }
+
+    if (props.state.password.trim() === '' && props.state.confirmPassword.trim() === '') {
+      props.setState((prev) => ({
+        ...prev,
+        isButtonDisabled: true,
+        wrongPassword: false,
+        wrongConfirmPassword: false,
+      }));
+
+      return;
+    }
+
+    props.setState((prev) => ({
+      ...prev,
+      isButtonDisabled: false,
+      wrongPassword: false,
+      wrongConfirmPassword: false,
+    }));
+  };
+
+  useEffect(() => {
+    validateFields();
   }, [props.state.password, props.state.confirmPassword]);
 
   useLayoutEffect(() => {
@@ -121,10 +148,10 @@ export default function UserForgotView(props) {
             <div>
               <ProgressBar
                 className='mt-3'
-                variant={getPasswordStrenghtProgressColor(props.state.passwordStrength)}
+                variant={getPasswordStrengthProgressColor(props.state.passwordStrength)}
                 now={props.state.passwordStrength}
               />
-              {getPasswordStrenghtText(props.t, props.state.passwordStrength)}
+              {getPasswordStrengthText(props.t, props.state.passwordStrength)}
             </div>
           ) : null}
           <Alert
@@ -135,7 +162,7 @@ export default function UserForgotView(props) {
             {props.t('enterStrongerPassword')}
           </Alert>
           <Alert
-            show={props.state.isButtonDisabled}
+            show={props.state.wrongConfirmPassword}
             className='dangerAllert mt-1 text-center'
             variant='danger'
           >
@@ -144,7 +171,11 @@ export default function UserForgotView(props) {
           <Button
             variant='dark'
             onClick={handleNewPassword}
-            disabled={props.state.isButtonDisabled || props.state.wrongPassword}
+            disabled={
+              props.state.isButtonDisabled ||
+              props.state.wrongPassword ||
+              props.state.wrongConfirmPassword
+            }
             className='mt-2 mb-3 form-control'
           >
             {props.t('changePassword')}

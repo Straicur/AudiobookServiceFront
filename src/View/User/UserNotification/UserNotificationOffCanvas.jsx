@@ -49,6 +49,12 @@ export default function UserNotificationOffCanvas(props) {
       case 6: {
         return props.t('notificationTypeUserDeleteDecline');
       }
+      case 7: {
+        return props.t('notificationTypeReportAccepted');
+      }
+      case 8: {
+        return props.t('notificationTypeReportDenied');
+      }
     }
   };
 
@@ -73,6 +79,7 @@ export default function UserNotificationOffCanvas(props) {
         if (page <= props.state.page && pageNotifications !== null) {
           returnArray.push(
             pageNotifications.systemNotifications.map((notification, index) => {
+              console.log(notification);
               return (
                 <div
                   key={uuidv4()}
@@ -81,7 +88,7 @@ export default function UserNotificationOffCanvas(props) {
                 >
                   <div className='row mb-1'>
                     <div className='col'>
-                      {notification.active != undefined ? (
+                      {notification.active !== undefined ? (
                         <Badge bg='secondary'>{props.t('displayed')}</Badge>
                       ) : (
                         <Badge bg='success'>{props.t('new')}</Badge>
@@ -99,7 +106,9 @@ export default function UserNotificationOffCanvas(props) {
                       {createNotificationType(notification.notificationType)}
                     </div>
                     {notification.notificationType === 1 ||
-                    notification.notificationType === 2 ? null : (
+                    notification.notificationType === 2 ||
+                    notification.notificationType === 7 ||
+                    notification.notificationType === 8 ? null : (
                       <div className='col'>
                         <Button
                           name='logout'
@@ -113,7 +122,7 @@ export default function UserNotificationOffCanvas(props) {
                       </div>
                     )}
                   </div>
-                  {notification.text != undefined ? (
+                  {notification.text !== undefined ? (
                     <div className='row'>
                       <div className='col'>
                         {props.t('text')}

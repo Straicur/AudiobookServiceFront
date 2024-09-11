@@ -89,7 +89,7 @@ export default function AdminAudiobookEditForm(props) {
           <Form.Control
             type='number'
             name='parts'
-            value={props.audiobookDetailState != null ? props.audiobookDetailState.parts : ''}
+            value={props.audiobookDetailState.parts ? props.audiobookDetailState.parts : 0}
             onChange={(event) => {
               adminService.handleChangeInt(event);
             }}
@@ -135,7 +135,7 @@ export default function AdminAudiobookEditForm(props) {
             name='encoded'
             value={
               props.audiobookDetailState != null
-                ? props.audiobookDetailState.encoded != undefined
+                ? props.audiobookDetailState.encoded !== undefined
                   ? props.audiobookDetailState.encoded
                   : ''
                 : ''
@@ -224,7 +224,7 @@ export default function AdminAudiobookEditForm(props) {
       </div>
       <div className='row me-0 input_modal'>
         <div>
-          <Alert show={wrongState != 0} className='dangerAllert mt-1 text-center' variant='danger'>
+          <Alert show={wrongState !== 0} className='dangerAllert mt-1 text-center' variant='danger'>
             {adminService.returnFormError()}
           </Alert>
         </div>
@@ -235,7 +235,7 @@ export default function AdminAudiobookEditForm(props) {
             <Button
               name='en'
               size='sm'
-              disabled={wrongState != 0}
+              disabled={wrongState !== 0}
               className='btn button px-4 mt-3  mb-1 question_button success_button'
               onClick={() => {
                 props.setAudiobookState((prev) => ({
@@ -269,7 +269,7 @@ export default function AdminAudiobookEditForm(props) {
           <Button
             name='en'
             size='sm'
-            disabled={wrongState != 0}
+            disabled={wrongState !== 0}
             className='btn button px-4 mt-3 mb-1 audiobook_detail_modal_button success_button '
             onClick={() =>
               props.setAudiobookState((prev) => ({

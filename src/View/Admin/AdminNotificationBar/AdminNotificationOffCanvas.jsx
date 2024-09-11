@@ -49,6 +49,12 @@ export default function AdminNotificationOffCanvas(props) {
       case 6: {
         return props.t('notificationTypeUserDeleteDecline');
       }
+      case 7: {
+        return props.t('notificationTypeReportAccepted');
+      }
+      case 8: {
+        return props.t('notificationTypeReportDenied');
+      }
     }
   };
 
@@ -122,7 +128,9 @@ export default function AdminNotificationOffCanvas(props) {
                       {createNotificationType(notification.notificationType)}
                     </div>
                     {notification.notificationType === 1 ||
-                    notification.notificationType === 2 ? null : (
+                    notification.notificationType === 2 ||
+                    notification.notificationType === 7 ||
+                    notification.notificationType === 8 ? null : (
                       <div className='col'>
                         <Button
                           name='logout'

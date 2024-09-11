@@ -11,6 +11,7 @@ import { Dropdown } from 'react-bootstrap';
 export default function AdminReportDeatailModal(props) {
   const [actionState, setActionState] = useState({
     banPeriod: 2,
+    acceptedBanPeriod: null,
     accepted: false,
     rejectOthers: false,
     rejectOthersQuestion: false,
@@ -60,6 +61,46 @@ export default function AdminReportDeatailModal(props) {
         return props.t('banTypeStrangeBehavior');
       }
     }
+  };
+
+  const createBanPeriod = () => {
+    return actionState.banPeriod === 1
+      ? props.t('systemDecision')
+      : actionState.banPeriod === 2
+      ? props.t('noBan')
+      : actionState.banPeriod === 3
+      ? '12 ' + props.t('hours')
+      : actionState.banPeriod === 4
+      ? '1 ' + props.t('day')
+      : actionState.banPeriod === 5
+      ? '5 ' + props.t('days')
+      : actionState.banPeriod === 6
+      ? '1 ' + props.t('month')
+      : actionState.banPeriod === 7
+      ? '3 ' + props.t('months')
+      : actionState.banPeriod === 8
+      ? '1 ' + props.t('year')
+      : null;
+  };
+
+  const createAcceptedBanPeriod = () => {
+    return actionState.acceptedBanPeriod === 1
+      ? props.t('systemDecision')
+      : actionState.acceptedBanPeriod === 2
+      ? props.t('noBan')
+      : actionState.acceptedBanPeriod === 3
+      ? '12 ' + props.t('hours')
+      : actionState.acceptedBanPeriod === 4
+      ? '1 ' + props.t('day')
+      : actionState.acceptedBanPeriod === 5
+      ? '5 ' + props.t('days')
+      : actionState.acceptedBanPeriod === 6
+      ? '1 ' + props.t('month')
+      : actionState.acceptedBanPeriod === 7
+      ? '3 ' + props.t('months')
+      : actionState.acceptedBanPeriod === 8
+      ? '1 ' + props.t('year')
+      : null;
   };
 
   const handleClose = () => {
@@ -386,23 +427,7 @@ export default function AdminReportDeatailModal(props) {
                         </Dropdown.Item>
                       </Dropdown.Menu>
                       <InputGroup.Text id='inputGroup-sizing-default'>
-                        {actionState.banPeriod === 1
-                          ? props.t('systemDecision')
-                          : actionState.banPeriod === 2
-                          ? props.t('noBan')
-                          : actionState.banPeriod === 3
-                          ? '12 ' + props.t('hours')
-                          : actionState.banPeriod === 4
-                          ? '1 ' + props.t('day')
-                          : actionState.banPeriod === 5
-                          ? '5 ' + props.t('days')
-                          : actionState.banPeriod === 6
-                          ? '1 ' + props.t('month')
-                          : actionState.banPeriod === 7
-                          ? '3 ' + props.t('months')
-                          : actionState.banPeriod === 8
-                          ? '1 ' + props.t('year')
-                          : null}
+                        {createBanPeriod()}
                       </InputGroup.Text>
                     </Dropdown>
                   </InputGroup>
@@ -417,15 +442,21 @@ export default function AdminReportDeatailModal(props) {
                       setActionState((prev) => ({
                         ...prev,
                         accepted: true,
+                        acceptedBanPeriod: actionState.banPeriod,
                       }))
                     }
                   >
                     {props.t('add')}
                   </Button>
                 </div>
+                {actionState.acceptedBanPeriod ? (
+                  <p className='text-center text-danger mt-3'>
+                    {props.t('slected')}: {createAcceptedBanPeriod()}
+                  </p>
+                ) : null}
               </div>
             ) : null}
-            <InputGroup className='my-3 input_modal'>
+            <InputGroup className='mt-1 input_modal mb-3'>
               <InputGroup.Text>{props.t('answer')}</InputGroup.Text>
               <Form.Control
                 as='textarea'
@@ -520,10 +551,10 @@ export default function AdminReportDeatailModal(props) {
                     };
 
                     if (
-                      actionState.banPeriod === 2 ||
-                      (actionState.banPeriod !== null && actionState.accepted)
+                      (actionState.acceptedBanPeriod !== null && actionState.accepted) ||
+                      actionState.acceptedBanPeriod === 2
                     ) {
-                      json.banPeriod = actionState.banPeriod;
+                      json.banPeriod = actionState.acceptedBanPeriod;
                     }
 
                     props.acceptReport({

@@ -124,7 +124,7 @@ export default function UserRegisterForm(props) {
                           isInvalid={
                             props.state.password.length >= 1 &&
                             !ValidateUtil.validatePassword(props.state.password) &&
-                            props.state.password.trim() != props.state.confirmPassword.trim()
+                            props.state.password.trim() !== props.state.confirmPassword.trim()
                           }
                           onChange={(event) => userService.handlePasswordChange(event)}
                         />
