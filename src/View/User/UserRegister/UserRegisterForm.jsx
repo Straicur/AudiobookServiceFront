@@ -165,8 +165,8 @@ export default function UserRegisterForm(props) {
                           }
                           isInvalid={
                             props.state.confirmPassword.length > 1 &&
-                            !ValidateUtil.validatePassword(props.state.confirmPassword) &&
-                            props.state.password.trim() != props.state.confirmPassword.trim()
+                            (!ValidateUtil.validatePassword(props.state.confirmPassword) ||
+                            props.state.password.trim() !== props.state.confirmPassword.trim())
                           }
                           onChange={(event) => userService.handleChange(event)}
                         />
@@ -214,9 +214,9 @@ export default function UserRegisterForm(props) {
                           placeholder={t('insertFirstname')}
                           value={props.state.firstname}
                           className='form-control form-control-lg '
-                          isValid={props.state.firstname.length > 3}
+                          isValid={props.state.firstname.length >= 3}
                           isInvalid={
-                            props.state.firstname.length > 1 && props.state.firstname.length < 3
+                            props.state.firstname.length >= 1 && props.state.firstname.length < 3
                           }
                           onChange={(event) => userService.handleChange(event)}
                         />
@@ -236,9 +236,9 @@ export default function UserRegisterForm(props) {
                           placeholder={t('insertLastname')}
                           value={props.state.lastname}
                           className='form-control form-control-lg '
-                          isValid={props.state.lastname.length > 3}
+                          isValid={props.state.lastname.length >= 3}
                           isInvalid={
-                            props.state.lastname.length > 1 && props.state.lastname.length < 3
+                            props.state.lastname.length >= 1 && props.state.lastname.length < 3
                           }
                           onChange={(event) => userService.handleChange(event)}
                         />

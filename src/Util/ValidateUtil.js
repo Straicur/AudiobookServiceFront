@@ -11,8 +11,17 @@ export default class ValidateUtil {
   }
 
   static validateBirthday(parentalControl, birthdayDate) {
+
+    let birthday = Date.parse(birthdayDate)
+    birthday = new Date(birthday)
+    let today = new Date();
+
     if (!parentalControl) {
       return true;
+    }
+
+    if (parentalControl && birthday >= today) {
+      return false;
     }
 
     return parentalControl && birthdayDate !== '';

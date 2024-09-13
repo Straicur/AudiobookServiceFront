@@ -27,15 +27,14 @@ export default function UserRegister() {
   });
 
   useEffect(() => {
+    // console.log(ValidateUtil.validateEmail(state.email))
+    // console.log(ValidateUtil.validatePassword(state.password))
+    console.log( ValidateUtil.validateBirthday(state.parentalControl, state.birthdayDate))
     if (
-      state.email.trim() !== '' &&
-      state.password.trim() !== '' &&
-      state.confirmPassword.trim() !== '' &&
-      state.firstname.trim() !== '' &&
-      state.lastname.trim() !== '' &&
-      state.phoneNumber.trim() !== '' &&
+      state.firstname.length >= 3 &&
+      state.lastname.length >= 3 &&
+      ValidateUtil.validatePhoneNumber(state.phoneNumber) &&
       state.password.trim() === state.confirmPassword.trim() &&
-      state.password === state.confirmPassword &&
       ValidateUtil.validateEmail(state.email) &&
       ValidateUtil.validatePassword(state.password) &&
       ValidateUtil.validateBirthday(state.parentalControl, state.birthdayDate)
