@@ -71,6 +71,7 @@ export default function UserRenderCommentsList(props) {
       jsonData: jsonData,
       element: element,
       decline: decline,
+      clearInputComment: clearInputComment,
       lastOpenComment: props.lastOpenComment.current,
     });
   }
@@ -90,10 +91,12 @@ export default function UserRenderCommentsList(props) {
         parentId: commentState.parentId,
       };
     }
+
     props.addComment({
       jsonData: jsonData,
       element: element,
       decline: decline,
+      clearInputComment: clearInputComment,
       lastOpenComment: props.lastOpenComment.current,
       setAudiobookDetailRefresh: props.setAudiobookDetailRefresh,
     });
@@ -153,6 +156,13 @@ export default function UserRenderCommentsList(props) {
     }));
   }
 
+  function clearInputComment() {
+    setCommentState((prev) => ({
+      ...prev,
+      comment: '',
+    }));
+  }
+
   function addChildComment(comment) {
     props.lastOpenComment.current = comment.id;
 
@@ -205,7 +215,7 @@ export default function UserRenderCommentsList(props) {
       }
       if (
         element.children[0].nodeName === 'DIV' &&
-        element.children[0].attributes['data-clicable'] != undefined
+        element.children[0].attributes['data-clicable'] !== undefined
       ) {
         let icon = element.children[0].children[0].children[0].children[0];
         icon.classList.remove('bi-arrow-right-square');
@@ -232,7 +242,7 @@ export default function UserRenderCommentsList(props) {
       }
       if (
         element.children[0].nodeName === 'DIV' &&
-        element.children[0].attributes['data-clicable'] != undefined
+        element.children[0].attributes['data-clicable'] !== undefined
       ) {
         let icon = element.children[0].children[0].children[0].children[0];
         icon.classList.remove('bi-arrow-down-square');
@@ -614,7 +624,7 @@ export default function UserRenderCommentsList(props) {
     for (const element of array) {
       let children = [];
 
-      if (element['children'].length != 0) {
+      if (element['children'].length !== 0) {
         children.push(
           <hr
             key={uuidv4()}
@@ -639,7 +649,7 @@ export default function UserRenderCommentsList(props) {
 
   return (
     <div className='row'>
-      {props.comments != undefined && props.comments !== null && props.comments.length > 0 ? (
+      {props.comments !== undefined && props.comments !== null && props.comments.length > 0 ? (
         <ul className='comments-height overflow-auto '>{renderTree()}</ul>
       ) : null}
       <div className='row mt-2 justify-content-center align-items-center'>

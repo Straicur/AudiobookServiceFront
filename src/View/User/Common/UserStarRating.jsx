@@ -61,7 +61,7 @@ export default function UserStarRating(props) {
           !sure ? (
             <div className='col-3 align-self-center'>
               <Button onClick={() => clearBoard()} variant='success' size='sm' className='p-1'>
-                {props.t('rate')}
+                {props.audiobookDetail.rated ? props.t('rateAgain') :props.t('rate')}
               </Button>
             </div>
           ) : (

@@ -114,8 +114,37 @@ export default function AdminReportDeatailModal(props) {
       refresh: true,
     }));
   };
+  const createParentReportedComment = (comment) => {
+    return (
+      <li key={uuidv4()} className='border border-2 border-danger px-4 py-2 rounded mt-1'>
+        <div className='row fw-bold text-danger'>{props.t('reported')}</div>
+        <div className='row'>
+          <div className='col-2'>{props.t('email')}:</div>
+          <div className='col'>{comment.userModel.email}</div>
+        </div>
+        <div className='row'>
+          <div className='col-2'>{props.t('name')}:</div>
+          <div className='col'>{comment.userModel.name}</div>
+        </div>
+        <div className='row'>
+          <div className='col-2'>{props.t('deleted')}:</div>
+          <div className='col'>
+            {comment.deleted ? (
+              <i className='bi bi-bookmark-check-fill'></i>
+            ) : (
+              <i className='bi bi-bookmark-dash'></i>
+            )}
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-2'>{props.t('comment')}:</div>
+          <div className='col'>{comment.comment}</div>
+        </div>
+      </li>
+    );
+  };
 
-  const createCheildrenComments = (parent, comments) => {
+  const createChildrenComments = (parent, comments) => {
     let renderArray = [];
 
     if (comments != null) {
@@ -364,8 +393,8 @@ export default function AdminReportDeatailModal(props) {
                     <Accordion.Body>
                       {props.reportState.comment.parentId === null &&
                       props.reportState.comment.reportedComment === true
-                        ? props.reportState.comment.comment
-                        : createCheildrenComments(
+                        ? createParentReportedComment(props.reportState.comment)
+                        : createChildrenComments(
                             props.reportState.comment,
                             props.reportState.comment.children,
                           )}
