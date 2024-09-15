@@ -5,6 +5,7 @@ import { UserAudiobookSearchProvider } from 'Providers/User/UserAudiobookSearchP
 export default function UserMainRenderAudiobookSearch(props) {
   return (
     <UserAudiobookSearchProvider
+      allowed={props.serchAllowed}
       title={props.audiobooksState.searchText}
       categoryKey={props.audiobooksState.categoryKey}
       token={props.token}

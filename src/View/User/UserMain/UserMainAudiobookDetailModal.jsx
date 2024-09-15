@@ -26,7 +26,7 @@ export default function UserMainAudiobookDetailModal(props) {
   const [audiobookInfo, setAudiobookInfo] = useUserAudiobookInfo();
   const [
     audiobookUserComments,
-    setAudiobookCommnetsRefetchState,
+    setAudiobookCommentsRefetchState,
     likeComment,
     addComment,
     editComment,
@@ -93,7 +93,7 @@ export default function UserMainAudiobookDetailModal(props) {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '60%',
                 backgroundPosition: '95% 15%',
-                paddingBottom: '3rem',
+                paddingBottom: '2rem',
               }}
             >
               <div className='col-9'>
@@ -152,7 +152,7 @@ export default function UserMainAudiobookDetailModal(props) {
                     {audiobookDetail.categories.map((category, index) => {
                       let name = category.name;
 
-                      if (index != audiobookDetail.categories.length - 1) {
+                      if (index !== audiobookDetail.categories.length - 1) {
                         name = name + ', ';
                       }
 
@@ -185,7 +185,7 @@ export default function UserMainAudiobookDetailModal(props) {
                   X
                 </Button>
               </div>
-              <div className='row mt-4 justify-content-center'>
+              <div className='row mt-4 justify-content-center d-flex align-items-end'>
                 <div className='col'>
                   {audiobookInfo !== null &&
                   audiobookInfo.part !== undefined &&
@@ -272,7 +272,7 @@ export default function UserMainAudiobookDetailModal(props) {
                   t={props.t}
                   i18n={props.i18n}
                   token={props.token}
-                  refetch={setAudiobookCommnetsRefetchState}
+                  refetch={setAudiobookCommentsRefetchState}
                 />
               </div>
             </div>

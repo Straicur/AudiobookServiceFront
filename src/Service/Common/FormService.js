@@ -4,7 +4,7 @@ export default class FormService {
   }
 
   handleChange(event) {
-    if (event.target.value != undefined) {
+    if (event.target.value !== undefined) {
       this.setState((prev) => ({
         ...prev,
         [event.target.name]: event.target.value,
@@ -13,7 +13,7 @@ export default class FormService {
   }
 
   handleChangeInt(event) {
-    if (event.target.value != undefined) {
+    if (event.target.value !== undefined) {
       this.setState((prev) => ({
         ...prev,
         [event.target.name]: parseInt(event.target.value),
@@ -22,7 +22,7 @@ export default class FormService {
   }
 
   handleChangeDropdown(eventKey, name) {
-    if (eventKey != undefined) {
+    if (eventKey !== undefined) {
       this.setState((prev) => ({
         ...prev,
         [name]: parseInt(eventKey),

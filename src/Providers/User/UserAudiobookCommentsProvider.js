@@ -1,8 +1,6 @@
 import React, { createContext, useContext } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
-import { useQueryClient } from '@tanstack/react-query';
 
 const UserAudiobookCommentsContext = createContext(null);
 
@@ -25,7 +23,7 @@ export const UserAudiobookCommentsProvider = ({
           if (comment.liked === bool) {
             like = like - 1;
             bool = null;
-          } else if (comment.liked != null && comment.liked != bool) {
+          } else if (comment.liked != null && comment.liked !== bool) {
             like = like + 1;
             unlike = unlike - 1;
           } else {
@@ -35,7 +33,7 @@ export const UserAudiobookCommentsProvider = ({
           if (comment.liked === bool) {
             unlike = unlike - 1;
             bool = null;
-          } else if (comment.liked != null && comment.liked != bool) {
+          } else if (comment.liked != null && comment.liked !== bool) {
             unlike = unlike + 1;
             like = like - 1;
           } else {
@@ -74,7 +72,7 @@ export const UserAudiobookCommentsProvider = ({
         if (comment.liked === bool) {
           like = like - 1;
           bool = null;
-        } else if (comment.liked != null && comment.liked != bool) {
+        } else if (comment.liked != null && comment.liked !== bool) {
           like = like + 1;
           unlike = unlike - 1;
         } else {
@@ -84,7 +82,7 @@ export const UserAudiobookCommentsProvider = ({
         if (comment.liked === bool) {
           unlike = unlike - 1;
           bool = null;
-        } else if (comment.liked != null && comment.liked != bool) {
+        } else if (comment.liked != null && comment.liked !== bool) {
           unlike = unlike + 1;
           like = like - 1;
         } else {
@@ -110,7 +108,7 @@ export const UserAudiobookCommentsProvider = ({
       return element;
     });
 
-    let newComments = dataAudiobookUserComments.comments.map((element) => {
+    return dataAudiobookUserComments.comments.map((element) => {
       if (element.id === parent.id) {
         return {
           audiobookCommentLike: element.audiobookCommentLike,
@@ -128,8 +126,6 @@ export const UserAudiobookCommentsProvider = ({
       }
       return element;
     });
-
-    return newComments;
   }
   const { mutate: likeComment } = useMutation({
     mutationFn: (data) => {
@@ -172,6 +168,8 @@ export const UserAudiobookCommentsProvider = ({
       variables.element.target.classList.remove('disabled');
       if (variables.lastOpenComment === null) {
         variables.decline();
+      } else {
+        variables.clearInputComment();
       }
 
       if (variables.setAudiobookDetailRefresh !== undefined) {
@@ -194,6 +192,8 @@ export const UserAudiobookCommentsProvider = ({
       variables.element.target.classList.remove('disabled');
       if (variables.lastOpenComment === null) {
         variables.decline();
+      } else {
+        variables.clearInputComment();
       }
 
       qc.invalidateQueries(['dataAudiobookUserComments' + audiobookId]);

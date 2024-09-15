@@ -1,7 +1,7 @@
 export default class ValidateUtil {
   static validateEmail(email) {
     const re =
-      /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
 
@@ -11,11 +11,20 @@ export default class ValidateUtil {
   }
 
   static validateBirthday(parentalControl, birthdayDate) {
+
+    let birthday = Date.parse(birthdayDate)
+    birthday = new Date(birthday)
+    let today = new Date();
+
     if (!parentalControl) {
       return true;
     }
 
-    return parentalControl && birthdayDate != '';
+    if (parentalControl && birthday >= today) {
+      return false;
+    }
+
+    return parentalControl && birthdayDate !== '';
   }
 
   static validatePhoneNumber(phoneNumber) {
@@ -51,7 +60,7 @@ export default class ValidateUtil {
 
   static validateLastName(lastName) {
     const re =
-      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñńçčšžźÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
     return re.test(lastName);
   }
 }

@@ -7,12 +7,14 @@ export const AdminCacheClearModal = (props) => {
   const { t } = useTranslation();
 
   const handleClose = () => {
-    props.setModalState(!props.modalState);
+    props.setModalState(!props.modalState.show);
   };
 
   return (
-    <Modal show={props.modalState} backdrop='static'>
-      <Modal.Body>{t('cacheClearedSuccesfuly')}</Modal.Body>
+    <Modal show={props.modalState} backdrop='static' centered>
+      <Modal.Body>
+        <h3 className='text-center my-3 mx-2'>{t(props.modalState.text)}</h3>
+      </Modal.Body>
       <Modal.Footer>
         <Button variant='dark' onClick={() => handleClose()}>
           {t('accept')}

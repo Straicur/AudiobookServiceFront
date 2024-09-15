@@ -51,7 +51,6 @@ export default function AdminTechnicalBreaksSearchOffCanvas(props) {
             <option value={0}>{props.t('selectSort')}</option>
             <option value={1}>{props.t('latest')}</option>
             <option value={2}>{props.t('oldest')}</option>
-            <option value={3}>{props.t('active')}</option>
           </Form.Select>
         </InputGroup>
         <InputGroup className='mb-1 input_modal py-1 '>
@@ -96,13 +95,18 @@ export default function AdminTechnicalBreaksSearchOffCanvas(props) {
           <Form.Check
             type='switch'
             id='custom-switch'
-            label={
-              props.searchState.active != null && props.searchState.active
-                ? props.t('active')
-                : props.t('notActive')
-            }
+            label={props.t('active')}
             checked={props.searchState.active != null && props.searchState.active}
             onChange={(e) => adminService.changeActive(e)}
+          />
+        </InputGroup>
+        <InputGroup className='mb-1 input_modal py-1 '>
+          <Form.Check
+            type='switch'
+            id='custom-switch'
+            label={props.t('notActive')}
+            checked={props.searchState.active != null && !props.searchState.active}
+            onChange={(e) => adminService.changeNotActive(e)}
           />
         </InputGroup>
         <div className='row mx-1'>

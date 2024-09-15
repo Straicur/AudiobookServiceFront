@@ -15,7 +15,7 @@ export default class AdminTechnicalBreaksService extends FormService {
   };
 
   changeActive = (element) => {
-    if (this.props.searchState.active === null) {
+    if (element.target.checked) {
       this.props.setSearchState({
         ...this.props.searchState,
         active: element.target.checked,
@@ -23,7 +23,21 @@ export default class AdminTechnicalBreaksService extends FormService {
     } else {
       this.props.setSearchState({
         ...this.props.searchState,
-        active: !this.props.searchState.active,
+        active: null,
+      });
+    }
+  };
+
+  changeNotActive = (element) => {
+    if (element.target.checked) {
+      this.props.setSearchState({
+        ...this.props.searchState,
+        active: !element.target.checked,
+      });
+    } else {
+      this.props.setSearchState({
+        ...this.props.searchState,
+        active: null,
       });
     }
   };

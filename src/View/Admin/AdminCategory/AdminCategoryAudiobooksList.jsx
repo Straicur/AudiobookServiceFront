@@ -55,7 +55,7 @@ export default function AdminCategoryAudiobooksList(props) {
         <AdminNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
         <hr className='line' />
         <div className='table-title my-2'>
-          <h1>{state.category === null ? null : state.category.name}</h1>
+          <h1 className='my-2'>{categoryDetail === null ? null : categoryDetail.name}</h1>
           <AdminCategoryRenderAudiobooksList
             state={state}
             setState={setState}

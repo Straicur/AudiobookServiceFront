@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import UserNavBarPrividers from 'View/User/UserNavBar/UserNavBarPrividers';
 import { useTokenStore } from 'Store/store';
@@ -31,10 +31,11 @@ export default function UserMain() {
     detailModalCategory: null,
     search: false,
     searching: false,
-    wasSearch: false,
     searchText: '',
     categoryKey: '',
   });
+
+  const searchAllowed = useRef(true);
 
   return (
     <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal}>
@@ -64,11 +65,13 @@ export default function UserMain() {
                 token={token}
                 t={t}
                 i18n={i18n}
+                searchAllowed={searchAllowed}
               />
               {audiobooksState.search ? (
                 <UserMainRenderAudiobookSearch
                   audiobooksState={audiobooksState}
                   setAudiobooksState={setAudiobooksState}
+                  serchAllowed={searchAllowed.current}
                   token={token}
                   t={t}
                   i18n={i18n}

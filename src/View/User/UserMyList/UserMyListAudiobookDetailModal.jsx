@@ -25,7 +25,7 @@ export default function UserMyListAudiobookDetailModal(props) {
   const [audiobookInfo, setAudiobookInfo] = useUserAudiobookInfo();
   const [
     audiobookUserComments,
-    setAudiobookCommnetsRefetchState,
+    setAudiobookCommentsRefetchState,
     likeComment,
     addComment,
     editComment,
@@ -263,12 +263,13 @@ export default function UserMyListAudiobookDetailModal(props) {
                 lastOpenComment={lastOpenComment}
                 addComment={addComment}
                 editComment={editComment}
+                setAudiobookDetailRefresh={setRefresh}
                 state={props.state}
                 setState={props.setState}
                 t={props.t}
                 i18n={props.i18n}
                 token={props.token}
-                refetch={setAudiobookCommnetsRefetchState}
+                refetch={setAudiobookCommentsRefetchState}
               />
             </div>
           </div>

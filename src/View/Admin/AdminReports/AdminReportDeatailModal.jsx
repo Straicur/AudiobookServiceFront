@@ -11,6 +11,7 @@ import { Dropdown } from 'react-bootstrap';
 export default function AdminReportDeatailModal(props) {
   const [actionState, setActionState] = useState({
     banPeriod: 2,
+    acceptedBanPeriod: null,
     accepted: false,
     rejectOthers: false,
     rejectOthersQuestion: false,
@@ -62,6 +63,46 @@ export default function AdminReportDeatailModal(props) {
     }
   };
 
+  const createBanPeriod = () => {
+    return actionState.banPeriod === 1
+      ? props.t('systemDecision')
+      : actionState.banPeriod === 2
+      ? props.t('noBan')
+      : actionState.banPeriod === 3
+      ? '12 ' + props.t('hours')
+      : actionState.banPeriod === 4
+      ? '1 ' + props.t('day')
+      : actionState.banPeriod === 5
+      ? '5 ' + props.t('days')
+      : actionState.banPeriod === 6
+      ? '1 ' + props.t('month')
+      : actionState.banPeriod === 7
+      ? '3 ' + props.t('months')
+      : actionState.banPeriod === 8
+      ? '1 ' + props.t('year')
+      : null;
+  };
+
+  const createAcceptedBanPeriod = () => {
+    return actionState.acceptedBanPeriod === 1
+      ? props.t('systemDecision')
+      : actionState.acceptedBanPeriod === 2
+      ? props.t('noBan')
+      : actionState.acceptedBanPeriod === 3
+      ? '12 ' + props.t('hours')
+      : actionState.acceptedBanPeriod === 4
+      ? '1 ' + props.t('day')
+      : actionState.acceptedBanPeriod === 5
+      ? '5 ' + props.t('days')
+      : actionState.acceptedBanPeriod === 6
+      ? '1 ' + props.t('month')
+      : actionState.acceptedBanPeriod === 7
+      ? '3 ' + props.t('months')
+      : actionState.acceptedBanPeriod === 8
+      ? '1 ' + props.t('year')
+      : null;
+  };
+
   const handleClose = () => {
     props.setReportState((prev) => ({
       ...prev,
@@ -73,8 +114,37 @@ export default function AdminReportDeatailModal(props) {
       refresh: true,
     }));
   };
+  const createParentReportedComment = (comment) => {
+    return (
+      <li key={uuidv4()} className='border border-2 border-danger px-4 py-2 rounded mt-1'>
+        <div className='row fw-bold text-danger'>{props.t('reported')}</div>
+        <div className='row'>
+          <div className='col-2'>{props.t('email')}:</div>
+          <div className='col'>{comment.userModel.email}</div>
+        </div>
+        <div className='row'>
+          <div className='col-2'>{props.t('name')}:</div>
+          <div className='col'>{comment.userModel.name}</div>
+        </div>
+        <div className='row'>
+          <div className='col-2'>{props.t('deleted')}:</div>
+          <div className='col'>
+            {comment.deleted ? (
+              <i className='bi bi-bookmark-check-fill'></i>
+            ) : (
+              <i className='bi bi-bookmark-dash'></i>
+            )}
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-2'>{props.t('comment')}:</div>
+          <div className='col'>{comment.comment}</div>
+        </div>
+      </li>
+    );
+  };
 
-  const createCheildrenComments = (parent, comments) => {
+  const createChildrenComments = (parent, comments) => {
     let renderArray = [];
 
     if (comments != null) {
@@ -323,8 +393,8 @@ export default function AdminReportDeatailModal(props) {
                     <Accordion.Body>
                       {props.reportState.comment.parentId === null &&
                       props.reportState.comment.reportedComment === true
-                        ? props.reportState.comment.comment
-                        : createCheildrenComments(
+                        ? createParentReportedComment(props.reportState.comment)
+                        : createChildrenComments(
                             props.reportState.comment,
                             props.reportState.comment.children,
                           )}
@@ -386,23 +456,7 @@ export default function AdminReportDeatailModal(props) {
                         </Dropdown.Item>
                       </Dropdown.Menu>
                       <InputGroup.Text id='inputGroup-sizing-default'>
-                        {actionState.banPeriod === 1
-                          ? props.t('systemDecision')
-                          : actionState.banPeriod === 2
-                          ? props.t('noBan')
-                          : actionState.banPeriod === 3
-                          ? '12 ' + props.t('hours')
-                          : actionState.banPeriod === 4
-                          ? '1 ' + props.t('day')
-                          : actionState.banPeriod === 5
-                          ? '5 ' + props.t('days')
-                          : actionState.banPeriod === 6
-                          ? '1 ' + props.t('month')
-                          : actionState.banPeriod === 7
-                          ? '3 ' + props.t('months')
-                          : actionState.banPeriod === 8
-                          ? '1 ' + props.t('year')
-                          : null}
+                        {createBanPeriod()}
                       </InputGroup.Text>
                     </Dropdown>
                   </InputGroup>
@@ -417,15 +471,21 @@ export default function AdminReportDeatailModal(props) {
                       setActionState((prev) => ({
                         ...prev,
                         accepted: true,
+                        acceptedBanPeriod: actionState.banPeriod,
                       }))
                     }
                   >
                     {props.t('add')}
                   </Button>
                 </div>
+                {actionState.acceptedBanPeriod ? (
+                  <p className='text-center text-danger mt-3'>
+                    {props.t('slected')}: {createAcceptedBanPeriod()}
+                  </p>
+                ) : null}
               </div>
             ) : null}
-            <InputGroup className='my-3 input_modal'>
+            <InputGroup className='mt-1 input_modal mb-3'>
               <InputGroup.Text>{props.t('answer')}</InputGroup.Text>
               <Form.Control
                 as='textarea'
@@ -520,10 +580,10 @@ export default function AdminReportDeatailModal(props) {
                     };
 
                     if (
-                      actionState.banPeriod === 2 ||
-                      (actionState.banPeriod !== null && actionState.accepted)
+                      (actionState.acceptedBanPeriod !== null && actionState.accepted) ||
+                      actionState.acceptedBanPeriod === 2
                     ) {
-                      json.banPeriod = actionState.banPeriod;
+                      json.banPeriod = actionState.acceptedBanPeriod;
                     }
 
                     props.acceptReport({

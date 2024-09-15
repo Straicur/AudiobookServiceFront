@@ -322,6 +322,7 @@ export default function UserReportContainer(props) {
       ) : null}
       {props.reportState.openAudiobooksList ? (
         <UserAudiobookSearchProvider
+          allowed={true}
           title={''}
           categoryKey={props.reportState.choosenCategory}
           token={props.token}

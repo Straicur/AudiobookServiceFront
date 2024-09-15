@@ -41,7 +41,7 @@ export const HandleFetch = async (
   if (response.ok) {
     let technicalBreak = response.headers.get('technical-break');
 
-    if (response.headers.get('content-type') != 'application/json') {
+    if (response.headers.get('content-type') !== 'application/json') {
       return await response.blob();
     }
 

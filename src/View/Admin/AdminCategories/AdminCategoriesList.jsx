@@ -26,7 +26,7 @@ export default function AdminCategoriesList(props) {
       <div className='card position-relative p-3 mb-5  shadow'>
         <AdminNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
         <hr className='line' />
-        <div className='table-title my-2'>
+        <div className='my-2'>
           <h1>{props.t('categories')}</h1>
         </div>
         <AdminCategoriesRenderList

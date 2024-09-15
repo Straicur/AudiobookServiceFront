@@ -23,7 +23,7 @@ export default class UserRegisterService extends FormService {
   handleParentalControl = () => {
     this.props.setState((prev) => ({
       ...prev,
-      parentalControl: !this.props.parentalControl,
+      parentalControl: !this.props.state.parentalControl,
     }));
   };
 
