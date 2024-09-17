@@ -8,7 +8,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import { v4 as uuidv4 } from 'uuid';
 import { Dropdown } from 'react-bootstrap';
 
-export default function AdminReportDeatailModal(props) {
+export default function AdminReportDetailModal(props) {
   const [actionState, setActionState] = useState({
     banPeriod: 2,
     acceptedBanPeriod: null,

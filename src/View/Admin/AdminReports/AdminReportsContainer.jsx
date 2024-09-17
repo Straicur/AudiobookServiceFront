@@ -7,7 +7,7 @@ import { useAdminReportsData } from 'Providers/Admin/AdminReportsProvider';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import AdminReportsRenderList from './AdminReportsRenderList';
 import AdminReportsSearchOffCanvas from './AdminReportsSearchOffCanvas';
-import AdminReportDeatailModal from './AdminReportDeatailModal';
+import AdminReportDetailModal from './AdminReportDeatailModal';
 
 export default function AdminReportsContainer(props) {
   const [state, setState] = useState({
@@ -123,7 +123,7 @@ export default function AdminReportsContainer(props) {
           />
         ) : null}
         {reportState.detailReportModal ? (
-          <AdminReportDeatailModal
+          <AdminReportDetailModal
             state={state}
             setState={setState}
             t={props.t}
