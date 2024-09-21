@@ -237,6 +237,7 @@
   "actionIdAcceptSubmitMessage": "Czy chcesz zaakceptować inne zgłoszenia tej akcji ?",
   "actionIdRejectSubmitMessage": "Czy chcesz odrzucić inne zgłoszenia tej akcji ?",
   "similarReports": "Aktywne zgłoszenia tej samej akcji",
+  "activationDate": "Data aktywacji",
   "report": "Zgłoś",
   "type": "Typ",
   "id": "Id",

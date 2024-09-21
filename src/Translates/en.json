@@ -236,6 +236,7 @@
   "actionIdSubmitMessage": "Do you want to accept other submissions of this action ?",
   "actionIdRejectSubmitMessage": "Do you want to reject other submissions of this action ?",
   "similarReports": "Active reports of the same action",
+  "activationDate": "Activation date",
   "report": "Report",
   "type": "Type",
   "id": "Id",
