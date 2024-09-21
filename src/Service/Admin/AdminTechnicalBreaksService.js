@@ -57,22 +57,22 @@ export default class AdminTechnicalBreaksService extends FormService {
   static createSearchData = (searchState) => {
     let searchJson = {};
 
-    if (searchState.nameOrLastname != '') {
+    if (searchState.nameOrLastname !== '') {
       searchJson.nameOrLastname = searchState.nameOrLastname;
     }
     if (searchState.active != null) {
       searchJson.active = searchState.active;
     }
 
-    if (searchState.dateFrom != null && searchState.dateFrom != 0) {
+    if (searchState.dateFrom != null && searchState.dateFrom !== 0) {
       searchJson.dateFrom = CreateUtil.createJsonFormatDate(searchState.dateFrom);
     }
 
-    if (searchState.dateTo != null && searchState.dateTo != 0) {
+    if (searchState.dateTo != null && searchState.dateTo !== 0) {
       searchJson.dateTo = CreateUtil.createJsonFormatDate(searchState.dateTo);
     }
 
-    if (searchState.order != 0) {
+    if (searchState.order !== 0) {
       searchJson.order = searchState.order;
     }
     return searchJson;

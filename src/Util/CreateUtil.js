@@ -32,9 +32,20 @@ export default class CreateUtil {
       dateFormat.getMonth() < 10 ? '0' + (dateFormat.getMonth() + 1) : dateFormat.getMonth() + 1;
     const year = dateFormat.getFullYear();
 
-    const data = day + '.' + month + '.' + year;
+    return day + '.' + month + '.' + year;
+  };
 
-    return data;
+  static createJsonFormatDateTime = (date) => {
+    const dateFormat = new Date(date);
+
+    const day = dateFormat.getDate();
+    const month =
+      dateFormat.getMonth() < 10 ? '0' + (dateFormat.getMonth() + 1) : dateFormat.getMonth() + 1;
+    const year = dateFormat.getFullYear();
+    const hour = dateFormat.getHours();
+    const minutes = dateFormat.getMinutes();
+
+    return day + '.' + month + '.' + year + ' ' + hour + ':' + minutes;
   };
 
   static createTime = (seconds) => {
