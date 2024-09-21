@@ -19,6 +19,8 @@ export default function AdminUsersList(props) {
     editUserModal: false,
     editUserElement: null,
     searchModal: false,
+    sure: null,
+    sureUser: null
   });
 
   const [
