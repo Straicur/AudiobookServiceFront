@@ -16,6 +16,9 @@ export default function UserSettingsContainer(props) {
     userPasswordChange,
     userDelete,
     userDataChange,
+    userDataChangeCode,
+    userPasswordChangeCode,
+    userEmailChangeCode,
   ] = useUserSettingsData();
 
   return (
@@ -45,6 +48,7 @@ export default function UserSettingsContainer(props) {
           state={props.state}
           setState={props.setState}
           userDetail={userDetail}
+          userEmailChangeCode={userEmailChangeCode}
           userEmailChange={userEmailChange}
           t={props.t}
           token={props.token}
@@ -57,6 +61,7 @@ export default function UserSettingsContainer(props) {
           setState={props.setState}
           userDetail={userDetail}
           userPasswordChange={userPasswordChange}
+          userPasswordChangeCode={userPasswordChangeCode}
           t={props.t}
           token={props.token}
           i18n={props.i18n}
@@ -68,6 +73,7 @@ export default function UserSettingsContainer(props) {
           setState={props.setState}
           userDetail={userDetail}
           userDataChange={userDataChange}
+          userDataChangeCode={userDataChangeCode}
           t={props.t}
           i18n={props.i18n}
           token={props.token}

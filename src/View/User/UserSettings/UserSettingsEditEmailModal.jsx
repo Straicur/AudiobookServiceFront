@@ -10,6 +10,9 @@ export default function UserSettingsEditEmailModal(props) {
   const [state, setState] = useState({
     oldEmail: '',
     newEmail: '',
+    code: '',
+    codeReturned: '',
+    codeStep: false,
     checkEmail: false,
     wrongEmail: false,
     wrongNewEmail: false,
@@ -25,7 +28,7 @@ export default function UserSettingsEditEmailModal(props) {
   };
 
   const changeEmail = (element) => {
-    if (state.newEmail != state.oldEmail) {
+    if (state.newEmail !== state.oldEmail) {
       element.target.classList.add('disabled');
       props.userEmailChange({
         element: element,
@@ -65,7 +68,7 @@ export default function UserSettingsEditEmailModal(props) {
         ...prev,
         wrongNewEmail: false,
       }));
-    } else if (!ValidateUtil.validateEmail(state.newEmail)) {
+    } else if (!ValidateUtil.validateEmail(state.newEmail) || state.newEmail === state.email) {
       setState((prev) => ({
         ...prev,
         wrongNewEmail: true,
@@ -94,46 +97,70 @@ export default function UserSettingsEditEmailModal(props) {
             <div className='fs-3 text-center my-3'>{props.t('checkEmail')}</div>
           ) : (
             <Form>
-              <Form.Group className='mb-3'>
-                <Form.Label className='fs-3'>{props.t('oldEmail')}</Form.Label>
-                <Form.Control
-                  type='email'
-                  name='oldEmail'
-                  placeholder='name@example.com'
-                  isValid={state.oldEmail.length > 1 && ValidateUtil.validateEmail(state.oldEmail)}
-                  isInvalid={
-                    state.oldEmail.length > 1 && !ValidateUtil.validateEmail(state.oldEmail)
-                  }
-                  onChange={(event) => userService.handleChange(event)}
-                />
-                <Alert
-                  show={state.wrongEmail}
-                  className='dangerAllert mt-1 text-center'
-                  variant='danger'
-                >
-                  {props.t('enterValidEmail')}
-                </Alert>
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label className='fs-3'>{props.t('newEmail')}</Form.Label>
-                <Form.Control
-                  type='email'
-                  name='newEmail'
-                  placeholder='name@example.com'
-                  isValid={state.newEmail.length > 1 && ValidateUtil.validateEmail(state.newEmail)}
-                  isInvalid={
-                    state.newEmail.length > 1 && !ValidateUtil.validateEmail(state.newEmail)
-                  }
-                  onChange={(event) => userService.handleChange(event)}
-                />
-              </Form.Group>
-              <Alert
-                show={state.wrongNewEmail}
-                className='dangerAllert mt-1 text-center'
-                variant='danger'
-              >
-                {props.t('enterValidEmail')}
-              </Alert>
+              {!state.codeStep ? (
+                <>
+                  <Form.Group className='mb-3'>
+                    <Form.Label className='fs-3'>{props.t('oldEmail')}</Form.Label>
+                    <Form.Control
+                      type='email'
+                      name='oldEmail'
+                      placeholder='name@example.com'
+                      isValid={
+                        state.oldEmail.length > 1 && ValidateUtil.validateEmail(state.oldEmail)
+                      }
+                      isInvalid={
+                        state.oldEmail.length > 1 && !ValidateUtil.validateEmail(state.oldEmail)
+                      }
+                      onChange={(event) => userService.handleChange(event)}
+                    />
+                    <Alert
+                      show={state.wrongEmail}
+                      className='dangerAllert mt-1 text-center'
+                      variant='danger'
+                    >
+                      {props.t('enterValidEmail')}
+                    </Alert>
+                  </Form.Group>
+                  <Form.Group className='mb-3'>
+                    <Form.Label className='fs-3'>{props.t('newEmail')}</Form.Label>
+                    <Form.Control
+                      type='email'
+                      name='newEmail'
+                      placeholder='name@example.com'
+                      isValid={
+                        state.newEmail.length > 1 && ValidateUtil.validateEmail(state.newEmail)
+                      }
+                      isInvalid={
+                        (state.newEmail.length > 1 && !ValidateUtil.validateEmail(state.newEmail)) || (state.newEmail === state.oldEmail)
+                      }
+                      onChange={(event) => userService.handleChange(event)}
+                    />
+                  </Form.Group>
+                  <Alert
+                    show={state.wrongNewEmail}
+                    className='dangerAllert mt-1 text-center'
+                    variant='danger'
+                  >
+                    {props.t('enterValidEmail')}
+                  </Alert>
+                </>
+              ) : (
+                <Form.Group className='mb-3'>
+                  <Form.Label className='fs-3'>{props.t('code')}</Form.Label>
+                  <Form.Control
+                    name='code'
+                    value={state.code === undefined || state.code.length <= 0 ? '' : state.code}
+                    onChange={(event) => userService.handleChange(event)}
+                  />
+                  <Alert
+                    show={state.code !== state.codeReturned}
+                    className='dangerAllert mt-1 text-center'
+                    variant='danger'
+                  >
+                    {props.t('enterCode')}
+                  </Alert>
+                </Form.Group>
+              )}
             </Form>
           )}
 
@@ -149,22 +176,46 @@ export default function UserSettingsEditEmailModal(props) {
               </Button>
             </div>
             {!state.checkEmail ? (
-              <div className='col-2'>
-                <Button
-                  name='en'
-                  size='sm'
-                  disabled={
-                    state.wrongNewEmail ||
-                    state.wrongEmail ||
-                    state.oldEmail.length === 0 ||
-                    state.newEmail.length === 0
-                  }
-                  className='btn button success_button settings-button fs-5'
-                  onClick={(e) => changeEmail(e)}
-                >
-                  {props.t('save')}
-                </Button>
-              </div>
+              state.codeStep ? (
+                <div className='col-2'>
+                  <Button
+                    name='en'
+                    size='sm'
+                    disabled={state.code !== state.codeReturned || state.code.length === 0}
+                    className='btn button success_button settings-button fs-5'
+                    onClick={(e) => changeEmail(e)}
+                  >
+                    {props.t('save')}
+                  </Button>
+                </div>
+              ) : (
+                <div className='col-2'>
+                  <Button
+                    name='en'
+                    size='sm'
+                    disabled={
+                      state.wrongNewEmail ||
+                      state.wrongEmail ||
+                      state.oldEmail.length === 0 ||
+                      state.newEmail.length === 0 ||
+                      state.oldEmail === state.newEmail
+                    }
+                    className='btn button success_button settings-button fs-5'
+                    onClick={() => {
+                      setState((prev) => ({
+                        ...prev,
+                        codeStep: !state.codeStep,
+                      }));
+                      props.userEmailChangeCode({
+                        state: state,
+                        setState: setState,
+                      });
+                    }}
+                  >
+                    {props.t('send')}
+                  </Button>
+                </div>
+              )
             ) : null}
           </div>
         </div>
