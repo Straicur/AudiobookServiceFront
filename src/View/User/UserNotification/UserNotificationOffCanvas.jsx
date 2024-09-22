@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './UserNotificationOffCanvas.css';
@@ -20,6 +20,8 @@ export default function UserNotificationOffCanvas(props) {
   const dateUpdate = useNotificationsListStore((state) => state.dateUpdate);
 
   const navigate = useNavigate();
+
+  const refetchNewNotifications = useRef(true);
 
   const handleClose = () => {
     props.setState((prev) => ({
@@ -79,7 +81,6 @@ export default function UserNotificationOffCanvas(props) {
         if (page <= props.state.page && pageNotifications !== null) {
           returnArray.push(
             pageNotifications.systemNotifications.map((notification, index) => {
-              console.log(notification);
               return (
                 <div
                   key={uuidv4()}
@@ -158,6 +159,16 @@ export default function UserNotificationOffCanvas(props) {
       refetch();
     }
   }, [props.state.page]);
+
+  useLayoutEffect(() => {
+    if (props.newNotifications !== 0 && refetchNewNotifications.current === true) {
+      refetchNewNotifications.current = false;
+      notificationsListStore.removeNotifications();
+      refetch();
+    } else if (props.newNotifications === 0) {
+      refetchNewNotifications.current = true;
+    }
+  }, [props.newNotifications]);
 
   return (
     <Offcanvas

@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import AdminNotificationsPickActionIdAddList from './AdminNotificationsPickActionIdAddList';
 import AdminNotificationsAddService from 'Service/Admin/AdminNotificationsAddService';
+import CreateUtil from '../../../Util/CreateUtil';
 
 export default function AdminNotificationsAddModal(props) {
   const [modalState, setModalState] = useState({
@@ -13,6 +14,8 @@ export default function AdminNotificationsAddModal(props) {
     notificationType: 0,
     text: '',
     userType: 0,
+    active: false,
+    dateActive: null,
   });
 
   const [actionState, setActionState] = useState({
@@ -116,6 +119,39 @@ export default function AdminNotificationsAddModal(props) {
                 <InputGroup.Text>{props.t('actionId')}</InputGroup.Text>
                 <Form.Control disabled className='text-success' value={modalState.actionId} />
               </InputGroup>
+              <InputGroup className='mb-1 input_modal py-1 '>
+                <Form.Check
+                  type='switch'
+                  id='custom-switch'
+                  label={props.t('active')}
+                  checked={modalState.active != null && modalState.active}
+                  onChange={(e) =>
+                    setModalState((prev) => ({
+                      ...prev,
+                      active: e.target.checked,
+                    }))
+                  }
+                />
+              </InputGroup>
+              {modalState.active ? null : (
+                <InputGroup className='mb-1 input_modal'>
+                  <InputGroup.Text className='input-notification-text-new text-light'>
+                    {props.t('activationDate')}
+                  </InputGroup.Text>
+                  <Form.Control
+                    type='datetime-local'
+                    name='dateActive'
+                    value={
+                      modalState.dateActive !== null
+                        ? CreateUtil.createDateTime(modalState.dateActive)
+                        : ''
+                    }
+                    onChange={(event) => {
+                      adminService.handleChange(event);
+                    }}
+                  />
+                </InputGroup>
+              )}
             </div>
             {actionState.actionIdChanged || modalState.notificationType === 1 ? (
               <div className='row justify-content-center mx-5 mt-3'>
@@ -125,7 +161,12 @@ export default function AdminNotificationsAddModal(props) {
                     variant='success'
                     size='sm'
                     className='btn button button_notification'
-                    disabled={modalState.notificationType === 0 || modalState.userType === 0}
+                    disabled={
+                      modalState.notificationType === 0 ||
+                      modalState.userType === 0 ||
+                      (modalState.active === false &&
+                        (modalState.dateActive === null || modalState.dateActive.length === 0))
+                    }
                     onClick={() =>
                       props.addNotification({
                         modalState: modalState,
@@ -158,7 +199,7 @@ export default function AdminNotificationsAddModal(props) {
         )}
       </Modal.Body>
       <Modal.Footer>
-        {actionState.list != 0 ? (
+        {actionState.list ? (
           <Button variant='dark' onClick={adminService.goBack}>
             {props.t('back')}
           </Button>

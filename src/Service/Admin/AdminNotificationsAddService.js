@@ -1,4 +1,5 @@
 import FormService from 'Service/Common/FormService';
+import CreateUtil from '../../Util/CreateUtil';
 
 export default class AdminNotificationsAddService extends FormService {
   constructor(props, modalState, setModalState, actionState, setActionState) {
@@ -48,8 +49,14 @@ export default class AdminNotificationsAddService extends FormService {
     if (modalState.notificationType === 2) {
       additionalData.userId = modalState.actionId;
     }
-    if (modalState.text != '') {
+    if (modalState.text !== '') {
       additionalData.text = modalState.text;
+    }
+    if (modalState.active !== null) {
+      additionalData.active = modalState.active;
+    }
+    if (modalState.dateActive !== null && modalState.dateActive !== 0) {
+      additionalData.dateActive = CreateUtil.createJsonFormatDateTime(modalState.dateActive);
     }
 
     return additionalData;

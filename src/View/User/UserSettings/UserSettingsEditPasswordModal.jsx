@@ -11,6 +11,9 @@ export default function UserSettingsEditPasswordModal(props) {
   const [state, setState] = useState({
     oldPassword: '',
     newPassword: '',
+    code: '',
+    codeReturned: '',
+    codeStep: false,
     newConfirmPassword: '',
     checkPassword: false,
     wrongOldPassword: false,
@@ -34,6 +37,7 @@ export default function UserSettingsEditPasswordModal(props) {
       props.userPasswordChange({
         oldPassword: md5(state.oldPassword),
         newPassword: md5(state.newPassword),
+        code: state.code,
         element: element,
         setState: setState,
         state: state,
@@ -114,82 +118,102 @@ export default function UserSettingsEditPasswordModal(props) {
             <div className='fs-3 text-center my-3'>{props.t('checkPassword')}</div>
           ) : (
             <Form>
-              <Form.Group className='mb-3'>
-                <Form.Label className='fs-3'>{props.t('oldPassword')}</Form.Label>
-                <Form.Control
-                  type='password'
-                  name='oldPassword'
-                  placeholder={props.t('insertPassword')}
-                  isValid={
-                    state.oldPassword.length > 1 &&
-                    state.oldPassword.trim() !== state.newPassword.trim()
-                  }
-                  isInvalid={
-                    state.oldPassword.length > 1 &&
-                    state.oldPassword.trim() === state.newPassword.trim()
-                  }
-                  onChange={(event) => userService.handleChange(event)}
-                />
-                <Alert
-                  show={state.wrongOldPassword}
-                  className='dangerAllert mt-1 text-center'
-                  variant='danger'
-                >
-                  {props.t('enterValidPassword')}
-                </Alert>
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label className='fs-3'>{props.t('newPassword')}</Form.Label>
-                <Form.Control
-                  type='password'
-                  name='newPassword'
-                  placeholder={props.t('insertPassword')}
-                  isValid={
-                    state.newPassword.length > 1 &&
-                    ValidateUtil.validatePassword(state.newPassword) &&
-                    state.oldPassword.trim() !== state.newPassword.trim()
-                  }
-                  isInvalid={
-                    state.newPassword.length > 1 &&
-                    !ValidateUtil.validatePassword(state.newPassword) &&
-                    state.oldPassword.trim() === state.newPassword.trim()
-                  }
-                  onChange={(event) => userService.handleChange(event)}
-                />
-                <Alert
-                  show={state.wrongNewPassword}
-                  className='dangerAllert mt-1 text-center'
-                  variant='danger'
-                >
-                  {props.t('enterValidPassword')}
-                </Alert>
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label className='fs-3'>{props.t('newPassword')}</Form.Label>
-                <Form.Control
-                  type='password'
-                  name='newConfirmPassword'
-                  placeholder={props.t('insertPasswordConfirm')}
-                  isValid={
-                    state.newConfirmPassword.length > 1 &&
-                    ValidateUtil.validatePassword(state.newConfirmPassword) &&
-                    state.newConfirmPassword.trim() === state.newPassword.trim()
-                  }
-                  isInvalid={
-                    state.newConfirmPassword.length > 1 &&
-                    !ValidateUtil.validatePassword(state.newConfirmPassword) &&
-                    state.newConfirmPassword.trim() !== state.newPassword.trim()
-                  }
-                  onChange={(event) => userService.handleChange(event)}
-                />
-                <Alert
-                  show={state.wrongNewConfirmPassword}
-                  className='dangerAllert mt-1 text-center'
-                  variant='danger'
-                >
-                  {props.t('enterValidPassword')}
-                </Alert>
-              </Form.Group>
+              {!state.codeStep ? (
+                <>
+                  <Form.Group className='mb-3'>
+                    <Form.Label className='fs-3'>{props.t('oldPassword')}</Form.Label>
+                    <Form.Control
+                      type='password'
+                      name='oldPassword'
+                      placeholder={props.t('insertPassword')}
+                      isValid={
+                        state.oldPassword.length > 1 &&
+                        state.oldPassword.trim() !== state.newPassword.trim()
+                      }
+                      isInvalid={
+                        state.oldPassword.length > 1 &&
+                        state.oldPassword.trim() === state.newPassword.trim()
+                      }
+                      onChange={(event) => userService.handleChange(event)}
+                    />
+                    <Alert
+                      show={state.wrongOldPassword}
+                      className='dangerAllert mt-1 text-center'
+                      variant='danger'
+                    >
+                      {props.t('enterValidPassword')}
+                    </Alert>
+                  </Form.Group>
+                  <Form.Group className='mb-3'>
+                    <Form.Label className='fs-3'>{props.t('newPassword')}</Form.Label>
+                    <Form.Control
+                      type='password'
+                      name='newPassword'
+                      placeholder={props.t('insertPassword')}
+                      isValid={
+                        state.newPassword.length > 1 &&
+                        ValidateUtil.validatePassword(state.newPassword) &&
+                        state.oldPassword.trim() !== state.newPassword.trim()
+                      }
+                      isInvalid={
+                        state.newPassword.length > 1 &&
+                        !ValidateUtil.validatePassword(state.newPassword) &&
+                        state.oldPassword.trim() === state.newPassword.trim()
+                      }
+                      onChange={(event) => userService.handleChange(event)}
+                    />
+                    <Alert
+                      show={state.wrongNewPassword}
+                      className='dangerAllert mt-1 text-center'
+                      variant='danger'
+                    >
+                      {props.t('enterValidPassword')}
+                    </Alert>
+                  </Form.Group>
+                  <Form.Group className='mb-3'>
+                    <Form.Label className='fs-3'>{props.t('newPassword')}</Form.Label>
+                    <Form.Control
+                      type='password'
+                      name='newConfirmPassword'
+                      placeholder={props.t('insertPasswordConfirm')}
+                      isValid={
+                        state.newConfirmPassword.length > 1 &&
+                        ValidateUtil.validatePassword(state.newConfirmPassword) &&
+                        state.newConfirmPassword.trim() === state.newPassword.trim()
+                      }
+                      isInvalid={
+                        state.newConfirmPassword.length > 1 &&
+                        !ValidateUtil.validatePassword(state.newConfirmPassword) &&
+                        state.newConfirmPassword.trim() !== state.newPassword.trim()
+                      }
+                      onChange={(event) => userService.handleChange(event)}
+                    />
+                    <Alert
+                      show={state.wrongNewConfirmPassword}
+                      className='dangerAllert mt-1 text-center'
+                      variant='danger'
+                    >
+                      {props.t('enterValidPassword')}
+                    </Alert>
+                  </Form.Group>
+                </>
+              ) : (
+                <Form.Group className='mb-3'>
+                  <Form.Label className='fs-3'>{props.t('code')}</Form.Label>
+                  <Form.Control
+                    name='code'
+                    value={state.code === undefined || state.code.length <= 0 ? '' : state.code}
+                    onChange={(event) => userService.handleChange(event)}
+                  />
+                  <Alert
+                    show={state.code !== state.codeReturned}
+                    className='dangerAllert mt-1 text-center'
+                    variant='danger'
+                  >
+                    {props.t('enterCode')}
+                  </Alert>
+                </Form.Group>
+              )}
             </Form>
           )}
           <div className='row align-items-center row justify-content-end'>
@@ -204,24 +228,47 @@ export default function UserSettingsEditPasswordModal(props) {
               </Button>
             </div>
             {!state.checkPassword ? (
-              <div className='col-2'>
-                <Button
-                  name='en'
-                  size='sm'
-                  className='btn button success_button settings-button fs-5'
-                  disabled={
-                    state.wrongOldPassword ||
-                    state.wrongNewPassword ||
-                    state.wrongNewConfirmPassword ||
-                    state.oldPassword.length === 0 ||
-                    state.newPassword.length === 0 ||
-                    state.newConfirmPassword.length === 0
-                  }
-                  onClick={(e) => changePassword(e)}
-                >
-                  {props.t('save')}
-                </Button>
-              </div>
+              state.codeStep ? (
+                <div className='col-2'>
+                  <Button
+                    name='en'
+                    size='sm'
+                    disabled={state.code !== state.codeReturned || state.code.length === 0}
+                    className='btn button success_button settings-button fs-5'
+                    onClick={(e) => changePassword(e)}
+                  >
+                    {props.t('save')}
+                  </Button>
+                </div>
+              ) : (
+                <div className='col-2'>
+                  <Button
+                    name='en'
+                    size='sm'
+                    className='btn button success_button settings-button fs-5'
+                    disabled={
+                      state.wrongOldPassword ||
+                      state.wrongNewPassword ||
+                      state.wrongNewConfirmPassword ||
+                      state.oldPassword.length === 0 ||
+                      state.newPassword.length === 0 ||
+                      state.newConfirmPassword.length === 0
+                    }
+                    onClick={() => {
+                      setState((prev) => ({
+                        ...prev,
+                        codeStep: !state.codeStep,
+                      }));
+                      props.userPasswordChangeCode({
+                        state: state,
+                        setState: setState,
+                      });
+                    }}
+                  >
+                    {props.t('save')}
+                  </Button>
+                </div>
+              )
             ) : null}
           </div>
         </div>

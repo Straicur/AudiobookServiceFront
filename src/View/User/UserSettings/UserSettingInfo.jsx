@@ -14,7 +14,12 @@ export default function UserSettingInfo(props) {
         <div className='fs-2'>
           <div className='row ms-1'>
             <div className='col-4 fw-bold'>{props.t('email')}: </div>
-            <div className='col-8'>{props.userDetail.email}</div>
+            <div className='col-8'>
+              {props.userDetail.email}
+              {props.userDetail.newEmail !== undefined
+                ? ' (' + props.userDetail.newEmail + ')'
+                : null}
+            </div>
           </div>
           <div className='row ms-1'>
             <div className='col-4 fw-bold'>{props.t('firstname')}: </div>

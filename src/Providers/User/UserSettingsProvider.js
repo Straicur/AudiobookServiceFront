@@ -27,6 +27,60 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
     },
   });
 
+  const { mutate: userDataChangeCode } = useMutation({
+    mutationFn: () => {
+      return HandleFetch(
+        '/user/settings/change/code',
+        'PUT',
+        null,
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      variables.setState((prev) => ({
+        ...prev,
+        codeReturned: data.code,
+      }))
+    },
+  });
+
+  const { mutate: userEmailChangeCode } = useMutation({
+    mutationFn: () => {
+      return HandleFetch(
+        '/user/settings/email/smsCode',
+        'PUT',
+        null,
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      variables.setState((prev) => ({
+        ...prev,
+        codeReturned: data.code,
+      }))
+    },
+  });
+
+  const { mutate: userPasswordChangeCode } = useMutation({
+    mutationFn: () => {
+      return HandleFetch(
+        '/user/settings/password/code',
+        'PUT',
+        null,
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      variables.setState((prev) => ({
+        ...prev,
+        codeReturned: data.code,
+      }))
+    },
+  });
+
   const { mutate: userPasswordChange } = useMutation({
     mutationFn: (data) => {
       return HandleFetch(
@@ -35,6 +89,7 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
         {
           oldPassword: data.oldPassword,
           newPassword: data.newPassword,
+          code: data.code,
         },
         token,
         i18n.language,
@@ -57,6 +112,7 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
         {
           newEmail: data.state.newEmail,
           oldEmail: data.state.oldEmail,
+          code: data.state.code,
         },
         token,
         i18n.language,
@@ -73,7 +129,8 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
         phoneNumber: dataUserSettings.phoneNumber,
         firstname: dataUserSettings.firstname,
         lastname: dataUserSettings.lastname,
-        email: variables.state.newEmail,
+        email: dataUserSettings.email,
+        newEmail: variables.state.newEmail,
         edited: dataUserSettings.edited,
         editableDate: dataUserSettings.editableDate,
       };
@@ -92,6 +149,7 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
           phoneNumber: data.state.phoneNumber,
           firstName: data.state.firstname,
           lastName: data.state.lastname,
+          code: data.state.code,
         },
         token,
         i18n.language,
@@ -105,21 +163,11 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
         sure: !variables.state.sure,
       }));
 
-      let json = {
-        phoneNumber: variables.state.phoneNumber,
-        firstname: variables.state.firstname,
-        lastname: variables.state.lastname,
-        email: variables.state.email,
-        edited: variables.state.edited,
-        editableDate: variables.state.editableDate,
-      };
-
-      const copy = Object.assign(json, data);
-      qc.setQueryData(['dataUserSettings'], copy);
+      refetch()
     },
   });
 
-  const { data: dataUserSettings = null, isLoading } = useQuery({
+  const { data: dataUserSettings = null, refetch, isLoading } = useQuery({
     queryKey: ['dataUserSettings'],
     queryFn: () => HandleFetch('/user/settings', 'GET', null, token, i18n.language),
     retry: 1,
@@ -135,6 +183,9 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
     userPasswordChange,
     userDelete,
     userDataChange,
+    userDataChangeCode,
+    userPasswordChangeCode,
+    userEmailChangeCode
   ];
 
   return <UserSettingsContext.Provider value={value}>{children}</UserSettingsContext.Provider>;

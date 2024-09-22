@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { v4 as uuidv4 } from 'uuid';
@@ -28,6 +28,8 @@ export default function AdminNotificationOffCanvas(props) {
     }));
     setShow(false);
   };
+
+  const refetchNewNotifications = useRef(true);
 
   const createNotificationType = (element) => {
     switch (element) {
@@ -180,6 +182,16 @@ export default function AdminNotificationOffCanvas(props) {
       refetch();
     }
   }, [props.state.page]);
+
+  useLayoutEffect(() => {
+    if (props.newNotifications !== 0 && refetchNewNotifications.current === true) {
+      refetchNewNotifications.current = false;
+      notificationsListStore.removeNotifications();
+      refetch();
+    } else if (props.newNotifications === 0) {
+      refetchNewNotifications.current = true;
+    }
+  }, [props.newNotifications]);
 
   return (
     <Offcanvas

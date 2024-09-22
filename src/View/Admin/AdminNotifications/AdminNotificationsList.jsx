@@ -48,6 +48,9 @@ export default function AdminNotificationsList(props) {
     editNotificationModal: false,
     sure: false,
     doDeleteOrUpdate: null,
+    activeBefore: false,
+    active: false,
+    dateActive: null,
   });
 
   const [userRoles] = useAdminSystemRoles();

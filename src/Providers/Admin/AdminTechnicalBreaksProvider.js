@@ -1,7 +1,6 @@
 import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { HandleFetch } from 'Util/HandleFetch';
-// import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import AdminTechnicalBreaksService from 'Service/Admin/AdminTechnicalBreaksService';
 
@@ -15,8 +14,6 @@ export const AdminTechnicalBreaksProvider = ({
   page,
   limit = 15,
 }) => {
-  //   const qc = useQueryClient();
-
   const { mutate: addTechnicalBreak } = useMutation({
     mutationFn: () => {
       return HandleFetch('/admin/technical/break', 'PUT', null, token, i18n.language);

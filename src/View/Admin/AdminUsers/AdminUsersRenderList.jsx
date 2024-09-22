@@ -46,7 +46,7 @@ export default function AdminUsersRenderList(props) {
             <i className='bi bi-bookmark-dash'></i>
           )}
         </td>
-        <td className='table_buttons_with'>
+        <td className='table_buttons_with row'>
           <div className='d-grid gap-2 d-md-block'>
             <Button
               name='en'
@@ -63,18 +63,61 @@ export default function AdminUsersRenderList(props) {
             >
               {props.t('edit')}
             </Button>
-            <Button
-              name='en'
-              variant='danger'
-              size='sm'
-              className='btn button mx-2'
-              disabled={element.deleted}
-              onClick={(e) => {
-                deleteUser(element, e);
-              }}
-            >
-              {element.deleted ? props.t('deleted') : props.t('toDelete')}
-            </Button>
+            {(props.state.sure === null || props.state.sure === false) &&
+            props.state.sureUser !== element.id ? (
+              <Button
+                name='en'
+                variant='danger'
+                size='sm'
+                className='btn button mx-2'
+                disabled={element.deleted}
+                onClick={() => {
+                  props.setState((prev) => ({
+                    ...prev,
+                    sure: false,
+                    sureUser: element.id,
+                  }));
+                }}
+              >
+                {element.deleted ? props.t('deleted') : props.t('toDelete')}
+              </Button>
+            ) : (
+              <>
+                <Button
+                  name='en'
+                  variant='danger'
+                  size='sm'
+                  className='btn button mx-2'
+                  disabled={element.deleted}
+                  onClick={(e) => {
+                    deleteUser(element, e);
+                    props.setState((prev) => ({
+                      ...prev,
+                      sure: null,
+                      sureUser: null,
+                    }));
+                  }}
+                >
+                  {props.t('yes')}
+                </Button>
+                <Button
+                  name='en'
+                  variant='success'
+                  size='sm'
+                  className='btn button mx-2'
+                  disabled={element.deleted}
+                  onClick={() => {
+                    props.setState((prev) => ({
+                      ...prev,
+                      sure: null,
+                      sureUser: null,
+                    }));
+                  }}
+                >
+                  {props.t('no')}
+                </Button>
+              </>
+            )}
           </div>
         </td>
       </tr>

@@ -17,7 +17,10 @@ export default function AdminNotificationsGetAudiobooksList(props) {
 
   const createColumn = (element) => {
     return (
-      <tr key={uuidv4()}>
+      <tr
+        key={uuidv4()}
+        className={element.id === props.state.actionId ? 'border-top-0 border border-danger' : ''}
+      >
         <th scope='row'>{element.title}</th>
         <td>{element.author}</td>
         <td>{element.parts}</td>

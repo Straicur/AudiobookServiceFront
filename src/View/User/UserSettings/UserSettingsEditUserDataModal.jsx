@@ -11,6 +11,9 @@ export default function UserSettingsEditUserDataModal(props) {
     phoneNumber: '',
     firstname: '',
     lastname: '',
+    code: '',
+    codeReturned: '',
+    codeStep: false,
     sure: false,
     checkChanges: false,
     wrongPhoneNumber: false,
@@ -102,6 +105,7 @@ export default function UserSettingsEditUserDataModal(props) {
       phoneNumber: props.userDetail.phoneNumber,
       firstname: props.userDetail.firstname,
       lastname: props.userDetail.lastname,
+      code: props.userDetail.code,
     }));
   }, [props.state]);
 
@@ -112,7 +116,7 @@ export default function UserSettingsEditUserDataModal(props) {
       }, 1200);
     }
   }, [state.checkChanges]);
-
+  console.log(state);
   return (
     <Modal
       size='lg'
@@ -127,72 +131,94 @@ export default function UserSettingsEditUserDataModal(props) {
             <div className='fs-3 text-center my-3'>{props.t('checkUserData')}</div>
           ) : (
             <Form>
-              <Form.Group className='mb-3'>
-                <Form.Label className='fs-3'>{props.t('firstname')}</Form.Label>
-                <Form.Control
-                  type='text'
-                  name='firstname'
-                  isValid={state.firstname.length > 1 && ValidateUtil.validateName(state.firstname)}
-                  isInvalid={
-                    state.firstname.length > 1 && !ValidateUtil.validateName(state.firstname)
-                  }
-                  value={state.firstname}
-                  onChange={(event) => userService.handleChange(event)}
-                />
-                <Alert
-                  show={state.wrongFirstname}
-                  className='dangerAllert mt-1 text-center'
-                  variant='danger'
-                >
-                  {props.t('enterValidFirstName')}
-                </Alert>
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label className='fs-3'>{props.t('lastname')}</Form.Label>
-                <Form.Control
-                  type='text'
-                  name='lastname'
-                  isValid={
-                    state.lastname.length > 1 && ValidateUtil.validateLastName(state.lastname)
-                  }
-                  isInvalid={
-                    state.lastname.length > 1 && !ValidateUtil.validateLastName(state.lastname)
-                  }
-                  value={state.lastname}
-                  onChange={(event) => userService.handleChange(event)}
-                />
-                <Alert
-                  show={state.wrongLastname}
-                  className='dangerAllert mt-1 text-center'
-                  variant='danger'
-                >
-                  {props.t('enterValidLastName')}
-                </Alert>
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label className='fs-3'>{props.t('phoneNumber')}</Form.Label>
-                <Form.Control
-                  type='tel'
-                  name='phoneNumber'
-                  isValid={
-                    state.phoneNumber.length > 1 &&
-                    ValidateUtil.validatePhoneNumber(state.phoneNumber)
-                  }
-                  isInvalid={
-                    state.phoneNumber.length > 1 &&
-                    !ValidateUtil.validatePhoneNumber(state.phoneNumber)
-                  }
-                  value={state.phoneNumber}
-                  onChange={(event) => userService.handleChange(event)}
-                />
-                <Alert
-                  show={state.wrongPhoneNumber}
-                  className='dangerAllert mt-1 text-center'
-                  variant='danger'
-                >
-                  {props.t('enterValidPhoneNumber')}
-                </Alert>
-              </Form.Group>
+              {!state.codeStep ? (
+                <>
+                  <Form.Group className='mb-3'>
+                    <Form.Label className='fs-3'>{props.t('firstname')}</Form.Label>
+                    <Form.Control
+                      type='text'
+                      name='firstname'
+                      isValid={
+                        state.firstname.length > 1 && ValidateUtil.validateName(state.firstname)
+                      }
+                      isInvalid={
+                        state.firstname.length > 1 && !ValidateUtil.validateName(state.firstname)
+                      }
+                      value={state.firstname}
+                      onChange={(event) => userService.handleChange(event)}
+                    />
+                    <Alert
+                      show={state.wrongFirstname}
+                      className='dangerAllert mt-1 text-center'
+                      variant='danger'
+                    >
+                      {props.t('enterValidFirstName')}
+                    </Alert>
+                  </Form.Group>
+                  <Form.Group className='mb-3'>
+                    <Form.Label className='fs-3'>{props.t('lastname')}</Form.Label>
+                    <Form.Control
+                      type='text'
+                      name='lastname'
+                      isValid={
+                        state.lastname.length > 1 && ValidateUtil.validateLastName(state.lastname)
+                      }
+                      isInvalid={
+                        state.lastname.length > 1 && !ValidateUtil.validateLastName(state.lastname)
+                      }
+                      value={state.lastname}
+                      onChange={(event) => userService.handleChange(event)}
+                    />
+                    <Alert
+                      show={state.wrongLastname}
+                      className='dangerAllert mt-1 text-center'
+                      variant='danger'
+                    >
+                      {props.t('enterValidLastName')}
+                    </Alert>
+                  </Form.Group>
+                  <Form.Group className='mb-3'>
+                    <Form.Label className='fs-3'>{props.t('phoneNumber')}</Form.Label>
+                    <Form.Control
+                      type='tel'
+                      name='phoneNumber'
+                      isValid={
+                        state.phoneNumber.length > 1 &&
+                        ValidateUtil.validatePhoneNumber(state.phoneNumber)
+                      }
+                      isInvalid={
+                        state.phoneNumber.length > 1 &&
+                        !ValidateUtil.validatePhoneNumber(state.phoneNumber)
+                      }
+                      value={state.phoneNumber}
+                      onChange={(event) => userService.handleChange(event)}
+                    />
+                    <Alert
+                      show={state.wrongPhoneNumber}
+                      className='dangerAllert mt-1 text-center'
+                      variant='danger'
+                    >
+                      {props.t('enterValidPhoneNumber')}
+                    </Alert>
+                  </Form.Group>
+                </>
+              ) : (
+                <Form.Group className='mb-3'>
+                  <Form.Label className='fs-3'>{props.t('code')}</Form.Label>
+                  <Form.Control
+                    name='code'
+                    value={state.code === undefined || state.code.length <= 0 ? '' : state.code}
+                    onChange={(event) => userService.handleChange(event)}
+                  />
+                  <Alert
+                    show={state.code !== state.codeReturned}
+                    className='dangerAllert mt-1 text-center'
+                    variant='danger'
+                  >
+                    {props.t('enterCode')}
+                  </Alert>
+                </Form.Group>
+              )}
             </Form>
           )}
           <div className='row align-items-center row justify-content-end'>
@@ -223,7 +249,13 @@ export default function UserSettingsEditUserDataModal(props) {
                           state.phoneNumber.length === 0
                         }
                         className='btn button success_button settings-button fs-5 sure_button'
-                        onClick={(e) => changeUserData(e)}
+                        onClick={() =>
+                          setState((prev) => ({
+                            ...prev,
+                            codeStep: !state.codeStep,
+                            sure: !state.sure,
+                          }))
+                        }
                       >
                         {props.t('yes')}
                       </Button>
@@ -244,6 +276,18 @@ export default function UserSettingsEditUserDataModal(props) {
                     </div>
                   </div>
                 </div>
+              ) : state.codeStep ? (
+                <div className='col-2'>
+                  <Button
+                    name='en'
+                    size='sm'
+                    disabled={state.code !== state.codeReturned || state.code.length === 0}
+                    className='btn button success_button settings-button fs-5'
+                    onClick={(e) => changeUserData(e)}
+                  >
+                    {props.t('save')}
+                  </Button>
+                </div>
               ) : (
                 <div className='col-2'>
                   <Button
@@ -258,14 +302,18 @@ export default function UserSettingsEditUserDataModal(props) {
                       state.phoneNumber.length === 0
                     }
                     className='btn button success_button settings-button fs-5'
-                    onClick={() =>
+                    onClick={() => {
                       setState((prev) => ({
                         ...prev,
-                        sure: !state.sure,
-                      }))
-                    }
+                        codeStep: !state.codeStep,
+                      }));
+                      props.userDataChangeCode({
+                        state: state,
+                        setState: setState,
+                      });
+                    }}
                   >
-                    {props.t('save')}
+                    {props.t('send')}
                   </Button>
                 </div>
               )

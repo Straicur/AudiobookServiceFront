@@ -9,6 +9,7 @@ export default function AdminNotificationsRenderList(props) {
       ...prev,
       editNotificationModal: !props.notificationState.editNotificationModal,
       actionId: element.actionId != null ? element.actionId : '',
+      categoryKey: element.categoryKey != null ? element.categoryKey : '',
       dateAdd: element.dateAdd,
       delete: element.delete,
       id: element.id,
@@ -17,6 +18,9 @@ export default function AdminNotificationsRenderList(props) {
       userType: element.userType != null ? element.userType : 0,
       sure: false,
       doDeleteOrUpdate: null,
+      activeBefore: element.activated,
+      active: element.activated,
+      dateActive: element.activatedDate,
     }));
   };
 
@@ -63,6 +67,12 @@ export default function AdminNotificationsRenderList(props) {
       case 6: {
         return props.t('notificationTypeUserDeleteDecline');
       }
+      case 7: {
+        return props.t('notificationTypeReportAccepted');
+      }
+      case 8: {
+        return props.t('notificationTypeReportDenied');
+      }
     }
   };
 
@@ -74,10 +84,24 @@ export default function AdminNotificationsRenderList(props) {
         <td>{createUserType(element.userType)}</td>
         <td>{element.actionId}</td>
         <td>
+          {element.activated ? (
+            <i className='bi bi-bookmark-check-fill'></i>
+          ) : (
+            <i className='bi bi-bookmark-dash'></i>
+          )}
+        </td>
+        <td>
           {element.delete ? (
             <i className='bi bi-bookmark-check-fill'></i>
           ) : (
             <i className='bi bi-bookmark-dash'></i>
+          )}
+        </td>
+        <td>
+          {element.activatedDate !== null && element.activatedDate !== 0 ? (
+            CreateUtil.createDateTime(element.activatedDate)
+          ) : (
+            <i className='bi bi-x-lg'></i>
           )}
         </td>
         <td className='table_buttons_with'>
@@ -105,7 +129,9 @@ export default function AdminNotificationsRenderList(props) {
           <th scope='col'>{props.t('notificationType')}</th>
           <th scope='col'>{props.t('userType')}</th>
           <th scope='col'>{props.t('actionId')}</th>
+          <th scope='col'>{props.t('active')}</th>
           <th scope='col'>{props.t('deleted')}</th>
+          <th scope='col'>{props.t('activationDate')}</th>
           <th scope='col'></th>
         </tr>
       </thead>
