@@ -192,6 +192,7 @@ export const AdminNavBar = (props) => {
               t={props.t}
               token={token}
               i18n={props.i18n}
+              newNotifications={newNotificationsData.newNotifications}
             />
           </NotificationsProvider>
         ) : null}

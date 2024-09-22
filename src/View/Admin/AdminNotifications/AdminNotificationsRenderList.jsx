@@ -9,6 +9,7 @@ export default function AdminNotificationsRenderList(props) {
       ...prev,
       editNotificationModal: !props.notificationState.editNotificationModal,
       actionId: element.actionId != null ? element.actionId : '',
+      categoryKey: element.categoryKey != null ? element.categoryKey : '',
       dateAdd: element.dateAdd,
       delete: element.delete,
       id: element.id,
@@ -17,6 +18,9 @@ export default function AdminNotificationsRenderList(props) {
       userType: element.userType != null ? element.userType : 0,
       sure: false,
       doDeleteOrUpdate: null,
+      activeBefore: element.activated,
+      active: element.activated,
+      dateActive: element.activatedDate,
     }));
   };
 

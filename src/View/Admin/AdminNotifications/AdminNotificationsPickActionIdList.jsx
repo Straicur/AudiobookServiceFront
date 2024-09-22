@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import AdminNotificationsGetUsersList from './AdminNotificationsGetUsersList';
 import AdminNotificationsGetAudiobooksList from './AdminNotificationsGetAudiobooksList';
@@ -9,8 +9,6 @@ import { useAdminCategoriesListData } from 'Providers/Admin/AdminCategoriesListP
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 
 export default function AdminNotificationsPickActionIdList(props) {
-  const [listState, setListState] = useState(1);
-
   const [users] = useAdminUsersListData();
   const [categories] = useAdminCategoriesListData();
   const [audiobooks] = useAdminAudiobooksData();
@@ -22,7 +20,7 @@ export default function AdminNotificationsPickActionIdList(props) {
         fetch: !props.usersState.fetch,
       }));
     }
-    setListState(1);
+    props.setListState(1);
   };
 
   const getAudiobooksList = () => {
@@ -32,17 +30,17 @@ export default function AdminNotificationsPickActionIdList(props) {
         fetch: !props.audiobooksState.fetch,
       }));
     }
-    setListState(2);
+    props.setListState(2);
   };
 
-  const getCategriesList = () => {
+  const getCategoriesList = () => {
     if (!props.categoriesState.fetched) {
       props.setCategoriesState((prev) => ({
         ...prev,
         fetch: !props.categoriesState.fetch,
       }));
     }
-    setListState(3);
+    props.setListState(3);
   };
 
   const goBack = () => {
@@ -56,7 +54,7 @@ export default function AdminNotificationsPickActionIdList(props) {
   return (
     <div className='row'>
       <div className='row overflow-scroll pick_height'>
-        {listState === 1 ? (
+        {props.listState === 1 ? (
           <div>
             <AdminNotificationsGetUsersList
               usersState={props.usersState}
@@ -80,7 +78,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             ) : null}
           </div>
         ) : null}
-        {listState === 2 ? (
+        {props.listState === 2 ? (
           <div>
             <AdminNotificationsGetAudiobooksList
               audiobooksState={props.audiobooksState}
@@ -104,7 +102,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             ) : null}
           </div>
         ) : null}
-        {listState === 3 ? (
+        {props.listState === 3 ? (
           <AdminNotificationsGetCategoriesList
             categoriesState={props.categoriesState}
             setCategoriesState={props.setCategoriesState}
@@ -126,7 +124,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             name='en'
             variant='dark'
             size='sm'
-            disabled={listState === 1}
+            disabled={props.listState === 1}
             className='btn button mx-2'
             onClick={getUsersList}
           >
@@ -138,7 +136,7 @@ export default function AdminNotificationsPickActionIdList(props) {
             name='en'
             variant='dark'
             size='sm'
-            disabled={listState === 2}
+            disabled={props.listState === 2}
             className='btn button mx-2'
             onClick={getAudiobooksList}
           >
@@ -150,9 +148,9 @@ export default function AdminNotificationsPickActionIdList(props) {
             name='en'
             variant='dark'
             size='sm'
-            disabled={listState === 3}
+            disabled={props.listState === 3}
             className='btn button mx-2'
-            onClick={getCategriesList}
+            onClick={getCategoriesList}
           >
             {props.t('categories')}
           </Button>

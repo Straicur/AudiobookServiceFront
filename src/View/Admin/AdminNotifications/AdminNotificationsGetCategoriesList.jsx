@@ -17,7 +17,12 @@ export default function GetCategoriesList(props) {
 
   const createColumn = (element) => {
     return (
-      <tr key={uuidv4()}>
+      <tr
+        key={uuidv4()}
+        className={
+          element.categoryKey === props.state.categoryKey ? 'border-top-0 border border-danger' : ''
+        }
+      >
         <th scope='row'>{element.name}</th>
         <td>
           {element.active ? (

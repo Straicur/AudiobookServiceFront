@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import AdminNotificationsPickActionIdList from './AdminNotificationsPickActionIdList';
 import AdminNotificationsEditService from 'Service/Admin/AdminNotificationsEditService';
+import CreateUtil from '../../../Util/CreateUtil';
 
 export default function AdminNotificationsEditModal(props) {
   const [actionState, setActionState] = useState({
     list: false,
     actionIdChanged: false,
   });
+
+  const [listState, setListState] = useState(1);
+  const [notEditableState, setNotEditableState] = useState(false);
 
   const adminService = new AdminNotificationsEditService(
     props.notificationState,
@@ -19,6 +23,28 @@ export default function AdminNotificationsEditModal(props) {
     actionState,
     setActionState,
   );
+
+  useEffect(() => {
+    if (props.notificationState != null) {
+      if (props.notificationState.notificationType === 2) {
+        setListState(1);
+      } else if (props.notificationState.notificationType === 5) {
+        setListState(2);
+      } else if (props.notificationState.notificationType === 4) {
+        setListState(3);
+      }
+      if (
+        !notEditableState &&
+        props.notificationState.notificationType !== 1 &&
+        props.notificationState.notificationType !== 2 &&
+        props.notificationState.notificationType !== 3 &&
+        props.notificationState.notificationType !== 4 &&
+        props.notificationState.notificationType !== 5
+      ) {
+        setNotEditableState(true);
+      }
+    }
+  }, [props.notificationState.notificationType]);
 
   return (
     <Modal
@@ -37,6 +63,8 @@ export default function AdminNotificationsEditModal(props) {
             setState={props.setNotificationState}
             actionState={actionState}
             setActionState={setActionState}
+            setListState={setListState}
+            listState={listState}
             notificationsState={props.notificationsState}
             setNotificationsState={props.setNotificationsState}
             audiobooksState={props.audiobooksState}
@@ -78,8 +106,16 @@ export default function AdminNotificationsEditModal(props) {
                 </InputGroup.Text>
                 <Form.Select
                   name='notificationType'
+                  disabled={notEditableState}
                   onChange={(e) => {
                     adminService.handleChangeInt(e);
+
+                    if (parseInt(e.target.value) !== props.notificationState.notificationType) {
+                      props.setNotificationState((prev) => ({
+                        ...prev,
+                        actionId: '',
+                      }));
+                    }
                   }}
                   value={props.notificationState.notificationType}
                 >
@@ -105,7 +141,6 @@ export default function AdminNotificationsEditModal(props) {
                   }}
                 />
               </InputGroup>
-
               <InputGroup className='mb-2 mt-3 input_modal'>
                 <InputGroup.Text>{props.t('actionId')}</InputGroup.Text>
                 <Form.Control disabled value={props.notificationState.actionId} />
@@ -114,6 +149,11 @@ export default function AdminNotificationsEditModal(props) {
                   variant='outline-secondary'
                   size='sm'
                   className='btn button mx-2'
+                  disabled={
+                    props.notificationState.notificationType === 1 ||
+                    props.notificationState.notificationType === 3 ||
+                    notEditableState
+                  }
                   onClick={(e) => adminService.selectActionId(e)}
                 >
                   {props.t('select')}
@@ -177,6 +217,46 @@ export default function AdminNotificationsEditModal(props) {
                   </Button>
                 ) : null}
               </InputGroup>
+              {props.notificationState.activeBefore ? null : (
+                <>
+                  <InputGroup className='mb-1 input_modal py-1'>
+                    <Form.Check
+                      type='switch'
+                      id='custom-switch'
+                      label={props.t('active')}
+                      checked={
+                        props.notificationState.active != null && props.notificationState.active
+                      }
+                      onChange={(e) =>
+                        props.setNotificationState((prev) => ({
+                          ...prev,
+                          active: e.target.checked,
+                        }))
+                      }
+                    />
+                  </InputGroup>
+                  {props.notificationState.active ? null : (
+                    <InputGroup className='mb-1 input_modal'>
+                      <InputGroup.Text className='input-notification-text-new text-light'>
+                        {props.t('activationDate')}
+                      </InputGroup.Text>
+                      <Form.Control
+                        type='datetime-local'
+                        name='dateActive'
+                        value={
+                          props.notificationState.dateActive !== null &&
+                          props.notificationState.dateActive !== 0
+                            ? CreateUtil.createDateTime(props.notificationState.dateActive)
+                            : ''
+                        }
+                        onChange={(event) => {
+                          adminService.handleChange(event);
+                        }}
+                      />
+                    </InputGroup>
+                  )}
+                </>
+              )}
             </div>
             <div className='row justify-content-center mx-5 mt-2'>
               <div className='col-7'>
@@ -185,6 +265,17 @@ export default function AdminNotificationsEditModal(props) {
                   variant='success'
                   size='sm'
                   className='btn button button_notification'
+                  disabled={
+                    props.notificationState.notificationType === 0 ||
+                    props.notificationState.userType === 0 ||
+                    (props.notificationState.notificationType !== 1 &&
+                      props.notificationState.notificationType !== 3 &&
+                      props.notificationState.actionId.length === 0) ||
+                    (props.notificationState.active === false &&
+                      (props.notificationState.dateActive === null ||
+                        props.notificationState.dateActive.length === 0 ||
+                        props.notificationState.dateActive === 0))
+                  }
                   onClick={() => {
                     if (props.notificationState.doDeleteOrUpdate !== null) {
                       props.deleteNotification({
@@ -197,7 +288,6 @@ export default function AdminNotificationsEditModal(props) {
                       notificationId: props.notificationState.id,
                       notificationType: props.notificationState.notificationType,
                       notificationUserType: props.notificationState.userType,
-                      actionId: props.notificationState.actionId,
                       additionalData: {
                         text: props.notificationState.text,
                       },
@@ -205,6 +295,36 @@ export default function AdminNotificationsEditModal(props) {
 
                     if (props.notificationState.categoryKey) {
                       jsonData.additionalData.categoryKey = props.notificationState.categoryKey;
+                    }
+
+                    if (props.notificationState.active) {
+                      jsonData.additionalData.active = props.notificationState.active;
+                    }
+
+                    if (props.notificationState.dateActive) {
+                      jsonData.additionalData.dateActive = props.notificationState.dateActive;
+                    }
+
+                    if (props.notificationState.actionId !== null) {
+                      jsonData.additionalData.actionId = props.notificationState.actionId;
+                    }
+
+                    if (
+                      props.notificationState.dateActive &&
+                      props.notificationState.dateActive !== 0
+                    ) {
+                      jsonData.additionalData.dateActive = CreateUtil.createJsonFormatDateTime(
+                        props.notificationState.dateActive,
+                      );
+                    }
+
+                    if (
+                      props.notificationState.notificationType &&
+                      props.notificationState.dateActive !== 0
+                    ) {
+                      jsonData.additionalData.dateActive = CreateUtil.createJsonFormatDateTime(
+                        props.notificationState.dateActive,
+                      );
                     }
 
                     props.editNotification({
@@ -224,7 +344,7 @@ export default function AdminNotificationsEditModal(props) {
         )}
       </Modal.Body>
       <Modal.Footer>
-        {actionState.list != 0 ? (
+        {actionState.list ? (
           <Button variant='dark' onClick={adminService.goBack}>
             {props.t('back')}
           </Button>

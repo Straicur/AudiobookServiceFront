@@ -27,9 +27,6 @@ export default function UserRegister() {
   });
 
   useEffect(() => {
-    // console.log(ValidateUtil.validateEmail(state.email))
-    // console.log(ValidateUtil.validatePassword(state.password))
-    console.log( ValidateUtil.validateBirthday(state.parentalControl, state.birthdayDate))
     if (
       state.firstname.length >= 3 &&
       state.lastname.length >= 3 &&

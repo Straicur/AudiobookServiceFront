@@ -164,7 +164,8 @@ export default function AdminNotificationsAddModal(props) {
                     disabled={
                       modalState.notificationType === 0 ||
                       modalState.userType === 0 ||
-                      (modalState.active === false && (modalState.dateActive === null || modalState.dateActive.length === 0))
+                      (modalState.active === false &&
+                        (modalState.dateActive === null || modalState.dateActive.length === 0))
                     }
                     onClick={() =>
                       props.addNotification({
@@ -198,7 +199,7 @@ export default function AdminNotificationsAddModal(props) {
         )}
       </Modal.Body>
       <Modal.Footer>
-        {actionState.list? (
+        {actionState.list ? (
           <Button variant='dark' onClick={adminService.goBack}>
             {props.t('back')}
           </Button>
