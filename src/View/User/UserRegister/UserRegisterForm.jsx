@@ -256,7 +256,7 @@ export default function UserRegisterForm(props) {
                           type='switch'
                           className='text-start'
                           checked={props.state.parentalControl}
-                          label={t('addparentalControlYear')}
+                          label={t('addParentalControlYear')}
                           onChange={() => userService.handleParentalControl()}
                         />
                         {props.state.parentalControl ? (
@@ -269,7 +269,7 @@ export default function UserRegisterForm(props) {
                               onChange={(event) => userService.handleChange(event)}
                             />
                             <Form.Control.Feedback type='invalid'>
-                              {t('enterValidLastName')}
+                              {t('enterValidBirthday')}
                             </Form.Control.Feedback>
                           </div>
                         ) : null}

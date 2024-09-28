@@ -22,8 +22,7 @@
 }
 .report-categories-modal-list {
   background-color: #525252;
-  border: 0.2rem;
-  border-style: solid;
+  border: 0.2rem solid;
 }
 .report-categories-modal-list-parent {
   border-color: #2a5740;

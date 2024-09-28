@@ -19,7 +19,7 @@ export const UserAudiobookPartProvider = ({
   const setAudiobookPart = (variables) => {
     let copy = dataAudiobookPart;
 
-    for (var key in variables) {
+    for (const key in variables) {
       copy[key] = variables[key];
     }
 

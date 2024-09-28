@@ -14,7 +14,7 @@ export const UserAudiobookCommentsProvider = ({
   const qc = useQueryClient();
 
   function setComment(comment, bool) {
-    let newComments = dataAudiobookUserComments.comments.map((element) => {
+    return dataAudiobookUserComments.comments.map((element) => {
       if (element.id === comment.id) {
         let like = element.audiobookCommentLike;
         let unlike = element.audiobookCommentUnlike;
@@ -57,8 +57,6 @@ export const UserAudiobookCommentsProvider = ({
       }
       return element;
     });
-
-    return newComments;
   }
 
   function setChildComment(parentId, comment, bool) {

@@ -7,10 +7,7 @@
 }
 
 .btn-light {
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0.375rem !important;
-  border-bottom-right-radius: 0.375rem !important;
-  border-bottom-left-radius: 0 !important;
+  border-radius: 0 0.375rem 0.375rem 0;
 }
 
 .input-group-text-new-off-canvas {

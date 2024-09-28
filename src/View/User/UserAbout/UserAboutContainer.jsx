@@ -11,7 +11,7 @@ import { useAtom } from 'jotai';
 import { useUserIp } from 'Providers/User/UserIpProvider';
 import { useUserReport } from 'Providers/User/UserReportProvider';
 import { UserNotLoggedNavBar } from '../UserNavBar/UserNotLoggedNavBar';
-import UserNavBarPrividers from '../UserNavBar/UserNavBarPrividers';
+import UserNavBarProviders from '../UserNavBar/UserNavBarProviders';
 
 export default function UserAboutContainer(props) {
   const setErrorAtomState = useAtom(networkErrorAtom)[1];
@@ -31,7 +31,7 @@ export default function UserAboutContainer(props) {
       <div className='container-fluid main-container'>
         <div className='position-relative '>
           {props.token ? (
-            <UserNavBarPrividers token={props.token} t={props.t} i18n={props.i18n} />
+            <UserNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
           ) : (
             <UserNotLoggedNavBar token={props.token} t={props.t} i18n={props.i18n} />
           )}
@@ -233,7 +233,7 @@ export default function UserAboutContainer(props) {
                 />
                 <img
                   className='small_img_stack'
-                  src='http://img.shields.io/badge/-PHPStorm-181717?style=for-the-badge&logo=phpstorm&logoColor=white'
+                  src='https://img.shields.io/badge/-PHPStorm-181717?style=for-the-badge&logo=phpstorm&logoColor=white'
                 />
                 <img
                   className='small_img_stack'

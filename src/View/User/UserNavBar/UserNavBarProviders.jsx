@@ -3,7 +3,7 @@ import { NewNotificationsProvider } from 'Providers/Common/NewNotificationsProvi
 import { UserNavBar } from './UserNavBar';
 import { UserAuthorizeProvider } from 'Providers/User/UserAuthorizeProvider';
 
-export default function UserNavBarPrividers(props) {
+export default function UserNavBarProviders(props) {
   return (
     <NewNotificationsProvider token={props.token} t={props.t} i18n={props.i18n}>
       <UserAuthorizeProvider token={props.token} i18n={props.i18n}>

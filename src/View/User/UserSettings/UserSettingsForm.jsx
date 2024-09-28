@@ -53,6 +53,21 @@ export default function UserSettingsForm(props) {
         <Button
           name='en'
           size='sm'
+          className='btn button success_button settings_button fs-5'
+          onClick={() =>
+            props.setState((prev) => ({
+              ...prev,
+              buttonUserParentalControl: !props.state.buttonUserParentalControl,
+            }))
+          }
+        >
+          {props.t('changeParentalControl')}
+        </Button>
+      </div>
+      <div className='row align-items-center justify-content-center my-2'>
+        <Button
+          name='en'
+          size='sm'
           className='btn button danger_button settings_button fs-5'
           onClick={() =>
             props.setState((prev) => ({

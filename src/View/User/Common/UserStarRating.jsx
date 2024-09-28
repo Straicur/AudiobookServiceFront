@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useLayoutEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid4 } from 'uuid';
 
 export default function UserStarRating(props) {
   const [rating, setRating] = useState(0);
@@ -39,7 +39,7 @@ export default function UserStarRating(props) {
       .map((idx) => (
         <button
           type='button'
-          key={uuidv4()}
+          key={uuid4()}
           className={idx <= ((rating && hover) || hover) ? 'on button-star' : 'off button-star'}
           onClick={userRate ? () => clickRating(idx) : undefined}
           onMouseEnter={userRate ? () => setHover(idx) : undefined}

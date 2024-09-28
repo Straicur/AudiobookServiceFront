@@ -3,10 +3,7 @@
 }
 
 .about_page_container {
-  padding-right: 6rem !important;
-  padding-left: 6rem !important;
-  padding-top: 1rem !important;
-  padding-bottom: 1rem !important;
+  padding: 1rem 6rem !important;
   max-width: 90rem;
 }
 

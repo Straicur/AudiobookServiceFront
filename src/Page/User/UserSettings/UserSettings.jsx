@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UserNavBarPrividers from 'View/User/UserNavBar/UserNavBarPrividers';
+import UserNavBarProviders from '../../../View/User/UserNavBar/UserNavBarProviders';
 import { useTokenStore } from 'Store/store';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -24,6 +24,7 @@ export default function UserSettings() {
     buttonPassword: false,
     buttonDelete: false,
     buttonUserData: false,
+    buttonUserParentalControl: false,
   });
 
   return (
@@ -45,7 +46,7 @@ export default function UserSettings() {
 
           <div className='container-fluid main-container mt-3'>
             <div className='card position-relative p-3 bg-dark shadow'>
-              <UserNavBarPrividers token={token} t={t} i18n={i18n} />
+              <UserNavBarProviders token={token} t={t} i18n={i18n} />
               <hr className='text-white line' />
               <UserSettingsProvider token={token} i18n={i18n}>
                 <UserSettingsContainer

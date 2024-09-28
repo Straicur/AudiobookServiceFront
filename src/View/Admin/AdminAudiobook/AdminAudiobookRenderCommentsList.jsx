@@ -80,7 +80,7 @@ export default function AdminAudiobookRenderCommentsList(props) {
         key={uuidv4()}
         className='border border-1 border-dark list-group-item'
         onClick={(e) => oparateParentList(e, element, child)}
-        data-clicable={element.id === lastOpenComment.current ? false : true}
+        data-clicable={element.id !== lastOpenComment.current}
       >
         <div className='row p-1 bd-highlight comment_detail_height'>
           <div className='col-1'>

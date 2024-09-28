@@ -11,7 +11,7 @@ export const AdminAudiobookPartProvider = ({ children, token, audiobookId, part,
   const setAudiobookPart = (variables) => {
     let copy = dataAudiobookPart;
 
-    for (var key in variables) {
+    for (const key in variables) {
       copy[key] = variables[key];
     }
 

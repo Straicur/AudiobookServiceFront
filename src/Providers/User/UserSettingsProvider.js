@@ -167,6 +167,40 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
     },
   });
 
+  const { mutate: userParentControlChangeCode } = useMutation({
+    mutationFn: () => {
+      return HandleFetch(
+        '/user/parent/control',
+        'PUT',
+        null,
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      variables.setState((prev) => ({
+        ...prev,
+        codeReturned: data.code,
+      }))
+    },
+  });
+
+  const { mutate: userParentControlChange } = useMutation({
+    mutationFn: (data) => {
+      return HandleFetch(
+        '/user/parent/control',
+        'PATCH',
+        data.json,
+        token,
+        i18n.language,
+      );
+    },
+    onSuccess: (data, variables) => {
+      variables.element.target.classList.remove('disabled');
+      refetch()
+    },
+  });
+
   const { data: dataUserSettings = null, refetch, isLoading } = useQuery({
     queryKey: ['dataUserSettings'],
     queryFn: () => HandleFetch('/user/settings', 'GET', null, token, i18n.language),
@@ -185,7 +219,9 @@ export const UserSettingsProvider = ({ children, token, i18n }) => {
     userDataChange,
     userDataChangeCode,
     userPasswordChangeCode,
-    userEmailChangeCode
+    userEmailChangeCode,
+    userParentControlChangeCode,
+    userParentControlChange
   ];
 
   return <UserSettingsContext.Provider value={value}>{children}</UserSettingsContext.Provider>;

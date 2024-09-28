@@ -1,5 +1,5 @@
 import React from 'react';
-import UserNavBarPrividers from 'View/User/UserNavBar/UserNavBarPrividers';
+import UserNavBarProviders from '../../../View/User/UserNavBar/UserNavBarProviders';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { UserFooter } from 'View/User/Common/UserFooter';
@@ -21,7 +21,7 @@ export default function UserHelp() {
       <div className='container-fluid main-container mt-3'>
         <div className='card position-relative p-3 bg-dark shadow'>
           {token ? (
-            <UserNavBarPrividers token={token} t={t} i18n={i18n} />
+            <UserNavBarProviders token={token} t={t} i18n={i18n} />
           ) : (
             <UserNotLoggedNavBar token={token} t={t} i18n={i18n} />
           )}

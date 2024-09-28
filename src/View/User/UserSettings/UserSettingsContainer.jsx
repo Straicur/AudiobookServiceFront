@@ -6,6 +6,7 @@ import UserSettingsDeleteUserModal from './UserSettingsDeleteUserModal';
 import UserSettingsForm from './UserSettingsForm';
 import UserSettingInfo from './UserSettingInfo';
 import { useUserSettingsData } from 'Providers/User/UserSettingsProvider';
+import UserSettingsChangeParentalControlModal from './UserSettingsChangeParentalControlModal';
 
 export default function UserSettingsContainer(props) {
   const [
@@ -19,6 +20,8 @@ export default function UserSettingsContainer(props) {
     userDataChangeCode,
     userPasswordChangeCode,
     userEmailChangeCode,
+    userParentControlChangeCode,
+    userParentControlChange,
   ] = useUserSettingsData();
 
   return (
@@ -74,6 +77,19 @@ export default function UserSettingsContainer(props) {
           userDetail={userDetail}
           userDataChange={userDataChange}
           userDataChangeCode={userDataChangeCode}
+          t={props.t}
+          i18n={props.i18n}
+          token={props.token}
+          refetch={refetch}
+        />
+      ) : null}
+      {props.state.buttonUserParentalControl ? (
+        <UserSettingsChangeParentalControlModal
+          state={props.state}
+          setState={props.setState}
+          userDetail={userDetail}
+          userParentControlChange={userParentControlChange}
+          userParentControlChangeCode={userParentControlChangeCode}
           t={props.t}
           i18n={props.i18n}
           token={props.token}
