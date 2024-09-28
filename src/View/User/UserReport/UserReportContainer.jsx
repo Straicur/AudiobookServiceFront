@@ -1,5 +1,5 @@
 import React from 'react';
-import UserNavBarPrividers from '../UserNavBar/UserNavBarPrividers';
+import UserNavBarProviders from '../UserNavBar/UserNavBarProviders';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import UserCategoriesListModal from './UserCategoriesListModal';
@@ -81,7 +81,6 @@ export default function UserReportContainer(props) {
     (props.reportState.type === 2 && props.reportState.choosenAudiobook === null) ||
     (props.reportState.type === 3 && props.reportState.choosenCategory === null) ||
     (!props.token && !emailValidity);
-  props.reportState.description.length <= 10;
 
   const createTypeButton = (typeName, typeValue) => {
     return (
@@ -115,7 +114,7 @@ export default function UserReportContainer(props) {
     <div className='container-fluid main-container mt-3'>
       <div className='card position-relative p-3 bg-dark shadow'>
         {props.token ? (
-          <UserNavBarPrividers token={props.token} t={props.t} i18n={props.i18n} />
+          <UserNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
         ) : (
           <UserNotLoggedNavBar token={props.token} t={props.t} i18n={props.i18n} />
         )}
@@ -147,7 +146,7 @@ export default function UserReportContainer(props) {
             </div>
             {props.reportState.choosenCategory !== null ? (
               <p className='fs-4 text-center mt-3'>
-                Wybrałeś kategorię: {props.reportState.choosenCategoryName}
+                {props.t('chosenCategory')}: {props.reportState.choosenCategoryName}
               </p>
             ) : null}
           </div>
@@ -177,7 +176,7 @@ export default function UserReportContainer(props) {
             </div>
             {props.reportState.choosenAudiobook !== null ? (
               <p className='fs-4 text-center mt-3'>
-                Wybrałeś Audiobooka: {props.reportState.choosenAudiobookTitle} :{' '}
+                {props.t('chosenAudiobook')}: {props.reportState.choosenAudiobookTitle} :{' '}
                 {props.reportState.choosenAudiobookAuthor}
               </p>
             ) : null}

@@ -116,7 +116,7 @@ export default function UserSettingsEditUserDataModal(props) {
       }, 1200);
     }
   }, [state.checkChanges]);
-  console.log(state);
+
   return (
     <Modal
       size='lg'

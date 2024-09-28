@@ -5,7 +5,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { UserFooter } from 'View/User/Common/UserFooter';
 import './UserPolicy.css';
-import UserNavBarPrividers from 'View/User/UserNavBar/UserNavBarPrividers';
+import UserNavBarProviders from '../../../View/User/UserNavBar/UserNavBarProviders';
 import { UserNotLoggedNavBar } from 'View/User/UserNavBar/UserNotLoggedNavBar';
 import { useTokenStore } from 'Store/store';
 
@@ -22,7 +22,7 @@ export default function UserPolicy() {
       <div className='container-fluid main-container'>
         <div className='position-relative '>
           {token ? (
-            <UserNavBarPrividers token={token} t={t} i18n={i18n} />
+            <UserNavBarProviders token={token} t={t} i18n={i18n} />
           ) : (
             <UserNotLoggedNavBar token={token} t={t} i18n={i18n} />
           )}

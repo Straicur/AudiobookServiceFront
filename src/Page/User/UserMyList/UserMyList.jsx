@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTokenStore } from 'Store/store';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import UserNavBarPrividers from 'View/User/UserNavBar/UserNavBarPrividers';
+import UserNavBarProviders from '../../../View/User/UserNavBar/UserNavBarProviders';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import UserMyListGet from 'View/User/UserMyList/UserMyListGet';
@@ -45,7 +45,7 @@ export default function UserMyList() {
           </Helmet>
           <div className='container-fluid main-container mt-3'>
             <div className='card position-relative p-3 bg-dark shadow'>
-              <UserNavBarPrividers token={token} t={t} i18n={i18n} />
+              <UserNavBarProviders token={token} t={t} i18n={i18n} />
               <hr className='text-white line' />
               <div className='row text-white'>
                 <div className='fw-bold fs-1 ms-3 mt-2'>

@@ -19,7 +19,7 @@
   background: linear-gradient(#212529, #212529) 50% 50% / calc(100% - 4px) calc(100% - 4px)
       no-repeat,
     linear-gradient(90deg, transparent 0%, #585858 100%) no-repeat -7% 1%/104% 65%;
-  border-radius: 0px;
+  border-radius: 0;
   box-sizing: border-box;
   margin-right: 1rem;
 }

@@ -40,6 +40,17 @@ export default class UserRegisterService extends FormService {
     }
   }
 
+  handlePhoneNumberChange = (event) => {
+    if (event === undefined) {
+      return;
+    }
+
+    this.setState((prev) => ({
+      ...prev,
+      phoneNumber: event,
+    }));
+  };
+
   handleRegister = (e) => {
     e.preventDefault();
     e.stopPropagation();

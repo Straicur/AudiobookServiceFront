@@ -17,7 +17,7 @@ export const UserAudiobookRatingProvider = ({
   const setAudiobookRating = (variables) => {
     let copy = dataAudiobookUserRating;
 
-    for (var key in variables) {
+    for (const key in variables) {
       copy[key] = variables[key];
     }
 

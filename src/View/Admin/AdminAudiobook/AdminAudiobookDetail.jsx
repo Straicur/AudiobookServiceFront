@@ -41,7 +41,7 @@ export default function AdminAudiobookDetail(props) {
     let stars = [];
     let amountOfStars = 5;
     if (audiobookDetail != null) {
-      if (audiobookDetail.avgRating != 0) {
+      if (audiobookDetail.avgRating !== 0) {
         for (let i = 0; i < audiobookDetail.avgRating; i++) {
           stars.push(
             <div key={uuidv4()} className='col-1'>

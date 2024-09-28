@@ -96,7 +96,7 @@ export default function AdminCategoriesRenderList(props) {
             ? 'visible border border-1 border-dark list-group-item'
             : 'd-none border border-1 border-dark list-group-item'
         }
-        data-clicable={inReloadArray ? false : true}
+        data-clicable={!inReloadArray}
       >
         <div className='d-flex align-items-center flex-row bd-highlight'>
           <div

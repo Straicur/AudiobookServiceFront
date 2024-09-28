@@ -10,6 +10,9 @@ import UserRegisterService from 'Service/User/UserRegisterService';
 import ValidateUtil from 'Util/ValidateUtil';
 import { UserFooter } from 'View/User/Common/UserFooter';
 import { useUserRegisterData } from 'Providers/User/UserRegisterProvider';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
+import Alert from 'react-bootstrap/Alert';
 
 export default function UserRegisterForm(props) {
   const { t, i18n } = useTranslation();
@@ -166,7 +169,7 @@ export default function UserRegisterForm(props) {
                           isInvalid={
                             props.state.confirmPassword.length > 1 &&
                             (!ValidateUtil.validatePassword(props.state.confirmPassword) ||
-                            props.state.password.trim() !== props.state.confirmPassword.trim())
+                              props.state.password.trim() !== props.state.confirmPassword.trim())
                           }
                           onChange={(event) => userService.handleChange(event)}
                         />
@@ -175,31 +178,34 @@ export default function UserRegisterForm(props) {
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
-                    <Row className='mb-3'>
+                    <Row className='mb-2'>
                       <Form.Group
                         controlId='validationCustom04'
                         className='form-outline form-white mb-4'
                       >
-                        <Form.Control
-                          required
-                          type='phoneNumber'
-                          name='phoneNumber'
+                        <PhoneInput
+                          defaultCountry='PL'
                           placeholder={t('insertPhone')}
-                          value={props.state.phoneNumber}
-                          className='form-control form-control-lg '
-                          isValid={
-                            props.state.phoneNumber.length > 1 &&
-                            ValidateUtil.validatePhoneNumber(props.state.phoneNumber)
+                          className={
+                            props.state.phoneNumber.length > 1
+                              ? ValidateUtil.validatePhoneNumber(props.state.phoneNumber)
+                                ? 'form-control form-control-lg custom-phone-number-picker is-valid'
+                                : 'form-control form-control-lg custom-phone-number-picker is-invalid'
+                              : 'form-control form-control-lg custom-phone-number-picker'
                           }
-                          isInvalid={
+                          value={props.state.phoneNumber}
+                          onChange={(event) => userService.handlePhoneNumberChange(event)}
+                        />
+                        <Alert
+                          show={
                             props.state.phoneNumber.length > 1 &&
                             !ValidateUtil.validatePhoneNumber(props.state.phoneNumber)
                           }
-                          onChange={(event) => userService.handleChange(event)}
-                        />
-                        <Form.Control.Feedback type='invalid'>
+                          className='dangerAllert mt-1 text-center'
+                          variant='danger'
+                        >
                           {t('enterValidPhoneNumber')}
-                        </Form.Control.Feedback>
+                        </Alert>
                       </Form.Group>
                     </Row>
                     <Row className='mb-3'>
@@ -256,7 +262,7 @@ export default function UserRegisterForm(props) {
                           type='switch'
                           className='text-start'
                           checked={props.state.parentalControl}
-                          label={t('addparentalControlYear')}
+                          label={t('addParentalControlYear')}
                           onChange={() => userService.handleParentalControl()}
                         />
                         {props.state.parentalControl ? (
@@ -269,7 +275,7 @@ export default function UserRegisterForm(props) {
                               onChange={(event) => userService.handleChange(event)}
                             />
                             <Form.Control.Feedback type='invalid'>
-                              {t('enterValidLastName')}
+                              {t('enterValidBirthday')}
                             </Form.Control.Feedback>
                           </div>
                         ) : null}

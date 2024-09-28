@@ -2,6 +2,7 @@ import React from 'react';
 import CreateUtil from 'Util/CreateUtil';
 
 export default function UserSettingInfo(props) {
+  console.log(props.userDetail);
   return (
     <div className='text-white mx-4'>
       <div className='row fs-1 mb-4 fw-bold'>{props.t('yourUserData')}: </div>
@@ -13,8 +14,8 @@ export default function UserSettingInfo(props) {
       ) : (
         <div className='fs-2'>
           <div className='row ms-1'>
-            <div className='col-4 fw-bold'>{props.t('email')}: </div>
-            <div className='col-8'>
+            <div className='col-5 fw-bold'>{props.t('email')}:</div>
+            <div className='col-7'>
               {props.userDetail.email}
               {props.userDetail.newEmail !== undefined
                 ? ' (' + props.userDetail.newEmail + ')'
@@ -22,20 +23,20 @@ export default function UserSettingInfo(props) {
             </div>
           </div>
           <div className='row ms-1'>
-            <div className='col-4 fw-bold'>{props.t('firstname')}: </div>
-            <div className='col-8'>{props.userDetail.firstname}</div>
+            <div className='col-5 fw-bold'>{props.t('firstname')}:</div>
+            <div className='col-7'>{props.userDetail.firstname}</div>
           </div>
           <div className='row ms-1'>
-            <div className='col-4 fw-bold'>{props.t('lastname')}: </div>
-            <div className='col-8'>{props.userDetail.lastname}</div>
+            <div className='col-5 fw-bold'>{props.t('lastname')}:</div>
+            <div className='col-7'>{props.userDetail.lastname}</div>
           </div>
           <div className='row ms-1'>
-            <div className='col-4 fw-bold'>{props.t('phoneNumber')}: </div>
-            <div className='col-8'>{props.userDetail.phoneNumber}</div>
+            <div className='col-5 fw-bold'>{props.t('phoneNumber')}:</div>
+            <div className='col-7'>{props.userDetail.phoneNumber}</div>
           </div>
           <div className='row ms-1'>
-            <div className='col-4 fw-bold'>{props.t('edited')}: </div>
-            <div className='col-8'>
+            <div className='col-5 fw-bold'>{props.t('edited')}:</div>
+            <div className='col-7'>
               {props.userDetail.edited ? (
                 <div>
                   <i className='bi bi-calendar-check'></i>{' '}
@@ -46,6 +47,27 @@ export default function UserSettingInfo(props) {
               )}
             </div>
           </div>
+          <div className='row ms-1'>
+            <div className='col-5 fw-bold'>{props.t('parentalControl')}:</div>
+            <div className='col-7'>
+              {props.userDetail.birthday ? (
+                <i className='bi bi-check-lg'></i>
+              ) : (
+                <i className='bi bi-x-lg'></i>
+              )}
+            </div>
+          </div>
+          {props.userDetail.birthday ? (
+            <div className='row ms-1'>
+              <div className='col-5 fw-bold'>{props.t('birthday')}:</div>
+              <div className='col-7'>
+                <div>
+                  <i className='bi bi-calendar-check'></i>{' '}
+                  {CreateUtil.createDate(props.userDetail.birthday)}
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       )}
     </div>

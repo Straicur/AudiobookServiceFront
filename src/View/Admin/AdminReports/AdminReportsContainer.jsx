@@ -7,7 +7,7 @@ import { useAdminReportsData } from 'Providers/Admin/AdminReportsProvider';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import AdminReportsRenderList from './AdminReportsRenderList';
 import AdminReportsSearchOffCanvas from './AdminReportsSearchOffCanvas';
-import AdminReportDetailModal from './AdminReportDeatailModal';
+import AdminReportDetailModal from './AdminReportDetailModal';
 
 export default function AdminReportsContainer(props) {
   const [state, setState] = useState({
