@@ -387,7 +387,7 @@ export default function UserRenderCommentsList(props) {
         </div>
         {element.myComment ? (
           <div className='col-5'>
-            <div className='row mx-1 justify-content-start'>
+            <div className='row mx-2 justify-content-start'>
               <div className='col-4'>
                 <Button
                   name='en'
@@ -430,7 +430,7 @@ export default function UserRenderCommentsList(props) {
             </div>
           </div>
         ) : (
-          <div className='col-5'>
+          <div className='col-5 mx-3 justify-content-start'>
             <Button
               name='en'
               variant='success'
@@ -536,7 +536,6 @@ export default function UserRenderCommentsList(props) {
             </div>
           </div>
         </div>
-
         <div className='row mx-2 small-text my-1'>
           {element.comment.length > 20 ? (
             <div className='row'>
