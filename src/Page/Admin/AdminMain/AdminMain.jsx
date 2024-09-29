@@ -4,7 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminMainContainer from 'View/Admin/AdminMain/AdminMainContainer';
 import { useTranslation } from 'react-i18next';
-import { AdminMainDataPrivider } from 'Providers/Admin/AdminMainDataPrivider';
+import { AdminMainDataProvider } from '../../../Providers/Admin/AdminMainDataProvider';
 import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
 import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
 import './AdminMain.css';
@@ -28,7 +28,7 @@ export default function AdminMain() {
         //   }));
         // }}
       >
-        <AdminMainDataPrivider token={token} i18n={i18n}>
+        <AdminMainDataProvider token={token} i18n={i18n}>
           <AdminMainContainer
             infoState={infoState}
             token={token}
@@ -36,7 +36,7 @@ export default function AdminMain() {
             t={t}
             i18n={i18n}
           />
-        </AdminMainDataPrivider>
+        </AdminMainDataProvider>
       </ErrorBoundary>
     </NetworkErrorBoundry>
   );

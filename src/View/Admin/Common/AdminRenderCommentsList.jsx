@@ -8,7 +8,7 @@ export default function AdminRenderCommentsList(props) {
   const renderTree = () => {
     let renderArray = [];
 
-    if (props.comments != undefined) {
+    if (props.comments !== undefined) {
       createTree(props.comments.comments, renderArray);
     }
 
@@ -138,12 +138,12 @@ export default function AdminRenderCommentsList(props) {
               ? 'p-2 border border-1 border-secondary list-group-item'
               : 'd-none p-2 border border-1 border-secondary list-group-item'
             : index + 1 === arrayLength
-            ? element.parentId === lastOpenComment.current
-              ? 'p-2 border border-1 border-secondary list-group-item'
-              : 'd-none p-2 border border-1 border-secondary list-group-item'
-            : element.parentId === lastOpenComment.current
-            ? 'p-2 border border-1 border-bottom-0 border-secondary list-group-item'
-            : 'd-none p-2 border border-1 border-bottom-0 border-secondary list-group-item'
+              ? element.parentId === lastOpenComment.current
+                ? 'p-2 border border-1 border-secondary list-group-item'
+                : 'd-none p-2 border border-1 border-secondary list-group-item'
+              : element.parentId === lastOpenComment.current
+                ? 'p-2 border border-1 border-bottom-0 border-secondary list-group-item'
+                : 'd-none p-2 border border-1 border-bottom-0 border-secondary list-group-item'
         }
         id={element.id}
       >
@@ -183,7 +183,7 @@ export default function AdminRenderCommentsList(props) {
     for (const element of array) {
       let children = [];
 
-      if (element['children'].length != 0) {
+      if (element['children'].length !== 0) {
         for (const [index, child] of element['children'].entries()) {
           children.push(createListElement(index, child, element['children'].length));
         }

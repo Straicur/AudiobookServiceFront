@@ -28,7 +28,7 @@ export default function AdminCategoryAudiobookCategoryList(props) {
 
   const getCategoryList = () => {
     let categories = [];
-    if (props.audiobookDetail != null && props.audiobookDetail.categories != undefined) {
+    if (props.audiobookDetail != null && props.audiobookDetail.categories !== undefined) {
       props.audiobookDetail.categories.forEach((category) => {
         categories.push(createCategory(category));
       });

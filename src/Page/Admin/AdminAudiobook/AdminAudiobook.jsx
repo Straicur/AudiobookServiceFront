@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useTokenStore } from 'Store/store';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
-import AdminAuidobookDetailProviders from 'View/Admin/AdminAudiobook/AdminAuidobookDetailProviders';
+import AdminAudiobookDetailProviders from '../../../View/Admin/AdminAudiobook/AdminAudiobookDetailProviders';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './AdminAudiobook.css';
@@ -22,7 +22,7 @@ export default function AdminAudiobook() {
     file: null,
     edit: false,
     deleteFromCategory: false,
-    deleteEntarly: false,
+    deleteEntirely: false,
     addCategoriesModal: false,
     reAddingModal: false,
     reAdding: false,
@@ -54,7 +54,7 @@ export default function AdminAudiobook() {
   return (
     <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal} showModal={deleted.current}>
       <ErrorBoundary FallbackComponent={ErrorHandlerModal}>
-        <AdminAuidobookDetailProviders
+        <AdminAudiobookDetailProviders
           audiobookState={audiobookState}
           setAudiobookState={setAudiobookState}
           audiobookId={audiobookId}

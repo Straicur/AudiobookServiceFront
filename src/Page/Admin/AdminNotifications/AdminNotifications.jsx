@@ -5,7 +5,7 @@ import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminNotificationsList from 'View/Admin/AdminNotifications/AdminNotificationsList';
 import { AdminNotificationsProvider } from 'Providers/Admin/AdminNotificationsProvider';
 import { AdminSystemRolesProvider } from 'Providers/Admin/AdminSystemRolesProvider';
-import { AdminUsersListPrivider } from 'Providers/Admin/AdminUsersListPrivider';
+import { AdminUsersListProvider } from '../../../Providers/Admin/AdminUsersListProvider';
 import { AdminCategoriesListProvider } from 'Providers/Admin/AdminCategoriesListProvider';
 import { AdminAudiobooksProvider } from 'Providers/Admin/AdminAudiobooksProvider';
 import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
@@ -58,7 +58,7 @@ export default function AdminNotifications() {
           i18n={i18n}
         >
           <AdminSystemRolesProvider token={token} i18n={i18n}>
-            <AdminUsersListPrivider
+            <AdminUsersListProvider
               token={token}
               page={notificationsUsersState.page}
               searchState={{
@@ -106,7 +106,7 @@ export default function AdminNotifications() {
                   />
                 </AdminCategoriesListProvider>
               </AdminAudiobooksProvider>
-            </AdminUsersListPrivider>
+            </AdminUsersListProvider>
           </AdminSystemRolesProvider>
         </AdminNotificationsProvider>
       </ErrorBoundary>

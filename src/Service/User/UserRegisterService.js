@@ -27,7 +27,7 @@ export default class UserRegisterService extends FormService {
     }));
   };
 
-  getPasswordStrenghtProgressColor(passStr) {
+  getPasswordStrengthProgressColor(passStr) {
     switch (passStr) {
       case 10:
         return 'danger';

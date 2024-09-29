@@ -22,7 +22,7 @@ export default function UserAudiobooksListModal(props) {
       backdrop='static'
     >
       <Modal.Body className='text-white report-modal-dark-backgrund'>
-        <p className='text-center fs-2'>{props.t('selectAudibook')}</p>
+        <p className='text-center fs-2'>{props.t('selectAudiobook')}</p>
         <UserRenderAudiobooksList
           audiobooks={audiobooks}
           reportState={props.reportState}

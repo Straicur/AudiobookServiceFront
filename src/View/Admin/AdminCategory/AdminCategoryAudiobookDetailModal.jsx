@@ -18,7 +18,7 @@ export default function AdminCategoryAudiobookDetailModal(props) {
     edit: false,
     errorCover: '',
     deleteFromCategory: false,
-    deleteEntarly: false,
+    deleteEntirely: false,
   });
 
   const [audiobookDetailState, setAudiobookDetailState] = useState({
@@ -59,7 +59,7 @@ export default function AdminCategoryAudiobookDetailModal(props) {
     });
   };
 
-  const deleteAudiobookEntarly = () => {
+  const deleteAudiobookEntirely = () => {
     props.deleteAudiobook({
       audiobookId: audiobookDetail.id,
     });
@@ -80,7 +80,7 @@ export default function AdminCategoryAudiobookDetailModal(props) {
     let stars = [];
     let amountOfStars = 5;
 
-    if (audiobookDetail.avgRating != 0) {
+    if (audiobookDetail.avgRating !== 0) {
       for (let i = 0; i < audiobookDetail.avgRating; i++) {
         stars.push(
           <div key={uuidv4()} className='col-1'>
@@ -163,13 +163,13 @@ export default function AdminCategoryAudiobookDetailModal(props) {
               token={props.token}
             />
             <Alert
-              show={stateModal.errorCover != ''}
+              show={stateModal.errorCover !== ''}
               className='dangerAllert mt-1 text-center'
               variant='danger'
             >
               {stateModal.errorCover}
             </Alert>
-            {audiobookDetail != undefined ? (
+            {audiobookDetail !== undefined ? (
               <div className='row d-flex justify-content-center text-light text-center'>
                 <div className='col-3 mx-0 p-0'>
                   <h5>{props.t('rated')}</h5>
@@ -251,14 +251,14 @@ export default function AdminCategoryAudiobookDetailModal(props) {
               </div>
             )}
 
-            {stateModal.deleteEntarly ? (
+            {stateModal.deleteEntirely ? (
               <div className='row justify-content-start'>
                 <div className='col-5 mx-1'>
                   <Button
                     name='en'
                     size='sm'
                     className='btn button px-4 my-1 question_button success_button'
-                    onClick={deleteAudiobookEntarly}
+                    onClick={deleteAudiobookEntirely}
                   >
                     {props.t('yes')}
                   </Button>
@@ -271,7 +271,7 @@ export default function AdminCategoryAudiobookDetailModal(props) {
                     onClick={() =>
                       setStateModal((prev) => ({
                         ...prev,
-                        deleteEntarly: !stateModal.deleteEntarly,
+                        deleteEntirely: !stateModal.deleteEntirely,
                       }))
                     }
                   >
@@ -288,11 +288,11 @@ export default function AdminCategoryAudiobookDetailModal(props) {
                   onClick={() =>
                     setStateModal((prev) => ({
                       ...prev,
-                      deleteEntarly: !stateModal.deleteEntarly,
+                      deleteEntirely: !stateModal.deleteEntirely,
                     }))
                   }
                 >
-                  {props.t('deleteEntarly')}
+                  {props.t('deleteEntirely')}
                 </Button>
               </div>
             )}

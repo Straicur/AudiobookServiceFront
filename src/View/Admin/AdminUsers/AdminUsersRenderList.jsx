@@ -8,7 +8,6 @@ export default function AdminUsersRenderList(props) {
     let renderArray = [];
 
     if (props.usersList !== undefined && props.usersList != null) {
-      console.log(props.usersList.users)
       props.usersList.users.forEach((element) => {
         renderArray.push(createColumn(element));
       });

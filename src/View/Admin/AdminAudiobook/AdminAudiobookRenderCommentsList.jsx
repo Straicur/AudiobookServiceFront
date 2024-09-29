@@ -57,11 +57,11 @@ export default function AdminAudiobookRenderCommentsList(props) {
   const renderTree = () => {
     let renderArray = [];
 
-    if (props.audiobookCommnets != undefined) {
-      createTree(props.audiobookCommnets.comments, renderArray);
+    if (props.audiobookComments !== undefined) {
+      createTree(props.audiobookComments.comments, renderArray);
     }
 
-    if (props.audiobookCommnets != null && props.audiobookCommnets.comments.length === 0) {
+    if (props.audiobookComments != null && props.audiobookComments.comments.length === 0) {
       renderArray.push(
         <div key={uuidv4()} className='row text-center'>
           <div className='col-md-6 offset-md-3 '>
@@ -138,12 +138,12 @@ export default function AdminAudiobookRenderCommentsList(props) {
               ? 'p-2 border border-1 border-secondary list-group-item'
               : 'd-none p-2 border border-1 border-secondary list-group-item'
             : index + 1 === arrayLength
-            ? element.parentId === lastOpenComment.current
-              ? 'p-2 border border-1 border-secondary list-group-item'
-              : 'd-none p-2 border border-1 border-secondary list-group-item'
-            : element.parentId === lastOpenComment.current
-            ? 'p-2 border border-1 border-bottom-0 border-secondary list-group-item'
-            : 'd-none p-2 border border-1 border-bottom-0 border-secondary list-group-item'
+              ? element.parentId === lastOpenComment.current
+                ? 'p-2 border border-1 border-secondary list-group-item'
+                : 'd-none p-2 border border-1 border-secondary list-group-item'
+              : element.parentId === lastOpenComment.current
+                ? 'p-2 border border-1 border-bottom-0 border-secondary list-group-item'
+                : 'd-none p-2 border border-1 border-bottom-0 border-secondary list-group-item'
         }
         id={element.id}
       >
@@ -185,7 +185,7 @@ export default function AdminAudiobookRenderCommentsList(props) {
     for (const element of array) {
       let children = [];
 
-      if (element['children'].length != 0) {
+      if (element['children'].length !== 0) {
         for (const [index, child] of element['children'].entries()) {
           children.push(createListElement(index, child, element['children'].length));
         }

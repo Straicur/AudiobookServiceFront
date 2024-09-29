@@ -132,18 +132,18 @@ export default function UserRenderCategoriesList(props) {
 
       elementArray.push = element;
 
-      if (element['children'].length != 0) {
+      if (element['children'].length !== 0) {
         let returnedChildren = recursiveTree(element['children'], renderArray, kids, element);
 
         for (const value of returnedChildren) {
           let childElement = [createListElement(value.push, element)];
 
-          if (kids[element.categoryKey] != undefined) {
+          if (kids[element.categoryKey] !== undefined) {
             let ul = kids[element.categoryKey].filter((x) => x.type === 'li');
 
             if (
               !ul.some((cat) =>
-                cat.props.children[1] != undefined
+                cat.props.children[1] !== undefined
                   ? cat.props.children[1].props['data-name'] === value.push.name
                   : false,
               )
@@ -168,7 +168,7 @@ export default function UserRenderCategoriesList(props) {
         } else {
           let parentElement = [listParent(element, children, parent)];
 
-          if (kids[parent.categoryKey] != undefined) {
+          if (kids[parent.categoryKey] !== undefined) {
             kids[parent.categoryKey] = kids[parent.categoryKey].concat(parentElement);
           } else {
             kids[parent.categoryKey] = parentElement;

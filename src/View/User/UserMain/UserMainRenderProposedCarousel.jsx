@@ -33,7 +33,7 @@ export default function UserMainRenderProposedCarousel(props, audiobooks) {
     }));
   };
 
-  const returnAudioboks = () => {
+  const returnAudiooboks = () => {
     let audiobooksArray = [];
 
     audiobooksArray.push(
@@ -60,11 +60,7 @@ export default function UserMainRenderProposedCarousel(props, audiobooks) {
               }
               key={uuidv4()}
             >
-              <img
-                src={imgUrl === null ? '/noImg.jpg' : imgUrl}
-                className='card-img-top'
-                alt='...'
-              />
+              <img src={imgUrl === null ? '/noImg.jpg' : imgUrl} className='card-img-top' alt='' />
             </div>
 
             <div className='card-body'>
@@ -85,14 +81,14 @@ export default function UserMainRenderProposedCarousel(props, audiobooks) {
   const render = () => {
     return (
       <Carousel responsive={responsive} infinite={true}>
-        {returnAudioboks()}
+        {returnAudiooboks()}
       </Carousel>
     );
   };
 
   return (
     <div key={uuidv4()}>
-      {props.coversState != undefined && props.coversState.length > 0 ? render() : null}
+      {props.coversState !== undefined && props.coversState.length > 0 ? render() : null}
     </div>
   );
 }

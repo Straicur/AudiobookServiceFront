@@ -131,7 +131,9 @@ export default function UserSettingsEditEmailModal(props) {
                         state.newEmail.length > 1 && ValidateUtil.validateEmail(state.newEmail)
                       }
                       isInvalid={
-                        (state.newEmail.length > 1 && !ValidateUtil.validateEmail(state.newEmail)) || (state.newEmail === state.oldEmail)
+                        (state.newEmail.length > 1 &&
+                          !ValidateUtil.validateEmail(state.newEmail)) ||
+                        state.newEmail === state.oldEmail
                       }
                       onChange={(event) => userService.handleChange(event)}
                     />

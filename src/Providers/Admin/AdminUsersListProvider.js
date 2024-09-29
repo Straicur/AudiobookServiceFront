@@ -8,7 +8,7 @@ import AdminUsersSearchService from 'Service/Admin/AdminUsersSearchService';
 
 const AdminUsersListContext = createContext(null);
 
-export const AdminUsersListPrivider = ({
+export const AdminUsersListProvider = ({
   children,
   page,
   token,

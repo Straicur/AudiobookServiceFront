@@ -12,7 +12,7 @@ export default function UserMainRenderSearchAudiobooksList(props) {
     }));
   };
 
-  const returnAudioboks = () => {
+  const returnAudiooboks = () => {
     let audiobooksArray = [];
 
     audiobooksArray.push(
@@ -38,7 +38,11 @@ export default function UserMainRenderSearchAudiobooksList(props) {
                     : 'card-img-sm-sm-title'
                 }
               >
-                <img src={imgUrl === null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
+                <img
+                  src={imgUrl === null ? '/noImg.jpg' : imgUrl}
+                  className='card-img-top'
+                  alt={''}
+                />
               </div>
 
               <div className='card-body'>
@@ -60,7 +64,7 @@ export default function UserMainRenderSearchAudiobooksList(props) {
   return (
     <div key={uuidv4()} className='row mt-4'>
       {props.audiobooks != null && props.audiobooks.audiobooks.length !== 0 ? (
-        returnAudioboks()
+        returnAudiooboks()
       ) : (
         <div className='text-white center_text fs-2'>{props.t('emptySearch')}</div>
       )}

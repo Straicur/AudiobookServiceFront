@@ -150,7 +150,7 @@ export default function UserMyListAudiobookDetailModal(props) {
                     {audiobookDetail.categories.map((category, index) => {
                       let name = category.name;
 
-                      if (index != audiobookDetail.categories.length - 1) {
+                      if (index !== audiobookDetail.categories.length - 1) {
                         name = name + ', ';
                       }
 

@@ -13,7 +13,7 @@ import AdminAudiobookReAddingModal from './AdminAudiobookReAddingModal';
 import Button from 'react-bootstrap/Button';
 import AdminAudiobookPlayer from '../Common/AdminAudiobookPlayer';
 import AdminAudiobookReAddButton from './AdminAudiobookReAddButton';
-import AdminAudiobookDeleteEntarlyButton from './AdminAudiobookDeleteEntarlyButton';
+import AdminAudiobookDeleteEntirelyButton from './AdminAudiobookDeleteEntirelyButton';
 import { v4 as uuidv4 } from 'uuid';
 import Alert from 'react-bootstrap/Alert';
 import { useAdminCategoriesTree } from 'Providers/Admin/AdminCategoriesTreeProvider';
@@ -34,7 +34,7 @@ export default function AdminAudiobookDetail(props) {
   const [audiobookPart, setAudiobookPartRefetch] = useAudiobookPart();
   const [categoriesTree] = useAdminCategoriesTree();
   const [categories] = useAdminCategoriesListData();
-  const [audiobookCommnets, setAudiobookCommentsRefetch, deleteComment] =
+  const [audiobookComments, setAudiobookCommentsRefetch, deleteComment] =
     useAdminAudiobookComments();
 
   const renderStars = () => {
@@ -114,7 +114,7 @@ export default function AdminAudiobookDetail(props) {
               i18n={props.i18n}
             />
             <Alert
-              show={props.audiobookState.errorCover != ''}
+              show={props.audiobookState.errorCover !== ''}
               className='dangerAllert mt-1 text-center'
               variant='danger'
             >
@@ -164,7 +164,7 @@ export default function AdminAudiobookDetail(props) {
               <h4>{props.t('rating')}</h4>
               {renderStars()}
             </div>
-            {audiobookDetail != undefined ? (
+            {audiobookDetail !== undefined ? (
               <div className='row d-flex justify-content-center text-center mb-2'>
                 <div className='col-3 mx-0 p-0'>
                   <h4>{props.t('rated')}</h4>
@@ -205,7 +205,7 @@ export default function AdminAudiobookDetail(props) {
               </Button>
             </div>
 
-            <AdminAudiobookDeleteEntarlyButton
+            <AdminAudiobookDeleteEntirelyButton
               audiobookDetail={audiobookDetail}
               deleteAudiobook={deleteAudiobook}
               deleted={props.deleted}
@@ -245,7 +245,7 @@ export default function AdminAudiobookDetail(props) {
           audiobookDetail={audiobookDetail}
           audiobookState={props.audiobookState}
           setAudiobookState={props.setAudiobookState}
-          audiobookCommnets={audiobookCommnets}
+          audiobookComments={audiobookComments}
           deleteComment={deleteComment}
           setAudiobookCommentsRefetch={setAudiobookCommentsRefetch}
           t={props.t}

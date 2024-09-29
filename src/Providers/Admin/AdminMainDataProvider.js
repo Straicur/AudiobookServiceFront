@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const AdminMainDataContext = createContext(null);
 
-export const AdminMainDataPrivider = ({ children, token, i18n }) => {
+export const AdminMainDataProvider = ({ children, token, i18n }) => {
   const qc = useQueryClient();
 
   const setRefetch = () => {

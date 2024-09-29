@@ -139,7 +139,7 @@ export default function AdminCategoryEditForm(props) {
             name='encoded'
             value={
               props.audiobookDetailState != null
-                ? props.audiobookDetailState.encoded != undefined
+                ? props.audiobookDetailState.encoded !== undefined
                   ? props.audiobookDetailState.encoded
                   : ''
                 : ''
@@ -220,14 +220,14 @@ export default function AdminCategoryEditForm(props) {
                 ? props.audiobookDetailState.age === 1
                   ? '3-7'
                   : props.audiobookDetailState.age === 2
-                  ? '7-12'
-                  : props.audiobookDetailState.age === 3
-                  ? '12-16'
-                  : props.audiobookDetailState.age === 4
-                  ? '16-18'
-                  : props.audiobookDetailState.age === 5
-                  ? '18+'
-                  : null
+                    ? '7-12'
+                    : props.audiobookDetailState.age === 3
+                      ? '12-16'
+                      : props.audiobookDetailState.age === 4
+                        ? '16-18'
+                        : props.audiobookDetailState.age === 5
+                          ? '18+'
+                          : null
                 : null}
             </InputGroup.Text>
           </Dropdown>
@@ -236,7 +236,7 @@ export default function AdminCategoryEditForm(props) {
 
       <div className='row text-light me-2 input_modal'>
         <div>
-          <Alert show={wrongState != 0} className='dangerAllert mt-1 text-center' variant='danger'>
+          <Alert show={wrongState !== 0} className='dangerAllert mt-1 text-center' variant='danger'>
             {adminService.returnFormError()}
           </Alert>
         </div>
@@ -247,7 +247,7 @@ export default function AdminCategoryEditForm(props) {
             <Button
               name='en'
               size='sm'
-              disabled={wrongState != 0}
+              disabled={wrongState !== 0}
               className='btn button px-4 my-1 question_button success_button'
               onClick={() => {
                 props.setStateModal((prev) => ({
@@ -281,7 +281,7 @@ export default function AdminCategoryEditForm(props) {
           <Button
             name='en'
             size='sm'
-            disabled={wrongState != 0}
+            disabled={wrongState !== 0}
             className='btn button px-4 mt-3 mb-1 modal_button success_button'
             onClick={() =>
               props.setStateModal((prev) => ({

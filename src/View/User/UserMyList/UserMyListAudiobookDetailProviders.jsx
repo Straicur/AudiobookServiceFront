@@ -37,8 +37,6 @@ export default function UserMyListAudiobookDetailProviders(props) {
             token={props.token}
             audiobookId={props.state.detailModalAudiobook.id}
             part={audiobookState.part}
-            setAudiobookState={setAudiobookState}
-            audiobookState={audiobookState}
             i18n={props.i18n}
           >
             <UserAudiobookRatingProvider

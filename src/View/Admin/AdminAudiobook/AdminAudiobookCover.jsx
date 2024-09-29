@@ -60,7 +60,7 @@ export default function AdminAudiobookCover(props) {
               : process.env.REACT_APP_API_URL + props.audiobookDetail.imgFile
           }
           className='card-img-top'
-          alt='...'
+          alt=''
         />
       </div>
       <div className='row d-flex justify-content-center'>

@@ -8,7 +8,7 @@ import AdminUsersDeleteUsersModal from './AdminUsersDeleteUsersModal';
 import AdminUsersEditModal from './AdminUsersEditModal';
 import AdminUsersDeletedUsersModal from './AdminUsersDeletedUsersModal';
 import AdminUsersSearchOffCanvas from './AdminUsersSearchOffCanvas';
-import { useAdminUsersListData } from 'Providers/Admin/AdminUsersListPrivider';
+import { useAdminUsersListData } from '../../../Providers/Admin/AdminUsersListProvider';
 import { useAdminSystemRoles } from 'Providers/Admin/AdminSystemRolesProvider';
 
 export default function AdminUsersList(props) {
@@ -20,7 +20,7 @@ export default function AdminUsersList(props) {
     editUserElement: null,
     searchModal: false,
     sure: null,
-    sureUser: null
+    sureUser: null,
   });
 
   const [

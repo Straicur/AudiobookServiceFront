@@ -19,16 +19,16 @@ export default class AdminNotificationsService {
   static createSearchData = (searchState) => {
     let searchJson = {};
 
-    if (searchState.text != '') {
+    if (searchState.text !== '') {
       searchJson.text = searchState.text;
     }
     if (searchState.deleted != null) {
       searchJson.deleted = searchState.deleted;
     }
-    if (searchState.type != 0) {
+    if (searchState.type !== 0) {
       searchJson.type = parseInt(searchState.type);
     }
-    if (searchState.order != 0) {
+    if (searchState.order !== 0) {
       searchJson.order = parseInt(searchState.order);
     }
 

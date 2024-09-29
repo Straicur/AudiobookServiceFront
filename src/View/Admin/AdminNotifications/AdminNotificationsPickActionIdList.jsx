@@ -4,7 +4,7 @@ import AdminNotificationsGetUsersList from './AdminNotificationsGetUsersList';
 import AdminNotificationsGetAudiobooksList from './AdminNotificationsGetAudiobooksList';
 import AdminNotificationsGetCategoriesList from './AdminNotificationsGetCategoriesList';
 import { useAdminAudiobooksData } from 'Providers/Admin/AdminAudiobooksProvider';
-import { useAdminUsersListData } from 'Providers/Admin/AdminUsersListPrivider';
+import { useAdminUsersListData } from '../../../Providers/Admin/AdminUsersListProvider';
 import { useAdminCategoriesListData } from 'Providers/Admin/AdminCategoriesListProvider';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 

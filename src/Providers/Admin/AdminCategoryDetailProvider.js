@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const AdminCategoryDetailContext = createContext(null);
 
-export const AdminCategoryDetailProfider = ({ children, categoryKey, token, i18n }) => {
+export const AdminCategoryDetailProvider = ({ children, categoryKey, token, i18n }) => {
   const qc = useQueryClient();
 
   const setRefetch = () => {
