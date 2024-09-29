@@ -91,7 +91,6 @@ export default function UserMyListAudiobookDetailModal(props) {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '60%',
                 backgroundPosition: '95% 15%',
-                paddingBottom: '3rem',
               }}
             >
               <div className='col-9'>
@@ -250,27 +249,29 @@ export default function UserMyListAudiobookDetailModal(props) {
                 </div>
               </div>
             </div>
-            <div className='row my-1'>
-              <div className='col-5 fs-5'>
-                {props.t('comments')}: {audiobookDetail.comments}
+            <div className='row'>
+              <div className='row mt-4'>
+                <div className='col-5 fs-5'>
+                  {props.t('comments')}: {audiobookDetail.comments}
+                </div>
               </div>
-            </div>
-            <div className='row my-1'>
-              <UserRenderCommentsList
-                comments={audiobookUserComments.comments}
-                audiobookDetail={audiobookDetail}
-                likeComment={likeComment}
-                lastOpenComment={lastOpenComment}
-                addComment={addComment}
-                editComment={editComment}
-                setAudiobookDetailRefresh={setRefresh}
-                state={props.state}
-                setState={props.setState}
-                t={props.t}
-                i18n={props.i18n}
-                token={props.token}
-                refetch={setAudiobookCommentsRefetchState}
-              />
+              <div className='row my-1'>
+                <UserRenderCommentsList
+                  comments={audiobookUserComments.comments}
+                  audiobookDetail={audiobookDetail}
+                  likeComment={likeComment}
+                  lastOpenComment={lastOpenComment}
+                  addComment={addComment}
+                  editComment={editComment}
+                  setAudiobookDetailRefresh={setRefresh}
+                  state={props.state}
+                  setState={props.setState}
+                  t={props.t}
+                  i18n={props.i18n}
+                  token={props.token}
+                  refetch={setAudiobookCommentsRefetchState}
+                />
+              </div>
             </div>
           </div>
         ) : null}
