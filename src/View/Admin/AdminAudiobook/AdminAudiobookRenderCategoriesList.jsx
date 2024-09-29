@@ -82,7 +82,7 @@ export default function AdminAudiobookRenderCategoriesList(props) {
               variant='dark'
               size='lg'
               className='btn button'
-              disabled={usedInRefCategory != 0 || usedInitialCategory}
+              disabled={usedInRefCategory !== 0 || usedInitialCategory}
               onClick={(e) => {
                 props.categoriesId.current.push(element.id);
                 props.audiobookAddCategory({
@@ -153,7 +153,7 @@ export default function AdminAudiobookRenderCategoriesList(props) {
               variant='dark'
               size='lg'
               className='btn button'
-              disabled={usedInRefCategory != 0 || usedInitialCategory}
+              disabled={usedInRefCategory !== 0 || usedInitialCategory}
               onClick={(e) => {
                 props.categoriesId.current.push(element.id);
                 props.audiobookAddCategory({
@@ -180,18 +180,18 @@ export default function AdminAudiobookRenderCategoriesList(props) {
 
       elementArray.push = element;
 
-      if (element['children'].length != 0) {
+      if (element['children'].length !== 0) {
         let returnedChildren = recursiveTree(element['children'], renderArray, kids, element);
 
         for (const value of returnedChildren) {
           let childElement = [createListElement(value.push, element)];
 
-          if (kids[element.id] != undefined) {
+          if (kids[element.id] !== undefined) {
             let ul = kids[element.id].filter((x) => x.type === 'li');
 
             if (
               !ul.some((cat) =>
-                cat.props.children[1] != undefined
+                cat.props.children[1] !== undefined
                   ? cat.props.children[1].props['data-name'] === value.push.name
                   : false,
               )
@@ -216,7 +216,7 @@ export default function AdminAudiobookRenderCategoriesList(props) {
         } else {
           let parentElement = [listParent(element, children, parent)];
 
-          if (kids[parent.id] != undefined) {
+          if (kids[parent.id] !== undefined) {
             kids[parent.id] = kids[parent.id].concat(parentElement);
           } else {
             kids[parent.id] = parentElement;

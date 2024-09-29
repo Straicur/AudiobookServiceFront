@@ -84,25 +84,25 @@ export default class AdminUsersSearchService extends FormService {
   static createSearchData = (searchState) => {
     let searchJson = {};
 
-    if (searchState.email != '') {
+    if (searchState.email !== '') {
       searchJson.email = searchState.email;
     }
-    if (searchState.phoneNumber != '') {
+    if (searchState.phoneNumber !== '') {
       searchJson.phoneNumber = searchState.phoneNumber;
     }
-    if (searchState.firstname != '') {
+    if (searchState.firstname !== '') {
       searchJson.firstname = searchState.firstname;
     }
-    if (searchState.lastname != '') {
+    if (searchState.lastname !== '') {
       searchJson.lastname = searchState.lastname;
     }
-    if (searchState.active != null) {
+    if (searchState.active !== null) {
       searchJson.active = searchState.active;
     }
-    if (searchState.banned != null) {
+    if (searchState.banned !== null) {
       searchJson.banned = searchState.banned;
     }
-    if (searchState.order != 0) {
+    if (searchState.order !== 0) {
       searchJson.order = searchState.order;
     }
     return searchJson;

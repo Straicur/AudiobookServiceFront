@@ -48,7 +48,7 @@ export const ErrorHandlerModal = ({ error }) => {
     <Modal show={state.show} backdrop='static'>
       <Modal.Body>
         <h3 className='text-center fw-bold py-3'> {errorMessage}</h3>
-        {errorData != undefined
+        {errorData !== undefined
           ? errorData.map((element) => {
               return (
                 <p key={uuidv4()} className='text-center pb-1 fs-5'>

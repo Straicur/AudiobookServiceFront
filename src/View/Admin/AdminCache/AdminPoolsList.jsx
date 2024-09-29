@@ -14,7 +14,7 @@ export default function AdminPoolsList(props) {
     return renderArray;
   };
 
-  const addOrDelatePool = (poolValue, checked) => {
+  const addOrDeletePool = (poolValue, checked) => {
     let copy = props.poolsState;
 
     if (checked && !copy.includes(poolValue)) {
@@ -36,7 +36,7 @@ export default function AdminPoolsList(props) {
         type='checkbox'
         className='mx-4'
         key={`inline-checkbox-${element.value}`}
-        onChange={(e) => addOrDelatePool(element.value, e.target.checked)}
+        onChange={(e) => addOrDeletePool(element.value, e.target.checked)}
       />
     );
   };

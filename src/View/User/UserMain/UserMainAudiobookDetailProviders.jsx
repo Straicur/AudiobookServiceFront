@@ -36,8 +36,6 @@ export default function UserMainAudiobookDetailProviders(props) {
             state={props.state}
             token={props.token}
             audiobookId={props.state.detailModalAudiobook.id}
-            audiobookState={audiobookState}
-            setAudiobookState={setAudiobookState}
             part={audiobookState.part}
             i18n={props.i18n}
           >

@@ -24,7 +24,7 @@ export default class AdminAudiobooksSearchService extends FormService {
   };
 
   changeCategories = (element) => {
-    if (element != undefined) {
+    if (element !== undefined) {
       this.props.setSearchState((prev) => ({
         ...prev,
         categories: element,
@@ -67,31 +67,31 @@ export default class AdminAudiobooksSearchService extends FormService {
   static createSearchData = (searchState) => {
     let searchJson = {};
 
-    if (searchState.sort != 0) {
+    if (searchState.sort !== 0) {
       searchJson.order = parseInt(searchState.sort);
     }
-    if (searchState.categories.length != 0) {
+    if (searchState.categories.length !== 0) {
       searchJson.categories = searchState.categories;
     }
-    if (searchState.title != '') {
+    if (searchState.title !== '') {
       searchJson.title = searchState.title;
     }
-    if (searchState.author != '') {
+    if (searchState.author !== '') {
       searchJson.author = searchState.author;
     }
-    if (searchState.album != '') {
+    if (searchState.album !== '') {
       searchJson.album = searchState.album;
     }
-    if (searchState.parts != 0) {
+    if (searchState.parts !== 0) {
       searchJson.parts = parseInt(searchState.parts);
     }
-    if (searchState.age != 0) {
+    if (searchState.age !== 0) {
       searchJson.age = parseInt(searchState.age);
     }
-    if (searchState.year !== null && searchState.year != 0) {
+    if (searchState.year !== null && searchState.year !== 0) {
       searchJson.year = CreateUtil.createJsonFormatDate(searchState.year);
     }
-    if (searchState.duration != 0) {
+    if (searchState.duration !== 0) {
       searchJson.duration = parseInt(searchState.duration);
     }
 

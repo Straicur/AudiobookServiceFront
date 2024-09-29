@@ -23,7 +23,7 @@ export default function UserLogin() {
   });
 
   useLayoutEffect(() => {
-    if (token != '') {
+    if (token !== '') {
       navigate('/main');
     }
   }, [token]);

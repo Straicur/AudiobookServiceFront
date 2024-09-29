@@ -2,7 +2,6 @@ import React from 'react';
 import CreateUtil from 'Util/CreateUtil';
 
 export default function UserSettingInfo(props) {
-  console.log(props.userDetail);
   return (
     <div className='text-white mx-4'>
       <div className='row fs-1 mb-4 fw-bold'>{props.t('yourUserData')}: </div>

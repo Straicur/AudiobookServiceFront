@@ -75,7 +75,7 @@ export const AdminNotificationsProvider = ({ children, page, token, searchState,
     onSuccess: (data, variables) => {
       variables.setNotificationState((prev) => ({
         ...prev,
-        editNotificationkModal: !variables.notificationState.editNotificationkModal,
+        editNotificationModal: !variables.notificationState.editNotificationModal,
       }));
 
       qc.invalidateQueries(['dataAdminNotifications', 'dataNotifications', 'dataNewNotifications']);

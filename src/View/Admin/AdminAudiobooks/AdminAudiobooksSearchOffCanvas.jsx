@@ -122,7 +122,7 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
             }}
             value={props.searchState.age}
           >
-            <option value={0}> {props.t('slelectAge')}</option>
+            <option value={0}> {props.t('selectedAge')}</option>
             <option value={1}>3-7</option>
             <option value={2}>7-12</option>
             <option value={3}>12-16</option>
@@ -163,8 +163,8 @@ export default function AdminAudiobooksSearchOffCanvas(props) {
           </InputGroup.Text>
           <DropdownMultiselect
             placeholder={props.t('selectCategories')}
-            placeholderMultipleChecked={props.t('slectedMultiCategories')}
-            selectDeselectLabel={props.t('slectedAll')}
+            placeholderMultipleChecked={props.t('selectedMultiCategories')}
+            selectDeselectLabel={props.t('selectedAll')}
             options={adminService.generateCategoriesList()}
             name='categories'
             handleOnChange={(e) => {

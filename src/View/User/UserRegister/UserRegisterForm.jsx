@@ -25,7 +25,7 @@ export default function UserRegisterForm(props) {
   const [register] = useUserRegisterData();
   const userService = new UserRegisterService(formState, setFormState, props, register);
 
-  function getPasswordStrenghtText(passStr) {
+  function getPasswordStrengthText(passStr) {
     switch (passStr) {
       case 10:
         return <p className='text-center text-danger'>{t('weakPassword')}</p>;
@@ -139,12 +139,12 @@ export default function UserRegisterForm(props) {
                           <div>
                             <ProgressBar
                               className='mt-3'
-                              variant={userService.getPasswordStrenghtProgressColor(
+                              variant={userService.getPasswordStrengthProgressColor(
                                 props.state.passwordStrength,
                               )}
                               now={props.state.passwordStrength}
                             />
-                            {getPasswordStrenghtText(t, props.state.passwordStrength)}
+                            {getPasswordStrengthText(t, props.state.passwordStrength)}
                           </div>
                         ) : null}
                       </Form.Group>

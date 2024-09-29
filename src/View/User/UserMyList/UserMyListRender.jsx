@@ -15,7 +15,7 @@ export default function UserMyListRender(props) {
     }));
   };
 
-  const returnAudioboks = () => {
+  const returnAudiobooks = () => {
     let audiobooksArray = [];
 
     audiobooksArray.push(
@@ -41,7 +41,11 @@ export default function UserMyListRender(props) {
                     : 'card-img-sm-sm-title'
                 }
               >
-                <img src={imgUrl === null ? '/noImg.jpg' : imgUrl} className='card-img-top' />
+                <img
+                  src={imgUrl === null ? '/noImg.jpg' : imgUrl}
+                  className='card-img-top'
+                  alt={''}
+                />
               </div>
 
               <div className='card-body'>
@@ -67,7 +71,7 @@ export default function UserMyListRender(props) {
           <div className='spinner-border text-info spinner my-5' role='status'></div>
         </div>
       ) : audiobooks !== null && audiobooks.audiobooks.length > 0 ? (
-        <div className='my-5 row'>{returnAudioboks()}</div>
+        <div className='my-5 row'>{returnAudiobooks()}</div>
       ) : (
         <div className='text-white center_text fs-2'>{props.t('emptyMyList')}</div>
       )}

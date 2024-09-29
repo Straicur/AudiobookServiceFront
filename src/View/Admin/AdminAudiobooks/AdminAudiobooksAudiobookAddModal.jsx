@@ -90,8 +90,8 @@ export default function AdminAudiobooksAudiobookAddModal(props) {
             </InputGroup.Text>
             <DropdownMultiselect
               placeholder={props.t('selectCategories')}
-              placeholderMultipleChecked={props.t('slectedMultiCategories')}
-              selectDeselectLabel={props.t('slectedAll')}
+              placeholderMultipleChecked={props.t('selectedMultiCategories')}
+              selectDeselectLabel={props.t('selectedAll')}
               options={adminService.generateCategoriesList()}
               name='countries'
               handleOnChange={(e) => {
@@ -145,14 +145,14 @@ export default function AdminAudiobooksAudiobookAddModal(props) {
                 {stateModal.age === 1
                   ? '3-7'
                   : stateModal.age === 2
-                  ? '7-12'
-                  : stateModal.age === 3
-                  ? '12-16'
-                  : stateModal.age === 4
-                  ? '16-18'
-                  : stateModal.age === 5
-                  ? '18+'
-                  : null}
+                    ? '7-12'
+                    : stateModal.age === 3
+                      ? '12-16'
+                      : stateModal.age === 4
+                        ? '16-18'
+                        : stateModal.age === 5
+                          ? '18+'
+                          : null}
               </InputGroup.Text>
             </Dropdown>
           </InputGroup>

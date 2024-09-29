@@ -3,7 +3,7 @@ import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminUsersList from 'View/Admin/AdminUsers/AdminUsersList';
-import { AdminUsersListPrivider } from 'Providers/Admin/AdminUsersListPrivider';
+import { AdminUsersListProvider } from '../../../Providers/Admin/AdminUsersListProvider';
 import { useTranslation } from 'react-i18next';
 import { AdminSystemRolesProvider } from 'Providers/Admin/AdminSystemRolesProvider';
 import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
@@ -33,7 +33,7 @@ export default function AdminUsers() {
   return (
     <NetworkErrorBoundry FallbackComponent={NetworkErrorBoundryModal}>
       <ErrorBoundary FallbackComponent={ErrorHandlerModal}>
-        <AdminUsersListPrivider
+        <AdminUsersListProvider
           token={token}
           page={usersState.page}
           searchState={searchState}
@@ -50,7 +50,7 @@ export default function AdminUsers() {
               i18n={i18n}
             />
           </AdminSystemRolesProvider>
-        </AdminUsersListPrivider>
+        </AdminUsersListProvider>
       </ErrorBoundary>
     </NetworkErrorBoundry>
   );

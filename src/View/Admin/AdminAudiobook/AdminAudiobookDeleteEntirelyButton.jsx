@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 
-export default function AdminAudiobookDeleteEntarlyButton(props) {
-  return props.audiobookState.deleteEntarly ? (
+export default function AdminAudiobookDeleteEntirelyButton(props) {
+  return props.audiobookState.deleteEntirely ? (
     <div className='row justify-content-center'>
       <div className='col-4 mx-2'>
         <Button
@@ -28,7 +28,7 @@ export default function AdminAudiobookDeleteEntarlyButton(props) {
           onClick={() =>
             props.setAudiobookState((prev) => ({
               ...prev,
-              deleteEntarly: !props.audiobookState.deleteEntarly,
+              deleteEntirely: !props.audiobookState.deleteEntirely,
             }))
           }
         >
@@ -45,11 +45,11 @@ export default function AdminAudiobookDeleteEntarlyButton(props) {
         onClick={() =>
           props.setAudiobookState((prev) => ({
             ...prev,
-            deleteEntarly: !props.audiobookState.deleteEntarly,
+            deleteEntirely: !props.audiobookState.deleteEntirely,
           }))
         }
       >
-        {props.t('deleteEntarly')}
+        {props.t('deleteEntirely')}
       </Button>
     </div>
   );

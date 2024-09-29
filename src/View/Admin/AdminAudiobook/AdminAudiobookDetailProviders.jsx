@@ -6,7 +6,7 @@ import AdminAudiobookDetail from './AdminAudiobookDetail';
 import { AdminCategoriesTreeProvider } from 'Providers/Admin/AdminCategoriesTreeProvider';
 import { AdminCategoriesListProvider } from 'Providers/Admin/AdminCategoriesListProvider';
 
-export default function AdminAuidobookDetailProviders(props) {
+export default function AdminAudiobookDetailProviders(props) {
   return (
     <AdminAudiobookDataProvider
       token={props.token}

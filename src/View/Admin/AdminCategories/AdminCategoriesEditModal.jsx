@@ -55,7 +55,7 @@ export default function AdminCategoriesEditModal(props) {
   }, [props]);
 
   useEffect(() => {
-    if (editModal.newName != '') {
+    if (editModal.newName !== '') {
       setStateEditButton(false);
     } else {
       setStateEditButton(true);
@@ -107,7 +107,7 @@ export default function AdminCategoriesEditModal(props) {
             <h3>
               {props.state.editCategoryElement.active
                 ? props.t('youDeactivate')
-                : props.t('youActivete')}
+                : props.t('youActivate')}
             </h3>
 
             <div className='col'>

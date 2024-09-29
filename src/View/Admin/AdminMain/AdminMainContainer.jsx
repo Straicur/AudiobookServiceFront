@@ -1,7 +1,7 @@
 import React from 'react';
 import AdminNavBarProviders from '../AdminNavBar/AdminNavBarProviders';
 import Card from 'react-bootstrap/Card';
-import { useAdminMainData } from 'Providers/Admin/AdminMainDataPrivider';
+import { useAdminMainData } from '../../../Providers/Admin/AdminMainDataProvider';
 
 export default function AdminMainContainer(props) {
   const [dataAdminStatistics] = useAdminMainData();
@@ -102,7 +102,7 @@ export default function AdminMainContainer(props) {
                 </div>
               </div>
             ) : (
-              <div>Loadding....</div>
+              <div>Loading....</div>
             )}
           </div>
         </div>

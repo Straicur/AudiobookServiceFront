@@ -67,40 +67,40 @@ export default function AdminReportDetailModal(props) {
     return actionState.banPeriod === 1
       ? props.t('systemDecision')
       : actionState.banPeriod === 2
-      ? props.t('noBan')
-      : actionState.banPeriod === 3
-      ? '12 ' + props.t('hours')
-      : actionState.banPeriod === 4
-      ? '1 ' + props.t('day')
-      : actionState.banPeriod === 5
-      ? '5 ' + props.t('days')
-      : actionState.banPeriod === 6
-      ? '1 ' + props.t('month')
-      : actionState.banPeriod === 7
-      ? '3 ' + props.t('months')
-      : actionState.banPeriod === 8
-      ? '1 ' + props.t('year')
-      : null;
+        ? props.t('noBan')
+        : actionState.banPeriod === 3
+          ? '12 ' + props.t('hours')
+          : actionState.banPeriod === 4
+            ? '1 ' + props.t('day')
+            : actionState.banPeriod === 5
+              ? '5 ' + props.t('days')
+              : actionState.banPeriod === 6
+                ? '1 ' + props.t('month')
+                : actionState.banPeriod === 7
+                  ? '3 ' + props.t('months')
+                  : actionState.banPeriod === 8
+                    ? '1 ' + props.t('year')
+                    : null;
   };
 
   const createAcceptedBanPeriod = () => {
     return actionState.acceptedBanPeriod === 1
       ? props.t('systemDecision')
       : actionState.acceptedBanPeriod === 2
-      ? props.t('noBan')
-      : actionState.acceptedBanPeriod === 3
-      ? '12 ' + props.t('hours')
-      : actionState.acceptedBanPeriod === 4
-      ? '1 ' + props.t('day')
-      : actionState.acceptedBanPeriod === 5
-      ? '5 ' + props.t('days')
-      : actionState.acceptedBanPeriod === 6
-      ? '1 ' + props.t('month')
-      : actionState.acceptedBanPeriod === 7
-      ? '3 ' + props.t('months')
-      : actionState.acceptedBanPeriod === 8
-      ? '1 ' + props.t('year')
-      : null;
+        ? props.t('noBan')
+        : actionState.acceptedBanPeriod === 3
+          ? '12 ' + props.t('hours')
+          : actionState.acceptedBanPeriod === 4
+            ? '1 ' + props.t('day')
+            : actionState.acceptedBanPeriod === 5
+              ? '5 ' + props.t('days')
+              : actionState.acceptedBanPeriod === 6
+                ? '1 ' + props.t('month')
+                : actionState.acceptedBanPeriod === 7
+                  ? '3 ' + props.t('months')
+                  : actionState.acceptedBanPeriod === 8
+                    ? '1 ' + props.t('year')
+                    : null;
   };
 
   const handleClose = () => {
@@ -480,7 +480,7 @@ export default function AdminReportDetailModal(props) {
                 </div>
                 {actionState.acceptedBanPeriod ? (
                   <p className='text-center text-danger mt-3'>
-                    {props.t('slected')}: {createAcceptedBanPeriod()}
+                    {props.t('selected')}: {createAcceptedBanPeriod()}
                   </p>
                 ) : null}
               </div>

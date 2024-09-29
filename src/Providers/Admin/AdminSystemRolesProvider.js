@@ -26,7 +26,7 @@ export const AdminSystemRolesProvider = ({ children, token, i18n }) => {
 
       newUserSelectedRoles.push(variables.element.type);
 
-      const newSelcetedUser = {
+      const newSelectedUser = {
         active: variables.state.editUserElement.active,
         banned: variables.state.editUserElement.banned,
         dateCreated: variables.state.editUserElement.dateCreated,
@@ -38,7 +38,7 @@ export const AdminSystemRolesProvider = ({ children, token, i18n }) => {
       };
       variables.setState((prev) => ({
         ...prev,
-        editUserElement: newSelcetedUser,
+        editUserElement: newSelectedUser,
       }));
     },
   });

@@ -20,7 +20,7 @@ export default function AdminCategoryRenderAudiobooksList(props) {
     return renderArray;
   };
 
-  const activeteAudiobook = (element, selectedAudiobook) => {
+  const activateAudiobook = (element, selectedAudiobook) => {
     element.target.classList.add('disabled');
 
     props.activate({
@@ -91,7 +91,7 @@ export default function AdminCategoryRenderAudiobooksList(props) {
               size='sm'
               className='btn button mx-2'
               onClick={(e) => {
-                activeteAudiobook(e, element);
+                activateAudiobook(e, element);
               }}
             >
               {element.active ? props.t('deActivate') : props.t('activate')}

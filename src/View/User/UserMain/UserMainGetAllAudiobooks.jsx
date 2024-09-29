@@ -6,7 +6,7 @@ import { useUserAudiobookProposed } from 'Providers/User/UserAudiobookProposedPr
 import { useUserAudiobooksListStore } from 'Store/store';
 
 export default function GetAllAudiobooks(props) {
-  const [audiobooks, refreshAudiooks, loadingAudiobooks] = useUserAudiobookData();
+  const [audiobooks, refreshAudiobooks, loadingAudiobooks] = useUserAudiobookData();
   const [audiobooksProposed, refreshProposed, loadingProposed] = useUserAudiobookProposed();
 
   const audiobooksListStore = useUserAudiobooksListStore();
@@ -22,7 +22,7 @@ export default function GetAllAudiobooks(props) {
         refresh: true,
       }));
 
-      refreshAudiooks();
+      refreshAudiobooks();
     }
   }, [props.state.refresh]);
 
@@ -59,7 +59,7 @@ export default function GetAllAudiobooks(props) {
             t={props.t}
             audiobooksList={audiobooksList}
             maxPage={maxPage}
-            refresh={refreshAudiooks}
+            refresh={refreshAudiobooks}
           />
         </div>
       )}

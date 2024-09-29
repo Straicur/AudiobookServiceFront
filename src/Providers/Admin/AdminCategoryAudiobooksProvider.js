@@ -100,7 +100,7 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
     },
     onSuccess: (data, variables) => {
       let copy = dataAdminCategoryAudiobooks.audiobooks.map((audiobook) => {
-        if (audiobook.id != variables.audiobookId) {
+        if (audiobook.id !== variables.audiobookId) {
           return audiobook;
         }
       });
@@ -133,7 +133,7 @@ export const AdminCategoryAudiobooksProvider = ({ children, categoryKey, page, t
     },
     onSuccess: (data, variables) => {
       let copy = dataAdminCategoryAudiobooks.audiobooks.map((audiobook) => {
-        if (audiobook.id != variables.audiobookId) {
+        if (audiobook.id !== variables.audiobookId) {
           return audiobook;
         }
       });

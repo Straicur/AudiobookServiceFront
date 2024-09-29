@@ -8,7 +8,7 @@ import AdminCategoryDetailProviders from './AdminCategoryDetailProviders';
 import AudiobookCommentsModal from '../Common/AudiobookCommentsModal';
 import AdminRenderPageSwitches from '../Common/AdminRenderPageSwitches';
 import { AdminAudiobookCommentsProvider } from 'Providers/Admin/AdminAudiobookCommentsProvider';
-import { useAdminCategoryDetail } from 'Providers/Admin/AdminCategoryDetailProfider';
+import { useAdminCategoryDetail } from '../../../Providers/Admin/AdminCategoryDetailProvider';
 import { useAdminCategoryAudiobooks } from 'Providers/Admin/AdminCategoryAudiobooksProvider';
 
 export default function AdminCategoryAudiobooksList(props) {
@@ -67,7 +67,7 @@ export default function AdminCategoryAudiobooksList(props) {
             i18n={props.i18n}
             token={props.token}
           />
-          {categoryAudiobooks != undefined && categoryAudiobooks.maxPage > 1 ? (
+          {categoryAudiobooks !== undefined && categoryAudiobooks.maxPage > 1 ? (
             <AdminRenderPageSwitches
               page={props.audiobooksState.page}
               maxPage={categoryAudiobooks.maxPage}

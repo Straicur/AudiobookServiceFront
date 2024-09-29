@@ -3,7 +3,7 @@ import { useTokenStore } from 'Store/store';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorHandlerModal } from 'Errors/ErrorHandlerModal';
 import AdminCategoryAudiobooksList from 'View/Admin/AdminCategory/AdminCategoryAudiobooksList';
-import { AdminCategoryDetailProfider } from 'Providers/Admin/AdminCategoryDetailProfider';
+import { AdminCategoryDetailProvider } from '../../../Providers/Admin/AdminCategoryDetailProvider';
 import { AdminCategoryAudiobooksProvider } from 'Providers/Admin/AdminCategoryAudiobooksProvider';
 import { NetworkErrorBoundry } from 'Errors/NetworkErrorBoundry';
 import { NetworkErrorBoundryModal } from 'Errors/NetworkErrorBoundryModal';
@@ -33,7 +33,7 @@ export default function AdminCategory() {
         //   }));
         // }}
       >
-        <AdminCategoryDetailProfider categoryKey={categoryKey} token={token} i18n={i18n}>
+        <AdminCategoryDetailProvider categoryKey={categoryKey} token={token} i18n={i18n}>
           <AdminCategoryAudiobooksProvider
             categoryKey={categoryKey}
             page={audiobooksState.page}
@@ -49,7 +49,7 @@ export default function AdminCategory() {
               i18n={i18n}
             />
           </AdminCategoryAudiobooksProvider>
-        </AdminCategoryDetailProfider>
+        </AdminCategoryDetailProvider>
       </ErrorBoundary>
     </NetworkErrorBoundry>
   );

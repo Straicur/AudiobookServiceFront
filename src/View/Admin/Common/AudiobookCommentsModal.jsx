@@ -5,7 +5,7 @@ import AdminRenderCommentsList from './AdminRenderCommentsList';
 import { useAdminAudiobookComments } from 'Providers/Admin/AdminAudiobookCommentsProvider';
 
 export default function AudiobookCommentsModal(props) {
-  const [audiobookCommnets, setRefetch, deleteComment] = useAdminAudiobookComments();
+  const [audiobookComments, setRefetch, deleteComment] = useAdminAudiobookComments();
 
   const handleClose = () => {
     props.setState((prev) => ({
@@ -31,7 +31,7 @@ export default function AudiobookCommentsModal(props) {
         </div>
         <hr></hr>
         <AdminRenderCommentsList
-          comments={audiobookCommnets}
+          comments={audiobookComments}
           setRefetch={setRefetch}
           deleteComment={deleteComment}
           t={props.t}
