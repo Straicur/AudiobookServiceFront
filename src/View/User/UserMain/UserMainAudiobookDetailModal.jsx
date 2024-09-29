@@ -93,7 +93,6 @@ export default function UserMainAudiobookDetailModal(props) {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '60%',
                 backgroundPosition: '95% 15%',
-                paddingBottom: '2rem',
               }}
             >
               <div className='col-9'>
