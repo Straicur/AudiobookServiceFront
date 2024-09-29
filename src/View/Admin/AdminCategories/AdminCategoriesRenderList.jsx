@@ -29,7 +29,7 @@ export default function AdminCategoriesRenderList(props) {
 
       elementArray.push = element;
 
-      if (element['children'].length != 0) {
+      if (element['children'].length !== 0) {
         let returnedChildren = recursiveTree(element['children'], renderArray, kids, element);
 
         for (const [index, value] of returnedChildren.entries()) {
@@ -37,12 +37,12 @@ export default function AdminCategoriesRenderList(props) {
             createListElement(index, value.push, returnedChildren.length, element),
           ];
 
-          if (kids[element.id] != undefined) {
+          if (kids[element.id] !== undefined) {
             let ul = kids[element.id].filter((x) => x.type === 'li');
 
             if (
               !ul.some((cat) =>
-                cat.props.children[1] != undefined
+                cat.props.children[1] !== undefined
                   ? cat.props.children[1].props['data-name'] === value.push.name
                   : false,
               )
@@ -67,7 +67,7 @@ export default function AdminCategoriesRenderList(props) {
         } else {
           let parentElement = [listParent(element, children, parent)];
 
-          if (kids[parent.id] != undefined) {
+          if (kids[parent.id] !== undefined) {
             kids[parent.id] = kids[parent.id].concat(parentElement);
           } else {
             kids[parent.id] = parentElement;
@@ -115,7 +115,7 @@ export default function AdminCategoriesRenderList(props) {
             <div className='p-2 bd-highlight'>
               <h5>{props.t('categoryName')}:</h5>
             </div>
-            <div className='p-1 bd-highlight name_color fs-5'>
+            <div className='p-1 bd-highlight name_color fs-5 text-break'>
               <h5>{element.name}</h5>
             </div>
             <div className='p-2 bd-highlight'>

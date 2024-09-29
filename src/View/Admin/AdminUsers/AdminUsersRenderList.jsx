@@ -8,6 +8,7 @@ export default function AdminUsersRenderList(props) {
     let renderArray = [];
 
     if (props.usersList !== undefined && props.usersList != null) {
+      console.log(props.usersList.users)
       props.usersList.users.forEach((element) => {
         renderArray.push(createColumn(element));
       });
@@ -31,6 +32,7 @@ export default function AdminUsersRenderList(props) {
         <th scope='row'>{element.email}</th>
         <td>{element.firstname}</td>
         <td>{element.lastname}</td>
+        <td>{element.phoneNumber}</td>
         <td>{CreateUtil.createDate(element.dateCreated)}</td>
         <td>
           {element.active ? (
@@ -131,6 +133,7 @@ export default function AdminUsersRenderList(props) {
           <th scope='col'>{props.t('email')}</th>
           <th scope='col'>{props.t('firstname')}</th>
           <th scope='col'>{props.t('lastname')}</th>
+          <th scope='col'>{props.t('phoneNumber')}</th>
           <th scope='col'>{props.t('dateRegister')}</th>
           <th scope='col'>{props.t('active')}</th>
           <th scope='col'>{props.t('banned')}</th>
