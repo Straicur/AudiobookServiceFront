@@ -4,6 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import AdminUsersEditService from 'Service/Admin/AdminUsersEditService';
+import CreateUtil from '../../../Util/CreateUtil';
 
 export default function AdminUsersEditFrom(props) {
   const [passwordState, setPasswordState] = useState({
@@ -27,65 +28,108 @@ export default function AdminUsersEditFrom(props) {
     setPhoneNumberState,
   );
 
+  const createBanType = (element) => {
+    switch (element) {
+      case 1: {
+        return props.t('banTypeSpam');
+      }
+      case 2: {
+        return props.t('banTypeComment');
+      }
+      case 3: {
+        return props.t('banTypeStrangeBehavior');
+      }
+    }
+  };
+
   return (
     <div className='row mt-3 align-items-center'>
       <hr></hr>
       <div className='row align-items-center'>
         <h3>{props.t('active/ban')}</h3>
       </div>
-      <div className='row align-items-center mt-2'>
-        <div className='col-2'>{props.t('active')}:</div>
-        <div className='col-2'>
-          {props.state.editUserElement.active ? (
-            <i className='bi bi-bookmark-check-fill'></i>
-          ) : (
-            <i className='bi bi-bookmark-dash'></i>
-          )}
-        </div>
-        <div className='col-4 align-self-center'>
-          <Button
-            variant='warning'
-            size='sm'
-            disabled={props.state.editUserElement.active}
-            className=' btn button text-light'
-            onClick={(e) => {
-              e.target.classList.add('disabled');
+      <div className='row align-items-center'>
+        <div className='col align-self-center'>
+          <div className='row align-items-center mt-2'>
+            <div className='col-4'>{props.t('active')}:</div>
+            <div className='col-4'>
+              {props.state.editUserElement.active ? (
+                <i className='bi bi-bookmark-check-fill'></i>
+              ) : (
+                <i className='bi bi-bookmark-dash'></i>
+              )}
+            </div>
+            <div className='col-4 align-self-center'>
+              <Button
+                variant='warning'
+                size='sm'
+                disabled={props.state.editUserElement.active}
+                className=' btn button text-light'
+                onClick={(e) => {
+                  e.target.classList.add('disabled');
 
-              props.activateUser({
-                state: props.state,
-                setState: props.setState,
-              });
-            }}
-          >
-            {props.t('activate')}
-          </Button>
+                  props.activateUser({
+                    state: props.state,
+                    setState: props.setState,
+                  });
+                }}
+              >
+                {props.t('activate')}
+              </Button>
+            </div>
+          </div>
+          <div className='row mb-3 align-items-center mt-2'>
+            <div className='col-4'>{props.t('banned')}:</div>
+            <div className='col-4'>
+              {props.state.editUserElement.banned ? (
+                <i className='bi bi-bookmark-check-fill'></i>
+              ) : (
+                <i className='bi bi-bookmark-dash'></i>
+              )}
+            </div>
+            <div className='col-4 align-self-center'>
+              <Button
+                variant={props.state.editUserElement.banned ? 'danger' : 'warning'}
+                size='sm'
+                className=' btn button text-light'
+                onClick={(e) => {
+                  e.target.classList.add('disabled');
+                  props.banUser({
+                    state: props.state,
+                    setState: props.setState,
+                    e: e,
+                  });
+                }}
+              >
+                {props.state.editUserElement.banned ? props.t('unban') : props.t('ban')}
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className='row mb-3 align-items-center mt-2'>
-        <div className='col-2'>{props.t('banned')}:</div>
-        <div className='col-2'>
-          {props.state.editUserElement.banned ? (
-            <i className='bi bi-bookmark-check-fill'></i>
-          ) : (
-            <i className='bi bi-bookmark-dash'></i>
-          )}
-        </div>
-        <div className='col-4 align-self-center'>
-          <Button
-            variant='warning'
-            size='sm'
-            className=' btn button text-light'
-            onClick={(e) => {
-              e.target.classList.add('disabled');
-              props.banUser({
-                state: props.state,
-                setState: props.setState,
-                e: e,
-              });
-            }}
-          >
-            {props.state.editUserElement.banned ? props.t('unban') : props.t('ban')}
-          </Button>
+
+        <div className='col align-self-center'>
+          {props.state.editUserElement.userBan !== null ? (
+            <>
+              <div className='row align-items-center'>
+                <div className='col-3 align-self-center'>{props.t('dateFrom')}:</div>
+                <div className='col-8 align-self-center'>
+                  {CreateUtil.createDateTime(props.state.editUserElement.userBan.dateFrom)}
+                </div>
+              </div>
+              <div className='row align-items-center'>
+                <div className='col-3 align-self-center'>{props.t('dateTo')}:</div>
+                <div className='col-8 align-self-center'>
+                  {CreateUtil.createDateTime(props.state.editUserElement.userBan.dateTo)}
+                </div>
+              </div>
+              <div className='row align-items-center'>
+                <div className='col-3 align-self-center'>{props.t('type')}:</div>
+                <div className='col-8 align-self-center'>
+                  {createBanType(props.state.editUserElement.userBan.type)}
+                </div>
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
       <hr></hr>
