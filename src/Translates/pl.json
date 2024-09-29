@@ -235,6 +235,7 @@
   "text": "Tekst",
   "notDeleted": "Nie usunięty",
   "dateAdd": "Data dodania",
+  "dateSettle": "Data zmiany",
   "userType": "Typ użytkownika",
   "notificationType": "Typ notyfikacji",
   "actionId": "Id akcji",

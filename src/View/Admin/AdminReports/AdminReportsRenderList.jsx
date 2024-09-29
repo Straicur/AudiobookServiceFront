@@ -75,7 +75,10 @@ export default function AdminReportsRenderList(props) {
         }
         key={uuidv4()}
       >
-        <td scope='row'>{element.id}</td>
+        <th scope='row'>{CreateUtil.createDateTime(element.dateAdd)}</th>
+        <th scope='row'>
+          {element.settleDate !== null ? CreateUtil.createDateTime(element.settleDate) : null}
+        </th>
         <td>
           {element.accepted ? (
             <i className='bi bi-bookmark-check-fill'></i>
@@ -83,7 +86,6 @@ export default function AdminReportsRenderList(props) {
             <i className='bi bi-bookmark-dash'></i>
           )}
         </td>
-        <th scope='row'>{CreateUtil.createDateTime(element.dateAdd)}</th>
         <td>
           {element.denied ? (
             <i className='bi bi-bookmark-check-fill'></i>
@@ -126,9 +128,9 @@ export default function AdminReportsRenderList(props) {
     <table className='table'>
       <thead className=''>
         <tr>
-          <th scope='col'>{props.t('id')}</th>
-          <th scope='col'>{props.t('accepted')}</th>
           <th scope='col'>{props.t('dateAdd')}</th>
+          <th scope='col'>{props.t('dateSettle')}</th>
+          <th scope='col'>{props.t('accepted')}</th>
           <th scope='col'>{props.t('denied')}</th>
           <th scope='col'>{props.t('systemUser')}</th>
           <th scope='col'>{props.t('type')}</th>

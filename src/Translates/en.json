@@ -234,6 +234,7 @@
   "text": "Text",
   "notDeleted": "Not deleted",
   "dateAdd": "Added date",
+  "dateSettle": "Data settle",
   "userType": "User type",
   "notificationType": "Notification type",
   "actionId": "Action id",
