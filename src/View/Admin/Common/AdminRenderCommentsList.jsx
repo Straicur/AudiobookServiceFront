@@ -8,7 +8,7 @@ export default function AdminRenderCommentsList(props) {
   const renderTree = () => {
     let renderArray = [];
 
-    if (props.comments !== undefined) {
+    if (props.comments !== undefined && props.comments !== null) {
       createTree(props.comments.comments, renderArray);
     }
 

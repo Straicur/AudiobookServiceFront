@@ -57,7 +57,7 @@ export default function AdminAudiobookRenderCommentsList(props) {
   const renderTree = () => {
     let renderArray = [];
 
-    if (props.audiobookComments !== undefined) {
+    if (props.audiobookComments !== undefined && props.audiobookComments !== null) {
       createTree(props.audiobookComments.comments, renderArray);
     }
 
