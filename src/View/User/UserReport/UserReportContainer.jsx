@@ -80,7 +80,8 @@ export default function UserReportContainer(props) {
   let sendButtonDisabled =
     (props.reportState.type === 2 && props.reportState.choosenAudiobook === null) ||
     (props.reportState.type === 3 && props.reportState.choosenCategory === null) ||
-    (!props.token && !emailValidity);
+    (!props.token && !emailValidity) ||
+    props.reportState.description.length <= 20;
 
   const createTypeButton = (typeName, typeValue) => {
     return (
