@@ -11,9 +11,8 @@ export default class ValidateUtil {
   }
 
   static validateBirthday(parentalControl, birthdayDate) {
-
-    let birthday = Date.parse(birthdayDate)
-    birthday = new Date(birthday)
+    let birthday = Date.parse(birthdayDate);
+    birthday = new Date(birthday);
     let today = new Date();
 
     if (!parentalControl) {
@@ -60,7 +59,7 @@ export default class ValidateUtil {
 
   static validateLastName(lastName) {
     const re =
-      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñńçčšžźÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøśùúûüųūÿýżñçčšžźÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŚŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
     return re.test(lastName);
   }
 }
