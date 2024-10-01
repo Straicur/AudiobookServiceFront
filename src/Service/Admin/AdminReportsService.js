@@ -54,13 +54,13 @@ export default class AdminReportsService {
     if (searchState.denied != null) {
       searchJson.denied = searchState.denied;
     }
-    if (searchState.dateFrom !== null && searchState.dateFrom != 0) {
+    if (searchState.dateFrom !== null && searchState.dateFrom !== 0) {
       searchJson.dateFrom = CreateUtil.createJsonFormatDate(searchState.dateFrom);
     }
-    if (searchState.dateTo !== null && searchState.dateTo != 0) {
+    if (searchState.dateTo !== null && searchState.dateTo !== 0) {
       searchJson.dateTo = CreateUtil.createJsonFormatDate(searchState.dateTo);
     }
-    if (searchState.order != 0) {
+    if (searchState.order !== 0) {
       searchJson.order = parseInt(searchState.order);
     }
 
