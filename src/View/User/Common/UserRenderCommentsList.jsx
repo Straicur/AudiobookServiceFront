@@ -62,11 +62,8 @@ export default function UserRenderCommentsList(props) {
 
     if (commentState.parentId != null) {
       props.lastOpenComment.current = commentState.parentId;
-
-      jsonData.additionalData = {
-        parentId: commentState.parentId,
-      };
     }
+
     props.editComment({
       jsonData: jsonData,
       element: element,
@@ -116,6 +113,7 @@ export default function UserRenderCommentsList(props) {
       jsonData: jsonData,
       element: element,
       decline: decline,
+      clearInputComment: clearInputComment,
       lastOpenComment: props.lastOpenComment.current,
       setAudiobookDetailRefresh: props.setAudiobookDetailRefresh,
     });
@@ -262,9 +260,9 @@ export default function UserRenderCommentsList(props) {
             ? element.id === props.lastOpenComment.current
               ? 'border border-6 border-warning border comment comments-pill px-2 py-1'
               : 'border border-6 border-warning border comment comment-pill ps-2 py-1'
-            : element.id === props.lastOpenComment.current
-            ? 'border border-6 border-secondary border comment comments-pill px-2 py-1'
-            : 'border border-6 border-secondary border comment comment-pill ps-2 py-1'
+            : element.id !== props.lastOpenComment.current
+              ? 'border border-6 border-secondary border comment comments-pill px-2 py-1'
+              : 'border border-6 border-secondary border comment comment-pill ps-2 py-1'
         }
       >
         <div className='row p-1 bd-highlight'>
@@ -714,10 +712,10 @@ export default function UserRenderCommentsList(props) {
                     addComment(e);
                   }
                 : commentState.edit
-                ? (e) => {
-                    editComment(e);
-                  }
-                : undefined
+                  ? (e) => {
+                      editComment(e);
+                    }
+                  : undefined
             }
           >
             {commentState.add ? props.t('add') : commentState.edit ? props.t('edit') : null}
