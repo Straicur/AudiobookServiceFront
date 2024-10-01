@@ -41,7 +41,7 @@ export default function AdminUsersEditFrom(props) {
       }
     }
   };
-
+  console.log(props.state.editUserElement);
   return (
     <div className='row mt-3 align-items-center'>
       <hr></hr>
@@ -108,7 +108,8 @@ export default function AdminUsersEditFrom(props) {
         </div>
 
         <div className='col align-self-center'>
-          {props.state.editUserElement.userBan !== null ? (
+          {props.state.editUserElement.userBan !== undefined &&
+          props.state.editUserElement.userBan !== null ? (
             <>
               <div className='row align-items-center'>
                 <div className='col-3 align-self-center'>{props.t('dateFrom')}:</div>

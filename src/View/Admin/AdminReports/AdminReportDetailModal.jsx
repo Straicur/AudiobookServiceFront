@@ -313,7 +313,7 @@ export default function AdminReportDetailModal(props) {
                 {props.reportState.user === null ? 'Nie jest w systemie' : null}
               </div>
               <div className='row'>
-                {props.reportState.user !== null ? (
+                {props.reportState.user !== undefined && props.reportState.user !== null ? (
                   <div className='row'>
                     <div className='col-7'>
                       <div className='row'>
@@ -361,7 +361,7 @@ export default function AdminReportDetailModal(props) {
                 ) : null}
               </div>
             </div>
-            {props.reportState.userBan !== null ? (
+            {props.reportState.userBan !== undefined && props.reportState.userBan !== null ? (
               <div className='row mt-2'>
                 <hr />
                 <div className='row fw-bold fs-5'>{props.t('userHasBeenBanned')}:</div>
@@ -383,7 +383,7 @@ export default function AdminReportDetailModal(props) {
                 </div>
               </div>
             ) : null}
-            {props.reportState.comment !== null ? (
+            {props.reportState.comment !== undefined && props.reportState.comment !== null ? (
               <div className='row mt-2'>
                 <hr />
                 <div className='row fw-bold fs-5'></div>

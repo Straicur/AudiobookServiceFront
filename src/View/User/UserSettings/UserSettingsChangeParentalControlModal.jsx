@@ -67,7 +67,8 @@ export default function UserSettingsChangeParentalControlModal(props) {
                     controlId='validationCustom07'
                     className='form-outline form-white mb-3 text-center mx-5'
                   >
-                    {props.userDetail.birthday !== null ? (
+                    {props.userDetail.birthday !== undefined &&
+                    props.userDetail.birthday !== null ? (
                       <Form.Check
                         type='switch'
                         className='text-start'

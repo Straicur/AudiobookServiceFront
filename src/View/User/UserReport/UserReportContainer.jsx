@@ -145,7 +145,8 @@ export default function UserReportContainer(props) {
                 {props.t('chooseCategory')}
               </Button>
             </div>
-            {props.reportState.choosenCategory !== null ? (
+            {props.reportState.choosenCategory !== undefined &&
+            props.reportState.choosenCategory !== null ? (
               <p className='fs-4 text-center mt-3'>
                 {props.t('chosenCategory')}: {props.reportState.choosenCategoryName}
               </p>
@@ -175,7 +176,8 @@ export default function UserReportContainer(props) {
                 {props.t('chooseAudiobook')}
               </Button>
             </div>
-            {props.reportState.choosenAudiobook !== null ? (
+            {props.reportState.choosenAudiobook !== undefined &&
+            props.reportState.choosenAudiobook !== null ? (
               <p className='fs-4 text-center mt-3'>
                 {props.t('chosenAudiobook')}: {props.reportState.choosenAudiobookTitle} :{' '}
                 {props.reportState.choosenAudiobookAuthor}
