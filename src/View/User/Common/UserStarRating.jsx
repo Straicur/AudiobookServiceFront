@@ -59,9 +59,9 @@ export default function UserStarRating(props) {
         <div className='col-1 p-0 m-0'>{props.audiobookDetail.ratingAmount}</div>
         {props.audiobookDetail.canRate ? (
           !sure ? (
-            <div className='col-3 align-self-center'>
+            <div className='col-4 align-self-center'>
               <Button onClick={() => clearBoard()} variant='success' size='sm' className='p-1'>
-                {props.audiobookDetail.rated ? props.t('rateAgain') :props.t('rate')}
+                {props.audiobookDetail.rated ? props.t('rateAgain') : props.t('rate')}
               </Button>
             </div>
           ) : (
