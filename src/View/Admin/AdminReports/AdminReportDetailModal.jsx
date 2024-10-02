@@ -440,7 +440,7 @@ export default function AdminReportDetailModal(props) {
                           12 {props.t('hours')}
                         </Dropdown.Item>
                         <Dropdown.Item eventKey={4} active={actionState.banPeriod === 4}>
-                          1 {props.t('length')}
+                          1 {props.t('day')}
                         </Dropdown.Item>
                         <Dropdown.Item eventKey={5} active={actionState.banPeriod === 5}>
                           5 {props.t('days')}
