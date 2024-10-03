@@ -235,6 +235,8 @@
   "notDeleted": "Not deleted",
   "dateAdd": "Added date",
   "dateSettle": "Data settle",
+  "enterCode": "Enter code",
+  "enterEmailCode": "Enter code from sent to your email",
   "userType": "User type",
   "notificationType": "Notification type",
   "actionId": "Action id",

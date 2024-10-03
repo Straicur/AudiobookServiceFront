@@ -46,7 +46,7 @@ export default function UserSettingsChangeParentalControlModal(props) {
           <p className='fs-3 text-center'>{props.t('changeParentalControlMessage')}</p>
           <div className='row align-items-center row justify-content-center'>
             {parentalControlSure ? (
-              <div className='row align-items-center row justify-content-center'>
+              <div className='row align-items-center text-center row justify-content-center'>
                 <Form>
                   <Form.Group className='mb-3 text-center mx-5'>
                     <Form.Label className='fs-3'>{props.t('insertSmsCode')}</Form.Label>

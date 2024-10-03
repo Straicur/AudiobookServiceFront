@@ -92,9 +92,9 @@ export default function UserSettingsEditEmailModal(props) {
   return (
     <Modal size='lg' show={props.state.buttonEmail} onHide={handleClose} backdrop='static' centered>
       <Modal.Body className='user-settings-modal-black-background'>
-        <div className='text-white'>
+        <div className='text-white text-center'>
           {state.checkEmail ? (
-            <div className='fs-3 text-center my-3'>{props.t('checkEmail')}</div>
+            <div className='fs-3 my-3'>{props.t('checkEmail')}</div>
           ) : (
             <Form>
               {!state.codeStep ? (
@@ -148,7 +148,7 @@ export default function UserSettingsEditEmailModal(props) {
                 </>
               ) : (
                 <Form.Group className='mb-3'>
-                  <Form.Label className='fs-3'>{props.t('code')}</Form.Label>
+                  <Form.Label className='fs-3'>{props.t('insertSmsCode')}</Form.Label>
                   <Form.Control
                     name='code'
                     value={state.code === undefined || state.code.length <= 0 ? '' : state.code}
