@@ -10,8 +10,8 @@ export default function UserStarRating(props) {
 
   const doubleClickRating = () => {
     setRating(0);
-    setRating(props.audiobookRating);
-    setHover(props.audiobookRating);
+    setRating(props.audiobookRating.ratingPercent);
+    setHover(props.audiobookRating.ratingPercent);
     setSure(false);
     setUserRate(false);
   };
@@ -28,8 +28,8 @@ export default function UserStarRating(props) {
   };
   console.log(props);
   useLayoutEffect(() => {
-    setRating(props.audiobookRating);
-    setHover(props.audiobookRating);
+    setRating(props.audiobookRating.ratingPercent);
+    setHover(props.audiobookRating.ratingPercent);
   }, [props.audiobookRating]);
 
   const starRating = useMemo(() => {
