@@ -17,7 +17,6 @@ export const UserAudiobookDetailProvider = ({
 
   const { mutate: addAudiobookRating } = useMutation({
     mutationFn: (data) => {
-      console.log(data);
       return HandleFetch(
         '/user/audiobook/rating/add',
         'PUT',

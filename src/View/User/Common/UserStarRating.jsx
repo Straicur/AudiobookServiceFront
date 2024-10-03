@@ -26,7 +26,7 @@ export default function UserStarRating(props) {
     setSure(true);
     setUserRate(true);
   };
-
+  console.log(props);
   useLayoutEffect(() => {
     setRating(props.audiobookRating);
     setHover(props.audiobookRating);
