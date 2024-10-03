@@ -113,9 +113,9 @@ export default function UserSettingsEditPasswordModal(props) {
       centered
     >
       <Modal.Body className='user-settings-modal-black-background'>
-        <div className='text-white'>
+        <div className='text-white text-center'>
           {state.checkPassword ? (
-            <div className='fs-3 text-center my-3'>{props.t('checkPassword')}</div>
+            <div className='fs-3 my-3'>{props.t('checkPassword')}</div>
           ) : (
             <Form>
               {!state.codeStep ? (
@@ -199,7 +199,9 @@ export default function UserSettingsEditPasswordModal(props) {
                 </>
               ) : (
                 <Form.Group className='mb-3'>
-                  <Form.Label className='fs-3'>{props.t('code')}</Form.Label>
+                  <Form.Label className='fs-3'>
+                    <p className='text-center'>{props.t('enterEmailCode')}</p>
+                  </Form.Label>
                   <Form.Control
                     name='code'
                     value={state.code === undefined || state.code.length <= 0 ? '' : state.code}
