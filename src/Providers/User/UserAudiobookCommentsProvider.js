@@ -154,7 +154,6 @@ export const UserAudiobookCommentsProvider = ({
 
   const { mutate: editComment } = useMutation({
     mutationFn: (data) => {
-      console.log(data);
       return HandleFetch(
         '/user/audiobook/comment/edit',
         'PATCH',
@@ -172,7 +171,6 @@ export const UserAudiobookCommentsProvider = ({
       }
 
       if (variables.setAudiobookDetailRefresh !== undefined) {
-        console.log('3');
         variables.setAudiobookDetailRefresh();
       }
 
