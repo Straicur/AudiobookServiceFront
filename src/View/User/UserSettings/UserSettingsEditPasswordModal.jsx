@@ -51,38 +51,10 @@ export default function UserSettingsEditPasswordModal(props) {
   };
 
   useEffect(() => {
-    if (state.oldPassword.length > 0 && state.oldPassword === state.newPassword) {
-      setState((prev) => ({
-        ...prev,
-        wrongOldPassword: true,
-      }));
-    } else {
-      setState((prev) => ({
-        ...prev,
-        wrongOldPassword: false,
-      }));
-    }
-  }, [state.oldPassword]);
-
-  useEffect(() => {
-    if (state.newPassword.length > 0 && !ValidateUtil.validatePassword(state.newPassword)) {
-      setState((prev) => ({
-        ...prev,
-        wrongNewPassword: true,
-      }));
-    } else {
-      setState((prev) => ({
-        ...prev,
-        wrongNewPassword: false,
-      }));
-    }
-  }, [state.newPassword]);
-
-  useEffect(() => {
     if (
-      state.newConfirmPassword.length > 0 &&
+      state.newConfirmPassword.length >= 1 &&
       (!ValidateUtil.validatePassword(state.newConfirmPassword) ||
-        state.newConfirmPassword !== state.newPassword)
+        state.newConfirmPassword.trim() !== state.newPassword.trim())
     ) {
       setState((prev) => ({
         ...prev,
@@ -94,7 +66,35 @@ export default function UserSettingsEditPasswordModal(props) {
         wrongNewConfirmPassword: false,
       }));
     }
-  }, [state.newConfirmPassword]);
+
+    if (
+      state.newPassword.length >= 1 &&
+      (!ValidateUtil.validatePassword(state.newPassword) ||
+        state.oldPassword.trim() === state.newPassword.trim())
+    ) {
+      setState((prev) => ({
+        ...prev,
+        wrongNewPassword: true,
+      }));
+    } else {
+      setState((prev) => ({
+        ...prev,
+        wrongNewPassword: false,
+      }));
+    }
+
+    if (state.oldPassword.length > 0 && state.oldPassword === state.newPassword) {
+      setState((prev) => ({
+        ...prev,
+        wrongOldPassword: true,
+      }));
+    } else {
+      setState((prev) => ({
+        ...prev,
+        wrongOldPassword: false,
+      }));
+    }
+  }, [state.newConfirmPassword, state.newPassword, state.oldPassword]);
 
   useEffect(() => {
     if (state.checkPassword) {
@@ -126,23 +126,8 @@ export default function UserSettingsEditPasswordModal(props) {
                       type='password'
                       name='oldPassword'
                       placeholder={props.t('insertPassword')}
-                      isValid={
-                        state.oldPassword.length > 1 &&
-                        state.oldPassword.trim() !== state.newPassword.trim()
-                      }
-                      isInvalid={
-                        state.oldPassword.length > 1 &&
-                        state.oldPassword.trim() === state.newPassword.trim()
-                      }
                       onChange={(event) => userService.handleChange(event)}
                     />
-                    <Alert
-                      show={state.wrongOldPassword}
-                      className='dangerAllert mt-1 text-center'
-                      variant='danger'
-                    >
-                      {props.t('enterValidPassword')}
-                    </Alert>
                   </Form.Group>
                   <Form.Group className='mb-3'>
                     <Form.Label className='fs-3'>{props.t('newPassword')}</Form.Label>
@@ -150,16 +135,8 @@ export default function UserSettingsEditPasswordModal(props) {
                       type='password'
                       name='newPassword'
                       placeholder={props.t('insertPassword')}
-                      isValid={
-                        state.newPassword.length > 1 &&
-                        ValidateUtil.validatePassword(state.newPassword) &&
-                        state.oldPassword.trim() !== state.newPassword.trim()
-                      }
-                      isInvalid={
-                        state.newPassword.length > 1 &&
-                        !ValidateUtil.validatePassword(state.newPassword) &&
-                        state.oldPassword.trim() === state.newPassword.trim()
-                      }
+                      isValid={!state.wrongNewPassword}
+                      isInvalid={state.wrongNewPassword || state.newPassword.length === 0}
                       onChange={(event) => userService.handleChange(event)}
                     />
                     <Alert
@@ -176,15 +153,9 @@ export default function UserSettingsEditPasswordModal(props) {
                       type='password'
                       name='newConfirmPassword'
                       placeholder={props.t('insertPasswordConfirm')}
-                      isValid={
-                        state.newConfirmPassword.length > 1 &&
-                        ValidateUtil.validatePassword(state.newConfirmPassword) &&
-                        state.newConfirmPassword.trim() === state.newPassword.trim()
-                      }
+                      isValid={!state.wrongNewConfirmPassword}
                       isInvalid={
-                        state.newConfirmPassword.length > 1 &&
-                        !ValidateUtil.validatePassword(state.newConfirmPassword) &&
-                        state.newConfirmPassword.trim() !== state.newPassword.trim()
+                        state.wrongNewConfirmPassword || state.newConfirmPassword.length === 0
                       }
                       onChange={(event) => userService.handleChange(event)}
                     />
@@ -254,6 +225,7 @@ export default function UserSettingsEditPasswordModal(props) {
                       state.wrongNewConfirmPassword ||
                       state.oldPassword.length === 0 ||
                       state.newPassword.length === 0 ||
+                      state.oldPassword.trim() === state.newPassword.trim() ||
                       state.newConfirmPassword.length === 0
                     }
                     onClick={() => {
