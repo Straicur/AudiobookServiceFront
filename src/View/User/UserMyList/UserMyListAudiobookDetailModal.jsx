@@ -257,7 +257,7 @@ export default function UserMyListAudiobookDetailModal(props) {
               </div>
               <div className='row my-1'>
                 <UserRenderCommentsList
-                  comments={audiobookUserComments.comments}
+                  comments={audiobookUserComments}
                   audiobookDetail={audiobookDetail}
                   likeComment={likeComment}
                   lastOpenComment={lastOpenComment}

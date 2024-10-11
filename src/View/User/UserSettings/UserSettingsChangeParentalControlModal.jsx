@@ -74,7 +74,7 @@ export default function UserSettingsChangeParentalControlModal(props) {
                         className='text-start'
                         checked={props.state.parentalControl}
                         label={props.t('deleteParentalControlYear')}
-                        onChange={() => setDeleteParentalControlSure(!props.state.parentalControl)}
+                        onChange={() => setDeleteParentalControlSure(!deleteParentalControlSure)}
                       />
                     ) : null}
 

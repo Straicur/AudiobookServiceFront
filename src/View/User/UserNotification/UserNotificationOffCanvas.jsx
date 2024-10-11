@@ -78,7 +78,11 @@ export default function UserNotificationOffCanvas(props) {
     let returnArray = [];
     if (notifications !== undefined && notifications !== null) {
       notifications.map((pageNotifications, page) => {
-        if (page <= props.state.page && pageNotifications !== null) {
+        if (
+          page <= props.state.page &&
+          pageNotifications !== null &&
+          pageNotifications.systemNotifications !== undefined
+        ) {
           returnArray.push(
             pageNotifications.systemNotifications.map((notification, index) => {
               return (
