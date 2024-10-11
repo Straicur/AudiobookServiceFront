@@ -639,14 +639,14 @@ export default function UserRenderCommentsList(props) {
   const renderTree = () => {
     let renderArray = [];
 
-    createTree(props.comments, renderArray);
+    createTree(props.comments.comments, renderArray);
 
     return renderArray;
   };
 
   return (
     <div className='row'>
-      {props.comments !== undefined && props.comments !== null && props.comments.length > 0 ? (
+      {props.comments !== undefined && props.comments !== null && props.comments.comments > 0 ? (
         <ul className='comments-height overflow-auto '>{renderTree()}</ul>
       ) : null}
       <div className='row mt-2 justify-content-center align-items-center'>

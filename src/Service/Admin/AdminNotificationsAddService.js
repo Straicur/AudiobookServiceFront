@@ -30,6 +30,19 @@ export default class AdminNotificationsAddService extends FormService {
     }));
   };
 
+  cancelActionId = () => {
+    this.setModalState((prev) => ({
+      ...prev,
+      actionId: '',
+      notificationType: 0,
+    }));
+
+    this.setActionState((prev) => ({
+      ...prev,
+      actionIdChanged: !this.actionState.actionIdChanged,
+    }));
+  };
+
   goBack = () => {
     this.setActionState((prev) => ({
       ...prev,

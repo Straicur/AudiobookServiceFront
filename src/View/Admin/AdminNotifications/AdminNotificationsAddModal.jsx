@@ -155,12 +155,30 @@ export default function AdminNotificationsAddModal(props) {
             </div>
             {actionState.actionIdChanged || modalState.notificationType === 1 ? (
               <div className='row justify-content-center mx-5 mt-3'>
-                <div className='col-7'>
+                {modalState.notificationType !== 1 ? (
+                  <div className='col-5 d-flex justify-content-end'>
+                    <Button
+                      name='en'
+                      variant='danger'
+                      size='sm'
+                      className='btn button button_notification_back'
+                      onClick={() => adminService.cancelActionId()}
+                    >
+                      {props.t('back')}
+                    </Button>
+                  </div>
+                ) : null}
+
+                <div className={modalState.notificationType !== 1 ? 'col-5' : 'col-7'}>
                   <Button
                     name='en'
                     variant='success'
                     size='sm'
-                    className='btn button button_notification'
+                    className={
+                      modalState.notificationType !== 1
+                        ? 'btn button button_notification'
+                        : 'btn button button_notification_big'
+                    }
                     disabled={
                       modalState.notificationType === 0 ||
                       modalState.userType === 0 ||
@@ -187,7 +205,7 @@ export default function AdminNotificationsAddModal(props) {
                     variant='dark'
                     disabled={modalState.notificationType === 0 || modalState.userType === 0}
                     size='sm'
-                    className='btn button button_notification'
+                    className='btn button button_notification_big'
                     onClick={(e) => adminService.selectActionId(e)}
                   >
                     {props.t('select')}

@@ -26,10 +26,12 @@ export default function UserStarRating(props) {
     setSure(true);
     setUserRate(true);
   };
-  console.log(props);
+
   useLayoutEffect(() => {
-    setRating(props.audiobookRating.ratingPercent);
-    setHover(props.audiobookRating.ratingPercent);
+    if (props.audiobookRating !== undefined && props.audiobookRating !== null) {
+      setRating(props.audiobookRating.ratingPercent);
+      setHover(props.audiobookRating.ratingPercent);
+    }
   }, [props.audiobookRating]);
 
   const starRating = useMemo(() => {

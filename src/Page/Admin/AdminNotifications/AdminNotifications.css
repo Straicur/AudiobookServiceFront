@@ -9,7 +9,15 @@
 }
 
 .button_notification {
+  width: 12.1rem !important;
+}
+
+.button_notification_big {
   width: 22.1rem !important;
+}
+
+.button_notification_back {
+  width: 12.1rem !important;
 }
 
 .pick_height {

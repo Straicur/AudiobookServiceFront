@@ -29,7 +29,7 @@ export default class CreateUtil {
 
     const day = dateFormat.getDate();
     const month =
-      dateFormat.getMonth() < 10 ? '0' + (dateFormat.getMonth() + 1) : dateFormat.getMonth() + 1;
+      dateFormat.getMonth() < 9 ? '0' + (dateFormat.getMonth() + 1) : dateFormat.getMonth() + 1;
     const year = dateFormat.getFullYear();
 
     return day + '.' + month + '.' + year;
@@ -40,7 +40,7 @@ export default class CreateUtil {
 
     const day = dateFormat.getDate();
     const month =
-      dateFormat.getMonth() < 10 ? '0' + (dateFormat.getMonth() + 1) : dateFormat.getMonth() + 1;
+      dateFormat.getMonth() < 9 ? '0' + (dateFormat.getMonth() + 1) : dateFormat.getMonth() + 1;
     const year = dateFormat.getFullYear();
     const hour = dateFormat.getHours();
     const minutes = dateFormat.getMinutes();
