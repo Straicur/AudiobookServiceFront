@@ -232,7 +232,7 @@ export default function UserMainAudiobookDetailModal(props) {
                         <div className='col-2'></div>
                       </div>
                     </div>
-                  ) : audiobookPart !== null ? (
+                  ) : audiobookPart !== null && audiobookPart.url !== '' ? (
                     <UserAudiobookPlayer
                       audiobookPart={audiobookPart}
                       setAudiobookState={props.setAudiobookState}
