@@ -300,7 +300,7 @@ export default function AdminCategoryAudiobookDetailModal(props) {
         </div>
         <hr className='text-light'></hr>
         <div className='row d-flex justify-content-center'>
-          {audiobookPart != null ? (
+          {audiobookPart != null && audiobookPart.url !== '' ? (
             <AdminAudiobookPlayer
               part={props.state.part}
               audiobookPart={audiobookPart}
@@ -310,7 +310,7 @@ export default function AdminCategoryAudiobookDetailModal(props) {
             />
           ) : (
             <Alert
-              show={audiobookPart === null}
+              show={audiobookPart === null || audiobookPart.url === ''}
               className='dangerAllert mt-1 text-center'
               variant='danger'
             >

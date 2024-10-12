@@ -67,7 +67,9 @@ export default function AdminCategoryAudiobooksList(props) {
             i18n={props.i18n}
             token={props.token}
           />
-          {categoryAudiobooks !== undefined && categoryAudiobooks.maxPage > 1 ? (
+          {categoryAudiobooks !== null &&
+          categoryAudiobooks !== undefined &&
+          categoryAudiobooks.maxPage > 1 ? (
             <AdminRenderPageSwitches
               page={props.audiobooksState.page}
               maxPage={categoryAudiobooks.maxPage}

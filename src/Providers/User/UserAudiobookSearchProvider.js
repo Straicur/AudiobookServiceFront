@@ -17,7 +17,7 @@ export const UserAudiobookSearchProvider = ({
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ['dataAudiobookUserSearch' + title + categoryKey],
+    queryKey: ['dataAudiobookUserSearch' + categoryKey],
     queryFn: () =>
       HandleFetch(
         '/user/audiobooks/search',
