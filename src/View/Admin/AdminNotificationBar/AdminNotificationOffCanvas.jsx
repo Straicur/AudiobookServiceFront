@@ -78,6 +78,11 @@ export default function AdminNotificationOffCanvas(props) {
         navigate(`/admin/users`);
         break;
       }
+      case 7:
+      case 8: {
+        navigate(`/reports`);
+        break;
+      }
     }
   };
 
@@ -130,9 +135,7 @@ export default function AdminNotificationOffCanvas(props) {
                       {createNotificationType(notification.notificationType)}
                     </div>
                     {notification.notificationType === 1 ||
-                    notification.notificationType === 2 ||
-                    notification.notificationType === 7 ||
-                    notification.notificationType === 8 ? null : (
+                    notification.notificationType === 2 ? null : (
                       <div className='col'>
                         <Button
                           name='logout'

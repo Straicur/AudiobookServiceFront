@@ -74,6 +74,20 @@ export default function UserNotificationOffCanvas(props) {
     }));
   };
 
+  const navigateUser = (notification) => {
+    switch (notification.notificationType) {
+      case 7:
+      case 8: {
+        navigate(`/reports`);
+        break;
+      }
+      default: {
+        navigate(`/main`);
+        break;
+      }
+    }
+  };
+
   const renderNotifications = () => {
     let returnArray = [];
     if (notifications !== undefined && notifications !== null) {
@@ -111,16 +125,14 @@ export default function UserNotificationOffCanvas(props) {
                       {createNotificationType(notification.notificationType)}
                     </div>
                     {notification.notificationType === 1 ||
-                    notification.notificationType === 2 ||
-                    notification.notificationType === 7 ||
-                    notification.notificationType === 8 ? null : (
+                    notification.notificationType === 2 ? null : (
                       <div className='col'>
                         <Button
                           name='logout'
                           variant='light'
                           size='sm'
                           className='btn button rounded detail-notification-btn'
-                          onClick={() => navigate(`/main`)}
+                          onClick={() => navigateUser(notification)}
                         >
                           {props.t('look')}
                         </Button>
