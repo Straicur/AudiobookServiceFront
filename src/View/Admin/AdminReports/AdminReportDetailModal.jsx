@@ -310,7 +310,7 @@ export default function AdminReportDetailModal(props) {
               <hr />
               <div className='col-4 fw-bold fs-5 mb-1'>{props.t('userDetails')}</div>
               <div className='col-3'>
-                {props.reportState.user === null ? 'Nie jest w systemie' : null}
+                {props.reportState.user === null ? props.t('notInSystem') : null}
               </div>
               <div className='row'>
                 {props.reportState.user !== undefined && props.reportState.user !== null ? (

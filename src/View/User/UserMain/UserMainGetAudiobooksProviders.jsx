@@ -11,7 +11,6 @@ export default function UserMainGetAudiobooksProviders(props) {
       i18n={props.i18n}
     >
       <UserAudiobooksProvider
-        state={props.audiobooksState}
         token={props.token}
         page={props.audiobooksState.page}
         limit={props.audiobooksState.limit}
