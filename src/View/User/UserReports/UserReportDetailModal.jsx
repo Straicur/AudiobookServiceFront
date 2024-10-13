@@ -39,7 +39,7 @@ export default function UserReportDetailModal(props) {
       detailReportModal: !props.reportsState.detailReportModal,
     }));
   };
-  console.log(props.reportsState.report);
+
   return (
     <Modal
       size='lg'
