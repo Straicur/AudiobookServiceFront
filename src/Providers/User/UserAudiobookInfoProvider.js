@@ -26,6 +26,10 @@ export const UserAudiobookInfoProvider = ({ children, token, audiobookId, catego
       );
     },
     onSuccess: () => {
+      qc.invalidateQueries([
+        'dataAudiobookUserInfo' + audiobookId,
+        'dataAudiobookUserDetail' + audiobookId,
+      ]);
       refetch();
     },
     onError: () => {
