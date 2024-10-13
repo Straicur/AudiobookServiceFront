@@ -140,7 +140,7 @@ export const UserNavBar = (props) => {
                         navigate('/report');
                         break;
                       case '4':
-                        logout();
+                        navigate('/reports');
                         break;
                     }
                   }}
@@ -151,9 +151,10 @@ export const UserNavBar = (props) => {
                   <option value='1'>{props.t('accountSettings')}</option>
                   <option value='2'>{props.t('help')}</option>
                   <option value='3'>{props.t('report')}</option>
-                  <option value='4'>{props.t('logout')}</option>
+                  <option value='4'>{props.t('myReports')}</option>
                 </select>
               </div>
+
               {state.notificationsOffCanvas ? (
                 <NotificationsProvider token={token} page={state.page} i18n={props.i18n}>
                   <UserNotificationOffCanvas
@@ -168,6 +169,15 @@ export const UserNavBar = (props) => {
               ) : null}
             </div>
           </div>
+          <Button
+            name='logout'
+            variant='danger'
+            size='sm'
+            className='btn button ms-4'
+            onClick={() => logout()}
+          >
+            {props.t('logout')}
+          </Button>
         </div>
         {isAdminTechnicalBreak ? (
           <div className='row mx-1 mt-2'>

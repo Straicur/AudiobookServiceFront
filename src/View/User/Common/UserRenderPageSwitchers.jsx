@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 
-export default function AdminRenderPageSwitches(props) {
+export default function UserRenderPageSwitches(props) {
   const nextPage = () => {
     if (props.page + 1 < props.maxPage) {
       props.setPageState((prev) => ({
@@ -21,10 +21,10 @@ export default function AdminRenderPageSwitches(props) {
   };
 
   return (
-    <div className='row justify-content-center mb-2'>
+    <div className='row justify-content-center'>
       <div className='col-6'>
         <div className='row justify-content-center'>
-          <div className='col-1 align-self-center'>
+          <div className='col-1 align-self-center '>
             <Button
               variant='light'
               size='sm'
@@ -36,7 +36,7 @@ export default function AdminRenderPageSwitches(props) {
               <i className='bi bi-chevron-left'></i>
             </Button>
           </div>
-          <div className='col-1 align-self-center mt-2 fw-bold'>
+          <div className='col-1 text-white align-self-center mt-2 fw-bold'>
             {props.page + 1}/{props.maxPage}
           </div>
           <div className='col-1 align-self-center'>
