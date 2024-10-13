@@ -86,7 +86,10 @@ export default class AdminAudiobookReAddingService extends FormService {
   reAddAudiobook = () => {
     const CHUNK_SIZE = 1024 * 1024 * 5;
     const reader = new FileReader();
-    const fileName = this.stateModal.title + '_' + this.stateModal.author;
+
+    let fileName = this.stateModal.title + '_' + this.stateModal.author;
+    fileName = fileName.replace(/\./g, '');
+
     const hashName = sha256(fileName).toString();
 
     //todo to jest do rozkminy bo przeszkadza
