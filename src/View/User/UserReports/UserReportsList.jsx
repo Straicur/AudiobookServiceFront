@@ -59,7 +59,7 @@ export default function UserRenderCategoriesList(props) {
 
   const createColumn = (element) => {
     return (
-      <tr className='border border-2 border-light' key={uuidv4()}>
+      <tr className='border border-2 border-secondary' key={uuidv4()}>
         <th scope='row'>{CreateUtil.createDateTime(element.dateAdd)}</th>
         <td>
           {element.accepted ? (

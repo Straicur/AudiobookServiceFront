@@ -264,7 +264,7 @@ export default function AdminNotificationsEditModal(props) {
                   name='en'
                   variant='success'
                   size='sm'
-                  className='btn button button_notification'
+                  className='btn button button_notification_big'
                   disabled={
                     props.notificationState.notificationType === 0 ||
                     props.notificationState.userType === 0 ||
