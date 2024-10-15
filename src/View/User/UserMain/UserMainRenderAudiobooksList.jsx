@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import UserMainRenderCarousel from './UserMainRenderCarousel';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -8,7 +8,7 @@ export default function UserMainRenderAudiobooksList(props) {
   let hasMore = props.state.page + 1 < props.maxPage;
 
   const renderNewPage = (e) => {
-    if (hasMore) {
+    if (props.state.page + 1 < props.maxPage) {
       lastItemOffsetTopRef.current = e.pageY;
 
       props.setState((prev) => ({
@@ -68,7 +68,7 @@ export default function UserMainRenderAudiobooksList(props) {
     return renderCategories;
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (lastItemOffsetTopRef.current !== null) {
       setTimeout(function () {
         window.scrollTo({
