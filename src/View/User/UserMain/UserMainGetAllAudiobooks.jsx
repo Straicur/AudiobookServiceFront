@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import UserMainRenderAudiobooksList from './UserMainRenderAudiobooksList';
 import { useUserAudiobookData } from 'Providers/User/UserAudiobooksProvider';
 import UserMainRenderProposedList from './UserMainRenderProposedList';
@@ -15,7 +15,7 @@ export default function GetAllAudiobooks(props) {
 
   const audiobooksList = useRef(useUserAudiobooksListStore((state) => state.audiobooks));
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (props.state.refresh) {
       props.setState((prev) => ({
         ...prev,
@@ -26,7 +26,7 @@ export default function GetAllAudiobooks(props) {
     }
   }, [props.state.refresh]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (
       audiobooks !== null &&
       (dateUpdates[props.state.page] === undefined || dateUpdates[props.state.page] <= Date.now())
