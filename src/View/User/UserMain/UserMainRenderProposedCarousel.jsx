@@ -78,7 +78,7 @@ export default function UserMainRenderProposedCarousel(props, audiobooks) {
     return audiobooksArray;
   };
 
-  const render = () => {
+  const renderList = () => {
     return (
       <Carousel responsive={responsive} infinite={true}>
         {returnAudiooboks()}
@@ -86,9 +86,5 @@ export default function UserMainRenderProposedCarousel(props, audiobooks) {
     );
   };
 
-  return (
-    <div key={uuidv4()}>
-      {props.coversState !== undefined && props.coversState.length > 0 ? render() : null}
-    </div>
-  );
+  return <div key={uuidv4()}>{renderList()}</div>;
 }
