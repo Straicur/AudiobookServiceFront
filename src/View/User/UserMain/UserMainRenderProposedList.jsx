@@ -7,6 +7,7 @@ export default function UserMainRenderProposedList(props) {
     let renderCategories = [];
 
     if (props.audiobooksProposed != null && props.audiobooksProposed.audiobooks.length > 0) {
+      console.log(props.audiobooksProposed);
       renderCategories.push(
         <div key={uuidv4()}>
           <div className='fw-bold fs-1 ms-2 mb-2 text-light'>{props.t('proposed')}</div>
