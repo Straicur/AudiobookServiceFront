@@ -42,8 +42,8 @@ export default function AdminCategoryAudiobookDetailModal(props) {
 
   const [audiobookDetail, setAudiobookDetailRefetch, audiobookDataEdit] = useAdminAudiobookData();
 
-  const getAudiobookZip = useAdminAudiobookData()[8];
-  const changeAudiobookCover = useAdminAudiobookData()[9];
+  const getAudiobookZip = useAdminAudiobookData()[7];
+  const changeAudiobookCover = useAdminAudiobookData()[8];
 
   const [audiobookPart] = useAudiobookPart();
 
