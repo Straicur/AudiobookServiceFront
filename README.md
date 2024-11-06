@@ -1,37 +1,82 @@
-# AudiobookServiceFront
-Jest to frontend aplikacji do zarządzania audiobookami. Aplikacja z założenia została stworzona jako koncept darmowej biblioteki ale jest przygotowana do implementacji płatności dzięki dodaniu ról w systemie. Pomaga Administratorowi zautomatyzować zarządzanie taką biblioteką a użytkownikowi umożliwia swobodny odsłuch z dodatkowymi funkcjonalnościami. Wykorzystany został tu react oraz host vercel.
-<br>
+<p align="center"><img src="https://socialify.git.ci/Straicur/AudiobookServiceFront/image?description=1&amp;descriptionEditable=Manage%20and%20share%20audiobooks&amp;font=Jost&amp;language=1&amp;name=1&amp;theme=Dark" alt="project-image"></p>
 
-# Opis
-## Admin
-Administrator ma możliwość dodawania nowych kategorii i przypisywania do nich audiobooków, audiobooki natomiast dodaje w odpowiednim formacie pliku zip, który składa się z plików mp3 oraz cover jpg lub png, a następnie może nimi zarządzać (odsłuch, pobranie informacji oraz ich edycja, ponowne przesłanie, usunięcie i dodanie kategorii oraz usunięcie audiobooka z kategorii oraz systemu). Zarządzając użytkownikami może im zmieniać chociażby: rolę, telefon, hasło i aktywować ich. Dodatkową opcją dla użytkownika jest prośba o usunięcie konta, którą również rozpatruje administrator. Ostatnią funkcjonalności jest dodawanie powiadomień np. wygenerowanie co tygodniowej listy proponowanych, dodanie nowego audiobooka lub kategorii.
+<h3>AudiobookServiceFront is the frontend of an application for managing audiobooks. This application is a graphical demonstration of what a service using AudiobookServiceBack Api can look like. It was written in React + Bootstrap, it was my first such large application in React. I refactored it 3 times and learned in it more and more ways to optimize and work with JS.Ai</h2>
 
-## User
-Użytkownik na początku otrzymuje listę wszystkich audiobooków z podziałem na kategorie oraz listę proponowanych (ustalana na podstawie lubianych kategorii). Po odsłuchu odpowiedniej ilości audiobooków pojawi się lista proponowanych na ich podstawie. Po pobraniu detali audiobooka ma możliwość odsłuchu z wszystkimi udogodnieniami jak komentarze oraz ich likowanie, ocena audiobooka po przesłuchaniu minimum połowy i dodania/usunięcia z mojej listy. Oczywiście moja lista jest to lista szybkiego dostępu do ulubionych audiobooków. Może również zarządzać swoim kontem w ograniczonym ale wystarczającym stopniu, może np: zmienić hasło i email, informacje takie jak imię czy telefon oraz wysłać prośbę o usunięcie konta. Dodatkowo otrzymuje powiadomienia systemowe. Zostały dodane dodatkowo takiego strony jak O nas, polityka prywatności oraz odnośniki do tej dokumentacji oraz rest Api z którego korzysta.
+<h2>💻 Built with</h2>
 
-<br>
+Technologies used in the project:
 
-## Podział aplikacji z funkcjonalnościami 
-<ol>
-  <li>Administrator
-    <ul>
-      <li>Zarządzanie kategoriami</li>
-      <li>Zarządzanie audiobookami</li>
-      <li>Zarządzanie użytkownikami</li>
-      <li>Zarządzanie powiadomieniami</li>
-    </ul>
-  </li>
-  <li>User
-    <ul>
-      <li>Możliwość odsłuchu audiobooka</li>
-      <li>Lista proponownych</li>
-      <li>Możliwość dodania komentarza oraz ich likowanie</li>
-      <li>Możliwość oceny audiobooka</li>
-      <li>Możliwość dodania do mojej listy</li>
-      <li>Możliwość zmiany ustawień konta</li>
-      <li>Otrzymywanie powiadomień</li>
-      <li>Rejestracja i logowanie</li>
-      <li>Odzyskiwanie hasła</li>
-    </ul>
-  </li>
-<ol>
+*   react 18.2.0
+*   npm 9.1.2
+*   JavaScript
+
+<h2>🚀 Demo</h2>
+
+[https://audiobook-service-front.vercel.app/about](https://audiobook-service-front.vercel.app/about)
+
+<h2>🧐 Documentation (Pages and their functionalities)</h2>
+<div>
+  <ol>
+    <li>Admin
+      <ul>
+        <li>Main</li>
+        <li>Categories</li>
+        <li>Category</li>
+        <li>Audiobook</li>
+        <li>Audiobooks</li>
+        <li>Users</li>
+        <li>Notifications</li>
+        <li>Reports</li>
+        <li>Technical breaks</li>
+        <li>Cache</li>
+      </ul>
+    </li>
+    <li>User
+      <ul>
+        <li>Login</li>
+        <li>Register</li>
+        <li>Forgot</li>
+        <li>Main</li>
+        <li>My List</li>
+        <li>Account Settings</li>
+        <li>Help</li>
+        <li>Report</li>
+        <li>My reports</li>
+        <li>About</li>
+        <li>Private Policy</li>
+        <li>Technical Break</li>
+      </ul>
+    </li>
+  <ol>
+</div>
+
+<h2>🔧 Project structure:</h2>
+<p>1. @</p>
+<p>2. Errors</p>
+<p>3. Page</p>
+<p>4. Providers</p>
+<p>5. Service</p>
+<p>6. Store</p>
+<p>7. Translates</p>
+<p>8. Util</p>
+<p>9. View</p>
+<p>10. App.jsx</p>
+<p>11. AppRouter.jsx</p>
+
+<h2>🛠️ Installation Steps:</h2>
+
+<p>1. Install Node</p>
+
+<p>2. Install npm and npx</p>
+
+<p>3. Clone project and create a .env.local file and complete the file with the appropriate data based on the .env file </p>
+
+<p>4. Do a command</p>
+
+```
+npm start
+```
+
+<h2>🛡️ License:</h2>
+
+This project is licensed under the GNU LESSER GENERAL PUBLIC LICENSE Version 2.1 February 1999
