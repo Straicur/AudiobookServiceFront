@@ -15,11 +15,11 @@ Technologies used in the project:
 [https://audiobook-service-front.vercel.app/about](https://audiobook-service-front.vercel.app/about)
 
 <h2>🧐 Documentation (Pages and their functionalities)</h2>
-<h3>The application makes heavy use of cache and local storage. Cache management is improved by react-query library, which is also used in handling queries and their errors. The zustand and jotai libraries, on the other hand, use local storage and manage the required data there. </br> </br>
-To send queries we use the fetch function, the entire query handling is contained in the HandleFetch function, which contains logic related to sending the preferred language in queries, downloading blob files and most importantly throwing errors, which the system converts into classes in the Errors folder, so it knows what error was returned by the API.</h3>
-
 <details>
   <summary>Show</summary>
+    <h3>The application makes heavy use of cache and local storage. Cache management is improved by react-query library, which is also used in handling queries and their errors. The zustand and jotai libraries, on the other hand, use local storage and manage the required data there. </br> </br>
+    To send queries we use the fetch function, the entire query handling is contained in the HandleFetch function, which contains logic related to sending the preferred language in queries, downloading blob files and most importantly throwing errors, which the system converts into classes in the Errors folder, so it knows what error was returned by the API.
+    </h3>
     <div>
       <ol>
         <li><h3><b>Admin</b></h3>
