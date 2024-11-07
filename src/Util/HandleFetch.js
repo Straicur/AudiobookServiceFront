@@ -91,8 +91,6 @@ export const HandleFetch = async (
         break;
     }
 
-    //return Promise.reject(error);
-
     throw error;
   }
 };
