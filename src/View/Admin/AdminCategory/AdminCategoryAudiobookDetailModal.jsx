@@ -154,7 +154,6 @@ export default function AdminCategoryAudiobookDetailModal(props) {
               setAudiobooksState={props.setAudiobooksState}
               t={props.t}
               i18n={props.i18n}
-              setAudiobookCoverRefetch={setAudiobookDetailRefetch}
               stateModal={stateModal}
               setStateModal={setStateModal}
               handleClose={handleClose}
