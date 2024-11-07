@@ -27,7 +27,6 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
       data = [];
 
       setTimeout(() => {
-        console.log(variables);
         variables.setAudiobookCoverRefetch();
       }, 1500);
 
@@ -44,7 +43,7 @@ export const AdminAudiobookDataProvider = ({ children, token, audiobookId, i18n 
       }));
 
       if (variables.props.handleClose !== null) {
-        variables.props.handleClose();
+        refetch();
       }
     },
   });

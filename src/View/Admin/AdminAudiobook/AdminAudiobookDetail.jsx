@@ -107,7 +107,6 @@ export default function AdminAudiobookDetail(props) {
               setAudiobookState={props.setAudiobookState}
               audiobookState={props.audiobookState}
               t={props.t}
-              setAudiobookCoverRefetch={setAudiobookDetailRefetch}
               audiobookDetail={audiobookDetail}
               changeAudiobookCover={changeAudiobookCover}
               token={props.token}
