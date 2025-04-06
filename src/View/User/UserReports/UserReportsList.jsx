@@ -98,7 +98,7 @@ export default function UserRenderCategoriesList(props) {
       <div className='card position-relative p-3 bg-dark shadow'>
         <UserNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
         <hr className='text-white line' />
-        <div className='row min_container_height'>
+        <div className='min_container_height'>
           <table className='table table-dark'>
             <thead className=''>
               <tr>
