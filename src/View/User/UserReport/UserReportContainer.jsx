@@ -120,196 +120,194 @@ export default function UserReportContainer(props) {
           <UserNotLoggedNavBar token={props.token} t={props.t} i18n={props.i18n} />
         )}
         <hr className='text-white line' />
-        <div className='row min_container_height'>
-          <div className='row d-flex justify-content-center fs-2 fw-bold text-white mt-4'>
-            {props.t('reportPageTitle')}
-          </div>
-          <div className='row justify-content-center fs-3 text-white mb-3 mt-2'>
-            {props.t('reportPageDesc')}
-          </div>
-          <div className='row d-flex justify-content-center mb-2'>{createReportTypeButtons()}</div>
-          {props.reportState.type === 3 || props.reportState.type === 2 ? (
-            <div className='row d-flex justify-content-center fs-2 fw-bold text-white mt-1 mb-3'>
-              <div className='col-2 d-flex justify-content-center '>
-                <Button
-                  name='en'
-                  variant='success'
-                  size='sm'
-                  className='btn button p-2 px-5 fs-6'
-                  onClick={() => {
-                    props.setReportState((prev) => ({
-                      ...prev,
-                      openCategoriesList: true,
-                    }));
-                  }}
-                >
-                  {props.t('chooseCategory')}
-                </Button>
-              </div>
-              {props.reportState.choosenCategory !== undefined &&
-              props.reportState.choosenCategory !== null ? (
-                <p className='fs-4 text-center mt-3'>
-                  {props.t('chosenCategory')}: {props.reportState.choosenCategoryName}
-                </p>
-              ) : null}
-            </div>
-          ) : null}
-
-          {props.reportState.type === 2 ? (
-            <div className='row  d-flex justify-content-center fs-2 fw-bold text-white mt-2'>
-              <div className='col-2 d-flex justify-content-center '>
-                <Button
-                  name='en'
-                  variant='success'
-                  size='sm'
-                  className='btn button p-2 px-5 fs-6'
-                  disabled={
-                    props.reportState.choosenCategory === null &&
-                    props.reportState.choosenAudiobook === null
-                  }
-                  onClick={() => {
-                    props.setReportState((prev) => ({
-                      ...prev,
-                      openAudiobooksList: true,
-                    }));
-                  }}
-                >
-                  {props.t('chooseAudiobook')}
-                </Button>
-              </div>
-              {props.reportState.choosenAudiobook !== undefined &&
-              props.reportState.choosenAudiobook !== null ? (
-                <p className='fs-4 text-center mt-3'>
-                  {props.t('chosenAudiobook')}: {props.reportState.choosenAudiobookTitle} :{' '}
-                  {props.reportState.choosenAudiobookAuthor}
-                </p>
-              ) : null}
-            </div>
-          ) : null}
-
-          <div className='report-desc-text-container text-center'>
-            {!props.token ? (
-              <div className='row d-flex justify-content-center mt-4'>
-                <div className='row'>
-                  <p className='text-center fs-3 text-white'>{props.t('insertEmail')}:</p>
-                </div>
-                <div className='col-5'>
-                  <input
-                    id='email'
-                    type='text'
-                    name='email'
-                    className='form-control text-white report-black-insert'
-                    value={props.reportState.email}
-                    onChange={(e) => {
-                      props.setReportState((prev) => ({
-                        ...prev,
-                        email: e.target.value,
-                      }));
-                    }}
-                  />
-                  <div className='text-center text-danger text-about-danger'>
-                    {props.reportState.email !== '' &&
-                    !emailValidity &&
-                    props.reportState.email.length > 4
-                      ? props.t('enterValidEmail')
-                      : null}
-                  </div>
-                </div>
-              </div>
-            ) : null}
-            <Form.Group className='mb-3 mt-1 input_modal'>
-              <Form.Label className='text-light fs-3'>{props.t('description')}: </Form.Label>
-              <Form.Control
-                as='textarea'
-                name='description'
-                aria-label='With textarea'
-                value={props.reportState.description}
-                className='report-desc-text text-white report-black-insert'
-                onChange={(e) => {
+        <div className='row d-flex justify-content-center fs-2 fw-bold text-white mt-4'>
+          {props.t('reportPageTitle')}
+        </div>
+        <div className='row justify-content-center fs-3 text-white mb-3 mt-2'>
+          {props.t('reportPageDesc')}
+        </div>
+        <div className='row d-flex justify-content-center mb-2'>{createReportTypeButtons()}</div>
+        {props.reportState.type === 3 || props.reportState.type === 2 ? (
+          <div className='row d-flex justify-content-center fs-2 fw-bold text-white mt-1 mb-3'>
+            <div className='col-2 d-flex justify-content-center '>
+              <Button
+                name='en'
+                variant='success'
+                size='sm'
+                className='btn button p-2 px-5 fs-6'
+                onClick={() => {
                   props.setReportState((prev) => ({
                     ...prev,
-                    description: e.target.value,
+                    openCategoriesList: true,
                   }));
                 }}
-              />
-            </Form.Group>
-            {!props.reportState.send ? (
-              <div className='row justify-content-center mx-5 mt-2'>
-                <div className='col-2'>
-                  <Button
-                    name='en'
-                    variant={sendButtonDisabled ? 'danger' : 'success'}
-                    size='sm'
-                    className='btn button p-2 px-5 fs-6'
-                    disabled={sendButtonDisabled}
-                    onClick={() => {
-                      props.setReportState((prev) => ({
-                        ...prev,
-                        send: true,
-                      }));
-                    }}
-                  >
-                    {props.t('send')}
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div className='row justify-content-center mx-5 mt-2'>
-                <p className='text-center text-light fs-4'>{props.t('sureSendReport')}</p>
-                <div className='col-1'>
-                  <Button
-                    name='en'
-                    variant='success'
-                    size='sm'
-                    className='btn button p-2 px-4 fs-6'
-                    onClick={() => {
-                      props.setReportState((prev) => ({
-                        ...prev,
-                        send: false,
-                        description: '',
-                        email: '',
-                      }));
-                      sendReport();
-                    }}
-                  >
-                    {props.t('yes')}
-                  </Button>
-                </div>
-                <div className='col-1'>
-                  <Button
-                    name='en'
-                    variant='danger'
-                    size='sm'
-                    className='btn button p-2 px-4 fs-6'
-                    onClick={() => {
-                      props.setReportState((prev) => ({
-                        ...prev,
-                        send: false,
-                      }));
-                    }}
-                  >
-                    {props.t('no')}
-                  </Button>
-                </div>
-                <div className='col-1'>
-                  <Button
-                    name='en'
-                    variant='warning'
-                    size='sm'
-                    className='btn button p-2 px-4 fs-6'
-                    onClick={() => {
-                      props.setReportState((prev) => ({
-                        ...prev,
-                        send: false,
-                      }));
-                    }}
-                  >
-                    {props.t('cancel')}
-                  </Button>
-                </div>
-              </div>
-            )}
+              >
+                {props.t('chooseCategory')}
+              </Button>
+            </div>
+            {props.reportState.choosenCategory !== undefined &&
+            props.reportState.choosenCategory !== null ? (
+              <p className='fs-4 text-center mt-3'>
+                {props.t('chosenCategory')}: {props.reportState.choosenCategoryName}
+              </p>
+            ) : null}
           </div>
+        ) : null}
+
+        {props.reportState.type === 2 ? (
+          <div className='row  d-flex justify-content-center fs-2 fw-bold text-white mt-2'>
+            <div className='col-2 d-flex justify-content-center '>
+              <Button
+                name='en'
+                variant='success'
+                size='sm'
+                className='btn button p-2 px-5 fs-6'
+                disabled={
+                  props.reportState.choosenCategory === null &&
+                  props.reportState.choosenAudiobook === null
+                }
+                onClick={() => {
+                  props.setReportState((prev) => ({
+                    ...prev,
+                    openAudiobooksList: true,
+                  }));
+                }}
+              >
+                {props.t('chooseAudiobook')}
+              </Button>
+            </div>
+            {props.reportState.choosenAudiobook !== undefined &&
+            props.reportState.choosenAudiobook !== null ? (
+              <p className='fs-4 text-center mt-3'>
+                {props.t('chosenAudiobook')}: {props.reportState.choosenAudiobookTitle} :{' '}
+                {props.reportState.choosenAudiobookAuthor}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
+
+        <div className='report-desc-text-container text-center'>
+          {!props.token ? (
+            <div className='row d-flex justify-content-center mt-4'>
+              <div className='row'>
+                <p className='text-center fs-3 text-white'>{props.t('insertEmail')}:</p>
+              </div>
+              <div className='col-5'>
+                <input
+                  id='email'
+                  type='text'
+                  name='email'
+                  className='form-control text-white report-black-insert'
+                  value={props.reportState.email}
+                  onChange={(e) => {
+                    props.setReportState((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }));
+                  }}
+                />
+                <div className='text-center text-danger text-about-danger'>
+                  {props.reportState.email !== '' &&
+                  !emailValidity &&
+                  props.reportState.email.length > 4
+                    ? props.t('enterValidEmail')
+                    : null}
+                </div>
+              </div>
+            </div>
+          ) : null}
+          <Form.Group className='mb-3 mt-1 input_modal'>
+            <Form.Label className='text-light fs-3'>{props.t('description')}: </Form.Label>
+            <Form.Control
+              as='textarea'
+              name='description'
+              aria-label='With textarea'
+              value={props.reportState.description}
+              className='report-desc-text text-white report-black-insert'
+              onChange={(e) => {
+                props.setReportState((prev) => ({
+                  ...prev,
+                  description: e.target.value,
+                }));
+              }}
+            />
+          </Form.Group>
+          {!props.reportState.send ? (
+            <div className='row justify-content-center mx-5 mt-2'>
+              <div className='col-2'>
+                <Button
+                  name='en'
+                  variant={sendButtonDisabled ? 'danger' : 'success'}
+                  size='sm'
+                  className='btn button p-2 px-5 fs-6'
+                  disabled={sendButtonDisabled}
+                  onClick={() => {
+                    props.setReportState((prev) => ({
+                      ...prev,
+                      send: true,
+                    }));
+                  }}
+                >
+                  {props.t('send')}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className='row justify-content-center mx-5 mt-2'>
+              <p className='text-center text-light fs-4'>{props.t('sureSendReport')}</p>
+              <div className='col-1'>
+                <Button
+                  name='en'
+                  variant='success'
+                  size='sm'
+                  className='btn button p-2 px-4 fs-6'
+                  onClick={() => {
+                    props.setReportState((prev) => ({
+                      ...prev,
+                      send: false,
+                      description: '',
+                      email: '',
+                    }));
+                    sendReport();
+                  }}
+                >
+                  {props.t('yes')}
+                </Button>
+              </div>
+              <div className='col-1'>
+                <Button
+                  name='en'
+                  variant='danger'
+                  size='sm'
+                  className='btn button p-2 px-4 fs-6'
+                  onClick={() => {
+                    props.setReportState((prev) => ({
+                      ...prev,
+                      send: false,
+                    }));
+                  }}
+                >
+                  {props.t('no')}
+                </Button>
+              </div>
+              <div className='col-1'>
+                <Button
+                  name='en'
+                  variant='warning'
+                  size='sm'
+                  className='btn button p-2 px-4 fs-6'
+                  onClick={() => {
+                    props.setReportState((prev) => ({
+                      ...prev,
+                      send: false,
+                    }));
+                  }}
+                >
+                  {props.t('cancel')}
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
