@@ -98,25 +98,27 @@ export default function UserRenderCategoriesList(props) {
       <div className='card position-relative p-3 bg-dark shadow'>
         <UserNavBarProviders token={props.token} t={props.t} i18n={props.i18n} />
         <hr className='text-white line' />
-        <table className='table table-dark'>
-          <thead className=''>
-            <tr>
-              <th scope='col'>{props.t('dateAdd')}</th>
-              <th scope='col'>{props.t('accepted')}</th>
-              <th scope='col'>{props.t('denied')}</th>
-              <th scope='col'>{props.t('type')}</th>
-              <th scope='col'></th>
-            </tr>
-          </thead>
-          <tbody>{createTable()}</tbody>
-        </table>
-        {reports != null && reports.maxPage > 1 ? (
-          <UserRenderPageSwitches
-            page={props.reportsState.page}
-            maxPage={reports.maxPage}
-            setPageState={props.setReportsState}
-          />
-        ) : null}
+        <div className='row min_container_height'>
+          <table className='table table-dark'>
+            <thead className=''>
+              <tr>
+                <th scope='col'>{props.t('dateAdd')}</th>
+                <th scope='col'>{props.t('accepted')}</th>
+                <th scope='col'>{props.t('denied')}</th>
+                <th scope='col'>{props.t('type')}</th>
+                <th scope='col'></th>
+              </tr>
+            </thead>
+            <tbody>{createTable()}</tbody>
+          </table>
+          {reports != null && reports.maxPage > 1 ? (
+            <UserRenderPageSwitches
+              page={props.reportsState.page}
+              maxPage={reports.maxPage}
+              setPageState={props.setReportsState}
+            />
+          ) : null}
+        </div>
       </div>
     </div>
   );
