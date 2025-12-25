@@ -49,7 +49,6 @@ export default function UserMainAudiobookDetailModal(props) {
 
   const addToMyList = (element) => {
     element.target.classList.add('disabled');
-
     addToMyListFetch({
       props: props,
       setAudiobookState: props.setAudiobookState,

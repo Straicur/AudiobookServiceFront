@@ -9,6 +9,7 @@ export default class AdminAudiobookEditService extends FormService {
   }
 
   validateFields = () => {
+    console.log(this.props.audiobookDetailState);
     if (this.props.audiobookDetailState.title.length < 1) {
       this.setWrongState(1);
 
@@ -41,6 +42,7 @@ export default class AdminAudiobookEditService extends FormService {
     }
     if (
       this.props.audiobookDetailState.encoded === undefined ||
+      this.props.audiobookDetailState.encoded === null ||
       this.props.audiobookDetailState.encoded.length < 1
     ) {
       this.setWrongState(7);
