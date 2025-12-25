@@ -11,7 +11,7 @@ export const useTokenStore = create(
         set(() => ({
           token: data.token,
           roles: data.roles?.authorizationRoleModels.map((role) => role.name),
-          admin: data.admin,
+          admin: data.isAdmin,
         }));
       },
       removeToken: () =>
