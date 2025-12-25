@@ -9,7 +9,6 @@ export default class AdminAudiobookEditService extends FormService {
   }
 
   validateFields = () => {
-    console.log(this.props.audiobookDetailState);
     if (this.props.audiobookDetailState.title.length < 1) {
       this.setWrongState(1);
 
