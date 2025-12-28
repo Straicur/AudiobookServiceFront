@@ -2,12 +2,16 @@
 
 <h3>AudiobookServiceFront is the frontend of an application for managing audiobooks. This application is a graphical demonstration of what a service using AudiobookServiceBack Api can look like. It was written in React + Bootstrap, it was my first such large application in React. I learned in it more and more ways to optimize and work with React and JS.</h2>
 
+<h3>The project has recently been refreshed by: </h3>
+- Packages upgrade and cleaning package.json
+- Frontend performance improvements after backend fixes
+
 <h2>💻 Built with</h2>
 
 Technologies used in the project:
 
-*   react 18.2.0
-*   npm 9.1.2
+*   react 18.3.1
+*   npm
 *   JavaScript
 
 <h2>🚀 Demo</h2>
@@ -146,17 +150,16 @@ Technologies used in the project:
 <h2>🔧 Project structure:</h2>
 <h3>I divided react components into Pages, Providers and Views. If the view contains specific logic or a lot of unreadable code, a Service was created.</h3>
 
-<p>1. <b>/@</b> <- This is a shadcn lib directory. In the future I would like to replace bootstrap with tailwind and create my own React components just in this folder. This is a better solution than overwriting bootstrap classes.</p>
-<p>2. <b>/Errors</b> <- Directory where all the logic related to catching errors in the code and errors received from the API is contained.</p>
-<p>3. <b>/Page</b> <- Pages are the initial components that are plugged into the react-router and are responsible for the beginning of the page in which are then the providers and finally the views which are strictly responsible for showing the page.</p>
-<p>4. <b>/Providers</b> <- Providers are components that manage actions on data received from the API. With them application retrieve data using the GET and POST methods, and changes that data using PUT, PATCH and DELETE. The data in the react-query cache is also changed if it is required.</p>
-<p>5. <b>/Service</b> <- Service is the breaking down of intricate or long code into smaller parts. They are used to organize code that is not very readable, for example, in Views.</p>
-<p>6. <b>/Store</b> <- Store is used to create and manage local storage. It is a function that uses the zustand library.</p>
-<p>7. <b>/Translates</b> <- Translations used in the application are kept here.</p>
-<p>8. <b>/Util</b> <- These are the tools used throughout the application. They work on static methods, they do not require the creation of instances just feeding the relevant data to the methods.</p>
-<p>9. <b>/View</b> <- They are responsible for showing graphically the data that has been received from providers and for changing them and intuiting and guiding the user through the system.</p>
-<p>10. <b>App.jsx</b> <- It is after a basic function that is in every React app. I extended it with the implementation of the jotai library (responsible for displaying the modal with errors) and react-query (here the client is created).</p>
-<p>11. <b>AppRouter.jsx</b> <- This is a separate function that is responsible for routing in this application.</p>
+<p>1. <b>/Errors</b> <- Directory where all the logic related to catching errors in the code and errors received from the API is contained.</p>
+<p>2. <b>/Page</b> <- Pages are the initial components that are plugged into the react-router and are responsible for the beginning of the page in which are then the providers and finally the views which are strictly responsible for showing the page.</p>
+<p>3. <b>/Providers</b> <- Providers are components that manage actions on data received from the API. With them application retrieve data using the GET and POST methods, and changes that data using PUT, PATCH and DELETE. The data in the react-query cache is also changed if it is required.</p>
+<p>4. <b>/Service</b> <- Service is the breaking down of intricate or long code into smaller parts. They are used to organize code that is not very readable, for example, in Views.</p>
+<p>5. <b>/Store</b> <- Store is used to create and manage local storage. It is a function that uses the zustand library.</p>
+<p>6. <b>/Translates</b> <- Translations used in the application are kept here.</p>
+<p>7. <b>/Util</b> <- These are the tools used throughout the application. They work on static methods, they do not require the creation of instances just feeding the relevant data to the methods.</p>
+<p>8. <b>/View</b> <- They are responsible for showing graphically the data that has been received from providers and for changing them and intuiting and guiding the user through the system.</p>
+<p>9. <b>App.jsx</b> <- It is after a basic function that is in every React app. I extended it with the implementation of the jotai library (responsible for displaying the modal with errors) and react-query (here the client is created).</p>
+<p>10. <b>AppRouter.jsx</b> <- This is a separate function that is responsible for routing in this application.</p>
 
 <h2>🛠️ Installation Steps:</h2>
 
